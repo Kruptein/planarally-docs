@@ -1,11 +1,11 @@
 <template>
   <Layout class="has-sidebar docs-page" :footer="true">
     <div class="container flex flex-align-top">
-      <div class="sidebar">
-        <template v-if="links" v-for="(group, i1) in links">
+      <div class="sidebar" v-if="links">
+        <template v-for="(group, i1) in links">
           <h3 class="menu-item" :key="`title-${i1}`">{{ group.title }}</h3>
           <template v-for="(item, i2) in group.items">
-            <g-link :exact="item.link == '/docs/'" class="menu-item menu-link" :to="item.link" :key="`link-${i1}-${i2}`">
+            <g-link exact class="menu-item menu-link" :to="item.link" :key="`link-${i1}-${i2}`">
               {{ item.title }}
             </g-link>
           </template>
@@ -13,12 +13,6 @@
       </div>
       <Section class="doc-content flex-fit" container="base">
         <slot />
-        <!-- <p>
-          <a :href="editLink" target="_blank" class="github-edit-link">
-            <Github />
-            <span>Edit this page on GitHub</span>
-          </a>
-        </p> -->
         <nav class="docs-nav">
           <div class="docs-nav__previous">
             <g-link v-if="previousPage" exact class="button  button--small docs-nav__link" :to="previousPage.link">
@@ -47,24 +41,12 @@
 </template>
 
 <script>
-import Github from '~/assets/images/github-logo.svg'
 export default {
-  components: {
-    Github
-  },
   props: {
     subtitles: { type: Array, default: () => [] },
     links: { type: Array, default: () => [] }
   },
   computed: {
-    currentPath () {
-      return this.$route.matched[0].path
-    },
-    editLink () {
-      let path = this.currentPath
-      if((path.match(new RegExp("/", "g")) || []).length == 1) path = path + '/README'
-      return `https://github.com/gridsome/gridsome.org/blob/master${path}.md`
-    },
     items () {
       return this.links.reduce((acc, group) => (acc.push(...group.items), acc), [])
     },

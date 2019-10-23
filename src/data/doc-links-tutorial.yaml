@@ -1,0 +1,24 @@
+- title: Setup
+  items:
+    - title: Installation options
+      link: /tutorial/setup/
+    - title: External services
+      link: /tutorial/setup/external/
+    - title: Self-hosting
+      link: /tutorial/setup/self-hosting/
+- title: Out-of-Game
+  items:
+    - title: Authentication
+      link: /tutorial/out-of-game/auth/
+    - title: Session overview
+      link: /tutorial/out-of-game/session-overview/
+    - title: Asset Manager
+      link: /tutorial/out-of-game/asset-manager/
+- title: In-Game
+  items:
+    - title: Getting to know the UI
+      link: /tutorial/in-game/ui/
+    - title: Your character
+      link: /tutorial/in-game/character/
+    - title: Tools
+      link: /tutorial/in-game/tools/

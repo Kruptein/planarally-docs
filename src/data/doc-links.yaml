@@ -1,13 +1,39 @@
-- title: Prologue
+- title: Overview
   items:
     - title: Introduction
       link: /docs/
+    - title: Reference table
+      link: /docs/reference/
+
+- title: Player References
+  items:
+    - title: Assets
+      link: /docs/player/assets
+    - title: Notes
+      link: /docs/player/assets
+
+- title: DM References
+  items:
+    - title: Session options
+      link: /docs/dm/options/
+    - title: Lighting & Shadows
+      link: /docs/dm/light-shadows/
 
 - title : Tools
   items:
     - title: Select
-      link: /docs/directory-structure/
-    - title: Drag
-      link: /docs/config/
+      link: /docs/tools/select/
+    - title: Pan
+      link: /docs/tools/drag/
+    - title: Draw
+      link: /docs/tools/draw/
     - title: Ruler
-      link: /docs/pages/
+      link: /docs/tools/ruler/
+    - title: Ping
+      link: /docs/tools/ping/
+    - title: (DM) Map
+      link: /docs/tools/map/
+    - title: (DM) Filter
+      link: /docs/tools/filter/
+    - title: (DM) Vision
+      link: /docs/tools/vision/

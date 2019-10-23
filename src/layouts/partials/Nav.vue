@@ -4,7 +4,7 @@
       <span class="main-nav__label">Docs</span>
     </g-link>
 
-    <g-link to="/tutorial/">
+    <g-link to="/tutorial/setup/">
       <span class="main-nav__label">Tutorial</span>
     </g-link>
 

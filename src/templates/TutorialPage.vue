@@ -6,7 +6,7 @@
 
 <page-query>
 query ($id: ID!) {
-  doc: docPage (id: $id) {
+  doc: tutorialPage (id: $id) {
     title
     headings (depth: h1) {
       value
@@ -21,7 +21,7 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import links from '@/data/doc-links.yaml'
+import links from '@/data/doc-links-tutorial.yaml'
 export default {
   computed: {
     links () {

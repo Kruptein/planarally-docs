@@ -1,7 +1,7 @@
 module.exports = {
   siteName: 'PlanarAlly',
   templates: {
-    BlogPost: '/blog/:year/:month/:day/:slug',
+    BlogPost: '/blog/:year/:month/:day/:title',
   },
   plugins: [
     {
@@ -22,6 +22,27 @@ module.exports = {
         pathPrefix: '/docs',
         typeName: 'DocPage',
         template: './src/templates/DocPage.vue',
+        plugins: [
+          '@gridsome/remark-prismjs'
+        ],
+        remark: {
+          autolinkHeadings: {
+            content: {
+              type: 'text',
+              value: '#'
+            }
+          }
+        }
+      }
+    },
+    {
+      use: '@gridsome/vue-remark',
+      options: {
+        index: ['README'],
+        baseDir: './tutorial',
+        pathPrefix: '/tutorial',
+        typeName: 'TutorialPage',
+        template: './src/templates/TutorialPage.vue',
         plugins: [
           '@gridsome/remark-prismjs'
         ],
