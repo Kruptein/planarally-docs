@@ -2,25 +2,25 @@
   items:
     - title: Introduction
       link: /docs/
-    - title: Reference table
+    - title: Quick Reference
       link: /docs/reference/
 
-- title: Player References
+- title: Player
   items:
-    - title: In-game options
-      link: /docs/player/options
+    - title: In-game settings
+      link: /docs/player/settings
     - title: Assets
       link: /docs/player/assets
     - title: Notes
       link: /docs/player/notes
 
-- title: DM References
+- title: DM
   items:
     - title: Server management
       link: /docs/dm/management/
-    - title: Session options
-      link: /docs/dm/options/
-    - title: Lighting & Shadows
+    - title: Session settings
+      link: /docs/dm/settings/
+    - title: Lighting & Vision
       link: /docs/dm/light-shadows/
 
 - title : Tools
@@ -35,9 +35,12 @@
       link: /docs/tools/ruler/
     - title: Ping
       link: /docs/tools/ping/
-    - title: (DM) Map
+
+- title : DM Tools
+  items:
+    - title: Map
       link: /docs/tools/map/
-    - title: (DM) Filter
+    - title: Filter
       link: /docs/tools/filter/
-    - title: (DM) Vision
+    - title: Vision
       link: /docs/tools/vision/

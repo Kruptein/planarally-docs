@@ -1,12 +1,12 @@
-- title: Setup
+- title: Installation
   items:
-    - title: Installation options
+    - title: Overview
       link: /tutorial/setup/
-    - title: External services
-      link: /tutorial/setup/external/
-    - title: Self-hosting
+    - title: Self-hosted
       link: /tutorial/setup/self-hosting/
-- title: Out-of-Game
+    - title: Managed
+      link: /tutorial/setup/external/
+- title: \?
   items:
     - title: Authentication
       link: /tutorial/out-of-game/auth/
@@ -18,7 +18,7 @@
   items:
     - title: Getting to know the UI
       link: /tutorial/in-game/ui/
-    - title: Your character
-      link: /tutorial/in-game/character/
+    # - title: Your character
+    #   link: /tutorial/in-game/character/
     - title: Tools
       link: /tutorial/in-game/tools/

@@ -22,6 +22,7 @@ query ($id: ID!) {
 
 <script>
 import links from '@/data/doc-links-tutorial.yaml'
+import mediumZoom from 'medium-zoom';
 export default {
   computed: {
     links () {

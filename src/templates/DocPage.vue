@@ -1,7 +1,7 @@
 <template>
-  <DocsLayout :subtitles="subtitles" :links="links">
-    <VueRemarkContent class="post mb"></VueRemarkContent>
-  </DocsLayout>
+    <DocsLayout :subtitles="subtitles" :links="links">
+        <VueRemarkContent class="post mb"></VueRemarkContent>
+    </DocsLayout>
 </template>
 
 <page-query>
@@ -21,8 +21,13 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import links from '@/data/doc-links.yaml'
+import links from '@/data/doc-links.yaml';
+import mediumZoom from 'medium-zoom';
 export default {
+  mounted() {
+    this.zoom = mediumZoom('img');
+    console.log(this.zoom);
+  },
   computed: {
     links () {
       return links;
