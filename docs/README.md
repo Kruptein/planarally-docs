@@ -1,5 +1,5 @@
 # Introduction
 
-> Planarally is a free and open source web VTT for D&D and other RPG systems.
+Welcome to the PlanarAlly user documentation!
 
-
+This collection of documents is still a work in progress and every feedback or contribution is welcome to improve this :).
