@@ -20,6 +20,8 @@
     #   link: /docs/dm/management/
     - title: Session Settings
       link: /docs/dm/settings/
+    - title: Layers
+      link: /docs/dm/layers/
     - title: Lighting & Vision
       link: /docs/dm/light-shadows/
 
