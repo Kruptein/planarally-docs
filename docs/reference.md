@@ -23,3 +23,5 @@ Vision | Yes | No | All shapes here are invisible on other layers
 | Del | selection | Delete all shapes in the active selection
 | d | selection | Deselect all currently selected shapes
 | Ctrl + u | | Toggle UI
+| middle mouse click | | Pan the screen
+| middle mouse scroll | | Zoom in relation to the current mouse pointer.

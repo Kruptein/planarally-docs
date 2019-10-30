@@ -30,13 +30,15 @@
     - title: Select
       link: /docs/tools/select/
     - title: Pan
-      link: /docs/tools/drag/
+      link: /docs/tools/pan/
     - title: Draw
       link: /docs/tools/draw/
     - title: Ruler
       link: /docs/tools/ruler/
     - title: Ping
       link: /docs/tools/ping/
+    - title: Zoom
+      link: /docs/tools/zoom/
 
 - title : DM Tools
   items:
