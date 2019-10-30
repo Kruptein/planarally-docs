@@ -16,6 +16,7 @@
     "vue-svg-loader": "^0.12.0"
   },
   "dependencies": {
+    "@gridsome/plugin-google-analytics": "^0.1.0",
     "gridsome": "^0.7.0",
     "medium-zoom": "^1.0.4",
     "typography": "^0.16.19",

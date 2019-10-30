@@ -22,12 +22,7 @@ query ($id: ID!) {
 
 <script>
 import links from '@/data/doc-links.yaml';
-import mediumZoom from 'medium-zoom';
 export default {
-  mounted() {
-    this.zoom = mediumZoom('img');
-    console.log(this.zoom);
-  },
   computed: {
     links () {
       return links;
