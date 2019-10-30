@@ -1,6 +1,6 @@
 <template>
   <footer class="text-center">
-    An open source project by @Kruptein
+    PlanarAlly is an open source project by @Kruptein.  Website powered by Gridsome.
   </footer>
 </template>
 

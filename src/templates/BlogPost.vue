@@ -1,73 +1,58 @@
 <template>
   <Layout>
-    <div class="article">
-      <h1>{{ $page.blogPost.title }}</h1>
-      <span>{{ $page.blogPost.date }}</span>
-      <!-- <g-image :src="$page.blogPost.image"/> -->
-      <div class="content" v-html="$page.blogPost.content" />
-    </div>
+    <Section container="md" dots="true" >
+
+      <div class="post-header container-md text-center mb-x2">
+        <h1 v-html="$page.post.title"/>
+        <PostMeta :post="$page.post"/>
+      </div>
+
+      <div class="post-content post mb-x2">
+
+        <!-- <g-image v-if="$page.post.poster" quality="1" width="600" :src="$page.post.poster" /> -->
+
+        <p class="lead" v-html="$page.post.excerpt"/>
+
+        <div v-html="$page.post.content"/>
+
+      </div>
+    </Section>
   </Layout>
 </template>
 
+<page-query>
+query ($id: ID!) {
+  post: blogPost (id: $id) {
+    title
+    date (format: "D. MMMM YYYY")
+    timeToRead
+    content
+    author {
+      id
+      title
+      avatar (width: 60)
+    }
+    excerpt
+  }
+}
+</page-query>
+
 <script>
+import PostMeta from '@/components/PostMeta.vue'
 export default {
+  components: {
+    PostMeta
+  },
   metaInfo () {
     return {
-      title: this.$page.blogPost.title
+      title: this.$page.post.title,
+      meta: [
+        {
+          name: 'description',
+          content: this.$page.post.excerpt
+        }
+      ]
     }
   }
 }
 </script>
-
-<page-query>
-  query BlogPost ($path: String!) {
-    blogPost (path: $path) {
-      title
-      date (format: "D MMMM, YYYY")
-      content
-      path
-    }
-  }
-</page-query>
-
-<style>
-  /* .header {
-    margin-bottom: 70px;
-  } */
-  .article {
-    margin-top: 15px;
-  }
-  .article h1 {
-    font-size: 40px;
-  }
-  .article img {
-    width: 100%;
-    border-radius: 5px;
-  }
-  .article a {
-    color: #4dba87;
-    text-decoration: underline;
-  }
-  .article a:hover {
-    text-decoration: none;
-  }
-  .article span {
-    font-size: 80%;
-    margin-bottom: 20px;
-  }
-  .article ol, .article ul {
-    list-style-position: outside;
-  }
-  .article ul {
-    list-style: disc;
-    padding-left: 20px;
-  }
-  .article .content p:first-child {
-    margin-top: 15px;
-  }
-  .article .content p {
-    margin-top: 0;
-    margin-bottom: 10px;
-    line-height: 1.5;
-  }
-</style>
