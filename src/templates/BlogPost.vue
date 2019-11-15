@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <BlogLayout :subtitles="subtitles">
     <Section container="md" dots="true" >
 
       <div class="post-header container-md text-center mb-x2">
@@ -17,7 +17,7 @@
 
       </div>
     </Section>
-  </Layout>
+  </BlogLayout>
 </template>
 
 <page-query>
@@ -33,6 +33,14 @@ query ($id: ID!) {
       avatar (width: 60)
     }
     excerpt
+    headings (depth: h1) {
+      value
+    }
+    subtitles: headings {
+      depth
+      value
+      anchor
+    }
   }
 }
 </page-query>
@@ -42,6 +50,15 @@ import PostMeta from '@/components/PostMeta.vue'
 export default {
   components: {
     PostMeta
+  },
+  computed: {
+    subtitles() {
+        // Remove h1, h4, h5, h6 titles
+        let subtitles = this.$page.post.subtitles.filter(function(value, index, arr){
+          return [2,3,4].includes(value.depth)
+        })
+        return subtitles;
+      },
   },
   metaInfo () {
     return {
