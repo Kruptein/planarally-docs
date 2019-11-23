@@ -133,9 +133,19 @@ including aura's and other vision related settings.
 This resulted in some areas of the map suddenly becoming visible during a mouse move, but then become revealed again when the mouse was released.
 This should now behave properly.
 
+### Light auras clipping through walls
+
+Another pesky bug that got squished is related to light auras.
+
+For the controlling layer vision would be correctly clipped at vision boundaries like walls, for the DM and potential other players however the aura would show a correct area that is visible, but additionaly also go straight through the wall.
+
 ### Lock state works properly upon joining
 
-The new lock feature for DMs showed a wrong state when opening a session.
+The new lock feature for DMs always showed up as 'unlocked' upon joining a session even when the session was locked.
+
+### Polygon preview segments
+
+When drawing a polygon, a line is always previewed starting from the last point clicked to the mouse pointer.  This line used to always show up as black instead of using the active draw colours.
 
 ### Sessions with slash
 
@@ -153,3 +163,7 @@ The brush helper (the preview dot) would often stick around in some edge cases. 
 
 When a player leaves or reconnects while drawing a temporary shape it would often stick around until everyone refreshed.
 This should now properly be cleared upon player disconnect.
+
+### Negative circles
+
+It was under certain circumstances possible to attempt to create a circle with a negative radius.  This attempt would break the page.
