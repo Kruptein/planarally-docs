@@ -1,6 +1,6 @@
 ---
 title: Introducing floors & small updates
-date: 2019-02-13 21:02:34
+date: 2020-02-13 21:02:34
 excerpt: "An introduction on a new upcoming feature: floors! And a small overview of some other things going on in the 0.19.0 release."
 author: [darraghvt]
 ---
@@ -25,7 +25,7 @@ More work in regards to jumping around the map is on the way, but this small add
 
 Now onto a feature with a more visual bigger impact: floors!
 
-<video src="/assets/0.19.0/floors.webm" type="video/webm" autoplay loop></video>
+<video src="/assets/0.19.0/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
 
 As can be seen in the video above, work is being done on the ability to define multiple floors which are rendered on top of eachother.
 
