@@ -2,11 +2,12 @@
   <header>
     <div class="header-bar"></div>
     <div class="header-inner container flex gap-30">
+      <Logo />
+      <g-link to="/" title="Back to home" style="text-decoration:none;">
+        <span>PlanarAlly</span>
+      </g-link>
 
-      <!-- <Logo/> -->
-      <span>PlanarAlly</span>
-
-      <Nav class="flex-fit"/>
+      <Nav class="flex-fit" />
 
       <!-- <SearchForm /> -->
 
@@ -20,7 +21,7 @@
           target="_blank"
           title="Follow me on Twitter"
         >
-          <twitter-logo/>
+          <twitter-logo />
         </a>
 
         <a
@@ -30,10 +31,7 @@
           target="_blank"
           title="PlanarAlly @ GitHub"
         >
-          <github-logo
-            height="20px"
-            width="20px"
-          />
+          <github-logo height="20px" width="20px" />
         </a>
       </nav>
     </div>
@@ -41,16 +39,16 @@
 </template>
 
 <script>
-// import Logo from './Logo'
-import Nav from './Nav'
+import Logo from "./Logo";
+import Nav from "./Nav";
 // import SearchForm from '@/components/SearchForm.vue'
-import ToggleTheme from '@/components/ToggleTheme.vue'
-import GithubLogo from '@/assets/images/github-logo.svg'
-import TwitterLogo from '@/assets/images/twitter-logo.svg'
-import LazyHydrate from 'vue-lazy-hydration'
+import ToggleTheme from "@/components/ToggleTheme.vue";
+import GithubLogo from "@/assets/images/github-logo.svg";
+import TwitterLogo from "@/assets/images/twitter-logo.svg";
+import LazyHydrate from "vue-lazy-hydration";
 export default {
   components: {
-    // Logo,
+    Logo,
     GithubLogo,
     TwitterLogo,
     ToggleTheme,
@@ -58,7 +56,7 @@ export default {
     Nav,
     LazyHydrate
   }
-}
+};
 </script>
 
 <style lang="scss">
@@ -70,13 +68,18 @@ header {
   border-bottom: 1px solid var(--border-color);
   flex-wrap: nowrap;
   position: sticky;
-  transition: background-color .3s, border-color, .3s;
+  transition: background-color 0.3s, border-color, 0.3s;
   backdrop-filter: blur(4px);
   .header-bar {
-    background: linear-gradient(90deg, var(--primary-color) 0%,  #8ED6FB 50%, #D32E9D 100%);
+    background: linear-gradient(
+      90deg,
+      var(--primary-color) 0%,
+      #8ed6fb 50%,
+      #d32e9d 100%
+    );
     padding: 2px;
     text-align: center;
-    color:#FFF;
+    color: #fff;
     font-size: 1rem;
     a {
       color: currentColor;
