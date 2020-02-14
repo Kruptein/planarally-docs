@@ -21,10 +21,10 @@ export default {
   &__svg {
     max-width: 60px;
     height: auto;
-    margin-top: 3px;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     &--small {
-      max-width: 50px;
+      max-width: 40px;
     }
   }
 }
