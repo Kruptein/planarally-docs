@@ -6,4 +6,4 @@ The first page you're greeted with when you visit PlanarAlly is the Login/Regist
 
 Currently no email address is required for sign-up, which means that there is no solid recovery mechanism in case you lose your password, so make sure you don't lose it ;)
 
-_! Any account created is unqiue to that specific PlanarAlly site and will not exist yet (or even be occupied) on another PlanarAlly site._
+_! There is no single PlanarAlly website. This means that an account you create only exists on that particular server. Someone else hosting PlanarAlly will not have your account._
