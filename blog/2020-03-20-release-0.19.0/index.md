@@ -9,6 +9,8 @@ With 0.19.0 we have our first release of the year! There are a couple of big new
 
 The topics mentioned in this release update are listed on the left, the full changelog can be found on [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.19.0).
 
+_I also set up a [patreon account](https://www.patreon.com/planarally), feel free to check it out :)_
+
 ## Vision
 
 ### Floors
