@@ -150,8 +150,14 @@ You should now properly build the js files yourself if you want to test locally.
 
 ## Planned for 0.20.0
 
-Just one thing that I will definitely tackle in the next release, other things will surely accompany it :)
-
 ### Location overhaul
 
 What I absolutely would like to tackle in the next release is the UI/UX for the locations bar. It now is just an ugly thing that has limited functionality.
+
+### Markers
+
+@LDeeJay1969 has been working on a marker system to jump to marked locations.
+
+### Keybindings window
+
+@Daniferrito started work on a keybindings window.
