@@ -42,7 +42,7 @@ As you can see the end result is not 100% perfect yet, but it will take much les
 
 ## Adding player and monster tokens
 
-Next up; Bringing tthe dungeon to life. Adding player or monster tokens is exactly the same as adding a map, but this time we place the assets on the 'tokens' layer instead of the map layer.
+Next up; Bringing the dungeon to life. Adding player or monster tokens is exactly the same as adding a map, but this time we place the assets on the 'tokens' layer instead of the map layer.
 
 To keep yourself organised it is advised to structure your assets in a logical manner. You could create folders for each campaign you play, you could create a general token library with some subfolders based on either race or simply on starting letter. There is no mandatory structure so you can do what fits your workstyle best.
 
@@ -68,7 +68,7 @@ As we can see in the last video, our players can currently not see the monster l
 
 Let's add some walls. To do this we have two options. We can draw walls on a "normal" layer (i.e. map or tokens) and then select the 'blocks vision' and 'blocks movement' checkboxes of the newly drawn shape's properties. Or we can draw on the special 'fow' layer which is a layer dedicated to vision.
 
-From my own experience the latter option is always preferred, because it will automatically apply the two 'block' options I mentioned earlier and thus don't need to dive into the shape properties for each wall we draw. Additionally it also lessens the clutter on your normal layers and is nicely tucked away in a dedicated vision layer.
+From my own experience the latter option is always preferred, because it will automatically apply the two 'block' options I mentioned earlier and thus you don't need to dive into the shape properties for each wall you draw. Additionally it also lessens the clutter on your normal layers and is nicely tucked away in a dedicated vision layer.
 
 Let's see what this looks like! I highly prefer using the polygon tool to draw walls as it's fast and snappy, but there is nothing preventing you from using a simple rectangle.
 
