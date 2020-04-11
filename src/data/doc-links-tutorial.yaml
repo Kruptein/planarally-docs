@@ -6,7 +6,7 @@
         link: /tutorial/setup/self-hosting/
       - title: Managed
         link: /tutorial/setup/external/
-- title: \?
+- title: General
   items:
       - title: Authentication
         link: /tutorial/out-of-game/auth/
