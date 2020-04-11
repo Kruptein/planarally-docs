@@ -41,7 +41,7 @@ If everything went well you should now be able to visit `http://localhost:8000` 
 For more info on how to configure some other aspects of your server visit the main [server management](/docs/dm/management/) docs.
 
 ## Docker Container
-[Official Container)[https://hub.docker.com/r/kruptein/planarally)
+[Official Container](https://hub.docker.com/r/kruptein/planarally)
 You can easily spin up a docker container with just these two commands
 ```docker pull kruptein/planarally```  
 ```sudo docker run -d -t -p 8000:8000 --name planarally kruptein/planarally```  
