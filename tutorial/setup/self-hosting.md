@@ -42,7 +42,7 @@ For more info on how to configure some other aspects of your server visit the ma
 
 ## Docker Container
 [Official Container](https://hub.docker.com/r/kruptein/planarally)
-You can easily spin up a docker container with just these two commands
+You can easily spin up a docker container with just these two commands  
 ```docker pull kruptein/planarally```  
 ```sudo docker run -d -t -p 8000:8000 --name planarally kruptein/planarally```  
 
