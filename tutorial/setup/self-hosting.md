@@ -41,14 +41,18 @@ If everything went well you should now be able to visit `http://localhost:8000` 
 For more info on how to configure some other aspects of your server visit the main [server management](/docs/dm/management/) docs.
 
 ## Docker Container
-[Official Container](https://hub.docker.com/r/kruptein/planarally)
-You can easily spin up a docker container with just these two commands  
+You can grab the [Official Container](https://hub.docker.com/r/kruptein/planarally) with this command.  
 ```docker pull kruptein/planarally```  
-```sudo docker run -d -t -p 8000:8000 --name planarally kruptein/planarally```  
 
-then just like it's mentioned above you can just type `http://localhost:8000` and access planarally
+Generally for ease of backup it is recommended to use [volumes](https://docs.docker.com/storage/volumes/) with docker as well.  
+```docker volume create data```  
+```docker volume create assets```  
+Both of those commands will create folders in /var/lib/docker/volumes/ then you can use this next command to start the container  
+```docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ --name planarally kruptein/planarally```  
 
-You can find a write up [here](https://github.com/edmael/selfhosted-planarally) written by a community member on setting up a server with SSL encryption
+then just like it was mentioned in the section above you can just type `http://localhost:8000` and access planarally  
+
+You can find a write up [here](https://github.com/edmael/selfhosted-planarally) written by a community member on setting up a server with SSL encryption using an nginx reverse proxy as well as docker-compose
 
 ## Backups
 When backing up your data the only items you really need to worry about are */data/planar.sqlite* and the */static/assets/* directory both of which will be included in the */planarally* directory. planar.sqlite is the main database file.
