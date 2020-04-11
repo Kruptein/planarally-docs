@@ -6,6 +6,7 @@ Currently as of v0.19.3 there is no graphical interface for user management from
 
 ## List all usernames on server  
 ```python  
+from models import User
 [ u.name for u in User.select() ]
 ```  
 
@@ -17,8 +18,3 @@ u = User.get(name="*some-username*")
 u.set_password("*new-passowrd*")
 u.save() 
 ```  
-
-Import a User
-```python  
-from models import User  
-```
