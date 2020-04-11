@@ -19,10 +19,11 @@
       link: /docs/tools/ping/
     - title: Zoom
       link: /docs/tools/zoom/
+
 -title: Server
    items:
    -title: User Management
-   link: /docs/server/management/
+    link: /docs/server/management/
 
 # - title: Player
 #   items:
