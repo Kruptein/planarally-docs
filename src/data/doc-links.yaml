@@ -5,26 +5,6 @@
     - title: Quick Reference
       link: /docs/reference/
 
-- title : Tools
-  items:
-    - title: Select
-      link: /docs/tools/select/
-    - title: Pan
-      link: /docs/tools/pan/
-    - title: Draw
-      link: /docs/tools/draw/
-    - title: Ruler
-      link: /docs/tools/ruler/
-    - title: Ping
-      link: /docs/tools/ping/
-    - title: Zoom
-      link: /docs/tools/zoom/
-
--title: Server
-   items:
-   -title: User Management
-    link: /docs/server/management/
-
 # - title: Player
 #   items:
 #     - title: In-game settings
@@ -43,6 +23,21 @@
     - title: Lighting & Vision
       link: /docs/dm/light-shadows/
 
+- title : Tools
+  items:
+    - title: Select
+      link: /docs/tools/select/
+    - title: Pan
+      link: /docs/tools/pan/
+    - title: Draw
+      link: /docs/tools/draw/
+    - title: Ruler
+      link: /docs/tools/ruler/
+    - title: Ping
+      link: /docs/tools/ping/
+    - title: Zoom
+      link: /docs/tools/zoom/
+
 - title : DM Tools
   items:
     - title: Map
@@ -51,3 +46,8 @@
       link: /docs/tools/filter/
     - title: Vision
       link: /docs/tools/vision/
+
+-title: Server
+  items:
+    -title: User Management
+      link: /docs/server/management/
