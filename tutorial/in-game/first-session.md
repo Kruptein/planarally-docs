@@ -42,9 +42,11 @@ As you can see the end result is not 100% perfect yet, but it will take much les
 
 ## Adding player and monster tokens
 
-Next up; Bringing the dungeon to life. Adding player or monster tokens is exactly the same as adding a map, but this time we place the assets on the 'tokens' layer instead of the map layer.
+Next up; Bringing the dungeon to life. Adding player or monster tokens is exactly the same as adding a map, but this time we place the assets on the 'tokens' layer instead of the map layer.  
 
-To keep yourself organised it is advised to structure your assets in a logical manner. You could create folders for each campaign you play, you could create a general token library with some subfolders based on either race or simply on starting letter. There is no mandatory structure so you can do what fits your workstyle best.
+To keep yourself organised it is advised to structure your assets in a logical manner. You could create folders for each campaign you play, you could create a general token library with some subfolders based on either race or simply on starting letter. There is no mandatory structure so you can do what fits your workstyle best.  
+
+You can then edit each individual asset either from a right click menu (select "Show Properties") or the box on the right that shows when the asset is selected.
 
 ## Let there be light
 
