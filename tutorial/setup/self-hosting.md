@@ -41,7 +41,8 @@ For more info on how to configure some other aspects of your server visit the ma
 
 
 ## Self Host Planarally with Nginx and Letsencrypt using Docker + docker-compose
-####Originally written by [edmael](https://github.com/edmael/selfhosted-planarally/blob/master/README.md)
+*Originally written by [edmael](https://github.com/edmael/selfhosted-planarally/blob/master/README.md)*  
+
 This guide aims to walk you through the process of setting up a server with a dockerized version of nginx, let's encrypt and [PlanarAlly](https://github.com/Kruptein/PlanarAlly) so that you can run your own instance of the amazing virtual tabletop software created by [Kruptein](https://github.com/Kruptein).
 
 Before we begin make sure to have:
