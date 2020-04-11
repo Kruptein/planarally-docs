@@ -39,6 +39,9 @@ If everything went well you should now be able to visit `http://localhost:8000` 
 
 For more info on how to configure some other aspects of your server visit the main [server management](/docs/dm/management/) docs.
 
+## Backups
+When backing up your data the only items you really need to worry about are */data/planar.sqlite* and the *static/assets/* directory both of which will be included in the *planarally* directory.
+
 
 ## Self Host Planarally with Nginx and Letsencrypt using Docker + docker-compose
 *Originally written by [edmael](https://github.com/edmael/selfhosted-planarally/blob/master/README.md)*  
