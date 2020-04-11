@@ -47,7 +47,7 @@
     - title: Vision
       link: /docs/tools/vision/
 
--title: Server
+- title: Server
   items:
     -title: User Management
       link: /docs/server/management/
