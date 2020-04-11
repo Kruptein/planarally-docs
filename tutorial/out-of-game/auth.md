@@ -4,6 +4,10 @@ The first page you're greeted with when you visit PlanarAlly is the Login/Regist
 
 ![](./login.png)
 
+<<<<<<< HEAD
 Currently no email address is required for sign-up, which means that there is no solid recovery mechanism in case you lose your password, so make sure you don't lose it ;) that said it is technically possible for the passwords to be changed by a [server administrator](../docs/server/management.md). That said there is no automated system so your results may vary.
+=======
+Currently no email address is required for sign-up, which means that there is no solid recovery mechanism in case you lose your password, so make sure you don't lose it ;) that said it is technically possible for the passwords to be changed by a [server administrator](/docs/server/management). That said there is no automated system so your results may vary.
+>>>>>>> master
 
 _! Any account created is unqiue to that specific PlanarAlly site and will not exist yet (or even be occupied) on another PlanarAlly site._
