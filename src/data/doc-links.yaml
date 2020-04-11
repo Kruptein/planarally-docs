@@ -5,26 +5,6 @@
     - title: Quick Reference
       link: /docs/reference/
 
-# - title: Player
-#   items:
-#     - title: In-game settings
-#       link: /docs/player/settings
-#     - title: Assets
-#       link: /docs/player/assets
-#     - title: Notes
-#       link: /docs/player/notes
-
-- title: DM
-  items:
-    - title: Server management
-      link: /docs/dm/management/
-    - title: Session Settings
-      link: /docs/dm/settings/
-    - title: Layers
-      link: /docs/dm/layers/
-    - title: Lighting & Vision
-      link: /docs/dm/light-shadows/
-
 - title : Tools
   items:
     - title: Select
@@ -39,6 +19,28 @@
       link: /docs/tools/ping/
     - title: Zoom
       link: /docs/tools/zoom/
+-title: Server
+   items:
+   -title: User Management
+  -link: /docs/server/management/
+
+# - title: Player
+#   items:
+#     - title: In-game settings
+#       link: /docs/player/settings
+#     - title: Assets
+#       link: /docs/player/assets
+#     - title: Notes
+#       link: /docs/player/notes
+
+- title: DM
+  items:
+    - title: Session Settings
+      link: /docs/dm/settings/
+    - title: Layers
+      link: /docs/dm/layers/
+    - title: Lighting & Vision
+      link: /docs/dm/light-shadows/
 
 - title : DM Tools
   items:
