@@ -16,8 +16,8 @@
 
 - title: DM
   items:
-    # - title: Server management
-    #   link: /docs/dm/management/
+    - title: Server management
+      link: /docs/dm/management/
     - title: Session Settings
       link: /docs/dm/settings/
     - title: Layers
