@@ -10,4 +10,7 @@ On this page you can see which sessions are ongoing.  The sessions you DM are sh
 
 If you want to DM a game you can create a session here as well.
 
-The bottom two buttons are to access the settings page and to logout. _The settings page is not yet functional currently though_
+The bottom left button is for the account settings where a user can add an email, change password, or even delete their account.
+![](./account-settings.png)
+
+The bottom right button is to Logout

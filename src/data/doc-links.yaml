@@ -16,8 +16,6 @@
 
 - title: DM
   items:
-    # - title: Server management
-    #   link: /docs/dm/management/
     - title: Session Settings
       link: /docs/dm/settings/
     - title: Layers
@@ -48,3 +46,8 @@
       link: /docs/tools/filter/
     - title: Vision
       link: /docs/tools/vision/
+
+- title: Server
+  items:
+    - title: User Management
+      link: /docs/server/management/
