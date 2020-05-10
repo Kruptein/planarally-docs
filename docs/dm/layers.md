@@ -6,6 +6,11 @@ These layers each have a dedicated use case, so as a DM you should be aware of w
 
 With the exception of the DM layer, all layers are also drawn on the players' boards, but they can only interact with elements on the tokens layer.
 
+```python
+def x(i):
+    pass
+```
+
 _Currently these layers are hardcoded, but I do foresee a possiblity to tweak this to your own preference in the future._
 
 ## Map

@@ -1,0 +1,13 @@
+'''
+This code snippet removes files in the /static/assets/ folder that are not referenced by a Asset in the database.
+In order for this to work, you need to run the snippet from within the server/ folder and make sure you have the correct save file configured.
+'''
+
+import os
+from pathlib import Path
+from models import Asset
+
+p = Path('static', 'assets')
+for fl in os.listdir(p):
+    if Asset.get_or_none(file_hash=fl) is None:
+        (p / fl).unlink()
