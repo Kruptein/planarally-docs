@@ -6,7 +6,7 @@
         link: /tutorial/setup/self-hosting/
       - title: Managed
         link: /tutorial/setup/external/
-- title: Out-of-Game
+- title: General
   items:
       - title: Authentication
         link: /tutorial/out-of-game/auth/
@@ -18,7 +18,9 @@
   items:
       - title: Getting to know the UI
         link: /tutorial/in-game/ui/
-      - title: Tools
-        link: /tutorial/in-game/tools/
+      - title: Creating your first session
+        link: /tutorial/in-game/first-session/
       # - title: Your character
       #   link: /tutorial/in-game/character/
+      # - title: Tools
+      #   link: /tutorial/in-game/tools/
