@@ -4,11 +4,11 @@ Hosting PlanarAlly yourself requires a bit more setup then simply using an exist
 
 To host PlanarAlly yourself you have three options:
 
-* Perform a manual installation
-* Use a precompiled executable
-* Use a docker container under Linux
+-   Perform a manual installation
+-   Use a precompiled executable
+-   Use a docker container under Linux
 
-The former is very technical, so most people are best served with the executable which does not require much work.  I just like to point out the options for those who like more control over the installation or don't trust some random exe.
+The former is very technical, so most people are best served with the executable which does not require much work. I just like to point out the options for those who like more control over the installation or don't trust some random exe.
 
 ## Precompiled executable
 
@@ -20,7 +20,7 @@ When you execute this file, a command prompt will appear (a black screen with so
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
-For more info on how to configure some other aspects of your server visit the main [server management](/docs/dm/management/) docs.
+For more info on how to configure some other aspects of your server visit the main [server management](/docs/server/management/) docs.
 
 ## Manual installation
 
@@ -38,21 +38,23 @@ To run the server you now simply run `python3 planarserver.py` and your server s
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
-For more info on how to configure some other aspects of your server visit the main [server management](/docs/dm/management/) docs.
+For more info on how to configure some other aspects of your server visit the main [server management](/docs/server/management/) docs.
 
 ## Docker Container
+
 You can grab the [Official Container](https://hub.docker.com/r/kruptein/planarally) with this command.  
-```docker pull kruptein/planarally```  
+`docker pull kruptein/planarally`
 
 Generally for ease of backup it is recommended to use [volumes](https://docs.docker.com/storage/volumes/) with docker as well.  
-```docker volume create data```  
-```docker volume create assets```  
+`docker volume create data`  
+`docker volume create assets`  
 Both of those commands will create folders in /var/lib/docker/volumes/ then you can use this next command to start the container  
-```docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ --name planarally kruptein/planarally```  
+`docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ --name planarally kruptein/planarally`
 
-then just like it was mentioned in the section above you can just type `http://localhost:8000` and access planarally  
+then just like it was mentioned in the section above you can just type `http://localhost:8000` and access planarally
 
 You can find a write up [here](https://github.com/edmael/selfhosted-planarally) written by a community member on setting up a server with SSL encryption using an nginx reverse proxy as well as docker-compose
 
 ## Backups
-When backing up your data the only items you really need to worry about are */data/planar.sqlite* and the */static/assets/* directory both of which will be included in the */planarally* directory. planar.sqlite is the main database file.
+
+When backing up your data the only items you really need to worry about are _/data/planar.sqlite_ and the _/static/assets/_ directory both of which will be included in the _/planarally_ directory. planar.sqlite is the main database file.
