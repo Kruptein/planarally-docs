@@ -93,7 +93,7 @@ The aforementioned location overhaul is an obvious big win in UI/UX improvement,
 
 It was a pain in the past to add users as owners of shapes because you had to manually type the names. Additionally there were instances where you would want someone to have vision access but not general edit access.
 
-Both those things are now a thing of the past!
+Both things are now a thing of the past!
 
 ![](./access.png)
 
@@ -107,7 +107,7 @@ The lightbulb provides vision access; It just allows the player to see what the 
 
 ### Map tool
 
-The map tool always has been handy, but was never very clear on how it worked. This release adds some more obvious information on how to use it and also slightly changes the behaviour.
+The map tool has always been handy, but was never very clear on how it worked. This release adds some more obvious information on how to use it and also slightly changes the behaviour.
 
 The map tool works only on a selected shape, to make this clear a tooltip will now appear and ask to select a shape. This can also be done from within the map tool, so you no longer need to swap to the select tool and then back.
 
