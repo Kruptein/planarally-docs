@@ -13,5 +13,5 @@ Important to know is that these services are **not** operated by me and thus I c
 ## Known providers
 *If you host or know someone who hosts PA publicly, feel free to let me know!*  
 
-[DnDbox.com](https://dndbox.com/) v0.19.3 is hosted in Switzerland/Europe and hosts a number of projects including Planar Ally. Support is offerred on [reddit](reddit.com/r/dndbox/)  
-[10leej.com](https://planarally.10leej.com/) v0.19.3 hosted in Atlanta, Georgia/USA support provided by 10leej use contact information found on the [website frontpage](https://10leej.com/)  
+[DnDbox.com](https://dndbox.com/) v0.20.1 is hosted in Switzerland/Europe and hosts a number of projects including Planar Ally. Support is offerred on [reddit](reddit.com/r/dndbox/)  
+[10leej.com](https://planarally.10leej.com/) v0.20.1 hosted in Atlanta, Georgia/USA support provided by 10leej use contact information found on the [website frontpage](https://10leej.com/)  
