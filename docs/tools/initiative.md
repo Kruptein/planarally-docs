@@ -10,12 +10,11 @@ By right-clicking anywhere on the map, you can always choose to `Show Initiative
 Also, the context-menu of objects (shapes, assets or tokens) shows the `Show Initiative` option, if the object is already entered into the initiative list.
 If the object in question is not (yet) listed in the initiative list, the context-menu will show `Add Initiative` (`Add all to Initiative`, if multiple objects are selected), opening the Initiative Tool and entering the object into the list, at the same time.
 
-## Functions
-
 The Initiative Tool opens a moveable pop-up window that can be closed by clicking on the `x` in the above-right corner.
+
 It contains the initiative list that can contain several individual entries and, below, a bar with several functions.
 
-### Initiative List
+## Initiative List
 
 The Initiative List is, in essence, a table with six columns and a row for every object that is added to the Initiative List.
 The *active* row/entry is highlighted by a green background, indicating that it's this object's turn.
@@ -23,14 +22,14 @@ The *active* row/entry is highlighted by a green background, indicating that it'
 Hovering over an entry will highlight the associated object on the map with a red rectangle around it.
 This is particularly useful if there are several objects on the map illustrated with the same asset (i.e. similar monsters etc.).
 
-#### Designator
+### Designator
 
 At the most left of each row, there is the designator of the object added to initiative.
 If the object is an asset, the designator will be a miniaturised version of the asset.
 If the object is a Basic Token, the designator will be the text shown on the token.
 If the object is another shape, the designator will be the object's name as entered in the properties when the object is added to initiative.
 
-#### Initiative Value & Sorting
+### Initiative Value & Sorting
 
 The designator is followed by the initiative value, which can be any number.
 Players can only modify the initiative value of objects they are granted access to.
@@ -40,7 +39,7 @@ The entries will be automatically sorted by this value, putting the highest valu
 Hovering an entry will highlight it with a border showing a notch on the lower right corner.
 Any item can be dragged by clicking and holding on this notch, superseding the automatic sort.
 
-#### Timed Effects
+### Timed Effects
 
 The next column shows a clock, followed by a number (default 0).
 This column shows how many Timed Effects (see below) are assigned to the object.
@@ -60,13 +59,13 @@ The duration is shown on the right (default: `10`) and should be a number and de
 Any time an entry gets to be *active*, the duration decreases by one, until reaching `0`.
 After the duration has reached `0`, the next time the entry gets to be active, instead of changing from `0` to `-1`, the Timed Effect vanishes.
 
-#### Visibility
+### Visibility
 
 The next column shows an eye that toggles visibility of the entry.
 If the eye is grey, an object is invisible, i.e. only the DM can see the respective row.
 A Player-added object will be visible by default, while objects added to initiative by the DM are invisible by default.
 
-#### Group Initiative
+### Group Initiative
 
 The second to the right column shows an icon depicting three persons.
 Clicking the icon toggles individual/group initiative.
@@ -74,7 +73,7 @@ Clicking the icon toggles individual/group initiative.
 When an entry is marked as *group initiative*, it cannot be deleted either by clicking the delete symbol (see below) or removing the associated object.
 It will still highlight the associated token on mouseover; at this moment, there is no functionality to highlight multiple objects at once.
 
-#### Delete
+### Delete
 
 The most right column, depicting a trashbin, is to delete the entry from the list.
 The DM can delete any entry from the initiative list.
@@ -84,7 +83,7 @@ Deleting a token that is added to initiative, or moving it to another location, 
 
 Entries that are added to Group Initiative (see above) cannot be deleted.
 
-### Functions Bar
+## Functions Bar
 
 The functions bar is a single row containing the `Round`-indicator showing the current round of action/combat on the left, and four buttons to the right of these indicator.
 
