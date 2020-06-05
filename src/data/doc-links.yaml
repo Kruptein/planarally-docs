@@ -20,6 +20,8 @@
       link: /docs/dm/settings/
     - title: Layers
       link: /docs/dm/layers/
+    - title: Locations
+      link: /docs/dm/locations/
     - title: Lighting & Vision
       link: /docs/dm/light-shadows/
 
@@ -41,7 +43,7 @@
 - title : DM Tools
   items:
     - title: Map
-      link: /docs/tools/map/
+      link: /docs/tools/map/ 
     - title: Filter
       link: /docs/tools/filter/
     - title: Vision
