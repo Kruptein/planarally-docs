@@ -2,6 +2,8 @@
 
 The Initiative Tool is a moveable pop-up window that allows you to track the initiative order of various objects (normally tokens).
 
+![Overview of the initiative tool](./initiative-overview.png "Overview of the initiative tool")
+
 ## Access
 
 The Initiative Tool is not accessible via the toolbar on the lower right of the user interface.
