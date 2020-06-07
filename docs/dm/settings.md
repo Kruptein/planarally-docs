@@ -1,6 +1,6 @@
-# Session Settings
+# Campaign Settings
 
-As the DM you'll have a special dialog of options to configure various settings of the active session.
+As the DM you'll have a special dialog of options to configure various settings of the active campaign.
 This dialog can be accessed from the sidebar during gameplay.
 
 ![](./settings.png)
@@ -14,9 +14,9 @@ You can see a list of the players with access to the session and kick those that
 The URL to invite someone new to the session is also displayed with a copy button to make sharing easy.
 Additionally a button to change the invite code is also there, in case the code would become known to more people than you would like.
 
-The last two buttons require special attention. The first one locks or unlocks the session.  When a session is locked, only the DM can access it.  This feature is useful if you want to edit your maps and make sure none of your players starts nosing around during your work.
+The last two buttons require special attention. The first one locks or unlocks the campaign.  When a campaign is locked, only the DM can access it.  This feature is useful if you want to edit your maps and make sure none of your players starts nosing around during your work.
 
-The last button **permanently** removes the session from the PlanarAlly server. USE WITH CAUTION.
+The last button **permanently** removes the campaign from the PlanarAlly server. USE WITH CAUTION.
 
 ## Grid
 
@@ -77,6 +77,7 @@ As time went on however the triangle mode became the default as it is much more 
 
 These settings are additional tuning factors to the vision system and determine limits to the vision of all tokens.
 
-Suppose there is one giant open field that stretches 5000 ft. and is completely illuminated. One could expect the entire area to be visible to your token standing in the middle of this field.  There are however limitations to the human eye, hence the introduction of these settings.
+Suppose there is one giant open field that stretches 5000 ft. and is completely illuminated. One could expect the entire area to be visible to your token standing in the middle of this field.  There are however limitations to the human (and to most non-human, for that matter) eye, hence the introduction of these settings.
+
 
 Everything up to the minimum vision range can be seen as usual. Everything past the maximum range can not be seen and is fog of war.  Everything in between is shown in a diminishing opacity as you go further towards the edge of vision.
