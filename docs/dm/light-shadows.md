@@ -56,7 +56,7 @@ For this reason PlanarAlly offers you the ability to provide input on where wall
 
 The essence of providing PA info about walls etc, is by drawing shapes like you usually do and selecting the 'blocks light' option in the shape's properties dialog.  As you often during prep need to draw these shapes, PA offers a dedicated vision layer (FOW) that automatically applies the blocks light (and blocks movement) option on every shape drawn on this layer.  For more info on this specific layer see [the Layers documentation](/docs/dm/layers/).
 
-You can use any of the available shapes to draw your building skeletons, but some are more useful than others.  Although the rectangle can be usefull for simple structures with 90 degrees walls, I find myself using the polygon tool almost exclusively these days. See the [draw tool documentation](/docs/tools/draw/) for more detailled info on how these shapes behave.
+You can use any of the available shapes to draw your building skeletons, but some are more useful than others.  Although the rectangle can be usefull for simple structures with 90 degrees walls, I find myself using the polygon tool almost exclusively these days. See the [draw tool documentation](/docs/tools/draw/) for more detailed info on how these shapes behave.
 
 _note that this only blocks normal lights.  'magical' lights pierce through any non magical fog._
 
