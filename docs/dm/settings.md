@@ -77,6 +77,7 @@ As time went on however the triangle mode became the default as it is much more 
 
 These settings are additional tuning factors to the vision system and determine limits to the vision of all tokens.
 
-Suppose there is one giant open field that stretches 5000 ft. and is completely illuminated. One could expect the entire area to be visible to your token standing in the middle of this field.  There are however limitations to the human (and the most non-human, as well) eye, hence the introduction of these settings.
+Suppose there is one giant open field that stretches 5000 ft. and is completely illuminated. One could expect the entire area to be visible to your token standing in the middle of this field.  There are however limitations to the human (and to most non-human, for that matter) eye, hence the introduction of these settings.
+
 
 Everything up to the minimum vision range can be seen as usual. Everything past the maximum range can not be seen and is fog of war.  Everything in between is shown in a diminishing opacity as you go further towards the edge of vision.
