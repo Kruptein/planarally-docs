@@ -151,3 +151,56 @@ Starting with this release players can no longer remove or add floors and can no
 -   Three bugs with location specific options not properly loading/saving
 -   Scrollbar on bottom of page in firefox when location bar does not fit the screen
 -   Bug where a light source with 0/0 radii would block all lights of that shape
+
+## Up next
+
+Looking ahead there are a bunch of things that are on my radar to focus on.
+The following list of topics might not all be selected for the next release cycle, but I wanted to already let you know some things on my mind.
+
+##### Preparation work on metadata/export/import
+
+There have been some discussions on the discord server about adding metadata to assets and the posibility to import/export these to other servers.
+Some preparation steps have to be done before I can tackle the main problem.
+
+##### Rotation
+
+Rotating is something that has been missing for a while now in PA and should finally be taken care of.
+
+##### Extend aura options
+
+Auras could use some new features like border colours and other shapes like cone auras.
+
+##### Floor public visibility
+
+Floor information is currently public to all players, this should probably receive some public/visibility treatment like many of the other things in PA.
+
+##### Improve cursor in draw tool
+
+A custom mouse cursor is used in the draw tool to accomodate a smoother drawing experience. It however is not always clearly visible which is very annoying.
+
+##### Hex grid
+
+Support for hexagonal grids is being requested a couple of times in the past, so I should add some support for this type of grid sooner or later.
+
+Some existing logic is based on rectangular grids, so maybe an initial version will only have render support for hexes but no snapping capabilities. To be investigated.
+
+##### Fast load current floor
+
+Currently when loading a location the game waits with loading until all floors are loaded.
+This can be improved by first loading the active floor and then load the other floors.
+
+##### Blurhash
+
+Some images, especially maps, can take a longer time to load. I would like to provide a quick blurhash as a visual cue that an image is loading until the full image is available.
+
+##### Multiple spawn locations
+
+As noted in the release notes, the new spawn location system has no support for multiple spawns in one location.
+Extending this is possible and mostly a UI problem that should be relatively simple.
+
+##### More grouping options
+
+There is some grouping logic when you copy-paste shapes, but there are no other capabilities.
+Things like adding a token to a group, merging groups, splitting groups etc are interesting for various reasons.
+
+Automatically applying the group initiative toggle for groups is another QoL change I intend to add.
