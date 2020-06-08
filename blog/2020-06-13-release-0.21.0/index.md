@@ -177,7 +177,7 @@ Floor information is currently public to all players, this should probably recei
 
 ##### Improve cursor in draw tool
 
-A custom mouse cursor is used in the draw tool to accomodate a smoother drawing experience. It however is not always clearly visible which is very annoying.
+A custom mouse cursor is used in the draw tool to accomodate a smoother drawing experience. However, it is not always clearly visible, which is very annoying.
 
 ##### Hex grid
 
