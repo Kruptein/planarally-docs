@@ -133,6 +133,7 @@ Starting with this release players can no longer remove or add floors and can no
 -   The version shown in the topleft area in-game will now be limited to the latest release version
 -   Basic tokens will now have their default name set to their label instead of 'Unknown shape'
 -   Mobile device users are now unable to trigger overscroll refresh by simply moving around
+-   Hovering over an image in the initiative list will now show the name of the shape
 
 ## Bugfixes
 
