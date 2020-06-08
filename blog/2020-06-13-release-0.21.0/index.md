@@ -73,7 +73,9 @@ In the above video the tokens are moved to the active location for presentation 
 
 Internationalization (i18n) is added to the codebase which means that translations can now be worked on. There are already translations for Chinese and German at the time of writing.
 
-UI to change your language is not yet finished and will probably land next release. Server owners can already configure language preferences, but they'll have to rebuild the client side after changing the `client/vue.config.js` locale settings.
+There is a language selection element in the login screen to swap between the currently supported languages.
+
+![](./language.png)
 
 ## Quality of Life
 
