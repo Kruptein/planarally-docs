@@ -134,6 +134,7 @@ Starting with this release players can no longer remove or add floors and can no
 -   Basic tokens will now have their default name set to their label instead of 'Unknown shape'
 -   Mobile device users are now unable to trigger overscroll refresh by simply moving around
 -   Hovering over an image in the initiative list will now show the name of the shape
+-   Polygon tool now also behaves like other shapes regarding snapping. Every point will snap to a gridline unless you disable snapping.
 
 ## Bugfixes
 
@@ -155,8 +156,8 @@ Starting with this release players can no longer remove or add floors and can no
 
 ## Up next
 
-Looking ahead there are a bunch of things that are on my radar to focus on.
-The following list of topics might not all be selected for the next release cycle, but I wanted to already let you know some things on my mind.
+People often ask me what's next on the roadmap, so I wanted to shared some of the topics that I would like to tackle in the coming releases.
+This list is not exhaustive nor definitive and will not all be in the next release, it's a showcase of possible things coming up.
 
 ##### Preparation work on metadata/export/import
 
@@ -166,6 +167,29 @@ Some preparation steps have to be done before I can tackle the main problem.
 ##### Rotation
 
 Rotating is something that has been missing for a while now in PA and should finally be taken care of.
+
+##### Rework startup sequence
+
+The current startup sequence (order of events arriving on game load) should be redone. There is some performance to be gained by shuffling things around here
+and some things are unnecessarily sent.
+
+##### Move to fontawesome-vue
+
+The icons in PA are provided by fontawesome, this is currently done by sideloading the fontawesome.js library. This is a big file and takes up load time which can be resolved
+by using a vue specific library that only includes the icons actually used.
+
+##### In-game async asset list
+
+On startup the DM receives the entire asset list so that it can be displayed in the sidebar.
+This is wasted effort, the asset manager in-game should just like the full asset-manager request the data from the server when it needs it.
+
+##### Polygon improvements
+
+Polygons are awesome, but can still use some extra features like adding points and removing points on existing polygons.
+
+##### Floor tool improvements
+
+It should be possible to reorder and rename floors as well as options to hide floors from players.
 
 ##### Extend aura options
 
