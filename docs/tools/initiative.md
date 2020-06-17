@@ -89,20 +89,20 @@ Entries that are added to Group Initiative (see above) cannot be deleted.
 
 The functions bar is a single row containing the `Round`-indicator showing the current round of action/combat on the left, and four buttons to the right of these indicator.
 
-<font-awesome-icon :icon="['fab', 'eye']"/> toggles vision auto-lock.
+<font-awesome-icon :icon="['fas', 'eye']"/> toggles vision auto-lock.
 *(further documentation needed)*
 
-The <font-awesome-icon :icon="['fab', 'video']"/> toggles camera auto-lock.
+The <font-awesome-icon :icon="['fas', 'video']"/> toggles camera auto-lock.
 When camera auto-lock is active, every time action is assigned to another object (see below), the viewport is centered on the now active object.
 This can be toggled on/off individually by each player.
 Camera auto-lock will only center the viewport on objects the players are able to control.
 Thus, for the DM, the center of the viewport will change virtually with every click on *Next*.
 The Players' viewport will only change when a token they control is now active according to the Initiative Tracker.
 
-The <font-awesome-icon :icon="['fab', 'sync-alt']"/>-button resets rounds and turns.
+The <font-awesome-icon :icon="['fas', 'sync-alt']"/>-button resets rounds and turns.
 Rounds will be reset to Round 0, action will be assigned to the object at the top of the list.
 Note that neither the initiative values nor Timed Effects are reset.
 This function is only available for DMs.
 
-The <font-awesome-icon :icon="['fab', 'chevron-right']">/>-button (*Next*) assigns the next player in the initiative order as *active* (see above).
+The <font-awesome-icon :icon="['fas', 'chevron-right']">/>-button (*Next*) assigns the next player in the initiative order as *active* (see above).
 This function is only available for DMs.
