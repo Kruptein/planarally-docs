@@ -29,6 +29,7 @@ library.add(
 	faTrashAlt,
 	faUsers,
 	faVideo,
+	faWindowClose,
 	)
 
 import Typography from 'typography'
