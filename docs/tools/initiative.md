@@ -64,7 +64,7 @@ After the duration has reached `0`, the next time the entry gets to be active, i
 ### Visibility
 
 The next column shows an <font-awesome :icon="['fas', 'eye']"/> that toggles visibility of the entry.
-If the <font-awesome icon="['fas', 'eye']"/> appears grey, an object is invisible, i.e. only the DM can see the respective row.
+If the <font-awesome :icon="['fas', 'eye']"/> appears grey, an object is invisible, i.e. only the DM can see the respective row.
 A Player-added object will be visible by default, while objects added to initiative by the DM are invisible by default.
 
 ### Group Initiative
