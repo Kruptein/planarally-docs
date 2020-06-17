@@ -16,7 +16,7 @@ import {
 	faSyncAlt,
 	faTrashAlt,
 	faUsers,
-	faVideo
+	faVideo,
 	} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
@@ -28,7 +28,7 @@ library.add(
 	faSyncAlt,
 	faTrashAlt,
 	faUsers,
-	faVideo
+	faVideo,
 	)
 
 import Typography from 'typography'
