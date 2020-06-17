@@ -34,7 +34,17 @@ Everything needed to run PlanarAlly can be found in the `server` folder.
 Make sure to install all dependencies by running `pip install --user -r requirements.txt`.
 (If you are familiar with python, it is strongly advised to create a dedicated venv for PA, but this is not a hard requirement.)
 
+Before the server can be started, you have to build the client.
+This is done by the Node.js package manager *npm* with the following command:  
+`npm i`  
+`npm run build`
+
 To run the server you now simply run `python3 planarserver.py` and your server should start up.
+
+In case you want to install and run the server on the latest status of the development branch, you need to run:  
+`npm i`
+`npm run serve`
+`python3 planarserver.py dev`
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
