@@ -33,6 +33,7 @@ library.add(
 
 export default function (Vue) {
 	Vue.component('font-awesome', FontAwesomeIcon)
+}
 
 import Typography from 'typography'
 
