@@ -64,7 +64,7 @@ After the duration has reached `0`, the next time the entry gets to be active, i
 ### Visibility
 
 The next column shows an <font-awesome :icon="['fas', 'eye']"/> that toggles visibility of the entry.
-If the <font-awesome icon="['fas', 'eye']"> appears grey, an object is invisible, i.e. only the DM can see the respective row.
+If the <font-awesome icon="['fas', 'eye']"/> appears grey, an object is invisible, i.e. only the DM can see the respective row.
 A Player-added object will be visible by default, while objects added to initiative by the DM are invisible by default.
 
 ### Group Initiative
@@ -72,7 +72,7 @@ A Player-added object will be visible by default, while objects added to initiat
 The second to the right column shows a <font-awesome :icon="['fas', 'users']"/>-icon.
 Clicking the icon toggles individual/group initiative.
 
-When an entry is marked as *group initiative*, it cannot be deleted either by clicking the <font-awesome :icon="['fas', 'trash-alt']"/> symbol (see below) or removing the associated object.
+When an entry is marked as *group initiative*, it cannot be deleted (see below), neither by clicking the <font-awesome :icon="['fas', 'trash-alt']"/> symbol nor by removing the associated object.
 It will still highlight the associated token on mouseover; at this moment, there is no functionality to highlight multiple objects at once.
 
 ### Delete
@@ -90,7 +90,7 @@ Entries that are added to Group Initiative (see above) cannot be deleted.
 The functions bar is a single row containing the `Round`-indicator showing the current round of action/combat on the left, and four buttons to the right of these indicator.
 
 <font-awesome :icon="['fas', 'eye']"/> toggles vision auto-lock.
-*(further documentation needed)*
+(*further documentation needed*)
 
 The <font-awesome :icon="['fas', 'video']"/> toggles camera auto-lock.
 When camera auto-lock is active, every time action is assigned to another object (see below), the viewport is centered on the now active object.
