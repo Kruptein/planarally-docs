@@ -31,10 +31,6 @@ library.add(
 	faVideo
 )
 
-export default function (Vue) {
-	Vue.component('font-awesome', FontAwesomeIcon)
-}
-
 import Typography from 'typography'
 
 const typography = new Typography({
@@ -52,6 +48,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('BlogLayout', BlogLayout)
   Vue.component('Section', Section)
   Vue.component('Card', Card)
+  Vue.component('font-awesome', FontAwesomeIcon)
 
   head.style.push({
     type: 'text/css',
