@@ -104,5 +104,5 @@ Rounds will be reset to Round 0, action will be assigned to the object at the to
 Note that neither the initiative values nor Timed Effects are reset.
 This function is only available for DMs.
 
-The <font-awesome-icon :icon="['fas', 'chevron-right']">/>-button (*Next*) assigns the next player in the initiative order as *active* (see above).
+The <font-awesome-icon :icon="['fas', 'chevron-right']"/>-button (*Next*) assigns the next player in the initiative order as *active* (see above).
 This function is only available for DMs.
