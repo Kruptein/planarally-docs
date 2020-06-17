@@ -42,9 +42,9 @@ This is done by the Node.js package manager *npm* with the following command:
 To run the server you now simply run `python3 planarserver.py` and your server should start up.
 
 In case you want to install and run the server on the latest status of the development branch, you need to run:  
-`npm i`
-`npm run serve`
-`python3 planarserver.py dev`
+`npm i` 
+`npm run serve` 
+`python3 planarserver.py dev` 
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
