@@ -7,7 +7,7 @@ import Section from '~/components/Section.vue'
 import Card from '~/components/Card'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { config, library } from '@fortawesome/fontawesome-svg-core
+import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
 import {
 	faChevronRight,
