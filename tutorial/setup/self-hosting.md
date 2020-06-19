@@ -21,6 +21,7 @@ This folder contains a lot of different files, but the important one for you rig
 When you execute this file, a command prompt will appear (a black screen with some text).
 
 To run PlanarAlly on Linux or Mac, download the `planarally-bin` archives, while choosing your preferred compression method out of `.tar.gz` and `.zip` (content is the same).
+Since only the client is pre-built, you need to take care of the python-dependencies yourself (see below with the manual installation).
 Extract the content into a new folder, open a terminal navigating into that folder and execute `python3 server/planarserver.py` to start the server.
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
