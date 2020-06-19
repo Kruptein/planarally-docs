@@ -42,15 +42,15 @@ Make sure to install all dependencies by running `pip install --user -r requirem
 
 Before the server can be started, you have to build the client.
 This is done by the Node.js package manager *npm* with the following command:  
-`npm i`  
-`npm run build`
+    npm i
+    npm run build
 
 To run the server you now simply run `python3 planarserver.py` and your server should start up.
 
 In case you want to install and run the server in debug/development mode, you need to run:  
-`npm i`  
-`npm run serve`  
-`python3 planarserver.py dev`  
+    npm i
+    npm run serve
+    python3 planarserver.py dev
 This starts the server in a 'hot module reloading' mode that builds changes made to the sourcecode on the fly instead of waiting for you to manually rebuild.
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
@@ -63,8 +63,8 @@ You can grab the [Official Container](https://hub.docker.com/r/kruptein/planaral
 `docker pull kruptein/planarally`
 
 Generally for ease of backup it is recommended to use [volumes](https://docs.docker.com/storage/volumes/) with docker as well.  
-`docker volume create data`  
-`docker volume create assets`  
+    docker volume create data
+    docker volume create assets
 Both of those commands will create folders in /var/lib/docker/volumes/ then you can use this next command to start the container  
 `docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ --name planarally kruptein/planarally`
 
