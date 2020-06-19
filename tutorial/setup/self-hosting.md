@@ -5,18 +5,23 @@ Hosting PlanarAlly yourself requires a bit more setup then simply using an exist
 To host PlanarAlly yourself you have three options:
 
 -   Perform a manual installation
--   Use a precompiled executable
+-   Use a precompiled executable / a pre-built client
 -   Use a docker container under Linux
 
-The former is very technical, so most people are best served with the executable which does not require much work. I just like to point out the options for those who like more control over the installation or don't trust some random exe.
+If you simply want to run the latest stable release, you are probably best served with the executables or the releases with pre-built clients which do not require much work.
+In case you do want to have more control over the installation, want to use 'bleeding-edge' dev-builds and/or don't trust some random exe, you should consider performing a manual installation or using docker.
 
-## Precompiled executable
+## Precompiled executable / pre-built client
 
 You can find the latest version [on github](https://github.com/Kruptein/PlanarAlly/releases/).
-Download the `planarally-windows.zip` and extract it somewhere in a new folder.
+Note that the version numbers that are part of the releases' file names, are omitted in this tutorial.
 
+To run PlanarAlly on Windows, download the `planarally-windows.zip` and extract it somewhere in a new folder.
 This folder contains a lot of different files, but the important one for you right now is the one titled `PlanarAllyServer.exe`.
 When you execute this file, a command prompt will appear (a black screen with some text).
+
+To run PlanarAlly on Linux or Mac, download the `planarally-bin` archives, while choosing your preferred compression method out of `.tar.gz` and `.zip` (content is the same).
+Extract the content into a new folder, open a terminal navigating into that folder and execute `python3 server/planarserver.py` to start the server.
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
