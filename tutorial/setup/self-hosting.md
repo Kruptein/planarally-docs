@@ -51,7 +51,7 @@ In case you want to install and run the server in debug/development mode, you ne
 `npm i`  
 `npm run serve`  
 `python3 planarserver.py dev`  
-This starts the server in a 'hot module reloading' mode that build changes made to the sourcecode on the fly instead of waiting for you to manually rebuild.
+This starts the server in a 'hot module reloading' mode that builds changes made to the sourcecode on the fly instead of waiting for you to manually rebuild.
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
