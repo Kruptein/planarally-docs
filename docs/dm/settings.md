@@ -1,34 +1,36 @@
 # Campaign Settings
 
-As the DM you'll have a special dialog of options to configure various settings of the active campaign.
-This dialog can be accessed from the sidebar during gameplay.
-
-![](./settings.png)
+As the DM, you’ll have a special window of options. These allow you to configure the settings of the active campaign. You can access this window by clicking the gear icon in the top left corner and selecting “DM Options” from the dropdown menu.
 
 ## Admin
 
-As can be seen in the above image, the admin section provides some administrative options.
+![](./settings.png)
 
-You can see a list of the players with access to the session and kick those that are no longer welcome :(.
+The admin section provides administrative options.
 
-The URL to invite someone new to the session is also displayed with a copy button to make sharing easy.
-Additionally a button to change the invite code is also there, in case the code would become known to more people than you would like.
+In the players section, you can see a list of current players. Click “kick” to remove specific players from your campaign.
 
-The last two buttons require special attention. The first one locks or unlocks the campaign.  When a campaign is locked, only the DM can access it.  This feature is useful if you want to edit your maps and make sure none of your players starts nosing around during your work.
+The Invitation URL allows you to invite players to your campaign. To the right of the URL is a button that copies the URL to your clipboard. Press “Refresh invitation code” to refresh the URL.
 
-The last button **permanently** removes the campaign from the PlanarAlly server. USE WITH CAUTION.
+The last two buttons require special attention.  
+
+The Lock this Session button locks or unlocks the campaign. When locked, only the DM can access the campaign. This feature is useful if you want to edit your maps and ensure none of your players start nosing around during your work.
+
+Remove Session **PERMANENTLY** removes the campaign from the PlanarAlly server. All data will be unrecoverable. **USE WITH CAUTION!**
 
 ## Grid
 
 ![](./grid.png)
 
-The grid settings offer you the ability to tweak the grid settings or even disable the grid all together.
-These settings are *Location-specific*!
+The grid settings provide the ability to tweak the settings of the grid or even disable the grid altogether. These settings are location specific!
 
-The grid size is used to actually draw the grid on you screen, whereas the unit size is the distance one grid should represent in your game system.
-The latter is for example used when you use the ruler tool to measure distances.
+Use grid enables or disables the grid.
 
-The size unit allows you to change the default representation of units in ft (the dnd norm) to something else.  This could be used to change everything to meters, but could also be used to have one location with a world map in kilometers.
+Grid Size correlates to the size of the on-screen grid. 
+
+Unit Size is the distance one grid represents in your game system. When you use the ruler tool to measure distances, you reference Unit Size.
+
+Size Unit allows you to change the representation of units in ft (the dnd norm) to other units. This allows users to change from imperial to metric or allows users to measure by larger units, creating a world map measured by kilometers or miles. 
 
 ## Vision
 
