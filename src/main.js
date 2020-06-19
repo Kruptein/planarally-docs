@@ -6,6 +6,32 @@ import BlogLayout from '~/layouts/Blog.vue'
 import Section from '~/components/Section.vue'
 import Card from '~/components/Card'
 
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { config, library } from '@fortawesome/fontawesome-svg-core'
+import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
+import {
+	faChevronRight,
+	faEye,
+	faStopwatch,
+	faSyncAlt,
+	faTrashAlt,
+	faUsers,
+	faVideo,
+	} from '@fortawesome/free-solid-svg-icons'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+
+config.autoAddCss = false;
+library.add(
+	faChevronRight,
+	faEye,
+	faStopwatch,
+	faSyncAlt,
+	faTrashAlt,
+	faUsers,
+	faVideo,
+	faWindowClose,
+	)
+
 import Typography from 'typography'
 
 const typography = new Typography({
@@ -23,6 +49,7 @@ export default function (Vue, { router, head, isClient }) {
   Vue.component('BlogLayout', BlogLayout)
   Vue.component('Section', Section)
   Vue.component('Card', Card)
+  Vue.component('font-awesome', FontAwesomeIcon)
 
   head.style.push({
     type: 'text/css',
