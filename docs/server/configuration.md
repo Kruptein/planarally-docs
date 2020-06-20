@@ -16,8 +16,9 @@ Only change the configuration if something does not work accordingly and you kno
 This section contains several variables concerning the webserver that distributes the client to the players.
 
 ### host
-`host` (active by default, default: `0.0.0.0`, accepting addresses) tells the server on what IP address it is reachable.
+`host` (active by default, default: `0.0.0.0`, accepting IP addresses) tells the server on what IP address it is reachable.
 The default is set to `0.0.0.0` which, in this context, means: 'Any IP on this machine'.
+
 Most likeley, you won't need to change this setting, unless you're sharing the machine with others (e.g. on a shared (v)server) or run several servers on the machine with different addresses.
 
 ### port
@@ -26,7 +27,7 @@ The default is set to `8000`, a [registered port commonly used for the Django De
 You can freely adjust this setting according to your server's setup and will need to, if another application already listens on `8000`).
 In case you need to change the port, you might consider to choose a private port (>`49151`).
 
-Be sure that the port you use is accessible from outside of the machine.
+Be sure that the port you use is not used by any other application and is also accessible from outside of the machine.
 
 ### socket
 `socket` (inactive by default, default: `/tmp/planarally.sock`, accepting filepath) tells the server where to look for an internal endpoint for communications with the network/internet.
@@ -60,7 +61,8 @@ See [python-socketio on readthedocs.io](https://python-socketio.readthedocs.io/e
 
 This section, at the moment, only contains one variable.
 
-## save\_file
+### save\_file
 
 `save_file` (active by default, default: `planar.sqlite`) tells the server where to look for the central save file wherein all users, settings, locations, assets and so on are saved.
+
 Note that, at this moment, PlanarAlly only supports storing the saves in *.sqlite* format.
