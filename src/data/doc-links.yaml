@@ -49,5 +49,7 @@
 
 - title: Server
   items:
+    - title: Configuration
+      link: /docs/server/configuration/
     - title: User Management
       link: /docs/server/management/
