@@ -120,4 +120,4 @@ There are, however, limitations to the human and nonhuman eye, hence the introdu
 
 Everything up to the minimal vision range can be seen as usual. 
 Everything past the maximal range cannot be seen and is fog of war.  
-Everything in between is shown in a diminishing opacity as you go further towards the edge of vision.
+Everything in between is shown in an increasing opacity as you go further towards the edge of vision.
