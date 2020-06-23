@@ -23,18 +23,19 @@ The last button **permanently** removes the session from the PlanarAlly server. 
 ![](./grid.png)
 
 The grid settings offer you the ability to tweak the grid settings or even disable the grid all together.
-These settings are *Location-specific*!
+These settings are the Campaign defaults that can be overridden in the [individual Location Settings](/docs/dm/locations/#grid).
 
 The grid size is used to actually draw the grid on you screen, whereas the unit size is the distance one grid should represent in your game system.
 The latter is for example used when you use the ruler tool to measure distances.
 
-The size unit allows you to change the default representation of units in ft (the dnd norm) to something else.  This could be used to change everything to meters, but could also be used to have one location with a world map in kilometers.
+The size unit allows you to change the default representation of units in ft (the dnd norm) to something else.  This could be used to change everything to meters (including fractions, e.g. for the dnd standard of 1.5&nbsp;m equalling 5&nbsp;ft), but could also be used to have one location with a world map in kilometers.
 
 ## Vision
 
 ![](./vision.png)
 
 One of the most important settings are those for vision.  These settings require some special description and are also referenced often in the DM section on [lighting and vision](/docs/dm/light-shadows/).
+The settings defined in this dialogue are the Campaign defaults that can be overridden in the [individual Location Settings](/docs/dm/locations/#vision).
 
 ### Fake Player
 The first option _Fake Player_ is a DM toggle to render the board as if you were a player instead of the default DM mode.  You'll still have access to most of your DM tools, but the vision is calculated as if you were a player, so you can verify whether everything looks as it should.
