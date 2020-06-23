@@ -10,7 +10,7 @@ Players only interact with one canvas at a time; for them, each new Location loo
 
 Once opened, the Location Bar shows a button to create new Locations on the Left, followed by items for each of the Campaign's locations.
 The current location is highlighted by white text and <font-awesome :icon="['fas', 'cog']"/>, while every other location's text and buttons are white with a reddish hue.
-Each item of the list consists of a handle to drag locations, a display of the location's name, and a <font-awesome :icon"['fas', 'cog']"/> button to access the location's individual settings.
+Each item of the list consists of a handle to drag locations, a display of the location's name, and a <font-awesome :icon="['fas', 'cog']"/> button to access the location's individual settings.
 
 Each location with players present at the location, also displays a tab reading "Players" that can be expanded to show a list of the individual players present on said location.
 
