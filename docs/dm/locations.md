@@ -4,7 +4,7 @@ The Locations Tool provides multiple instances of a set of [layers](/docs/dm/lay
 
 ## The Location Bar
 Only the DM can actively access and manipulate Locations.
-This is done by clicking on the <font-awesome :icon="['far', 'compass'"/> symbol at the upper left corner of the screen.
+This is done by clicking on the <font-awesome :icon="['far', 'compass']"/> symbol at the upper left corner of the screen.
 As this is 'DMs-only' function, players cannot see this button.
 Players only interact with one canvas at a time; for them, each new Location looks like a different map (i.e. a different set of stacked [layers](/docs/dm/layers/)).
 
