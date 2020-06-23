@@ -75,7 +75,7 @@ Instead, those shapes have to be sent to that location by the DM.
 Shapes (including player-controleld Tokens) are moved individually or as a group via their context-menu.
 When sent to another location, shapes will appear centered on the spawn location, which is a special shape that appears on the *dm*-[layer](/docs/dm/layers/#dm).
 
-![Spawn Location Designator](spawn.png)
+![Spawn Location Designator](./spawn.png "Spawn Location Designator")
 
 The spawn location designator can be moved freely on the *dm*-layer.
 Currently, there is only one spawn location designator per location.
