@@ -45,11 +45,12 @@ Manually defining a setting to match the value also set in the Campaign Defaults
 ### Admin
 The *Admin* tab in the Location Settings allows you to rename or remove the location.
 
-![](/blog/2020-05-10-release-0.20.0/rename-location.png)
+![](~/../blog/2020-05-10-release-0.20.0/rename-location.png)
+
+You can only delete Locations where nobody, neither players nor DM, is present.
 
 ### Grid
-For the individual settings, see ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).
-Note that you cannot change the colour in which the grid is drawn. 
+For the individual settings, see ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).  
 
 ### Vision
 For the individual settings, see ['Vision' in the Campaign Settings](/docs/dm/settings/#vision).
@@ -79,8 +80,4 @@ When sent to another location, shapes will appear centered on the spawn location
 
 The spawn location designator can be moved freely on the *dm*-layer.
 Currently, there is only one spawn location designator per location.
-It is planned to eventually support more, though.
-
-## Delete Locations
-You can delete a Location under the *Admin* tab within the Location Settings.
-You can only delete Locations where nobody, neither players nor DM, is present. 
+It is planned to eventually support more, though.  
