@@ -16,7 +16,7 @@
 
 - title: DM
   items:
-    - title: Session Settings
+    - title: Campaign Settings
       link: /docs/dm/settings/
     - title: Layers
       link: /docs/dm/layers/
@@ -39,6 +39,8 @@
       link: /docs/tools/ping/
     - title: Zoom
       link: /docs/tools/zoom/
+    - title: Initiative
+      link: /docs/tools/initiative/
 
 - title : DM Tools
   items:

@@ -25,6 +25,8 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 | Alt                 |                 | Disable snapping behaviour (both grid snapping and nearby point snapping) \* |
 | Del                 | selection       | Delete all shapes in the active selection                                    |
 | d                   | selection       | Deselect all currently selected shapes                                       |
+| Ctrl + 0            |                 | Focus origin (0,0) of the grid                                               |
+| Ctrl + l            | selection       | Lock selected shape(s)                                                       |
 | Ctrl + u            |                 | Toggle UI                                                                    |
 | middle mouse click  |                 | Pan the screen                                                               |
 | middle mouse scroll |                 | Zoom in relation to the current mouse pointer.                               |
