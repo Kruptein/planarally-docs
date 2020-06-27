@@ -1,45 +1,71 @@
 # Layers
 
-PlanarAlly orders its game board in multiple layers that are drawn on top of eachother in order to produce the end result that you see when you are playing.
+![](./layers.png)
 
-These layers each have a dedicated use case, so as a DM you should be aware of what each layer's purpose is. For a quick reference on each layer you can check the [quick reference](/docs/reference/) document, for more details continue on reading!
+PlanarAlly orders its game board in multiple layers. 
+They are drawn on top of each other. 
+These multiple layers produce the result you see when playing.
 
-With the exception of the DM layer, all layers are also drawn on the players' boards, but they can only interact with elements on the tokens layer.
+These layers each have a dedicated use.
+It is important for the DM to understand the purpose of each. 
+For a quick reference on each layer, check the [quick reference](/docs/reference/) document. 
+For more in-depth details, continue reading!
 
-_Currently these layers are hardcoded, but I do foresee a possiblity to tweak this to your own preference in the future._
+Except for the DM layer, all layers are also drawn on the players' boards.
+However, they can only interact with elements on the tokens layer.
+
+_Currently these layers are hardcoded, but I do foresee a possibility to tweak this to your own preference in the future._
 
 ## Map
 
-At the bottom of the draw stack is the map layer. As the name suggests this layer is ideal for placing assets that relate to maps, building layouts etc.
+At the bottom of the draw stack is the map layer. 
+This layer is for placing maps, building layouts, and so on.
 
-The reason why is because it is drawn below the grid layer and thus allows you to align your gridlines to your various dungeons. Otherwise this layer behaves the same as the tokens layer.
+This layer is drawn below the grid layer. 
+This allows you to align your gridlines to your various dungeons. 
+Otherwise this layer behaves the same as the tokens layer.
 
 ## Grid
 
-This layer cannot be manually selected, but it can be configured using the DM settings (on the grid tab). It does what it says on the tin and draws gridlines on the screen.
+This layer cannot be manually selected, but it can be configured using the [DM Options Menu](/docs/dm/settings.md). 
+This layer draws gridlines on the screen.
 
-Currently hexagonal grids are not supported. This is on my todo list, but don't expect it immediately.
+Hexagonal grids are not currently supported. 
+This is on my to-do list, but don't expect it immediately.
 
 ## Tokens
 
-The core gameplay will happen on this layer as it is the place where the main actors move around. There is nothing special in particular going on here, but you'll often have this layer active.
+The core gameplay will happen on this layer. 
+It is the place where players and non-player characters move around. 
+You'll often have this layer active.
 
 ## DM
 
-This layer is specifically designed to only be accessible to the DM, players will not receive any of the information that is available on this layer and thus this can be used to preplan certain encounters or place some text labels to remember.
+This layer is only accessible to the DM. 
+Players will not see anything on this layer. 
+This can be used to plan encounters in advance. 
+It can also be used to place text labels to remember key information.
 
-This in combination with the ability to change the layer of a shape, is a common setup in my own games to make sure players don't spoil something because they're moving around too quickly.
+You are also able to change the layer of a shape.
+By hiding assets that players aren’t supposed to see yet on the DM layer, you can ensure that your players do not see information preemptively. 
 
-## Vision
+## FOW
 
-Currently still titled as the FOW layer in-game, this layer has some special behaviour that is meant to ease you with vision.
+This layer has some special behavior that helps with vision.
 
-When you're drawing your walls these often are static and not meant to change. By drawing these on the vision layer, you make sure that later on when interacting with the tokens layer, you don't accidentally move a wall all of a sudden.
+When you're drawing your walls, you want them to be static.
+You don’t want them to change, as your players may see sections of the map they aren’t meant to yet. 
+By drawing walls on the vision layer, you make sure that when interacting with the tokens layer, you don't accidentally move a wall. 
+Therefore, this layer performs two magic tricks automatically for you.
 
-With the above in mind, this layer performs two magic tricks automatically for you.
+Most shapes you draw on this layer will be used for walls or doors, so shapes drawn on this layer are automatically drawn with the 'blocks movement' and 'blocks vision' settings applied. 
+‘Blocks movement’ prevents players from moving through these shapes.
+‘Blocks vision’ prevents players from seeing through these shapes. 
+You can deselect these options if you don't need them, but that they will be applied by default on this layer.
 
-As most shapes you draw on this layer will be used for walls or doors, shapes drawn on this layer are automatically drawn with the 'blocks movement' and 'blocks vision' settings applied. You can still deselect these options if you don't need them but just know that they'll be applied by default on this layer.
+**Everything** drawn on this layer is invisible on other layers. 
+This is because typically your map will already have walls pre-drawn. 
+When you draw an ugly black rectangle to tell the lighting system about a wall, you don't want to have to see that ugly blob when you're on the tokens layer.
 
-**Everything** drawn on this layer is invisible on other layers. This is done with the idea that typically your map will already have walls predrawn, so when you draw an ugly black rectangle to tell the lighting system about a wall, you don't want to have to see that ugly blob when you're on the tokens layer.
-
-Just to reiterate this layer is purely for convenience. If you don't like the automatic settings or the invisible aspect, you can just use the tokens layer and draw your walls there with any setting you desire.
+This layer is purely for convenience. 
+If you don't like the automatic settings or the invisible aspect, you can use the tokens layer and draw your walls there with any setting you desire.
