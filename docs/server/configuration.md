@@ -55,7 +55,7 @@ Yet, this functionality is deactivated by default.
 
 `cors_allowed_origins` (inactive by default, default: `['\*']`, accepting `['\*']`, `['example.org', 'example.com']`, and `[]`) tells the server which hosts are eligible for CORS.
 If it is not specified (default), only requests to the host running the server are allowed.
-See [python-socketio on readthedocs.io](https://python-socketio.readthedocs.io/en/lates/api.html#asyncserver-class) for mor information on the meaning of the allowed values.
+See [python-socketio on readthedocs.io](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) for more information on the meaning of the allowed values.
 
 ## General
 
