@@ -24,6 +24,10 @@
       link: /docs/dm/locations/
     - title: Lighting & Vision
       link: /docs/dm/light-shadows/
+    - title: Assets
+      link: /docs/dm/assets/
+    - title: Notes
+      link: /docs/dm/notes/
 
 - title : Tools
   items:
