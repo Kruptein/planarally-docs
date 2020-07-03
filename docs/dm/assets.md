@@ -42,7 +42,7 @@ Your asset will now be able to be manipulated.
 You can move your assets by selecting the “select” tool.
 Then you can click and drag the asset.
 
-![](asset-list.png)
+![](./asset-list.png)
 
 Right clicking on your asset will give you a list of options.
 These allow you to do specific things with your assets.
