@@ -1,6 +1,4 @@
-
-
- # Assets
+# Assets
 
 The asset menu is used for inserting assets into your game. 
 These can be maps, tokens, objects, or anything else you wish to insert. 
