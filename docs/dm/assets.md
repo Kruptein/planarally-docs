@@ -108,7 +108,7 @@ Selecting this option displays a badge at the bottom right of the object.
 ### Blocks vision/light
 
 Selecting this option blocks vision and light from passing through the object.
-More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows.md) document.
+More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
 
 ### Blocks movement
 
