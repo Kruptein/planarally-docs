@@ -80,7 +80,7 @@ In the Markers menu, you can click the object to quickly snap your view to that 
 
 ## Edit asset
 
-![](/docs/dm/edit-asset.png)
+![](./edit-asset.png)
 
 By right clicking and selecting the “Show properties” option, you open the “Edit asset” menu.
 This menu includes a plethora of options.
