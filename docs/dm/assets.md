@@ -145,7 +145,7 @@ This can be used for health, gold, death saves, or any other value that you need
 Auras are visible light which emanates from an asset.
 These can be any color or strength you wish.
 
-More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows.md) document.
+More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
 
 ### Labels
 
