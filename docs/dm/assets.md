@@ -50,7 +50,7 @@ These allow you to do specific things with your assets.
 ### Layer
 
 Hovering over the “Layer” option in the list lets you change which layer you want your asset on.
-For more information, check the [layers](/docs/dm/layers.md) document.
+For more information, check the [layers](/docs/dm/layers/) document.
 
 ### Move to Front & Move to Back
 
