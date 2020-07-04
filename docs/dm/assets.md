@@ -149,7 +149,7 @@ More information about lighting can be found in the [lighting and vision](/docs/
 
 ### Labels
 
-![](/docs/dm/label-manager.png)
+![](./label-manager.png)
 
 Labels allow the DM to categorize objects.
 To start, type a category at the bottom left.
