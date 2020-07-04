@@ -61,7 +61,7 @@ This allows you to place multiple objects on the same layer but have them overla
 
 This option places the asset in the initiative menu.
 If already in the initiative menu, this will appear as “show initiative”.
-For more information, check the [initiative](/docs/tools/intiative.md) document.
+For more information, check the [initiative](/docs/tools/intiative/) document.
 
 ### Delete shapes
 
