@@ -2,7 +2,7 @@
 
 The asset menu is used for inserting assets into your game. 
 These can be maps, tokens, objects, or anything else you wish to insert. 
-To access this menu, click <font-awesome :icon="['far', 'compass']"/> and click “Assets” from the dropdown menu.
+To access this menu, click the cog icon and click “Assets” from the dropdown menu.
 
 ## Asset Manager
 
@@ -37,35 +37,46 @@ Then, open the folder where you have stored your files.
 Last, drag the asset onto the game board. 
 Your asset will now be able to be manipulated.
 
-## Manipulating Assets
+## Manipulating Objects
 
-You can move your assets by selecting the “select” tool.
-Then you can click and drag the asset.
+You can move your shapes by selecting the “select” tool.
+Then you can click and drag the shape to move.
+
+When the shape is selected, you may also use your arrow keys to move it.
+As the DM, holding down shift lets you move shapes through movement-blocking terrain.
+
+To select more than one shape, hold down ```Ctrl``` and click each shape you wish to collect.
+
+By default, most shapes snap to the grid.
+To temporarily disable this, hold down ```Alt```. 
+
+To deslect shapes, press the ```d``` key. 
 
 ![](./asset-list.png)
 
-Right clicking on your asset will give you a list of options.
-These allow you to do specific things with your assets.
+Right clicking on a shape will give you a list of options.
+These allow you to do specific things with your shapes.
 
 ### Layer
 
-Hovering over the “Layer” option in the list lets you change which layer you want your asset on.
+Hovering over the “Layer” option in the list lets you change which layer you want your shape on.
 For more information, check the [layers](/docs/dm/layers/) document.
 
 ### Move to Front & Move to Back
 
-These options place your asset at either the front or the back of the layers.
+These options place your shape at either the front or the back of the layers.
 This allows you to place multiple objects on the same layer but have them overlap in specific ways.
 
 ### Add initiative or Show initiative
 
-This option places the asset in the initiative menu.
+This option places tokens in the initiative menu.
 If already in the initiative menu, this will appear as “show initiative”.
 For more information, check the [initiative](/docs/tools/intiative/) document.
 
 ### Delete shapes
 
-This option deletes your asset.
+This option deletes the selected shape(s).
+You may also press ```Del``` to do this.
 
 ### Show properties
 
@@ -73,10 +84,10 @@ This option opens the “Edit asset” menu, described below.
 
 ### Set marker
 
-This option sets the asset as a marker.
-When an object is added as a marker, it can be accessed from the dropdown menu.
-To access the Markers menu, click <font-awesome :icon="['far', 'compass']"/> and “Markers”.
-In the Markers menu, you can click the object to quickly snap your view to that object.
+This option sets the shape as a marker.
+When an shape is added as a marker, it can be accessed from the dropdown menu.
+To access the Markers menu, click the cog icon and “Markers”.
+In the Markers menu, you can click the label of the shape to quickly snap your view to that shape.
 
 ## Edit asset
 
@@ -87,62 +98,72 @@ This menu includes a plethora of options.
 
 ### Is a token
 
-Selecting this option classifies the asset as a token. 
-This will help you keep track of which assets are tokens and which are other assets.
+Selecting this option classifies the object as a token. 
+Tokens function fundamentally differently than other shapes.
+
+Tokens cannot pass through shapes with the 'blocks movement' option enabled. 
+Tokens are also effected by lighting.
+Check the [lighting and vision](/docs/dm/light-shadows/) document for more information on how lighting works in relation to tokens.
 
 ### Is invisible
 
-Selecting this option turns the asset invisible to your players.
-As the DM, you will still be able to see the asset.
+Selecting this option turns the shape invisible to your players.
+As the DM, you will still be able to see the shape.
 This can be useful for hiding future encounters or placing enemies in stealth. 
+
+Players with vision or edit access will still see the object with this enabled.
+There is currently no special indicator that shows it's invisible to other users. 
 
 ### Is locked
 
-Selecting this option locks the object in place.
+Selecting this option locks the shape in place.
 This can be useful for maps you don’t want to accidently move while playing.
+Press ```Cntrl + L``` to do this without opening the Edit asset menu.
 
 ### Show badge
 
-Selecting this option displays a badge at the bottom right of the object.
+Selecting this option displays a badge at the bottom right of the shape.
 
 ### Blocks vision/light
 
-Selecting this option blocks vision and light from passing through the object.
+Selecting this option blocks vision and light from passing through the shape.
 More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
 
 ### Blocks movement
 
-Selecting this option prevents other objects from moving through it.
+Selecting this option prevents other shapes from moving through it.
 This is useful for creating walls in your dungeon you don’t want your players to pass through.
 
 ### Border colour & Fill colour
 
-These options control the color of the borders around and the fill color of default tokens. 
+These option applies to basic tokens.
+Border colour controls the colour of the borders around the basic token
+Fill colour of controls the colour of the inside of the basic token.
 
 ### Access
 
-Here is listed the players who have access to the asset.
-Selecting a player name and “add access” will allow them to interact with the asset.
-Selecting any of the icons next to “default” gives all players access to the asset.
-The pen icon allows those with access to edit the asset.
-The four arrows icon allows those with access to move the asset unless locked.
-The lightbulb icon allows those with access to see the asset. 
+Here is listed the players who have access to the shape.
+Selecting a player name and “add access” will allow them to interact with the shape.
+Selecting any of the icons next to “default” gives all players access to the shape.
+The pen icon allows those with access to edit the shape.
+The four arrows icon allows those with access to move the shape unless locked.
+The lightbulb icon allows those with access to see the shape. 
 
 ### Trackers
 
-Trackers can track numerical values of assets, such as health to player tokens.
+Trackers can track numerical values of shapes, such as health to player tokens.
 To use, under “name” label the value you wish to track, such as health.
 Next, write the current value which the player has and the maximum value.
 By clicking the eye icon, you can toggle whether this information is public to all players or strictly visible to the DM.
 
-With these values established, when you click the asset, you will now see the values in a quick menu.
+With these values established, when you click the shape, you will now see the values in a quick menu.
 You can quickly edit these values by clicking the number and typing in the new value.
 
 This can be used for health, gold, death saves, or any other value that you need to track. 
 
 ### Auras
 
-Auras are visible light which emanates from an asset.
+Auras are visible light which emanates from a shape.
 These can be any color or strength you wish.
 
 More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
@@ -151,20 +172,21 @@ More information about lighting can be found in the [lighting and vision](/docs/
 
 ![](./label-manager.png)
 
-Labels allow the DM to categorize objects.
+Labels allow the DM to categorize shapes.
 To start, type a category at the bottom left.
 Then, type a name within that category.
 This will appear above.
 Under Cat. is the category, and under Name is the specific member of that category.
 
-To assign an asset its category, click on the label in the list.
+To assign an shape its category, click on the label in the list.
 To the right is an eye icon, which makes this label public.
 Beside that is the option to delete the label.
 
 Once these categories have been defined, you can click “filter” in the bottom right corner.
 This will present a menu of all categories.
-Enabling one shows you all assets with that category.
+Enabling one shows you all shapes with that category.
 
 ### Annotation
 
-At the bottom of the Edit asset menu is a space to write anything localized on that one asset.
+At the bottom of the Edit asset menu is a space to write anything localized on that one shape.
+These will also appear when you mouse over the shape.
