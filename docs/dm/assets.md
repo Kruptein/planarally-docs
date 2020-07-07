@@ -114,7 +114,6 @@ Selecting this option turns the shape invisible to all players, except those wit
 As the DM, you will still be able to see the shape.
 This can be useful for having objects that are invisible but player-controlled, or invisible, but still affecting movement. 
 
-Players with vision or edit access will still see the object with this enabled.
 There is currently no special indicator that shows it's invisible to other users. 
 
 ### Is locked
