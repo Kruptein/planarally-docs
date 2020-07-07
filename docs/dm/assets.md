@@ -150,9 +150,9 @@ Fill colour of controls the colour of the inside of the basic token.
 Here is listed the players who have access to the shape.
 Selecting a player name and “add access” will allow them to interact with the shape.
 Selecting any of the icons next to “default” gives all players access to the shape.
-The pen icon allows those with access to edit the shape.
-The four arrows icon allows those with access to move the shape unless locked.
-The lightbulb icon allows those with access to see the shape. 
+Enabling <font-awesome :icon="['fas', 'pencil']"/>  allows those with access to edit the shape.
+Enabling <font-awesome :icon="['fas', 'arrows']"/>  allows those with access to move the shape unless locked.
+Enabling <font-awesome :icon="['fas', 'lightbulb']"/>  allows those with access to see the shape. 
 
 ### Trackers
 
@@ -188,7 +188,7 @@ This will appear above.
 Under Cat. is the category, and under Name is the specific member of that category.
 
 To assign an shape its category, click on the label in the list.
-To the right is an eye icon, which makes this label public.
+To the right is <font-awesome :icon="['fas', 'eye']"/> , which makes this label public.
 Beside that is the option to delete the label.
 
 Once these categories have been defined, you can click “filter” in the bottom right corner.
