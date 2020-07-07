@@ -10,36 +10,34 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
 import {
+	faArrowsAlt,
 	faChevronRight,
 	faCog,
 	faEye,
+	faLightbulb,
+	faPencilAlt,
 	faStopwatch,
 	faSyncAlt,
 	faTrashAlt,
 	faUsers,
 	faVideo,
-	faPencilAlt,
-	faArrowsAlt,
-	faLightbulb,
-	faEye,
 	} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
 config.autoAddCss = false;
 library.add(
+	faArrowsAlt,
 	faChevronRight,
 	faCog,
 	faEye,
+	faLightbulb,
+	faPencilAlt,
 	faStopwatch,
 	faSyncAlt,
 	faTrashAlt,
 	faUsers,
 	faVideo,
 	faWindowClose,
-	faPencilAlt,
-	faArrowsAlt,
-	faLightbulb,
-	faEye,
 	)
 
 import Typography from 'typography'
