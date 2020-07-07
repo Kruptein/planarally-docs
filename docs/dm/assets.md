@@ -86,7 +86,7 @@ This option opens the “Edit asset” menu, described below.
 
 This option sets the shape as a marker.
 When an shape is added as a marker, it can be accessed from the dropdown menu.
-To access the Markers menu, click the cog icon and “Markers”.
+To access the Markers menu, click the <font-awesome :icon="['fas', 'cog']"/> icon and “Markers”.
 In the Markers menu, you can click the label of the shape to quickly snap your view to that shape.
 
 ## Edit asset
