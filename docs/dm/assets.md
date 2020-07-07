@@ -151,7 +151,7 @@ The lightbulb icon allows those with access to see the shape.
 
 ### Trackers
 
-Trackers can track numerical values of shapes, such as health to player tokens.
+Trackers can track various values of shapes, such as health to player tokens, or attitude to NPC.
 To use, under “name” label the value you wish to track, such as health.
 Next, write the current value which the player has and the maximum value.
 By clicking the eye icon, you can toggle whether this information is public to all players or strictly visible to the DM.
