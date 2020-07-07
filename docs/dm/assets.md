@@ -191,6 +191,8 @@ Once these categories have been defined, you can click “filter” in the botto
 This will present a menu of all categories.
 Enabling one shows you all shapes with that category.
 
+For more information on how to use the filter tab, check the [Filter](/docs/tools/filter/) document.
+
 ### Annotation
 
 At the bottom of the Edit asset menu is a space to write anything localized on that one shape.
