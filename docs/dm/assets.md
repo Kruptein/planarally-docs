@@ -164,6 +164,10 @@ By clicking the eye icon, you can toggle whether this information is public to a
 With these values established, when you click the shape, you will now see the values in a quick menu.
 You can quickly edit these values by clicking the number and typing in the new value.
 
+You may also add or subtract values.
+To do this, type ```+``` or ```-``` followed by the value.
+For example, if the base value is 13, and you type ```-5```, you will subtract 5, leaving you with 8. 
+
 This can be used for health, gold, death saves, or any other value that you need to track. 
 
 ### Auras
