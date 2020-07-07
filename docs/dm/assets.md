@@ -150,7 +150,7 @@ Fill colour of controls the colour of the inside of the basic token.
 Here is listed the players who have access to the shape.
 Selecting a player name and “add access” will allow them to interact with the shape.
 Selecting any of the icons next to “default” gives all players access to the shape.
-Enabling <font-awesome :icon="['fas', 'pen']"/>  allows those with access to edit the shape.
+Enabling <font-awesome :icon="['fas', 'pencilalt']"/>  allows those with access to edit the shape.
 Enabling <font-awesome :icon="['fas', 'arrowsalt']"/>  allows those with access to move the shape unless locked.
 Enabling <font-awesome :icon="['fas', 'lightbulb']"/>  allows those with access to see the shape. 
 
