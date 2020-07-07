@@ -18,6 +18,10 @@ import {
 	faTrashAlt,
 	faUsers,
 	faVideo,
+	faPencil,
+	faArrows,
+	faLightbulb,
+	faEye
 	} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
@@ -32,6 +36,10 @@ library.add(
 	faUsers,
 	faVideo,
 	faWindowClose,
+	faPencil,
+	faArrows,
+	faLightbulb,
+	faEye
 	)
 
 import Typography from 'typography'
