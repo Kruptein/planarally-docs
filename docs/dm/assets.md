@@ -105,6 +105,9 @@ Tokens cannot pass through shapes with the 'blocks movement' option enabled.
 Tokens are also effected by lighting.
 Check the [lighting and vision](/docs/dm/light-shadows/) document for more information on how lighting works in relation to tokens.
 
+When a user-controlled token becomes incapacitated, one can disable this option. 
+This will ensure the controlling player no longer accesses the shape's vision.
+
 ### Is invisible
 
 Selecting this option turns the shape invisible to all players, except those with vision or edit access to the shape.
