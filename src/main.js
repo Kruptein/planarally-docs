@@ -19,7 +19,7 @@ import {
 	faUsers,
 	faVideo,
 	faPencil,
-	faArrows,
+	faArrowsAlt,
 	faLightbulb,
 	faEye,
 	} from '@fortawesome/free-solid-svg-icons'
@@ -37,7 +37,7 @@ library.add(
 	faVideo,
 	faWindowClose,
 	faPencil,
-	faArrows,
+	faArrowsAlt,
 	faLightbulb,
 	faEye,
 	)
