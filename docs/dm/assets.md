@@ -120,7 +120,7 @@ There is currently no special indicator that shows it's invisible to other users
 
 Selecting this option locks the shape in place.
 This can be useful for maps you don’t want to accidently move while playing.
-Press ```Cntrl + L``` to do this without opening the Edit asset menu.
+Press ```Ctrl + L``` to do this without opening the Edit asset menu.
 
 ### Show badge
 
