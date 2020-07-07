@@ -31,4 +31,4 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 | middle mouse click  |                 | Pan the screen                                                               |
 | middle mouse scroll |                 | Zoom in relation to the current mouse pointer.                               |
 
--   This can be inverted in the client settings
+\* This can be inverted in the [client settings](/docs/player/settings/)

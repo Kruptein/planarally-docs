@@ -11,6 +11,7 @@ import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faCompass, faWindowClose } from '@fortawesome/free-regular-svg-icons'
 import {
 	faChevronRight,
+	faCog,
 	faEye,
 	faStopwatch,
 	faSyncAlt,
@@ -24,6 +25,7 @@ config.autoAddCss = false;
 library.add(
 	faChevronRight,
 	faCompass,
+	faCog,
 	faEye,
 	faStopwatch,
 	faSyncAlt,
