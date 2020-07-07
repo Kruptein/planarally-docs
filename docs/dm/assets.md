@@ -109,7 +109,7 @@ Check the [lighting and vision](/docs/dm/light-shadows/) document for more infor
 
 Selecting this option turns the shape invisible to all players, except those with vision or edit access to the shape.
 As the DM, you will still be able to see the shape.
-This can be useful for hiding future encounters or placing enemies in stealth. 
+This can be useful for having objects that are invisible but player-controlled, or invisible, but still affecting movement. 
 
 Players with vision or edit access will still see the object with this enabled.
 There is currently no special indicator that shows it's invisible to other users. 
