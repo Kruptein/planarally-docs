@@ -21,7 +21,7 @@ import {
 	faPencil,
 	faArrows,
 	faLightbulb,
-	faEye
+	faEye,
 	} from '@fortawesome/free-solid-svg-icons'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 
@@ -39,7 +39,7 @@ library.add(
 	faPencil,
 	faArrows,
 	faLightbulb,
-	faEye
+	faEye,
 	)
 
 import Typography from 'typography'
