@@ -1,6 +1,6 @@
 # Notes 
 
-To access notes, click <font-awesome :icon="['far', 'compass']"/> and "Notes" from the dropdown menu. 
+To access notes, click <font-awesome :icon="['fas', 'cog']"/> and "Notes" from the dropdown menu. 
 This opens a menu of notes. 
 To create a new note, click the plus icon.
 This will open a box where you can write your note.
