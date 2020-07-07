@@ -107,7 +107,7 @@ Check the [lighting and vision](/docs/dm/light-shadows/) document for more infor
 
 ### Is invisible
 
-Selecting this option turns the shape invisible to your players.
+Selecting this option turns the shape invisible to all players, except those with vision or edit access to the shape.
 As the DM, you will still be able to see the shape.
 This can be useful for hiding future encounters or placing enemies in stealth. 
 
