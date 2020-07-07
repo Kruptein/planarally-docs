@@ -131,13 +131,13 @@ Selecting this option displays a badge at the bottom right of the shape.
 Selecting this option blocks vision and light from passing through the shape.
 More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
 
-For the DM, you may still pass through shapes that have this option enabled. 
-To do this, hold down ```shift``` and move the shape.
-
 ### Blocks movement
 
 Selecting this option prevents other shapes from moving through it.
 This is useful for creating walls in your dungeon you don’t want your players to pass through.
+
+For the DM, you may still pass through shapes that have this option enabled. 
+To do this, hold down ```shift``` and move the shape.
 
 ### Border colour & Fill colour
 
