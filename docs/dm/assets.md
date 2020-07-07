@@ -2,7 +2,7 @@
 
 The asset menu is used for inserting assets into your game. 
 These can be maps, tokens, objects, or anything else you wish to insert. 
-To access this menu, click the cog icon and click “Assets” from the dropdown menu.
+To access this menu, click the <font-awesome :icon="['fas', 'cog']"/> icon and click “Assets” from the dropdown menu.
 
 ## Asset Manager
 
