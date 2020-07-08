@@ -125,6 +125,12 @@ Press ```Ctrl + L``` to do this without opening the Edit asset menu.
 ### Show badge
 
 Selecting this option displays a badge at the bottom right of the shape.
+By default, the badge number is 1. 
+As you copy and paste this shape, the badge number will increase incrementally.
+
+This option is key for situations where you have large groups of repeated tokens, such as enemy encounters repeating the same enemy.
+If all creatures have the same icon, it is difficult to track.
+Enabling this option ensures the players and the DM do not lose track of who's who. 
 
 ### Blocks vision/light
 
