@@ -158,7 +158,7 @@ Selecting a player name and “add access” will allow them to interact with th
 Selecting any of the icons next to “default” gives all players access to the shape.
 Enabling <font-awesome :icon="['fas', 'pencilalt']"/>  allows those with access to edit the shape.
 Enabling <font-awesome :icon="['fas', 'arrowsalt']"/>  allows those with access to move the shape unless locked.
-Enabling <font-awesome :icon="['fas', 'lightbulb']"/>  allows those with access to see the shape. 
+Enabling <font-awesome :icon="['fas', 'lightbulb']"/>  allows those with access to see the private auras/lights the shape has. 
 
 ### Trackers
 
