@@ -41,4 +41,4 @@ An easy explanation would be that floors are stacked vertically, while locations
 
 Of course, however, you can also build places that are atop/below each other in different locations.
 This is recommended for places where the players will at no point be able to see what happens at a floor below them:
-Not drawing floors that will not seen by anybody, anyway, will increase performance.  
+Not drawing floors that will not seen by anybody, anyway, will increase performance.
