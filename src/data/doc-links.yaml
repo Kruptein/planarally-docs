@@ -5,8 +5,10 @@
     - title: Quick Reference
       link: /docs/reference/
 
-# - title: Player
-#   items:
+- title: Player
+  items:
+    - title: Game Board
+      link: /docs/player/gameboard/
 #     - title: In-game settings
 #       link: /docs/player/settings
 #     - title: Assets
@@ -20,6 +22,8 @@
       link: /docs/dm/settings/
     - title: Layers
       link: /docs/dm/layers/
+    - title: Floors
+      link: /docs/dm/floors/
     - title: Locations
       link: /docs/dm/locations/
     - title: Lighting & Vision
