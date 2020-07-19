@@ -8,9 +8,10 @@ import Card from '~/components/Card'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
-import { faWindowClose } from '@fortawesome/free-regular-svg-icons'
+import { faCompass, faWindowClose } from '@fortawesome/free-regular-svg-icons'
 import {
 	faChevronRight,
+	faCog,
 	faEye,
 	faStopwatch,
 	faSyncAlt,
@@ -23,6 +24,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false;
 library.add(
 	faChevronRight,
+	faCompass,
+	faCog,
 	faEye,
 	faStopwatch,
 	faSyncAlt,
