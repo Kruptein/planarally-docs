@@ -45,14 +45,16 @@ Players can only see the grid when the GM has turned grid visibility on, but can
 The *tokens* layer is above the grid layer and serves as the surface of the gaming board for the players.
 This is where your tokens are placed and where you can explore the map and/or fight monsters.
 Players can place shapes and move or otherwise modify shapes that they have sufficient access for.
-This is mostly done with the [select tool](/docs/tools/select/).
+
+This is mostly done with the [select tool](/docs/tools/select/), but you can also [pan around](/docs/tools/pan/) or [zoom](/docs/tools/zoom/) to get a better view on the surroundings, occasionally [draw](/docs/tools/draw/) something or [ping](/docs/tools/ping) to highlight something on the gameboard for other players.
+Also, during combat encounters, the [initiative tool](/docs/tools/initiative) will be displayed free-floating on the gameboard.
 
 ### DM-only layers
 There are two DM-only layers that players can neither directly see nor directly interact with.
-On the *DM* layer, the DM can position NPC, monsters, assets or everything else that can be positioned on a layer, for later use.
+On the [DM](/docs/dm/layers/#dm) layer, the DM can position NPC, monsters, assets or everything else that can be positioned on a layer, for later use.
 This way, a band of bandits hidden in the woods or a group of invisible monsters does not need to be imported, placed and positioned *ad-hoc* when encountering them, but can be simply transferred to the *tokens* layer with some simple clicks.
 
-On the *FOW* layer (FOW translating to Fog of War), the DM will draw walls and other barriers that hinder movement and/or light to pass.
+On the [FOW](/docs/dm/layers/#fow) layer (FOW translating to Fog of War), the DM will draw walls and other barriers that hinder movement and/or light to pass.
 
 ## Floors
 
