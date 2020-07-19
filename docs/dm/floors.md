@@ -6,7 +6,7 @@ Floors are drawn on top of each other.
 Thus, on a newly created floor, the floor below it would be fully visible.
 This will hold true for every portion of the game board that is not covered by anything else, be it an asset on the *map* layer, or a shape on the *tokens* layer.
 
-![The floors button with opened floors menue](floors.png "The floors button with opened floors menue")
+![The floors button with opened floors menue](./floors.png "The floors button with opened floors menue")
 
 Floors can be accessed by the floors button at the bottom left of the screen.
 Floors are numbered (presented on the left of the opened menue) and they have names (presented on the right).
