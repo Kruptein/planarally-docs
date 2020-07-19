@@ -49,7 +49,7 @@ npm run build
 
 To run the server you now simply run `python3 planarserver.py` and your server should start up.
 
-In case you want to install and run the server in debug/development mode, you need to run:  
+In case you want to install and run the server in debug/development mode, you need to run, in the `client` folder:  
 ```bash
 npm i
 npm run serve
