@@ -71,8 +71,8 @@ A common example for this would be a window, balcony, or even a hole in the boar
 So if there is nothing hindering your sight, you can still see some things happening on the floors below (e.g. when looking out of a window).
 
 Currently, you can see all floors that exist on a location and can freely change to any floor there is.
-However, only the DM can send tokens to other floors.
-Note, that even when all your tokens (or your only token) were transferred to another floor, you would still need to change to this floor on your own.
+However, only the DM can send Shapes to other floors.
+Upon floor change of a Shape, all players with edit access to the Shape will move to that floor, as well.
 
 ## Locations
 
