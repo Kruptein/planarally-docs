@@ -10,9 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { config, library } from '@fortawesome/fontawesome-svg-core'
 import { faCompass, faWindowClose } from '@fortawesome/free-regular-svg-icons'
 import {
+	faArrowsAlt,
 	faChevronRight,
 	faCog,
 	faEye,
+	faLightbulb,
+	faPencilAlt,
 	faStopwatch,
 	faSyncAlt,
 	faTrashAlt,
@@ -23,10 +26,13 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 config.autoAddCss = false;
 library.add(
+	faArrowsAlt,
 	faChevronRight,
 	faCompass,
 	faCog,
 	faEye,
+	faLightbulb,
+	faPencilAlt,
 	faStopwatch,
 	faSyncAlt,
 	faTrashAlt,
