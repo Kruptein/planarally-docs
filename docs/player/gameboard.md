@@ -72,7 +72,7 @@ So if there is nothing hindering your sight, you can still see some things happe
 
 Currently, you can see all floors that exist on a location and can freely change to any floor there is.
 However, only the DM can send tokens to other floors.
-Note, that even when all your tokens (or your only token) was transferred to another floor, you would still need to change to this floor on your own.
+Note, that even when all your tokens (or your only token) were transferred to another floor, you would still need to change to this floor on your own.
 
 ## Locations
 
