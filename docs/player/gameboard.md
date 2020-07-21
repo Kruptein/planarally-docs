@@ -64,7 +64,7 @@ In this cases, every level of a dungeon or building could be represented by a fl
 
 You can access floors in the menu at the bottom left of the game board.
 The selected floor will render on your game board, *above* all layers that are set below it.
-Note, though, that you might not be able to see everything of a layer, depending on the [lighting](/docs/dm/light-shadows) and whether you sufficient access to the tokens on this floor.
+Note, though, that you might not be able to see everything of a layer, depending on the [lighting](/docs/dm/light-shadows) and whether you have sufficient access to the tokens on this floor.
 
 As the floors are rendered on top of each others, you might be able to see the floors below the floor you are present on.
 A common example for this would be a window, balcony, or even a hole in the boarding.
