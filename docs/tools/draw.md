@@ -1,5 +1,7 @@
 # Draw Tool
 
+The draw tool can be accessed in the toolbar on the bottom right of the screen by all players, but only in [`Build` mode](/docs/tools-overview/#tools-and-modes).
+
 The draw tool allows you to draw shapes on the board.  For each shape you have the option to choose the fill colour and border colour (if applicable).
 
 The DM also has some special extra potions in regards to the drawing mode, for more info see the documentaion on [Magical lighting](/docs/dm/light-shadows/).

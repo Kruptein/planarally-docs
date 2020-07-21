@@ -1,10 +1,13 @@
 # Select Tool
 
-One of the most used tools is the select tool.  It's purpose is, as the name suggest, to select one or multiple shapes on the board, but also to move or resize shapes.
+One of the most used tools is the select tool.
+It's purpose is, as the name suggest, to select one or multiple shapes on the board, but also to move or resize shapes.
+It can be accessed in the toolbar on the bottom right of the screen by all players, but behaves differently, depending on the active [mode](/docs/tools-overview/#tools-and-modes).
 
 You can click on a singular shape, or drag a box around a group so that you can move them all together.
 
 When a shape is selected you can move any of the highlighted corner points in any direction you prefer.
+This resizing functionality is only present in `Build` mode.
 
 To deselect the shapes you can simply click in an empty spot on the board or use the keyboard shortcut `d`.
 
@@ -18,7 +21,7 @@ You can change the order by right clicking on a shape and moving it to the back 
 
 Currently the default PA mode is to try to snap any resize or move operation to the grid.  Sometimes you need to move shapes in such a way that they are not grid aligned, you can accomplish this by holding the `alt` key while doing the operation.
 
-_In the future the default behaviour should become configurable_.
+You can turn off snapping by default in your [client settings](/docs/players/settings/).
 
 ## Moving through terrain - DM only
 
