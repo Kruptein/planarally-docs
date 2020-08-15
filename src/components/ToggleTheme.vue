@@ -69,32 +69,40 @@
 </template>
 
 <script>
-let themes = ["light", "sepia"]; // take dark out of the theme selection until logo can be rendered properly on dark>?
+let themes = ["light", "sepia", "dark"];
 export default {
-  data() {
-    return {
-      theme: "light"
-    };
+  props: {
+    theme: {
+      type: String,
+      required: true,
+    },
   },
+  // data() {
+  //   return {
+  //     theme: "light",
+  //   };
+  // },
   computed: {
     nextTheme() {
       const currentIndex = themes.indexOf(this.theme);
       const nextIndex = (currentIndex + 1) % themes.length;
       return themes[nextIndex];
-    }
+    },
   },
   methods: {
     toggleTheme() {
       const currentIndex = themes.indexOf(this.theme);
       const nextIndex = (currentIndex + 1) % themes.length;
       window.__setPreferredTheme(themes[nextIndex]);
-      this.theme = themes[nextIndex];
-    }
+      // this.theme = themes[nextIndex];
+      this.$emit("themeChanged", themes[nextIndex]);
+    },
   },
   async mounted() {
     // set default
-    if (typeof window.__theme !== "undefined") this.theme = window.__theme;
-  }
+    if (typeof window.__theme !== "undefined")
+      this.$emit("themeChanged", window.__theme); // this.theme = window.__theme;
+  },
 };
 </script>
 
