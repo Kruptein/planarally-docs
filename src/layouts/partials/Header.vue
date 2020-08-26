@@ -2,7 +2,7 @@
   <header>
     <div class="header-bar"></div>
     <div class="header-inner container flex gap-30">
-      <Logo />
+      <Logo :theme="theme" />
       <g-link to="/" title="Back to home" style="text-decoration:none;">
         <span>PlanarAlly</span>
       </g-link>
@@ -12,7 +12,7 @@
       <!-- <SearchForm /> -->
 
       <nav class="header-actions flex">
-        <ToggleTheme />
+        <ToggleTheme :theme="theme" @themeChanged="updateTheme" />
 
         <a
           aria-label="Twitter"
@@ -54,8 +54,20 @@ export default {
     ToggleTheme,
     // SearchForm,
     Nav,
-    LazyHydrate
-  }
+    LazyHydrate,
+  },
+
+  data() {
+    return {
+      theme: "",
+    };
+  },
+
+  methods: {
+    updateTheme(theme) {
+      this.theme = theme;
+    },
+  },
 };
 </script>
 

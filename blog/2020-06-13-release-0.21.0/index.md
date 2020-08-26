@@ -127,7 +127,7 @@ There were some places where players had access to options that should only be a
 
 Starting with this release players can no longer remove or add floors and can no longer move their shape to other layers/floors/locations themselves
 
-### Varia
+## Varia
 
 -   Creating a new floor will no longer automatically move everyone to that floor
 -   The version shown in the topleft area in-game will now be limited to the latest release version

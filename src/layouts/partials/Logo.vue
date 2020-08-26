@@ -1,8 +1,8 @@
 <template>
   <div class="logo">
     <g-link class="logo__link" to="/" title="Back to home">
-      <!-- <LogoSmall class="logo__svg hide-for-small" alt="Gridsome.org" /> -->
-      <LogoSmall class="logo__svg logo__svg--small" alt="Gridsome.org" />
+      <LogoSmall v-if="theme !== 'dark'" class="logo__svg logo__svg" alt="Gridsome.org" />
+      <LogoSmall v-else class="logo__svg logo__svg--dark" alt="Gridsome.org" />
     </g-link>
   </div>
 </template>
@@ -11,20 +11,28 @@
 import LogoSmall from "~/assets/images/pa-logo-small.svg";
 export default {
   components: {
-    LogoSmall
-  }
+    LogoSmall,
+  },
+  props: {
+    theme: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .logo {
   &__svg {
-    max-width: 60px;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    &--small {
-      max-width: 40px;
+    padding: 5px;
+    max-width: 50px;
+    &--dark {
+      background: #f1e7d0e1;
+      border-radius: 25%;
     }
   }
 }
