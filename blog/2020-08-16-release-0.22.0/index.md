@@ -1,6 +1,6 @@
 ---
 title: Release 0.22.0 - What's new!
-date: 2020-08-16 21:02:34
+date: 2020-08-26 20:00:00
 excerpt: "What's new in 0.22.0?"
 author: [darraghvt]
 ---
@@ -43,9 +43,13 @@ The DM can now toggle accesibility of floors. Specifically this means that they 
 
 Floors can now be renamed, woo.
 
-### Order
+### Display Order
 
 The order in which floors are displayed in the popup menu is now reversed. It now follows a more logical order where the topmost entry is the highest floor.
+
+### Reordering
+
+It is now also possible to reorder floors, by draggin them around. So you no longer have to make sure everything is preplanned or move a bunch of stuff around manually!
 
 ### Fog bug
 
@@ -106,6 +110,7 @@ Last release I added an "Up next" section, to outline some of the things on the 
 -   Rework startup sequence
 -   Move to fontawesome-vue
 -   Floor public visibility
+-   Floor tool improvements
 -   Fast load current floor
 
 ##### partially done
@@ -116,7 +121,6 @@ Last release I added an "Up next" section, to outline some of the things on the 
 
 -   In-game async asset list
 -   Polygon improvements
--   Floor tool improvements
 -   Extend aura options
 -   Improve cursor in draw tool
 -   Hex grid
@@ -124,4 +128,4 @@ Last release I added an "Up next" section, to outline some of the things on the 
 -   Multiple spawn locations
 -   More grouping options
 
-Although this release took a bit longer, I'm still happy with 5 out of 15 done. :)
+Although this release took a bit longer, I'm still happy with 6 out of 15 done. :)
