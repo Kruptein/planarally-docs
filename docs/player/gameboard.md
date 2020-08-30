@@ -23,8 +23,8 @@ They are documented in-depth with also DM-only functionaltiy [within an own page
 PlanarAlly orders its game board in multiple layers, drawn on top of each other.
 
 As a player, you will not be able to access these layers, individually.
-Instead, you will always interact with the *map* layer.
-Thus, on this page, the layers are all but presented sketchy, leaving the details for DMs [for a separate page dedicated for DMs](/docs/dm/layers/).
+Instead, you will always interact with the *tokens* layer.
+You can find more details on layers in [a separate page dedicated for DMs](/docs/dm/layers/) as the DM is responsible for managing all the layers.
 
 There are, at the moment, three layers players are able to see: the *map*, *grid* and *tokens* layer.
 
@@ -52,7 +52,7 @@ Also, during combat encounters, the [initiative tool](/docs/tools/initiative) wi
 ### DM-only layers
 There are two DM-only layers that players can neither directly see nor directly interact with.
 On the [DM](/docs/dm/layers/#dm) layer, the DM can position NPC, monsters, assets or everything else that can be positioned on a layer, for later use.
-This way, a band of bandits hidden in the woods or a group of invisible monsters does not need to be imported, placed and positioned *ad-hoc* when encountering them, but can be simply transferred to the *tokens* layer with some simple clicks.
+This way, a band of bandits hidden in the woods or a group of yet to be encountered monsters does not need to be imported, placed and positioned *ad-hoc* when encountering them, but can be simply transferred to the *tokens* layer with some simple clicks.
 
 On the [FOW](/docs/dm/layers/#fow) layer (FOW translating to Fog of War), the DM will draw walls and other barriers that hinder movement and/or light to pass.
 
