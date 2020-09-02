@@ -18,6 +18,7 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 | ------------------- | --------------- | ---------------------------------------------------------------------------- |
 | Arrow-keys          | empty selection | Move the board 1 grid cell in the pressed direction                          |
 |                     | selection       | Move the selected shapes 1 grid cell in the pressed direction                |
+| Tab                 |                 | Toggle Modes (Build/Play)                                                    |
 | Space               |                 | Center screen on next token (cycles through owned tokens)                    |
 | Shift               | selection       | Move shapes through movement blocking terrain (DM only)                      |
 | Ctrl                | selection       | Extend active selection with ctrl-selected shapes                            |
