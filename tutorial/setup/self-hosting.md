@@ -79,6 +79,57 @@ then just like it was mentioned in the section above you can just type `http://l
 
 See also this [write up on setting up a server with SSL encryption written by a community member](https://github.com/edmael/selfhosted-planarally) using an nginx reverse proxy as well as docker-compose.
 
+### Docker Container with Docker-Compose and Traefik
+
+Here is an example configuration using [docker-compose](https://docs.docker.com/compose/) and 
+[traefik](https://containo.us/traefik/), a docker reverse proxy manager. This is assuming that your
+traefik external network is named ```web``` as well.
+
+#### docker-compose.yml
+
+It is important to note the changes needed to ```domain.com``` to match your domain and to the paths to both 
+the ```assets``` and ```data``` folders. These volumes can be whatever you please. 
+
+```yaml
+---
+version: "3"
+
+networks:
+  traefik_network:
+    external:
+      name: web
+
+services:
+  # Media Server
+  planarally:
+    image: kruptein/planarally:latest
+    restart: unless-stopped
+    networks:
+      - traefik_network
+    volumes:
+      - "/path/to/data:/planarally/data/"
+      - "/path/to/assets:/planarally/static/assets/"
+    labels:
+      - "traefik.http.services.pa.loadbalancer.server.scheme=http"
+      - "traefik.http.services.pa.loadbalancer.server.port=8000"
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.pa-http.service=pa"
+      - "traefik.http.routers.pa-http.rule=Host(`pa.domain.com`)"
+      - "traefik.http.routers.pa-http.entrypoints=http"
+      - "traefik.http.routers.pa.service=pa"
+      - "traefik.http.routers.pa.rule=Host(`pa.domain.com`)"
+      - "traefik.http.routers.pa.entrypoints=https"
+      - "traefik.http.routers.pa.tls=true"
+      - "traefik.http.routers.pa.tls.certresolver=dns"
+      - "traefik.http.routers.pa.tls.domains[0].main=domain.com"
+      - "traefik.http.routers.pa.tls.domains[0].sans=*.domain.com"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      # these are required, this forces the websocket to forward over https
+      - "traefik.http.routers.pa.middlewares=ssl-header"
+      - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https"
+```
+
 ## Backups
 
 When backing up your data the only items you really need to worry about are _/data/planar.sqlite_ and the _/static/assets/_ directory both of which will be included in the _/planarally_ directory. planar.sqlite is the main database file.
