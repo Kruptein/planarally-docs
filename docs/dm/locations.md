@@ -55,11 +55,11 @@ You can only delete Locations where nobody, neither players nor DM, is present.
 
 ### Grid
 
-For the individual settings, see ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).
+See ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).
 
 ### Vision
 
-For the individual settings, see ['Vision' in the Campaign Settings](/docs/dm/settings/#vision).
+See ['Vision' in the Campaign Settings](/docs/dm/settings/#vision).
 
 ## Change Locations
 
@@ -80,11 +80,11 @@ Players can be dragged as a group, or individually, as shown here.
 Players that are sent to another location do _not_ take any of the shapes they control with them.
 Instead, those shapes have to be sent to that location by the DM.
 
-Shapes (including player-controleld Tokens) are moved individually or as a group via their context-menu.
+Shapes (including player-controlled Tokens) are moved individually or as a group via their context-menu.
 When sent to another location, shapes will appear centered on the spawn location, which is a special shape that appears on the _dm_-[layer](/docs/dm/layers/#dm).
 
 ![Spawn Location Designator](./assets/spawn.png "Spawn Location Designator")
 
 The spawn location designator can be moved freely on the _dm_-layer.
 Currently, there is only one spawn location designator per location.
-It is planned to eventually support more, though.
+This will change in 0.23.

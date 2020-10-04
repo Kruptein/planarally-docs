@@ -43,12 +43,12 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 
 ### Selection / Shape interactions
 
-| Key/Modifier | Context   | Action                                            |
-| ------------ | --------- | ------------------------------------------------- |
-| Ctrl         | selection | Extend active selection with ctrl-selected shapes |
-|              | resize    | Retain aspect ratio                               |
-| Del          | selection | Delete all shapes in the active selection         |
-| d            | selection | Deselect all currently selected shapes            |
-| Ctrl + l     | selection | Lock selected shape(s)                            |
-| Ctrl + c     | selection | Copy selection to clipboard                       |
-| Ctrl + v     |           | Paste clipboard to board                          |
+| Key/Modifier   | Context   | Action                                            |
+| -------------- | --------- | ------------------------------------------------- |
+| Ctrl           | selection | Extend active selection with ctrl-selected shapes |
+|                | resize    | Retain aspect ratio                               |
+| Del, Backspace | selection | Delete all shapes in the active selection         |
+| d              | selection | Deselect all currently selected shapes            |
+| Ctrl + l       | selection | Lock selected shape(s)                            |
+| Ctrl + c       | selection | Copy selection to clipboard                       |
+| Ctrl + v       |           | Paste clipboard to board                          |
