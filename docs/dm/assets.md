@@ -1,19 +1,19 @@
 # Assets
 
-The asset menu is used for inserting assets into your game. 
-These can be maps, tokens, objects, or anything else you wish to insert. 
+The asset menu is used for inserting assets into your game.
+These can be maps, tokens, objects, or anything else you wish to insert.
 To access this menu, click the <font-awesome :icon="['fas', 'cog']"/> icon and click “Assets” from the dropdown menu.
 
 ## Asset Manager
 
-![](./asset-manager.png)
+![](./assets/asset-manager.png)
 
-If you’re just starting out, you will have no assets. 
-To add them, you will need to enter the Asset Manager by clicking ![](./assets-link.png).
+If you’re just starting out, you will have no assets.
+To add them, you will need to enter the Asset Manager by clicking ![](./assets/assets-link.png).
 
 ### Creating Folders
 
-![](./asset-manager-create-folder.png)
+![](./assets/asset-manager-create-folder.png)
 
 To create a folder, click the create folder icon.
 A dialogue box should appear where you can write the new folder name.
@@ -21,20 +21,20 @@ With the folder created, you can place your assets into the folder for easier na
 
 ### Uploading Files
 
-![](./asset-manager-upload-files.png)
+![](./assets/asset-manager-upload-files.png)
 
 To upload files, click the upload files icon.
 This will open your file system.
 Choose the asset you wish to upload to your campaign.
-Once uploaded, your files will be accessible in-game. 
+Once uploaded, your files will be accessible in-game.
 
 ## Placing Assets
 
-![](./asset-example.gif)
+![](./assets/asset-example.gif)
 
-To use your assets, first open the asset tab. 
+To use your assets, first open the asset tab.
 Then, open the folder where you have stored your files.
-Last, drag the asset onto the game board. 
+Last, drag the asset onto the game board.
 Your asset will now be able to be manipulated.
 
 ## Manipulating Objects
@@ -45,14 +45,14 @@ Then you can click and drag the shape to move.
 When the shape is selected, you may also use your arrow keys to move it.
 As the DM, holding down shift lets you move shapes through movement-blocking terrain.
 
-To select more than one shape, hold down ```Ctrl``` and click each shape you wish to collect.
+To select more than one shape, hold down `Ctrl` and click each shape you wish to collect.
 
 By default, most shapes snap to the grid.
-To temporarily disable this, hold down ```Alt```. 
+To temporarily disable this, hold down `Alt`.
 
-To deslect shapes, press the ```d``` key. 
+To deslect shapes, press the `d` key.
 
-![](./asset-list.png)
+![](./assets/asset-list.png)
 
 Right clicking on a shape will give you a list of options.
 These allow you to do specific things with your shapes.
@@ -76,7 +76,7 @@ For more information, check the [initiative](/docs/tools/intiative/) document.
 ### Delete shapes
 
 This option deletes the selected shape(s).
-You may also press ```Del``` to do this.
+You may also press `Del` to do this.
 
 ### Show properties
 
@@ -91,46 +91,46 @@ In the Markers menu, you can click the label of the shape to quickly snap your v
 
 ## Edit asset
 
-![](./edit-asset.png)
+![](./assets/edit-asset.png)
 
 By right clicking and selecting the “Show properties” option, you open the “Edit asset” menu.
 This menu includes a plethora of options.
 
 ### Is a token
 
-Selecting this option classifies the object as a token. 
+Selecting this option classifies the object as a token.
 Tokens function fundamentally differently than other shapes.
 
-Tokens cannot pass through shapes with the 'blocks movement' option enabled. 
+Tokens cannot pass through shapes with the 'blocks movement' option enabled.
 Tokens are also effected by lighting.
 Check the [lighting and vision](/docs/dm/light-shadows/) document for more information on how lighting works in relation to tokens.
 
-When a user-controlled token becomes incapacitated, one can disable this option. 
+When a user-controlled token becomes incapacitated, one can disable this option.
 This will ensure the controlling player no longer accesses the shape's vision.
 
 ### Is invisible
 
 Selecting this option turns the shape invisible to all players, except those with vision or edit access to the shape.
 As the DM, you will still be able to see the shape.
-This can be useful for having objects that are invisible but player-controlled, or invisible, but still affecting movement. 
+This can be useful for having objects that are invisible but player-controlled, or invisible, but still affecting movement.
 
-There is currently no special indicator that shows it's invisible to other users. 
+There is currently no special indicator that shows it's invisible to other users.
 
 ### Is locked
 
 Selecting this option locks the shape in place.
 This can be useful for maps you don’t want to accidently move while playing.
-Press ```Ctrl + L``` to do this without opening the Edit asset menu.
+Press `Ctrl + L` to do this without opening the Edit asset menu.
 
 ### Show badge
 
 Selecting this option displays a badge at the bottom right of the shape.
-By default, the badge number is 1. 
+By default, the badge number is 1.
 As you copy and paste this shape, the badge number will increase incrementally.
 
 This option is key for situations where you have large groups of repeated tokens, such as enemy encounters repeating the same enemy.
 If all creatures have the same icon, it is difficult to track.
-Enabling this option ensures the players and the DM do not lose track of who's who. 
+Enabling this option ensures the players and the DM do not lose track of who's who.
 
 ### Blocks vision/light
 
@@ -142,8 +142,8 @@ More information about lighting can be found in the [lighting and vision](/docs/
 Selecting this option prevents other shapes from moving through it.
 This is useful for creating walls in your dungeon you don’t want your players to pass through.
 
-For the DM, you may still pass through shapes that have this option enabled. 
-To do this, hold down ```shift``` and move the shape.
+For the DM, you may still pass through shapes that have this option enabled.
+To do this, hold down `shift` and move the shape.
 
 ### Border colour & Fill colour
 
@@ -156,9 +156,9 @@ Fill colour of controls the colour of the inside of the basic token.
 Here is listed the players who have access to the shape.
 Selecting a player name and “add access” will allow them to interact with the shape.
 Selecting any of the icons next to “default” gives all players access to the shape.
-Enabling <font-awesome :icon="['fas', 'pencilalt']"/>  allows those with access to edit the shape.
-Enabling <font-awesome :icon="['fas', 'arrowsalt']"/>  allows those with access to move the shape unless locked.
-Enabling <font-awesome :icon="['fas', 'lightbulb']"/>  allows those with access to see the private auras/lights the shape has. 
+Enabling <font-awesome :icon="['fas', 'pencilalt']"/> allows those with access to edit the shape.
+Enabling <font-awesome :icon="['fas', 'arrowsalt']"/> allows those with access to move the shape unless locked.
+Enabling <font-awesome :icon="['fas', 'lightbulb']"/> allows those with access to see the private auras/lights the shape has.
 
 ### Trackers
 
@@ -171,10 +171,10 @@ With these values established, when you click the shape, you will now see the va
 You can quickly edit these values by clicking the number and typing in the new value.
 
 You may also add or subtract values.
-To do this, type ```+``` or ```-``` followed by the value.
-For example, if the base value is 13, and you type ```-5```, you will subtract 5, leaving you with 8. 
+To do this, type `+` or `-` followed by the value.
+For example, if the base value is 13, and you type `-5`, you will subtract 5, leaving you with 8.
 
-This can be used for health, gold, death saves, or any other value that you need to track. 
+This can be used for health, gold, death saves, or any other value that you need to track.
 
 ### Auras
 
@@ -185,7 +185,7 @@ More information about lighting can be found in the [lighting and vision](/docs/
 
 ### Labels
 
-![](./label-manager.png)
+![](./assets/label-manager.png)
 
 Labels allow the DM to categorize shapes.
 To start, type a category at the bottom left.

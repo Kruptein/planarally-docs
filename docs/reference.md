@@ -39,6 +39,8 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 | Alt (hold)   |         | Disable snapping behaviour (both grid snapping and nearby point snapping) \* |
 | Ctrl + u     |         | Toggle UI                                                                    |
 
+\* This can be inverted in the [client settings](/docs/player/settings/)
+
 ### Selection / Shape interactions
 
 | Key/Modifier | Context   | Action                                            |
@@ -50,5 +52,3 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 | Ctrl + l     | selection | Lock selected shape(s)                            |
 | Ctrl + c     | selection | Copy selection to clipboard                       |
 | Ctrl + v     |           | Paste clipboard to board                          |
-
-\* This can be inverted in the [client settings](/docs/player/settings/)

@@ -1,16 +1,18 @@
 - title: Overview
   items:
-    - title: Introduction
-      link: /docs/
-    - title: Quick Reference
-      link: /docs/reference/
+      - title: Introduction
+        link: /docs/
+      - title: Quick Reference
+        link: /docs/reference/
 
 - title: Player
   items:
-    - title: Game Board
-      link: /docs/player/gameboard/
-    - title: In-game settings
-      link: /docs/player/settings/
+      - title: Game Board
+        link: /docs/player/gameboard/
+      - title: In-game settings
+        link: /docs/player/settings/
+      - title: Markers
+        link: /docs/player/markers/
 #     - title: Assets
 #       link: /docs/player/assets
 #     - title: Notes
@@ -18,50 +20,50 @@
 
 - title: DM
   items:
-    - title: Campaign Settings
-      link: /docs/dm/settings/
-    - title: Layers
-      link: /docs/dm/layers/
-    - title: Floors
-      link: /docs/dm/floors/
-    - title: Locations
-      link: /docs/dm/locations/
-    - title: Lighting & Vision
-      link: /docs/dm/light-shadows/
-    - title: Assets
-      link: /docs/dm/assets/
-    - title: Notes
-      link: /docs/dm/notes/
+      - title: Campaign Settings
+        link: /docs/dm/settings/
+      - title: Layers
+        link: /docs/dm/layers/
+      - title: Floors
+        link: /docs/dm/floors/
+      - title: Locations
+        link: /docs/dm/locations/
+      - title: Lighting & Vision
+        link: /docs/dm/light-shadows/
+      - title: Assets
+        link: /docs/dm/assets/
+      - title: Notes
+        link: /docs/dm/notes/
 
-- title : Tools
+- title: Tools
   items:
-    - title: Select
-      link: /docs/tools/select/
-    - title: Pan
-      link: /docs/tools/pan/
-    - title: Draw
-      link: /docs/tools/draw/
-    - title: Ruler
-      link: /docs/tools/ruler/
-    - title: Ping
-      link: /docs/tools/ping/
-    - title: Zoom
-      link: /docs/tools/zoom/
-    - title: Initiative
-      link: /docs/tools/initiative/
+      - title: Select
+        link: /docs/tools/select/
+      - title: Pan
+        link: /docs/tools/pan/
+      - title: Draw
+        link: /docs/tools/draw/
+      - title: Ruler
+        link: /docs/tools/ruler/
+      - title: Ping
+        link: /docs/tools/ping/
+      - title: Zoom
+        link: /docs/tools/zoom/
+      - title: Initiative
+        link: /docs/tools/initiative/
 
-- title : DM Tools
+- title: DM Tools
   items:
-    - title: Map
-      link: /docs/tools/map/ 
-    - title: Filter
-      link: /docs/tools/filter/
-    - title: Vision
-      link: /docs/tools/vision/
+      - title: Map
+        link: /docs/tools/map/
+      - title: Filter
+        link: /docs/tools/filter/
+      - title: Vision
+        link: /docs/tools/vision/
 
 - title: Server
   items:
-    - title: Configuration
-      link: /docs/server/configuration/
-    - title: User Management
-      link: /docs/server/management/
+      - title: Configuration
+        link: /docs/server/configuration/
+      - title: User Management
+        link: /docs/server/management/

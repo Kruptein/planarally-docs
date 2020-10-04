@@ -1,50 +1,50 @@
 # Floors
 
-A complete set of stacked [layers](/docs/dm/layers/) is called a *floor*.
+A complete set of stacked [layers](/docs/dm/layers/) is called a _floor_.
 
 Floors are drawn on top of each other.
 Thus, on a newly created floor, the floor below it would be fully visible.
-This will hold true for every portion of the game board that is not covered by anything else, be it an asset on the *map* layer, or a shape on the *tokens* layer.
+This will hold true for every portion of the game board that is not covered by anything else, be it an asset on the _map_ layer, or a shape on the _tokens_ layer.
 
-![The floors button with opened floors menue](./floors.png "The floors button with opened floors menue")
+![The floors button with opened floors menue](./assets/floors.png "The floors button with opened floors menue")
 
 Floors can be accessed by the floors button at the bottom left of the screen.
 Floors are numbered (presented on the left of the opened menue) and they have names (presented on the right).
 The floors button always shows the number of your active floor.
 
+**Handy**: Make sure to look at the [movement keybindings](/docs/reference/#movement) to make navigating floors a breeze!
+
 At any [location](/docs/dm/locations), there is always at least one floor present, thus, upon creation of the location, the first floor will be created, automatically.
 It will be called `ground` and numbered with `0`, which is always the number for the floor at the very bottom of the stack.
 
-Note that currently, the floors are presented in the order they are *drawn*, not in the order they are *presented*, i.e. the layer that is *drawn first* (to the bottom of the game board) appears *at the top* of the list.
-This behaviour is planned to be changed in some upcoming release.
+Floors are listed in their presentation order. The highest floor being the first one listed.
 
-For the sake of clarity, floors are highlighted as presented above when they are hovered.
+Floors are a very handy tool to improve immersion/perception and it's advised to use them frequently when applicable. Do note that each floor increases the render time. There are some optimisations in place to reduce this load (e.g. floors higher up are not rendered/calculated), but do keep it in mind.
 
 ## Creating new floors
 
 You can create new floors by clicking on `Add new floor`.
 You will be asked for the name of the floor in a pop-up.
 
-Please note that, at the moment, you can neither re-name nor re-order the floors, so it is recommended that you plan ahead which floors you need in what order.
+## Reordering floors
 
-## Modifying floors
+You can reorder floors by dragging them to another position. All objects on a floor will remain associated with that same floor.
 
-At the moment, you can neither re-name nor re-order floors.
-However, you can of course modify how the floor is presented on the game board.
-Simply make use of layers and tools as normal.
+## Floor actions
 
-## Deleting floors
+### Rename
 
-Deleting floors is as easy as clicking the <font-awesome :icon="['fas', 'trash-alt']"/> button in the opened menue.
-You will need to confirm deleting the floor *as there is no way of reverting this action*!
+By clicking on the pencil <font-awesome icon="pencil-alt"/> a popup will appear in which you can insert a new name for the floor.
 
-Upon deletion, the floor will be pulled out of the stack and discarded.
-Thus, the layer that was directly above the now-deleted layer will now be directly above the layer that was directly beneath the now-deleted layer.
+### Toggle Player accessibility
 
-## Floors vs. Locations
-A set of floors is called a [location](/docs/dm/locations/).
-An easy explanation would be that floors are stacked vertically, while locations are ordered next to each other, horizontally.
+By clicking on the eye <font-awesome icon="eye"/> you can toggle whether players can access this floor manually.
 
-Of course, however, you can also build places that are atop/below each other in different locations.
-This is recommended for places where the players will at no point be able to see what happens at a floor below them (e.g. in an underground dungeon):
-Not drawing floors that will not seen by anybody, anyway, will increase performance.
+**Be aware** that this does not hide the floor! There might be a window through which the floor is visible.
+
+### Delete
+
+Deleting floors is as easy as clicking the <font-awesome :icon="['fas', 'trash-alt']"/> button in the opened menu.
+You will need to confirm deleting the floor _as there is no way of reverting this action_!
+
+Upon deletion, the floor will be pulled out of the stack and discarded. All objects on the floor will also be removed.
