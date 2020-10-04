@@ -14,22 +14,41 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 
 ## Keybindings
 
-| Key/Modifier        | Context         | Action                                                                       |
-| ------------------- | --------------- | ---------------------------------------------------------------------------- |
-| Arrow-keys          | empty selection | Move the board 1 grid cell in the pressed direction                          |
-|                     | selection       | Move the selected shapes 1 grid cell in the pressed direction                |
-| Tab                 |                 | Toggle Modes (Build/Play)                                                    |
-| Space               |                 | Center screen on next token (cycles through owned tokens)                    |
-| Shift               | selection       | Move shapes through movement blocking terrain (DM only)                      |
-| Ctrl                | selection       | Extend active selection with ctrl-selected shapes                            |
-|                     | resize          | Retain aspect ratio                                                          |
-| Alt                 |                 | Disable snapping behaviour (both grid snapping and nearby point snapping) \* |
-| Del                 | selection       | Delete all shapes in the active selection                                    |
-| d                   | selection       | Deselect all currently selected shapes                                       |
-| Ctrl + 0            |                 | Focus origin (0,0) of the grid                                               |
-| Ctrl + l            | selection       | Lock selected shape(s)                                                       |
-| Ctrl + u            |                 | Toggle UI                                                                    |
-| middle mouse click  |                 | Pan the screen                                                               |
-| middle mouse scroll |                 | Zoom in relation to the current mouse pointer.                               |
+### Movement
+
+A decent chunk of keybindings is dedicated to moving either shapes or the screen around.
+
+| Key/Modifier               | Context         | Action                                                        |
+| -------------------------- | --------------- | ------------------------------------------------------------- |
+| Arrow-keys                 | empty selection | Move the board 1 grid cell in the pressed direction           |
+|                            | selection       | Move the selected shapes 1 grid cell in the pressed direction |
+| Space                      |                 | Center screen on next token (cycles through owned tokens)     |
+| Shift                      | selection       | Move shapes through movement blocking terrain (DM only)       |
+| Ctrl + 0                   |                 | Focus origin (0,0) of the grid                                |
+| middle mouse click (hold)  |                 | Pan the screen                                                |
+| middle mouse scroll        |                 | Zoom in relation to the current mouse pointer.                |
+| Page up/down               |                 | Move camera floor up/down                                     |
+| Page up/down + alt         | selection       | Move selection floor up/down                                  |
+| Page up/down + shift + alt | selection       | Move selection + camera floor up/down                         |
+
+### Behaviour
+
+| Key/Modifier | Context | Action                                                                       |
+| ------------ | ------- | ---------------------------------------------------------------------------- |
+| Tab          |         | Toggle Modes (Build/Play)                                                    |
+| Alt (hold)   |         | Disable snapping behaviour (both grid snapping and nearby point snapping) \* |
+| Ctrl + u     |         | Toggle UI                                                                    |
+
+### Selection / Shape interactions
+
+| Key/Modifier | Context   | Action                                            |
+| ------------ | --------- | ------------------------------------------------- |
+| Ctrl         | selection | Extend active selection with ctrl-selected shapes |
+|              | resize    | Retain aspect ratio                               |
+| Del          | selection | Delete all shapes in the active selection         |
+| d            | selection | Deselect all currently selected shapes            |
+| Ctrl + l     | selection | Lock selected shape(s)                            |
+| Ctrl + c     | selection | Copy selection to clipboard                       |
+| Ctrl + v     |           | Paste clipboard to board                          |
 
 \* This can be inverted in the [client settings](/docs/player/settings/)
