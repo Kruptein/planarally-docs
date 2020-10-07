@@ -1,8 +1,9 @@
 # Locations
 
-The Locations Tool provides multiple instances of a set of [layers](/docs/dm/layers/) with their own settings, each instance hereinafter referred to as a *Location*.
+The Locations Tool provides multiple instances of a set of [layers](/docs/dm/layers/) with their own settings, each instance hereinafter referred to as a _Location_.
 
 ## The Location Bar
+
 Only the DM can actively access and manipulate Locations.
 This is done by clicking on the <font-awesome :icon="['far', 'compass']"/> symbol at the upper left corner of the screen.
 As this is 'DMs-only' function, players cannot see this button.
@@ -17,6 +18,7 @@ Each location with players present at the location, also displays a tab reading 
 Clicking the <font-awesome :icon="['far', 'compass']"/> symbol again will close the Location Bar.
 
 ## Create and Reorder Location
+
 Clicking on the "+" button on the left of the Location Bar will open a dialogue asking you for a name of that Location.
 This name can be edited later.
 
@@ -28,6 +30,7 @@ Clicking and holding on the 'nine-dots'-symbol allows to reorder Locations freel
 </video>
 
 ## Location Settings
+
 A newly created Location inherits the Campaign Default settings that are defined in the [settings](/docs/dm/settings/).
 Some of the settings defined there can be overridden for each session, individually.
 
@@ -43,19 +46,23 @@ Manually defining a setting to match the value also set in the Campaign Defaults
 </video>
 
 ### Admin
-The *Admin* tab in the Location Settings allows you to rename or remove the location.
+
+The _Admin_ tab in the Location Settings allows you to rename or remove the location.
 
 ![](~/../blog/2020-05-10-release-0.20.0/rename-location.png)
 
 You can only delete Locations where nobody, neither players nor DM, is present.
 
 ### Grid
-For the individual settings, see ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).  
+
+See ['Grid' in the Campaign Settings](/docs/dm/settings/#grid).
 
 ### Vision
-For the individual settings, see ['Vision' in the Campaign Settings](/docs/dm/settings/#vision).
+
+See ['Vision' in the Campaign Settings](/docs/dm/settings/#vision).
 
 ## Change Locations
+
 With the Location Bar opened, the DM can change the location as easy as clicking on the block displaying the name of the desired location.
 
 Players cannot change the location on their own.
@@ -70,14 +77,14 @@ Players can be dragged as a group, or individually, as shown here.
    <source src="/assets/0.20.0/location-move.mp4" type="video/mp4">
 </video>
 
-Players that are sent to another location do *not* take any of the shapes they control with them.
+Players that are sent to another location do _not_ take any of the shapes they control with them.
 Instead, those shapes have to be sent to that location by the DM.
 
-Shapes (including player-controleld Tokens) are moved individually or as a group via their context-menu.
-When sent to another location, shapes will appear centered on the spawn location, which is a special shape that appears on the *dm*-[layer](/docs/dm/layers/#dm).
+Shapes (including player-controlled Tokens) are moved individually or as a group via their context-menu.
+When sent to another location, shapes will appear centered on the spawn location, which is a special shape that appears on the _dm_-[layer](/docs/dm/layers/#dm).
 
-![Spawn Location Designator](./spawn.png "Spawn Location Designator")
+![Spawn Location Designator](./assets/spawn.png "Spawn Location Designator")
 
-The spawn location designator can be moved freely on the *dm*-layer.
+The spawn location designator can be moved freely on the _dm_-layer.
 Currently, there is only one spawn location designator per location.
-It is planned to eventually support more, though.  
+This will change in 0.23.
