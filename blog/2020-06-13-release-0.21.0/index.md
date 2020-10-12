@@ -20,7 +20,7 @@ This is especially handy for things like invisible familiars, but also for vario
 The latter is interesting because the invisible toggle does not apply to the auras of these invisible shapes.
 This is ideal if you want to add a lamp to a scene without having some ugly circle visible to your players from which the light emenates.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.21.0/invisible.webm" type="video/webm">
    <source src="/assets/0.21.0/invisible.mp4" type="video/mp4">
 </video>
@@ -34,7 +34,7 @@ There is also a keybinding (ctrl + L) that also works on larger selections, so y
 
 Important to note is that locked shapes won't be included in selections unless there are only locked shapes in the selected region.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.21.0/locked.webm" type="video/webm">
    <source src="/assets/0.21.0/locked.mp4" type="video/mp4">
 </video>
@@ -62,7 +62,7 @@ When the DM moves a token to a different location it will appear centered on the
 
 Currently this is limited to just one spawn per location, but support for multiple spawns will be supported in the future.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.21.0/spawn.webm" type="video/webm">
    <source src="/assets/0.21.0/spawn.mp4" type="video/mp4">
 </video>
@@ -91,7 +91,7 @@ One can toggle between the two modes by clicking on the letter at the end of the
 
 Some tools now only appear in one of the two modes (e.g. draw in build mode and ping in play mode).
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.21.0/toolmode.webm" type="video/webm">
    <source src="/assets/0.21.0/toolmode.mp4" type="video/mp4">
 </video>

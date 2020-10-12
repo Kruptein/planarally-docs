@@ -9,7 +9,7 @@ You can resize and further tweak this selection after your initial selection to 
 
 If the selection is adequate you can insert the X and Y dimensions the selected area should occupy and press apply.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/maptool.webm" type="video/webm">
    <source src="/assets/0.20.0/maptool.mp4" type="video/mp4">
 </video>

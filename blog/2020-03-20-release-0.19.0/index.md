@@ -25,7 +25,7 @@ Vision and lights work across floors in a natural manner; A token on the upper f
 
 **The video below might contain map spoilers for the WotC adventure Waterdeep Dragonheist.**
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.19.0/newfloors.webm" type="video/webm">
    <source src="/assets/0.19.0/newfloors.mp4" type="video/mp4">
 </video>
@@ -56,7 +56,7 @@ The display of badges can be toggled on or off per group of tokens. A group of t
 
 Badges take their background colour from the shape's stroke colour, and their border colour and font colour as either black or white depending on what's best legible. The token numbers are automatically incremented upon paste.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.19.0/badges.webm" type="video/webm">
    <source src="/assets/0.19.0/badges.mp4" type="video/mp4">
 </video>
@@ -75,7 +75,7 @@ The polygon tool is a tool I use a lot. In particular the version that does not 
 
 This release now adds a snapping feature, that will automatically yank your mouse cursor towards a closeby existing point if you come near it. This snapping behaviour is only active when resizing or using the draw tool. The draw tool now also highlights snappable points when activating (this might be something I remove in the future, depending on feedback).
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.19.0/snapping.webm" type="video/webm">
    <source src="/assets/0.19.0/snapping.mp4" type="video/mp4">
 </video>

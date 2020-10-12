@@ -21,7 +21,7 @@ _I also set up a [patreon account](https://www.patreon.com/planarally), feel fre
 When you have a large number of assets, organising them in folders is one way to traverse your files in-game, but can still take some time.
 We now have a search bar at the top of the in-game asset list! It's a very simple search implementation, so no fancy regexes for now, but it already eased my prep work immensely.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/search.webm" type="video/webm">
    <source src="/assets/0.20.0/search.mp4" type="video/mp4">
 </video>
@@ -32,7 +32,7 @@ Uploading images in the asset manager gave no feedback on progress whatsoever. Y
 
 Those days are over and we now have a progress bar :)
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/progressbar.webm" type="video/webm">
    <source src="/assets/0.20.0/progressbar.mp4" type="video/mp4">
 </video>
@@ -54,7 +54,7 @@ Prior to this release, if the DM clicked a location, the DM and all players woul
 If you click the name of a location, you and only you will move to that location.
 If you want to move your players you can choose to either drag the entire player group to another location or you can open the player element and drag an individual player to another location.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/location-move.webm" type="video/webm">
    <source src="/assets/0.20.0/location-move.mp4" type="video/mp4">
 </video>
@@ -63,7 +63,7 @@ If you want to move your players you can choose to either drag the entire player
 
 Along with the option to drag players around, you can now also drag the locations themselves around to rearrange them in any order you prefer.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/location-rearrange.webm" type="video/webm">
    <source src="/assets/0.20.0/location-rearrange.mp4" type="video/mp4">
 </video>
@@ -76,7 +76,7 @@ There were no clear signs which settings would apply to all locations or which o
 This has now been reworked and the DM settings now dictate the default values for all locations. Individual locations can then override this behaviour in their own settings.
 Any overriden value will be highlighted to make sure it's clear that it diverges form the default settings.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/settings.webm" type="video/webm">
    <source src="/assets/0.20.0/settings.mp4" type="video/mp4">
 </video>
@@ -113,7 +113,7 @@ The map tool works only on a selected shape, to make this clear a tooltip will n
 
 In the past you had to insert your desired X/Y dimensions upfront and the resize would happen as soon as you were done selecting. This has been changed so that you can select an area and still tweak it until you're satisfied before finalizing the resize.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/maptool.webm" type="video/webm">
    <source src="/assets/0.20.0/maptool.mp4" type="video/mp4">
 </video>
@@ -124,7 +124,7 @@ Another small UX improvement is that the shape will no longer be able to jump ou
 
 Resizing a shape will no longer try to center the shape given its contraints amongst cells. Instead it will just resize the dragged corner to the nearest grid point which provides a more natural effect.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/resize.webm" type="video/webm">
    <source src="/assets/0.20.0/resize.mp4" type="video/mp4">
 </video>
@@ -140,7 +140,7 @@ You can now set a marker on a shape. This will add an entry to the markers subme
 
 This menu allows you to center the screen on a selected marker.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/markers.webm" type="video/webm">
    <source src="/assets/0.20.0/markers.mp4" type="video/mp4">
 </video>
@@ -155,7 +155,7 @@ The ctrl key is also used for multi select, but the two operations have no overl
 
 The usual alt and shift modifiers can also be used along with this modifier.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/aspectratio.webm" type="video/webm">
    <source src="/assets/0.20.0/aspectratio.mp4" type="video/mp4">
 </video>
