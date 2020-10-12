@@ -19,7 +19,7 @@ Rotating is done in the select tool, but only in build mode (just like resizing)
 When you go into build mode, a rotation specific UI will appear (a line with a ball).
 By grabbing the ball and moving around you can rotate a shape freely around its center.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.22.0/rotation.webm" type="video/webm">
    <source src="/assets/0.22.0/rotation.mp4" type="video/mp4">
 </video>

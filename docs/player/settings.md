@@ -6,9 +6,7 @@ As a player, there are a couple of things you can configure.
 
 ## Snapping Behaviour
 
-You can also invert the behaviour of the `ALT`-key (see also the [quick reference](/docs/reference/)):
-Normally, pressing `ALT` disables snapping behaviour of the [select](/docs/tools/select/) and the [draw](/docs/tools/draw/) tools.
-If inverted, snapping is off by default and toggled by pressing the `ALT`-key.
+When checked, this inverts the default [snapping behaviour](/docs/player/snapping/).
 
 ## Grid Size
 

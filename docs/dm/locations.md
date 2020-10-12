@@ -24,7 +24,7 @@ This name can be edited later.
 
 Clicking and holding on the 'nine-dots'-symbol allows to reorder Locations freely on the bar, as shown in the video:
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/location-rearrange.webm" type="video/webm">
    <source src="/assets/0.20.0/location-rearrange.mp4" type="video/mp4">
 </video>
@@ -40,7 +40,7 @@ Location Settings will open a dialogue with three tabs: Admin, Grid, and Vision.
 Every setting that was set to override the Campaign Defaults will stay that way until reset.
 Manually defining a setting to match the value also set in the Campaign Defaults will not re-establish the link to the defaults but instead keep this value despite any further change in the Campaign Defatlts.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/settings.webm" type="video/webm">
    <source src="/assets/0.20.0/settings.mp4" type="video/mp4">
 </video>
@@ -72,7 +72,7 @@ Players will stay at their active location until dragged to another location by 
 
 Players can be dragged as a group, or individually, as shown here.
 
-<video autoplay loop muted style="max-width: 750px;">
+<video autoplay loop muted style="max-width: 680px;">
    <source src="/assets/0.20.0/location-move.webm" type="video/webm">
    <source src="/assets/0.20.0/location-move.mp4" type="video/mp4">
 </video>

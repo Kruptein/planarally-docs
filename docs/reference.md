@@ -33,13 +33,11 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 
 ### Behaviour
 
-| Key/Modifier | Context | Action                                                                       |
-| ------------ | ------- | ---------------------------------------------------------------------------- |
-| Tab          |         | Toggle Modes (Build/Play)                                                    |
-| Alt (hold)   |         | Disable snapping behaviour (both grid snapping and nearby point snapping) \* |
-| Ctrl + u     |         | Toggle UI                                                                    |
-
-\* This can be inverted in the [client settings](/docs/player/settings/)
+| Key/Modifier | Context | Action                                              |
+| ------------ | ------- | --------------------------------------------------- |
+| Tab          |         | Toggle Modes (Build/Play)                           |
+| Alt (hold)   |         | Disable [snapping behaviour](/docs/player/snapping) |
+| Ctrl + u     |         | Toggle UI                                           |
 
 ### Selection / Shape interactions
 
