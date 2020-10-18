@@ -1,14 +1,14 @@
 ---
 title: Release 0.23.0 - What's new!
-date: 2020-10-17 20:00:00
+date: 2020-10-18 16:30:00
 excerpt: "What's new in 0.23.0?"
 author: [darraghvt]
 ---
 
-Time for a new release! Just as other releases we have a bunch of bugfixes, but there are other exciting things to be had as well.
+Time for a new release! Just like other releases we have a bunch of bugfixes, but there are other exciting things to be had as well.
 A rework of some UI elements, spawn location improvements, a templating system and more!
 
-**important for server owners** This release adds a new section to the server_config, make sure to update your server_configs by either overwriting the new config with your custom changes, or by adding the new section added to your existing config.
+**Important for server owners** This release adds a new section to the server_config, make sure to update your server_configs by either overwriting the new config with your custom changes, or by adding the new section added to your existing config.
 
 ## Spawn location changes
 
