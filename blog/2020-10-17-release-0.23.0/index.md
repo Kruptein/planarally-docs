@@ -83,7 +83,7 @@ There is a new section in the server_config (ApiServer) dedicated to configuring
 It's configured in the same manner as the main web server, but defaults to `localhost` instead of `0.0.0.0`
 and uses 8001 is its default port.
 
-For more info on how which endpoints are available check the API docs.
+For more info on how which endpoints are available check the [API docs](/docs/server/api/).
 
 ## Quality of Life
 
