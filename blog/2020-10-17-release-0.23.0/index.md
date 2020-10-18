@@ -18,7 +18,7 @@ This release brings two changes to the spawn location system. Multi spawn locati
 
 The first iteration of spawn locations would automatically create the spawn location for you.
 In practice this didn't feel amazing. The spawn would not always be created the first time,
-sometimes it showed up double, and sometimes it was just nog where you expected it.
+sometimes it showed up double, and sometimes it was just not where you expected it.
 On top of that not all locations actually need a spawn.
 
 Thus the choice was made to no longer do this automatic creation.
