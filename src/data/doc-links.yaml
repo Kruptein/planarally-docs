@@ -60,8 +60,8 @@
   items:
       - title: Map
         link: /docs/tools/map/
-      # - title: Filter
-      #   link: /docs/tools/filter/
+      - title: Filter
+        link: /docs/tools/filter/
       # - title: Vision
       #   link: /docs/tools/vision/
 
