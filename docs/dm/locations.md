@@ -80,11 +80,20 @@ Players can be dragged as a group, or individually, as shown here.
 Players that are sent to another location do _not_ take any of the shapes they control with them.
 Instead, those shapes have to be sent to that location by the DM.
 
-Shapes (including player-controlled Tokens) are moved individually or as a group via their context-menu.
-When sent to another location, shapes will appear centered on the spawn location, which is a special shape that appears on the _dm_-[layer](/docs/dm/layers/#dm).
+## Moving shapes to another location
+
+If a location has one or multiple spawns, shapes can be moved to this location individually or as a group via their right click context menu.
+
+As a DM you can create one or multiple spawns by rightclicking on the area you want the spawn to be and selecting the 'create spawntoken' action.
+
+When sent to another location, shapes will appear centered on the chosen spawn location, which is a special shape that appears on the _dm_-[layer](/docs/dm/layers/#dm).
 
 ![Spawn Location Designator](./assets/spawn.png "Spawn Location Designator")
 
 The spawn location designator can be moved freely on the _dm_-layer.
-Currently, there is only one spawn location designator per location.
-This will change in 0.23.
+Since 0.23 you can remove and create as many spawn locations as you wish.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.23.0/spawn.webm" type="video/webm">
+   <source src="/assets/0.23.0/spawn.mp4" type="video/mp4">
+</video>

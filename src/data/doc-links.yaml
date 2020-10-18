@@ -69,3 +69,5 @@
         link: /docs/server/configuration/
       - title: User Management
         link: /docs/server/management/
+      - title: Management API
+        link: /docs/server/api/
