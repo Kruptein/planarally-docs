@@ -42,6 +42,22 @@ Your asset will now be able to be manipulated.
 Alternatively, you can also search for an asset using the search bar.
 This will filter out folders and subfolders that have no items matching your search query.
 
+### Templates
+
+At any point you can persist the state of an asset from the right click context menu.
+
+This state includes default properties but also trackers, auras and dimensions (width and height).
+
+When you drop an asset on the board that has templates associated with it, you'll get a prompt to choose a template instead of the base empty preset.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.23.0/templates.webm" type="video/webm">
+   <source src="/assets/0.23.0/templates.mp4" type="video/mp4">
+</video>
+
+This can be very handy to reuse some tokens you frequently use to prepopulate things like HP and light sources.
+This will also be key to sharing sets with other players.
+
 ## Manipulating Objects
 
 Selecting/interacting with objects is primarily done through the [select tool](/docs/tools/select/).
