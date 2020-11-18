@@ -30,6 +30,8 @@ For more info on how to configure some other aspects of your server visit the ma
 
 ## Manual installation
 
+### Production Mode
+
 If you want to manually install PlanarAlly, you'll need to make sure you have python 3.6 or newer installed, you can get this from the [python site](https://www.python.org/downloads/).
 
 To get the source files you can either download a zip for a particular version from [github](https://github.com/Kruptein/PlanarAlly/releases/) or
@@ -37,7 +39,10 @@ clone the repository with git.
 
 Everything needed to run PlanarAlly can be found in the `server` folder.
 
-Make sure to install all dependencies by running `pip install --user -r requirements.txt`.
+Make sure to install all dependencies by running:
+```bash
+pip install --user -r requirements.txt`
+```
 (If you are familiar with python, it is strongly advised to create a dedicated venv for PA, but this is not a hard requirement.)
 
 Before the server can be started, you have to build the client.
@@ -49,18 +54,25 @@ npm run build
 
 To run the server you now simply run `python3 planarserver.py` and your server should start up.
 
+If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
+
+For more information on how to configure your server visit the main [server management](/docs/server/management/) docs.
+
+### Debug/Development Mode
+
 In case you want to install and run the server in debug/development mode, you need to run, in the `client` folder:  
 ```bash
 npm i
 npm run serve
+```
+
+Then, in the `server` folder, run:
+```bash
 python3 planarserver.py dev
 ```
 
 This starts the server in a 'hot module reloading' mode that builds changes made to the sourcecode on the fly instead of waiting for you to manually rebuild.
-
-If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
-
-For more info on how to configure some other aspects of your server visit the main [server management](/docs/server/management/) docs.
+At the moment, however, it is required to build the client with `npm run build` once, before you use the *serve*-mode.
 
 ## Docker Container
 
