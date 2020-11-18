@@ -1,6 +1,8 @@
 # Select Tool
 
-One of the most used tools is the select tool. It's purpose is, as the name suggest, to select one or multiple shapes on the board, but also to move.
+One of the most used tools is the select tool.
+It's purpose is, as the name suggest, to select one or multiple shapes on the board, but also to move.
+It can be accessed in the toolbar on the bottom right of the screen by all players, but behaves differently, depending on the active [mode](/docs/tools-overview/#tools-and-modes).
 
 Additionally when in build mode, it also allows you to rotate and resize shapes.
 
