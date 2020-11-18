@@ -72,7 +72,12 @@ Generally for ease of backup it is recommended to use [volumes](https://docs.doc
 docker volume create data
 docker volume create assets
 ```
-Both of those commands will create folders in /var/lib/docker/volumes/ then you can use this next command to start the container  
+Both of those commands will create folders in /var/lib/docker/volumes/ 
+After that, as of the version 0.23 of PlanarAlly you need to change user/group permissions, this can be done with a simple chown command ran on both of your volume folders located in /var/lib/docker/volumes/  
+`sudo chown -R 9000:9000 data/`  
+`sudo chown -R 9000:9000 assets/`  
+
+then you can use this next command to start the container  
 `docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ --name planarally kruptein/planarally`
 
 then just like it was mentioned in the section above you can just type `http://localhost:8000` and access planarally.
