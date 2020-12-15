@@ -209,7 +209,10 @@ The available random space will thus automatically scale upwards without reveali
 
 When changing the creation order, all existing shapes will be rebadged (after a confirmation popup).
 
-![](./assets/group-random-example.png)
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/groups.webm" type="video/webm">
+   <source src="/assets/0.24.0/groups.mp4" type="video/mp4">
+</video>
 
 #### Groups spread over multiple locations
 
