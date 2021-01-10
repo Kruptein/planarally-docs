@@ -1,13 +1,11 @@
 ---
 title: Release 0.24.0
-date: 2021-01-03 16:30:00
+date: 2021-01-10 22:00:00
 excerpt: "Starting the year with a new big release!"
 author: [darraghvt]
 ---
 
 It's been a while! But I had a lot of free time in the past month so this release contains some exciting new features and a ton of bug fixes!
-
-_Currently this version is available as a beta only as I want to playtest it a bit more before confidently pushing it out_
 
 A small warning when opening a map on the new version:
 Due to a bugfix with zoom for non-default gridsizes, you will likely encounter your first load on a map to be slightly off centered
@@ -22,16 +20,75 @@ I can now finally say that there is _some_ support.
 
 As part of the DM grid settings you can now select the grid type, this defaults to square grids,
 but can be changed to flat or pointy hexes.
+This can be configured on a campaign or location level.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/hexagons.webm" type="video/webm">
+   <source src="/assets/0.24.0/hexagons.mp4" type="video/mp4">
+</video>
+
+_It might not be extremely clear due to my low grid opacity, sorry for that_
 
 One important thing to know is that grid snapping is not yet supported, so I highly recommend to invert your ALT behaviour for now when using hexes.
 
+## Group improvements
+
+Groups are a way to organize shapes with an optional badge to differentiate them (e.g. ogre 5).
+Within a group each shape has a unique value, its badge.
+
+Up until this release there was an implicit grouping concept that would apply when you copy paste a shape.
+
+This release greatly expands the grouping system and makes it much more configurable and explicit.
+
+![](./edit-asset-group.png)
+
+A new tab in the edit asset dialog is now available to shape owners/DMs.
+This tab allows the configuration of various things related to the group the selected shape belongs to.
+
+Character sets can be configured, 2 premade sets are available, but you're free to set a custom set (e.g. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+Badges can be toggled individually or for the entire group at once. Individual members can be removed and the entire group can also be removed.
+
+Badges can now also be randomized to temper possible metagaming players.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/groups.webm" type="video/webm">
+   <source src="/assets/0.24.0/groups.mp4" type="video/mp4">
+</video>
+
+Additionally there is also a new context menu option related to groups when right clicking on a selection of shapes.
+This allows you to create/merge/split/delete groups as you please.
+
+This also means that groups are no longer limited to shapes of the same asset!
+
+For more information on the grouping system [check the docs](/docs/player/assets/#group)
+
 ## Variants
 
-A new feature for shapes is the ability to add variants. Variants are loosely defined as any other shape one might want to swap to without having to create a new token an removing a previous token.
+_This is **experimental**, I expect some cornercases to appear, so please do let me know if you encounter any bugs!_
+
+A new feature for shapes is the ability to add variants. Variants are loosely defined as any other shape one might want to swap to without having to create a new token and removing a previous token.
 Think wildshapes, alternate art, multistage bosses, surprise reveals ...
 
-At any time one variant is visible and can be swapped out for another one.
+At any time only one variant is visible and can be swapped out for another one.
 Each variant retains its own size, properties and trackers, but trackers and auras can be configured to be shared among all variants.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/variants.webm" type="video/webm">
+   <source src="/assets/0.24.0/variants.mp4" type="video/mp4">
+</video>
+
+As can be seen in the above video, variants can be created, renamed and removed from a new UI element at the bottom of the edit shape dialog.
+
+#### Known limitations
+
+When creating a new variant, it won't have any of the applied settings the base variant has.
+This includes access rights, general shape properties (e.g. name, is a token etc) or annotations!
+
+At the moment you can only add new variants that are assets in your asset manager. The base shape however can be any shape.
+In the future you'll also be able to select a basic token as an alternative instead of only being able to pick from the asset manager.
+
+At this moment, saving a shape with variants to the database is not possible, this will be possible in the future when you can also save other custom shapes to the database.
 
 ## Tools
 
@@ -58,6 +115,10 @@ You can now also toggle 'show ruler' on the select tool, to show a ruler when mo
 This will show a ruler starting at the original shape's position and follow the shape you're actively moving.
 This also supports 'space' to measure distances behind corners.
 
+When using the ruler in select mode it will retain the privacy mode (i.e. public/private) of the ruler tool.
+
+![](./multiruler.png)
+
 ### Vision
 
 The vision tool's behaviour got changed when you deselect the last shape. In the past it would immediately select everything again.
@@ -74,6 +135,13 @@ The exported file will end with the '.paa' extension, short for planar ally asse
 
 When importing a paa file it will extract everything to the current folder you're looking at.
 Do take into account that files with the same name will not be overwritten, but new files and folders will always be created.
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/export.webm" type="video/webm">
+   <source src="/assets/0.24.0/export.mp4" type="video/mp4">
+</video>
+
+**Important** The above footage is sped up (or rather some frames have been cut) as the process depends on the size of the files/folders and little feedback is provided during this period currently. I hope to improve this in future releases, but it provides a working baseline for now.
 
 ## General UX improvements
 
@@ -102,6 +170,12 @@ Additionally the filter and vision tools allow a wider set of select tool option
 
 Finally, when changing to a tool mode that the current tool does not support, automatically change to the Select tool.
 
+### Delete performance
+
+When removing multiple shapes at once, especially related to vision/lighting, the client could take a big performance hit or even outright stall and only perform a partial remove.
+
+This was due to pretty inefficient recalculation of the vision/lighting triangulation. This is now done smarter and results in **much** snappier behaviour.
+
 ## Notable fixes
 
 ### Shape selection
@@ -115,7 +189,10 @@ This is rather inaccurate and has now be changed to be exact.
 
 ## Other Changes
 
--   [tech] Upgraded to socket.io v3
+Some smaller technical changes that should not immediately impact endusers have also been made:
+
+-   Upgraded to socket.io v3
+-   Reduced number of calculations used for determining the minimal vision range for tokens
 
 ## Other fixes
 
@@ -158,4 +235,5 @@ This is rather inaccurate and has now be changed to be exact.
     -   auras/zoom/map would all use wrong math(s)
 -   Teleporting to a spawn location, only changing location not setting the position
 -   Synchronization of Label visibility
+-   Initiative possibly not working when changing locations
 -   [DM] Floor rename always setting a blank name

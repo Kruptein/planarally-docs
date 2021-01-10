@@ -179,7 +179,7 @@ Enabling <font-awesome icon="lightbulb"/> allows those with access to see the pr
 
 ### Group
 
-![](./assets/edit-asset-group.png)
+![](~/../blog/2021-01-3-release-0.24.0/edit-asset-group.png)
 
 Groups are a way to organize shapes with an optional badge to differentiate them (e.g. ogre 5).
 Within a group each shape has a unique\* value, its badge.
