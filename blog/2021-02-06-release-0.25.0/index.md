@@ -64,7 +64,7 @@ ctrl+z is used to undo actions, ctrl+shift+z is used to redo actions.
 
 Currently there is a hardcoded action memory of 50 actions.
 
-_Why not ctrL+r to redo? This would override a common browser reload key, which I rather don't._
+_Why not ctrl+r to redo? This would override a common browser reload key, which I rather don't._
 
 ## Spell casting
 
