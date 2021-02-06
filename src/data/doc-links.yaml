@@ -4,6 +4,8 @@
         link: /docs/
       - title: Quick Reference
         link: /docs/reference/
+      - title: Tools Overview
+        link: /docs/tools-overview/
 
 - title: Player
   items:
@@ -58,8 +60,8 @@
   items:
       - title: Map
         link: /docs/tools/map/
-      # - title: Filter
-      #   link: /docs/tools/filter/
+      - title: Filter
+        link: /docs/tools/filter/
       # - title: Vision
       #   link: /docs/tools/vision/
 
@@ -69,5 +71,3 @@
         link: /docs/server/configuration/
       - title: User Management
         link: /docs/server/management/
-      - title: Management API
-        link: /docs/server/api/
