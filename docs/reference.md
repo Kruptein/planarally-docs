@@ -34,11 +34,13 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 
 ### Behaviour
 
-| Key/Modifier | Context | Action                                              |
-| ------------ | ------- | --------------------------------------------------- |
-| Tab          |         | Toggle Modes (Build/Play)                           |
-| Alt (hold)   |         | Disable [snapping behaviour](/docs/player/snapping) |
-| Ctrl + u     |         | Toggle UI                                           |
+| Key/Modifier     | Context | Action                                              |
+| ---------------- | ------- | --------------------------------------------------- |
+| Tab              |         | Toggle Modes (Build/Play)                           |
+| Alt (hold)       |         | Disable [snapping behaviour](/docs/player/snapping) |
+| Ctrl + u         |         | Toggle UI                                           |
+| Ctrl + z         |         | Undo                                                |
+| Ctrl + shift + z |         | Redo                                                |
 
 ### Selection / Shape interactions
 
@@ -49,6 +51,6 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 |                | resize    | Retain aspect ratio                               |
 | Del, Backspace | selection | Delete all shapes in the active selection         |
 | d              | selection | Deselect all currently selected shapes            |
-| Ctrl + l       | selection | Lock selected shape(s)                            |
+| Ctrl + l       | selection | (Un)Lock selected shape(s)                        |
 | Ctrl + c       | selection | Copy selection to clipboard                       |
 | Ctrl + v       |           | Paste clipboard to board                          |

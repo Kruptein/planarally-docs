@@ -148,18 +148,49 @@ By clicking the <font-awesome icon="eye"/> symbol, you can toggle whether this i
 
 #### Auras
 
-Auras are similar to trackers, but have a visual impact on the board.
-The 2 input values are used to delineate a circular aura on the board.
-With the first value representing the bright aspect and the second value the dim aspect.
+Auras are in nature similar to trackers, but have a visual impact on the board.
+Their UI originally very closely mimicked that of trackers, but recently (0.25.0) it got a dramatic overhaul.
 
-They have 2 additional fields compared to trackers: a colour box and a <font-awesome icon="lightbulb"/> icon.
-The colour field can be used to give your aura some colour.
+##### Range
 
-When the lightbulb is toggled on, it signals that the aura is a light/vision source.
-More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
+To draw an aura on the board you need to specify its range.
+This concept consists of two values. The "normal" part and the "dim" part.
 
-Common examples are a torch which is a publicly visible light that shes 20/20 yellowish light and
-darkvision which is a private lightsource that is typically 30/30.
+The normal value will be used to draw a circle with the provided radius at full opacity,
+whereas the dim part will be used to draw an additional radius that will drop down in opacity towards the edge.
+
+In dnd 5e a torch is defined as 20ft bright and 20ft dim light for example, so here one would fill in 20/20 as well.
+
+The numbers filled in are directly related to the way the DM configured the grid. This defaults to 5ft = 1 grid, so a value of 20 would translate to an aura that covers 4 squares (radius).
+
+##### Angle
+
+This is a niche feature that can be used when you don't want the aura to cover a full circle, but rather want a cone.
+
+The first value dictates the width of the cone angle and defaults to 360 (i.e. a full circle).
+
+The second value dictates the direction the cone should look to. For a full circle this value is ignored for obvious reasons.
+
+##### Public
+
+By default any shape or aura is only visible to the DM and any player that has access to the shape (see the next section).
+
+Sometimes however you want to show auras to all players, that's when you make the aura public.
+This is especially common for light sources like a torch.
+
+##### Light source
+
+This small toggle has a lot of impact on the aura and is something that makes the vision system in PA so nice!
+
+By default auras will just render on the board irregardless of walls or other obstacles and won't give you vision.
+This is perfect for things like paladin auras and the likes.
+
+By toggling the 'light source' option, you signal to PA that this is no normal aura but is actually a source of light/vision.
+If there are walls in the way the aura will stop at the borders and not reveal anything behind it. Additionally it will actually reveal everything in the aura to the player (and all other players if it's a public light source).
+
+Common uses are darkvision, which is a private light source and a torch which is a public light source.
+
+_Note: vision and lighting are typically only relevant when you use the line of sight vision system_
 
 ### Access
 
@@ -248,5 +279,7 @@ Annotations are a freeflow place to write down information you want to track on 
 **This field is markdown aware!**
 
 Additionaly, when hovering over a shape\* with an annotation, the annotation will be displayed on the top side of the screen.
+
+The annotation can be marked as public to allow everyone in the session to see it on hover.
 
 _\*Only shapes you have edit access to._

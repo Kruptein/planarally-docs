@@ -47,6 +47,8 @@
         link: /docs/tools/pan/
       - title: Draw
         link: /docs/tools/draw/
+      - title: Spell
+        link: /docs/tools/spell/
       - title: Ruler
         link: /docs/tools/ruler/
       - title: Ping
@@ -55,6 +57,8 @@
         link: /docs/tools/zoom/
       - title: Initiative
         link: /docs/tools/initiative/
+      - title: Undo/Redo
+        link: /docs/tools/undo/
 
 - title: DM Tools
   items:

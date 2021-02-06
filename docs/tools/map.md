@@ -1,6 +1,6 @@
 # Map Tool
 
-The Map tool can be accessed inthe toolbar on the bottom right of the Game Board, but only in [`Build` mode](/docs/tools-overview/#tools-and-modes) and only by the GM.
+The Map tool can be accessed inthe toolbar on the bottom right of the Game Board, but only in [Build mode](/docs/tools-overview/#tools-and-modes) and only by the GM.
 It offers an easy to use method to fit a custom shape to the grid.
 It can be used to resize arbitrary shapes, but its core use is focussed on maps.
 
