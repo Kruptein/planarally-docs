@@ -1,6 +1,6 @@
 ---
 title: Cast spells and undo your past actions - Release 0.25.0
-date: 2021-02-06 22:00:00
+date: 2021-02-07 13:30:00
 excerpt: "An overview of new goodies"
 author: [darraghvt]
 ---
