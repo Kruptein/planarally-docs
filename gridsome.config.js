@@ -53,6 +53,25 @@ module.exports = {
                 },
             },
         },
+        {
+            use: "@gridsome/vue-remark",
+            options: {
+                index: ["README"],
+                baseDir: "./server",
+                pathPrefix: "/server",
+                typeName: "ServerPage",
+                template: "./src/templates/ServerPage.vue",
+                plugins: ["@gridsome/remark-prismjs"],
+                remark: {
+                    autolinkHeadings: {
+                        content: {
+                            type: "text",
+                            value: "#",
+                        },
+                    },
+                },
+            },
+        },
     ],
     chainWebpack: (config) => {
         const svgRule = config.module.rule("svg");

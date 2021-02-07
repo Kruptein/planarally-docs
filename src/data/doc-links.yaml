@@ -68,10 +68,3 @@
         link: /docs/tools/filter/
       # - title: Vision
       #   link: /docs/tools/vision/
-
-- title: Server
-  items:
-      - title: Configuration
-        link: /docs/server/configuration/
-      - title: User Management
-        link: /docs/server/management/

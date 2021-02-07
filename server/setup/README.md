@@ -2,11 +2,11 @@
 
 > Installation articles are **only** required reading for the DM.
 
-PlanarAlly does not have to be installed by each player, so if you're a player you can go straight ahead to [Authentication](/tutorial/out-of-game/auth/).
+PlanarAlly does not have to be installed by each player, so if you're a player you can go straight ahead to getting started with PlanarAlly or the full docs over [here](/docs/).
 
 As a DM you'll have to choose whether you want to host PlanarAlly yourself or whether you want to use an existing online service. Both approaches have their ups and downs.
 
-If you already know what you would like to use, you can visit [External services](/tutorial/setup/external/) or [Self-Hosting](/tutorial/setup/self-hosting), otherwise continue on reading to get some more info about both options!
+If you already know what you would like to use, you can visit [External services](/server/setup/external/) or [Self-Hosting](/server/setup/self-hosting), otherwise continue on reading to get some more info about both options!
 
 ## Comparison of hosting options
 

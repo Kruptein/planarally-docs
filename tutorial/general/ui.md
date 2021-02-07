@@ -1,6 +1,6 @@
 # Game UI
 
-After all the more boring stuff, now on to the actual gameplay!
+The first thing you see when you open a PlanarAlly session is the UI.
 
 As can be seen in the following image, the PlanarAlly UI consists of 5 UI elements that are visible at all times.
 
