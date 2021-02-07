@@ -1,6 +1,6 @@
 # Ping Tool
 
-The Ping tool can be accessed in the toolbar on the bottom right of the Game Board, but only in [`Play` mode](/docs/tools-overview/#tools-and-modes).
+The Ping tool can be accessed in the toolbar on the bottom right of the Game Board, but only in [Play mode](/docs/tools-overview/#tools-and-modes).
 It serves as a barebones "beacon" tool.
 While the mouse is pressed down and held, shows two circles to all players where your mouse currently is.
 

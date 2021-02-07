@@ -22,13 +22,18 @@ Not all tools will be accessible in every mode and some tools will behave differ
 | [Select](/docs/tools/select/)         | All    | Both\*     | Select, move, rotate, or resize Shapes.                 |
 | [Pan](/docs/tools/pan/)               | All    | Both       | Pan your viewport of the Game Board.                    |
 | [Draw](/docs/tools/draw/)             | All    | Build      | Create Shapes of various basic forms.                   |
+| [Spell](/docs/tools/spell/)           | All    | Play       | Measure and cast spells.                                |
 | [Ruler](/docs/tools/ruler/)           | All    | Both       | Measure Distances on the Game Board.                    |
 | [Ping](/docs/tools/ping/)             | All    | Play       | Display a Beacon on the Game Board for all to see.      |
-| [Zoom](/docs/tools/zoom/)             | All    | Both\*\*   | Zoom in/out a portion of the Game Board.                |
-| [Initiative](/docs/tools/initiative/) | All    | Both\*\*   | Track initiative order and timed effects.               |
 | [Map](/docs/tools/map/)               | DM     | Build      | Helps to resize assets (mostly maps) to match the grid. |
-| [Filter](/docs/tools/filter/)         | DM     | Both\*\*\* | Highlight Shapes by their labels.                       |
-| [Vision](/docs/tools/vision/)         | DM     | Play\*\*\* | See what players are able to see.                       |
+| [Filter](/docs/tools/filter/)         | DM     | Both\*\*   | Highlight Shapes by their labels.                       |
+| [Vision](/docs/tools/vision/)         | DM     | Play\*\*   | See what players are able to see.                       |
+| [Zoom](/docs/tools/zoom/)             | All    | Both\*\*\* | Zoom in/out a portion of the Game Board.                |
+| [Initiative](/docs/tools/initiative/) | All    | Both\*\*\* | Track initiative order and timed effects.               |
+| [Undo/Redo](/docs/tools/undo/)        | All    | Both\*\*\* | Undo and redo certain actions.                          |
+
 \* Functionality differs depending on the mode.
-\*\* Not part of the tools toolbar.
-\*\*\* Only visible in the toolbar, when actually usable.
+
+\*\* Only visible in the toolbar, when actually usable.
+
+\*\*\* Not part of the tools toolbar.
