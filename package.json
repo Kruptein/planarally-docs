@@ -10,7 +10,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.34",
         "@fortawesome/free-regular-svg-icons": "^5.15.2",
         "@fortawesome/free-solid-svg-icons": "^5.15.2",
-        "@fortawesome/vue-fontawesome": "^0.1.10",
+        "@fortawesome/vue-fontawesome": "^2.0.2",
         "@gridsome/remark-prismjs": "^0.5.0",
         "@gridsome/source-filesystem": "^0.6.2",
         "@gridsome/transformer-remark": "^0.6.4",
@@ -23,6 +23,6 @@
         "gridsome": "^0.7.23",
         "medium-zoom": "^1.0.6",
         "typography": "^0.16.19",
-        "vue-lazy-hydration": "^1.0.0-beta.14"
+        "vue-lazy-hydration": "^2.0.0-beta.4"
     }
 }
