@@ -1,4 +1,5 @@
 import "~/assets/style/index.scss";
+import "gridsome-plugin-remark-container/themes/default.css";
 
 import DefaultLayout from "~/layouts/Default.vue";
 import DocsLayout from "~/layouts/Docs.vue";

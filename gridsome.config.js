@@ -21,9 +21,12 @@ module.exports = {
                 index: ["README"],
                 baseDir: "./docs",
                 pathPrefix: "/docs",
+                plugins: [
+                    "@gridsome/remark-prismjs",
+                    "gridsome-plugin-remark-container",
+                ],
                 typeName: "DocPage",
                 template: "./src/templates/DocPage.vue",
-                plugins: ["@gridsome/remark-prismjs"],
                 remark: {
                     autolinkHeadings: {
                         content: {
@@ -40,9 +43,12 @@ module.exports = {
                 index: ["README"],
                 baseDir: "./tutorial",
                 pathPrefix: "/tutorial",
+                plugins: [
+                    "@gridsome/remark-prismjs",
+                    "gridsome-plugin-remark-container",
+                ],
                 typeName: "TutorialPage",
                 template: "./src/templates/TutorialPage.vue",
-                plugins: ["@gridsome/remark-prismjs"],
                 remark: {
                     autolinkHeadings: {
                         content: {
@@ -59,9 +65,12 @@ module.exports = {
                 index: ["README"],
                 baseDir: "./server",
                 pathPrefix: "/server",
+                plugins: [
+                    "@gridsome/remark-prismjs",
+                    "gridsome-plugin-remark-container",
+                ],
                 typeName: "ServerPage",
                 template: "./src/templates/ServerPage.vue",
-                plugins: ["@gridsome/remark-prismjs"],
                 remark: {
                     autolinkHeadings: {
                         content: {
