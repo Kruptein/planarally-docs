@@ -26,8 +26,8 @@ Not all tools will be accessible in every mode and some tools will behave differ
 | [Ruler](/docs/tools/ruler/)           | All    | Both       | Measure Distances on the Game Board.                    |
 | [Ping](/docs/tools/ping/)             | All    | Play       | Display a Beacon on the Game Board for all to see.      |
 | [Map](/docs/tools/map/)               | DM     | Build      | Helps to resize assets (mostly maps) to match the grid. |
-| [Filter](/docs/tools/filter/)         | DM     | Both\*\*   | Highlight Shapes by their labels.                       |
-| [Vision](/docs/tools/vision/)         | DM     | Play\*\*   | See what players are able to see.                       |
+| [Filter](/docs/tools/filter/)         | All    | Both\*\*   | Highlight Shapes by their labels.                       |
+| [Vision](/docs/tools/vision/)         | All    | Play\*\*   | See what players are able to see.                       |
 | [Zoom](/docs/tools/zoom/)             | All    | Both\*\*\* | Zoom in/out a portion of the Game Board.                |
 | [Initiative](/docs/tools/initiative/) | All    | Both\*\*\* | Track initiative order and timed effects.               |
 | [Undo/Redo](/docs/tools/undo/)        | All    | Both\*\*\* | Undo and redo certain actions.                          |
