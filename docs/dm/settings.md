@@ -84,6 +84,11 @@ Lights need to be added to grant vision in areas.
 With this option disabled, everything on-screen is shown to players by default.
 FoW needs to be added to remove vision in areas.
 
+:::warning
+It is strongly recommended to fill the screen with fog if you want to use the vision system.
+Currently the vision system without fog behaves funky.
+:::
+
 ### Only LoS
 
 _LoS stands for Line of Sight_

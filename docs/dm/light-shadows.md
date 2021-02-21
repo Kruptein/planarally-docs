@@ -16,6 +16,11 @@ There are varying degrees of complexity we can achieve in PlanarAlly and dependi
 
 There is also 1 DM setting related to lighting called the 'Fill entire canvas with FOW' and this can be found in the Vision tab. This setting toggles whether the entire screen should be filled with fog by default or not.
 
+:::warning
+It is strongly recommended to fill the screen with fog if you want to use the vision system.
+Currently the vision system without fog behaves funky.
+:::
+
 ### Magical Lights and Darkness
 
 The first kind of lighting is what I call 'magical' lighting because it is so powerful that the magical lights cannot be hidden and the magical darkness can not be pierced by normal lights.
@@ -42,11 +47,13 @@ A much more common use of lighting is the use of placing lights on the map. You 
 
 Open the asset properties by right clicking the asset and selecting 'edit properties'. Find the section titled 'auras' and start filling in a new row.
 
-You can give the aura a name (e.g. candle) and set its bright radius and dim radius (starting from the bright radius' edge). To have the aura function as a light, it's important to select the lightbulb icon! If you would like the light source to be visible to other players you can also select the eye icon.
+For more info see the [auras](/docs/player/shapes/#auras) documentation.
+
+Make sure to mark your aura as a light source though!
 
 #### When to use
 
-This is the recommended way to add lights to your scene in most cases. Attaching a light to a token immediately offers dynamic lighting when the token is moved around and combined with vision later on it offers a powerful combo.
+This is the recommended way to add lights to your scene in most cases. Attaching a light to a token immediately offers dynamic lighting when the token is moved around and combined with vision later on, it offers a powerful combo.
 
 ## Vision
 
@@ -60,7 +67,9 @@ The essence of providing PA info about walls etc, is by drawing shapes like you 
 
 You can use any of the available shapes to draw your building skeletons, but some are more useful than others. Although the rectangle can be usefull for simple structures with 90 degrees walls, I find myself using the polygon tool almost exclusively these days. See the [draw tool documentation](/docs/tools/draw/) for more detailed info on how these shapes behave.
 
-_note that this only blocks normal lights. 'magical' lights pierce through any non magical fog._
+:::info
+This only blocks normal lights. 'magical' lights pierce through any non magical fog.
+:::
 
 ### Line of Sight
 
@@ -68,6 +77,8 @@ The last setting that we still need to discuss to complete the light and vision 
 
 Without this setting enabled, we have our lights illuminating rooms with the lights properply stopping at the edge of our walls. What we don't have is a notion of what a character can see. All rooms with a lightsource will be visible, whether there is a player in the room or not.
 
-When you enanle the line-of-sight setting in the DM settings, PlanarAlly will take position of player characters into account and only lights that are actually visible for a token are shown to the players.
+When you enable the line-of-sight setting in the DM settings, PlanarAlly will take position of player characters into account and only lights that are actually visible for a token are shown to the players.
 
-**Important**: For performance reasons this setting will only take into account those assets that are specifically marked as a **token** in their properties dialog. This means that with the setting enabled but no asset marked as token, your players will have **no vision**.
+:::warning
+For performance reasons this setting will only take into account those assets that are specifically marked as a **token** in their properties dialog. This means that with the setting enabled but no asset marked as token, your players will have **no vision**.
+:::
