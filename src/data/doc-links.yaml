@@ -2,6 +2,8 @@
   items:
       - title: Introduction
         link: /docs/
+      - title: Terminology
+        link: /docs/terminology/
       - title: Quick Reference
         link: /docs/reference/
       - title: Tools Overview
