@@ -9,7 +9,10 @@ In this tutorial we're going to cover:
 -   Setting up lighting and vision (e.g. fog)
 -   Interacting with tokens
 
-**_Warning_ Some of the content in this article is outdated. I'm working on rectifying this.**
+:::warning Out-of-date
+Some of the content in this article is outdated. I'm working on rectifying this.
+_(Primarily UI has changed)_
+:::
 
 ## Adding assets to your board
 
