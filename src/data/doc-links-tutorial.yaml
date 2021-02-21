@@ -2,6 +2,8 @@
   items:
       - title: Getting to know the UI
         link: /tutorial/general/ui/
+      - title: Common tools
+        link: /tutorial/general/common-tools/
       # - title: Your character
       #   link: /tutorial/in-game/character/
       # - title: Tools
