@@ -13,6 +13,9 @@ Assets are media files uploaded using the asset manager and available to be drop
 
 When the docs talk about assets they are mostly talking about this representation.
 
+Currently the modal to change shape properties is still called 'Edit Asset'.
+This should be changed to 'Edit Shape' in the short future, to streamline this terminology.
+
 ### Shapes
 
 Shapes is the most general name for anything that can be interacted with on the board, this can be a handdrawn rectangle or an asset that was dropped on the map.

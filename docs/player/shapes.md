@@ -1,4 +1,4 @@
-# Assets
+# Shapes
 
 _To bring assets on the map at this moment, you need to be a DM, see the [DM asset docs](/docs/dm/assets/)._
 
@@ -50,7 +50,7 @@ See [markers](/docs/player/markers/) for more information.
 
 This option opens the “Edit asset” menu, described below.
 
-## Edit asset
+## Shape properties
 
 By right clicking and selecting the “Show properties” option, you open the “Edit asset” menu.
 This menu includes a plethora of options.
