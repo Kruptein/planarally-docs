@@ -119,7 +119,7 @@ Shapes only got a small change this release, and that is a 'defeated' property.
 When you check this box in the shape properties or when you press 'x' with one or multiple shapes selected,
 all affected shapes will get a red X drawn over them.
 
-![](./client.png)
+![](./defeated.png)
 
 _This was contributed by scoodle on discord!_
 
@@ -177,6 +177,8 @@ By default when a DM is shown the invite link in the DM settings, it uses the cu
 When the DM is however connected through a local ip or localhost, the url will be unusable by other players.
 
 A new server config setting allows you to set a `public_name` which if set will always be used as the root host.
+
+_This was contributed by mischievous on discord!_
 
 ## Notable bugs
 
