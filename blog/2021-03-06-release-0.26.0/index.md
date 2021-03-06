@@ -1,6 +1,6 @@
 ---
 title: The dashboard redesign - Release 0.26.0
-date: 2021-02-28 13:30:00
+date: 2021-03-06 10:00:00
 excerpt: "An overview of new goodies"
 author: [darraghvt]
 ---
@@ -123,6 +123,17 @@ all affected shapes will get a red X drawn over them.
 
 _This was contributed by scoodle on discord!_
 
+### Tracker visual bars
+
+Trackers received the same UI overhaul as auras did in the last release.
+They now have an extra checkbox and two colour inputs.
+
+If "display on token" is checked a bar will be drawn above the token in the 2 colours you chose.
+
+![](./tracker.png)
+
+_This was contributed by scoodle on discord!_
+
 ## Load wall info (DM)
 
 Another frustration some DMs sometimes have, is the arduous work related to drawing walls for the vision system.
@@ -169,6 +180,16 @@ All keybindings using the ctrl key will now use the cmd key on mac based compute
 The opensans font used in PlanarAlly will now be fetched from the server instead of google fonts.
 This could otherwise lead to font issues when playing offline.
 
+### Loading animation
+
+The dull spinner has been replaced with a fancy 3d dice transformation animation.
+
+<video loop autoplay muted style="max-width: 680px;">
+ <source src="https://app.planarally.io/static/img/loading.webm" type="video/webm">
+</video>
+
+_animation made by Jiri on discord_
+
 ## Server
 
 ### Specify public host name
@@ -188,6 +209,12 @@ It is no longer possible to create a floor with a name that is already in use.
 This could lead to multiple problems when interacting with the two floors.
 
 This is a quick-fix, but shouldn't really impose too many restrictions anyway.
+
+### File upload interrupts
+
+A fix has been added to prevent large file uploads to halt after a short period.
+
+_This was contributed by scoodle on discord!_
 
 ### token snap on wall leave
 
