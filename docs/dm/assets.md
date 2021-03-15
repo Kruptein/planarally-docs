@@ -68,7 +68,7 @@ This will also be key to sharing sets with other players (see [downloading files
 
 ### Variants
 
-::: warning Experimental!
+:::warning Experimental!
 This feature is experimental! Some cornercases are expected to appear, so please [report to the issue tracker at GitHub](https://github.com/Kruptein/PlanarAlly/issues) if you encounter any bugs!
 :::
 
