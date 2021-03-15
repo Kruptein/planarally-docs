@@ -33,7 +33,7 @@ When multiple files are selected a progress bar will be visible to update you on
 ### Downloading Files
 
 To download files, select the asset(s) you want to download and click the download files icon.
-This will open a download dialogue, providing you with a single `\*.paa` file (the extension meaning **p**lanar **a**lly **a**sset).
+This will open a download dialogue, providing you with a single `*.paa` file (the extension meaning **p**lanar **a**lly **a**sset).
 They will unpack into any compatible PlanarAlly instance once uploaded like any normal asset.
 
 Downloaded assets will keep folder structure and file names of your assets as well as any information saved to a [template](#templates).
