@@ -30,8 +30,8 @@ Otherwise this layer behaves the same as the tokens layer.
 This layer cannot be manually selected, but it can be configured using the [DM Options Menu](/docs/dm/settings.md).
 This layer draws gridlines on the screen.
 
-Hexagonal grids are not currently supported.
-This is on my to-do list, but don't expect it immediately.
+Those gridlines are either squares (default) or hexagons.
+Both flat-top and point-top hex-grids can be drawn, yet are only experimentally supported, right now.
 
 ## Tokens
 
