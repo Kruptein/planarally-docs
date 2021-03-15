@@ -30,6 +30,13 @@ Once uploaded, your files will be accessible in-game.
 
 When multiple files are selected a progress bar will be visible to update you on the state.
 
+### Downloading Files
+
+To download files, select the asset(s) you want to download and click the download files icon.
+This will open a download dialogue, providing you with a single `\*.paa` file (the extension meaning **p**lanar **a**lly **a**sset).
+They will unpack into any compatible PlanarAlly instance once uploaded like any normal asset.
+Downloaded assets will keep any information saved to a [template](#templates).
+
 ## Placing Assets
 
 ![](./assets/asset-example.gif)
@@ -56,4 +63,4 @@ When you drop an asset on the board that has templates associated with it, you'l
 </video>
 
 This can be very handy to reuse some tokens you frequently use to prepopulate things like HP and light sources.
-This will also be key to sharing sets with other players.
+This will also be key to sharing sets with other players (see [downloading files](#downloading-files) above).
