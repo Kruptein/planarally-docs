@@ -1,6 +1,6 @@
 # Ruler Tool
 
-The Ruler tool can be accessed in the toolbar at the bottom right of the GAme Board, regardless of [mode](/docs/tools-overview/#tools-and-modes).
+The Ruler tool can be accessed in the toolbar at the bottom right of the Game Board, regardless of [mode](/docs/tools-overview/#tools-and-modes).
 It is a simple tool that gives you the option to measure distances.
 
 From the place where you clicked a line is drawn with a number showing the distance to your mouse cursor, until you release the mouse.

@@ -33,6 +33,11 @@ This layer draws gridlines on the screen.
 Those gridlines are either squares (default) or hexagons.
 Both flat-top and point-top hex-grids can be drawn, yet are only experimentally supported, right now.
 
+:::warning Experimental
+Hex-grids are experimental, so weird behavior may occur regularly.
+One example is grid snapping that still works with square grids, despite a hex-grid being displayed.
+:::
+
 ## Tokens
 
 The core gameplay will happen on this layer.

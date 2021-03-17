@@ -82,8 +82,9 @@ Note that the name of a variant is not connected to the name of the object!
 While the base object can be any shape (Shape, Token, or Asset), only *assets* can be added to them as variants.
 At any time, only one variant of an object is visible and can be swapped out for another one.
 
-Each variant retains its own size, properties and trackers, but trackers and auras can be configured to be shared among all variants.
-Yet, when creating a new varaint, it will not have any of the applied settings the base variant has.
+Each variant retains its own size, properties, trackers, and auras
+Trackers and auras can be configured to be shared among all variants.
+A newly created variant will not have any of the applied settings the base variant has.
 This includes access rights, general shape properties (e.g. name, `is a token`, etc.) or annotations!
 
 <video autoplay loop muted style="max-width: 680px;">
