@@ -14,6 +14,8 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 
 ## Keybindings
 
+On a Mac, use `Command` instead of `Ctrl`.
+
 ### Movement
 
 A decent chunk of keybindings is dedicated to moving either shapes or the screen around.
