@@ -14,6 +14,12 @@ The admin section provides administrative options.
 ### Players
 
 In the players section, you can see a list of current players.
+Next to the individual player's name, you can set their role within the campaign.
+
+:::Warning!
+Setting any Player to be DM grants them **unrestricted** access to the **entire** campaign!
+:::
+
 Click “kick” to remove specific players from your campaign.
 
 ### Invitation URL
