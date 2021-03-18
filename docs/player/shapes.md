@@ -284,13 +284,13 @@ To add a label press the + and the label manager will open in which you can sele
 
 #### Annotation
 
+Annotations are a freeflow place to write down information you want to track on a shape.
+
+:::info Markdown
+The annotation is markdown aware!
+:::
+
 ![](./assets/edit-asset-annotations.png)
 
-Annotations are a freeflow place to write down information you want to track on a shape.
-**This field is markdown aware!**
-
-Additionaly, when hovering over a shape\* with an annotation, the annotation will be displayed on the top side of the screen.
-
+Annotation of shapes you have *edit* access to will be displayed on the top side of the screen, on hover.
 The annotation can be marked as public to allow everyone in the session to see it on hover.
-
-_\*Only shapes you have edit access to._
