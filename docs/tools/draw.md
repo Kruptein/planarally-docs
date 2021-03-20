@@ -3,7 +3,7 @@
 The draw tool can be accessed in the toolbar on the bottom right of the screen by all players, but only in [Build mode](/docs/tools-overview/#tools-and-modes).
 It allows you to draw shapes on the board. For each shape you have the option to choose the fill colour and border colour (if applicable).
 
-The DM also has some special extra options in regards to the drawing mode, for more info see the documentation on [Magical lighting](/docs/dm/light-shadows/).
+The DM also has some special extra options in regards to the drawing mode.
 
 The shapes that can be drawn are the *rectangle*, *circle*, *polygon*, *paintbrush*, and *text*.
 
@@ -49,3 +49,14 @@ It can be dragged and resized etc. like any other shape.
 :::warning Edit
 It is not possible to edit the actual text content of the shape after creating it.
 :::
+
+## DM-only Modes
+On top of the Shapes, DMs also can select several modes.
+
+*Normal* mode will work like described above.
+
+*Reveal* and *Hide* will draw 'magical light' or 'darkness' respectively.
+For more information, see [the documentation on magical light and darkness](/docs/dm/light-shadows/#magical-light-and-darkness).
+
+*Erase* will create a shape that works as a (portable) 'hole', piercing through all objects *below* them in the draw stack, including [floors](/docs/dm/floors/)!
+An *erase* shape will automatically be dropped on the [map layer](docs/player/gameboard/#map), but can be moved to any layer.
