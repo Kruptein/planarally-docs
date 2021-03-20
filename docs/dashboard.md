@@ -11,6 +11,7 @@ Until these are changed to the new dashboard, you will need to go back to the da
 
 ## Localisation
 In the top-left corner of the navigational bar lies the localisation button which lets you choose a localisation of PlanarAlly off a drow-down menu.
+Any choice you make, here, will replicate to every campaign you play or run.
 
 :::info Translation Fallback
 Note that translations *may* be incomplete.
