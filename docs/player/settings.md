@@ -2,22 +2,38 @@
 
 The in-game settings are accessible from the side menu (click the <font-awesome :icon="['fas', 'cog']"/>-icon on the upper left screen of your browser window to open the menu).
 
-As a player, there are a couple of things you can configure.
+In-game Settings are divided in two groups, allowing you to configure the *appearance* and *behaviour* of PlanarAlly.
 
-## Snapping Behaviour
+## Appearance
+
+### Language
+
+Here, you can choose a different language to be displayed in the user interface.
+This will replicate to all other campaigns you play or run, just as if done through the [dashboard](/docs/dashboard/#localisation).
+
+### Grid
+
+The colour setting defines in what colour the [grid layer](docs/dm/layers/#grid) (i.e. the grid lines) will be drawn upon the [map layer](/docs/dm/layers/#map).
+
+The grid size setting is private to each client.
+It affects only scale to take into account that the default grid size of 1 grid cell equalling 50px, square, will look very different on different screens (e.g. a laptop, a 4k TV or a projector).
+
+### Ruler
+
+Here, the colour of the [ruler](docs/tools/ruler) as displayed in the client can be set.
+If the ruler is used publicly, all other players will see the ruler used in this client with the colour defined here.
+
+### Fog
+
+Short for 'fog of war', this setting allows to configure how everything unseen to the client's token(s) shall be covered.
+
+## Behavior
+
+### Snapping
 
 When checked, this inverts the default [snapping behaviour](/docs/player/snapping/).
 
-## Grid Size
+### Mouse & Gestures
 
-Because players can be using different screens (e.g. a projector, a laptop, a 4k tv), the default grid size of 1 grid cell == 50px might not be interesting. This setting allows players to modify the amount of pixels are used to render a single grid cell.
-
-## Colour Styles
-
-You can configure which colours you desire for your [ruler](/docs/tools/ruler/), the grid and the fog of war.
-The opacity slider for the FOW colour is non functional, the DM can adjust this to their personal preference in the [DM settings](/docs/dm/settings/#fow-opacity).
-
-## Language
-
-Last, but not least, you can select another language by choosing one of the supported languages in the drop-down menu.
-Note that PlanarAlly is developed in english and, thus, in case a translation of something in the user-interface is missing, the english version of the string will be displayed.
+Here, the *scroll to zoom* functionality can be disabled.
+This might be helpful for users of touch-input devices.
