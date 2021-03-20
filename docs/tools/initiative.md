@@ -95,7 +95,7 @@ The functions bar is a single row containing the `Round`-indicator showing the c
 
 <font-awesome :icon="['fas', 'eye']"/> toggles vision auto-lock.
 This function is useful for players who own more than one token.
-If active, every time action is assigned to another object (see <font-awesome :icon"['fas', 'chevron-right']"/> below), the vision of only this object will be shown.
+If active, every time action is assigned to another object (see <font-awesome :icon="['fas', 'chevron-right']"/> below), the vision of only this object will be shown.
 This can be toggled on/of individually by each player.
 Vision auto-lock will only display vision of objects the players have proper access to.
 
