@@ -149,7 +149,18 @@ Common usages are for example HP, NPC attitude or arrows used.
 A tracker consists of a value and optionally a name and a secondary value.
 The second value can be used to denote a maximum (e.g. HP 20/40).
 
-By clicking the <font-awesome icon="eye"/> symbol, you can toggle whether this information is public to all players or strictly visible to the DM and players with edit access.
+Trackers are created by clicking `New Tracker`.
+The new tracker will expand to be given a name and its values.
+
+A tracker that is set to be `public` will be shown for everyone who selects the shape.
+Otherwise, only players with `edit` access to the token will be able to see it.
+
+Activating `display on token` will show a horizontal bar on top of the token.
+It can be configured with two colours, the primary colour showing the first value to the left of the bar, the secondary showing the second value to the right of the bar.
+The bar will only displayed for everyone, if set to be public.
+
+Clicking the tracker's title bar will collapse the tracker to reduce clutter.
+A tracker will be removed by clicking the trash <font-awesome :icon="['fas', 'trash-alt']"/> icon on the title bar's right.
 
 #### Auras
 
