@@ -55,6 +55,8 @@
         link: /docs/tools/ruler/
       - title: Ping
         link: /docs/tools/ping/
+      - title: Vision
+        link: /docs/tools/vision/
       - title: Zoom
         link: /docs/tools/zoom/
       - title: Initiative
@@ -68,5 +70,3 @@
         link: /docs/tools/map/
       - title: Filter
         link: /docs/tools/filter/
-      # - title: Vision
-      #   link: /docs/tools/vision/

@@ -9,11 +9,14 @@ This is done by clicking on the <font-awesome :icon="['far', 'compass']"/> symbo
 As this is 'DMs-only' function, players cannot see this button.
 Players only interact with one canvas at a time; for them, each new Location looks like a different map (i.e. a different set of stacked [layers](/docs/dm/layers/)).
 
-Once opened, the Location Bar shows a button to create new Locations on the Left, followed by items for each of the Campaign's locations.
+Once opened, in its first line, the Location Bar shows a button to create new Locations on the Left, followed by items for each of the Campaign's locations.
 The current location is highlighted by white text and <font-awesome :icon="['fas', 'cog']"/>, while every other location's text and buttons are white with a reddish hue.
 Each item of the list consists of a handle to drag locations, a display of the location's name, and a <font-awesome :icon="['fas', 'cog']"/> button to access the location's individual settings.
 
 Each location with players present at the location, also displays a tab reading "Players" that can be expanded to show a list of the individual players present on said location.
+
+In its second line, the Location Bar shows a button to access archived Locations.
+If no Locations are archived, the button will appear slightly transparent, turning fully opaque if at least one Location is archived.
 
 Clicking the <font-awesome :icon="['far', 'compass']"/> symbol again will close the Location Bar.
 
@@ -47,11 +50,16 @@ Manually defining a setting to match the value also set in the Campaign Defaults
 
 ### Admin
 
-The _Admin_ tab in the Location Settings allows you to rename or remove the location.
+The _Admin_ tab in the Location Settings allows you to rename, archive, or remove the location.
+
+Archived Locations will disappear from the Location Bar.
+To restore an archived Location to the Location Bar, access the archive via the `Show archived locations` button in the location bar.
+This will open a list of all archived Locations.
+They are restored by clicking `select`.
 
 ![](~/../blog/2020-05-10-release-0.20.0/rename-location.png)
 
-You can only delete Locations where nobody, neither players nor DM, is present.
+You can only archive or remove Locations where nobody, neither players nor DM, is present.
 
 ### Grid
 
