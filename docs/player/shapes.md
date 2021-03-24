@@ -86,6 +86,11 @@ This can be useful for having objects that are invisible but player-controlled, 
 
 There is currently no special indicator to inform a user that their shape is invisible.
 
+#### Is defeated
+
+When checked, this will display a simple, red `x` over the shape to indicate it is defeated.
+This property can be toggled by pressing `x`.
+
 #### Border colour & Fill colour
 
 As the names suggest, these options affect the colours of the shape.
