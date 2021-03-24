@@ -16,6 +16,16 @@ To deselect the shapes you can simply click in an empty spot on the board or use
 
 _When doing a group select, only shapes you actually own will be selected. This in contrast to the normal click behaviour that can also select non-owned shapes._
 
+## Moving
+You can move your selection by simply dragging it along the map.
+
+The DM may have defined objects to be impassable (e.g. a wall).
+These will stop movement.
+The DM and all Co-DMs have the possibility to ignore movement constraints while pressing the `shift` key.
+
+Activating the `show ruler` toggle above the `select` tool button in the toolbar, dragging an object will also show a ruler measuring the distance moved.
+This ruler works like the [independent ruler tool](/docs/tools/ruler/) and will also share its settings.
+
 ## Resizing
 
 _To resize a shape you must be in 'build' mode_
@@ -49,9 +59,3 @@ Rotating also has [snapping behaviour](/docs/player/snapping/) to common angles 
 Shapes on the board are drawn in a certain order that decides which shape should be selected in case of overlap.
 
 You can change the order by right clicking on a shape and moving it to the back or the front of the stack.
-
-## Moving through terrain - DM only
-
-When the DM creates the map (s)he has the option to define objects that are impassable (e.g. a wall).
-
-There are times where the DM wants to move a group of tokens through a wall (e.g. to move to another floor) or because a character is stuck in a wall somehow. For this reason a special DM-only modifier is available, the `shift` key. While this key is pressed PA will ignore movement constraints.

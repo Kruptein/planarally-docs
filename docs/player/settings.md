@@ -10,11 +10,13 @@ When checked, this inverts the default [snapping behaviour](/docs/player/snappin
 
 ## Grid Size
 
-Because players can be using different screens (e.g. a projector, a laptop, a 4k tv), the default grid size of 1 grid cell == 50px might not be interesting. This setting allows players to modify the amount of pixels are used to render a single grid cell.
+The default grid size is 50px, meaning that the distance between the centers of two adjacent grid cells equals 50px.
+Because players can be using different screens (e.g. a projector, a laptop, a 4k tv), this size might not be wanted.
+This setting allows players to modify, individually, the amount of pixels used to render a single grid cell.
 
 ## Colour Styles
 
-You can configure which colours you desire for your [ruler](/docs/tools/ruler/), the grid and the fog of war.
+You can configure which colours you desire for your [ruler](/docs/tools/ruler/), the grid (lines) and the fog of war.
 The opacity slider for the FOW colour is non functional, the DM can adjust this to their personal preference in the [DM settings](/docs/dm/settings/#fow-opacity).
 
 ## Language

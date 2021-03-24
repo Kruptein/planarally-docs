@@ -41,6 +41,7 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 | Ctrl + u         |         | Toggle UI                                           |
 | Ctrl + z         |         | Undo                                                |
 | Ctrl + shift + z |         | Redo                                                |
+| Space            | ruler   | Set [ruler](/docs/tools/ruler) waypoints            |
 
 ### Selection / Shape interactions
 
@@ -49,6 +50,7 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 | Enter          | selection | Open edit dialogue for shape                      |
 | Ctrl           | selection | Extend active selection with ctrl-selected shapes |
 |                | resize    | Retain aspect ratio                               |
+| Space          | selection | Set [ruler](/docs/tools/ruler) waypoints          |
 | Del, Backspace | selection | Delete all shapes in the active selection         |
 | d              | selection | Deselect all currently selected shapes            |
 | Ctrl + l       | selection | (Un)Lock selected shape(s)                        |

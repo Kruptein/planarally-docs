@@ -30,6 +30,14 @@ Once uploaded, your files will be accessible in-game.
 
 When multiple files are selected a progress bar will be visible to update you on the state.
 
+### Downloading Files
+
+To download files, select the asset(s) you want to download and click the download files icon.
+This will open a download dialogue, providing you with a single `*.paa` file (the extension meaning **p**lanar **a**lly **a**sset).
+They will unpack into any compatible PlanarAlly instance once uploaded like any normal asset.
+
+Downloaded assets will keep folder structure and file names of your assets as well as any information saved to a [template](#templates).
+
 ## Placing Assets
 
 ![](./assets/asset-example.gif)
@@ -56,4 +64,32 @@ When you drop an asset on the board that has templates associated with it, you'l
 </video>
 
 This can be very handy to reuse some tokens you frequently use to prepopulate things like HP and light sources.
-This will also be key to sharing sets with other players.
+This will also be key to sharing sets with other players (see [downloading files](#downloading-files) above).
+
+### Variants
+
+:::warning Experimental!
+This feature is experimental! Some cornercases are expected to appear, so please [report to the issue tracker at GitHub](https://github.com/Kruptein/PlanarAlly/issues) if you encounter any bugs!
+:::
+
+You can add *variants* to objects in order to give them a different appearance without having to create a new token and removing the previous one.
+Popular use cases would be a druid's wildshape, alternate art for characters, multi-stage bosses, surprise reveals etc.
+
+To add a variant, use the `+` button at the bottom of the base object's edit window.
+By clicking on the pencil <font-awesome icon="pencil-alt"/>, you can edit the name of the active variant.
+Note that the name of a variant is not connected to the name of the object!
+
+While the base object can be any shape (Shape, Token, or Asset), only *assets* can be added to them as variants.
+At any time, only one variant of an object is visible and can be swapped out for another one.
+
+Each variant retains its own size, properties, trackers, and auras
+Trackers and auras can be configured to be shared among all variants.
+A newly created variant will not have any of the applied settings the base variant has.
+This includes access rights, general shape properties (e.g. name, `is a token`, etc.) or annotations!
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/0.24.0/variants.webm" type="video/webm">
+   <source src="/assets/0.24.0/variants.mp4" type="video/mp4">
+</video>
+
+You can delete a variant using the trash <font-awesome :icon="['fas', 'trash-alt']"/> button.
