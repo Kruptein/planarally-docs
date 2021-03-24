@@ -121,7 +121,7 @@ This option is key for situations where you have large groups of repeated tokens
 If all creatures have the same icon, it is difficult to track.
 Enabling this option ensures the players and the DM do not lose track of who's who.
 
-### Trackers
+### Trackers & Auras
 
 ![](./assets/edit-asset-trackers.png)
 
@@ -159,7 +159,7 @@ This concept consists of two values. The "normal" part and the "dim" part.
 The normal value will be used to draw a circle with the provided radius at full opacity,
 whereas the dim part will be used to draw an additional radius that will drop down in opacity towards the edge.
 
-In dnd 5e a torch is defined as 20ft bright and 20ft dim light for example, so here one would fill in 20/20 as well.
+For example, In dnd 5e a torch is defined as 20ft bright and 20ft dim light, so here one would fill in 20/20 as well.
 
 The numbers filled in are directly related to the way the DM configured the grid. This defaults to 5ft = 1 grid, so a value of 20 would translate to an aura that covers 4 squares (radius).
 
@@ -168,8 +168,19 @@ The numbers filled in are directly related to the way the DM configured the grid
 This is a niche feature that can be used when you don't want the aura to cover a full circle, but rather want a cone.
 
 The first value dictates the width of the cone angle and defaults to 360 (i.e. a full circle).
+The second value, set by dragging the knob on the circle, dictates the direction the cone should look to. For a full circle this value is ignored for obvious reasons.
 
-The second value dictates the direction the cone should look to. For a full circle this value is ignored for obvious reasons.
+##### Colour & Border
+
+Every aura can have two distinct colours (including transparency settings).
+These will be drawn on the game board if the aura is active.
+The colour set for `aura` will affect the area covered by the aura.
+Independently, a colour for the aura's border can be set.
+
+:::tip Lights & Spells
+Use angles and colours to indicate lights worn by the character and borders to indicate reach of spells centered on you, e.g. *detect magic* or *invisibility purge*.
+You can also use this to remind yourself of special attack reach etc.
+:::
 
 ##### Public
 
@@ -273,13 +284,13 @@ To add a label press the + and the label manager will open in which you can sele
 
 #### Annotation
 
+Annotations are a freeflow place to write down information you want to track on a shape.
+
+:::info Markdown
+The annotation is markdown aware!
+:::
+
 ![](./assets/edit-asset-annotations.png)
 
-Annotations are a freeflow place to write down information you want to track on a shape.
-**This field is markdown aware!**
-
-Additionaly, when hovering over a shape\* with an annotation, the annotation will be displayed on the top side of the screen.
-
+Annotation of shapes you have *edit* access to will be displayed on the top side of the screen, on hover.
 The annotation can be marked as public to allow everyone in the session to see it on hover.
-
-_\*Only shapes you have edit access to._

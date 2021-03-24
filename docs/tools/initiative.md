@@ -59,7 +59,9 @@ Each Timed Effect has two values, the descriptor and the duration.
 The descriptor is shown on the left (default on creation: `New Effect`) and can be any text.
 The duration is shown on the right (default: `10`) and should be a number and describes the duration of the effect in upcoming rounds.
 Any time an entry gets to be *active*, the duration decreases by one, until reaching `0`.
+
 After the duration has reached `0`, the next time the entry gets to be active, instead of changing from `0` to `-1`, the Timed Effect vanishes.
+It can be deleted by clicking the trash <font-awesome :icon="['fas', 'trash-alt']"/> button next to it.
 
 ### Visibility
 
@@ -72,7 +74,7 @@ A Player-added object will be visible by default, while objects added to initiat
 The second to the right column shows a <font-awesome :icon="['fas', 'users']"/>-icon.
 Clicking the icon toggles individual/group initiative.
 
-When an entry is marked as *group initiative*, it cannot be deleted (see below), neither by clicking the <font-awesome :icon="['fas', 'trash-alt']"/> symbol nor by removing the associated object.
+When an entry is marked as *group initiative*, it cannot be deleted (see below), neither by clicking the trash <font-awesome :icon="['fas', 'trash-alt']"/> symbol nor by removing the associated object.
 It will still highlight the associated token on mouseover; at this moment, there is no functionality to highlight multiple objects at once.
 
 ### Delete
@@ -89,8 +91,22 @@ Entries that are added to Group Initiative (see above) cannot be deleted.
 
 The functions bar is a single row containing the `Round`-indicator showing the current round of action/combat on the left, and four buttons to the right of these indicator.
 
+### Vision Auto-Lock
+
 <font-awesome :icon="['fas', 'eye']"/> toggles vision auto-lock.
-(*further documentation needed*)
+This function is useful for players who own more than one token.
+If active, every time action is assigned to another object (see [next turn](/docs/tools/initiative/#next-turn)  below), the vision of only this object will be shown.
+This can be toggled on/of individually by each player.
+Vision auto-lock will only display vision of objects the players have proper access to.
+
+:::info Vision Tool
+Vision Auto-Lock triggers the [Vision tool](/docs/tools/vision/) to reconfigure.
+Use that tool to configure what lines of sight you want to see, out of initiative.
+:::
+
+The button has no function for DMs as they always see everything.
+
+### Camera Auto-Lock
 
 The <font-awesome :icon="['fas', 'video']"/> toggles camera auto-lock.
 When camera auto-lock is active, every time action is assigned to another object (see below), the viewport is centered on the now active object.
@@ -99,10 +115,14 @@ Camera auto-lock will only center the viewport on objects the players are able t
 Thus, for the DM, the center of the viewport will change virtually with every click on *Next*.
 The Players' viewport will only change when a token they control is now active according to the Initiative Tracker.
 
+### Reset
+
 The <font-awesome :icon="['fas', 'sync-alt']"/>-button resets rounds and turns.
 Rounds will be reset to Round 0, action will be assigned to the object at the top of the list.
 Note that neither the initiative values nor Timed Effects are reset.
 This function is only available for DMs.
+
+### Next Turn
 
 The <font-awesome :icon="['fas', 'chevron-right']"/>-button (*Next*) assigns the next player in the initiative order as *active* (see above).
 This function is only available for DMs.
