@@ -18,6 +18,12 @@ You will also only _see_ one location at a time.
 The layers are introduced below with the functionality relevant for players.
 They are documented in-depth with also DM-only functionaltiy [within an own page in the DM-section of this documentation](/docs/dm/layers/).
 
+:::info Stay connected
+The gameboard will only show or save movements of tokens or other changes, when you are connected to the server.
+In case this connection is lost for whatever reason, a thick red border around the screen will warn you.
+Any changes to your board during a disconnect might be lost.
+:::
+
 ## Layers
 
 PlanarAlly orders its game board in multiple layers, drawn on top of each other.
