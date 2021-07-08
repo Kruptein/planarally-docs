@@ -26,6 +26,10 @@ Floors are a very handy tool to improve immersion/perception and it's advised to
 You can create new floors by clicking on `Add new floor`.
 You will be asked for the name of the floor in a pop-up.
 
+:::info No Duplicates
+Note that no two floors on a location can have the same name.
+:::
+
 ## Reordering floors
 
 You can reorder floors by dragging them to another position. All objects on a floor will remain associated with that same floor.

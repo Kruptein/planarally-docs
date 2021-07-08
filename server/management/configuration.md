@@ -66,10 +66,27 @@ See [python-socketio on readthedocs.io](https://python-socketio.readthedocs.io/e
 
 ## General
 
-This section, at the moment, only contains one variable.
+This section contains general settings for PlanarAlly.
 
 ### save\_file
 
 `save_file` (active by default, default: `planar.sqlite`) tells the server where to look for the central save file wherein all users, settings, locations, assets and so on are saved.
 
+:::info Savefile format
 Note that, at this moment, PlanarAlly only supports storing the saves in *.sqlite* format.
+:::
+
+### public\_name
+
+`public_name` (inactive default, accepting valid ip or hostname) is used to set an ip or hostname address that is inserted into the invitation url via the [DM's campaign settings](/docs/dm/settings/#invitation-url).
+If inactive or empty, the server falls back to normal operation and uses the ip/hostname address it is accessed with.
+
+## APIserver
+
+The API server is an administration server on which some API calls can be made.
+This contains the same options as the settings of the [configuration of the webserver](#Webserver), but applying them to the API server.
+
+Thus, only major differences are listed here:
+* **Always** use a different port or socket than for the webserver.
+* `host` is defaulted to `localhost` instead of `0.0.0.0` to limit access.
+* `port` is defaulted to `8001` (using the port next to the webserver's default).
