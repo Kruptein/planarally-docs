@@ -60,5 +60,5 @@ Otherwise, they will lose knowledge of the already explored zone the moment ther
 In this case, you might want to add access *entries* for all players in the light sources properties beforehand while deactivating every access level.
 This way, you just need to tick a few <font-awesome icon="lightbulb"/>-icons to light up a zone.
 
-Note that this will light up not only the `map` layer but also the *tokens* layer.
+Note that this will light up not only the *map* layer but also the *tokens* layer.
 If you want to hide enemy movements for your player, move their tokens to the *DM* layer.
