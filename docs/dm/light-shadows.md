@@ -51,6 +51,11 @@ For more info see the [auras](/docs/player/shapes/#auras) documentation.
 
 Make sure to mark your aura as a light source though!
 
+:::tip Hidden Light Sources
+Light sources are always attached to shapes.
+If you want to hide the shape from your players, but display its light effect, move it to the `fow`-layer – or make it invisible, if you need the aura's colour displayed.
+:::
+
 #### When to use
 
 This is the recommended way to add lights to your scene in most cases. Attaching a light to a token immediately offers dynamic lighting when the token is moved around and combined with vision later on, it offers a powerful combo.
@@ -68,7 +73,8 @@ The essence of providing PA info about walls etc, is by drawing shapes like you 
 You can use any of the available shapes to draw your building skeletons, but some are more useful than others. Although the rectangle can be usefull for simple structures with 90 degrees walls, I find myself using the polygon tool almost exclusively these days. See the [draw tool documentation](/docs/tools/draw/) for more detailed info on how these shapes behave.
 
 :::info
-This only blocks normal lights. 'magical' lights pierce through any non magical fog.
+This only blocks normal lights.
+'Magical' lights pierce through any non magical fog.
 :::
 
 ### Line of Sight
@@ -81,4 +87,21 @@ When you enable the line-of-sight setting in the DM settings, PlanarAlly will ta
 
 :::warning
 For performance reasons this setting will only take into account those assets that are specifically marked as a **token** in their properties dialog. This means that with the setting enabled but no asset marked as token, your players will have **no vision**.
+:::
+
+## Minimal/Maximal Vision
+These can be set in the [campaign settings](/docs/dm/settings/).
+These settings behave a lot like auras, but only *limiting* the vision of all tokens, instead of shedding light on the map.
+
+:::warning
+This only affects canvas that is filled with fog-of war.
+:::
+
+A token will be able to see everything within the limit of *minimal vision* as normal.
+Yet, it will *not* see light sources beyond the limit of  *maximal vision*.
+Every light source between the limits of minimal and maximal vision will be dimmed out like a dim light aura.
+
+:::info
+This only blocks normal lights.
+`Magical lights pierce through any non magical fog.
 :::

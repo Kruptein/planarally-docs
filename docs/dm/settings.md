@@ -112,7 +112,9 @@ In fake player mode, you'll also be stuck on 1.0.
 
 ### Vision Mode
 
-**This is a technical setting that you should only touch if you know what you are doing.**
+:::warning
+This is a technical setting that you should only touch if you know what you are doing.
+:::
 
 The experimental vision mode calculates the lighting/vision differently compared to the default version.
 
@@ -122,7 +124,7 @@ You could consider using this option, if you have many light/vision related obje
 
 ### Minimal/Maximal vision
 
-These settings are tuning factors to the vision system.
+These settings are tuning factors to the [vision system](/docs/dm/light-shadows/).
 They determine limits to the vision of all tokens.
 
 Suppose there is one giant, open field that stretches 5000 ft. and is completely illuminated.
