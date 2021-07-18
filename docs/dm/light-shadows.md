@@ -91,7 +91,7 @@ For performance reasons this setting will only take into account those assets th
 
 ## Minimal/Maximal Vision
 These can be set in the [campaign settings](/docs/dm/settings/).
-These settings behave like auras, but only *limit* the vision of all tokens.
+These settings behave a lot like auras, but only *limiting* the vision of all tokens, instead of shedding light on the map.
 
 :::warning
 This only affects canvas that is filled with fog-of war.
