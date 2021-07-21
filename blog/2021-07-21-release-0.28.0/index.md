@@ -54,7 +54,7 @@ It's however also possible to set an image as a background that will be repeated
 
 ![](./grass.png)
 
-When providing an image, it's possible to ater the offset and the scale of the pattern.
+When providing an image, it's possible to alter the offset and the scale of the pattern.
 
 The offset is a value in pixels by which to shift the pattern in relation to the grid.
 
