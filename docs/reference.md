@@ -14,6 +14,8 @@ For more info on layers check the [layer documentation](/docs/dm/layers/).
 
 ## Keybindings
 
+On a Mac, use `Command` instead of `Ctrl`.
+
 ### Movement
 
 A decent chunk of keybindings is dedicated to moving either shapes or the screen around.
@@ -53,6 +55,7 @@ A decent chunk of keybindings is dedicated to moving either shapes or the screen
 | Space          | selection | Set [ruler](/docs/tools/ruler) waypoints          |
 | Del, Backspace | selection | Delete all shapes in the active selection         |
 | d              | selection | Deselect all currently selected shapes            |
+| x              | selection | Mark shape(s) as defeated                         |
 | Ctrl + l       | selection | (Un)Lock selected shape(s)                        |
 | Ctrl + c       | selection | Copy selection to clipboard                       |
 | Ctrl + v       |           | Paste clipboard to board                          |
