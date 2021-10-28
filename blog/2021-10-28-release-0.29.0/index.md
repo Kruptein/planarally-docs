@@ -1,11 +1,11 @@
 ---
 title: Rolling gently into fall - Release 0.29.0
-date: 2021-07-21 15:00:00
+date: 2021-10-28 20:00:00
 excerpt: "What's new?"
 author: [darraghvt]
 ---
 
-It's been 3 months, we've been long overdue for a new release!
+It's been a while, we've been long overdue for a new release!
 The release is not super big, but does have some fun new tools to play with as well as the usual array of bugfixes.
 
 ## Virtual Dice
@@ -24,6 +24,12 @@ You can optionally choose to share dice results with all players, which will sho
 #### A note on behaviour
 
 The dice are emulated/approximated with a proper physics system. It can happen that PA assumes the die has landed on its final position and show a result and yet have the die roll over one last time. These kinks will be ironed out in the future, if you intend to heavily use this in your campaign, it might be wise to decide upfront which value you treat as the real value
+
+#### A note on loading
+
+The dice use a full 3D render system (shoutout to babylonjs and ammojs). This brings in a lot of extra code through the dependencies which increases the bundle size greatly and thus the loading time of PA.
+
+To circumvent this, all dice related code is not loaded during the main PA load, but instead deferred until the time you click on the dice tool the first time. This means there might be a small delay the first time you interact with the dice tool.
 
 ## Draw tool pointer
 
@@ -89,13 +95,29 @@ It's no longer possible to configure a max vision range that is smaller than the
 Auras usually are full 360 degrees circles, this can however be configured along with a viewing angle to orient the aura in a particular direction.
 The UI for the viewing angle now also offers a number input if you want to be more precise or don't like the circle input element.
 
-### variant switcher enabled
+### variant switcher
 
 The variant switcher got disabled with the big vue3 update partly because I felt it was too buggy and not really used by others.
 
 I was apparently very wrong about that last assessment as I got multiple questions about why the variants no longer worked.
 
 My apologies to those, it's been re-enabled in its original functionality!
+
+#### Fixes
+
+Two bugs were also fixed related to shapes with variants:
+
+##### Trackers/Auras
+
+The shared tracker/aura logic had some logic issues with inconsistent behaviour as a result.
+
+They should now properly work :)
+
+Additionally when changing variants and the previous variant had (multiple) non-shared auras, some of these would remain on screen, but not move along (i.e. static). This was also resolved.
+
+##### Location changing
+
+When moving a shape with variants to another location, only a part of the variants was moved, causing multiple issues all around (including the old location no longer being able to load).
 
 ## Bugfixes
 
@@ -113,6 +135,8 @@ My apologies to those, it's been re-enabled in its original functionality!
 -   Multiple experimental vision mode bugs
     -   Fix startup not working correctly
     -   Fix unsnapped move of blocking shape not updating movement triangulation
--   Composite shape tracker/aura toggles
 -   Movement block not updating directly when not using snapping
 -   Some performance dropoff for big polygons
+-   Remove lingering rotation UI when removing a shape in build mode
+-   Select tool showing ruler without selection
+-   Text resize not live-syncing to other clients
