@@ -19,7 +19,7 @@ The pace of PA releases has always ebbed and flowed due to various factors in my
 
 Looking at my blog posts, we had 6 releases last year, 3 which were in the first 3 months, 2 in the summer and then another one in October. If I look at the 2020 releases that's actually an increase from 5 to 6!
 
-Now pure numbers does not really say a lot, because some releases pack more content than others, so let's see what we actually achieved in the last year!
+Now pure numbers do not really say a lot, because some releases pack more content than others, so let's see what we actually achieved in the last year!
 
 _I'm just going to discuss noticeable things, or things that I would like to say something about, we did more than only this!_
 
@@ -175,22 +175,149 @@ I use polygons so much that I don't know why I didn't tackle this earlier.
 
 Adding or removing points, splitting or joining polygons, it's all possible now!
 
-## Email migration
+## Ramblings on various topics
 
-## User <> Character stuff
+After looking back on 2021, I wanted to take the time to discuss some random things.
 
-## Multishapes
+Some of these topics are technical, some are very speculative and by no means hardcoded plans.
 
-## Server improvements
+Some of these topics I'm not sure yet on how to continue or to start and I would love to hear input from you, my community on some of these topics!
 
-## Official server
+### Releases
 
-## Email stuff
+#### Release cadence
 
-## Release numbers
+One thing that I would like to know your input on is the release cadence.
 
-## Competition
+So far I would say that I roughly try to release when I feel the release has enough content. Sometimes this can mean a rapid succession of releases like we saw in the first months of last year, sometimes this can mean that a release waits for a couple of months.
 
-## Patreon
+Is this something that you are fine with?, or would you rather that I move it to a faster cadence that even If I don't have a lot (e.g. a small improvement/addition and some bug fixes), I should still put out a release say once a month.
 
-## Last Gameboard
+#### Versioning scheme
+
+Another topic I wanted to discuss was release numbers.
+PA is part of the [ZeroVer club](https://0ver.org) with the latest release being 0.29.0 after almost 4 years!.
+
+That's simply because I don't really know what would be needed to go to a 1.0 for me. It would need to be something substantial given that I never went to 1.0 in the past for other big changes, which means that it will likely not happen soon by that account.
+
+Which means that I might reconsider the versioning scheme to use something different.
+The main two options I would consider at the moment are described below.
+
+##### Drop the major
+
+Doing something similar to firefox and just drop the first 0. This leaves us with a big number that shows iteration and an extra number for potential patches. (e.g. 29.0 instead of 0.29.0)
+
+This solution is pretty easy and doesn't really change anything in practice.
+
+##### Year releases
+
+Another option is to do something like "November 2021" or "2021.1, 2021.2, ...", where in the latter case the 1/2 can either just be an indication of iteration or actually relate to the month it was released in.
+
+We would still keep track of some other version number (probably the other suggestion above) but the general communication would be done by year and iteration.
+
+The main benefit of this in my opinion is that it makes communication easier.
+I'm quicker to remember whether a certain thing was part of the 2021 release cycle compared to being part of 0.24.0 and newer.
+
+Given that I don't tend to release more than once a month anyway, this could be an option.
+
+### Server
+
+#### Asset Limitations
+
+An important thing that I've never come around to implement are server configurations to limit certain asset related settings.
+
+There currently is no limit on how many assets someone can upload, nor is there a limit on how big said files are.
+
+These are 2 things that I would like to address rather sooner than later.
+
+#### Email
+
+Another aspect that is not yet covered is all things email related.
+There currently is no mechanism to reset passwords for players outside of contacting the server admin.
+The main reason is because there is no email system configured.
+
+This is a topic that I'll have to research a bit,
+but I expect this to result in some new settings being added to the configuration file to configure email servers by the server admin.
+
+Along with the technical aspect of adding email support, this also means adding welcome emails and password reset emails along with other things.
+
+#### Official server
+
+I would love to be able to host some official PA server myself as well.
+I'm very happy and glad that other people are hosting public servers out there,
+but I feel that some official server wouldn't hurt either.
+
+In fact https://app.planarally.io has been up and running for a while now, but this is currently a **development** server and is thus not advised to actually play with.
+
+### Client
+
+#### Email migration
+
+Another change I would like to make is related to the email topic in the server section and that is to change the login process from a username/password combination to an email-address/password combination.
+
+One reason for this is that it will make my life way easier to import save files from another server. Specifically related to users as I currently have no way to match a username from one server with one from another. There might be a 'tom' on both, but it might actually be two different people. If I do this for emails, combined with a verified email address, this is one less hurdle to overcome.
+
+This would make email addresses mandatory which is something that wasn't the case in the past, and the prime reason why I chose a username login initially was to support offline play.
+Does this mean I'm removing offline play? No, not at all. Offline play is and will always be a big feature of PA and this just means that email validation and other email related things will just not be relevant. The emailadress will basically act as a regular username.
+
+#### User vs Player
+
+Another change I would like to do is to give more power to players.
+Currently the DM basically handles everything, they have to upload the character art etc.
+
+A first change is to bring a clearer distinction to the concept of a User and a Player.
+A user will be identified by an email (if my above plans go ahead) and can be a player in multiple campaigns where they'll be identified by one or more character names.
+
+Later on it should be possible to attach specific assets to a character giving the player more power to do things like upload their own art etc.
+
+#### Multishapes
+
+A completely different topic and more of a tangent than anything else is the concept of multishapes.
+Multiple basic shapes that are linked together to form one bigger shape.
+
+The foremost reason this is a topic I'm sometimes playing with is to accomodate things like moving the map and moving along all walls associated with the map.
+Or other shapes that have some connection to a shape on another layer. This is however a topic that is technically more challenging as seen by my experiments with the variants.
+
+Variants can be regarded as a subclass of the multishapes topic, where multiple shapes are related to eachother, but only one is shown at any time.
+Additionally for variants the shapes are all located on the same layer so it's also simpler in that regard.
+
+I don't really know where I'm going with this section, it's just something I've been musing about :)
+
+### PA in the VTT landscape
+
+This last section of ramblings is related to some more high level topics related to PlanarAlly.
+
+#### Competition
+
+PA grew from a desire to try to create a VTT for my own campaigns and wasn't made with an original intent to be something big.
+I didn't see any reason why I wouldn't make the code itself public, and one thing lead to another and I have a small but fun community around this project!
+
+Something that I'm very much not paying attention to as a result is the "competition" and I use this word loosely here as the other projects out there probably aren't even aware of PlanarAlly to begin with.
+
+But other VTTs exist out there, your big ones, but also the smaller ones, which are popping out everywhere these days just as PA did.
+So sometimes I feel a bit intimidated, as if I'm fighting an uphill battle that I will inevitably lose.
+But I've made my peace with just accepting that even if a certain point in time comes where another platform is vastly superior and my playerbase moves on,
+I can say that it was a fun experiment and I shouldn't feel sad.
+
+#### Patreon
+
+Somewhat related to the last point is that I'm very grateful to the people that actually donate some money on patreon.
+I don't really post things on patreon or have tiers or whatever, because I have no idea what I could use them for.
+Because the community is rather small I like to just tell everyone if something new is coming up.
+
+Maybe there is no need to do anything with it and just let it be as it is right now,
+bug if anyone has some ideas to improve my involvement in the patreon page, let me know!
+
+#### Last Gameboard
+
+A last thing I wanted to mention was the 'Last Gameboard' a product/company that I've been interacting with last year.
+It's a cool project that I've been integrating PA on and is also a reason why PA itself was a bit slower in the second half of last year.
+The product should launch somewhere this year, so we'll see how it goes and in which way PA on the device will be well received.
+
+That said most development I do for that integration has also found its way back into the main codebase so that's cool.
+
+## Closing thoughts
+
+That wraps up my ramblings, if you managed to read all the way to the bottom, thank you for your patience :)
+
+I never expected to have this project evolve to what it is nowadays and I can't thank all of you enough for that, so let's see what 2022 brings us!
