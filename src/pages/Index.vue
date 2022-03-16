@@ -31,11 +31,11 @@
 import Logo from "~/assets/images/pa-logo.svg";
 export default {
     components: {
-        Logo
+        Logo,
     },
     metaInfo: {
-        title: "Home"
-    }
+        title: "Home",
+    },
 };
 </script>
 
@@ -47,5 +47,10 @@ export default {
 .logo-index {
     height: 200px;
     margin-bottom: 20px;
+
+    padding: 25px;
+    max-width: 200px;
+    background: #f1e7d0e1;
+    border-radius: 25%;
 }
 </style>
