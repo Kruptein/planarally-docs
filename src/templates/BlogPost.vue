@@ -1,23 +1,20 @@
 <template>
-  <BlogLayout :subtitles="subtitles">
-    <Section container="md" dots="true" >
+    <BlogLayout :subtitles="subtitles">
+        <Section container="md" dots="true">
+            <div class="post-header container-md text-center mb-x2">
+                <h1 v-html="$page.post.title" />
+                <PostMeta :post="$page.post" />
+            </div>
 
-      <div class="post-header container-md text-center mb-x2">
-        <h1 v-html="$page.post.title"/>
-        <PostMeta :post="$page.post"/>
-      </div>
+            <div class="post-content post mb-x2">
+                <!-- <g-image v-if="$page.post.poster" quality="1" width="600" :src="$page.post.poster" /> -->
 
-      <div class="post-content post mb-x2">
+                <p class="lead" v-html="$page.post.excerpt" />
 
-        <!-- <g-image v-if="$page.post.poster" quality="1" width="600" :src="$page.post.poster" /> -->
-
-        <p class="lead" v-html="$page.post.excerpt"/>
-
-        <div v-html="$page.post.content"/>
-
-      </div>
-    </Section>
-  </BlogLayout>
+                <div v-html="$page.post.content" />
+            </div>
+        </Section>
+    </BlogLayout>
 </template>
 
 <page-query>
@@ -46,30 +43,45 @@ query ($id: ID!) {
 </page-query>
 
 <script>
-import PostMeta from '@/components/PostMeta.vue'
+import PostMeta from "@/components/PostMeta.vue";
+import mediumZoom from "medium-zoom";
 export default {
-  components: {
-    PostMeta
-  },
-  computed: {
-    subtitles() {
-        // Remove h1, h4, h5, h6 titles
-        let subtitles = this.$page.post.subtitles.filter(function(value, index, arr){
-          return [2,3,4].includes(value.depth)
-        })
-        return subtitles;
-      },
-  },
-  metaInfo () {
-    return {
-      title: this.$page.post.title,
-      meta: [
-        {
-          name: 'description',
-          content: this.$page.post.excerpt
-        }
-      ]
-    }
-  }
-}
+    components: {
+        PostMeta,
+    },
+    computed: {
+        subtitles() {
+            // Remove h1, h4, h5, h6 titles
+            let subtitles = this.$page.post.subtitles.filter(function(
+                value,
+                index,
+                arr
+            ) {
+                return [2, 3, 4].includes(value.depth);
+            });
+            return subtitles;
+        },
+    },
+    updated() {
+        mediumZoom("img", { background: "transparent", margin: 150 });
+    },
+    metaInfo() {
+        return {
+            title: this.$page.post.title,
+            meta: [
+                {
+                    name: "description",
+                    content: this.$page.post.excerpt,
+                },
+            ],
+        };
+    },
+};
 </script>
+
+<style>
+.medium-zoom-overlay,
+.medium-zoom-image--opened {
+    z-index: 999;
+}
+</style>

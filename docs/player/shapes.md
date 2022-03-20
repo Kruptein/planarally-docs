@@ -1,6 +1,6 @@
 # Shapes
 
-_To bring assets on the map at this moment, you need to be a DM, see the [DM asset docs](/docs/dm/assets/)._
+_To bring assets on the map you need to be a DM, see the [DM asset docs](/docs/dm/assets/)._
 
 ## Manipulating Objects
 
@@ -34,12 +34,17 @@ This allows you to place multiple objects on the same layer but have them overla
 
 This option places tokens in the initiative menu.
 If already in the initiative menu, this will appear as “show initiative”.
-For more information, check the [initiative](/docs/tools/intiative/) document.
+For more information, check the [initiative](/docs/tools/initiative/) document.
 
 #### Delete shapes
 
 This option deletes the selected shape(s).
 You may also press `Del` or `Backspace` to do this.
+
+:::tip Undo/Redo
+If you accidentally remove a shape, you can undo it by using the ctrl+z keybinding.
+This also works for certain other operations like movement.
+:::
 
 #### Set marker
 
@@ -48,72 +53,90 @@ See [markers](/docs/player/markers/) for more information.
 
 #### Show properties
 
-This option opens the “Edit asset” menu, described below.
+This option opens the “Edit asset” dialog, described below.
 
 ## Shape properties
 
-By right clicking and selecting the “Show properties” option, you open the “Edit asset” menu.
-This menu includes a plethora of options.
+By right clicking and selecting the “Show properties” option, you open the “Edit asset” dialog,
+which allows you to modify various settings related to the selected shape.
 
-This dialog consists of muliple panels.
+:::tip Opening the shape properties faster
+You can also press **enter** to immediately open this dialog!
+:::
 
 ### Properties
 
 ![](./assets/edit-asset-properties.png)
 
-The properties panel consists of common properties related to the shape in question.
+The first section consists of common properties related to the selected shape.
 
 #### Name
 
 The name of the shape, this is an optional field that defaults to 'Unknown shape'.
+This name will show up in some other places like the quick selection info and the [initiative](/docs/tools/initiative/) list.
 
 The <font-awesome icon="eye"/> symbol is used to toggle whether other players without edit access are allowed to see this name.
+If this is not allowed, other players will see 'Unknown shape' irregardles of whether the name was set.
 
 #### Is a token
 
 Selecting this option classifies the object as a token.
-Tokens have a specific meaning, see [tokens] for more information on what this entails.
+Tokens have a specific meaning, see [the terminology section](/docs/terminology/#tokens) for more information on what this entails.
 
 Check the [lighting and vision](/docs/dm/light-shadows/) document for more information on how lighting works in relation to tokens.
 
-This should only be used for player controlled shapes.
+In general you only want to enable this property for shapes controlled by players.
 
 #### Is invisible
 
-Selecting this option turns the shape invisible to all players, except those with vision or edit access to the shape.
-As the DM, you will still be able to see the shape.
-This can be useful for having objects that are invisible but player-controlled, or invisible, but still affecting movement.
+Selecting this option turns the shape invisible to all players without vision or edit access to the shape _(\*)_.
+
+Example uses for this feature are invisible summons that a player controls.
 
 There is currently no special indicator to inform a user that their shape is invisible.
+
+_(\*) The DM will also see invisible shapes as they have implicit edit access to all shapes_
 
 #### Is defeated
 
 When checked, this will display a simple, red `x` over the shape to indicate it is defeated.
-This property can be toggled by pressing `x`.
+This property can also be toggled by pressing `x`.
+
+![](./assets/defeated.png)
 
 #### Border colour & Fill colour
 
 As the names suggest, these options affect the colours of the shape.
 
-Note that in some circumstances these colours are not used (specific shapes).
+_Note that for some specific shape types only one of the two colours is used._
 
 #### Blocks vision/light
 
 Selecting this option blocks vision and light from passing through the shape.
 More information about lighting can be found in the [lighting and vision](/docs/dm/light-shadows/) document.
 
+Example uses are walls/doors/...
+
+For performance reasons you typically don't want to assign this property to shapes that regularly move.
+
 #### Blocks movement
 
 Selecting this option prevents other shapes from moving through it.
-This is useful for creating walls in your dungeon you don’t want your players to pass through.
 
-For the DM, you may still pass through shapes that have this option enabled.
-To do this, hold down `shift` and move the shape.
+This is commonly paired together with blocks vision for walls, but can also be used alone for things like windows.
+
+:::tip DM cheats
+As a DM you can circumvent this restraint by using the **shift** modifier will you move shapes.
+:::
+
+For performance reasons you typically don't want to assign this property to shapes that regularly move.
 
 #### Is locked
 
 Selecting this option locks the shape in place.
-This can be useful for maps you don’t want to accidently move while playing.
+This can be useful for static shapes you don’t want to accidently move while playing.
+Especially useful for your maps which might otherwise take you some time to grid align again.
+
 Press `Ctrl + L` to do this without opening the Edit asset menu.
 
 #### Show badge
@@ -122,50 +145,52 @@ Selecting this option displays a badge at the bottom right of the shape.
 By default, the badge number is 1.
 As you copy and paste this shape, the badge number will increase incrementally.
 
-This option is key for situations where you have large groups of repeated tokens, such as enemy encounters repeating the same enemy.
-If all creatures have the same icon, it is difficult to track.
-Enabling this option ensures the players and the DM do not lose track of who's who.
+![](./assets/shape-badge.png)
+
+This option is key for situations where you have large groups of similar tokens.
+If all creatures have the same icon, it can be difficult to differentiate between them during combat.
+Enabling this option ensures the players and the DM are talking about the same shapes.
+
+You can configure the details of how the badge values are generated in the Group section.
 
 ### Trackers & Auras
 
 ![](./assets/edit-asset-trackers.png)
 
-This panel is used to add trackers and auras.
-These values often dynamically change throughout a game.
+:::tip Quick info
 
-You can at all times see the values of both trackers and auras of a selected shape at the right hand side of the screen,
-without opening the edit dialog.
+If you just want to see the value of a certain tracker or aura quickly you don't have to open the shape properties.
+You can see the values of both trackers and auras at all times from the quick selection info in the top right of the screen if the shape is selected.
 
-Additionally you can modify these values from this quick info panel, by clicking on their value.
+Additionally you can modify these values from this panel, by clicking on their value.
 A small popup will appear in which you can insert a new value.
 This value can be absolute, or relative by providing an input with a `+` or `-`.
 For example, if the base value is 13, and you type `-5`, you will subtract 5, leaving you with 8.
+:::
 
 #### Trackers
 
 Trackers can be used to keep track of various states.
-Common usages are for example HP, NPC attitude or arrows used.
+Common usages are for example HP, NPC attitude or arrows/ammunition usage.
 
 A tracker consists of a value and optionally a name and a secondary value.
 The second value can be used to denote a maximum (e.g. HP 20/40).
 
-Trackers are created by clicking `New Tracker`.
-The new tracker will expand to be given a name and its values.
+Trackers are created by clicking `New Tracker` and filling in some value.
 
 A tracker that is set to be `public` will be shown for everyone who selects the shape.
 Otherwise, only players with `edit` access to the token will be able to see it.
 
 Activating `display on token` will show a horizontal bar on top of the token.
 It can be configured with two colours, the primary colour showing the first value to the left of the bar, the secondary showing the second value to the right of the bar.
-The bar will only displayed for everyone, if set to be public.
+The bar follows the `public` setting to determine its visibility.
 
 Clicking the tracker's title bar will collapse the tracker to reduce clutter.
 A tracker will be removed by clicking the trash <font-awesome :icon="['fas', 'trash-alt']"/> icon on the title bar's right.
 
 #### Auras
 
-Auras are in nature similar to trackers, but have a visual impact on the board.
-Their UI originally very closely mimicked that of trackers, but recently (0.25.0) it got a dramatic overhaul.
+Auras are similar to trackers, but have a visual impact on the board.
 
 ##### Range
 
@@ -184,7 +209,10 @@ The numbers filled in are directly related to the way the DM configured the grid
 This is a niche feature that can be used when you don't want the aura to cover a full circle, but rather want a cone.
 
 The first value dictates the width of the cone angle and defaults to 360 (i.e. a full circle).
-The second value, set by dragging the knob on the circle, dictates the direction the cone should look to. For a full circle this value is ignored for obvious reasons.
+The second value, set by dragging the knob on the circle or by changing the text field,
+dictates the direction the cone should look to. For a full circle this value is ignored for obvious reasons.
+
+The direction is relative to the rotation of the shape. So if you rotate your shape, the cone will rotate along!
 
 ##### Colour & Border
 
@@ -194,16 +222,17 @@ The colour set for `aura` will affect the area covered by the aura.
 Independently, a colour for the aura's border can be set.
 
 :::tip Lights & Spells
-Use angles and colours to indicate lights worn by the character and borders to indicate reach of spells centered on you, e.g. *detect magic* or *invisibility purge*.
+Use angles and colours to indicate lights worn by the character and borders to indicate reach of spells centered on you, e.g. _detect magic_ or _invisibility purge_.
 You can also use this to remind yourself of special attack reach etc.
 :::
 
 ##### Public
 
-By default any shape or aura is only visible to the DM and any player that has access to the shape (see the next section).
+By default any shape or aura is only visible to the DM and any player that has edit access to the shape.
 
 Sometimes however you want to show auras to all players, that's when you make the aura public.
-This is especially common for light sources like a torch.
+
+You would enable this setting for a torch, but disable it for darkvision for example.
 
 ##### Light source
 
@@ -223,17 +252,16 @@ _Note: vision and lighting are typically only relevant when you use the line of 
 
 ![](./assets/edit-asset-access.png)
 
-Here is listed the players who have access to the shape.
-Selecting a player name and “add access” will allow them to interact with the shape.
-Selecting any of the icons next to “default” gives all players access to the shape.
+Player access to the shape can be configured in this section.
+By default the creator of the shape has full access right to the shape as well as the DM.
 
-Enabling <font-awesome icon="pencil-alt"/> allows those with access to edit the shape.
-This access type automatically includes movement and vision.
+You can modify the default access or set specific access rights for a player using the dropdown.
 
-Enabling <font-awesome icon="arrows-alt"/> allows those with access to move the shape unless locked.
-This access type automatically includes vision.
+Three levels of access can be given with a higher access level immediately also granting access to the lower levels.
 
-Enabling <font-awesome icon="lightbulb"/> allows those with access to see the private auras/lights the shape has.
+<font-awesome icon="pencil-alt"/> EDIT ACCESS /
+<font-awesome icon="arrows-alt"/> MOVEMENT ACCESS /
+<font-awesome icon="lightbulb"/> VISION ACCESS.
 
 ### Group
 
@@ -308,5 +336,5 @@ The annotation is markdown aware!
 
 ![](./assets/edit-asset-annotations.png)
 
-Annotation of shapes you have *edit* access to will be displayed on the top side of the screen, on hover.
+Annotation of shapes you have _edit_ access to, will be displayed on the top side of the screen on hover.
 The annotation can be marked as public to allow everyone in the session to see it on hover.

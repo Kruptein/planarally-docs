@@ -1,8 +1,5 @@
-# Introduction
+# Tutorials
 
-> Planarally is a free and open source [D&D](https://vuejs.org/) web VTT 🚀.
+This section of the docs cover some more tutorial style documents.
 
-## Why PlanarAlly
-
-Because awesome
-
+It is recommended to give these a quick read through (they don't take long) as it will greatly improve the speed with which you'll get started.

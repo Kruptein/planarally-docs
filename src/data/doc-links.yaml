@@ -11,11 +11,11 @@
       - title: Dashboard
         link: /docs/dashboard/
 
-- title: Player
+- title: Game
   items:
-      - title: Game Board
+      - title: Board
         link: /docs/player/gameboard/
-      - title: In-game settings
+      - title: Client settings
         link: /docs/player/settings/
       - title: Markers
         link: /docs/player/markers/

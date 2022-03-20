@@ -10,14 +10,7 @@
                     fictive worlds out there. It's designed to be usable without
                     any internet access to accomodate your dark dungeons and has
                     a variety of features to enhance your immersion like
-                    lighting and vision limitation.
-                </p>
-                <p>
-                    This website is still very barebones currently, but I hope
-                    to make work of fleshing out the content here in the near
-                    future to make sure everything is clear. If anything is
-                    unclear feel free to reach out to me via email or social
-                    media!
+                    lighting and vision.
                 </p>
                 <p>
                     <i>Happy dungeoneering!</i>

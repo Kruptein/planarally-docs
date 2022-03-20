@@ -1,45 +1,18 @@
 # Dashboard
 
 After a successful login, the dashboard will be shown.
-It consists of a navigational bar on the left and a content section on the right.
+It consists of a navigation bar on the left and a content section on the right.
 
-:::warning Incomplete feature!
-The dashboard has been re-designed for PlanarAlly 0.26.0 and is not fully completed.
-Right now, *Assets* and *Settings* lead to pages unchanged from prior versions of PlanarAlly.
-Until these are changed to the new dashboard, you will need to go back to the dashboard, manually via the *move back* function of your web browser, or the browser's address line.
-:::
-
-## Localisation
-In the top-left corner of the navigational bar lies the localisation button which lets you choose a localisation of PlanarAlly off a drow-down menu.
-Any choice you make, here, will replicate to every campaign you play or run.
-
-:::info Translation Fallback
-Note that translations *may* be incomplete.
-In case a translation of something in the user-interface is missing, the interface will fall back to the english translation for this specific element.
-:::
-
-At the moment, PlanarAlly supports the following languages (at least to a certain extent):
-* English (en)
-* 简体中文 (Simplified Chinese, zh\_CN)
-* Deutsch (German, de)
-* Русский (Russian, ru)
-* Danks (Danish, dk)
-* Español (Spanish, es)
-* 繁體中文 (Traditional Chinese, zh\_TW)
-* Italiano (Italian, it)
-
-:::tip Help translate!
-In case you're encounter translation errors, missing strings or a localisation to your language, feel invited to help out!
-See [the contribution guidelines on github](https://github.com/Kruptein/PlanarAlly/blob/dev/CONTRIBUTING.md#translation) to learn how to contribute *your* language to PA.
-:::
+![Dashboard](./assets/dashboard.png "Dashboard")
 
 ## Game
-The *Game* section offers you to play, run, and create games.
+
+The _Game_ section offers you to play, run, and create games.
 
 ### Play
 
-Clicking *Play* will open a list of all campaigns that you did not create, but are a player in.
-Even if the creator of a campaign granted you DM status via the [campaign settings](/docs/dm/settings/#players), you will still find this campaign in the *Play* list, not the *Run* list.
+Clicking _Play_ will open a list of all campaigns that you did not create, but are a player in.
+_(Even if the creator of a campaign granted you DM status via the [campaign settings](/docs/dm/settings/#players), you will still find this campaign in the Play list, not the Run list.)_
 
 The list will show the campaigns with their name next to the campaign's logo.
 Clicking on a campaign's entry will transform its logo into a play symbol and show further information on this campaign in a campaign details bar to the right.
@@ -50,26 +23,23 @@ On top, the campaign's logo is shown, followed by the campaign's name and the us
 
 Below that, the `Launch!` button will bring you to the game board.
 
-Below the lauch button, the `Last playtime` indicator will display the date of the last time *you* accessed the campaign.
+Below the lauch button, the `Last playtime` indicator will display the date of the last time _you_ accessed the campaign.
 
 A simple `Notes` input follows.
-The notes entered here are *personal* to your account.
+The notes entered here are _personal_ to your account.
 
 At the bottom, the `Leave` button offers you to permanently leave the campaign.
 A DM's invitation link will be necessary to re-join.
 
 ### Run
 
-Clicking *Run* will open a list of all campaigns that you created, regardless of whether you still have DM status within the game, or not.
+Clicking _Run_ will open a list of all campaigns that you created, regardless of whether you still have DM status within the game, or not.
 
 This will display just as described above under [Run](#run), with the following differences:
-* the campaign's logo is editable by clicking on the display at the top of the campaign details bar,
-* the campaign's name is editable by clicking the edit <font-awesome icon="pencil-alt"/> symbol next to it,
-* instead of leaving, you can *delete* the campaign – for all players!
 
-:::info Logo upload
-The logo has to be uploaded as an [asset](/docs/dm/assets).
-:::
+-   the campaign's logo is editable by clicking on the display at the top of the campaign details bar,
+-   the campaign's name is editable by clicking the edit <font-awesome icon="pencil-alt"/> symbol next to it,
+-   instead of leaving, you can _delete_ the campaign – for all players!
 
 ### Create
 
@@ -96,21 +66,18 @@ Expect full functionality, but different look-and-feel.
 ### Create
 
 :::warning Incomplete feature!
-This feature has not been made yet, the link in the navigational bar is just a placeholder.
+This feature has not been made yet, the link in the navigation bar is just a placeholder.
 :::
 
 ## Settings
 
-This will open your account settings.
+Clicking on _Settings_ will change the options listed in the navigation bar as well as provide a option to return to the normal navigation.
 
-:::info Incomplete feature integration
-The account settings manager is not yet fully integrated into the dashboard.
-Expect full functionality, but different look-and-feel.
-:::
+Currently only 1 setting section exists: _Account_.
 
-### General
+### Account
 
-The general settings will display your username.
+The account settings will display your username.
 Currently, there is no possibility to change your username other than directly manipulating the database.
 This is limited to the server's admin and discouraged in general.
 
@@ -118,31 +85,44 @@ You can, however, modify your email-address.
 
 :::tip Optional Feature
 Registering email-addresses to your account is a completely optional feature.
-*No* feature of PlanarAlly relies on emails in any way.
+_No_ feature of PlanarAlly relies on emails in any way at this moment in time.
 However, entering an email-address might ease communication with the server's admin/hoster.
+
+Emails are likely to become mandatory in the future though.
 :::
 
 ### Danger Zone
 
-The *danger zone* offers to change your password or delete your account.
-
-#### Change password
-
-*Change password* will open inputs to enter and confirm a new password.
-
-### Delete Account
-
-*Delete account* will enable to delete your account.
-You will be warned that this action is irrevocable.
-
-:::warning Incomplete Feature!
-The account settings are not fully implemented, yet.
-Deleting your account via the account settings is currently not possible.
-:::
+The _danger zone_ offers to change your password or delete your account.
 
 :::warning Final Decision!
-Deleting your account is irrevocable.
+These actions are irrevocable!
+
+PlanarAlly does _not_ use soft deletion, so recovering your account is not possible once deleted.
 :::
 
-## Logout
-Clicking this will, not very surprisingly, log you out of PlanarAlly.
+## Localisation
+
+In the top-left corner of the navigation bar lies the localisation button which lets you choose a localisation of PlanarAlly using a drow-down menu.
+Any choice you make, here, will replicate to every campaign you play or run.
+
+:::info Translation Fallback
+Note that translations _may_ be incomplete.
+In case a translation of something in the user-interface is missing, the interface will fall back to the english translation for this specific element.
+:::
+
+At the moment, PlanarAlly supports the following languages (at least to a certain extent):
+
+-   English (en)
+-   简体中文 (Simplified Chinese, zh_CN)
+-   Deutsch (German, de)
+-   Русский (Russian, ru)
+-   Danks (Danish, dk)
+-   Español (Spanish, es)
+-   繁體中文 (Traditional Chinese, zh_TW)
+-   Italiano (Italian, it)
+
+:::tip Help translate!
+In case you're encounter translation errors, missing strings or a localisation to your language, feel invited to help out!
+See [the contribution guidelines on github](https://github.com/Kruptein/PlanarAlly/blob/dev/CONTRIBUTING.md#translation) to learn how to contribute _your_ language to PA.
+:::

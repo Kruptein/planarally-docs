@@ -1,12 +1,18 @@
 # Snapping
 
-_This is a short section on something that you will encounter and want to be aware of!_
+Many elements in PlanarAlly have some form of snapping behaviour.
+Two types of snapping exist: snapping to the grid and snapping to points.
 
-Many elements in PlanarAlly have some form of snapping behaviour. This can be snapping to the grid, snapping to existing points etc.
+Snapping to the grid is pretty self explanatory, if you move shapes around you often want them to be properly placed on the grid.
+By using grid snapping you don't have to be super accurate and PlanarAlly will do the work for you.
 
-Snapping can be disabled by pressing the `alt` modifier during the relevant operation.
-However, because not all people like this behaviour and don't want to have to press an extra key everytime,
-there is an option to invert the behaviour in the client settings.
+The second form of snapping is the ability to snap to another existing point.
+Point being defined here as points of existing shapes, e.g. the corners of a rectangle or the points in a polygon.
+
+By default snapping is enabled and acts on most operations (e.g. moving/resizing/rotating).
+You can disable this behaviour for a specific operation by pressing the `alt` modifier during the action.
+
+If you want to disable it permanently you can invert the behaviour in the [client settings](/docs/player/settings/), which will make the `alt` key act as a modifier to enable snapping instead.
 
 ## Examples
 
