@@ -39,6 +39,8 @@ I personally tended to use the last option, but my doors are also typically on t
 
 This is were the door module comes into play. When a shape is configured as a door, its blocking properties can be immediately toggled by just clicking on the shape in play mode from any layer. Nice and easy!
 
+To make things even easier, you'll now also be able to automatically apply this to shapes you're drawing in the draw tool, more on that later!
+
 ### Teleport Zones
 
 The second module provides another quality of life improvement.
@@ -54,6 +56,24 @@ but instead show a notification will be shown to the players while they are in t
 It is however also possible to configure it to act immediately (e.g. a pit trap is usually not optional!)
 
 ## UI
+
+Two small changes to the tool UI have been made.
+
+### Draw Tool Restructure
+
+The draw tool popout was becoming crowded which was preventing now things from being added.
+This release rethings the look of this popout and now uses a structure with 3 separate tabs.
+
+The base tab has the configuration you'll interact with most of the times and is related to the actual looks of the object you're about to draw.
+
+The second tab is focussed on FOW behaviour. The the DM can select the draw mode here. Additionally the blocking properties of the drawn shape can now also be changed from in the draw tool.
+These settings will still auto-enable when you select the fow layer, and disable again when selecting another layer. You now however have the choice to configure this for all shapes you're about to draw without having to modify them one by one afterwards.
+
+The last tab is for the new logic systems and currently only offers an option to automatically configure the door module for all shapes drawn. When doing map work I recommend first doing all the walls and then doing a pass for the doors with this setting enabled. (And another pass for the windows with only block movement enabled!)
+
+### Polygon edit UI
+
+A small QoL improvement to the polygon edit UI will now hide the UI while you're dragging as it was just visual noise that sometimes would interfer with your drag operation.
 
 ## Asset Management
 
