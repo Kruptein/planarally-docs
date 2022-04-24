@@ -41,6 +41,16 @@ This is were the door module comes into play. When a shape is configured as a do
 
 To make things even easier, you'll now also be able to automatically apply this to shapes you're drawing in the draw tool, more on that later!
 
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/2022.1/doors.webm" type="video/webm">
+   <source src="/assets/2022.1/doors.mp4" type="video/mp4">
+</video>
+
+In the above video the left door has been configured to be enabled for all players by default and can thus be toggled without issue by the player. The door in front of the player however has been configured with the request permission.
+In these cases the DM will receive a request as follows, where they can choose to accept or decline the request, as well as move the camera to the door in question, if they're currently looking somewhere else.
+
+![](./door-dm-request.png)
+
 ### Teleport Zones
 
 The second module provides another quality of life improvement.
@@ -54,6 +64,11 @@ These spawn locations can also be on other locations, so interdimensional travel
 By default a teleport zone will not immediately activate,
 but instead show a notification will be shown to the players while they are in the zone allowing them to activate it at will (e.g. a player might just stand on a staircase but have no intention of moving up).
 It is however also possible to configure it to act immediately (e.g. a pit trap is usually not optional!)
+
+<video autoplay loop muted style="max-width: 680px;">
+   <source src="/assets/2022.1/tp.webm" type="video/webm">
+   <source src="/assets/2022.1/tp.mp4" type="video/mp4">
+</video>
 
 ## UI
 
