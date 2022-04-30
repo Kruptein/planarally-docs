@@ -19,10 +19,10 @@ const { headers } = Astro.props.content.astro;
                 return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
             })}
         </section>
-        <main>
+        <main style={headers.length <= 1 ? "border-right:none" : ""}>
             <slot />
         </main>
-        <section id="doc-headers">
+        <section id="doc-headers" style={headers.length <= 1 ? "display:none" : ""}>
             {headers.map(header => {
                 return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
             })}
