@@ -7,11 +7,20 @@ import Header from "./header.astro";
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
+        <meta name="color-scheme" content="dark light" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <title>PlanarAlly Documentation</title>
     </head>
 
     <body>
+        <script is:inline>
+            const currentTheme = localStorage.getItem("theme");
+            if (currentTheme === "dark") {
+                document.body.classList.toggle("dark-theme");
+            } else if (currentTheme === "light") {
+                document.body.classList.toggle("light-theme");
+            }
+        </script>
         <Header />
         <slot />
     </body>

@@ -1,3 +1,5 @@
+@use './colors.scss';
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -15,7 +17,40 @@ html {
     font-size: clamp(0.875rem, 0.4626rem + 1.0309vw + var(--user-font-scale), 1.125rem);
 }
 
+body {
+    color: var(---fg-color);
+    background-color: var(---bg-color);
+
+    ---fg-color: #{colors.$fg-light};
+    ---bg-color: #{colors.$bg-light};
+    ---bg-header: #{colors.$bg-header-light};
+
+    &.dark-theme {
+        ---fg-color: #{colors.$fg-dark};
+        ---bg-color: #{colors.$bg-dark};
+        ---bg-header: #{colors.$bg-header-dark};
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        ---fg-color: #{colors.$fg-dark};
+        ---bg-color: #{colors.$bg-dark};
+        ---bg-header: #{colors.$bg-header-dark};
+    
+        &.light-theme {
+            ---fg-color: #{colors.$fg-light};
+            ---bg-color: #{colors.$bg-light};
+            ---bg-header: #{colors.$bg-header-light};
+        }
+    }
+}
+
 a {
-    color: inherit;
+    color: var(---fg-color);
     text-decoration: none;
+
+    &:hover {
+        cursor:pointer;
+    }
 }
