@@ -13,6 +13,9 @@ const { headers } = Astro.props.content.astro;
     <div id="container">
         <section id="docs-nav">
             {docs.map(doc => {
+                if (doc.depth === 1) {
+                    return (<span class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</span>)
+                }
                 return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
             })}
         </section>
