@@ -40,7 +40,7 @@ When using nginx, you will have a very similar setup as the one described in [pr
 
 Additionally you need to make one small modification to the socket.io specific location rule:
 
-The proxy_pass (or host:port pass) needs to be changed to include the subpath. (e.g. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+The proxy_pass (or host\:port pass) needs to be changed to include the subpath. (e.g. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
 
 ### Apache
 

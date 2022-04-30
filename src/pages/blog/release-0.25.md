@@ -3,6 +3,7 @@ title: Cast spells and undo your past actions - Release 0.25.0
 date: 2021-02-07 13:30:00
 excerpt: "An overview of new goodies"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 For the second release of the year, I got a maybe smaller than usual release, but it does pack some punch.

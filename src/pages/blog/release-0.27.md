@@ -3,6 +3,7 @@ title: The big client rewrite - Release 0.27.0
 date: 2021-06-02 15:00:00
 excerpt: "An overview of new goodies"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 It's been a while since we had another release.

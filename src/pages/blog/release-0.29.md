@@ -3,6 +3,7 @@ title: Rolling gently into fall - Release 0.29.0
 date: 2021-10-28 20:00:00
 excerpt: "What's new?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 It's been a while, we've been long overdue for a new release!

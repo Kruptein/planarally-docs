@@ -3,6 +3,7 @@ title: Summer fixes - Release 0.28.0
 date: 2021-07-21 15:00:00
 excerpt: "What's new?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 Last release was a big technical change and I'm happy to see the transition was pretty smooth with nothing major being reported as broken. This release brings another technical change by changing the js buildsystem from vue-cli (webpack) to vite (esbuild + rollup). This change should have little to no impact on endusers, but dramatically increases build times!
@@ -101,7 +102,7 @@ This release fixes:
 -   Increase height sliders
 -   Fix hue slider click initially not moving
 -   Add back checkboard background
--   Show cursor:pointer on slider hover
+-   Show cursor\:pointer on slider hover
 
 ### Annotations
 

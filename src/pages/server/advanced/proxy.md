@@ -14,7 +14,7 @@ Most aspects of hosting PA are pretty similar to other servers, the one exceptio
 When using nginx you need to explicitly setup websocket forwarding.
 
 Following is an example config that mimicks my own config.
-In this setup I use a socket to pass the traffic to my server, but an ordinary host:port combo can also be used.
+In this setup I use a socket to pass the traffic to my server, but an ordinary host\:port combo can also be used.
 The important part is that the sockets are passed through.
 I'm no nginx expert so it's definitely possible that this can be simplified, but this should at least work.
 

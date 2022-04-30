@@ -3,6 +3,7 @@ title: Release 0.24.0
 date: 2021-01-10 22:00:00
 excerpt: "Starting the year with a new big release!"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 It's been a while! But I had a lot of free time in the past month so this release contains some exciting new features and a ton of bug fixes!

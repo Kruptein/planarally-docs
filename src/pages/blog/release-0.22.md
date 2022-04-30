@@ -3,6 +3,7 @@ title: Release 0.22.0 - What's new!
 date: 2020-08-26 20:00:00
 excerpt: "What's new in 0.22.0?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 It's been more than 2 months since the latest release, so we're long overdue for an update!

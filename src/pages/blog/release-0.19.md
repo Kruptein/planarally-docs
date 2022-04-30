@@ -3,6 +3,7 @@ title: Release 0.19.0 - What's new!
 date: 2020-03-20 21:02:34
 excerpt: "What's new in 2020?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 With 0.19.0 we have our first release of the year! There are a couple of big new features (floors and badges) and a lot of small quality of life fixes and changes.

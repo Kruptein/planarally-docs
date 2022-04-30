@@ -3,6 +3,7 @@ title: Release 0.18.0 - What's new!
 date: 2019-11-15 21:02:34
 excerpt: "A dive into the new goodies in the upcoming 0.18.0 release."
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 It's been a while (~5 months) since the last PlanarAlly release. This delay has been partly caused by my personal campaign taking up a lot of time, but also due to some technical features that aren't even ready for this release :(.

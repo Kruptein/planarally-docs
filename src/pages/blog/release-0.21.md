@@ -3,6 +3,7 @@ title: Release 0.21.0 - What's new!
 date: 2020-06-13 21:02:34
 excerpt: "What's new in 0.21.0?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 This release we've got some new shape properties, a spawn location system, translations, a bunch of quality of life changes and multiple bug fixes to round out the usual.

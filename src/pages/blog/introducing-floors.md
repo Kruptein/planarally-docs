@@ -3,6 +3,7 @@ title: Introducing floors & small updates
 date: 2020-02-13 21:02:34
 excerpt: "An introduction on a new upcoming feature: floors! And a small overview of some other things going on in the 0.19.0 release."
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 I have no set release day in mind for the 0.19.0 release, but I'm aiming to at least get something out this month. In the meanwhile I wanted to already touch om some changes that you should expect in the 0.19.0 release and show a more detailed look on one new feature in particular.
@@ -25,7 +26,7 @@ More work in regards to jumping around the map is on the way, but this small add
 
 Now onto a feature with a more visual bigger impact: floors!
 
-_The following video uses content from the Waterdeep:Dragonheist campaign published by Wizards of the coast_
+_The following video uses content from the Waterdeep\:Dragonheist campaign published by Wizards of the coast_
 
 <video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
 

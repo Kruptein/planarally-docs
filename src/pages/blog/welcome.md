@@ -3,6 +3,7 @@ title: Welcome to the new website
 date: 2019-10-30 21:02:34
 excerpt: "A warm welcome to a new home"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 PlanarAlly has come a long way and while I still have a ton of stuff planned, it was time to take a look at the documentation and communication of PlanarAlly news.

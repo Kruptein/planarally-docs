@@ -3,6 +3,7 @@ title: Release 0.20.0 - What's new!
 date: 2020-05-10 21:02:34
 excerpt: "What's new in 0.20.0?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 I want to start of with a big thanks! Our little community is starting to grow and it really warms my heart to see all these people joining and sharing their experiences.

@@ -3,6 +3,7 @@ title: Release 0.23.0 - What's new!
 date: 2020-10-18 16:30:00
 excerpt: "What's new in 0.23.0?"
 author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
 ---
 
 Time for a new release! Just like other releases we have a bunch of bugfixes, but there are other exciting things to be had as well.
