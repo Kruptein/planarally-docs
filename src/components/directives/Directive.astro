@@ -1,0 +1,43 @@
+---
+import { Markdown } from "astro/components";
+const { title, admonitionClass } = Astro.props;
+---
+
+<div class={"admonition " + admonitionClass}>
+    <div class="header">
+        <slot name="logo" />
+        <div class="title">{title}</div>
+    </div>
+    <Markdown>
+        <slot />
+    </Markdown>
+</div>
+
+<style lang="scss">
+    .admonition {
+        margin-bottom: 1em;
+        padding: 15px 30px 15px 15px;
+
+        :global(p) {
+            margin-bottom: 0;
+        }
+
+        > .header {
+            display: flex;
+
+            > .title {
+                margin-left: 5px;
+                margin-top: 0;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+            }
+
+            :global(svg) {
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                stroke-width: 0;
+            }
+        }
+    }
+</style>

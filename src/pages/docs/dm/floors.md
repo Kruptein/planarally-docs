@@ -1,0 +1,63 @@
+---
+layout: ../../../layouts/docs.astro
+setup: |
+    import Info from "/src/components/directives/Info.astro"
+    import Eye from "~icons/fa-solid/eye"
+    import PencilAlt from "~icons/fa-solid/pencil-alt"
+    import TrashAlt from "~icons/fa-solid/trash-alt"
+---
+
+# Floors
+
+A complete set of stacked [layers](/docs/dm/layers/) is called a _floor_.
+
+Floors are drawn on top of each other.
+Thus, on a newly created floor, the floor below it would be fully visible.
+This will hold true for every portion of the game board that is not covered by anything else, be it an asset on the _map_ layer, or a shape on the _tokens_ layer.
+
+![The floors button with opened floors menue](./assets/floors.png "The floors button with opened floors menue")
+
+Floors can be accessed by the floors button at the bottom left of the screen.
+Floors are numbered (presented on the left of the opened menue) and they have names (presented on the right).
+The floors button always shows the number of your active floor.
+
+**Handy**: Make sure to look at the [movement keybindings](/docs/reference/#movement) to make navigating floors a breeze!
+
+At any [location](/docs/dm/locations), there is always at least one floor present, thus, upon creation of the location, the first floor will be created, automatically.
+It will be called `ground` and numbered with `0`, which is always the number for the floor at the very bottom of the stack.
+
+Floors are listed in their presentation order. The highest floor being the first one listed.
+
+Floors are a very handy tool to improve immersion/perception and it's advised to use them frequently when applicable. Do note that each floor increases the render time. There are some optimisations in place to reduce this load (e.g. floors higher up are not rendered/calculated), but do keep it in mind.
+
+## Creating new floors
+
+You can create new floors by clicking on `Add new floor`.
+You will be asked for the name of the floor in a pop-up.
+
+<Info title="No Duplicates">
+Note that no two floors on a location can have the same name.
+</Info>
+
+## Reordering floors
+
+You can reorder floors by dragging them to another position. All objects on a floor will remain associated with that same floor.
+
+## Floor actions
+
+### Rename
+
+By clicking on the pencil <PencilAlt/> a popup will appear in which you can insert a new name for the floor.
+
+### Toggle Player accessibility
+
+By clicking on the eye <Eye/> you can toggle whether players can access this floor manually.
+
+**Be aware** that this does not hide the floor! There might be a window through which the floor is visible.
+
+### Delete
+
+Deleting floors is as easy as clicking the <TrashAlt /> button in the opened menu.
+You will need to confirm deleting the floor _as there is no way of reverting this action_!
+
+Upon deletion, the floor will be pulled out of the stack and discarded. All objects on the floor will also be removed.

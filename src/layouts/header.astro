@@ -1,0 +1,74 @@
+---
+import Github from "~icons/fa-brands/github";
+import Twitter from "~icons/fa-brands/twitter";
+import NavItem from "../components/NavItem.astro";
+---
+
+<header>
+    <nav>
+        <a href="/"><img src="/logos/pa-logo-small.svg" style="max-width: 50px" /></a>
+        <a href="/">PlanarAlly</a>
+        <NavItem to="/docs/">Docs</NavItem>
+        <NavItem to="/learn/">Learn</NavItem>
+        <NavItem to="/server/">Server</NavItem>
+        <NavItem to="/blog/">Blog</NavItem>
+    </nav>
+
+    <div>
+        <!-- search -->
+        <!-- light toggle -->
+        <a
+            aria-label="Twitter"
+            href="//twitter.com/Kruptein"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Follow me on Twitter"
+        >
+            <Twitter />
+        </a>
+
+        <a
+            aria-label="github"
+            href="//github.com/Kruptein/planarally"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="PlanarAlly @ GitHub"
+        >
+            <Github />
+        </a>
+    </div>
+</header>
+
+<style lang="scss">
+    header {
+        position: sticky;
+        top: 0;
+        min-height: 60px;
+        padding: 15px 25vw;
+        z-index: 20;
+
+        border-bottom: solid 1px rgb(226, 236, 236);
+
+        background-color: hsla(0, 0%, 100%, 0.9);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > nav {
+            display: flex;
+            align-items: center;
+
+            > :global(*) {
+                margin: 8px;
+            }
+        }
+
+        > div {
+            width: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+</style>
