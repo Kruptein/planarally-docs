@@ -1,43 +1,19 @@
-# Welcome to [Astro](https://astro.build)
+# PlanarAlly Documentation & Blog
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/starter)
+Welcome to the repository that contains the source for the PA docs and blogs!
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+If you're here, you're probably interested in contributing; If you want to add info on missing documentation, clarify sections, fix typos or even write a blog post, you're at the right address!
 
-## 🚀 Project Structure
+## Repo Structure
 
-Inside of your Astro project, you'll see the following folders and files:
+We use the [astro](https://astro.build/) framework together with some [vue components](vuejs.org/) to generate and build the website.
 
-```
-/
-├── public/
-│   ├── robots.txt
-│   └── favicon.ico
-├── src/
-│   ├── components/
-│   │   └── Tour.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+In the `src` folder you can find most files that will be interesting when you want to contribute.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+In particular if you want to contribute to the textual content, you can find everything in `src/pages/` which is divided in subsections like the navigation at the top of the website.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+If you want to add a completely new document, you'll have to add it to the `src/doc-structure.ts` first (except for blog posts).
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Icons
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command           | Action                                       |
-|:----------------  |:-------------------------------------------- |
-| `npm install`     | Installs dependencies                        |
-| `npm run dev`     | Starts local dev server at `localhost:3000`  |
-| `npm run build`   | Build your production site to `./dist/`      |
-| `npm run preview` | Preview your build locally, before deploying |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://github.com/withastro/astro) or jump into our [Discord server](https://astro.build/chat).
+If you want to reference icons in your document, you have to import the particular icon and you can use it as `<Eye />` (where eye would be an icon you imported). In general FontAwesome icons are preferred wherever suitable, but you can use any icon available on [iconify](https://icon-sets.iconify.design).
