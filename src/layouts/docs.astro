@@ -1,0 +1,216 @@
+---
+import { getDocsNav } from '../doc-structure';
+import Main from "./main.astro";
+
+const currentUrl = Astro.canonicalURL.pathname;
+const currentUrlRoot = currentUrl.split("/")[1];
+
+const docs = getDocsNav(currentUrlRoot, currentUrl);
+const { headers } = Astro.props.content.astro;
+---
+
+<Main>
+    <div id="container">
+        <section id="docs-nav">
+            {docs.map(doc => {
+                if (doc.depth === 1) {
+                    return (<span class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</span>)
+                }
+                return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
+            })}
+        </section>
+        <main style={headers.length <= 1 ? "border-right:none" : ""}>
+            <slot />
+        </main>
+        <section id="doc-headers" style={headers.length <= 1 ? "display:none" : ""}>
+            {headers.map(header => {
+                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
+            })}
+        </section>
+    </div>
+</Main>
+
+<style lang="scss">
+    #container {
+        display: flex;
+        justify-content: center;
+    }
+
+    #docs-nav {
+        position: fixed;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        top: 135px;
+        bottom: 50px;
+        left: calc(20vw - 150px);
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &:hover::-webkit-scrollbar-thumb, &::-webkit-scrollbar-thumb:hover {
+            background-color: rgb(226, 236, 236);
+        }
+
+        > a {
+            padding: 3px 0;
+        }
+
+        .active {
+            color: green;
+
+            &::before {
+                content: '⬤';
+                position: relative;
+                font-size: small;
+                vertical-align: 10%;
+                margin-right: 5px;
+            }
+        }
+
+        .depth-1{
+            border-top: solid 1px rgb(226, 236, 236);
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: .1rem;
+
+            &:first-of-type {
+                border-top: 0;
+            }
+        }
+    }
+
+    #doc-headers {
+        position: fixed;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        top: 135px;
+        bottom: 0;
+        right: calc(20vw - 200px);
+        padding-left: 50px;
+
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &:hover::-webkit-scrollbar-thumb, &::-webkit-scrollbar-thumb:hover {
+            background-color: rgb(226, 236, 236);
+        }
+
+        > a {
+            padding: 3px 0;
+        }
+
+        .depth-1, .depth-2 {
+            border-top: solid 1px rgb(226, 236, 236);
+            margin-top: 10px;
+            padding-top: 10px;
+
+            &:first-of-type {
+                border-top: 0;
+            }
+        }
+
+        .depth-2 {
+            text-indent: 15px;
+        }
+
+        .depth-3 {
+            text-indent: 30px;
+        }
+
+        .depth-4, .depth-5, .depth-6 {
+            display: none;
+            text-indent: 45px;
+            font-size: smaller;
+        }
+    }
+
+    main {
+        max-width: 50vw;
+        margin: 0 100px;
+        margin-bottom: 100px;
+        padding-top: 50px;
+        padding-left: 150px;
+        padding-right: 150px;
+        border-left: solid 1px rgb(226, 236, 236);
+        border-right: solid 1px rgb(226, 236, 236);
+
+        :global(a) {
+            color: green;
+            font-weight: bold;
+        }
+
+        :global(code) {
+            color: #b32585;
+            background-color: rgba(212, 53, 159, 0.03);
+        }
+
+        :global(th), :global(td) {
+            text-align: left;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgb(226, 236, 236);
+        }
+
+        :global(pre) {
+            padding: 15px;
+            max-width: 680px;
+            margin-bottom: 15px;
+        }
+
+        #title,
+        #author {
+            text-align: center;
+        }
+
+        #author {
+            font-size: small;
+        }
+
+        :global(h2) {
+            border-top: solid 1px rgb(226, 236, 236);
+            padding-top: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        :global(h3), :global(h4) {
+            margin-top: 3rem;
+        }
+
+        :global(p) {
+            margin-bottom: 1.5rem;
+        }
+
+        :global(h1),
+        :global(h2),
+        :global(h3),
+        :global(h4),
+        :global(h5),
+        :global(h6) {
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 135px;
+            position: relative;
+            left: -35px;
+
+            > :global(a[aria-hidden=true]) {
+                visibility: hidden;
+                padding-right: 20px;
+                color: green
+            }
+
+            &:hover {                
+                > :global(a[aria-hidden=true]) {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+</style>

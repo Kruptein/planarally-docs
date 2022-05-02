@@ -1,0 +1,81 @@
+---
+import dayjs from "dayjs";
+import Main from "../../layouts/main.astro";
+const posts = await Astro.glob('./*.md')
+    .then(posts => posts
+        .map(({ frontmatter, url }) => ({
+            title: frontmatter.title,
+            excerpt: frontmatter.excerpt,
+            author: frontmatter.author,
+            date:  dayjs(frontmatter.date, "YYYY-MM-DD HH:MM:SS"),
+            href: url
+        }))
+        .sort((a, b) => {
+            if (a.date.isBefore(b.date)) return 1;
+            if (b.date.isBefore(a.date)) return -1;
+            return 0;
+        })
+    );
+---
+
+<Main>
+    <main>
+    <section>
+        <h1 class="title text-gradient">PlanarAlly Blog</h1>
+        <p>Follow the latest news about the adventures of PlanarAlly as it tries to become the best VTT across all the planes.</p>
+    </section>
+
+        {posts.map(post => {
+            return (
+                <a class="post" href={post.href}>
+                    <div class="title">{post.title}</div>
+                    <div class="excerpt">{post.excerpt}</div>
+                    <div class="date">Posted {post.date.format('D MMMM YYYY')} by {post.author}</div>
+                </a>
+            )
+        })}
+    </main>
+</Main>
+
+<style lang="scss">
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    section {
+        text-align: center;
+        margin: 50px 0;
+        max-width: 650px;
+    }
+
+    .post {
+        display: block;
+        border: solid 1px rgb(226, 236, 236);
+
+        width: 25vw;
+        padding: 50px;
+        margin-bottom: 50px;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 2px 15px 0 #cfe6e6;
+        }
+
+        .title {
+            font-size: x-large;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .excerpt {
+            margin-bottom: 25px;
+        }
+
+        .date {
+            font-size: small;
+        }
+    }
+</style>

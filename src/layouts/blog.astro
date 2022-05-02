@@ -1,0 +1,105 @@
+---
+import dayjs from "dayjs";
+import Main from "./main.astro";
+
+const { title, author, astro, date } = Astro.props.content;
+const { headers } = astro;
+const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
+---
+
+<Main>
+    <div id="container">
+        <section>
+            {headers.map(header => {
+                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
+            })}
+        </section>
+        <main>
+            <h1 id="title">{title}</h1>
+            <p id="author">Posted {formattedDate} by {author}</p>
+            <slot />
+        </main>
+    </div>
+</Main>
+
+<style lang="scss">
+    #container {
+        display: flex;
+        margin: 0 25vw;
+    }
+
+    section {
+        position: fixed;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        top: 135px;
+        bottom: 0;
+        left: calc(25vw - 150px);
+
+        > a {
+            padding: 3px 0;
+        }
+
+        .depth-1, .depth-2 {
+            border-top: solid 1px rgb(226, 236, 236);
+            margin-top: 10px;
+            padding-top: 10px;
+            font-weight: bold;
+
+            &:first-of-type {
+                border-top: 0;
+            }
+        }
+
+        .depth-4 {
+            text-indent: 15px;
+        }
+    }
+
+    main {
+        margin: 0 150px;
+        margin-bottom: 100px;
+        padding-top: 50px;
+        padding-left: 150px;
+        border-left: solid 1px rgb(226, 236, 236);
+
+        #title, #author {
+            text-align:center;
+        }
+
+        #author {
+            font-size: small;
+        }
+
+        :global(h1),
+        :global(p) {
+            margin-bottom: 1.5rem;
+        }
+
+        :global(h2),
+        :global(h3),
+        :global(h4),
+        :global(h5),
+        :global(h6) {
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 135px;
+            position: relative;
+            left: -30px;
+
+            > :global(a[aria-hidden=true]) {
+                visibility: hidden;
+                padding-right: 20px;
+                color: green
+            }
+
+            &:hover {                
+                > :global(a[aria-hidden=true]) {
+                    visibility: visible;
+                }
+            }
+        }
+    }
+</style>

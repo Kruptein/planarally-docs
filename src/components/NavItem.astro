@@ -1,0 +1,28 @@
+---
+const { to } = Astro.props;
+const currentUrlRoot = Astro.canonicalURL.pathname.split("/").slice(0, 2).join("/") + "/";
+const classes = currentUrlRoot === to ? "current-link" : "";
+---
+
+<a href={to} class={classes}>
+    <slot />
+</a>
+
+<style lang="scss">
+    .current-link {
+        color: #00835c;
+        font-weight: bold;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 35px;
+            height: 1px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #00835c;
+            width: 100%;
+        }
+    }
+</style>

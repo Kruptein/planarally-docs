@@ -1,18 +1,19 @@
-# PlanarAlly.io
+# PlanarAlly Documentation & Blog
 
-The documentation and blog location for [PlanarAlly](https://www.planarally.io/).
+Welcome to the repository that contains the source for the PA docs and blogs!
 
-This website is built using gridsome.
+If you're here, you're probably interested in contributing; If you want to add info on missing documentation, clarify sections, fix typos or even write a blog post, you're at the right address!
 
-## Contributing
+## Repo Structure
 
-The navigation is specified in the yaml files in src/data/, you can add or rename entries here as you see fit.
-The links in those files are relative to the root of this project, so in practice they relate to the markdown files in docs/ and in tutorial/.
+We use the [astro](https://astro.build/) framework together with some [vue components](vuejs.org/) to generate and build the website.
 
-If you create a PR, netlify will create a special build that you can preview online.
-You can also run things on your own machine, to do this clone the repository and follow the following steps:
+In the `src` folder you can find most files that will be interesting when you want to contribute.
 
-1. `npm i`
-2. `npm run develop` (This hot reloads changes you make)
-   or
-3. `npm run build` (This creates a production build)
+In particular if you want to contribute to the textual content, you can find everything in `src/pages/` which is divided in subsections like the navigation at the top of the website.
+
+If you want to add a completely new document, you'll have to add it to the `src/doc-structure.ts` first (except for blog posts).
+
+### Icons
+
+If you want to reference icons in your document, you have to import the particular icon and you can use it as `<Eye />` (where eye would be an icon you imported). In general FontAwesome icons are preferred wherever suitable, but you can use any icon available on [iconify](https://icon-sets.iconify.design).

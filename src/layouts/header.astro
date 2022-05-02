@@ -1,0 +1,84 @@
+---
+import Github from "~icons/fa-brands/github";
+import Twitter from "~icons/fa-brands/twitter";
+import ThemeSwitcher from "../components/ThemeSwitcher.vue";
+import NavItem from "../components/NavItem.astro";
+---
+
+<header>
+    <nav>
+        <a href="/"><img id="logo" src="/logos/pa-logo-small.svg" style="max-width: 50px" /></a>
+        <a href="/">PlanarAlly</a>
+        <NavItem to="/docs/">Docs</NavItem>
+        <NavItem to="/learn/">Learn</NavItem>
+        <NavItem to="/server/">Server</NavItem>
+        <NavItem to="/blog/">Blog</NavItem>
+    </nav>
+
+    <div>
+        <!-- search -->
+        <ThemeSwitcher client:only />
+        <a
+            aria-label="Twitter"
+            href="//twitter.com/Kruptein"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="Follow me on Twitter"
+        >
+            <Twitter />
+        </a>
+
+        <a
+            aria-label="github"
+            href="//github.com/Kruptein/planarally"
+            rel="noopener noreferrer"
+            target="_blank"
+            title="PlanarAlly @ GitHub"
+        >
+            <Github />
+        </a>
+    </div>
+</header>
+
+<style lang="scss">
+    header {
+        position: sticky;
+        top: 0;
+        padding: 0px 25vw;
+        z-index: 20;
+
+        border-bottom: solid 1px rgb(226, 236, 236);
+
+        background-color: var(---bg-header);
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        > nav {
+            display: flex;
+            align-items: center;
+
+            > :global(*) {
+                margin: 8px;
+            }
+        }
+
+        > div {
+            width: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        #logo {
+            height: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            padding: 5px;
+            max-width: 50px;
+            background: #f1e7d0e1;
+            border-radius: 25%;
+        }
+    }
+</style>

@@ -1,0 +1,55 @@
+---
+import Main from "../layouts/main.astro";
+---
+
+<Main>
+    <main>
+        <div>
+            <!-- <Logo class="logo-index" /> -->
+            <img id="logo" src="/logos/pa-logo.svg" />
+            <h1>Welcome</h1>
+            <p>
+                PlanarAlly is an opensource Virtual TableTop (VTT) web tool that aims to help you and your players
+                discover the various fictive worlds out there. It's designed to be usable without any internet access
+                to accomodate your dark dungeons and has a variety of features to enhance your immersion like lighting
+                and vision.
+            </p>
+            <p>
+                <i>Happy dungeoneering!</i>
+            </p>
+        </div>
+    </main>
+</Main>
+
+<style lang="scss">
+    main {
+        margin: 0 25vw;
+        overflow: auto;
+        display: flex;
+        justify-content: center;
+    }
+    div {
+        width: 25vw;
+        display: flex;
+        flex-direction: column;
+
+        text-align: center;
+
+        align-items: center;
+        justify-content: center;
+
+        h1,
+        p {
+            margin-bottom: 1.6rem;
+        }
+    }
+
+    #logo {
+        height: 200px;
+        margin: 50px 0;
+        padding: 25px;
+        width: 200px;
+        background: #f1e7d0e1;
+        border-radius: 25%;
+    }
+</style>

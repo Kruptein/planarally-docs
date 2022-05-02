@@ -1,0 +1,18 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Undo
+
+This "tool" does not have a slot in the toolbar or any other UI element, but is controlled by 2 keybindings.
+
+With ctrl+z you can undo an operation, with ctrl+shift+z you can redo an operation.
+
+The list of currently supported actions is:
+
+-   shape movement
+-   shape rotation
+-   shape resize
+-   floor change
+-   layer change
+-   shape creation/removal
