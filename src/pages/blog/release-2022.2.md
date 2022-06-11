@@ -56,6 +56,23 @@ When it's done, you'll be redirected to the "run" section and the imported campa
 
 The time it takes for both export and import scale with the size of the campaign (#locations, #floors, #shapes) as well as the size of the assets used in those campaigns.
 
+### When would I use this?
+
+You might be wondering what the actual use of this is and I wager most people will just stick with 1 server and never have to worry about export/import at all!
+
+Here are some potential use-cases:
+
+1) You found a bug, something is not working right and from a chat with me it's not immediately clear what is going wrong.
+This is a perfect time to make an export of your campaign and send it to me. So that I can debug it in my own time without having to go back and forth with you.
+
+2) You like to make your own backups. It's always possible something goes wrong with a server you are using. Keeping a backup won't hurt anyone.
+
+3) You are about to play somewhere with no internet. Quickly export your campaign,
+import it on a local server you can run and boom you can continue playing where you left of.
+Once you're in an internet environment again, you can import it back!
+
+4) You simply want to change to a different PA server.
+
 ## Colour Picker
 
 The colour picker got a fun new trick and also has 2 fixes that were bothering me :D.
