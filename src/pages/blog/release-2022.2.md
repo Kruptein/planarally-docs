@@ -214,6 +214,7 @@ A couple of fixes specifically for the SVG section in the shape Extra Settings m
 
 -   Redo logic on resize operation not remembering correct location when it was snapped
 -   Drawtool trying to add shape creation operation to undo stack when the shape was not valid
+-   Undo/Redo not persisting to server for movement and rotation
 
 ### Misc
 
@@ -221,3 +222,4 @@ A couple of fixes specifically for the SVG section in the shape Extra Settings m
 -   Points modified by the polygon edit UI are not snappable until a refresh
 -   Asset socket was not cleaning up past connections
 -   Auras that are light sources, no longer appear as a black circle of doom when FOW is not turned on
+-   Default location zoom level is now 0.2 instead of 1.0
