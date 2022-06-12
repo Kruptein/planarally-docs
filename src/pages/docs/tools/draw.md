@@ -55,7 +55,7 @@ It can be dragged and resized etc. like any other shape.
 
 <Tip title="Edit">
 You can edit the text afterwards in the shape properties dialog!
-</Warning>
+</Tip>
 
 ## DM-only Modes
 

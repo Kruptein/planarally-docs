@@ -75,8 +75,19 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         }
 
         :global(h1),
-        :global(p) {
+        :global(p),
+        :global(ul) {
             margin-bottom: 1.5rem;
+        }
+
+        :global(img) {
+            max-width: 100%;
+        }
+
+        :global(pre) {
+            padding: 15px;
+            max-width: 680px;
+            margin-bottom: 15px;
         }
 
         :global(h2),

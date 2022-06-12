@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import astroImagePlugin from "astro-imagetools/plugin";
+import { astroImageTools } from "astro-imagetools";
 import Icons from "unplugin-icons/vite";
 
 import vue from "@astrojs/vue";
@@ -15,7 +15,7 @@ export default defineConfig({
         ],
     },
     vite: {
-        plugins: [astroImagePlugin, Icons({})],
+        plugins: [astroImageTools, Icons({})],
         ssr: { external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"] },
     },
 });

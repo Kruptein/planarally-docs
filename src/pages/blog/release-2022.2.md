@@ -1,0 +1,225 @@
+---
+title: Release 2022.2
+date: 2022-06-11 12:00:00
+excerpt: "Import/Export"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+setup: |
+    import Lock from "~icons/fa-solid/lock"
+    import Unlock from "~icons/fa-solid/unlock"
+---
+
+As I promised in the last release, I want to do more regular updates even if they don't add a lot of features.
+This release fixes a lot of bugs, but does also introduce some new things!
+
+_Server owners: changes to the server_config have been made, check [Server Stuff](#server-stuff)_
+
+## Import/Export
+
+The most prominent new feature is import/export functionality.
+Export functionality was already added in the last release as an API only feature (i.e. no UI to export),
+but import functionality was not yet defined.
+
+_As a side note, I managed to help solve some bugs due to this export functionality faster!_
+
+This release brings import functionality as well as UI for both export and import, so that end users can also use it.
+
+### Experimental
+
+I want to highlight that this feature is not yet in its final form, but given that it's a very niche feature,
+I felt confident in already making it available for people to test.
+
+Things to be aware of:
+- The UI is very minimal, both import/export are just a single button, with no progress information.
+- There also is no client-side error information yet
+- You cannot import a campaign that shares a name with a campaign you already are running
+- You can only import a campaign on a server that is running the same or a newer version than the server where you exported
+
+The first two points are things that I'll work on for a future release.
+The third point is a matter of UI/UX and offering a way to specify a different campaign name.
+The latter is an obvious technical limit given that an older server will have no idea what changed in the save format.
+
+To tackle this problem, a separate service will have to be made that is capable of upgrading/downgrading save files between arbitrary versions. This will require quite some work, so don't expect this too soon.
+
+### How to export/import
+
+Both export and import functionality is accessed from the main dashboard, so NOT in-game!
+
+To export a campaign you DM, you simply click on a campaign in your "run" section and then click the "export" button in the sidebar.
+When the export is done (if it didn't end up failing on the server side), you'll be prompted with a file download request from your browser.  Exporting a campaign is not instant, but it doesn't take super long either.
+
+The output of an exported campaign is a single file that has a ".pac" extension, short for PlanarAlly Campaign.
+This file contains all the assets that are used in the exported campaign, as well as all the information from the database that relates to the campaign.
+
+To then import that campaign on another server, you go to the "import" section in the navigation sidebar and press the simple button.
+When it's done, you'll be redirected to the "run" section and the imported campaign should be listed.
+
+The time it takes for both export and import scale with the size of the campaign (#locations, #floors, #shapes) as well as the size of the assets used in those campaigns.
+
+### When would I use this?
+
+You might be wondering what the actual use of this is and I wager most people will just stick with 1 server and never have to worry about export/import at all!
+
+Here are some potential use-cases:
+
+1) You found a bug, something is not working right and from a chat with me it's not immediately clear what is going wrong.
+This is a perfect time to make an export of your campaign and send it to me. So that I can debug it in my own time without having to go back and forth with you.
+
+2) You like to make your own backups. It's always possible something goes wrong with a server you are using. Keeping a backup won't hurt anyone.
+
+3) You are about to play somewhere with no internet. Quickly export your campaign,
+import it on a local server you can run and boom you can continue playing where you left of.
+Once you're in an internet environment again, you can import it back!
+
+4) You simply want to change to a different PA server.
+
+## Colour Picker
+
+The colour picker got a fun new trick and also has 2 fixes that were bothering me :D.
+
+### Remember previously used colours.
+
+The colour picker now remembers which colours you used (*).
+They are displayed on the bottom of the picker in 2 rows (max 20 colours are tracked). You can click on any of these colours to set them as the current colour. Hovering over a colour in the list will also show the rgba value for that colour.
+
+The colour history is saved per user across all their campaigns.
+
+![Colour Memory](/blog/release-2022.2/colour-memory.png)
+
+(*) A colour is added to the list when you close the picker, _not_ by drawing with it. The latter would require code throughout the codebase, whereas now it can be contained within the colour picker logic.
+
+### Bugs
+
+2 bugs with the colour picker were also fixed.
+
+#### Opacity reset
+
+When clicking on the colour bar (the one above the opacity bar), the opacity would often be reset to either 1 or 0, instead of remembering the current opacity level.
+
+#### Saturation panel returning to red
+
+When first selecting a colour on the colour bar and then clicking on the saturation rectangle, the colour bar would often reset to its leftmost value (red). This should now no longer happen.
+
+## Logic Adjustments
+
+Logic was one of the new shiny things in 2022.1 release and we're here to polish some of that new glamour!
+
+### Door: Icon Clarity
+
+When hovering over a door in play mode a <Lock /> or <Unlock /> icon appears.
+This was just a black icon, which makes it hard to see on a dark background.
+
+This release adds a white border to the icons so that they should always be visible.
+
+### Door: Specify blockers
+
+The first release of the door logic was aimed at purely ... doors.
+For a standard door the "block movement" and "block vision" properties should be toggled when opening or closing.
+There are however also variants of doors (e.g. portcullis) or things like windows where you might only want to toggle 1 property.
+
+You can now specify which blocker the door should toggle on click.
+
+![Door Block Mode](/blog/release-2022.2/door-block-mode.png)
+
+You can still ofcourse manually change the other block property as you see fit. \
+(e.g. have a window use the door logic to only toggle vision to mimick curtains, but change the movement property if someone throws a brick through the window)
+
+### Bugs
+
+Multiple bugs related to shape logic were solved.
+
+-   Draw tool door permissions not saving
+-   Door logic toggle not immediately updating UI when shape properties are open
+-   Teleport zones triggering from other floors
+-   Logic init edge cases breaking UI until refresh
+-   Logic Permission selector showing error in edgecase
+
+## UI/UX improvements
+
+Some nice changes were made to improve UX and general UI in certain areas.
+
+### Showing loading animation faster
+
+When opening a campaign a nice loading animation is shown.
+This animation however only started at a certain point in time and depending on the computer 
+there could be a short period of seemingly nothing happening when opening a campaign.
+
+The animation is now shown immediately upon clicking a campaign, so that it is clear that PA is doing something and you didn't just misclick.
+
+### Scale defeat and badge with shape
+
+The shape defeat overlay and shape badges were a fixed size.
+This meant that a badge for a gargantuan creature was super tiny and a badge for a tiny creature pretty much obscured the creature token itself.
+Additionally this would also mess up when using different grid sizes.
+
+This release now properly scales these aspects with the size of the shape it belongs to.
+
+### Modal handling on firefox
+
+Firefox's handling of dragEnd events is very inconsistent/buggy which caused dragging modals to completely break.
+Parts of this wonkoy behaviour are fixed on nightly versions of firefox, but not everything that was bothering me will be fixed in the short term on firefox. So I changed the modal logic to use the drop event instead. This requires a bit more code, but at least guarantees similar behaviour across all browsers.
+
+### Viewport
+
+The rectangle showing the active viewport of players (when enabled) was using 1 solid colour, which similarly to the door icons, was not very legible depending on the background colour. This now also uses a second colour for contrast.
+
+![Viewport Double Stroke](/blog/release-2022.2/viewport.png)
+
+### Varia
+
+-   Show default "no" button in delete/leave campaign prompt
+-   Asset Manager correctly updates UI when using browser back/forward buttons
+-   Dashboard navigation headers sometimes being wrongly styled
+
+## Server stuff
+
+The server side got some small changes including changes to the server config!
+
+### Log rotation
+
+The server will now do a log rotation instead of having just 1 big neverending log file.
+
+The General section got two new properties:
+
+```python
+max_log_size_in_bytes = 200_000
+max_log_backups = 5
+```
+
+For more information on what they do check the documentation in the server config.
+
+### Import chunk size
+
+Campaign files can become big due to the assets being part of the file.
+To prevent having to configure the upload size to some obscenely high number, which would be a security risk,
+the client will instead send the import files in chunks matching the maximum size the server accepts.
+
+This size can now be configured in the Webserver section and defaults to 10 MiB.
+
+```python
+max_upload_size_in_bytes = 10_485_760
+```
+
+## Bugs
+
+### SVG fixes
+
+A couple of fixes specifically for the SVG section in the shape Extra Settings menu:
+
+-   ExtraSettings svg section not updating immediately until changing tabs
+-   ExtraSettings remove svg not properly working
+-   ExtraSettings add svg not working for shapes with no prior svg properties
+
+### Undo/Redo fixes
+
+-   Redo logic on resize operation not remembering correct location when it was snapped
+-   Drawtool trying to add shape creation operation to undo stack when the shape was not valid
+-   Undo/Redo not persisting to server for movement and rotation
+
+### Misc
+
+-   Spawn locations loading wrong
+-   Points modified by the polygon edit UI are not snappable until a refresh
+-   Asset socket was not cleaning up past connections
+-   Auras that are light sources, no longer appear as a black circle of doom when FOW is not turned on
+-   Default location zoom level is now 0.2 instead of 1.0
