@@ -41,7 +41,7 @@ Up until this release there was an implicit grouping concept that would apply wh
 
 This release greatly expands the grouping system and makes it much more configurable and explicit.
 
-![Alt](/public/blog/release-0.24/edit-asset-group.png)
+![Alt](/blog/release-0.24/edit-asset-group.png)
 
 A new tab in the edit asset dialog is now available to shape owners/DMs.
 This tab allows the configuration of various things related to the group the selected shape belongs to.
@@ -118,7 +118,7 @@ This also supports 'space' to measure distances behind corners.
 
 When using the ruler in select mode it will retain the privacy mode (i.e. public/private) of the ruler tool.
 
-![Alt](/public/blog/release-0.24/multiruler.png)
+![Alt](/blog/release-0.24/multiruler.png)
 
 ### Vision
 

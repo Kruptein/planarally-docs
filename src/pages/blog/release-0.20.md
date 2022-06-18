@@ -84,7 +84,7 @@ Any overriden value will be highlighted to make sure it's clear that it diverges
 
 Additionally it is now also possible to rename or even remove a location.
 
-![Alt](/public/blog/release-0.20/rename-location.png)
+![Alt](/blog/release-0.20/rename-location.png)
 
 ## Other UI/UX improvements
 
@@ -96,7 +96,7 @@ It was a pain in the past to add users as owners of shapes because you had to ma
 
 Both things are now a thing of the past!
 
-![Alt](/public/blog/release-0.20/access.png)
+![Alt](/blog/release-0.20/access.png)
 
 The access part of the shape properties dialog has been upgraded. It now always shows a default permission line, that you can use to immediately give vision and edit access to all players.
 

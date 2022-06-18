@@ -3,7 +3,7 @@ title: The dashboard redesign - Release 0.26.0
 date: 2021-03-06 10:00:00
 excerpt: "An overview of new goodies"
 author: Darragh Van Tichelen
-layout: ../../layouts/main.astro
+layout: ../../layouts/blog.astro
 ---
 
 This release contains quite the variety in type of content, we got some UI redesigns, new tool options, quality of life changes and more!
@@ -17,7 +17,7 @@ The dashboard is the page you see after logging in and where you select the camp
 
 This page is completely been redesigned and now looks like this:
 
-![Alt](/public/blog/release-0.26/dashboard.png)
+![Alt](/blog/release-0.26/dashboard.png)
 
 ### Menu
 
@@ -48,7 +48,7 @@ This special mode allows you to make areas on your current floor transparent, al
 
 You could use this for sudden explosions that might open a hole in the floor or maybe you simply forgot to make something transparent in preprocessing and want to edit it in PA itself.
 
-![Alt](/public/blog/release-0.26/erase.png)
+![Alt](/blog/release-0.26/erase.png)
 
 In the above image there are 2 floors.
 The bottom floor contains a rectangle in a turquoise colour.
@@ -89,7 +89,7 @@ Thanks to my friend Jiri.
 
 The dashboard was not the only UI that got a refresh, the client settings also got some new paint!
 
-![Alt](/public/blog/release-0.26/client.png)
+![Alt](/blog/release-0.26/client.png)
 
 Instead of being part of the sidemenu, the client settings now open in a modal, just like the DM settings do.
 This offers more breathing room and also more leeway for more options.
@@ -120,7 +120,7 @@ Shapes only got a small change this release, and that is a 'defeated' property.
 When you check this box in the shape properties or when you press 'x' with one or multiple shapes selected,
 all affected shapes will get a red X drawn over them.
 
-![Alt](/public/blog/release-0.26/defeated.png)
+![Alt](/blog/release-0.26/defeated.png)
 
 _This was contributed by scoodle on discord!_
 
@@ -131,7 +131,7 @@ They now have an extra checkbox and two colour inputs.
 
 If "display on token" is checked a bar will be drawn above the token in the 2 colours you chose.
 
-![Alt](/public/blog/release-0.26/tracker.png)
+![Alt](/blog/release-0.26/tracker.png)
 
 _This was contributed by scoodle on discord!_
 
