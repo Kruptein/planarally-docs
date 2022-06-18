@@ -10,15 +10,15 @@
     },
     "devDependencies": {
         "@astrojs/vue": "^0.1.5",
-        "@iconify/json": "^2.1.59",
-        "astro": "^1.0.0-beta.44",
-        "eslint": "^8.17.0",
+        "@iconify/json": "^2.1.63",
+        "astro": "^1.0.0-beta.47",
+        "eslint": "^8.18.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-vue": "^9.1.1",
-        "prettier": "^2.6.2",
+        "prettier": "^2.7.1",
         "prettier-plugin-astro": "^0.0.12",
         "sass": "^1.52.3",
-        "unplugin-icons": "^0.14.3",
+        "unplugin-icons": "^0.14.5",
         "vue": "^3.2.37"
     },
     "dependencies": {
