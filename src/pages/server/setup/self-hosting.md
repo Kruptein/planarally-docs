@@ -79,7 +79,7 @@ In case you want to install and run the server in debug/development mode, you ne
 
 ```bash
 npm i
-npm run serve
+npm run dev
 ```
 
 Then, in the `server` folder, run:
