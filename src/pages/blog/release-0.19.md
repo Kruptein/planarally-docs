@@ -109,7 +109,7 @@ Resizing in general was also broken if you dragged a corner over another corner.
 
 A very barebones account settings page has been created. The cog wheel in the dashboard now actually has a purpose!
 
-![Alt](/blog/release-0.19/accountsettings.png)
+![Alt](/public/blog/release-0.19/accountsettings.png)
 
 As can be seen it is fairly limited in its scope, but you can now change your username, add an email address, change your password and delete your account if you so desire.
 
@@ -138,7 +138,7 @@ _This feature was contributed by @ZachMyers3 on github_
 
 To be able to see which version of PA the server you're on is actually using, the login panel now shows the version number in its title.
 
-![Alt](/blog/release-0.19/version.png)
+![Alt](/public/blog/release-0.19/version.png)
 
 _This feature was contributed by @ZachMyers3 on github_
 

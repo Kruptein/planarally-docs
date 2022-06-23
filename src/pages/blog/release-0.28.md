@@ -14,7 +14,7 @@ Other than the technical change, some QoL changes are added, a decent number of 
 
 The floor UI has been slightly minified and no longer shows the edit and trash can icons. It now instead features a cogwheel, commonly used throughout PlanarAlly to signify settings.
 
-![Alt](/blog/release-0.28/floors.png)
+![Alt](/public/blog/release-0.28/floors.png)
 
 Renaming and removal of floors is now done through this new floor settings UI.
 
@@ -26,7 +26,7 @@ This release adds the concept of floor types, consisting of a preset list of opt
 
 Floor settings can be configured on a floor specific level as the UI above shows, but will also be able to be configured on location or campaign level and this dependent on the floor type.
 
-![Alt](/blog/release-0.28/locations.png)
+![Alt](/public/blog/release-0.28/locations.png)
 
 Currently the only place where the floor type influences things is for the background setting. In the future I intend to add some automatic performance improvements depending on the floor types. (e.g. don't render lower floors if you're at the ground floor)
 
@@ -45,7 +45,7 @@ As has been hinted to earlier, it's now possible to configure the background for
 
 The most basic option is just to set a single colour as the background colour.
 
-![Alt](/blog/release-0.28/green.png)
+![Alt](/public/blog/release-0.28/green.png)
 
 This can quickly improve the immersion to give a grassy feel with minimal effort
 
@@ -53,7 +53,7 @@ This can quickly improve the immersion to give a grassy feel with minimal effort
 
 It's however also possible to set an image as a background that will be repeated in all directions. This allows the use of seamless tilesets.
 
-![Alt](/blog/release-0.28/grass.png)
+![Alt](/public/blog/release-0.28/grass.png)
 
 When providing an image, it's possible to alter the offset and the scale of the pattern.
 
@@ -67,7 +67,7 @@ The scale is a percentage that affects the size of the pattern.
 
 Release 0.26 overhauled the initiative UI, this release adds a small improvement to that layout change by allowing players to proceed the initiative turn if a character they own currently is acting.
 
-![Alt](/blog/release-0.28/initiative.png)
+![Alt](/public/blog/release-0.28/initiative.png)
 
 ### Toolbar
 
@@ -77,14 +77,14 @@ Many people were never sure whether it showed the active mode or the mode that w
 
 This release addresses that confusion and shows all possible modes under the toolbar with the active mode higlighted.
 
-![Alt](/blog/release-0.28/toolmode.png)
+![Alt](/public/blog/release-0.28/toolmode.png)
 
 ### Draw helper
 
 Losing track of the draw tool is an other often heard complaint.
 A very small improvement that is being added in this release is a small contrast border around the brush to make sure the brush doesn't blend in with the background if it's the same colour.
 
-![Alt](/blog/release-0.28/drawmode.png)
+![Alt](/public/blog/release-0.28/drawmode.png)
 
 It's by no means a full solution to losing track of your draw brush, but it's a first small step.
 

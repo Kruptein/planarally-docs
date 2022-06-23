@@ -76,7 +76,7 @@ Internationalization (i18n) is added to the codebase which means that translatio
 
 There is a language selection element in the login screen to swap between the currently supported languages.
 
-![Alt](/blog/release-0.21/language.png)
+![Alt](/public/blog/release-0.21/language.png)
 
 ## Quality of Life
 
@@ -109,7 +109,7 @@ This change is introduced because people would often accidentally resize shapes 
 
 Another noticeable change is that there will now be a changelog popup to inform players that the server has updated.
 
-![Alt](/blog/release-0.21/changelog.png)
+![Alt](/public/blog/release-0.21/changelog.png)
 
 ### Public ruler toggle
 

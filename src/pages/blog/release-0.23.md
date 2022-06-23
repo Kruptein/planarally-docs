@@ -98,7 +98,7 @@ The 4 corners of a grid cell, their midsections and the absolute center are all 
 The annotation field in the shape edit dialog now supports markdown.
 The UI of displayed annotations has also received a small update.
 
-![Alt](/blog/release-0.23/annotations.png)
+![Alt](/public/blog/release-0.23/annotations.png)
 
 ### Server backups
 

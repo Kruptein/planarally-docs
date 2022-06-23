@@ -50,7 +50,7 @@ To make things even easier, you'll now also be able to automatically apply this 
 In the above video the left door has been configured to be enabled for all players by default and can thus be toggled without issue by the player. The door in front of the player however has been configured with the request permission.
 In these cases the DM will receive a request as follows, where they can choose to accept or decline the request, as well as move the camera to the door in question, if they're currently looking somewhere else.
 
-![Logic Door DM Request](/blog/release-2022.1/door-dm-request.png)
+![Logic Door DM Request](/public/blog/release-2022.1/door-dm-request.png)
 
 ### Teleport Zones
 

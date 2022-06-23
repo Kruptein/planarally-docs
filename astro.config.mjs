@@ -1,5 +1,5 @@
 import { defineConfig } from "astro/config";
-import { astroImageTools } from "astro-imagetools";
+import astroImageTools from "astro-imagetools/plugin";
 import Icons from "unplugin-icons/vite";
 
 import vue from "@astrojs/vue";

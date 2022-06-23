@@ -19,7 +19,7 @@ But internal code changes isn't the only thing that changed, initiative got an o
 
 The initiative tool as it worked up until now has pretty much been hacked in a couple of days after a reddit comment asked about initiative support. It did the job, but always had some smaller issues. I finally took out the time to address these outstanding issues and rethink some of the initiative's functionality.
 
-![Alt](/blog/release-0.27/initiative.png)
+![Alt](/public/blog/release-0.27/initiative.png)
 
 ### UI/UX
 
@@ -48,7 +48,7 @@ It also has changed styling and no longer sticks out as this strange input box, 
 
 While inputting your initiative it's possible that you lose focus over the input field if someone else is simultaneously modifying values, causing the initiatives to jump around. This was addressed in the past, by waiting with refreshing the initiative window until after you've submitted your change. There was however no indication that showed that values were not synchronised if you still had the input field focussed. This isn't ideal as it's very unclear and could lead to a lot of confusion. That's why in the new initiative window, all other initiative rows will be blurred out while you have an input field focussed to visually show that you're performing an action that is not yet finished.
 
-![Alt](/blog/release-0.27/blur.png)
+![Alt](/public/blog/release-0.27/blur.png)
 
 As a last quality of life change, pressing `enter` will now also work in the initiative input fields :).
 
@@ -79,7 +79,7 @@ It can be accessed as a DM from the location settings that you wish to copy from
 This came partially as a request from the people over at the last gameboard with whom I've been partnering to bring PA to their platform,
 but it has general use as well!
 
-![Alt](/blog/release-0.27/gameboard.png)
+![Alt](/public/blog/release-0.27/gameboard.png)
 
 In most cases PA is used purely as a digital solution to tabletop gaming.
 In this context it's firstmost the size in pixels that a grid cell should represent that is important.

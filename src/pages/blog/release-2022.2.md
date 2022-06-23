@@ -84,7 +84,7 @@ They are displayed on the bottom of the picker in 2 rows (max 20 colours are tra
 
 The colour history is saved per user across all their campaigns.
 
-![Colour Memory](/blog/release-2022.2/colour-memory.png)
+![Colour Memory](/public/blog/release-2022.2/colour-memory.png)
 
 (*) A colour is added to the list when you close the picker, _not_ by drawing with it. The latter would require code throughout the codebase, whereas now it can be contained within the colour picker logic.
 
@@ -119,7 +119,7 @@ There are however also variants of doors (e.g. portcullis) or things like window
 
 You can now specify which blocker the door should toggle on click.
 
-![Door Block Mode](/blog/release-2022.2/door-block-mode.png)
+![Door Block Mode](/public/blog/release-2022.2/door-block-mode.png)
 
 You can still ofcourse manually change the other block property as you see fit. \
 (e.g. have a window use the door logic to only toggle vision to mimick curtains, but change the movement property if someone throws a brick through the window)
@@ -163,7 +163,7 @@ Parts of this wonkoy behaviour are fixed on nightly versions of firefox, but not
 
 The rectangle showing the active viewport of players (when enabled) was using 1 solid colour, which similarly to the door icons, was not very legible depending on the background colour. This now also uses a second colour for contrast.
 
-![Viewport Double Stroke](/blog/release-2022.2/viewport.png)
+![Viewport Double Stroke](/public/blog/release-2022.2/viewport.png)
 
 ### Varia
 

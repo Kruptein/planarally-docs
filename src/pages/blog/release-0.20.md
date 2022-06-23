@@ -40,7 +40,7 @@ Those days are over and we now have a progress bar :)
 
 ### Varia
 
-When removing assets in the asset manager they will also be removed on disk if no other user is using the same file. If you want to retroactively apply this to all your existing files that are no longer used, the server owner can use [this code snippet](/blog/release-0.20/remove_old_assets.txt)
+When removing assets in the asset manager they will also be removed on disk if no other user is using the same file. If you want to retroactively apply this to all your existing files that are no longer used, the server owner can use [this code snippet](/public/blog/release-0.20/remove_old_assets.txt)
 
 The right click context menu would not show up correctly if you scrolled in the file browser. This has now been resolved as well as the aforementioned bug were files would not show up in the explorer until a refresh.
 
@@ -84,7 +84,7 @@ Any overriden value will be highlighted to make sure it's clear that it diverges
 
 Additionally it is now also possible to rename or even remove a location.
 
-![Alt](/blog/release-0.20/rename-location.png)
+![Alt](/public/blog/release-0.20/rename-location.png)
 
 ## Other UI/UX improvements
 
@@ -96,7 +96,7 @@ It was a pain in the past to add users as owners of shapes because you had to ma
 
 Both things are now a thing of the past!
 
-![Alt](/blog/release-0.20/access.png)
+![Alt](/public/blog/release-0.20/access.png)
 
 The access part of the shape properties dialog has been upgraded. It now always shows a default permission line, that you can use to immediately give vision and edit access to all players.
 
