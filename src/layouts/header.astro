@@ -1,8 +1,9 @@
 ---
 import Github from "~icons/fa-brands/github";
 import Twitter from "~icons/fa-brands/twitter";
-import ThemeSwitcher from "../components/ThemeSwitcher.vue";
+import HamburgerMenu from "../components/HamburgerMenu.vue";
 import NavItem from "../components/NavItem.astro";
+import ThemeSwitcher from "../components/ThemeSwitcher.vue";
 ---
 
 <header>
@@ -13,6 +14,8 @@ import NavItem from "../components/NavItem.astro";
         <NavItem to="/learn/">Learn</NavItem>
         <NavItem to="/server/">Server</NavItem>
         <NavItem to="/blog/">Blog</NavItem>
+        <div style="flex-grow: 1"></div>
+        <HamburgerMenu id='hamburger' client:only />
     </nav>
 
     <div>
@@ -44,8 +47,9 @@ import NavItem from "../components/NavItem.astro";
     header {
         position: sticky;
         top: 0;
-        padding: 0px 25vw;
         z-index: 20;
+
+        padding: 0px 25vw;
 
         border-bottom: solid 1px rgb(226, 236, 236);
 
@@ -55,9 +59,19 @@ import NavItem from "../components/NavItem.astro";
         justify-content: space-between;
         align-items: center;
 
+        @media (max-width: 1024px) {
+            flex-direction: column-reverse;
+            align-items: stretch;
+            padding: 0;
+        }
+
         > nav {
             display: flex;
             align-items: center;
+
+            @media (max-width: 1024px) {
+                height: 75px;
+            }
 
             > :global(*) {
                 margin: 8px;
@@ -69,16 +83,42 @@ import NavItem from "../components/NavItem.astro";
             display: flex;
             justify-content: space-around;
             align-items: center;
+
+            @media (max-width: 1024px) {
+                width: unset;
+                justify-content: flex-end;
+                padding-top: 15px;
+                padding-right: 15px;
+
+                > * {
+                    margin-left: 5px;
+                }
+            }
         }
 
         #logo {
-            height: auto;
+            height: 50px;
             margin-top: 10px;
             margin-bottom: 10px;
             padding: 5px;
             max-width: 50px;
             background: #f1e7d0e1;
             border-radius: 25%;
+        }
+
+        :global(#hamburger) {
+            display: none;
+            margin-right: 30px;
+            padding-top: 150px;
+            -webkit-tap-highlight-color: transparent;
+
+            @media (max-width: 1024px) {
+                display: block;
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 </style>

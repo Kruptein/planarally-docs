@@ -47,6 +47,20 @@ const { headers } = Astro.props.content.astro;
         bottom: 50px;
         left: calc(20vw - 150px);
 
+        @media (max-width: 1024px) {
+            left: auto;
+            right: 0;
+            top: 100px;
+            bottom: 0;
+            background-color: var(---bg-header);
+            padding: 15px;
+            z-index: 10;
+
+            &.mobileHide {
+                display: none;
+            }
+        }
+
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -97,6 +111,12 @@ const { headers } = Astro.props.content.astro;
         right: calc(20vw - 200px);
         padding-left: 50px;
 
+        
+
+        @media (max-width: 1024px) {
+            display: none;
+        }
+
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -143,6 +163,14 @@ const { headers } = Astro.props.content.astro;
         padding-right: 150px;
         border-left: solid 1px rgb(226, 236, 236);
         border-right: solid 1px rgb(226, 236, 236);
+
+        @media (max-width: 1024px) {
+            max-width: fit-content;
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-left: 0;
+            margin-right: 0;
+        }
 
         :global(a) {
             color: green;
