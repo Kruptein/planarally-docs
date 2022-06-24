@@ -93,6 +93,11 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             path: "/tools",
             items: ["Map", "Filter"],
         },
+        {
+            title: "Integrations",
+            path: "/integrations",
+            items: [{ title: "Last Gameboard", path: "/last-gameboard/" }],
+        },
     ],
     learn: [
         {
