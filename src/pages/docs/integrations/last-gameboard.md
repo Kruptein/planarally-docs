@@ -50,6 +50,16 @@ You also see another button "Setup local server" in the screenshot above, this i
 This section shows you the IP address and port that will be used by PA, allowing other devices (e.g. a DM laptop) to connect as well.
 If devices/players from outside your network want to join, you'll need to forward the correct ports on your router like you would for a traditional non-gameboard server.
 
+<Warning>
+In order to run the local server, you need to install the PlanarAlly Server application, which can also be found in the main games listing on the gameboard. Just installing it is enough, you don't have to "play" it.
+</Warning>
+
+<Warning title="Save file">
+If you ever uninstall/reinstall the PlanarAlly server application, your save file might be lost.
+
+Updating the server to a newer version however, should work without issues.
+</Warning>
+
 ## Dashboard
 
 ![Gameboard PA dashboard page](./assets/dashboard.png "Gameboard PA dashboard page")
