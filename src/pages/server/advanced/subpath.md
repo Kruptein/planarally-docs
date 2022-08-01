@@ -1,5 +1,6 @@
 ---
 layout: ../../../layouts/docs.astro
+setup: import Warning from "/src/components/directives/Warning.astro"
 ---
 
 # Subpath hosting
@@ -7,30 +8,41 @@ layout: ../../../layouts/docs.astro
 PlanarAlly can be hosted without effort at a root level (e.g. https://www.planarally.io) or at a subdomain (e.g. https://dnd.planarally.io).
 When hosting at a subpath however some additional work needs to be done (e.g. https://www.planarally.io/dnd/).
 
-You need to signal to the server that it's running on a subpath. Additionally you might also need to do some changes to your proxy.
+You need to signal to the server and the client that they're supposed to run on a subpath.
+Additionally you might also need to do some changes to your proxy.
+
+The rest of these docs will sometimes refer to the PA_BASEPATH environment variable, this should match the desired subpath.
+For example:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Changed behaviour">
+Since 2022.1 there have been some changes to the subpath handling,
+make sure to reread these docs properly if you've used them in the past!
+
+In particular the client now always has to be build manually and the docker container uses --build-arg instead of --env.
+</Warning>
+
+## Client changes
+
+When you want to use a subpath, you have to [build the client yourself](/server/setup/self-hosting/#manual-installation).
+The subpath info needs to be baked into the build output files.
+This can simply be done by building the client while the PA_BASEPATH environment variable is set.
 
 ## Server changes
 
-When running the PA server, you need to make sure that you set a special environment variable before executing the server.
+The server also needs to know about the subpath, simply make sure the PA_BASEPATH environment variable is set before running the server.
 
-```bash
-export PA_BASEPATH="/planarally"
-```
-
-The above will allow you to run PA on the subpath "/planarally".
+## Docker
 
 When using the docker image, this env variable needs to be passed to the container.
 Add the following part to your docker command.
 
 ```bash
---env PA_BASEPATH=/planarally
+--build-arg PA_BASEPATH='/planarally/'
 ```
-
-### Client and dev mode
-
-When building the client it is generally recommended to make sure that the env variable is NOT set during the build.
-
-When running in development mode however, you need to set it for the client as well.
 
 ## Proxy
 
