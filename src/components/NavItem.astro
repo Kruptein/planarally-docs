@@ -1,6 +1,6 @@
 ---
 const { to } = Astro.props;
-const currentUrlRoot = Astro.canonicalURL.pathname.split("/").slice(0, 2).join("/") + "/";
+const currentUrlRoot = Astro.url.pathname.split("/").slice(0, 2).join("/") + "/";
 const classes = currentUrlRoot === to ? "current-link" : "";
 ---
 

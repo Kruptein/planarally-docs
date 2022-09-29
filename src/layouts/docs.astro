@@ -2,7 +2,7 @@
 import { getDocsNav } from '../doc-structure';
 import Main from "./main.astro";
 
-const currentUrl = Astro.canonicalURL.pathname;
+const currentUrl = Astro.url.pathname;
 const currentUrlRoot = currentUrl.split("/")[1];
 
 const docs = getDocsNav(currentUrlRoot, currentUrl);
