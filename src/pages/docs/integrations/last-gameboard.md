@@ -113,6 +113,41 @@ Dice rolling is still a relatively new feature in PlanarAlly and requires some f
 
 If you use the gameboard companion app, it will automatically show a dice roller when you join a game. Dice rolls initiated from the companion[^3] will appear and roll on the board!
 
-[^1]: Currently the gameboard integration code is still being tested in a private repository, but it _should_ be merged to the main PA codebase soon.
+### Grid
+
+PlanarAlly comes with support for last-gameboard grid, which means that you can combine multiple boards as if they were 1 big screen.
+
+#### Prerequisites
+
+- Multiple gameboards connected to the same PlanarAlly server [^4]
+- A lastgameboard compatible PA server [^5]
+- Have access to the DM account
+
+#### Configuration
+
+_All actions are done from a logged-in DM account_
+
+To configure the grid we have to open the LG grid settings, this can be done by the following:
+
+1) Select the desired campaign
+2) Open the sidebar by pressing the cog wheel in the topleft of the screen
+3) Select the "LG Settings" tab and make sure the Grid category is selected
+
+In this dialog, we get a row for each gameboard that is currently connected. This will live update when a board connects/disconnects so no need to refresh this page or open/close this window.
+
+![Gameboard Grid Settings](./assets/grid-settings.png "Gameboard Grid Settings")
+
+For each gameboard you can define a X and Y offset[^6] as you please. Generally you'll want to keep 1 board at (0, 0) and define the other boards in relation to this board. So if you for example have two boards next to eachother, you would either want to configure the left board as (0, 0) and the right as (1, 0) or use (-1, 0) and (0, 0) respectively.
+
+While the grid settings are open, each board connected will also display their unique id at the top of the screen to identify them easily on the DM side.
+
+![Gameboard Grid Ids](./assets/grid-ids.jpg "Gameboard Grid Ids")
+
+A PlanarAlly server will currently keep the grid offsets for a specific client in memory. This means that when a client disconnects and reconnects later it will still be at the same offset. If however the server was restarted at some point you would have to reconfigure the board.
+
+[^1]: Currently the gameboard integration code is still being tested in a private repository, but there is an open PR to merge it into the main PA codebase. Which should happen soon!
 [^2]: Those that have a conductive base the board recognizes.
 [^3]: This can be accomplished by swiping the dice towards the board.
+[^4]: There is no requirement for these boards to be physically close to eachother or even on the same network.
+[^5]: This is either a PA server using the special `feature/lg` branch on the PlanarAlly github repository or the local server on one of the gameboards.
+[^6]: The X-axis goes from negative left to positive right, the Y axis goes from negative top to positive bottom.
