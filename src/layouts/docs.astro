@@ -6,7 +6,8 @@ const currentUrl = Astro.url.pathname;
 const currentUrlRoot = currentUrl.split("/")[1];
 
 const docs = getDocsNav(currentUrlRoot, currentUrl);
-const { headings } = Astro.props;
+let { headings } = Astro.props;
+if (headings === undefined) headings = Astro.props.content.astro.headings;
 ---
 
 <Main>
@@ -24,7 +25,7 @@ const { headings } = Astro.props;
         </main>
         <section id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
             {headings.map(header => {
-                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
+                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.startsWith('#') ? header.text.slice(1) : header.text}</a>)
             })}
         </section>
     </div>
