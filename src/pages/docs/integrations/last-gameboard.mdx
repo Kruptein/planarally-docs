@@ -60,7 +60,7 @@ These accounts are server specific and are thus not shared between servers.
 
 You also see another button "Setup local server" in the screenshot above, this is the place where you can configure a local server, allowing you to play without an internet connection!
 
-<Image src={ServerLandingPicture} alt="Gameboard PA server landing page" width="800px" aspectRatio="1:1" />
+<Image src={ServerLandingPicture} alt="Gameboard PA server landing page" width={800} aspectRatio="1:1" />
 
 This section shows you the IP address and port that will be used by PA, allowing other devices (e.g. a DM laptop) to connect as well.
 If devices/players from outside your network want to join, you'll need to forward the correct ports on your router like you would for a traditional non-gameboard server.
@@ -79,7 +79,7 @@ Updating the server to a newer version however, should work without issues.
 
 ## Dashboard
 
-<Image src={DashboardPicture} alt="Gameboard PA dashboard page" width="800px" aspectRatio="1:1" />
+<Image src={DashboardPicture} alt="Gameboard PA dashboard page" width={800} aspectRatio="1:1" />
 
 Upon succesfully loggin in to a server, you'll be greeted with the dashboard from which you can join/launch games.
 Although the looks are different, you should be able to find all the information you need in the [main dashboard docs](/docs/dashboard/).
@@ -149,13 +149,13 @@ To configure the grid we have to open the LG grid settings, this can be done by 
 
 In this dialog, we get a row for each gameboard that is currently connected. This will live update when a board connects/disconnects so no need to refresh this page or open/close this window.
 
-<Image src={GridSettingsPicture} alt="Gameboard Grid Settings" width="800px" aspectRatio={1029 / 1137} />
+<Image src={GridSettingsPicture} alt="Gameboard Grid Settings" width={800} aspectRatio={1029 / 1137} />
 
 For each gameboard you can define a X and Y offset[^6] as you please. Generally you'll want to keep 1 board at (0, 0) and define the other boards in relation to this board. So if you for example have two boards next to eachother, you would either want to configure the left board as (0, 0) and the right as (1, 0) or use (-1, 0) and (0, 0) respectively.
 
 While the grid settings are open, each board connected will also display their unique id at the top of the screen to identify them easily on the DM side.
 
-<Image src={GridIdsPicture} alt="Gameboard Grid Ids" width="800px" aspectRatio={4032 / 2268} />
+<Image src={GridIdsPicture} alt="Gameboard Grid Ids" width={800} aspectRatio={4032 / 2268} />
 
 A PlanarAlly server will currently keep the grid offsets for a specific client in memory. This means that when a client disconnects and reconnects later it will still be at the same offset. If however the server was restarted at some point you would have to reconfigure the board.
 
