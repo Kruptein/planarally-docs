@@ -1,7 +1,9 @@
 ---
 import dayjs from "dayjs";
 import Main from "../../layouts/main.astro";
-const posts = await Astro.glob('./*.md')
+const ogPosts = await Astro.glob('./*.md');
+const mdxPosts = await Astro.glob('./*.mdx');
+const posts = [...ogPosts, ...mdxPosts]
     .then(posts => posts
         .map(({ frontmatter, url }) => ({
             title: frontmatter.title,

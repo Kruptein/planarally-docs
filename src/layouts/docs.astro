@@ -6,7 +6,7 @@ const currentUrl = Astro.url.pathname;
 const currentUrlRoot = currentUrl.split("/")[1];
 
 const docs = getDocsNav(currentUrlRoot, currentUrl);
-const { headers } = Astro.props.content.astro;
+const { headings } = Astro.props;
 ---
 
 <Main>
@@ -19,12 +19,12 @@ const { headers } = Astro.props.content.astro;
                 return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
             })}
         </section>
-        <main style={headers.length <= 1 ? "border-right:none" : ""}>
+        <main style={headings.length <= 1 ? "border-right:none" : ""}>
             <slot />
         </main>
-        <section id="doc-headers" style={headers.length <= 1 ? "display:none" : ""}>
-            {headers.map(header => {
-                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
+        <section id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
+            {headings.map(header => {
+                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
             })}
         </section>
     </div>
@@ -221,6 +221,10 @@ const { headers } = Astro.props.content.astro;
         :global(p),
         :global(ol) {
             margin-bottom: 1.5rem;
+        }
+
+        :global(img) {
+            max-width: 100%;
         }
 
         :global(h1),
