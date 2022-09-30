@@ -1,11 +1,17 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Warning from "../../../components/directives/Warning.astro";
-    import Cog from "~icons/fa-solid/cog"
-    import TimesCircle from "~icons/fa-solid/times-circle"
-    import SyncAlt from "~icons/fa-solid/sync-alt"
 ---
+
+import Warning from "../../../components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "@astrojs/image/components";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
 
 # Client Settings
 
@@ -23,7 +29,7 @@ This will impact all other campaigns where you did not override this setting.
 
 ## Appearance
 
-![Apparance Settings](./assets/client-settings.png "Apparance Settings")
+<Image src={ClientSettingsPicture} width={600} aspectRatio={613 / 388} alt="Apparance Settings" />
 
 ### Language
 
@@ -45,7 +51,7 @@ This sets the colour for the fog covering everything you can't see.
 
 ## Behaviour
 
-![Behaviour Settings](./assets/client-settings-behaviour.png "Behaviour Settings")
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={612 / 291} alt="Behaviour Settings" />
 
 ### Snapping
 
@@ -57,7 +63,7 @@ By default scrolling allows you to zoom in or out, this however can be annoying 
 
 ## Display
 
-![Display Settings](./assets/client-settings-display.png "Display Settings")
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Display Settings" />
 
 The HiDPI setting allows you to increase the resolution of the rendered game on screens that offer subpixel rendering.
 
@@ -65,6 +71,7 @@ The HiDPI setting allows you to increase the resolution of the rendered game on 
 Enabling this setting will require more performance from your computer.
 
 If the game feels laggy you want to make sure this is not enabled.
+
 </Warning>
 
 ### Gameboard
@@ -84,7 +91,7 @@ You'll want to change this if you're playing on something like a projector for e
 
 ## Initiative
 
-![Initiative Settings](./assets/client-settings-initiative.png "Initiative Settings")
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Initiative Settings" />
 
 ### Lock Camera
 

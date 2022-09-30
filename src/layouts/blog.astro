@@ -3,14 +3,14 @@ import dayjs from "dayjs";
 import Main from "./main.astro";
 
 const { title, author, astro, date } = Astro.props.content;
-const { headers } = astro;
+const { headings } = astro;
 const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 ---
 
 <Main>
     <div id="container">
         <section>
-            {headers.map(header => {
+            {headings.map(header => {
                 return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
             })}
         </section>

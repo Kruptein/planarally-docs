@@ -2,6 +2,10 @@
 layout: ../../../layouts/docs.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+import UiPicture from "./ui.png";
+import DmUiPicture from "./dm-ui.png";
+
 # Game UI
 
 _**Beware** some of the images used throughout this document use content from the WotC published Descent into Avernus. If you are playing in this campaign beware of spoilers._
@@ -15,13 +19,13 @@ Depending on whether you are a regular player or a DM you'll have a vastly diffe
 As can be seen in the following image, players see the board mostly filled with fog in a colour of their choice.
 Additionally there are by default 3 UI elements visible, starting from the topleft in counterclockwise rotation we have a button to open the sidemenu, a slider to control the zoom level and a toolbar.
 
-![Alt](./ui.png) _Sample Player UI_
+<Image src={UiPicture} width={1000} aspectRatio={1280 / 1305} alt="Sample Player UI" />
 
 The DM has a more specialised view. They can choose the opacity of the fog, allowing them to see what is ahead.
 
 They have slightly more UI tools. The element in the topleft has an additional button to open a bar at the top to change between locations. Additionally there is now also a UI element in the bottom left, which is used to swap between layers and also allows them to create/manage different floors.
 
-![Alt](./dm-ui.png) _Sample DM UI_
+<Image src={DmUiPicture} width={1000} aspectRatio={1280 / 1305} alt="Sample DM UI" />
 
 ## Behind the cover of night
 

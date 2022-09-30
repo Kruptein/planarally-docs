@@ -25,7 +25,6 @@
     "dependencies": {
         "@astrojs/image": "^0.8.1",
         "@astrojs/mdx": "^0.11.3",
-        "astro-imagetools": "^0.5.8",
         "dayjs": "^1.11.5",
         "rehype-autolink-headings": "^6.1.1",
         "rehype-slug": "^5.0.1",

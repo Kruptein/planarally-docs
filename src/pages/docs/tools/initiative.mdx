@@ -1,22 +1,25 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import ChevronRight from "~icons/fa-solid/chevron-right"
-    import Eye from "~icons/fa-solid/eye"
-    import Stopwatch from "~icons/fa-solid/stopwatch"
-    import SyncAlt from "~icons/fa-solid/sync-alt"
-    import TrashAlt from "~icons/fa-solid/trash-alt"
-    import Users from "~icons/fa-solid/users"
-    import Video from "~icons/fa-solid/video"
-    import WindowClose from "~icons/fa-regular/window-close"
-    import Info from "/src/components/directives/Info.astro"
 ---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "@astrojs/image/components";
+import InitiativeOverviewPicture from "./initiative-overview.png";
 
 # Initiative Tracker
 
 The Initiative Tool is a moveable pop-up window that allows you to track the initiative order of various objects (normally tokens).
 
-![Overview of the initiative tool](./initiative-overview.png "Overview of the initiative tool")
+<Image src={InitiativeOverviewPicture} width={600} aspectRatio={637 / 500} alt="Overview of the initiative tool" />
 
 ## Access
 
@@ -107,15 +110,14 @@ The functions bar is a single row containing the `Round`-indicator showing the c
 
 ### Vision Auto-Lock
 
-<Eye /> toggles vision auto-lock.
-This function is useful for players who own more than one token.
-If active, every time action is assigned to another object (see [next turn](/docs/tools/initiative/#next-turn) below), the vision of only this object will be shown.
-This can be toggled on/of individually by each player.
-Vision auto-lock will only display vision of objects the players have proper access to.
+<Eye /> toggles vision auto-lock. This function is useful for players who own more than one token. If active, every
+time action is assigned to another object (see [next turn](/docs/tools/initiative/#next-turn) below), the vision of
+only this object will be shown. This can be toggled on/of individually by each player. Vision auto-lock will only
+display vision of objects the players have proper access to.
 
 <Info title="Vision Tool">
-Vision Auto-Lock triggers the [Vision tool](/docs/tools/vision/) to reconfigure.
-Use that tool to configure what lines of sight you want to see, out of initiative.
+    Vision Auto-Lock triggers the [Vision tool](/docs/tools/vision/) to reconfigure. Use that tool to configure what
+    lines of sight you want to see, out of initiative.
 </Info>
 
 The button has no function for DMs as they always see everything.

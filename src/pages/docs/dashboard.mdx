@@ -1,18 +1,20 @@
 ---
 layout: ../../layouts/docs.astro
-setup: |
-    import Info from "/src/components/directives/Info.astro"
-    import Tip from "/src/components/directives/Tip.astro"
-    import Warning from "/src/components/directives/Warning.astro"
-    import PencilAlt from "~icons/fa-solid/pencil-alt"
 ---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "@astrojs/image/components";
 
 # Dashboard
 
 After a successful login, the dashboard will be shown.
 It consists of a navigation bar on the left and a content section on the right.
 
-![Dashboard](../../../public/docs/dashboard.png "Dashboard")
+<Image src="/docs/dashboard.png" width={800} aspectRatio={2556 / 1325} alt="Dashboard" />
 
 ## Game
 
@@ -55,9 +57,7 @@ This will display just as described above under [Play](#play), with the followin
 Creating a campaign is easy: Enter a name and click `Go`.
 You can also choose a logo for the campaign by clicking on the default logo displayed next to the name input.
 
-<Info title='Logo upload'>
-The logo has to be uploaded as an [asset](/docs/dm/assets/).
-</Info>
+<Info title="Logo upload">The logo has to be uploaded as an [asset](/docs/dm/assets/).</Info>
 
 ## Assets
 
@@ -67,15 +67,15 @@ The **Assets** section offers you to manage or create [assets](/docs/dm/assets/)
 
 This link will bring you to the [asset manager](/docs/dm/assets/#asset-manager).
 
-<Info title='Incomplete feature integration'>
-The asset manager is not yet fully integrated into the dashboard.
-Expect full functionality, but different look-and-feel.
+<Info title="Incomplete feature integration">
+    The asset manager is not yet fully integrated into the dashboard. Expect full functionality, but different
+    look-and-feel.
 </Info>
 
 ### Create
 
-<Warning title='Incomplete feature!'>
-This feature has not been made yet, the link in the navigation bar is just a placeholder.
+<Warning title="Incomplete feature!">
+    This feature has not been made yet, the link in the navigation bar is just a placeholder.
 </Warning>
 
 ## Settings
@@ -98,6 +98,7 @@ _No_ feature of PlanarAlly relies on emails in any way at this moment in time.
 However, entering an email-address might ease communication with the server's admin/hoster.
 
 Emails are likely to become mandatory in the future though.
+
 </Tip>
 
 ### Danger Zone
@@ -108,6 +109,7 @@ The _danger zone_ offers to change your password or delete your account.
 These actions are irrevocable!
 
 PlanarAlly does _not_ use soft deletion, so recovering your account is not possible once deleted.
+
 </Warning>
 
 ## Localisation
@@ -116,8 +118,8 @@ In the top-left corner of the navigation bar lies the localisation button which 
 Any choice you make, here, will replicate to every campaign you play or run.
 
 <Info title="Translation Fallback">
-Note that translations _may_ be incomplete.
-In case a translation of something in the user-interface is missing, the interface will fall back to the english translation for this specific element.
+    Note that translations _may_ be incomplete. In case a translation of something in the user-interface is missing,
+    the interface will fall back to the english translation for this specific element.
 </Info>
 
 At the moment, PlanarAlly supports the following languages (at least to a certain extent):
@@ -132,6 +134,8 @@ At the moment, PlanarAlly supports the following languages (at least to a certai
 -   Italiano (Italian, it)
 
 <Tip title="Help translate!">
-In case you're encounter translation errors, missing strings or a localisation to your language, feel invited to help out!
-See [the contribution guidelines on github](https://github.com/Kruptein/PlanarAlly/blob/dev/CONTRIBUTING.md#translation) to learn how to contribute _your_ language to PA.
+    In case you're encounter translation errors, missing strings or a localisation to your language, feel invited to
+    help out! See [the contribution guidelines on
+    github](https://github.com/Kruptein/PlanarAlly/blob/dev/CONTRIBUTING.md#translation) to learn how to contribute
+    _your_ language to PA.
 </Tip>

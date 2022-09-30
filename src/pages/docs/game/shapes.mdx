@@ -1,14 +1,25 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import ArrowsAlt from "~icons/fa-solid/arrows-alt"
-    import Eye from "~icons/fa-solid/eye"
-    import Lightbulb from "~icons/fa-solid/lightbulb"
-    import PencilAlt from "~icons/fa-solid/pencil-alt"
-    import TrashAlt from "~icons/fa-solid/trash-alt"
-    import Info from "../../../components/directives/Info.astro";
-    import Tip from "../../../components/directives/Tip.astro";
 ---
+
+import ArrowsAlt from "~icons/fa-solid/arrows-alt";
+import Eye from "~icons/fa-solid/eye";
+import Lightbulb from "~icons/fa-solid/lightbulb";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Info from "../../../components/directives/Info.astro";
+import Tip from "../../../components/directives/Tip.astro";
+
+import { Image } from "@astrojs/image/components";
+import AssetListPicture from "./assets/asset-list.png";
+import EditAssetPropertiesPicture from "./assets/edit-asset-properties.png";
+import EditAssetDefeatedPicture from "./assets/defeated.png";
+import EditAssetTrackersPicture from "./assets/edit-asset-trackers.png";
+import EditAssetExtraPicture from "./assets/edit-asset-extra.png";
+import EditAssetAccessPicture from "./assets/edit-asset-access.png";
+import EditAssetAnnotationsPicture from "./assets/edit-asset-annotations.png";
+import ShapeBadgePicture from "./assets/shape-badge.png";
+import LabelManagerPicture from "./assets/label-manager.png";
 
 # Shapes
 
@@ -27,7 +38,7 @@ Right clicking on a shape will give you a list of options.
 The options presented will be different depending on whether you are a DM or not,
 but also on the state of the token (e.g. Add vs Show initiative).
 
-![Context menu](./assets/asset-list.png)
+<Image src={AssetListPicture} width={500} aspectRatio={532 / 520} alt="Context Menu" />
 
 The list presented above is the DM view.
 
@@ -54,8 +65,8 @@ This option deletes the selected shape(s).
 You may also press `Del` or `Backspace` to do this.
 
 <Tip title="Undo/Redo">
-If you accidentally remove a shape, you can undo it by using the ctrl+z keybinding.
-This also works for certain other operations like movement.
+    If you accidentally remove a shape, you can undo it by using the ctrl+z keybinding. This also works for certain
+    other operations like movement.
 </Tip>
 
 #### Set marker
@@ -72,13 +83,11 @@ This option opens the “Edit asset” dialog, described below.
 By right clicking and selecting the “Show properties” option, you open the “Edit asset” dialog,
 which allows you to modify various settings related to the selected shape.
 
-<Tip title="Opening the shape properties faster">
-You can also press **enter** to immediately open this dialog!
-</Tip>
+<Tip title="Opening the shape properties faster">You can also press **enter** to immediately open this dialog!</Tip>
 
 ### Properties
 
-![Asset property dialog](./assets/edit-asset-properties.png)
+<Image src={EditAssetPropertiesPicture} width={800} aspectRatio={784 / 698} alt="Asset property dialog" />
 
 The first section consists of common properties related to the selected shape.
 
@@ -114,7 +123,7 @@ _(\*) The DM will also see invisible shapes as they have implicit edit access to
 When checked, this will display a simple, red `x` over the shape to indicate it is defeated.
 This property can also be toggled by pressing `x`.
 
-![Asset defeated](./assets/defeated.png)
+<Image src={EditAssetDefeatedPicture} width={200} aspectRatio={194 / 146} alt="Asset defeated" />
 
 #### Border colour & Fill colour
 
@@ -138,7 +147,7 @@ Selecting this option prevents other shapes from moving through it.
 This is commonly paired together with blocks vision for walls, but can also be used alone for things like windows.
 
 <Tip title="DM cheats">
-As a DM you can circumvent this restraint by using the **shift** modifier will you move shapes.
+    As a DM you can circumvent this restraint by using the **shift** modifier will you move shapes.
 </Tip>
 
 For performance reasons you typically don't want to assign this property to shapes that regularly move.
@@ -146,7 +155,7 @@ For performance reasons you typically don't want to assign this property to shap
 #### Is locked
 
 Selecting this option locks the shape in place.
-This can be useful for static shapes you don’t want to accidently move while playing.
+This can be useful for static shapes you don't want to accidently move while playing.
 Especially useful for your maps which might otherwise take you some time to grid align again.
 
 Press `Ctrl + L` to do this without opening the Edit asset menu.
@@ -159,6 +168,8 @@ As you copy and paste this shape, the badge number will increase incrementally.
 
 ![Shape badge example](./assets/shape-badge.png)
 
+<Image src={ShapeBadgePicture} width={150} aspectRatio={177 / 150} alt="Shape badge example" />
+
 This option is key for situations where you have large groups of similar tokens.
 If all creatures have the same icon, it can be difficult to differentiate between them during combat.
 Enabling this option ensures the players and the DM are talking about the same shapes.
@@ -169,6 +180,8 @@ You can configure the details of how the badge values are generated in the Group
 
 ![Asset tracker example](./assets/edit-asset-trackers.png)
 
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Asset tracker example" />
+
 <Tip title="Quick info">
 
 If you just want to see the value of a certain tracker or aura quickly you don't have to open the shape properties.
@@ -178,6 +191,7 @@ Additionally you can modify these values from this panel, by clicking on their v
 A small popup will appear in which you can insert a new value.
 This value can be absolute, or relative by providing an input with a `+` or `-`.
 For example, if the base value is 13, and you type `-5`, you will subtract 5, leaving you with 8.
+
 </Tip>
 
 #### Trackers
@@ -234,8 +248,9 @@ The colour set for `aura` will affect the area covered by the aura.
 Independently, a colour for the aura's border can be set.
 
 <Tip title="Lights & Spells">
-Use angles and colours to indicate lights worn by the character and borders to indicate reach of spells centered on you, e.g. _detect magic_ or _invisibility purge_.
-You can also use this to remind yourself of special attack reach etc.
+    Use angles and colours to indicate lights worn by the character and borders to indicate reach of spells centered on
+    you, e.g. _detect magic_ or _invisibility purge_. You can also use this to remind yourself of special attack reach
+    etc.
 </Tip>
 
 ##### Public
@@ -262,7 +277,7 @@ _Note: vision and lighting are typically only relevant when you use the line of 
 
 ### Access
 
-![Asset access example](./assets/edit-asset-access.png)
+<Image src={EditAssetAccessPicture} width={400} aspectRatio={424 / 216} alt="Asset access example" />
 
 Player access to the shape can be configured in this section.
 By default the creator of the shape has full access right to the shape as well as the DM.
@@ -273,11 +288,9 @@ Three levels of access can be given with a higher access level immediately also 
 
 <PencilAlt /> EDIT ACCESS /
 <ArrowsAlt /> MOVEMENT ACCESS /
-<Lightbulb/> VISION ACCESS.
+<Lightbulb /> VISION ACCESS.
 
 ### Group
-
-<!-- ![Asset group example](~/../blog/2021-01-3-release-0.24.0/edit-asset-group.png) -->
 
 Groups are a way to organize shapes with an optional badge to differentiate them (e.g. ogre 5).
 Within a group each shape has a unique\* value, its badge.
@@ -308,8 +321,8 @@ The available random space will thus automatically scale upwards without reveali
 When changing the creation order, all existing shapes will be rebadged (after a confirmation popup).
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/groups.webm" type="video/webm">
-   <source src="/blog/release-0.24/groups.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
 </video>
 
 #### Groups spread over multiple locations
@@ -325,7 +338,7 @@ Either way the impact this has is so small compared to the extra programming log
 
 ### Extra
 
-![Asset extras](./assets/edit-asset-extra.png)
+<Image src={EditAssetExtraPicture} width={500} aspectRatio={544 / 343} alt="Asset extras" />
 
 This panel contains some settings that do not fit in any of the other places.
 
@@ -336,17 +349,15 @@ or to filter on using the [filter tool](/docs/tools/filter/).
 
 To add a label press the + and the label manager will open in which you can select an existing label or create a new label.
 
-![Label manager](./assets/label-manager.png)
+<Image src={LabelManagerPicture} width={300} aspectRatio={304 / 473} alt="Label Manager" />
 
 #### Annotation
 
 Annotations are a freeflow place to write down information you want to track on a shape.
 
-<Info title="Markdown">
-The annotation is markdown aware!
-</Info>
+<Info title="Markdown">The annotation is markdown aware!</Info>
 
-![Asset annotations](./assets/edit-asset-annotations.png)
+<Image src={EditAssetAnnotationsPicture} width={500} aspectRatio={505 / 162} alt="Asset annotations" />
 
 Annotation of shapes you have _edit_ access to, will be displayed on the top side of the screen on hover.
 The annotation can be marked as public to allow everyone in the session to see it on hover.

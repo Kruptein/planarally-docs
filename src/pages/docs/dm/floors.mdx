@@ -1,11 +1,14 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Info from "/src/components/directives/Info.astro"
-    import Eye from "~icons/fa-solid/eye"
-    import PencilAlt from "~icons/fa-solid/pencil-alt"
-    import TrashAlt from "~icons/fa-solid/trash-alt"
 ---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "@astrojs/image/components";
+import FloorsPicture from "./assets/floors.png";
 
 # Floors
 
@@ -15,7 +18,7 @@ Floors are drawn on top of each other.
 Thus, on a newly created floor, the floor below it would be fully visible.
 This will hold true for every portion of the game board that is not covered by anything else, be it an asset on the _map_ layer, or a shape on the _tokens_ layer.
 
-![The floors button with opened floors menue](./assets/floors.png "The floors button with opened floors menue")
+<Image src={FloorsPicture} width={300} aspectRatio={314 / 277} alt="The floors button with opened floors menu" />
 
 Floors can be accessed by the floors button at the bottom left of the screen.
 Floors are numbered (presented on the left of the opened menue) and they have names (presented on the right).
@@ -35,9 +38,7 @@ Floors are a very handy tool to improve immersion/perception and it's advised to
 You can create new floors by clicking on `Add new floor`.
 You will be asked for the name of the floor in a pop-up.
 
-<Info title="No Duplicates">
-Note that no two floors on a location can have the same name.
-</Info>
+<Info title="No Duplicates">Note that no two floors on a location can have the same name.</Info>
 
 ## Reordering floors
 

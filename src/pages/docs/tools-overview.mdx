@@ -2,13 +2,20 @@
 layout: ../../layouts/docs.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
 # Tools Overview
 
 PlanarAlly provides a set of tools to interact with the Game Board and other players.
 GMs are provided with some additional tools suitable for their needs.
 Most, but not all, of these tools are accessible via a toolbar at the bottom right of the Game Board.
 
-![Example of a toolbar of a GM in Build mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool.](../../../public/docs/toolbar-example.png "Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool.")
+<Image
+    src="/docs/toolbar-example.png"
+    width={400}
+    aspectRatio={449 / 89}
+    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
+/>
 
 ## Toolbar and Modes
 
