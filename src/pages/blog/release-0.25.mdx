@@ -6,6 +6,10 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
 For the second release of the year, I got a maybe smaller than usual release, but it does pack some punch.
 
 This release contains a couple of features that players will also really enjoy!
@@ -14,7 +18,7 @@ This release contains a couple of features that players will also really enjoy!
 
 First up and one of my personal favourite features of this release is an overhaul to auras!
 
-![Alt](../docs/game/assets/edit-asset-trackers.png)
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Asset tracker example" />
 
 Most will immediately spot the dramatic UI change the auras section got, but the trained eye will also notice 3 new features being added.
 
@@ -76,8 +80,8 @@ You'll now see a new tool appearing in the toolbar (in play mode) aptly called '
 Here is a small preview of what you can expect:
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.25/spell.webm" type="video/webm">
-   <source src="/blog/release-0.25/spell.mp4" type="video/mp4">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
 </video>
 
 As can be seen, you have the choice to select among 3 base shapes (circle/square/cone) and can configure things like spell size and range.
@@ -98,8 +102,8 @@ Archiving is done from the location settings.
 A new UI button is added to the left of the locations bar to restore archived locations to the bar.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.25/archive.webm" type="video/webm">
-   <source src="/blog/release-0.25/archive.mp4" type="video/mp4">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
 </video>
 
 ## Public annotations

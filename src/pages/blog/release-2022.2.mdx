@@ -4,10 +4,12 @@ date: 2022-06-11 12:00:00
 excerpt: "Import/Export"
 author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
-setup: |
-    import Lock from "~icons/fa-solid/lock"
-    import Unlock from "~icons/fa-solid/unlock"
 ---
+
+import { Image } from "@astrojs/image/components";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
 
 As I promised in the last release, I want to do more regular updates even if they don't add a lot of features.
 This release fixes a lot of bugs, but does also introduce some new things!
@@ -30,10 +32,11 @@ I want to highlight that this feature is not yet in its final form, but given th
 I felt confident in already making it available for people to test.
 
 Things to be aware of:
-- The UI is very minimal, both import/export are just a single button, with no progress information.
-- There also is no client-side error information yet
-- You cannot import a campaign that shares a name with a campaign you already are running
-- You can only import a campaign on a server that is running the same or a newer version than the server where you exported
+
+-   The UI is very minimal, both import/export are just a single button, with no progress information.
+-   There also is no client-side error information yet
+-   You cannot import a campaign that shares a name with a campaign you already are running
+-   You can only import a campaign on a server that is running the same or a newer version than the server where you exported
 
 The first two points are things that I'll work on for a future release.
 The third point is a matter of UI/UX and offering a way to specify a different campaign name.
@@ -46,7 +49,7 @@ To tackle this problem, a separate service will have to be made that is capable 
 Both export and import functionality is accessed from the main dashboard, so NOT in-game!
 
 To export a campaign you DM, you simply click on a campaign in your "run" section and then click the "export" button in the sidebar.
-When the export is done (if it didn't end up failing on the server side), you'll be prompted with a file download request from your browser.  Exporting a campaign is not instant, but it doesn't take super long either.
+When the export is done (if it didn't end up failing on the server side), you'll be prompted with a file download request from your browser. Exporting a campaign is not instant, but it doesn't take super long either.
 
 The output of an exported campaign is a single file that has a ".pac" extension, short for PlanarAlly Campaign.
 This file contains all the assets that are used in the exported campaign, as well as all the information from the database that relates to the campaign.
@@ -62,16 +65,16 @@ You might be wondering what the actual use of this is and I wager most people wi
 
 Here are some potential use-cases:
 
-1) You found a bug, something is not working right and from a chat with me it's not immediately clear what is going wrong.
-This is a perfect time to make an export of your campaign and send it to me. So that I can debug it in my own time without having to go back and forth with you.
+1. You found a bug, something is not working right and from a chat with me it's not immediately clear what is going wrong.
+   This is a perfect time to make an export of your campaign and send it to me. So that I can debug it in my own time without having to go back and forth with you.
 
-2) You like to make your own backups. It's always possible something goes wrong with a server you are using. Keeping a backup won't hurt anyone.
+2. You like to make your own backups. It's always possible something goes wrong with a server you are using. Keeping a backup won't hurt anyone.
 
-3) You are about to play somewhere with no internet. Quickly export your campaign,
-import it on a local server you can run and boom you can continue playing where you left of.
-Once you're in an internet environment again, you can import it back!
+3. You are about to play somewhere with no internet. Quickly export your campaign,
+   import it on a local server you can run and boom you can continue playing where you left of.
+   Once you're in an internet environment again, you can import it back!
 
-4) You simply want to change to a different PA server.
+4. You simply want to change to a different PA server.
 
 ## Colour Picker
 
@@ -79,14 +82,14 @@ The colour picker got a fun new trick and also has 2 fixes that were bothering m
 
 ### Remember previously used colours.
 
-The colour picker now remembers which colours you used (*).
+The colour picker now remembers which colours you used (\*).
 They are displayed on the bottom of the picker in 2 rows (max 20 colours are tracked). You can click on any of these colours to set them as the current colour. Hovering over a colour in the list will also show the rgba value for that colour.
 
 The colour history is saved per user across all their campaigns.
 
-![Colour Memory](/public/blog/release-2022.2/colour-memory.png)
+<Image src="/blog/release-2022.2/colour-memory.png" width={800} aspectRatio={1208 / 766} alt="Colour Memory" />
 
-(*) A colour is added to the list when you close the picker, _not_ by drawing with it. The latter would require code throughout the codebase, whereas now it can be contained within the colour picker logic.
+(\*) A colour is added to the list when you close the picker, _not_ by drawing with it. The latter would require code throughout the codebase, whereas now it can be contained within the colour picker logic.
 
 ### Bugs
 
@@ -119,7 +122,7 @@ There are however also variants of doors (e.g. portcullis) or things like window
 
 You can now specify which blocker the door should toggle on click.
 
-![Door Block Mode](/public/blog/release-2022.2/door-block-mode.png)
+<Image src="/blog/release-2022.2/door-block-mode.png" width={500} aspectRatio={553 / 214} alt="Door Block Mode" />
 
 You can still ofcourse manually change the other block property as you see fit. \
 (e.g. have a window use the door logic to only toggle vision to mimick curtains, but change the movement property if someone throws a brick through the window)
@@ -141,7 +144,7 @@ Some nice changes were made to improve UX and general UI in certain areas.
 ### Showing loading animation faster
 
 When opening a campaign a nice loading animation is shown.
-This animation however only started at a certain point in time and depending on the computer 
+This animation however only started at a certain point in time and depending on the computer
 there could be a short period of seemingly nothing happening when opening a campaign.
 
 The animation is now shown immediately upon clicking a campaign, so that it is clear that PA is doing something and you didn't just misclick.
@@ -163,7 +166,7 @@ Parts of this wonkoy behaviour are fixed on nightly versions of firefox, but not
 
 The rectangle showing the active viewport of players (when enabled) was using 1 solid colour, which similarly to the door icons, was not very legible depending on the background colour. This now also uses a second colour for contrast.
 
-![Viewport Double Stroke](/public/blog/release-2022.2/viewport.png)
+<Image src="/blog/release-2022.2/viewport.png" width={800} aspectRatio={1677 / 1015} alt="Viewport UI update" />
 
 ### Varia
 

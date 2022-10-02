@@ -6,6 +6,8 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
 It's been _very_ long since the last release, it took more than half a year and I've plenty of reasons for why and how, but in the end I just want to apologise and hopefully we'll see a more regular cadence in the short future :)
 
 ## Version format change
@@ -43,14 +45,14 @@ This is were the door module comes into play. When a shape is configured as a do
 To make things even easier, you'll now also be able to automatically apply this to shapes you're drawing in the draw tool, more on that later!
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-2022.1/doors.webm" type="video/webm">
-   <source src="/blog/release-2022.1/doors.mp4" type="video/mp4">
+    <source src="/blog/release-2022.1/doors.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/doors.mp4" type="video/mp4" />
 </video>
 
 In the above video the left door has been configured to be enabled for all players by default and can thus be toggled without issue by the player. The door in front of the player however has been configured with the request permission.
 In these cases the DM will receive a request as follows, where they can choose to accept or decline the request, as well as move the camera to the door in question, if they're currently looking somewhere else.
 
-![Logic Door DM Request](/public/blog/release-2022.1/door-dm-request.png)
+<Image src="/blog/release-2022.1/door-dm-request.png" width={400} aspectRatio={414 / 88} alt="Logic Door DM Request" />
 
 ### Teleport Zones
 
@@ -67,8 +69,8 @@ but instead show a notification will be shown to the players while they are in t
 It is however also possible to configure it to act immediately (e.g. a pit trap is usually not optional!)
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-2022.1/tp.webm" type="video/webm">
-   <source src="/blog/release-2022.1/tp.mp4" type="video/mp4">
+    <source src="/blog/release-2022.1/tp.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/tp.mp4" type="video/mp4" />
 </video>
 
 ## UI

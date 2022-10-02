@@ -6,6 +6,8 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
 This release we've got some new shape properties, a spawn location system, translations, a bunch of quality of life changes and multiple bug fixes to round out the usual.
 
 ## Shape
@@ -22,8 +24,8 @@ The latter is interesting because the invisible toggle does not apply to the aur
 This is ideal if you want to add a lamp to a scene without having some ugly circle visible to your players from which the light emenates.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.21/invisible.webm" type="video/webm">
-   <source src="/blog/release-0.21/invisible.mp4" type="video/mp4">
+    <source src="/blog/release-0.21/invisible.webm" type="video/webm" />
+    <source src="/blog/release-0.21/invisible.mp4" type="video/mp4" />
 </video>
 
 ### Locked toggle
@@ -36,8 +38,8 @@ There is also a keybinding (ctrl + L) that also works on larger selections, so y
 Important to note is that locked shapes won't be included in selections unless there are only locked shapes in the selected region.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.21/locked.webm" type="video/webm">
-   <source src="/blog/release-0.21/locked.mp4" type="video/mp4">
+    <source src="/blog/release-0.21/locked.webm" type="video/webm" />
+    <source src="/blog/release-0.21/locked.mp4" type="video/mp4" />
 </video>
 
 ### Movement access
@@ -64,8 +66,8 @@ When the DM moves a token to a different location it will appear centered on the
 Currently this is limited to just one spawn per location, but support for multiple spawns will be supported in the future.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.21/spawn.webm" type="video/webm">
-   <source src="/blog/release-0.21/spawn.mp4" type="video/mp4">
+    <source src="/blog/release-0.21/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.21/spawn.mp4" type="video/mp4" />
 </video>
 
 In the above video the tokens are moved to the active location for presentation reasons, but the same concept applies to moving shapes to other locations.
@@ -76,7 +78,7 @@ Internationalization (i18n) is added to the codebase which means that translatio
 
 There is a language selection element in the login screen to swap between the currently supported languages.
 
-![Alt](/public/blog/release-0.21/language.png)
+<Image src="/blog/release-0.21/language.png" width={300} aspectRatio={360 / 334} alt="Language selection" />
 
 ## Quality of Life
 
@@ -93,8 +95,8 @@ One can toggle between the two modes by clicking on the letter at the end of the
 Some tools now only appear in one of the two modes (e.g. draw in build mode and ping in play mode).
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.21/toolmode.webm" type="video/webm">
-   <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4">
+    <source src="/blog/release-0.21/toolmode.webm" type="video/webm" />
+    <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4" />
 </video>
 
 #### Resizing shapes
@@ -109,7 +111,7 @@ This change is introduced because people would often accidentally resize shapes 
 
 Another noticeable change is that there will now be a changelog popup to inform players that the server has updated.
 
-![Alt](/public/blog/release-0.21/changelog.png)
+<Image src="/blog/release-0.21/changelog.png" width={800} aspectRatio={1191 / 976} alt="Showing changelog" />
 
 ### Public ruler toggle
 

@@ -2,8 +2,8 @@
 import dayjs from "dayjs";
 import Main from "./main.astro";
 
-const { title, author, astro, date } = Astro.props.content;
-const { headings } = astro;
+const { title, author, date } = Astro.props.content;
+const { headings } = Astro.props;
 const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 ---
 
@@ -83,6 +83,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 
         :global(img) {
             max-width: 100%;
+            object-fit: contain;
         }
 
         :global(pre) {
