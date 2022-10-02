@@ -2,15 +2,15 @@
 import dayjs from "dayjs";
 import Main from "./main.astro";
 
-const { title, author, astro, date } = Astro.props.content;
-const { headers } = astro;
+const { title, author, date } = Astro.props.content;
+const { headings } = Astro.props;
 const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 ---
 
 <Main>
     <div id="container">
         <section>
-            {headers.map(header => {
+            {headings.map(header => {
                 return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
             })}
         </section>
@@ -83,6 +83,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 
         :global(img) {
             max-width: 100%;
+            object-fit: contain;
         }
 
         :global(pre) {

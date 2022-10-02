@@ -1,20 +1,25 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Warning from "/src/components/directives/Warning.astro"
-    import Cog from "~icons/fa-solid/cog"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+
+import { Image } from "@astrojs/image/components";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
 
 # Campaign Settings
 
-As the DM, you’ll have a special window of options.
+As the DM, you'll have a special window of options.
 These allow you to configure the settings of the active campaign.
 
 The DM settings are accessible from the side menu (click the <Cog />-icon on the upper left screen of your browser window to open the menu).
 
 ## Admin
 
-![Alt](./assets/settings.png "Dm Settings")
+<Image src={SettingsPicture} width={600} aspectRatio={632 / 407} alt="DM Settings" />
 
 The admin section provides administrative options.
 
@@ -24,7 +29,7 @@ In the players section, you can see a list of current players.
 Next to the individual player's name, you can set their role within the campaign.
 
 <Warning title="Caution!">
-Setting any Player to be DM grants them **unrestricted** access to the **entire** campaign!
+    Setting any Player to be DM grants them **unrestricted** access to the **entire** campaign!
 </Warning>
 
 Click “kick” to remove specific players from your campaign.
@@ -47,7 +52,7 @@ Remove Session **PERMANENTLY** removes the campaign from the PlanarAlly server. 
 
 ## Grid
 
-![Alt](./assets/grid.png)
+<Image src={GridPicture} width={600} aspectRatio={674 / 227} alt="Grid Settings" />
 
 The grid settings offer you the ability to tweak the grid settings or even disable the grid all together.
 These settings are the Campaign defaults that can be overridden in the [individual Location Settings](/docs/dm/locations/#grid).
@@ -67,7 +72,7 @@ Unit Size is the distance one grid cellrepresents in your game system. When you 
 
 ## Vision
 
-![Alt](./assets/vision.png)
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Vision Settings" />
 
 Vision is one of the most important settings for the DM.
 These settings allow you to change what players see and how they see it.
@@ -98,8 +103,8 @@ With this option disabled, everything on-screen is shown to players by default.
 FoW needs to be added to remove vision in areas.
 
 <Warning>
-It is strongly recommended to fill the screen with fog if you want to use the vision system.
-Currently the vision system without fog behaves funky.
+    It is strongly recommended to fill the screen with fog if you want to use the vision system. Currently the vision
+    system without fog behaves funky.
 </Warning>
 
 ### Only LoS
@@ -109,7 +114,7 @@ _LoS stands for Line of Sight_
 This option toggles an advanced mode of lighting.
 
 When disabled, every location on screen with a light source will be visible.
-It doesn’t matter whether a player is in that location or not.
+It doesn't matter whether a player is in that location or not.
 
 When enabled, only things in Line of Sight of player tokens will be visible on screen.
 A player needs to see the light in order for it to show up on the screen.
@@ -125,9 +130,7 @@ In fake player mode, you'll also be stuck on 1.0.
 
 ### Vision Mode
 
-<Warning>
-This is a technical setting that you should only touch if you know what you are doing.
-</Warning>
+<Warning>This is a technical setting that you should only touch if you know what you are doing.</Warning>
 
 The experimental vision mode calculates the lighting/vision differently compared to the default version.
 

@@ -6,6 +6,10 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+import LoginPicture from "../learn/_out-of-game/login.png";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
 Time for a new release! Just like other releases we have a bunch of bugfixes, but there are other exciting things to be had as well.
 A rework of some UI elements, spawn location improvements, a templating system and more!
 
@@ -34,8 +38,8 @@ When moving shapes to another location a prompt will be given where you can choo
 If only 1 spawn exists, the prompt will be skipped instead.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.23/spawn.webm" type="video/webm">
-   <source src="/blog/release-0.23/spawn.mp4" type="video/mp4">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
 </video>
 
 ## Templating
@@ -48,8 +52,8 @@ This state includes default properties but also trackers, auras and dimensions (
 When you drop an asset on the board that has templates associated with it, you'll get a prompt to choose a template instead of the base empty preset.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.23/templates.webm" type="video/webm">
-   <source src="/blog/release-0.23/templates.mp4" type="video/mp4">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
 </video>
 
 This can be very handy to reuse some tokens you frequently use to prepopulate things like HP and light sources.
@@ -62,14 +66,14 @@ This will also be key to sharing sets with other players.
 The login page has been redesigned and now has some more flair :)
 Additionally the register flow is more explicit as the old behaviour was not clear to everybody.
 
-![Alt](../learn/_out-of-game/login.png)
+<Image src={LoginPicture} width={800} aspectRatio={1920 / 947} alt="Login" />
 
 ### Edit dialog
 
 The shape edit dialog was becoming quite big with every couple of releases adding something to the dialog.
 This release thus adds some subsections to the edit dialog to organize things better without filling the entire screen.
 
-![Alt](../docs/dm/assets/edit-asset-properties.png)
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Edit Asset" />
 
 ## System notifications
 
@@ -98,7 +102,7 @@ The 4 corners of a grid cell, their midsections and the absolute center are all 
 The annotation field in the shape edit dialog now supports markdown.
 The UI of displayed annotations has also received a small update.
 
-![Alt](/public/blog/release-0.23/annotations.png)
+<Image src="/blog/release-0.23/annotations.png" width={500} aspectRatio={534 / 528} alt="Markdown Annotations" />
 
 ### Server backups
 

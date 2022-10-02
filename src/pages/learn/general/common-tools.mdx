@@ -1,11 +1,14 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Edit from "~icons/fa-solid/edit"
-    import Info from "/src/components/directives/Info.astro"
-    import Tip from "/src/components/directives/Tip.astro"
-    import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Edit from "~icons/fa-solid/edit";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "@astrojs/image/components";
+import EditAssetPropertiesPicture from "../../docs/game/assets/edit-asset-properties.png";
 
 # Common tools
 
@@ -22,7 +25,7 @@ Simply clicking on the various names will open the tool and might even open some
 At the end of the toolbar in a different colour is the "mode switcher".
 Because not all tools are needed at the same time, the concept of a toolbar mode was introduced and currently consists of two modes: "Play" and "Build". The idea is that most tools in Play mode are relevant during normal play, whereas the build mode tools are more relevant to the DM during prep, but can also sometimes be whipped out during active play.
 
-![Alt](../../../../public/docs/toolbar-example.png)
+<Image src="/docs/toolbar-example.png" width={500} aspectRatio={449 / 89} alt="Toolbar example" />
 
 You can freely swap between these two at any time by clicking on the mode switcher or using the `tab` keybinding.
 
@@ -39,9 +42,7 @@ The primary interaction with the camera are the pan and zoom tools.
 The pan tool is one of the dedicated tools available in the toolbar.
 When selected you can simply press your left mouse button and drag the screen around.
 
-<Tip title="Pan from any tool">
-You can also pan by holding down the middle mouse button!
-</Tip>
+<Tip title="Pan from any tool">You can also pan by holding down the middle mouse button!</Tip>
 
 ### Zoom
 
@@ -73,8 +74,8 @@ The goto tool for this is the select tool.
 This swiss-army knife is the default tool that will be selected during general gameplay.
 
 <Info title="Mode behaviour">
-The select tool has extra functionality while in build mode.
-Specifically resize and rotate operations are only accessible from build mode.
+    The select tool has extra functionality while in build mode. Specifically resize and rotate operations are only
+    accessible from build mode.
 </Info>
 
 With the select tool you can either select individual shapes, or draw a selection box to select everything in a certain area.
@@ -84,8 +85,8 @@ With the select tool you can either select individual shapes, or draw a selectio
 With shapes selected it's just a matter of clicking on one of them and dragging them, to move them around.
 
 <Warning title="Grid snapping">
-When moving/resizing/rotating and many actions, PlanarAlly by default will try to snap your action to a grid line.
-This can be overriden by pressing the ALT key. The behaviour can also be inverted in your client settings.
+    When moving/resizing/rotating and many actions, PlanarAlly by default will try to snap your action to a grid line.
+    This can be overriden by pressing the ALT key. The behaviour can also be inverted in your client settings.
 </Warning>
 
 ### Quick info
@@ -104,14 +105,15 @@ There are various things you can configure for your character, things like your 
 To access this modal you can right-click on your character and it will open a small context menu with some other actions.
 Right at the bottom there is a "show properties" action that will open the following screen.
 
-![Alt](../../docs/game/assets/edit-asset-properties.png)
+<Image src={EditAssetPropertiesPicture} width={800} aspectRatio={784 / 698} alt="Asset property dialog" />
 
 Some of these should be pretty self-explanatory, for all the details go check out [the shape properties](/docs/game/shapes/#shape-properties).
 
 Be sure to check-out the trackers section!
 
 <Tip title="Quick open">
-If you need to open this menu frequently, you can cut some time by either clicking on the <Edit /> icon in the quick menu (top-right) or even quicker by just pressing the enter key.
+    If you need to open this menu frequently, you can cut some time by either clicking on the <Edit /> icon in the
+    quick menu (top-right) or even quicker by just pressing the enter key.
 </Tip>
 
 ## Ruler

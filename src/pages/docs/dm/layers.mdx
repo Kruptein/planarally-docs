@@ -1,11 +1,15 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "@astrojs/image/components";
+import LayersPicture from "./assets/layers.png";
 
 # Layers
 
-![Layer Info](./assets/layers.png)
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Layer Info" />
 
 PlanarAlly orders its game board in multiple layers.
 They are drawn on top of each other.
@@ -39,8 +43,8 @@ Those gridlines are either squares (default) or hexagons.
 Both flat-top and point-top hex-grids can be drawn, yet are only experimentally supported, right now.
 
 <Warning title="Experimental">
-Hex-grids are experimental, so weird behavior may occur regularly.
-One example is grid snapping that still works with square grids, despite a hex-grid being displayed.
+    Hex-grids are experimental, so weird behavior may occur regularly. One example is grid snapping that still works
+    with square grids, despite a hex-grid being displayed.
 </Warning>
 
 ## Tokens
@@ -57,20 +61,20 @@ This can be used to plan encounters in advance.
 It can also be used to place text labels to remember key information.
 
 You are also able to change the layer of a shape.
-By hiding assets that players aren’t supposed to see yet on the DM layer, you can ensure that your players do not see information preemptively.
+By hiding assets that players aren't supposed to see yet on the DM layer, you can ensure that your players do not see information preemptively.
 
 ## FOW
 
 This layer has some special behavior that helps with vision.
 
 When you're drawing your walls, you want them to be static.
-You don’t want them to change, as your players may see sections of the map they aren’t meant to yet.
+You don't want them to change, as your players may see sections of the map they aren't meant to yet.
 By drawing walls on the vision layer, you make sure that when interacting with the tokens layer, you don't accidentally move a wall.
 Therefore, this layer performs two magic tricks automatically for you.
 
 Most shapes you draw on this layer will be used for walls or doors, so shapes drawn on this layer are automatically drawn with the 'blocks movement' and 'blocks vision' settings applied.
-‘Blocks movement’ prevents players from moving through these shapes.
-‘Blocks vision’ prevents players from seeing through these shapes.
+'Blocks movement' prevents players from moving through these shapes.
+'Blocks vision' prevents players from seeing through these shapes.
 You can deselect these options if you don't need them, but know that they will be applied by default on this layer.
 
 **Everything** drawn on this layer is invisible on other layers.

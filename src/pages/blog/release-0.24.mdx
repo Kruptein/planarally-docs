@@ -6,6 +6,8 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
 It's been a while! But I had a lot of free time in the past month so this release contains some exciting new features and a ton of bug fixes!
 
 A small warning when opening a map on the new version:
@@ -24,8 +26,8 @@ but can be changed to flat or pointy hexes.
 This can be configured on a campaign or location level.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/hexagons.webm" type="video/webm">
-   <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/hexagons.webm" type="video/webm" />
+    <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4" />
 </video>
 
 _It might not be extremely clear due to my low grid opacity, sorry for that_
@@ -41,7 +43,7 @@ Up until this release there was an implicit grouping concept that would apply wh
 
 This release greatly expands the grouping system and makes it much more configurable and explicit.
 
-![Alt](/public/blog/release-0.24/edit-asset-group.png)
+<Image src="/blog/release-0.24/edit-asset-group.png" width={500} aspectRatio={531 / 506} alt="Edit Asset Group" />
 
 A new tab in the edit asset dialog is now available to shape owners/DMs.
 This tab allows the configuration of various things related to the group the selected shape belongs to.
@@ -53,8 +55,8 @@ Badges can be toggled individually or for the entire group at once. Individual m
 Badges can now also be randomized to temper possible metagaming players.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/groups.webm" type="video/webm">
-   <source src="/blog/release-0.24/groups.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
 </video>
 
 Additionally there is also a new context menu option related to groups when right clicking on a selection of shapes.
@@ -75,8 +77,8 @@ At any time only one variant is visible and can be swapped out for another one.
 Each variant retains its own size, properties and trackers, but trackers and auras can be configured to be shared among all variants.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/variants.webm" type="video/webm">
-   <source src="/blog/release-0.24/variants.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
 </video>
 
 As can be seen in the above video, variants can be created, renamed and removed from a new UI element at the bottom of the edit shape dialog.
@@ -118,7 +120,7 @@ This also supports 'space' to measure distances behind corners.
 
 When using the ruler in select mode it will retain the privacy mode (i.e. public/private) of the ruler tool.
 
-![Alt](/public/blog/release-0.24/multiruler.png)
+<Image src="/blog/release-0.24/multiruler.png" width={800} aspectRatio={870 / 414} alt="Multiruler" />
 
 ### Vision
 
@@ -138,8 +140,8 @@ When importing a paa file it will extract everything to the current folder you'r
 Do take into account that files with the same name will not be overwritten, but new files and folders will always be created.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/export.webm" type="video/webm">
-   <source src="/blog/release-0.24/export.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/export.webm" type="video/webm" />
+    <source src="/blog/release-0.24/export.mp4" type="video/mp4" />
 </video>
 
 **Important** The above footage is sped up (or rather some frames have been cut) as the process depends on the size of the files/folders and little feedback is provided during this period currently. I hope to improve this in future releases, but it provides a working baseline for now.

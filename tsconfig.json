@@ -5,7 +5,7 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "types": ["astro/env"],
+        "types": ["@astrojs/image/client"],
         "jsx": "preserve"
     }
 }

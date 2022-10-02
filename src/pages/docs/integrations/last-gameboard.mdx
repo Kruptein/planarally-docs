@@ -1,9 +1,16 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Info from "/src/components/directives/Info.astro"
-    import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import { Image, Picture } from "@astrojs/image/components";
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+import LandingPicture from "./assets/landing.png";
+import ServerLandingPicture from "./assets/landing-server.png";
+import DashboardPicture from "./assets/dashboard.png";
+import GridSettingsPicture from "./assets/grid-settings.png";
+import GridIdsPicture from "./assets/grid-ids.jpg";
 
 # Last Gameboard
 
@@ -15,8 +22,9 @@ The board allows you to play on any PA server[^1].
 The board is also able to run a local PA server.
 
 <Info title="New to PlanarAlly?">
-This document only goes into the details to get up and running with the gameboard and some PA features that are unique to the board.
-If you are a new PlanarAlly user, you will most likely want to checkout the other documentation and especially the DM will want to check the short segments in [the learn category](/learn/).
+    This document only goes into the details to get up and running with the gameboard and some PA features that are
+    unique to the board. If you are a new PlanarAlly user, you will most likely want to checkout the other
+    documentation and especially the DM will want to check the short segments in [the learn category](/learn/).
 </Info>
 
 ## Setup
@@ -29,7 +37,13 @@ When starting the PlanarAlly application on the board, you'll first be greeted b
 Here you can fill in the address of the PA server you want to connect to and give it a nickname.
 On the right a list of servers that were previously entered are shown for easy access.
 
-![Gameboard PA landing page](./assets/landing.png "Gameboard PA landing page")
+<Picture
+    src={LandingPicture}
+    alt="Gameboard PA landing page"
+    widths={[400, 800]}
+    sizes="(max-width: 800px) 400px, 800px"
+    aspectRatio="1:1"
+/>
 
 Upon either clicking on an entry in the right column or by joining a new server, the connection to the server will be started.
 You should soon be greeted with the login screen for the chosen server if everyting went right.
@@ -39,37 +53,41 @@ To use PlanarAlly you need an account. You will usually need at least 2 accounts
 The DM is then responsible for creating a campaign and inviting all the players (or the board account).
 
 These accounts are server specific and are thus not shared between servers.
+
 </Info>
 
 ### Local Server
 
 You also see another button "Setup local server" in the screenshot above, this is the place where you can configure a local server, allowing you to play without an internet connection!
 
-![Gameboard PA server landing page](./assets/landing-server.png "Gameboard PA server landing page")
+<Image src={ServerLandingPicture} alt="Gameboard PA server landing page" width={800} aspectRatio="1:1" />
 
 This section shows you the IP address and port that will be used by PA, allowing other devices (e.g. a DM laptop) to connect as well.
 If devices/players from outside your network want to join, you'll need to forward the correct ports on your router like you would for a traditional non-gameboard server.
 
 <Warning>
-In order to run the local server, you need to install the PlanarAlly Server application, which can also be found in the main games listing on the gameboard. Just installing it is enough, you don't have to "play" it.
+    In order to run the local server, you need to install the PlanarAlly Server application, which can also be found in
+    the main games listing on the gameboard. Just installing it is enough, you don't have to "play" it.
 </Warning>
 
 <Warning title="Save file">
 If you ever uninstall/reinstall the PlanarAlly server application, your save file might be lost.
 
 Updating the server to a newer version however, should work without issues.
+
 </Warning>
 
 ## Dashboard
 
-![Gameboard PA dashboard page](./assets/dashboard.png "Gameboard PA dashboard page")
+<Image src={DashboardPicture} alt="Gameboard PA dashboard page" width={800} aspectRatio="1:1" />
 
 Upon succesfully loggin in to a server, you'll be greeted with the dashboard from which you can join/launch games.
 Although the looks are different, you should be able to find all the information you need in the [main dashboard docs](/docs/dashboard/).
 
 <Info title="Dashboard looks">
-If you used PlanarAlly before you might notice that the dashboard has a different UI compared to the main PA dashboard.
-This is because the gameboard version is using a new UI that should be pushed to the main PA codebase soon!
+    If you used PlanarAlly before you might notice that the dashboard has a different UI compared to the main PA
+    dashboard. This is because the gameboard version is using a new UI that should be pushed to the main PA codebase
+    soon!
 </Info>
 
 ## Gameboard Features
@@ -103,13 +121,9 @@ You can attach to a different shape by putting the mini on another shape as long
 
 Similarly to movement, the gameboard can also detect shape rotation. If you rotate your mini and use a light source that is directional, you should also see the light rotating around!
 
-
-
 ### Dice
 
-<Warning>
-Dice rolling is still a relatively new feature in PlanarAlly and requires some further polish.
-</Warning>
+<Warning>Dice rolling is still a relatively new feature in PlanarAlly and requires some further polish.</Warning>
 
 If you use the gameboard companion app, it will automatically show a dice roller when you join a game. Dice rolls initiated from the companion[^3] will appear and roll on the board!
 
@@ -119,9 +133,9 @@ PlanarAlly comes with support for last-gameboard grid, which means that you can 
 
 #### Prerequisites
 
-- Multiple gameboards connected to the same PlanarAlly server [^4]
-- A lastgameboard compatible PA server [^5]
-- Have access to the DM account
+-   Multiple gameboards connected to the same PlanarAlly server [^4]
+-   A lastgameboard compatible PA server [^5]
+-   Have access to the DM account
 
 #### Configuration
 
@@ -129,19 +143,19 @@ _All actions are done from a logged-in DM account_
 
 To configure the grid we have to open the LG grid settings, this can be done by the following:
 
-1) Select the desired campaign
-2) Open the sidebar by pressing the cog wheel in the topleft of the screen
-3) Select the "LG Settings" tab and make sure the Grid category is selected
+1. Select the desired campaign
+2. Open the sidebar by pressing the cog wheel in the topleft of the screen
+3. Select the "LG Settings" tab and make sure the Grid category is selected
 
 In this dialog, we get a row for each gameboard that is currently connected. This will live update when a board connects/disconnects so no need to refresh this page or open/close this window.
 
-![Gameboard Grid Settings](./assets/grid-settings.png "Gameboard Grid Settings")
+<Image src={GridSettingsPicture} alt="Gameboard Grid Settings" width={800} aspectRatio={1029 / 1137} />
 
 For each gameboard you can define a X and Y offset[^6] as you please. Generally you'll want to keep 1 board at (0, 0) and define the other boards in relation to this board. So if you for example have two boards next to eachother, you would either want to configure the left board as (0, 0) and the right as (1, 0) or use (-1, 0) and (0, 0) respectively.
 
 While the grid settings are open, each board connected will also display their unique id at the top of the screen to identify them easily on the DM side.
 
-![Gameboard Grid Ids](./assets/grid-ids.jpg "Gameboard Grid Ids")
+<Image src={GridIdsPicture} alt="Gameboard Grid Ids" width={800} aspectRatio={4032 / 2268} />
 
 A PlanarAlly server will currently keep the grid offsets for a specific client in memory. This means that when a client disconnects and reconnects later it will still be at the same offset. If however the server was restarted at some point you would have to reconfigure the board.
 

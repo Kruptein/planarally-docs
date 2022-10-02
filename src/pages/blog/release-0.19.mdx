@@ -6,6 +6,8 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
+import { Image } from "@astrojs/image/components";
+
 With 0.19.0 we have our first release of the year! There are a couple of big new features (floors and badges) and a lot of small quality of life fixes and changes.
 
 The topics mentioned in this release update are listed on the left, the full changelog can be found on [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.19.0).
@@ -27,8 +29,8 @@ Vision and lights work across floors in a natural manner; A token on the upper f
 **The video below might contain map spoilers for the WotC adventure Waterdeep Dragonheist.**
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.19/newfloors.webm" type="video/webm">
-   <source src="/blog/release-0.19/newfloors.mp4" type="video/mp4">
+    <source src="/blog/release-0.19/newfloors.webm" type="video/webm" />
+    <source src="/blog/release-0.19/newfloors.mp4" type="video/mp4" />
 </video>
 
 The above example shows how floor vision works where the left side represents a player with ownership of the Y token on the first floor. The right side represents the DM who has access to both tokens.
@@ -58,8 +60,8 @@ The display of badges can be toggled on or off per group of tokens. A group of t
 Badges take their background colour from the shape's stroke colour, and their border colour and font colour as either black or white depending on what's best legible. The token numbers are automatically incremented upon paste.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.19/badges.webm" type="video/webm">
-   <source src="/blog/release-0.19/badges.mp4" type="video/mp4">
+    <source src="/blog/release-0.19/badges.webm" type="video/webm" />
+    <source src="/blog/release-0.19/badges.mp4" type="video/mp4" />
 </video>
 
 ### annotations
@@ -77,8 +79,8 @@ The polygon tool is a tool I use a lot. In particular the version that does not 
 This release now adds a snapping feature, that will automatically yank your mouse cursor towards a closeby existing point if you come near it. This snapping behaviour is only active when resizing or using the draw tool. The draw tool now also highlights snappable points when activating (this might be something I remove in the future, depending on feedback).
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.19/snapping.webm" type="video/webm">
-   <source src="/blog/release-0.19/snapping.mp4" type="video/mp4">
+    <source src="/blog/release-0.19/snapping.webm" type="video/webm" />
+    <source src="/blog/release-0.19/snapping.mp4" type="video/mp4" />
 </video>
 
 As you can see at the end of the video, only 1 red dot appears in the location where two polygons meet. In the past this used to be multiple dots very close to eachother.
@@ -109,7 +111,7 @@ Resizing in general was also broken if you dragged a corner over another corner.
 
 A very barebones account settings page has been created. The cog wheel in the dashboard now actually has a purpose!
 
-![Alt](/public/blog/release-0.19/accountsettings.png)
+<Image src="/blog/release-0.19/accountsettings.png" width={600} aspectRatio={689 / 446} alt="Account Settings" />
 
 As can be seen it is fairly limited in its scope, but you can now change your username, add an email address, change your password and delete your account if you so desire.
 
@@ -138,7 +140,7 @@ _This feature was contributed by @ZachMyers3 on github_
 
 To be able to see which version of PA the server you're on is actually using, the login panel now shows the version number in its title.
 
-![Alt](/public/blog/release-0.19/version.png)
+<Image src="/blog/release-0.19/version.png" width={300} aspectRatio={296 / 255} alt="Version number" />
 
 _This feature was contributed by @ZachMyers3 on github_
 

@@ -1,11 +1,17 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Warning from "/src/components/directives/Warning.astro"
-    import Cog from "~icons/fa-solid/cog"
-    import PencilAlt from "~icons/fa-solid/pencil-alt"
-    import TrashAlt from "~icons/fa-solid/trash-alt"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "@astrojs/image/components";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
 
 # Assets
 
@@ -15,14 +21,19 @@ To access this menu, click the <Cog /> icon and click “Assets” from the drop
 
 ## Asset Manager
 
-![Alt](./assets/asset-manager.png)
+<Image src={AssetManagerPicture} width={600} aspectRatio={634 / 345} alt="Asset Manager" />
 
-If you’re just starting out, you will have no assets.
+If you're just starting out, you will have no assets.
 To add them, you will need to enter the Asset Manager by clicking ![Alt](./assets/assets-link.png).
 
 ### Creating Folders
 
-![Alt](./assets/asset-manager-create-folder.png)
+<Image
+    src={AssetManagerCreateFolderPicture}
+    width={600}
+    aspectRatio={634 / 345}
+    alt="Creating a folder in the asset manager"
+/>
 
 To create a folder, click the create folder icon.
 A dialogue box should appear where you can write the new folder name.
@@ -30,7 +41,12 @@ With the folder created, you can place your assets into the folder for easier na
 
 ### Uploading Files
 
-![Alt](./assets/asset-manager-upload-files.png)
+<Image
+    src={AssetManagerUploadFilesPicture}
+    width={600}
+    aspectRatio={634 / 345}
+    alt="Uploading files in the asset manager"
+/>
 
 To upload files, click the upload files icon.
 This will open your file system.
@@ -49,7 +65,7 @@ Downloaded assets will keep folder structure and file names of your assets as we
 
 ## Placing Assets
 
-![Alt](./assets/asset-example.gif)
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Asset usage example" />
 
 To use your assets, first open the asset tab.
 Then, open the folder where you have stored your files.
@@ -68,8 +84,8 @@ This state includes default properties but also trackers, auras and dimensions (
 When you drop an asset on the board that has templates associated with it, you'll get a prompt to choose a template instead of the base empty preset.
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.23/templates.webm" type="video/webm">
-   <source src="/blog/release-0.23/templates.mp4" type="video/mp4">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
 </video>
 
 This can be very handy to reuse some tokens you frequently use to prepopulate things like HP and light sources.
@@ -78,7 +94,8 @@ This will also be key to sharing sets with other players (see [downloading files
 ### Variants
 
 <Warning title="Experimental!">
-This feature is experimental! Some cornercases are expected to appear, so please [report to the issue tracker at GitHub](https://github.com/Kruptein/PlanarAlly/issues) if you encounter any bugs!
+    This feature is experimental! Some cornercases are expected to appear, so please [report to the issue tracker at
+    GitHub](https://github.com/Kruptein/PlanarAlly/issues) if you encounter any bugs!
 </Warning>
 
 You can add _variants_ to objects in order to give them a different appearance without having to create a new token and removing the previous one.
@@ -97,8 +114,8 @@ A newly created variant will not have any of the applied settings the base varia
 This includes access rights, general shape properties (e.g. name, `is a token`, etc.) or annotations!
 
 <video autoplay loop muted style="max-width: 680px;">
-   <source src="/blog/release-0.24/variants.webm" type="video/webm">
-   <source src="/blog/release-0.24/variants.mp4" type="video/mp4">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
 </video>
 
 You can delete a variant using the trash <TrashAlt /> button.
