@@ -8,7 +8,9 @@ import Warning from "/src/components/directives/Warning.astro";
 
 import LandingPicture from "./assets/landing.png";
 import ServerLandingPicture from "./assets/landing-server.png";
+import ServerPreLoginPicture from "./assets/pre-login.png";
 import DashboardPicture from "./assets/dashboard.png";
+import JoinCodePicture from "./assets/joincode.png";
 import GridSettingsPicture from "./assets/grid-settings.png";
 import GridIdsPicture from "./assets/grid-ids.jpg";
 
@@ -48,14 +50,6 @@ On the right a list of servers that were previously entered are shown for easy a
 Upon either clicking on an entry in the right column or by joining a new server, the connection to the server will be started.
 You should soon be greeted with the login screen for the chosen server if everyting went right.
 
-<Info title="Login accounts">
-To use PlanarAlly you need an account. You will usually need at least 2 accounts, 1 for the DM and 1 account for logging in on the board.
-The DM is then responsible for creating a campaign and inviting all the players (or the board account).
-
-These accounts are server specific and are thus not shared between servers.
-
-</Info>
-
 ### Local Server
 
 You also see another button "Setup local server" in the screenshot above, this is the place where you can configure a local server, allowing you to play without an internet connection!
@@ -64,6 +58,21 @@ You also see another button "Setup local server" in the screenshot above, this i
 
 This section shows you the IP address and port that will be used by PA, allowing other devices (e.g. a DM laptop) to connect as well.
 If devices/players from outside your network want to join, you'll need to forward the correct ports on your router like you would for a traditional non-gameboard server.
+
+#### Accounts
+
+In a traditional PlanarAlly setup, you want to create at least 2 accounts: an account used by the DM/storyteller and an account for the player(s).
+When running a local-server on a gameboard, 2 default accounts are auto-generated for you, with usernames 'dm' and 'gameboard' respectively.
+
+Upon starting the local server (or connecting to it), you'll be greeted with the following screen, giving you information on the first steps to take.
+
+<Image src={ServerPreLoginPicture} alt="Gameboard PA server pre-login page" width={800} aspectRatio="1:1" />
+
+If you are new and don't want to bother with setting up your own accounts, you can use the default account.
+If you do want to manager your own accounts, continue with the "use an existing account" button and you'll be redirected to the traditional login screen.
+
+As a DM you'll be instructed to visit a special url where you can enter the code that is displayed in the above screen.
+Once entered you can choose to set a password for the 'dm' account. This is optional, you can always login with the (changing) code that appears on the gameboard.
 
 <Warning>
     In order to run the local server, you need to install the PlanarAlly Server application, which can also be found in
@@ -81,7 +90,7 @@ Updating the server to a newer version however, should work without issues.
 
 <Image src={DashboardPicture} alt="Gameboard PA dashboard page" width={800} aspectRatio="1:1" />
 
-Upon succesfully loggin in to a server, you'll be greeted with the dashboard from which you can join/launch games.
+Upon succesfully logging in to a server, you'll be greeted with the dashboard from which you can join/launch games.
 Although the looks are different, you should be able to find all the information you need in the [main dashboard docs](/docs/dashboard/).
 
 <Info title="Dashboard looks">
@@ -89,6 +98,27 @@ Although the looks are different, you should be able to find all the information
     dashboard. This is because the gameboard version is using a new UI that should be pushed to the main PA codebase
     soon!
 </Info>
+
+### Joining a campaign
+
+Usually a player would receive a URL from the DM that grants them access to a campaign.
+Entering a URL is not possible through the gameboard however. For this purpose another way to join a session has been created.
+
+As a DM:
+
+1. Open the desired campaign
+2. Open the sidebar by pressing the cog wheel in the topleft of the screen
+3. Select the "DM Settings" tab and make sure the Admin category is selected
+4. Click on the "Generate" button next to "Temporary join code" in the "invite code" section
+
+As a gameboard player:
+
+1. Click on the "JOIN GAME" text in the dashboard
+2. Enter the join code that the DM just generated
+
+This join code is a short 4 digit code that is only valid for a short period of time, but can be regenerated at any time.
+
+<Image src={JoinCodePicture} alt="Admin invite code panel" width={600} aspectRatio={659 / 468} />
 
 ## Gameboard Features
 
@@ -112,10 +142,12 @@ The most obvious feature to support on the gameboard: Minis[^2]!
 
 #### Attaching
 
-You should be able to put a mini on any shape that the user logged in on the board has access to. This will attach the mini to that shape.
+You should be able to put a mini on any shape that the user logged in on the board **has access to**. This will attach the mini to that shape.
 If you now move around the mini, it should also update the position of the shape!
 
 You can attach to a different shape by putting the mini on another shape as long as the original shape is not in the same spot.
+
+_(See [Shape Access](/docs/game/shapes/#access) for more info on configuring access)_
 
 #### Rotation
 
@@ -143,7 +175,7 @@ _All actions are done from a logged-in DM account_
 
 To configure the grid we have to open the LG grid settings, this can be done by the following:
 
-1. Select the desired campaign
+1. Open the desired campaign
 2. Open the sidebar by pressing the cog wheel in the topleft of the screen
 3. Select the "LG Settings" tab and make sure the Grid category is selected
 
