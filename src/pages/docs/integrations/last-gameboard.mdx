@@ -90,7 +90,7 @@ Updating the server to a newer version however, should work without issues.
 
 <Image src={DashboardPicture} alt="Gameboard PA dashboard page" width={800} aspectRatio="1:1" />
 
-Upon succesfully loggin in to a server, you'll be greeted with the dashboard from which you can join/launch games.
+Upon succesfully logging in to a server, you'll be greeted with the dashboard from which you can join/launch games.
 Although the looks are different, you should be able to find all the information you need in the [main dashboard docs](/docs/dashboard/).
 
 <Info title="Dashboard looks">
@@ -142,10 +142,12 @@ The most obvious feature to support on the gameboard: Minis[^2]!
 
 #### Attaching
 
-You should be able to put a mini on any shape that the user logged in on the board has access to. This will attach the mini to that shape.
+You should be able to put a mini on any shape that the user logged in on the board **has access to**. This will attach the mini to that shape.
 If you now move around the mini, it should also update the position of the shape!
 
 You can attach to a different shape by putting the mini on another shape as long as the original shape is not in the same spot.
+
+_(See [Shape Access](/docs/game/shapes/#access) for more info on configuring access)_
 
 #### Rotation
 
