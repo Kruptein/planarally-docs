@@ -11,7 +11,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
     <div id="container">
         <section>
             {headings.map(header => {
-                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
+                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
             })}
         </section>
         <main>
