@@ -1,6 +1,7 @@
 ---
 layout: ../../../layouts/docs.astro
 setup: |
+    import Eye from "~icons/fa-solid/eye"
     import Warning from "/src/components/directives/Warning.astro"
     import Tip from "/src/components/directives/Tip.astro"
 ---
@@ -8,21 +9,24 @@ setup: |
 # Draw Tool
 
 The draw tool can be accessed in the toolbar on the bottom right of the screen by all players, but only in [Build mode](/docs/tools-overview/#toolbar-and-modes).
-It allows you to draw shapes on the board. For each shape you have the option to choose the fill colour and border colour (if applicable).
 
-The DM also has some special extra options in regards to the drawing mode.
+It allows you to draw shapes on the board and is organised in three sections: shape, vision and logic.
 
-The shapes that can be drawn are the _rectangle_, _circle_, _polygon_, _paintbrush_, and _text_.
+## Shape Settings
 
-## Rectangle
+In the shape settings the desired shape can be chosen as well as some common basic properties for the shape.
+
+Most shapes offer a fill and/or border colour setting.
+
+### Rectangle
 
 One of the most simple shapes, a _rectangle_. While the mouse is pressed down a preview is shown of what the rectangle will look like if you release it.
 
-## Circle
+### Circle
 
 Just like the rectangle, a _circle_ is very simple. The drawn circle will be centered on the location you pressed down your mouse and will have a radius based on where you released the mouse.
 
-## Polygon / Line
+### Polygon / Line
 
 _Polygon / Line_ is probably the most complex shape, but it allows the most flexibility.
 
@@ -32,7 +36,7 @@ To signal that the shape is complete you currently use the right mouse button. T
 
 If you check the closed polygon checkbox, the last point and first point will automatically be connected upon finishing the shape and the polygon will be filled with the fill colour.
 
-## Paintbrush
+### Paintbrush
 
 Another draw mode is _paintbrush_, which is a freeflow option that offers you the ability to draw whatever.
 
@@ -41,7 +45,7 @@ Note that drawing with the _paintbrush_ needs to use a lot of points to represen
 This is generally only advised for small things, as it is pretty bad performance-wise.
 </Warning>
 
-## Text
+### Text
 
 The last draw mode available is _text_.
 Set a font-size prior to drawing as you will not be able to change the size itself, later.
@@ -57,14 +61,33 @@ It can be dragged and resized etc. like any other shape.
 You can edit the text afterwards in the shape properties dialog!
 </Tip>
 
-## DM-only Modes
+## Vision Settings
 
-On top of the Shapes, DMs also can select several modes.
+The vision settings allow you to pre-configure the lighting and vision settings of the drawn shape.
 
-_Normal_ mode will work like described above.
+The block settings are automatically toggled when switching to and from the fow layer,
+but you're free to modify them to your needs.
+
+When at least one block setting is enabled, the <Eye /> icon of the tool will be shown with an orange background as a visual reminder.
+
+### DM-only Modes
+
+DMs also can select additional vision draw modes in this section.
+
+_Normal_ mode as expected is the default behaviour.
 
 _Reveal_ and _Hide_ will draw 'magical light' or 'darkness' respectively.
 For more information, see [the documentation on magical light and darkness](/docs/dm/lighting-vision/#magical-lights-and-darkness).
 
 _Erase_ will create a shape that works as a (portable) 'hole', piercing through all objects _below_ them in the draw stack, including [floors](/docs/dm/floors/)!
-An _erase_ shape will automatically be dropped on the [map layer](/docs/game/gameboard/#map), but can be moved to any layer.
+An _erased_ shape will automatically be dropped on the [map layer](/docs/game/gameboard/#map), but can be moved to any layer.
+
+See the [0.26 release notes](/blog/release-0.26#erase-floor-mode-dm) for more info on erase mode.
+
+## Logic Settings
+
+This allows you to pre-configure door-logic for the shape.
+
+This can save you a lot of time when you're mapping your walls and doors!
+
+See [shape logic](/docs/game/shapes/#logic) for more information.

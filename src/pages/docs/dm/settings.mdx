@@ -4,6 +4,7 @@ layout: ../../../layouts/docs.astro
 
 import Warning from "/src/components/directives/Warning.astro";
 import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
 
 import { Image } from "@astrojs/image/components";
 import GridPicture from "./assets/grid.png";
@@ -19,7 +20,7 @@ The DM settings are accessible from the side menu (click the <Cog />-icon on the
 
 ## Admin
 
-<Image src={SettingsPicture} width={600} aspectRatio={632 / 407} alt="DM Settings" />
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="DM Settings" />
 
 The admin section provides administrative options.
 
@@ -31,6 +32,9 @@ Next to the individual player's name, you can set their role within the campaign
 <Warning title="Caution!">
     Setting any Player to be DM grants them **unrestricted** access to the **entire** campaign!
 </Warning>
+
+When the <Eye /> icon is enabled, you'll see the viewport of the player on the DM-layer.
+Allowing you to keep track of where players are looking as well as allowing you to change where they're looking.
 
 Click “kick” to remove specific players from your campaign.
 
@@ -52,14 +56,21 @@ Remove Session **PERMANENTLY** removes the campaign from the PlanarAlly server. 
 
 ## Grid
 
-<Image src={GridPicture} width={600} aspectRatio={674 / 227} alt="Grid Settings" />
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Grid Settings" />
 
 The grid settings offer you the ability to tweak the grid settings or even disable the grid all together.
-These settings are the Campaign defaults that can be overridden in the [individual Location Settings](/docs/dm/locations/#grid).
+These settings are the Campaign defaults and can be overridden in the [individual Location Settings](/docs/dm/locations/#grid).
 
 ### Use Grid
 
 Enable or disable the grid. This applies to all players as well.
+
+### Grid Type
+
+PA offers full support for square grids and minimal support for hex-based grids.
+
+Hex-grids are offered in the two variants (pointy & flat), but do not have the full feature-set that square grids have.
+Most importantly [snapping behaviour](/docs/game/snapping) has not been updated with hex support.
 
 ### Size Unit
 
@@ -92,6 +103,13 @@ This can be just one player but can also be a group of players.
 
 _Currently, there is no keybinding to toggle this mode or visual cue for when you're in fake player mode. This is planned for a future version of PlanarAlly._
 
+<Warning>
+    This has not been tested/evaluated heavily, so some inaccuricies may arise, please let me know!
+
+    One known bug is that shapes on the DM layer will be taken into account, which would not be the case for normal players.
+
+</Warning>
+
 ### Fill entire canvas with FoW
 
 _FoW stands for Fog of War_
@@ -101,11 +119,6 @@ Lights need to be added to grant vision in areas.
 
 With this option disabled, everything on-screen is shown to players by default.
 FoW needs to be added to remove vision in areas.
-
-<Warning>
-    It is strongly recommended to fill the screen with fog if you want to use the vision system. Currently the vision
-    system without fog behaves funky.
-</Warning>
 
 ### Only LoS
 
