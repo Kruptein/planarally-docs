@@ -12,6 +12,7 @@ import ClientSettingsPicture from "./assets/client-settings.png";
 import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
 import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
 import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
 
 # Client Settings
 
@@ -29,12 +30,18 @@ This will impact all other campaigns where you did not override this setting.
 
 ## Appearance
 
-<Image src={ClientSettingsPicture} width={600} aspectRatio={613 / 388} alt="Apparance Settings" />
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Apparance Settings" />
 
 ### Language
 
 Here, you can choose a different language to be displayed in the user interface.
 This will replicate to all other campaigns you play or run, just as if done through the [dashboard](/docs/dashboard/#localisation).
+
+### Toolbars
+
+_Added in 2022.3_
+
+This setting allows you to choose between icons or text for the toolbar tools (e.g. the ruler icon vs "ruler").
 
 ### Grid
 
@@ -51,7 +58,7 @@ This sets the colour for the fog covering everything you can't see.
 
 ## Behaviour
 
-<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={612 / 291} alt="Behaviour Settings" />
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Behaviour Settings" />
 
 ### Snapping
 
@@ -60,6 +67,17 @@ When checked, this inverts the default [snapping behaviour](/docs/game/snapping/
 ### Mouse & Gestures
 
 By default scrolling allows you to zoom in or out, this however can be annoying on touch devices and can thus be disabled.
+
+### Selection Info
+
+_Added in 2022.3_
+
+This setting influences how the selection info tracker modifications are interpretted by default.
+
+When using absolute mode the result of the expression entered will be the new value of the tracker.
+
+When using relative mode the result will be added to the original value of the tracker.
+This allows you to modify values quickly with -5 or +5 for example.
 
 ## Display
 
@@ -116,3 +134,14 @@ If you go out of initiative and your vision is still focussed on only 1 characte
 
 This setting allows you to configure when initiative effects should be displayed.
 By default only the active actor's effects are expanded, but you can change this to all actors at all time.
+
+## Performance
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Performance Settings" />
+
+### Rendering
+
+_Added in 2022.3_
+
+Floors are an immersive experience but cost more performance.
+This setting allows you to limit the rendering to the active floor.
