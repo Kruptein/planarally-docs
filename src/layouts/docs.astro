@@ -229,6 +229,10 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             object-fit: contain;
         }
 
+        :global(svg) {
+            vertical-align: text-bottom;
+        }
+
         :global(h1),
         :global(h2),
         :global(h3),

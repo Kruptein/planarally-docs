@@ -7,6 +7,8 @@ import Eye from "~icons/fa-solid/eye";
 import Lightbulb from "~icons/fa-solid/lightbulb";
 import PencilAlt from "~icons/fa-solid/pencil-alt";
 import TrashAlt from "~icons/fa-solid/trash-alt";
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
 import Info from "../../../components/directives/Info.astro";
 import Tip from "../../../components/directives/Tip.astro";
 
@@ -15,6 +17,7 @@ import AssetListPicture from "./assets/asset-list.png";
 import EditAssetPropertiesPicture from "./assets/edit-asset-properties.png";
 import EditAssetDefeatedPicture from "./assets/defeated.png";
 import EditAssetTrackersPicture from "./assets/edit-asset-trackers.png";
+import EditAssetLogicPicture from "./assets/edit-asset-logic.png";
 import EditAssetExtraPicture from "./assets/edit-asset-extra.png";
 import EditAssetAccessPicture from "./assets/edit-asset-access.png";
 import EditAssetAnnotationsPicture from "./assets/edit-asset-annotations.png";
@@ -30,7 +33,8 @@ _To bring assets on the map you need to be a DM, see the [DM asset docs](/docs/d
 Selecting/interacting with objects is primarily done through the [select tool](/docs/tools/select/).
 
 When the shape is selected, you may also use your arrow keys to move it.
-As the DM, holding down shift lets you move shapes through movement-blocking terrain.
+
+<Tip title="DM Cheats">As the DM, holding down shift lets you move shapes through movement-blocking terrain.</Tip>
 
 ### Context menu
 
@@ -45,6 +49,9 @@ The list presented above is the DM view.
 #### (DM) Floor/Layer/Location
 
 Hovering over the Floor/Layer/Location options, will open a submenu allowing you to move the selected shape to the selected option.
+
+Moving the shape to a different floor or layer will keep it in the same coordinates.
+When moving the shape to a different location however, you need to choose the desired spawn location where the shape should appear.
 
 For more information, check the [floors](/docs/dm/floors/), [layers](/docs/dm/layers/) or [locations](/docs/dm/locations/) documents.
 
@@ -73,6 +80,12 @@ You may also press `Del` or `Backspace` to do this.
 
 This option sets the shape as a marker.
 See [markers](/docs/game/markers/) for more information.
+
+#### (DM) Save template
+
+When saving a shape as a template you store the current information on that shape (e.g. size, trackers, ...) on the server.
+
+When dragging an asset on the board with templates, you'll be able to select your stored information to pre-populate it.
 
 #### Show properties
 
@@ -114,7 +127,7 @@ Selecting this option turns the shape invisible to all players without vision or
 
 Example uses for this feature are invisible summons that a player controls.
 
-There is currently no special indicator to inform a user that their shape is invisible.
+There is currently no visual indicator on the board to remember that a shape is currently invisible.
 
 _(\*) The DM will also see invisible shapes as they have implicit edit access to all shapes_
 
@@ -147,7 +160,7 @@ Selecting this option prevents other shapes from moving through it.
 This is commonly paired together with blocks vision for walls, but can also be used alone for things like windows.
 
 <Tip title="DM cheats">
-    As a DM you can circumvent this restraint by using the **shift** modifier will you move shapes.
+    As a DM you can circumvent this restraint by using the **shift** modifier while you move shapes.
 </Tip>
 
 For performance reasons you typically don't want to assign this property to shapes that regularly move.
@@ -166,33 +179,17 @@ Selecting this option displays a badge at the bottom right of the shape.
 By default, the badge number is 1.
 As you copy and paste this shape, the badge number will increase incrementally.
 
-![Shape badge example](./assets/shape-badge.png)
-
 <Image src={ShapeBadgePicture} width={150} aspectRatio={177 / 150} alt="Shape badge example" />
 
 This option is key for situations where you have large groups of similar tokens.
 If all creatures have the same icon, it can be difficult to differentiate between them during combat.
 Enabling this option ensures the players and the DM are talking about the same shapes.
 
-You can configure the details of how the badge values are generated in the Group section.
+You can configure the details of how the badge values are generated in the [Group](#group) section.
 
 ### Trackers & Auras
 
-![Asset tracker example](./assets/edit-asset-trackers.png)
-
-<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Asset tracker example" />
-
-<Tip title="Quick info">
-
-If you just want to see the value of a certain tracker or aura quickly you don't have to open the shape properties.
-You can see the values of both trackers and auras at all times from the quick selection info in the top right of the screen if the shape is selected.
-
-Additionally you can modify these values from this panel, by clicking on their value.
-A small popup will appear in which you can insert a new value.
-This value can be absolute, or relative by providing an input with a `+` or `-`.
-For example, if the base value is 13, and you type `-5`, you will subtract 5, leaving you with 8.
-
-</Tip>
+<Image src={EditAssetTrackersPicture} width={800} aspectRatio={1371 / 958} alt="Asset tracker example" />
 
 #### Trackers
 
@@ -275,6 +272,32 @@ Common uses are darkvision, which is a private light source and a torch which is
 
 _Note: vision and lighting are typically only relevant when you use the line of sight vision system_
 
+### Logic
+
+<Image src={EditAssetLogicPicture} width={500} aspectRatio={580 / 449} alt="Asset extras" />
+
+This section allows you to add some extra logic to the shape.
+Currently two types of logic exist: "doors" and "teleport zones".
+
+#### Doors
+
+A shape with door-logic will have a <Lock /> or <Unlock /> icon when you hover over them in play-mode.
+Clicking when this is shown then opens or closes the door.
+
+By default both the vision and movement properties will be toggled to mimick a door,
+but you can alter this to for example only toggle the vision to mimick a window.
+
+You can alter who can open/close the "door" in the permissions section.
+
+#### Teleport Zones
+
+A shape marked as a tp zone can teleport shapes that enter it to a different place.
+The target of a tp zone is always a spawn location and can be on another floor or even location.
+
+TP Zones come in two flavours that can be controlled with the "immediate mode" setting.
+In immediate mode the tp zone will automatically fire when a shape ends its movement on the zone. (e.g. a trap that fires)
+Otherwise a notification will be shown that allows you to trigger the zone if you desire. (e.g. the landing of a staircase)
+
 ### Access
 
 <Image src={EditAssetAccessPicture} width={400} aspectRatio={424 / 216} alt="Asset access example" />
@@ -331,14 +354,14 @@ Yes this can be the case, if a group of monsters chase the party to a different 
 they might not all arrive at the same time or even ever all move to the new location.
 
 Although technically possible, tracking over multiple locations is a giant pain with a lot of special cases.
-For this reason and the fact that actual impact seems slim, simplicity is what PA choses.
+For this reason and the fact that actual impact seems slim, simplicity is what PA chooses.
 When adding a new group member in a group with multiple locations, its badge uniqueness will only be guaranteed within the set of members that share its location.
 For random creation order the chance of an actual collision is very slim, for incrementing order it depends on which location has the highest value member.
 Either way the impact this has is so small compared to the extra programming logic that would need to be added that it is a worhtwhile trade-off.
 
 ### Extra
 
-<Image src={EditAssetExtraPicture} width={500} aspectRatio={544 / 343} alt="Asset extras" />
+<Image src={EditAssetExtraPicture} width={400} aspectRatio={484 / 382} alt="Asset extras" />
 
 This panel contains some settings that do not fit in any of the other places.
 
@@ -355,9 +378,9 @@ To add a label press the + and the label manager will open in which you can sele
 
 Annotations are a freeflow place to write down information you want to track on a shape.
 
+Annotation of shapes you have _edit_ access to, will be displayed on the top side of the screen on hover.
+The annotation can be marked as public to allow everyone in the session to see it on hover.
+
 <Info title="Markdown">The annotation is markdown aware!</Info>
 
 <Image src={EditAssetAnnotationsPicture} width={500} aspectRatio={505 / 162} alt="Asset annotations" />
-
-Annotation of shapes you have _edit_ access to, will be displayed on the top side of the screen on hover.
-The annotation can be marked as public to allow everyone in the session to see it on hover.
