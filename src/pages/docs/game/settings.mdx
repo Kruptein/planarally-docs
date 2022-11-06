@@ -38,7 +38,7 @@ This will replicate to all other campaigns you play or run, just as if done thro
 
 ### Grid
 
-The colour setting defines in what colour the [grid layer](/docs/dm/layers/#grid) (i.e. the grid lines) will be drawn upon the [map layer](/docs/dm/layers/#map).
+The colour setting defines in what colour the [grid layer](/docs/dm/layers/#grid) (i.e. the grid lines) will be drawn.
 
 ### Ruler
 
@@ -81,7 +81,7 @@ you'll want to configure these settings to configure the grid size correctly to 
 
 You do need to know the PPI of your screen for this to work properly.
 
-Note that zooming in/out is disabled when this setting is active.
+Note that zooming in/out is currently disabled when this setting is active.
 
 ### Grid
 
@@ -102,7 +102,15 @@ the camera will automatically center on this character if you have access to it.
 
 By enabling this feature, the vision will be limited as if you only had access to the active initiative character (as long as you have access to that shape).
 
-This is the same behaviour as if you used the [vision tool](/docs/tools/vision/) and is thus only relevant if you control multiple characters.
+This has the same impact as if you used the [vision tool](/docs/tools/vision/) and manually changed it to the active initiative participant every turn.
+This is only relevant if you control multiple characters.
+
+<Warning>
+There is currently no notion of "In combat" or "Initiative active", so this setting is always enabled when configured.
+
+If you go out of initiative and your vision is still focussed on only 1 character, use the [vision tool](/docs/tools/vision/) to reset it.
+
+</Warning>
 
 ### Effects
 
