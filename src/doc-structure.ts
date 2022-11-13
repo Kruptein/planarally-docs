@@ -44,6 +44,10 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                     title: "Assets",
                     path: "/assets/",
                 },
+                {
+                    title: "Settings",
+                    path: "/settings/",
+                },
             ],
         },
         {
