@@ -22,7 +22,7 @@ As an added security measure, you need to provide the correct API bearer token w
 To retrieve the token you can either look into the database manually or use the following python snippet:
 
 ```python
-import auth
+import src.auth
 print(auth.get_api_token())
 ```
 

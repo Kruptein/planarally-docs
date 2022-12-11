@@ -1,7 +1,7 @@
 ---
 title: Release 2022.3
-date: 2022-11-12 12:00:00
-excerpt: "Excerpt :v"
+date: 2022-12-11 12:00:00
+excerpt: ""
 author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
@@ -19,7 +19,7 @@ _Server owners: changes to the server startup have been made, check [Server](#se
 
 ### Dashboard redesign
 
-We had a dashboard redesign in 0.26 (March 2021), but here we are again :D
+We had a dashboard redesign in 0.26 (March 2021), but here we are again \:D
 
 The games section has been collapsed from 3 navigation entries (run/play/create) to just one section.
 Additionally the "details" sidebar we had previously took up a lot of space on devices with less screen space.
@@ -28,7 +28,7 @@ This section has now been reworked to have most of those options being available
 <Image src="/docs/dashboard.png" width={800} aspectRatio={1902 / 964} alt="Dashboard" />
 
 Also important to mention is that this time around the asset manager actually has been included in the redesign.
-So this hopefully makes some people happy, as the previous iteration was something else :D
+So this hopefully makes some people happy, as the previous iteration was something else \:D
 
 <Image src="/docs/dashboard-assets.png" width={800} aspectRatio={1898 / 963} alt="Dashboard Assets" />
 
@@ -45,6 +45,38 @@ There is a user-setting to change this back to labels if you don't like this.
     alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
 />
 
+## Jumping around the canvas
+
+Sometimes we lose track of were we are on the board or want to change our view to that of another character.
+
+The seasoned PA user will know that they usually can use the spacebar to achieve this.
+In this release however, I've added 2 extra visual things to enhance this experience.
+
+### Return to Content
+
+The first feature is explicitly for when you are lost on the infinite canvas and only see a screen filled with fog.
+
+If this happens, a new UI element will popup on the bottom of the screen.
+When you click this element, your view will be centered on the element you can see that is closest by.
+
+This will take into account the vision mode of the campaign (fog of war and line of sight settings).
+
+### Token Directions
+
+Another addition is that tokens (you have access to) that are offscreen will now show up around the side of the screen with an arrow
+pointing towards their direction.
+When you click on this arrow, you center your view on the related shape.
+
+<Image
+    src="/docs/token-directions.png"
+    width={800}
+    aspectRatio={1182 / 969}
+    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
+/>
+
+They take the same colour as your configured ruler colour.
+The feature can also be disabled using a new client setting.
+
 ## QoL
 
 A bunch of quality of life changes were added.
@@ -54,13 +86,6 @@ A bunch of quality of life changes were added.
 It was already possible to pan with the middlemouse, now the right click mouse will also initiate panning-mode while dragging.
 
 This is mostly to improve the experience for people using a touchpad where middlemouse click is less trivial.
-
-### Return to Content
-
-To help people who get lost on the infinite canvas,
-a new UI element will popup on the bottom to get you back to the closest content you _can_ see.
-
-This will take into account the vision mode of the campaign (e.g. fog-of-war and line-of-sight).
 
 ### Behaviour reminders
 
@@ -99,28 +124,53 @@ In absolute mode will become `12` and in relative mode `62` (`50+12`)
 
 ### Vision tool - private auras
 
-When deselecting a shape in the vision tool, their private auras would still show up.
+When deselecting a shape in the vision tool, their private auras will no longer be visible.
+
+### Import/Export
+
+Some tweaking has been done to the import and export code.
+
+DM's can export their campaign from within the game list in the dashboard.
+Importing can be done by going to "new game".
+
+Both import and export now show a separate page on which progress information can be seen.
+This should improve the clarity on whether or not the import/export is working or if it failed somewhere.
+
+### Dice
+
+Individual die results are now also shown along with the subtotals and grand total of a throw.
+
+This is to accomodate for systems where individual die results can impact results.
 
 ## DM: Players
 
 ### Client Rectangles
 
 The DM has an option to see the viewport for specific players in the DM settings.
+This setting works fine when your players are only logged in once (i.e. have 1 client).
 
-When a player is logged in multiple times (i.e. different clients), this viewport would always follow the client that had the most recent movement.
-Which is not exactly great. Now it will instead show a viewport rectangle for each individual client that a player is logged in with.
+When a player is logged in on multiple browsers (i.e. >1 client) the viewport shown to the DM would always follow the most recently moved client.
+This is confusing and not what is expected. Now a separate rectangle will be shown for each client that is connected.
+
+It is important to know that movement of one client will still apply to the other client as well.
 
 ### Active Players
 
 The left sidebar will now also have a Players section for the DM that lists all connected players.
 Clicking on a name in this list will center your view on their current viewport.
 
-Truth be told this is a sort of temporary setup as I would like to integrate it in the UI in a nicer way,
-but given my track record it might be there longer then I hope.
+This is a temporary setup as I intend to explore the player concept more,
+but I haven't found the time yet since starting on this rough prototype.
 
 ## Performance
 
 Some performance improvements were added.
+
+### Limit floor rendering
+
+There is now a user-option to limit rendering only to the active floor.
+
+This is usefull when you have one or more players that notice sub-desireable performance when using a map with many floors.
 
 ### Shape center calculation
 
@@ -128,7 +178,7 @@ The center of a Shape is used in a lot of places and was calculated on the fly e
 
 Now the center will be calculated once and remembered, until some action would cause the center to change (e.g. the shape moved) at which point it would be recalculated again.
 
-Most shapes do not change center (e.g. walls) so this _should_ in theory improve performance.
+Most shapes do not change their position often (e.g. walls) so this _should_ in theory improve performance.
 
 ### Sectors
 
@@ -153,6 +203,10 @@ This impacts the server startup, you should now call the `planarally.py` file in
 It accepts the same parameters etc that the original script accepted.
 
 The docker image has been modified, so if you use that you don't have to change anything.
+
+### Import/Export
+
+Import and export should be more stable now and have been re-enabled by default in the server_config.
 
 ## Bugs
 
@@ -204,6 +258,10 @@ Some of the below entries are related to the above described issue, which has no
 -   Vision not properly recalculating when removing blocking shapes on multifloor setups
 -   AssetPicker UI appearing too low
 -   Polygon edit UI being left behind when panning
+-   Moving polygon point when polyon is rotated
+-   Normal shapes sometimes wrongly being identified as spawn locations
+-   Dice sometimes going offscreen
+-   Keyboard movement not moving select-tool's rotation helper
 -   [DM] Annotations still being visible until refresh after removing player access
 -   [DM] Resetting location specific settings was not immediately synchronizing to clients until a refresh
 -   [DM] Enabling fake-player mode would hide the DM entries from the left sidebar
