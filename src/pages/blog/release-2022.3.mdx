@@ -1,0 +1,272 @@
+---
+title: Release 2022.3
+date: 2022-12-12 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import { Image } from "@astrojs/image/components";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+I promised more regular updates and I failed miserably at that, but hey here is a new release!
+
+_Server owners: changes to the server startup have been made, check [Server](#server)_
+
+## UI changes
+
+### Dashboard redesign
+
+We had a dashboard redesign in 0.26 (March 2021), but here we are again \:D
+
+The games section has been collapsed from 3 navigation entries (run/play/create) to just one section.
+Additionally the "details" sidebar we had previously took up a lot of space on devices with less screen space.
+This section has now been reworked to have most of those options being available when clicking on a game in the list.
+
+<Image src="/docs/dashboard.png" width={800} aspectRatio={1902 / 964} alt="Dashboard" />
+
+Also important to mention is that this time around the asset manager actually has been included in the redesign.
+So this hopefully makes some people happy, as the previous iteration was something else \:D
+
+<Image src="/docs/dashboard-assets.png" width={800} aspectRatio={1898 / 963} alt="Dashboard Assets" />
+
+### Toolbar icons
+
+Another visual change is that the toolbar now comes with icons instead of labels.
+
+There is a user-setting to change this back to labels if you don't like this.
+
+<Image
+    src="/docs/toolbar-example.png"
+    width={450}
+    aspectRatio={492 / 143}
+    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
+/>
+
+## Jumping around the canvas
+
+Sometimes we lose track of were we are on the board or want to change our view to that of another character.
+
+The seasoned PA user will know that they usually can use the spacebar to achieve this.
+In this release however, I've added 2 extra visual things to enhance this experience.
+
+### Return to Content
+
+The first feature is explicitly for when you are lost on the infinite canvas and only see a screen filled with fog.
+
+If this happens, a new UI element will popup on the bottom of the screen.
+When you click this element, your view will be centered on the element you can see that is closest by.
+
+This will take into account the vision mode of the campaign (fog of war and line of sight settings).
+
+### Token Directions
+
+Another addition is that tokens (you have access to) that are offscreen will now show up around the side of the screen with an arrow
+pointing towards their direction.
+When you click on this arrow, you center your view on the related shape.
+
+<Image
+    src="/docs/token-directions.png"
+    width={800}
+    aspectRatio={1182 / 969}
+    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
+/>
+
+They take the same colour as your configured ruler colour.
+The feature can also be disabled using a new client setting.
+
+## QoL
+
+A bunch of quality of life changes were added.
+
+### Panning
+
+It was already possible to pan with the middlemouse, now the right click mouse will also initiate panning-mode while dragging.
+
+This is mostly to improve the experience for people using a touchpad where middlemouse click is less trivial.
+
+### Behaviour reminders
+
+The draw tool and vision tool, will now have an orange background colour when they have altered behaviour.
+This should grab your attention when you changed something and later forget about it.
+
+For the vision tool, it will highlight at any time you don't have all the tokens active.
+
+For the draw tool, it will highlight the logic and/or the vision tabs when something there is active.
+
+### Complex tracker expression support
+
+When using trackers a life-saver is using the quick selection info to quickly modify trackers during play.
+Up until now though, you were limited to a single number and could add a `+` or a `-` at the front to make it relative to the original value.
+
+Starting with this release that interface has been modified to support complexer expressions.
+About any math expression (backed by math.js) should now be supported.
+
+It now also has 2 modes: absolute and relative mode. Where the latter adds the outcome of the expression to the original value.
+
+There is also a new client setting to choose which mode is selected by default when you launch a game.
+
+Some examples:
+
+If your tracker has a value of 50 and you run the following expression:
+
+`-(10 + 20 + 5 * 2) + sqrt(4)`
+
+In absolute mode the tracker will now be `-38`, in relative mode it will now be `12` (`50-38`)
+
+Similarly starting from 50 again:
+
+`12`
+
+In absolute mode will become `12` and in relative mode `62` (`50+12`)
+
+### Vision tool - private auras
+
+When deselecting a shape in the vision tool, their private auras will no longer be visible.
+
+### Import/Export
+
+Some tweaking has been done to the import and export code.
+
+DM's can export their campaign from within the game list in the dashboard.
+Importing can be done by going to "new game".
+
+Both import and export now show a separate page on which progress information can be seen.
+This should improve the clarity on whether or not the import/export is working or if it failed somewhere.
+
+### Dice
+
+Individual die results are now also shown along with the subtotals and grand total of a throw.
+
+This is to accomodate for systems where individual die results can impact results.
+
+## DM: Players
+
+### Client Rectangles
+
+The DM has an option to see the viewport for specific players in the DM settings.
+This setting works fine when your players are only logged in once (i.e. have 1 client).
+
+When a player is logged in on multiple browsers (i.e. >1 client) the viewport shown to the DM would always follow the most recently moved client.
+This is confusing and not what is expected. Now a separate rectangle will be shown for each client that is connected.
+
+It is important to know that movement of one client will still apply to the other client as well.
+
+### Active Players
+
+The left sidebar will now also have a Players section for the DM that lists all connected players.
+Clicking on a name in this list will center your view on their current viewport.
+
+This is a temporary setup as I intend to explore the player concept more,
+but I haven't found the time yet since starting on this rough prototype.
+
+## Performance
+
+Some performance improvements were added.
+
+### Limit floor rendering
+
+There is now a user-option to limit rendering only to the active floor.
+
+This is usefull when you have one or more players that notice sub-desireable performance when using a map with many floors.
+
+### Shape center calculation
+
+The center of a Shape is used in a lot of places and was calculated on the fly everytime it was needed.
+
+Now the center will be calculated once and remembered, until some action would cause the center to change (e.g. the shape moved) at which point it would be recalculated again.
+
+Most shapes do not change their position often (e.g. walls) so this _should_ in theory improve performance.
+
+### Sectors
+
+When rendering the scene, for each layer, only shapes visible in the screen are taken into account.
+Up until now this was done by iterating through the shapes and doing a visibleInCanvas check.
+
+New in this release is that shapes are ordered in sectors (or chunks) and only the sectors that are in view are checked.
+
+This might be something that will require some further finetuning.
+
+## Server
+
+### Alternate asset files location
+
+It is now possible to change the location of the asset files folder, from which all assets are served.
+
+### Server startup
+
+To manage the server a bit easier, files have been re-organized.
+This impacts the server startup, you should now call the `planarally.py` file instead of the `planarserver.py` file.
+
+It accepts the same parameters etc that the original script accepted.
+
+The docker image has been modified, so if you use that you don't have to change anything.
+
+### Import/Export
+
+Import and export should be more stable now and have been re-enabled by default in the server_config.
+
+## Last-Gameboard
+
+This release also includes integration code with the last gameboard platform.
+
+## Bugs
+
+### Shape logic fixes
+
+-   Teleport zone not properly triggering when initiated as a player
+-   Teleport zone not properly landing in the center of the target
+-   Player door toggles not syncing to the server/persisting
+-   Door/Tp area preview not changing floors
+
+### Trackers/Auras
+
+-   Shared trackers/auras not showing up in selection info
+-   Shared trackers/auras removal not showing in client until refresh
+
+### Initiative
+
+Since a technical change in 2022.1, the initiative system has been misbehaving when unknown shapes were present for the client.
+Unknown shapes can be caused by any number of reasons (e.g. shape has moved to another location, shape is on the DM layer and thus not known to a player, ...).
+
+Some of the below entries are related to the above described issue, which has now been resolved, but some entries are a separate issue entirely.
+
+-   Server should detect client errors in initiative listings better and reject wrong data
+-   Modification of the initiative should retain the current active actor under more circumstances
+-   Removal of shape caused some initiative inconsistencies
+-   Changing between DM layer and player visible layer would trip up initiative sometimes
+-   Initiative camera-lock not changing floors
+
+### Assets
+
+-   [DM] Assets not being able to moved up to parent folder
+-   [DM] Assets not being removable if a shape with a link to the asset exists
+-   [DM|server] The asset manager was no longer useable when using a subpath setup
+
+### Misc
+
+-   Errors in prompt modals were not visible
+-   Annotation visible info not syncing to other clients until refresh (UI only)
+-   Player state clearing on location change
+-   Zoom sensitivity on touchpad
+-   Typo in location menu
+-   In-game AssetPicker modal UI fixes
+-   Prompt modal not clearing error message properly
+-   Tool details not always being in the correct location (e.g. when changing mode)
+-   Trim down noisy whitespace in selection info
+-   Jump to marker not changing floors
+-   Moving composite/variant shape to other floor and following would show extra selection boxes
+-   Draw layer being rendered below the fog (e.g. rulers/ping etc)
+-   Vision not properly recalculating when removing blocking shapes on multifloor setups
+-   AssetPicker UI appearing too low
+-   Polygon edit UI being left behind when panning
+-   Moving polygon point when polyon is rotated
+-   Normal shapes sometimes wrongly being identified as spawn locations
+-   Dice sometimes going offscreen
+-   Keyboard movement not moving select-tool's rotation helper
+-   [DM] Annotations still being visible until refresh after removing player access
+-   [DM] Resetting location specific settings was not immediately synchronizing to clients until a refresh
+-   [DM] Enabling fake-player mode would hide the DM entries from the left sidebar
+-   [server] Diceroller not working on subpath server

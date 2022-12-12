@@ -220,13 +220,15 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         :global(p),
-        :global(ol) {
+        :global(ol),
+        :global(ul) {
             margin-bottom: 1.5rem;
         }
 
         :global(img) {
             max-width: 100%;
             object-fit: contain;
+            margin-bottom: 15px;
         }
 
         :global(svg) {

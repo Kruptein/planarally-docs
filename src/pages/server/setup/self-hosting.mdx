@@ -2,6 +2,8 @@
 layout: ../../../layouts/docs.astro
 ---
 
+import Warning from "/src/components/directives/Warning.astro";
+
 # Self-hosting
 
 Hosting PlanarAlly yourself requires a bit more setup then simply using an existing service, but it does give you more control and you can rely on it working offline as well.
@@ -21,10 +23,16 @@ You can find the latest version [on github](https://github.com/Kruptein/PlanarAl
 Note that the version numbers that are part of the releases' file names, are omitted in this tutorial.
 
 To run PlanarAlly on Windows, download the `planarally-windows.zip` and extract it somewhere in a new folder.
-This folder contains a lot of different files, but the important one for you right now is the one titled `PlanarAllyServer.exe`.
+This folder contains a lot of different files, but the important one for you right now is the one titled `planarally.exe`.
 When you execute this file, a command prompt will appear (a black screen with some text).
 
-!Make sure to move into the PlanarAlly folder, there is another executable at the parent level, which does not properly work, sorry for this inconvenience.
+<Warning>
+    It's healthy to be wary of random executables on the internet. These `.exe` files are generated using Nuitka from
+    the python source code in an isolated CI environment.
+
+    Nevertheless it can happen that a false-positive is triggered by an antivirus vendor out there for various reasons.
+
+</Warning>
 
 ## pre-built client
 
@@ -35,7 +43,7 @@ Since only the client is pre-built, you need to take care of the python-dependen
 To start the server execute:
 
 ```bash
-python3 server/planarserver.py
+python3 server/planarally.py
 ```
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
@@ -52,7 +60,7 @@ Everything needed to run PlanarAlly can be found in the `server` folder.
 Make sure to install all dependencies by running:
 
 ```bash
-pip install --user -r requirements.txt`
+pip install --user -r requirements.txt
 ```
 
 (If you are familiar with python, it is strongly advised to create a dedicated venv for PA, but this is not a hard requirement.)
@@ -67,7 +75,7 @@ npm i
 npm run build
 ```
 
-To run the server you now simply run `python3 planarserver.py` and your server should start up.
+To run the server you now simply run `python3 planarally.py` and your server should start up.
 
 If everything went well you should now be able to visit `http://localhost:8000` and be greeted with the login screen.
 
@@ -85,7 +93,7 @@ npm run dev
 Then, in the `server` folder, run:
 
 ```bash
-python3 planarserver.py dev
+python3 planarally.py dev
 ```
 
 This starts the server in a 'hot module reloading' mode that builds changes made to the sourcecode on the fly instead of waiting for you to manually rebuild.

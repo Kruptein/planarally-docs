@@ -30,7 +30,24 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                     title: "Tools Overview",
                     path: "/tools-overview/",
                 },
-                "Dashboard",
+            ],
+        },
+        {
+            title: "Dashboard",
+            path: "/dashboard",
+            items: [
+                {
+                    title: "Games",
+                    path: "/games/",
+                },
+                {
+                    title: "Assets",
+                    path: "/assets/",
+                },
+                {
+                    title: "Settings",
+                    path: "/settings/",
+                },
             ],
         },
         {

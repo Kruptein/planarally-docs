@@ -1,0 +1,61 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "@astrojs/image/components";
+
+# Assets
+
+<Image src="/docs/dashboard-assets.png" width={800} aspectRatio={1898 / 963} alt="Dashboard Assets" />
+
+The **Assets** section offers you to manage or create assets that can be used in campaigns.
+_See the [DM assets](/docs/dm/assets/) section to learn how to use them_.
+
+<Info>
+    Currently assets are only interesting for the DM. In the future this should also become a place where players can
+    upload assets.
+</Info>
+
+The top-right offers a small action-bar allowing you to create a folder, upload new assets or remove the active selection.
+
+## Navigating the folders
+
+The main screen offers you a folder-explorer where you can doubleclick to go into a folder.
+Your current folder-path is displayed with a breadcrumb just below the 'MANAGE ASSETS' title.
+
+To go back to the previous folder you can doubleclick the ".." folder[^1].
+You can also click on any segment of the breadcrumb to go back multiple folders at once.
+
+## Uploading assets
+
+Assets can be uploaded either by clicking on the add file icon in the action bar or by dragging the assets onto the asset manager.
+
+## Moving assets
+
+You can move assets around by dragging them to the desired folder.
+So when you want to move an asset a folder up, drag it over the ".." folder.
+
+You can move multiple assets at once, either by dragging a folder containing multiple assets or by selecting multiple assets.
+
+## Selecting assets
+
+Single clicking an asset will select it and deselect all other assets.
+
+If you want to extend the selection you can either ctrl+click or shift+click.
+The former will add just the clicked file to the selection,
+whereas the latter will add every file between the last selection and the new selection.
+
+<Info>
+    The current behaviour is a left-over from the previous asset-manager and mimicks common file-explorer semantics.
+
+    The way selection is currently shown however, makes this a bit unintuitive.
+    So this might change in the future.
+
+</Info>
+
+[^1]: This is a concept from the unix world.

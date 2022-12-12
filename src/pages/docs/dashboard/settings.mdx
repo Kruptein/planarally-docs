@@ -1,0 +1,22 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "@astrojs/image/components";
+
+# Settings
+
+<Image src="/docs/dashboard-settings.png" width={800} aspectRatio={2474 / 893} alt="Dashboard Settings" />
+
+Currently only Account Settings are available.
+This section allows you to set an email address if you desire and more importantly allows you to change your password or remove your account.
+
+<Warning title="Deleting an account">
+    This is a hard delete operation, PA does not keep any information on you once removed.
+
+    !!This also removes any campaign that is currently owned by this user!!
+
+</Warning>
