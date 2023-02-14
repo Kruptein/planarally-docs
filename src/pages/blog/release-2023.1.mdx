@@ -1,0 +1,176 @@
+---
+title: Release 2023.1
+date: 2023-02-14 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import { Image } from "@astrojs/image/components";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+The first release of 2023 features mostly a collection of bug fixes along with some smaller improvements here and there.
+
+## Changing the asset of a shape
+
+Once you dropped an asset on the map it becomes a shape and when you needed a different asset you had two options:
+
+-   drop the new asset on the map and copy over all properties from the old shape and then remove the old shape
+-   add the new asset as a variant
+
+The first option is clearly quite cumbersome and error prone and the second option is basically abusing a feature for something else.
+
+That's why this release adds the long overdue option to just swap out the asset that is being used by a particular shape.
+A simple button is added to the properties view of the shape.
+
+## Modal stacking & closing
+
+When you have multiple modals/dialogs open, it can sometimes be a game of moving them around so that you can interact with a specific one.
+This is because the modals had a fixed order.
+
+New in this release is that now the most recently focussed modal will move to the top, like you're probably used to in other programs.
+
+Additionally you can now close the top-most modal with the escape key.
+
+_Note that all of the above mostly applies only to modals that can be opened for extended amount of times (e.g. shape settings, DM settings ...) and
+not to modals that require immediate interaction (e.g. prompts for action)_
+
+## Spell tool changes & fixes
+
+The spell tool has had some problems for the entirety of its existence.
+One of those issues was the potential confusion between `size` and `range`.
+The former denoting the actual size of the spell itself, while the latter was used to show how far a certain spell could be cast.
+The range was only configurable when you had selected a shape before starting the spell tool, so that a range circle could be drawn for that specific shape.
+Additionally the range would default to 0 in that case, which was meant as a selfcast option.
+
+In practice this turned out to be confusing, sometimes players wanted to just cast a random spell at some specific location but because they had their character selected,
+it was locked to themselves without much clarity as to why and you had to either deselect yourself or change the size to some non-zero value to actually get to do what you wanted to do.
+
+That's why this release removes the range input field and instead if a shape is selected, a ruler will automatically be drawn between the cursor and the selected shape.
+This conveys the same information without having to input anything and without the confusion of selfcast locking the shape.
+
+Additionally a bunch of bugs related to the spell tool have been fixed:
+
+-   Using the spell tool with a selection was actually broken in the last couple of releases
+-   The fill colour did funky things if the border colour had < 1 opacity
+-   Right clicking to draw the shape, was opening the context-menu
+-   Once used, the select tool was not being properly activated
+-   The 'is public' label in the spell tool UI was wrongly attached to the range input box
+
+## Initiative state
+
+Initiative never had a real concept of "active". You could have the initiative UI open or closed regardless of whether something is actually happening with initiative.
+
+This hampers some things, for example the Initiative setting "lock vision" is in a semi-broken state due to this because there is no official start or end of initiative,
+causing this feature to be always on when enabled, requiring manual actions to fix some things when initiative is over.
+
+This release adds a first draft of a new "initiative active" state. It is entirely optional,
+but the "lock camera" and "lock vision" client settings will only work when this system is used.
+This allows vision to actually properly revert when initiative is over, without the user having to do things.
+
+The DM will be able to start and end the initiative (see quick access toggles below for more info).
+By default the initiative UI will open on all players' screen when initiative is started. This can be disabled in your client settings if you dislike this.
+
+There are still some kinks/oddities to work out, but I want to see how people enjoy this new thing and get a feel for it myself.
+
+## Varia
+
+-   The shape edit dialog now properly says "Edit Shape" instead of "Edit Asset"
+-   A minimum height has been added to the dice tool UI so that there is no awkward jump when you first click a die to roll.
+
+## [DM] Quick access toggles
+
+A new addition to the UI for DMs is the addition of two toggles below the toolbar.
+These are meant to quickly toggle certain features that are otherwise hidden behind layers of setting windows.
+
+The first one is a toggle to enable/disable the "Fake Player" vision mode.
+Until now this setting was hidden in the DM settings, which made it very unwieldy to actually use.
+
+The second one is a toggle to start/end the new initiative active state as mentioned above.
+Clicking it will start initiative and open the initiative UI.
+Clicking it again will stop initiative and close the UI.
+
+This is something new I'm trying out, so let me know what you think.
+Currently it's just using some letters to signify what it does (i.e. FP=Fake Player, INI=Initiative),
+which I'm a bit conflicted on. An alternative to look into are icons, or full words, but that can be fleshed out at a later point.
+
+If there are other suggestions for settings that you tend to toggle, let me know and I might consider adding them here if the feature is well received.
+
+## Fixes
+
+### [DM] Fake player
+
+Along with a new way to quickly toggle this feature, the Fake Player mode also got fixed so that it no longer shows the DM layer while enabled.
+The DM layer is not visible to other players, so showing it in Fake Player mode could give conflicting messaging on what players actually see.
+
+### Shapes
+
+A variety of fixes for shapes in general were made.
+
+-   Since a recent release, badges started to become transparent by default, which was an unintended change.
+-   Displaying a tracker value on top of a shape was not working if the tracker was part of a variant setup and shared with all variants.
+
+Multiple cases of clients being able to edit properties of a shape they don't have access to locally were fixed.
+In all of these instances the change was only reflected locally in the client and was never sent to other clients as the server rejected the changes.
+
+-   Most tracker/aura properties were locally editable
+-   The "is defeated" and "is locked" properties were editable by using the respective keybindings to toggle these properties
+
+### UI
+
+#### Prompts
+
+Throughout PA you occassionally encounter a prompt modal, a UI element that requires some input to continue.
+Sometimes only certain values are permitted (e.g. only numbers) and the code can pass a validation function to check if the input is valid.
+These validation checks were not always properly cleared, causing some prompts to reject input that was valid.
+
+#### Token directions
+
+The UI to show the direction of off-screen tokens would always trigger even if it was hidden behind some other UI element (e.g. the sidebar menu)
+
+#### Floors
+
+The floor UI that appears when clicking the bottom left floor icon was not moving when the sidebar menu was opened.
+
+### Select Tool
+
+#### Resizing
+
+When a shape is rotated and you tried to resize the bottom right corner specifically, the entire shape would do some strange size changes.
+A bug in the calculation of the center of the shape during this operation was causing this faulty behaviour.
+
+#### Unlocking
+
+Unlocking a shape would often snap the shape to the mouse as if you were dragging it.
+
+### Asset Manager
+
+Two bugs related to the right-click context-menu were resolved, both related to scrolling.
+
+When scrolling in the asset manager, any open context-menu would no longer be aligned.
+The context-menu will now auto-close when you initiate a scrolling action.
+
+When opening the context-menu after scrolling, it would appear at a wrong y-value (where the item would have been if you hadn't scrolled).
+This made it so you couldn't interact with some shapes as their context-menu would be off-screen.
+
+### DM Settings
+
+#### kicking the DM
+
+As a DM you can kick anybody, including yourself.
+It was possible to kick yourself if you were the only DM in the campaign.
+This left the campaign in an unmanageable state. This is no longer possible.
+
+#### Invite URL on subpath
+
+When the server is hosted using a subpath (this is not the default), the subpath would not be included in the player invitation URLs.
+
+You were able to circumvent this particular bug by including it in the server's `publicName` config, but this is not intended.
+If you did do this, you should remove the subpath again from the config as it will now be automatically included in the invitation URL.
+
+### Other fixes
+
+-   Templates were only using the first character of the provided template name
+-   Groups: Adding multiple shapes to group always prompting group question even if no groups are present
