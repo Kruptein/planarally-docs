@@ -197,13 +197,15 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         margin-left: 0;
         padding: 50px 100px;
 
+        margin-top: 3rem;
+
         @media (max-width: 500px) {
             padding: 50px 25px;
-            margin-top: 3rem;
         }
 
         @media (min-width: 960px) {
             margin-left: $sidebar-width;
+            margin-top: 0;
         }
 
         @media (min-width: 1280px) {
