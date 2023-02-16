@@ -1,5 +1,6 @@
 ---
 import dayjs from "dayjs";
+import HamburgerMenu from "../components/HamburgerMenu.vue";
 import Main from "./main.astro";
 
 const { title, author, date } = Astro.props.content;
@@ -8,7 +9,8 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 ---
 
 <Main>
-    <aside>
+    <HamburgerMenu element="blog-aside" toggleClass="open" client:only />
+    <aside id='blog-aside'>
         {headings.map(header => {
             return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
         })}
@@ -27,7 +29,8 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
     
     #container {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     aside {
@@ -51,10 +54,24 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         transform: translate(-100%);
         transition: opacity .5s, transform .25s ease;
 
+        &.open {
+            padding-top: 4rem;
+            visibility: visible;
+            opacity: 1;
+            transform: translate(0);
+            z-index: 1;
+            background-color: var(---bg-color);
+        }
+
         @media (min-width: 960px) {
             visibility: visible;
             opacity: 1;
             transform: translate(0);
+        }
+
+        @media (min-width: 1280px) {
+            padding-left: max(2rem, calc(50vw - $sidebar-width - 100px - 500px));
+            width: max($sidebar-width, calc(50vw - 100px - 500px));
         }
 
         > a {
@@ -80,6 +97,10 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
     main {
         margin-left: 0;
         padding: 50px 100px;
+
+        @media (max-width: 500px) {
+            padding: 50px 25px;
+        }
 
         @media (min-width: 960px) {
             margin-left: $sidebar-width;
@@ -125,7 +146,6 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
             margin-bottom: 1.5rem;
             scroll-margin-top: 135px;
             position: relative;
-            left: -30px;
 
             > :global(a[aria-hidden=true]) {
                 visibility: hidden;
