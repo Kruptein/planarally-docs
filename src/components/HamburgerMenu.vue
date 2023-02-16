@@ -36,10 +36,13 @@ function handleClick(event: MouseEvent) {
 #hamburger {
     position: fixed;
     z-index: 20;
-    padding: 2rem;
+    padding: 1.5rem;
+    margin: 0.5rem;
 
     display: flex;
     align-items: center;
+
+    background-color: var(---bg-color);
 
     @media (min-width: 960px) {
         display: none;

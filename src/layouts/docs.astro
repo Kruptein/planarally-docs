@@ -1,4 +1,5 @@
 ---
+import HamburgerMenu from '../components/HamburgerMenu.vue';
 import { getDocsNav } from '../doc-structure';
 import Main from "./main.astro";
 
@@ -11,53 +12,77 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
 ---
 
 <Main>
+    <HamburgerMenu element="docs-nav" toggleClass="open" client:only />
+    <nav id="docs-nav">
+        {docs.map(doc => {
+            if (doc.depth === 1) {
+                return (<span class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</span>)
+            }
+            return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
+        })}
+    </nav>
     <div id="container">
-        <section id="docs-nav">
-            {docs.map(doc => {
-                if (doc.depth === 1) {
-                    return (<span class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</span>)
-                }
-                return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
-            })}
-        </section>
         <main style={headings.length <= 1 ? "border-right:none" : ""}>
             <slot />
         </main>
-        <section id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
-            {headings.map(header => {
-                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.startsWith('#') ? header.text.slice(1) : header.text}</a>)
-            })}
-        </section>
     </div>
+    <aside id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
+        {headings.map(header => {
+            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.startsWith('#') ? header.text.slice(1) : header.text}</a>)
+        })}
+    </aside>
 </Main>
 
 <style lang="scss">
+    @import '../styles/layout.scss';
+
     #container {
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     #docs-nav {
         position: fixed;
-        overflow-y: auto;
-        overflow-x: hidden;
+        top: $header-height;
+        bottom: 0;
+        visibility: hidden;
+
         display: flex;
         flex-direction: column;
-        width: 250px;
-        top: 135px;
-        bottom: 50px;
-        border-right: solid 1px rgb(226, 236, 236);
-        left: calc(20vw - 150px);
 
-        @media (max-width: 1024px) {
-            left: auto;
-            right: 0;
-            top: 100px;
-            bottom: 0;
-            background-color: var(---bg-header);
-            padding: 15px;
-            z-index: 10;
+        width: $sidebar-width;
+        padding-left: 2rem;
+
+        border-right: solid 1px rgb(226, 236, 236);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+        opacity: 0;
+
+        transform: translate(-100%);
+        transition: opacity .5s, transform .25s ease;
+
+        &.open {
+            padding-top: 4rem;
+            visibility: visible;
+            opacity: 1;
+            transform: translate(0);
+            z-index: 1;
+            background-color: var(---bg-color);
         }
+
+        @media (min-width: 960px) {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        @media (min-width: 1280px) {
+            padding-left: max(2rem, calc(50vw - $sidebar-width - 100px - 500px));
+            width: max($sidebar-width, calc(50vw - 100px - 500px));
+        }
+
 
         &::-webkit-scrollbar {
             width: 5px;
@@ -99,19 +124,32 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
     }
 
     #doc-headers {
+        width: 300px;
         position: fixed;
-        overflow-y: auto;
-        overflow-x: hidden;
+        top: $header-height;
+        bottom: 0;
+        right: 0;
+        visibility: hidden;
+
         display: flex;
         flex-direction: column;
-        width: 300px;
-        top: 135px;
-        bottom: 0;
-        right: calc(20vw - 200px);
-        padding-left: 50px;
 
-        @media (max-width: 1024px) {
-            display: none;
+        width: $sidebar-width;
+        padding-left: 2rem;
+
+        border-right: solid 1px rgb(226, 236, 236);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+        opacity: 0;
+
+        transform: translate(-100%);
+        transition: opacity .5s, transform .25s ease;
+
+        @media (min-width: 1400px) {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(0);
         }
 
         &::-webkit-scrollbar {
@@ -139,7 +177,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         .depth-2 {
-            text-indent: 15px;
+            text-indent: 1rem;
         }
 
         .depth-3 {
@@ -156,20 +194,24 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
     }
 
     main {
-        max-width: 50vw;
-        margin: 0 100px;
-        margin-bottom: 100px;
-        padding-top: 50px;
-        padding-left: 100px;
-        padding-right: 100px;
-        border-right: solid 1px rgb(226, 236, 236);
+        margin-left: 0;
+        padding: 50px 100px;
 
-        @media (max-width: 1024px) {
-            max-width: fit-content;
-            padding-left: 50px;
-            padding-right: 50px;
-            margin-left: 0;
-            margin-right: 0;
+        @media (max-width: 500px) {
+            padding: 50px 25px;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 960px) {
+            margin-left: $sidebar-width;
+        }
+
+        @media (min-width: 1280px) {
+            max-width: 1000px;
+        }
+
+        @media (min-width: 1400px) {
+            margin-right: calc($sidebar-width * 0.8);
         }
 
         :global(a) {
@@ -190,9 +232,9 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         :global(pre) {
-            padding: 15px;
+            padding: 1rem;
             max-width: 680px;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         #title,
@@ -222,9 +264,10 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         :global(img) {
+            height: auto;
             max-width: 100%;
             object-fit: contain;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         :global(svg) {
