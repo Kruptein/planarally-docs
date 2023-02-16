@@ -8,12 +8,12 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 ---
 
 <Main>
+    <aside>
+        {headings.map(header => {
+            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
+        })}
+    </aside>
     <div id="container">
-        <section>
-            {headings.map(header => {
-                return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
-            })}
-        </section>
         <main>
             <h1 id="title">{title}</h1>
             <p id="author">Posted {formattedDate} by {author}</p>
@@ -23,21 +23,34 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 </Main>
 
 <style lang="scss">
+    $header-height: 90px;
+    $sidebar-width: 18.75rem;
+
     #container {
         display: flex;
-        margin: 0 25vw;
+        justify-content: center;
     }
 
-    section {
+    aside {
         position: fixed;
-        overflow-y: auto;
-        overflow-x: hidden;
+        top: $header-height;
+        bottom: 0;
+        visibility: hidden;
+
         display: flex;
         flex-direction: column;
-        width: 250px;
-        top: 135px;
-        bottom: 0;
-        left: calc(25vw - 150px);
+
+        width: $sidebar-width;
+        padding-left: 2rem;
+
+        border-right: solid 1px rgb(226, 236, 236);
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        @media (min-width: 960px) {
+            visibility: visible;
+        }
 
         > a {
             padding: 3px 0;
@@ -55,16 +68,21 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         }
 
         .depth-4 {
-            text-indent: 15px;
+            text-indent: 1rem;
         }
     }
 
     main {
-        margin: 0 150px;
-        margin-bottom: 100px;
-        padding-top: 50px;
-        padding-left: 150px;
-        border-left: solid 1px rgb(226, 236, 236);
+        margin-left: 0;
+        padding: 50px 100px;
+
+        @media (min-width: 960px) {
+            margin-left: $sidebar-width;
+        }
+
+        @media (min-width: 1280px) {
+            max-width: 1000px;
+        }
 
         #title, #author {
             text-align:center;
@@ -82,15 +100,16 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         }
 
         :global(img) {
+            height: auto;
             max-width: 100%;
             object-fit: contain;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         :global(pre) {
-            padding: 15px;
+            padding: 1rem;
             max-width: 680px;
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
 
         :global(h2),
