@@ -1,7 +1,6 @@
 ---
 import Github from "~icons/fa-brands/github";
 import Twitter from "~icons/fa-brands/twitter";
-import HamburgerMenu from "../components/HamburgerMenu.vue";
 import NavItem from "../components/NavItem.astro";
 import ThemeSwitcher from "../components/ThemeSwitcher.vue";
 ---
@@ -9,13 +8,12 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
 <header>
     <nav>
         <a href="/"><img id="logo" src="/logos/pa-logo-small.svg" style="max-width: 50px" /></a>
-        <a href="/">PlanarAlly</a>
+        <a id="logo-text" href="/">PlanarAlly</a>
         <NavItem to="/docs/">Docs</NavItem>
         <NavItem to="/learn/">Learn</NavItem>
         <NavItem to="/server/">Server</NavItem>
         <NavItem to="/blog/">Blog</NavItem>
         <div style="flex-grow: 1"></div>
-        <HamburgerMenu id='hamburger' client:only />
     </nav>
 
     <div>
@@ -44,12 +42,17 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
 </header>
 
 <style lang="scss">
+    @import '../styles/layout.scss';
+
     header {
         position: sticky;
         top: 0;
         z-index: 20;
 
-        padding: 0px 25vw;
+        height: $header-height;
+
+        padding-left: $sidebar-width;
+        padding-right: 150px;
 
         border-bottom: solid 1px rgb(226, 236, 236);
 
@@ -59,19 +62,17 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
         justify-content: space-between;
         align-items: center;
 
-        @media (max-width: 1024px) {
-            flex-direction: column-reverse;
-            align-items: stretch;
+        @media (max-width: 960px) {
+            padding-left: 150px;
+        }
+
+        @media (max-width: 500px) {
             padding: 0;
         }
 
         > nav {
             display: flex;
             align-items: center;
-
-            @media (max-width: 1024px) {
-                height: 75px;
-            }
 
             > :global(*) {
                 margin: 8px;
@@ -87,8 +88,8 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
             @media (max-width: 1024px) {
                 width: unset;
                 justify-content: flex-end;
-                padding-top: 15px;
-                padding-right: 15px;
+                padding-top: 1rem;
+                padding-right: 1rem;
 
                 > * {
                     margin-left: 5px;
@@ -106,18 +107,9 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
             border-radius: 25%;
         }
 
-        :global(#hamburger) {
-            display: none;
-            margin-right: 30px;
-            padding-top: 150px;
-            -webkit-tap-highlight-color: transparent;
-
-            @media (max-width: 1024px) {
-                display: block;
-            }
-
-            &:hover {
-                cursor: pointer;
+        #logo-text {
+            @media (max-width: 500px) {
+                display: none;
             }
         }
     }
