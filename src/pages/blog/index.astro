@@ -47,7 +47,7 @@ const posts = await Astro.glob('./*.mdx')
 
     section {
         text-align: center;
-        margin: 50px 0;
+        margin: 50px 25px;
         max-width: 650px;
     }
 
@@ -55,7 +55,7 @@ const posts = await Astro.glob('./*.mdx')
         display: block;
         border: solid 1px rgb(226, 236, 236);
 
-        width: 25vw;
+        width: max(25vw, 300px);
         padding: 50px;
         margin-bottom: 50px;
 
