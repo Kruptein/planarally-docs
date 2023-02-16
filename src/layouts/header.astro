@@ -44,12 +44,17 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
 </header>
 
 <style lang="scss">
+    @import '../styles/layout.scss';
+
     header {
         position: sticky;
         top: 0;
         z-index: 20;
 
-        padding: 0px 25vw;
+        height: $header-height;
+
+        padding-left: $sidebar-width;
+        padding-right: 150px;
 
         border-bottom: solid 1px rgb(226, 236, 236);
 
@@ -59,19 +64,13 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
         justify-content: space-between;
         align-items: center;
 
-        @media (max-width: 1024px) {
-            flex-direction: column-reverse;
-            align-items: stretch;
-            padding: 0;
+        @media (max-width: 960px) {
+            padding-left: 150px;
         }
 
         > nav {
             display: flex;
             align-items: center;
-
-            @media (max-width: 1024px) {
-                height: 75px;
-            }
 
             > :global(*) {
                 margin: 8px;
@@ -87,8 +86,8 @@ import ThemeSwitcher from "../components/ThemeSwitcher.vue";
             @media (max-width: 1024px) {
                 width: unset;
                 justify-content: flex-end;
-                padding-top: 15px;
-                padding-right: 15px;
+                padding-top: 1rem;
+                padding-right: 1rem;
 
                 > * {
                     margin-left: 5px;

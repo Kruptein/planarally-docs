@@ -23,9 +23,8 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 </Main>
 
 <style lang="scss">
-    $header-height: 90px;
-    $sidebar-width: 18.75rem;
-
+    @import '../styles/layout.scss';
+    
     #container {
         display: flex;
         justify-content: center;
@@ -47,9 +46,15 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 
         overflow-y: auto;
         overflow-x: hidden;
+        opacity: 0;
+
+        transform: translate(-100%);
+        transition: opacity .5s, transform .25s ease;
 
         @media (min-width: 960px) {
             visibility: visible;
+            opacity: 1;
+            transform: translate(0);
         }
 
         > a {
