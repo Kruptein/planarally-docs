@@ -19,7 +19,7 @@
         "prettier": "^2.7.1",
         "prettier-plugin-astro": "^0.7.0",
         "sass": "^1.56.1",
-        "unplugin-icons": "^0.14.13",
+        "unplugin-icons": "^0.14.15",
         "vue": "^3.2.45"
     },
     "dependencies": {
