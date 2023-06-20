@@ -3,32 +3,31 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "dev": "astro dev",
+        "dev": "astro dev --host 0.0.0.0",
         "start": "astro dev",
         "build": "astro build",
         "preview": "astro preview"
     },
     "devDependencies": {
-        "@astrojs/markdown-component": "^1.0.2",
-        "@astrojs/vue": "^1.2.1",
-        "@iconify/json": "^2.1.140",
-        "astro": "^1.6.10",
-        "eslint": "^8.27.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-vue": "^9.7.0",
-        "prettier": "^2.7.1",
-        "prettier-plugin-astro": "^0.7.0",
-        "sass": "^1.56.1",
-        "unplugin-icons": "^0.14.15",
-        "vue": "^3.2.45"
+        "@astrojs/vue": "^2.2.1",
+        "@iconify/json": "^2.2.80",
+        "astro": "^2.6.5",
+        "eslint": "^8.43.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-plugin-vue": "^9.15.0",
+        "prettier": "^2.8.8",
+        "prettier-plugin-astro": "^0.10.0",
+        "sass": "^1.63.4",
+        "unplugin-icons": "^0.16.3",
+        "vue": "^3.3.4"
     },
     "dependencies": {
-        "@astrojs/image": "^0.11.6",
-        "@astrojs/mdx": "^0.11.6",
-        "dayjs": "^1.11.6",
+        "@astrojs/image": "^0.17.0",
+        "@astrojs/mdx": "^0.19.7",
+        "dayjs": "^1.11.8",
         "rehype-autolink-headings": "^6.1.1",
         "rehype-slug": "^5.1.0",
         "remark-directive": "^2.0.1",
-        "sharp": "^0.31.2"
+        "sharp": "^0.32.1"
     }
 }

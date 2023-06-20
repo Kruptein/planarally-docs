@@ -1,6 +1,4 @@
 ---
-import Markdown from '@astrojs/markdown-component';
-
 const { title, admonitionClass } = Astro.props;
 ---
 
@@ -9,9 +7,7 @@ const { title, admonitionClass } = Astro.props;
         <slot name="logo" />
         <div class="title">{title}</div>
     </div>
-    <Markdown>
         <slot />
-    </Markdown>
 </div>
 
 <style lang="scss">

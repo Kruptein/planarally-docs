@@ -12,7 +12,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
     <HamburgerMenu element="blog-aside" toggleClass="open" client:only />
     <aside id='blog-aside'>
         {headings.map(header => {
-            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text}</a>)
+            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
         })}
     </aside>
     <div id="container">

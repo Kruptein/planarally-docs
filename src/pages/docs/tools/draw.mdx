@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Eye from "~icons/fa-solid/eye"
-    import Warning from "/src/components/directives/Warning.astro"
-    import Tip from "/src/components/directives/Tip.astro"
 ---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
 
 # Draw Tool
 
@@ -41,8 +41,8 @@ If you check the closed polygon checkbox, the last point and first point will au
 Another draw mode is _paintbrush_, which is a freeflow option that offers you the ability to draw whatever.
 
 <Warning title="Performance">
-Note that drawing with the _paintbrush_ needs to use a lot of points to represent a shape.
-This is generally only advised for small things, as it is pretty bad performance-wise.
+    Note that drawing with the _paintbrush_ needs to use a lot of points to represent a shape. This is generally only
+    advised for small things, as it is pretty bad performance-wise.
 </Warning>
 
 ### Text
@@ -57,9 +57,7 @@ This will open a popup asking for the text to be displayed.
 Any entered text will be rendered in the serif font used for simple tokens, _centered on the point clicked_ in the first step.
 It can be dragged and resized etc. like any other shape.
 
-<Tip title="Edit">
-You can edit the text afterwards in the shape properties dialog!
-</Tip>
+<Tip title="Edit">You can edit the text afterwards in the shape properties dialog!</Tip>
 
 ## Vision Settings
 

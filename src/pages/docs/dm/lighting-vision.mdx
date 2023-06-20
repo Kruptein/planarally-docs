@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: |
-    import Info from "/src/components/directives/Info.astro"
-    import Tip from "/src/components/directives/Tip.astro"
-    import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
 
 # Lighting & Vision
 
@@ -25,8 +25,8 @@ There are varying degrees of complexity we can achieve in PlanarAlly and dependi
 There is also 1 DM setting related to lighting called the 'Fill entire canvas with FOW' and this can be found in the Vision tab. This setting toggles whether the entire screen should be filled with fog by default or not.
 
 <Warning>
-It is strongly recommended to fill the screen with fog if you want to use the vision system.
-Currently the vision system without fog behaves funky.
+    It is strongly recommended to fill the screen with fog if you want to use the vision system. Currently the vision
+    system without fog behaves funky.
 </Warning>
 
 ### Magical Lights and Darkness
@@ -60,8 +60,8 @@ For more info see the [auras](/docs/game/shapes/#auras) documentation.
 Make sure to mark your aura as a light source though!
 
 <Tip title="Hidden Light Sources">
-Light sources are always attached to shapes.
-If you want to hide the shape from your players, but display its light effect, move it to the `fow`-layer – or make it invisible, if you need the aura's colour displayed.
+    Light sources are always attached to shapes. If you want to hide the shape from your players, but display its light
+    effect, move it to the `fow`-layer – or make it invisible, if you need the aura's colour displayed.
 </Tip>
 
 #### When to use
@@ -80,10 +80,7 @@ The essence of providing PA info about walls etc, is by drawing shapes like you 
 
 You can use any of the available shapes to draw your building skeletons, but some are more useful than others. Although the rectangle can be usefull for simple structures with 90 degrees walls, I find myself using the polygon tool almost exclusively these days. See the [draw tool documentation](/docs/tools/draw/) for more detailed info on how these shapes behave.
 
-<Info>
-This only blocks normal lights.
-'Magical' lights pierce through any non magical fog.
-</Info>
+<Info>This only blocks normal lights. 'Magical' lights pierce through any non magical fog.</Info>
 
 ### Line of Sight
 
@@ -94,7 +91,9 @@ Without this setting enabled, we have our lights illuminating rooms with the lig
 When you enable the line-of-sight setting in the DM settings, PlanarAlly will take position of player characters into account and only lights that are actually visible for a token are shown to the players.
 
 <Warning>
-For performance reasons this setting will only take into account those assets that are specifically marked as a **token** in their properties dialog. This means that with the setting enabled but no asset marked as token, your players will have **no vision**.
+    For performance reasons this setting will only take into account those assets that are specifically marked as a
+    **token** in their properties dialog. This means that with the setting enabled but no asset marked as token, your
+    players will have **no vision**.
 </Warning>
 
 ## Minimal/Maximal Vision
@@ -102,15 +101,10 @@ For performance reasons this setting will only take into account those assets th
 These can be set in the [campaign settings](/docs/dm/settings/).
 These settings behave a lot like auras, but only _limiting_ the vision of all tokens, instead of shedding light on the map.
 
-<Warning>
-This only affects canvas that is filled with fog-of war.
-</Warning>
+<Warning>This only affects canvas that is filled with fog-of war.</Warning>
 
 A token will be able to see everything within the limit of _minimal vision_ as normal.
 Yet, it will _not_ see light sources beyond the limit of _maximal vision_.
 Every light source between the limits of minimal and maximal vision will be dimmed out like a dim light aura.
 
-<Info>
-This only blocks normal lights.
-`Magical lights pierce through any non magical fog.
-</Info>
+<Info>This only blocks normal lights. `Magical lights pierce through any non magical fog.</Info>

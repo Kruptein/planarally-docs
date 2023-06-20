@@ -1,7 +1,8 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
 
 # Creating your first session
 
@@ -15,8 +16,7 @@ In this tutorial we're going to cover:
 -   Interacting with tokens
 
 <Warning title="Out-of-date">
-Some of the content in this article is outdated. I'm working on rectifying this.
-_(Primarily UI has changed)_
+    Some of the content in this article is outdated. I'm working on rectifying this. _(Primarily UI has changed)_
 </Warning>
 
 ## Adding assets to your board
@@ -27,8 +27,8 @@ A good session often requires some kind of map; For this excersise I generated a
 If you uploaded it to the asset manager as described [earlier](/tutorial/out-of-game/asset-manager/), you should be able to drag the asset from the sidebar unto the map.
 
 <video autoplay loop muted style="max-width: 625px;">
-   <source src="/learn/first-session/asset-on-map.webm" type="video/webm">
-   <source src="/learn/first-session/asset-on-map.mp4" type="video/mp4">
+    <source src="/learn/first-session/asset-on-map.webm" type="video/webm" />
+    <source src="/learn/first-session/asset-on-map.mp4" type="video/mp4" />
 </video>
 
 _Example of dropping an asset on the map_
@@ -42,8 +42,8 @@ Before doing this though, we should verify that the grid settings are to our lik
 To use the map tool we must decide what the area we're going to select (with the tool) should represent. In order to not get confused with the existing grid we can temporarily disable it using the DM settings again or we can temporarily move the asset to the token layer so that it is rendered on top of the grid. We'll use the latter here to show how to change the layer of an object.
 
 <video autoplay loop muted style="max-width: 625px;">
-   <source src="/learn/first-session/fit-map.webm" type="video/webm">
-   <source src="/learn/first-session/fit-map.mp4" type="video/mp4">
+    <source src="/learn/first-session/fit-map.webm" type="video/webm" />
+    <source src="/learn/first-session/fit-map.mp4" type="video/mp4" />
 </video>
 
 _Fitting a map to the grid_
@@ -63,15 +63,15 @@ You can then edit each individual asset either from a right click menu (select "
 Currently everything is visible, which we typically don't want. So let us bring some shadow and lighting into the map. We'll first set up the location to have fog everywhere by default and then add a simple torch that sheds 20ft bright light and 20ft dim light to our character. As we are fullfilling the role of the DM, we can see everything even when there is fog. As a DM we can choose how much opacity the fog should have so that we can still see what lies ahead. As a player the fog will always be 100% opaque.
 
 <video autoplay loop muted style="max-width: 625px;">
-   <source src="/learn/first-session/light.webm" type="video/webm">
-   <source src="/learn/first-session/light.mp4" type="video/mp4">
+    <source src="/learn/first-session/light.webm" type="video/webm" />
+    <source src="/learn/first-session/light.mp4" type="video/mp4" />
 </video>
 
 To make sure how a player in your session would see this, you can open the DM settings again and hit the 'Fake Player' button. This will drop most of your DM privileges and show you what players can see.
 
 <video autoplay loop muted style="max-width: 625px;">
-   <source src="/learn/first-session/player-view.webm" type="video/webm">
-   <source src="/learn/first-session/player-view.mp4" type="video/mp4">
+    <source src="/learn/first-session/player-view.webm" type="video/webm" />
+    <source src="/learn/first-session/player-view.mp4" type="video/mp4" />
 </video>
 
 ## Adding vision
@@ -85,8 +85,8 @@ From my own experience the latter option is always preferred, because it will au
 Let's see what this looks like! I highly prefer using the polygon tool to draw walls as it's fast and snappy, but there is nothing preventing you from using a simple rectangle.
 
 <video autoplay loop muted style="max-width: 625px;">
-   <source src="/learn/first-session/vision.webm" type="video/webm">
-   <source src="/learn/first-session/vision.mp4" type="video/mp4">
+    <source src="/learn/first-session/vision.webm" type="video/webm" />
+    <source src="/learn/first-session/vision.mp4" type="video/mp4" />
 </video>
 
 As you can see in the video above, as soon as we start to add walls, the torch light starts to get blocked!

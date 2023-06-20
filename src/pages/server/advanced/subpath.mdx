@@ -1,7 +1,8 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
 
 # Subpath hosting
 
@@ -23,6 +24,7 @@ Since 2022.1 there have been some changes to the subpath handling,
 make sure to reread these docs properly if you've used them in the past!
 
 In particular the client now always has to be build manually and the docker container uses --build-arg instead of --env.
+
 </Warning>
 
 ## Client changes

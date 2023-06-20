@@ -1,7 +1,8 @@
 ---
 layout: ../../../layouts/docs.astro
-setup: import Warning from "/src/components/directives/Warning.astro"
 ---
+
+import Warning from "/src/components/directives/Warning.astro";
 
 # Game Board
 
@@ -9,9 +10,8 @@ This is PlanarAlly's heart.
 When playing, you will mostly interact with the game board, moving tokens over a map that shows (or does not show) your character's surroundings and other PC and NPC characters around them.
 
 <Warning title="The big red border">
-Most actions you perform have to be synchronized with the server.
-In case this connection is lost for whatever reason, a thick red border around the screen will warn you.
-Any changes you make during a disconnect might be lost.
+    Most actions you perform have to be synchronized with the server. In case this connection is lost for whatever
+    reason, a thick red border around the screen will warn you. Any changes you make during a disconnect might be lost.
 </Warning>
 
 ## Overview
