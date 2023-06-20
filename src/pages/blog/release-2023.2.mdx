@@ -1,0 +1,180 @@
+---
+title: Release 2023.2
+date: 2023-06-20 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import { Image } from "@astrojs/image/components";
+
+2023.2 is a release that is almost entirely focussed on bug fixes. So it will be pretty dry as nothing super exciting is added in this one, sorry!
+
+It's been a good 4 months since the last release, which I had hoped to avoid this time around.
+After 2023.1 I had started this release with a lot of energy as I wanted to use offscreencanvas in webworkers to push performance.
+I spent a lot of time trying various strategies, but at the end of the day nothing actually materialised that I was happy with,
+which left me a bit burned out.
+
+I've had some time to work on some other private projects to ease my mind and hope to be able
+to push out some more meaningful updates in the nearer future.
+
+## Asset Manager
+
+### Direct Asset Dropping
+
+To have something appear on the map it's always been necessary for the DM to have uploaded the asset to the asset manager first.
+Although this is still the recommended way to handle things as you can organise your assets properly in the asset manager,
+this release adds the option to directly drop something on the gameboard without first uploading to the asset manager.
+
+This is especially useful when you have to add something mid session.
+
+Assets uploaded in this way are stored in the root folder of your asset manager,
+but will likely be moved to a specific folder in a later release to reduce the clutter in your root.
+
+### Progress Bar
+
+The old asset manager had a progress bar. Since integrating with the new dashboard this feature was never re-added.
+
+It's back, that's it :)
+
+## Brush Draw
+
+The brush mode in the draw tool has been an eye sore for a _loong_ time.
+It exists, but is a performance hog which means you probably should avoid it at almost all times.
+
+The reason for that performance issue was with how the shape is stored internally.
+Behind the scenes it's exactly the same kind of structure as a shape drawn with the polygon tool,
+but the difference is in their creation. In polygon mode, you dictate the points with clicks, whereas in brush mode your mouse drag dictates the polygon.
+
+Long story short, the mouse drag was adding a lot of points.
+This release implements an algorithm that will during a drag simplify the polygon
+by trying to remove points that contribute close to nothing to the actual shape.
+
+Some small changes in the overall shape might occur, but they should be very subtle if any.
+
+As an example take the below image:
+
+<Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" />
+
+The green points are points that used to be saved as well. As you can see that's a lot of points that no longer have to be tracked \:D
+
+## Teleporting
+
+A couple of changes and fixes have been made to the TeleportZone feature.
+
+### Show request area change
+
+When a TP zone is configured with "request" mode, the DM gets a notification when a user wants to use a teleport zone.
+
+This notification contains a button to move the DM's camera to the teleport zone.
+In practice this was taking the DM to the target location of the teleport zone.
+
+This release changes this and brings the DM to the trigger location of the teleport zone
+as that is where the requesting player is and usually gives more context to what is happening.
+
+### Fix TPs not working for players
+
+A couple of cases were fixed where a player initiated a teleport:
+
+Teleport zones configured in non-immediate mode were not working at all if a player initiated the teleport.
+
+Teleports initiated while build mode was active were also not working for players.
+
+### Bring player zoom
+
+_Although not related to teleport zones itself, I added this here as it's still performing a teleport :V_
+
+When the DM uses the "Bring Players" action,
+all players will be teleported in such a way that the selected area becomes centered on their screen.
+
+Additionally the zoom level of all players was also being modified to match that of the DM.
+
+This no longer is the case in this release.
+Clients can have different zoom settings for a plethora of reasons and
+at no point should this be overriden just because we're moving to somewhere else.
+
+## Templates
+
+Templates are a way to save a shape with some settings pre-filled for later re-use.
+Since introducing templates,
+they haven't been updated to match new features and are thus missing some data that one would expect to be saved.
+
+The following data is now also saved:
+
+-   Annotation public visibility
+-   Trackers:
+    -   Display on token
+    -   Colors for display on token
+-   Auras:
+    -   Whether the aura is enabled
+    -   The stroke colour
+    -   The angle and direction
+
+While revisiting these keys, I've also removed some settings that are no longer saved.
+The settings I've removed felt too situational to be saved as a general setting.
+Ideally at some point while saving a template, you would get the option to choose which things are saved on a more fine-grained level, allowing you to save these after all for specific cases. But alas we're not there yet.
+
+The following data is no longer saved:
+
+-   invisible state
+-   defeated state
+-   locked state
+-   'show badge'
+
+## (Mobile) Touch scrolling
+
+A small change is that the main game board and the menu bar should no longer trigger overscroll on mobile touch devices.
+
+There are more mobile/touch improvements to be made, but this is a first small thing.
+
+## Groups
+
+The create and remove group buttons were broken in multiple ways. They should now behave correct again.
+
+Additionally some fixes were made to the network code for groups.
+Full group data was being sent for every shape, this is wildly unnecessary as we only need the group info once per group.
+Group changes on other clients were also not being synced, so some changes to groups were only visible as soon as you refreshed.
+
+## Fake Player
+
+The Fake Player mode is there to mimick player vision quickly as a DM.
+It's however long been left behind in the dirt and efforts started with the last release to polish this up again.
+
+This release reworked access internals which allowed me to fix a bunch of bugs related to fake player mode.
+
+Shapes are now only rendered if and only if some player in the game has vision access to that shape AND the shape is active in the vision tool.
+This also means that invisible shapes are no longer rendered if you're not actively controlling that shape.
+
+Lastly auras on the DM layer are also all hidden now.
+
+## Access
+
+More general access related things were fixed as well.
+
+-   Access: Fix players with specific access rules, having edit access at all times
+-   Access: Changing access would not live update the edit shape UI if it was open by another client
+-   Access: Fix default access in UI not being up to date if shape has no access modifications until reload
+-   Access: Prevent DMs from having an explicit access rule
+
+## Rendering
+
+-   Fix auras sometimes not being visible until a refresh or panning closer to the aura
+-   Transparency of higher layers was no longer applied after a window resize
+-   Some cases where vision access related changes would not rerender immediately
+-   Grid not rendering horizontal lines when the width is smaller than the height of the screen
+
+## Varia Fixes
+
+    - Auth: A logic error in the auth routing code - in some cases you had to manually go to the login page
+    - Labels: Fix removal not working
+    - Toolbar: Fix vision and filter tools not immediately being available when relevant
+    - Logic: Request mode not working as intended and behaving as Enabled mode instead
+    - Token Directions: Fix shown tokens not taking filtered tokens into account
+    - Select: Rotation UI should stay consistent when zooming
+    - LocationBar: Fix width on drag handle for multiline locations
+    - Properties: Invisible toggle not applying until a refresh for players
+    - Initiative: Vision lock not properly checking active tokens
+    - Initiative: Removing the last entry while it's active could break initiative
+    - Vision: Edgecase that could cause an infinite loop when drawing vision lines
+    - Annotation: Markdown no longer rendering as bold in firefox
+    - [server] Subpath: 2 cases where subpath based setup was not properly loading images (initiative & change asset)
