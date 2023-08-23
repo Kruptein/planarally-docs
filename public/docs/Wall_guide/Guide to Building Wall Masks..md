@@ -33,7 +33,7 @@ For this I will use GIMP which is free and multiplatform.
 
 # Removing the background
 
-In this map is has some irregular hashing around the map for a background. Fortunately though it is a different colour a sort of grey. So selecting the `Fuzzy select/Coluor Select` tool, choose `Colour Select` select one of the grey areas of the background and you should see all the grey become highlighted. 
+In this map is has some irregular hashing around the map for a background. Fortunately though it is a different colour a sort of grey. So selecting the `Fuzzy select/Colour Select` tool, choose `Colour Select` select one of the grey areas of the background and you should see all the grey become highlighted. 
 
 ![method1_2](assets/method1_2.png)
 
