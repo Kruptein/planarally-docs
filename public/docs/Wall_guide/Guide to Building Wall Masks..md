@@ -30,7 +30,6 @@ It comes in a few types include Lineart. Which is what we will use.
 
 ![method1_1](./assets/method1_1.png)
 
-For this I will use GIMP which is free and multiplatform. 
 
 # Removing the background
 
