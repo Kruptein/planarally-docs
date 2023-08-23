@@ -38,11 +38,11 @@ In this map is has some irregular hashing around the map for a background. Fortu
 ![method1_2](assets/method1_2.png)
 
 
-This is good but because the lines between them are not selected if were were to delete them now it would just leave the black crazy paving look.
+This is good, but, because the lines between them are not selected, if were were to delete them now it would just leave the black crazy paving look.
 
 ![method1_3](assets/method1_3.png)
 
- So while everything is selected right click on the image got to `Select` `>` `Grow...`
+ So while everything is selected right click on the image go to `Select` `>` `Grow...`
 
 Grow the selection a few pixels until it covers the lines between the grey spots. Once you are satisfied you have caught it all, press `Delete` and *POOF* the background disappears. 
 
