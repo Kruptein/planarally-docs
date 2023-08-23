@@ -1,4 +1,5 @@
-## Guide to Building Wall Masks.
+# Guide to Building Wall Masks. 
+~provided_by_veritanuda~
 
 This method should work for any map depending on the fidelity of it but even irregular maps like cave can be easily masked out.
 
@@ -48,32 +49,40 @@ Grow the selection a few pixels until it covers the lines between the grey spots
 
 ![method1_4](assets/method1_4.png)
 
-Now go back to the `Fuzzy Select` and this time choose `Fuzzy Select`. Click on the now whit background and see everything is selected. 
+Now go back to the `Fuzzy Select` and this time choose `Fuzzy Select`. Click on the now white background and see everything is selected. 
 
-* *Note if you have enclosed spaces, like this map does, you need to hole the shift key and click in it to add that to the selection.*
+* *Note if you have enclosed spaces, like this map does, you need to hold the shift key and click in it to add that to the selection.*
 
-Now in the `Layers` panel `Add New Layer to Image` Name this layer `mask`. 
+Now in the `Layers` panel add `New Layer` Name this layer `mask`. 
 
 ![method1_5](assets/method1_5.png)
 
 
-On that layer select the `Bucket Fill` tool. Click on the selection of the background you did earlier and it should fill it all black. Hide the line art layer and check you have a complete mask wth no missing bits. 
+On that layer select the `Bucket Fill` tool. Click on the selection of the background you did earlier and it should fill it all black. 
 
 ![method1_6](assets/method1_6.png)
 
-If you did miss something, don't panic, just press `Cntrl-Z` to undo and go back to selecting the parts you missed before. 
 
-Depending on the map and how you selected the background some doors might also be painted. You will have to do is with the Erase tool and whatever shaped brush fits best, go over all the doors and secret doors and remove the black. If you don't do this you will make a door impassible. You can always add door tokens to any opening you have made once the map is imported and the walls added. 
-
-Now you are happy with your mask you can delete the line art layer. 
+Hide the line art layer and check you have a complete mask wth no missing bits. 
 
 ![method1_7](assets/method1_7.png)
+
+If you did miss something, don't panic, just press `Cntrl-Z` to undo and go back to selecting the parts you missed before. 
+
+Depending on the map and how you selected the background some doors might also be painted. You will have to do is with the Erase tool and whatever shaped brush fits best, go over all the doors and secret doors and remove the black. 
+
+If you don't do this you will make a door impassible. You can always add door tokens to any opening you have made once the map is imported and the walls added. 
+
+Once you are happy with your mask you can delete the line art layer. 
+
 
 
 
 The next part is **vital** if you want to convert it properly to SVG, which is what PlanarAlly uses for walls.
 
-Right click on the image and go `Image` `>` `Mode` , if you imported the Line art like I did it would have been greyscale. Sometime you will need to convert an colour map to greyscale to make it easier to delete backgrounds etc. But now the mode must be RGB. Change the image to that. Then right click on the image go `File` `>` `Export As...`  and save the image as a `BMP`  Turn OFF `Run Length Encoding` Turn OFF `Do not write colour space information` and make sure under `Advanced` you are `32 Bits`
+Right click on the image and go `Image` `>` `Mode` , if you imported the Line art, like I did, it would have been `greyscale`. Sometime you will need to convert an colour map to `greyscale` to make it easier to delete backgrounds etc. But now the mode must be `RGB`. Change the image to that. 
+
+Then right click on the image go `File` `>` `Export As...`  and save the image as a `BMP`  Turn OFF `Run Length Encoding` Turn OFF `Do not write colour space information` and make sure under `Advanced` you are `32 Bits`
 
 ![method1_8](assets/method1_8.png)
 
@@ -83,16 +92,18 @@ The command to do it  yourself is extremely simple.
 
 `potrace -s FREE-MAP-FRIDAY-001_LINEART_WALLS.bmp`
 
-This should give you an `svg` that if you open up in graphic program or your  browser should be black, where the light will be blocked and clear where the light can shine.
+This should give you an `svg` that if you open up in graphic program should be black, where the light will be blocked and clear where the light can shine.
 
 ![method1_9](assets/method1_9.png)
 
 
 
-#__METHOD Two__
+# __Method Two__
 
 
 Say you have an irregular map or the background is not so easy to remove. Well you can still hand make a mask just using normal tools.
+
+For this example I will use this map.
 
 https://www.reddit.com/r/FantasyMaps/comments/hrf51h/battlemap30x202160x1440pxcavejunglepirateoc/
 
@@ -103,13 +114,13 @@ Import the map into gimp.
 
 Create a new layer, call it `guide`.
 
-With the `Pencil tool` select a `Circle` as a brush and make it black. Resize as needed. Making sure you selected the `guide` layer, start drawing on the coloured portions of the map **within** the walls.
+With the `Pencil tool` select the `Circle` as a brush and make it black. Resize as needed. Making sure you selected the `guide` layer, start drawing on the coloured portions of the map **within** the walls.
 
 ![method2_2](assets/method2_2.png)
 
 
 ![mehod2_3](assets/method2_3.png)
-Once you are happy you have all the shape filled in crete another layer called `walls.` 
+Once you are happy you have all the shape filled in, create another layer called `walls.` 
 
 On the `guide` layer use the `Select by colour` tool and click on the black guide you have made. Then invert the selection.
 
@@ -119,7 +130,7 @@ Then on the `walls` layer use the bucket fill tool to fill in the inverted selec
 
 ![method2_5](assets/method2_5.png)
 
-Once that it done and you are happy you have not missed any where, save it as BMP as above and convert it using either method above.
+Once that it done hide the previous layers and if you are happy you have not missed anywhere, delete those layers and save the image as BMP as above to be converted using either method above.
 
 ![method2_6](assets/method2_6.png)
 
