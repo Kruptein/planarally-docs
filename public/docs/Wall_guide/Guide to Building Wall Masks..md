@@ -1,4 +1,4 @@
-# Guide to Building Wall Masks. ^^provided_by_veritanuda
+# __Guide to Building Wall Masks.__ [@veritanuda](https://keybase.io/veritanuda)
 
 This method should work for any map depending on the fidelity of it but even irregular maps like cave can be easily masked out.
 
