@@ -20,15 +20,21 @@ PlanarAlly uses peewee as its database orm tool.
 ## List all usernames on server
 
 ```python
-from src.models import User
+from src.db.all import User
 [ u.name for u in User.select() ]
 ```
 
 ## Change the password for a specific user
 
 ```python
-from src.models import User
+from src.db.all import User
 u = User.get(name="*some-username*")
 u.set_password("*new-passowrd*")
 u.save()
+```
+
+## Create new user as admin
+```python
+from src.db.all import User
+User.create(name="*some-username*", password="*some-password*", email="*some-email(optional)")
 ```
