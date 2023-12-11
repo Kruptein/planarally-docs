@@ -25,7 +25,7 @@ server {
     ssl_certificate /etc/letsencrypt/live/darragh.dev/fullchain.pem; # managed by Certbot
     ssl_certificate_key /etc/letsencrypt/live/darragh.dev/privkey.pem; # managed by Certbot
 
-    server_name %FILL_IN%;
+    server_name planarally.CHANGEME.org;
 
     location /subpath {
       proxy_set_header Host $http_host;
@@ -52,4 +52,36 @@ server {
       root /var/www/letsencrypt;
     }
 }
+```
+
+## Apache
+
+The following apache configuration expects the PlanarAlly application server running on port 8008 on the same machine as the proxy.
+It assumes that you have generated SSL/TLS certificates and private keys at the locations specified in `SSLCertificateFile/SSLCertificateKeyFile`.
+All HTTP requests will be redirected to HTTPS.
+Replace `planarally.CHANGEME.org` with the actual domain name on which PlanarAlly will be made available.
+
+```apache
+<VirtualHost *:80>
+    ServerName planarally.CHANGEME.org
+    # Redirect all HTTP requests to HTTPS
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName  planarally.CHANGEME.org
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/certs/planarally.CHANGEME.org.crt
+  SSLCertificateKeyFile /etc/ssl/private/planarally.CHANGEME.org.key
+  ProxyPreserveHost On
+  ProxyRequests off
+  ProxyPass / http://127.0.0.1:8008/
+  ProxyPassReverse / http://127.0.0.1:8008/
+  RewriteEngine on
+  RewriteCond %{HTTP:Upgrade} websocket [NC]
+  RewriteCond %{HTTP:Connection} upgrade [NC]
+  RewriteRule ^/?(.*) "ws://127.0.0.1:8008/$1" [P,L]
+</VirtualHost>
 ```
