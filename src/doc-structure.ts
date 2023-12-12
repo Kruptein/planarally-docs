@@ -141,7 +141,12 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 },
                
                 {
-                    title: "Wall Masks Guide",
+                    title: "RTS-style lighting",
+                    path: "/rts-lighting/",
+                },
+                
+                {
+                    title: "Wall Mask Guide",
                     path: "/Wall_guide/wall-masks/",
                 },
             ],
