@@ -6,11 +6,6 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
-import { Image } from "@astrojs/image/components";
-
-import Lock from "~icons/fa-solid/lock";
-import Unlock from "~icons/fa-solid/unlock";
-
 I promised more regular updates and I failed miserably at that, but hey here is a new release!
 
 _Server owners: changes to the server startup have been made, check [Server](#server)_
@@ -25,12 +20,12 @@ The games section has been collapsed from 3 navigation entries (run/play/create)
 Additionally the "details" sidebar we had previously took up a lot of space on devices with less screen space.
 This section has now been reworked to have most of those options being available when clicking on a game in the list.
 
-<Image src="/docs/dashboard.png" width={800} aspectRatio={1902 / 964} alt="Dashboard" />
+![Dashboard](../docs/dashboard/assets/dashboard.png)
 
 Also important to mention is that this time around the asset manager actually has been included in the redesign.
 So this hopefully makes some people happy, as the previous iteration was something else \:D
 
-<Image src="/docs/dashboard-assets.png" width={800} aspectRatio={1898 / 963} alt="Dashboard Assets" />
+![Dashboard Assets](../docs/dashboard/assets/dashboard-assets.png)
 
 ### Toolbar icons
 
@@ -38,12 +33,7 @@ Another visual change is that the toolbar now comes with icons instead of labels
 
 There is a user-setting to change this back to labels if you don't like this.
 
-<Image
-    src="/docs/toolbar-example.png"
-    width={450}
-    aspectRatio={492 / 143}
-    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
-/>
+![Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool.](../docs/assets/toolbar-example.png)
 
 ## Jumping around the canvas
 
@@ -67,12 +57,7 @@ Another addition is that tokens (you have access to) that are offscreen will now
 pointing towards their direction.
 When you click on this arrow, you center your view on the related shape.
 
-<Image
-    src="/docs/token-directions.png"
-    width={800}
-    aspectRatio={1182 / 969}
-    alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
-/>
+![Example of token directions](./2022.3/token-directions.png)
 
 They take the same colour as your configured ruler colour.
 The feature can also be disabled using a new client setting.

@@ -2,7 +2,8 @@
 layout: ../../layouts/docs.astro
 ---
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
 
 # Tools Overview
 
@@ -11,9 +12,7 @@ GMs are provided with some additional tools suitable for their needs.
 Most, but not all, of these tools are accessible via a toolbar at the bottom right of the Game Board.
 
 <Image
-    src="/docs/toolbar-example.png"
-    width={450}
-    aspectRatio={492 / 143}
+    src={ToolbarExample}
     alt="Example of the toolbar of a GM in 'Build' mode with the Select tool active and the mode ready to be changed into Play mode, while the filter tool can be used, but not the vision tool."
 />
 

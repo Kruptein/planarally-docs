@@ -1,7 +1,6 @@
 import { defineConfig } from "astro/config";
 import Icons from "unplugin-icons/vite";
 import vue from "@astrojs/vue";
-import image from "@astrojs/image";
 import remarkGfm from "remark-gfm";
 import remarkSmartypants from "remark-smartypants";
 import remarkDirective from "remark-directive";
@@ -11,10 +10,10 @@ import mdx from "@astrojs/mdx";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [vue(), image({ serviceEntryPoint: "@astrojs/image/sharp" }), mdx()],
-    legacy: {
-        astroFlavoredMarkdown: true,
-    },
+    integrations: [vue(), mdx()],
+    // legacy: {
+    //     astroFlavoredMarkdown: true,
+    // },
     markdown: {
         remarkPlugins: [remarkGfm, remarkSmartypants, remarkDirective],
         rehypePlugins: [
