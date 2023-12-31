@@ -6,7 +6,9 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
 
 I want to start of with a big thanks! Our little community is starting to grow and it really warms my heart to see all these people joining and sharing their experiences.
 In these times having something to do with your friends like dungeons and dragons is important and thus I hope that PlanarAlly can bring joy to some of you out there.
@@ -86,7 +88,7 @@ Any overriden value will be highlighted to make sure it's clear that it diverges
 
 Additionally it is now also possible to rename or even remove a location.
 
-<Image src="/blog/release-0.20/rename-location.png" width={500} aspectRatio={580 / 248} alt="Rename Location" />
+<Image src={RenameLocation} alt="Rename Location" />
 
 ## Other UI/UX improvements
 
@@ -98,7 +100,7 @@ It was a pain in the past to add users as owners of shapes because you had to ma
 
 Both things are now a thing of the past!
 
-<Image src="/blog/release-0.20/access.png" width={500} aspectRatio={454 / 353} alt="Access Settings" />
+<Image src={Access} alt="Access Settings" />
 
 The access part of the shape properties dialog has been upgraded. It now always shows a default permission line, that you can use to immediately give vision and edit access to all players.
 

@@ -6,11 +6,14 @@ import Info from "/src/components/directives/Info.astro";
 import Warning from "/src/components/directives/Warning.astro";
 import PencilAlt from "~icons/fa-solid/pencil-alt";
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
 
 # Games
 
-<Image src="/docs/dashboard.png" width={800} aspectRatio={1902 / 964} alt="Dashboard" />
+<Image src={Dashboard} alt="Dashboard" />
 
 The _Games_ section is where you can create campaigns or launch an existing campaign.
 
@@ -19,8 +22,8 @@ Both listing all relevant campaigns where you either are a DM or a player.
 
 By clicking on a campaign, it will expand offering some options.
 
-<Image src="/docs/dashboard-dm-campaign.png" width={400} aspectRatio={431 / 289} alt="Dashboard DM campaign" />
-<Image src="/docs/dashboard-player-campaign.png" width={400} aspectRatio={420 / 262} alt="Dashboard Player campaign" />
+<Image src={DashboardDmCampaign} alt="Dashboard DM campaign" />
+<Image src={DashboardPlayerCampaign} alt="Dashboard Player campaign" />
 
 As a DM you can edit the campaign logo or name by clicking on the pencil icons (<PencilAlt />).
 

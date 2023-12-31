@@ -7,7 +7,7 @@ import Info from "/src/components/directives/Info.astro";
 import Tip from "/src/components/directives/Tip.astro";
 import Warning from "/src/components/directives/Warning.astro";
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
 import EditAssetPropertiesPicture from "../../docs/game/assets/edit-asset-properties.png";
 
 # Common tools
@@ -25,7 +25,7 @@ Simply clicking on the various names will open the tool and might even open some
 At the end of the toolbar in a different colour is the "mode switcher".
 Because not all tools are needed at the same time, the concept of a toolbar mode was introduced and currently consists of two modes: "Play" and "Build". The idea is that most tools in Play mode are relevant during normal play, whereas the build mode tools are more relevant to the DM during prep, but can also sometimes be whipped out during active play.
 
-<Image src="/docs/toolbar-example.png" width={500} aspectRatio={449 / 89} alt="Toolbar example" />
+![Toolbar example](../../docs/assets/toolbar-example.png)
 
 You can freely swap between these two at any time by clicking on the mode switcher or using the `tab` keybinding.
 
