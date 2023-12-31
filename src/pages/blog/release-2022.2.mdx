@@ -6,8 +6,6 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
-import { Image } from "astro:assets";
-
 import Lock from "~icons/fa-solid/lock";
 import Unlock from "~icons/fa-solid/unlock";
 
@@ -87,7 +85,7 @@ They are displayed on the bottom of the picker in 2 rows (max 20 colours are tra
 
 The colour history is saved per user across all their campaigns.
 
-<Image src="/blog/release-2022.2/colour-memory.png" width={800} aspectRatio={1208 / 766} alt="Colour Memory" />
+![Colour Memory](./2022.2/colour-memory.png)
 
 (\*) A colour is added to the list when you close the picker, _not_ by drawing with it. The latter would require code throughout the codebase, whereas now it can be contained within the colour picker logic.
 
@@ -122,7 +120,7 @@ There are however also variants of doors (e.g. portcullis) or things like window
 
 You can now specify which blocker the door should toggle on click.
 
-<Image src="/blog/release-2022.2/door-block-mode.png" width={500} aspectRatio={553 / 214} alt="Door Block Mode" />
+![Door Block Mode](./2022.2/door-block-mode.png)
 
 You can still ofcourse manually change the other block property as you see fit. \
 (e.g. have a window use the door logic to only toggle vision to mimick curtains, but change the movement property if someone throws a brick through the window)
@@ -166,7 +164,7 @@ Parts of this wonkoy behaviour are fixed on nightly versions of firefox, but not
 
 The rectangle showing the active viewport of players (when enabled) was using 1 solid colour, which similarly to the door icons, was not very legible depending on the background colour. This now also uses a second colour for contrast.
 
-<Image src="/blog/release-2022.2/viewport.png" width={800} aspectRatio={1677 / 1015} alt="Viewport UI update" />
+![Viewport UI update](./2022.2/viewport.png)
 
 ### Varia
 
