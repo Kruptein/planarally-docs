@@ -5,15 +5,21 @@ import Main from "./main.astro";
 
 const { title, author, date } = Astro.props.content;
 const { headings } = Astro.props;
-const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
+const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format("D MMMM YYYY");
 ---
 
 <Main>
     <HamburgerMenu element="blog-aside" toggleClass="open" client:only />
-    <aside id='blog-aside'>
-        {headings.map(header => {
-            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.slice(1)}</a>)
-        })}
+    <aside id="blog-aside">
+        {
+            headings.map((header) => {
+                return (
+                    <a href={"#" + header.slug} class={"depth-" + header.depth}>
+                        {header.text.slice(1)}
+                    </a>
+                );
+            })
+        }
     </aside>
     <div id="container">
         <main>
@@ -25,8 +31,8 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
 </Main>
 
 <style lang="scss">
-    @import '../styles/layout.scss';
-    
+    @import "../styles/layout.scss";
+
     #container {
         display: flex;
         flex-direction: column;
@@ -52,7 +58,9 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         opacity: 0;
 
         transform: translate(-100%);
-        transition: opacity .5s, transform .25s ease;
+        transition:
+            opacity 0.5s,
+            transform 0.25s ease;
 
         &.open {
             padding-top: 4rem;
@@ -87,7 +95,8 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
             padding: 3px 0;
         }
 
-        .depth-1, .depth-2 {
+        .depth-1,
+        .depth-2 {
             border-top: solid 1px rgb(226, 236, 236);
             margin-top: 10px;
             padding-top: 10px;
@@ -119,8 +128,9 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
             max-width: 1000px;
         }
 
-        #title, #author {
-            text-align:center;
+        #title,
+        #author {
+            text-align: center;
         }
 
         #author {
@@ -132,6 +142,15 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
         :global(ul),
         :global(ol) {
             margin-bottom: 1.5rem;
+        }
+
+        :global(li > ul) {
+            margin-bottom: 0;
+        }
+
+        :global(a) {
+            color: green;
+            font-weight: bold;
         }
 
         :global(img) {
@@ -156,14 +175,14 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format('D MMMM YYYY')
             scroll-margin-top: 135px;
             position: relative;
 
-            > :global(a[aria-hidden=true]) {
+            > :global(a[aria-hidden="true"]) {
                 visibility: hidden;
                 padding-right: 20px;
-                color: green
+                color: green;
             }
 
-            &:hover {                
-                > :global(a[aria-hidden=true]) {
+            &:hover {
+                > :global(a[aria-hidden="true"]) {
                     visibility: visible;
                 }
             }
