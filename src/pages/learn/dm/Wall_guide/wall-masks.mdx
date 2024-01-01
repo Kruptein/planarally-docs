@@ -28,30 +28,30 @@ For this method I will pick a random map from Free Friday Maps. Which you can ge
 
 So this is the map I will start with.
 
-<Image src={assets/FREE-MAP-FRIDAY-001_COLOR_PLAYER-GRID.JPG} width={1000} aspectRatio={5100 / 3300} alt="FFMAP01" />
+![FFMAP01](./assets/FREE-MAP-FRIDAY-001_COLOR_PLAYER-GRID.JPG)
 
 It comes in a few types include Lineart. Which is what we will use. 
 
 
-<Image src={assets/method1_1.png} width={1000} aspectRatio={1920 / 1005} alt="method1_1" />
+![method1_1](./assets/method1_1.png)
 
 
 # Removing the background
 
 In this map is has some irregular hashing around the map for a background. Fortunately though it is a different colour a sort of grey. So selecting the `Fuzzy select/Colour Select` tool, choose `Colour Select` select one of the grey areas of the background and you should see all the grey become highlighted. 
 
-<Image src={assets/method1_2.png} width={1000} aspectRatio={1920 / 1005} alt="method1_2" />
+![method1_2](./assets/method1_2.png)
 
 
 This is good, but, because the lines between them are not selected, if were were to delete them now it would just leave the black crazy paving look.
 
-<Image src={assets/method1_3.png} width={1000} aspectRatio={1920 / 1005} alt="method1_3" />
+![method1_3](./assets/method1_3.png)
 
  So while everything is selected right click on the image go to `Select` `>` `Grow...`
 
 Grow the selection a few pixels until it covers the lines between the grey spots. Once you are satisfied you have caught it all, press `Delete` and *POOF* the background disappears. 
 
-<Image src={assets/method1_4.png} width={1000} aspectRatio={1920 / 1005} alt="method1_4" />
+![method1_4](./assets/method1_4.png)
 
 Now go back to the `Fuzzy Select` and this time choose `Fuzzy Select`. Click on the now white background and see everything is selected. 
 
@@ -59,17 +59,17 @@ Now go back to the `Fuzzy Select` and this time choose `Fuzzy Select`. Click on 
 
 Now in the `Layers` panel add `New Layer` Name this layer `mask`. 
 
-<Image src={assets/method1_5.png} width={1000} aspectRatio={1920 /1005} alt="method1_5" />
+![method1_5](./assets/method1_5.png)
 
 
 On that layer select the `Bucket Fill` tool. Click on the selection of the background you did earlier and it should fill it all black. 
 
-<Image src={assets/method1_6.png} width={1000} aspectRatio={1920 / 1005} alt="method1_6" />
+![method1_6](./assets/method1_6.png)
 
 
 Hide the line art layer and check you have a complete mask wth no missing bits. 
 
-<Image src={assets/method1_7.png} width={1000} aspectRatio={1920 / 1005} alt="method1_7" />
+![method1_7](./assets/method1_7.png)
 
 If you did miss something, don't panic, just press `Cntrl-Z` to undo and go back to selecting the parts you missed before. 
 
@@ -88,7 +88,7 @@ Right click on the image and go `Image` `>` `Mode` , if you imported the Line ar
 
 Then right click on the image go `File` `>` `Export As...`  and save the image as a `BMP`  Turn OFF `Run Length Encoding` Turn OFF `Do not write colour space information` and make sure under `Advanced` you are `32 Bits`
 
-<Image src={assets/method1_8.png} width={1000} aspectRatio={1920 / 1005} alt="method1_8" />
+![method1_8](./assets/method1_8.png)
 
 Once that is saved you can either use the command line `potrace` or you can do it online for free from [this website](https://svg-converter.com/potrace)
 
@@ -98,7 +98,7 @@ The command to do it  yourself is extremely simple.
 
 This should give you an `svg` that if you open up in graphic program should be black, where the light will be blocked and clear where the light can shine.
 
-<Image src={assets/method1_9.png} width={1000} aspectRatio={1920 / 1005} alt="method1_9" /> 
+![method1_9](./assets/method1_9.png)
 
 
 
@@ -114,29 +114,29 @@ https://www.reddit.com/r/FantasyMaps/comments/hrf51h/battlemap30x202160x1440pxca
 
 Import the map into gimp.
 
-<Image src={assets/method2_1.png} width={1000} aspectRatio={1920 / 1005} alt="method2_1" />
+![method1_1](./assets/method2_1.png)
 
 Create a new layer, call it `guide`.
 
 With the `Pencil tool` select the `Circle` as a brush and make it black. Resize as needed. Making sure you selected the `guide` layer, start drawing on the coloured portions of the map **within** the walls.
 
-<Image src={assets/method2_2.png) width={1000} aspectRatio={1920 / 1005} alt="method2_2" />
+![method2_2](./assets/method2_2.png)
 
 
-<Image src={assets/method2_3.png} width={1000} aspectRatio={1920 / 1005} alt="method2_3" />
+![mehod2_3](./assets/method2_3.png)
 Once you are happy you have all the shape filled in, create another layer called `walls.` 
 
 On the `guide` layer use the `Select by colour` tool and click on the black guide you have made. Then invert the selection.
 
-<Image src={assets/method2_4.png} width={1000} aspectRatio={1920 / 1005} alt="method2_4" />
+![method2_4](./assets/method2_4.png)
 
 Then on the `walls` layer use the bucket fill tool to fill in the inverted selection with black and fill out the walls.
 
-<Image src={assets/method2_5.png} width={1000} aspectRatio={1920 / 1005} alt="method2_5" /> 
+![method2_5](./assets/method2_5.png)
 
 Once that it done hide the previous layers and if you are happy you have not missed anywhere, delete those layers and save the image as BMP as above to be converted using either method above.
 
-<Image src={assets/method2_6.png} width={1000} aspectRatio={1920 / 1005} alt="method2_6" /> 
+![method2_6](./assets/method2_6.png)
 
 # Importing Walls into PA
 
