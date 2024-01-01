@@ -9,25 +9,25 @@
         "preview": "astro preview"
     },
     "devDependencies": {
-        "@astrojs/vue": "^2.2.1",
-        "@iconify/json": "^2.2.80",
-        "astro": "^2.6.5",
-        "eslint": "^8.43.0",
-        "eslint-config-prettier": "^8.8.0",
-        "eslint-plugin-vue": "^9.15.0",
-        "prettier": "^2.8.8",
-        "prettier-plugin-astro": "^0.10.0",
-        "sass": "^1.63.4",
-        "unplugin-icons": "^0.16.3",
-        "vue": "^3.3.4"
+        "@astrojs/vue": "^4.0.6",
+        "@iconify/json": "^2.2.163",
+        "astro": "^4.0.8",
+        "eslint": "^8.56.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-vue": "^9.19.2",
+        "prettier": "^3.1.1",
+        "prettier-plugin-astro": "^0.12.3",
+        "sass": "^1.69.6",
+        "unplugin-icons": "^0.18.1",
+        "vue": "^3.4.3"
     },
     "dependencies": {
-        "@astrojs/image": "^0.17.0",
-        "@astrojs/mdx": "^0.19.7",
-        "dayjs": "^1.11.8",
-        "rehype-autolink-headings": "^6.1.1",
-        "rehype-slug": "^5.1.0",
-        "remark-directive": "^2.0.1",
-        "sharp": "^0.32.1"
+        "@astrojs/mdx": "^2.0.3",
+        "bufferutil": "^4.0.8",
+        "dayjs": "^1.11.10",
+        "rehype-autolink-headings": "^7.1.0",
+        "rehype-slug": "^6.0.0",
+        "remark-directive": "^3.0.0",
+        "sharp": "^0.33.1"
     }
 }

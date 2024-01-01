@@ -6,8 +6,6 @@ author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
 ---
 
-import { Image } from "@astrojs/image/components";
-
 2023.2 is a release that is almost entirely focussed on bug fixes. So it will be pretty dry as nothing super exciting is added in this one, sorry!
 
 It's been a good 4 months since the last release, which I had hoped to avoid this time around.
@@ -54,7 +52,8 @@ Some small changes in the overall shape might occur, but they should be very sub
 
 As an example take the below image:
 
-<Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" />
+{/* <Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" /> */}
+![Brush draw point reductions](./2023.2/brush.png)
 
 The green points are points that used to be saved as well. As you can see that's a lot of points that no longer have to be tracked \:D
 

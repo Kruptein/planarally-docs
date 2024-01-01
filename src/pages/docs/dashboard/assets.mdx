@@ -3,15 +3,13 @@ layout: ../../../layouts/docs.astro
 ---
 
 import Info from "/src/components/directives/Info.astro";
-import Warning from "/src/components/directives/Warning.astro";
-import Tip from "/src/components/directives/Tip.astro";
-import PencilAlt from "~icons/fa-solid/pencil-alt";
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
 
 # Assets
 
-<Image src="/docs/dashboard-assets.png" width={800} aspectRatio={1898 / 963} alt="Dashboard Assets" />
+<Image src={DashboardAssets} alt="Dashboard Assets" />
 
 The **Assets** section offers you to manage or create assets that can be used in campaigns.
 _See the [DM assets](/docs/dm/assets/) section to learn how to use them_.

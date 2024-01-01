@@ -1,0 +1,128 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+The focus of 2023.3 is experimental features: mods and a new concept called 'character' being the most prominent ones.
+More on these below, they are still very much in early iterations,
+but instead of just holding the dev branch hostage until I'm satisfied I'm already pushing these out as is.
+
+Part of the reason for this is also that there are some bugfixes in this release that I'd like to get out as soon as possible.
+
+## Campaign Sorting
+
+We'll start of with a small quality of life improvement that was long overdue.
+The campaign listing can now be sorted alphabetically or by most recent interaction.
+It will default sort on most recent activity.
+
+There is not much else to say, it's a small change but it's a nice one.
+
+## Lighting & Vision
+
+### Making circles great again
+
+The code handling vision works with vertices and edges.
+Circles don't really fit into this model out of the box as a circle is an infinite set of points.
+
+Historically this was "solved" by just using the bounding box of the circle when used in vision related code.
+Which results in pillars and other things on your map being represented as squares in the vision system.
+
+This is ofcourse not really what you want and so most people have been using the polygon tool to fit this need.
+
+The polygon tool is a very versatile and powerful tool, but sometimes you just want to use a damn circle.
+And when PA shows a circle as a possible shape to draw, you expect something at least close to a circle and not a square.
+
+So tl;dr circles are now approximated by polygons based on the size of the circle for all things vision related.
+It's not a perfect fit as that would be computationally expensive, but it's a lot better than a square.
+
+### Triangulation Crashes
+
+The aforementioned vision code using vertices and edges is based on a triangulation algorithm.
+Although rare, it can happen that something hard bricks in this code and leaves the game in an unplayable state.
+
+One of these rare edgecases was miracously encountered by two different people recently, even though the particular edgecase has existed for multiple years.
+This is addressed in this release and should no longer happen.
+
+### Cheating Auras
+
+Apparently when you have an aura enabled that has both normal and dim values set to zero and it's a vision interacting aura, it would just light up the entire map.
+
+This is no longer the case and the aura will now behave as if it's disabled.
+
+## Assets
+
+Some small changes to asset removal logic have been made.
+
+Removing an asset from the asset manager will not remove the actual asset from disk if there are still shapes using that asset.
+
+Consequently, when removing shapes in-game an extra check is made to see if the related asset can be removed from disk.
+
+## Experimental Additions
+
+As mentioned in the introduction, this release contains some experimental additions.
+It should be noted again that each of these are still in early iterations and are subject to change.
+
+### Mods
+
+I'm only a single person and sometimes I get requests that I just don't have the time to implement or feel like they don't belong in the main codebase,
+even though they could be interesting. Mods are a way to allow others to implement these features.
+
+I'm not very familiar with offering modding capabilities, so this is very much a learning experience for me as well.
+The current implementation is very barebones and I'm sure there are a lot of things that could be improved, but we need a starting point and so it's here!
+
+For more information on the modding API, what it exactly entails and some examples, check out [this PR on github](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_this is purely technical information and not really relevant for regular users_
+
+Another new concept that is introduced with mods are "DataBlocks".
+This is the system that is currently being proposed to offer mods server side data storage.
+
+Mods are purely client-side so they cannot interact with the database directly, nor can they interact with any server side code directly.
+Instead they can store and retrieve arbitrary data in the form of DataBlocks.
+
+### Characters
+
+"Characters" are a new concept that is currently being explored and is adjacent to the 'templates' concept.
+
+Templates offer a way to create variants of a particular shape with information pre-filled. Once dropped on the map they are however completely independent of each other.
+Typical usecases for a template are monsters. You have a template for a goblin and you can drop as many goblins as you want on the map and their hp and ac are already configured.
+You however don't want modifications to 1 goblin to alter the other goblins once they are on the map.
+
+Characters are the complement to this. They represent a unique instance of a particular shape. Modifications to a character are remembered.
+You can remove a shape that is linked to a character and later drag&drop the character back on the map and it will be in the exact same state as when you removed it.
+
+#### Creation
+
+You can create a character from the right-click context-menu on any shape as long as you have edit access to it.
+
+#### Actions
+
+Once a shape is linked to a character, it will be listed in the Characters section in the left side-bar.
+As usual the DM will also see all player created characters, while players will only see their own characters.
+
+When you click on a character in this listing, your camera is moved to center on the particular character.
+
+Additionally as a DM you can drag and drop the character as you would do with an asset. This will teleport the character's existing shape to the place you dropped.
+If there is no shape currently associated with the character, it will instead be created at that location with all it's previous data.
+
+#### Future
+
+The idea is to provide more functionality to this concept in the future.
+In particular the notion of character sheets that could be set-up through mod interaction is something that is being explored.
+
+Another idea is to allow players to create characters from the main dashboard and then link them to a campaign.
+This way players can create their own characters up front with their art and stats already filled in, without having to go through the DM all the time.
+
+## Varia Fixes
+
+-   Export: Campaigns with notes could fail to export
+-   Kicking: The check to prevent the co-DM from kicking the main DM was incorrect
+-   Shapes: The angle of shapes while rotating was being rounded to whole integers, which is kinda awkard when dealing with radians
+    -   This in practice would often result in a rotated shape to not actually rotate at all for other players or on refresh

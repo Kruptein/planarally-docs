@@ -3,13 +3,13 @@ layout: ../../../layouts/docs.astro
 ---
 
 import Warning from "/src/components/directives/Warning.astro";
-import PencilAlt from "~icons/fa-solid/pencil-alt";
 
-import { Image } from "@astrojs/image/components";
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
 
 # Settings
 
-<Image src="/docs/dashboard-settings.png" width={800} aspectRatio={2474 / 893} alt="Dashboard Settings" />
+<Image src={DashboardSettings} alt="Dashboard Settings" />
 
 Currently only Account Settings are available.
 This section allows you to set an email address if you desire and more importantly allows you to change your password or remove your account.
