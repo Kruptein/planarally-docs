@@ -139,9 +139,13 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                     title: "Creating your first session",
                     path: "/first-session/",
                 },
-                {
+               {
                     title: "RTS-style lighting",
                     path: "/rts-lighting/",
+                },
+                {
+                    title: "Wall Masks Guide",
+                    path: "/Wall_guide/wall-masks/",
                 },
             ],
         },
