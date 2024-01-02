@@ -1,6 +1,6 @@
 ---
-import HamburgerMenu from '../components/HamburgerMenu.vue';
-import { getDocsNav } from '../doc-structure';
+import HamburgerMenu from "../components/HamburgerMenu.vue";
+import { getDocsNav } from "../doc-structure";
 import Main from "./main.astro";
 
 const currentUrl = Astro.url.pathname;
@@ -14,12 +14,18 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
 <Main>
     <HamburgerMenu element="docs-nav" toggleClass="open" client:only />
     <nav id="docs-nav">
-        {docs.map(doc => {
-            if (doc.depth === 1) {
-                return (<span class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</span>)
-            }
-            return (<a href={doc.path} class={'depth-' + doc.depth + (doc.active ? ' active' : '')}>{doc.title}</a>)
-        })}
+        {
+            docs.map((doc) => {
+                if (doc.depth === 1) {
+                    return <span class={"depth-" + doc.depth + (doc.active ? " active" : "")}>{doc.title}</span>;
+                }
+                return (
+                    <a href={doc.path} class={"depth-" + doc.depth + (doc.active ? " active" : "")}>
+                        {doc.title}
+                    </a>
+                );
+            })
+        }
     </nav>
     <div id="container">
         <main style={headings.length <= 1 ? "border-right:none" : ""}>
@@ -27,14 +33,20 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         </main>
     </div>
     <aside id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
-        {headings.map(header => {
-            return (<a href={'#' + header.slug} class={'depth-' + header.depth}>{header.text.startsWith('#') ? header.text.slice(1) : header.text}</a>)
-        })}
+        {
+            headings.map((header) => {
+                return (
+                    <a href={"#" + header.slug} class={"depth-" + header.depth}>
+                        {header.text.startsWith("#") ? header.text.slice(1) : header.text}
+                    </a>
+                );
+            })
+        }
     </aside>
 </Main>
 
 <style lang="scss">
-    @import '../styles/layout.scss';
+    @import "../styles/layout.scss";
 
     #container {
         display: flex;
@@ -61,7 +73,9 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         opacity: 0;
 
         transform: translate(-100%);
-        transition: opacity .5s, transform .25s ease;
+        transition:
+            opacity 0.5s,
+            transform 0.25s ease;
 
         &.open {
             padding-top: 4rem;
@@ -83,7 +97,6 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             width: max($sidebar-width, calc(50vw - 100px - 500px));
         }
 
-
         &::-webkit-scrollbar {
             width: 5px;
         }
@@ -101,7 +114,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             color: green;
 
             &::before {
-                content: '⬤';
+                content: "⬤";
                 position: relative;
                 font-size: small;
                 vertical-align: 10%;
@@ -115,7 +128,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             padding-top: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: .1rem;
+            letter-spacing: 0.1rem;
 
             &:first-of-type {
                 border-top: 0;
@@ -144,7 +157,9 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         opacity: 0;
 
         transform: translate(-100%);
-        transition: opacity .5s, transform .25s ease;
+        transition:
+            opacity 0.5s,
+            transform 0.25s ease;
 
         @media (min-width: 1400px) {
             visibility: visible;
@@ -285,16 +300,19 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             margin-bottom: 1.5rem;
             scroll-margin-top: 135px;
             position: relative;
-            left: -35px;
 
-            > :global(a[aria-hidden=true]) {
+            @media (min-width: 960px) {
+                left: -35px;
+            }
+
+            > :global(a[aria-hidden="true"]) {
                 visibility: hidden;
                 padding-right: 20px;
-                color: green
+                color: green;
             }
 
             &:hover {
-                > :global(a[aria-hidden=true]) {
+                > :global(a[aria-hidden="true"]) {
                     visibility: visible;
                 }
             }
