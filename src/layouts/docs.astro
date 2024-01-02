@@ -306,9 +306,12 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             }
 
             > :global(a[aria-hidden="true"]) {
-                visibility: hidden;
                 padding-right: 20px;
                 color: green;
+
+                @media (min-width: 960px) {
+                    visibility: hidden;
+                }
             }
 
             &:hover {
