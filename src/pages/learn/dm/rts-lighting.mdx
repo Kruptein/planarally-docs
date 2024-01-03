@@ -41,6 +41,10 @@ In essence, we will
 
 First, set up your regular map using the lighting and vision system: fill the canvas with fog of war, add some walls and lights as it pleases you.
 
+![rts-image_00](./assets/rts_image_00.png)
+
+
+
 ### Sectors
 
 Then look at your map to identify portions that can be explored independently.
@@ -50,6 +54,8 @@ Now, place one or more light sources (depending on the zone's layout).
 These lights should be able to shed light on the entire zone.
 You will probably want just sharp auras with no dim light on the edges.
 
+![rts_image_01](./assets/rts_image_01.png)
+
 Hide away the lights on the _DM_ layer and/or deactivate the auras for later use.
 
 ## Implementation
@@ -58,8 +64,16 @@ The moment the zone shall be visible to your players (either as they enter it or
 Do this via activating the aura (if you deactivated it) and moving the light source to the `fow` layer, to light up the zone.
 Set the light source to _public_ also, so that players can actually see it.
 
+![rts_image_02](./assets/rts_image_02.png)
+
 Since the light source is on the _fow_ layer, its aura will be drawn on the token layer, while the shape itself will remain invisible.
 The `fow` layer will also strip the aura of _any_ colour.
+
+![rts_image_03](./assets/rts_image_03.png)
+
+![rts_image_04](./assets/rts_image_04.png)
+
+
 In case you want to be able to differentiate between actual sight and RTS-style sight, either give the players' sight a slight hue, or move the light sources to the _map_ layer instead.
 You can either make the token invisible or hide it beneath any map images you added via the `move to back` function.
 Use the `lock` function to prevent accidentally dragging the lights with your group or other elements of the map.
@@ -67,7 +81,15 @@ Use the `lock` function to prevent accidentally dragging the lights with your gr
 In case you enabled the _only show lights within line-of-sight_ option, you need, instead, add _vision_ access for all the players to the lights you want to use.
 Otherwise, they will lose knowledge of the already explored zone the moment there is a wall between them and the respective zone.
 In this case, you might want to add access _entries_ for all players in the light sources properties beforehand while deactivating every access level.
+
 This way, you just need to tick a few <Lightbulb/>-icons to light up a zone.
 
+![rts_image_05](./assets/rts_image_05.png)
+
+![rts_image_06](.assets/rts_image_06.png)
+
 Note that this will light up not only the _map_ layer but also the _tokens_ layer.
+
 If you want to hide enemy movements for your player, move their tokens to the _DM_ layer.
+
+
