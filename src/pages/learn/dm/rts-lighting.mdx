@@ -41,7 +41,7 @@ In essence, we will
 
 First, set up your regular map using the lighting and vision system: fill the canvas with fog of war, add some walls and lights as it pleases you.
 
-![rts-image_00](./assets/rts_image_00.png)
+![rts-image-00](./assets/rts-image-00.png)
 
 
 
@@ -54,7 +54,7 @@ Now, place one or more light sources (depending on the zone's layout).
 These lights should be able to shed light on the entire zone.
 You will probably want just sharp auras with no dim light on the edges.
 
-![rts_image_01](./assets/rts_image_01.png)
+![rts-image-01](./assets/rts-image-01.png)
 
 Hide away the lights on the _DM_ layer and/or deactivate the auras for later use.
 
@@ -64,14 +64,14 @@ The moment the zone shall be visible to your players (either as they enter it or
 Do this via activating the aura (if you deactivated it) and moving the light source to the `fow` layer, to light up the zone.
 Set the light source to _public_ also, so that players can actually see it.
 
-![rts_image_02](./assets/rts_image_02.png)
+![rts-image-02](./assets/rts-image-02.png)
 
 Since the light source is on the _fow_ layer, its aura will be drawn on the token layer, while the shape itself will remain invisible.
 The `fow` layer will also strip the aura of _any_ colour.
 
-![rts_image_03](./assets/rts_image_03.png)
+![rts-image-03](./assets/rts-image-03.png)
 
-![rts_image_04](./assets/rts_image_04.png)
+![rts-image-04](./assets/rts-image-04.png)
 
 
 In case you want to be able to differentiate between actual sight and RTS-style sight, either give the players' sight a slight hue, or move the light sources to the _map_ layer instead.
@@ -84,9 +84,9 @@ In this case, you might want to add access _entries_ for all players in the ligh
 
 This way, you just need to tick a few <Lightbulb/>-icons to light up a zone.
 
-![rts_image_05](./assets/rts_image_05.png)
+![rts-image-05](./assets/rts-image-05.png)
 
-![rts_image_06](.assets/rts_image_06.png)
+![rts-image-06](.assets/rts-image-06.png)
 
 Note that this will light up not only the _map_ layer but also the _tokens_ layer.
 
