@@ -25,6 +25,7 @@
         "@astrojs/mdx": "^2.0.3",
         "bufferutil": "^4.0.8",
         "dayjs": "^1.11.10",
+        "medium-zoom": "^1.1.0",
         "rehype-autolink-headings": "^7.1.0",
         "rehype-slug": "^6.0.0",
         "remark-directive": "^3.0.0",

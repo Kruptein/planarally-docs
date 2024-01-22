@@ -11,6 +11,11 @@ import Header from "./header.astro";
         <link rel="icon" type="image/png" href="/favicon.png" />
         <title>PlanarAlly Documentation</title>
         <script defer data-domain="planarally.io" src="https://plausible.io/js/script.js"></script>
+
+        <script>
+            import mediumZoom from "medium-zoom";
+            mediumZoom("img:not([data-no-zoom])", { background: "transparent" });
+        </script>
     </head>
 
     <body>
