@@ -65,6 +65,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 "Markers",
                 "Snapping",
                 "Shapes",
+                "Notes",
             ],
         },
         {
@@ -83,7 +84,6 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                     path: "/lighting-vision/",
                 },
                 "Assets",
-                "Notes",
             ],
         },
         {
