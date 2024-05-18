@@ -1,0 +1,165 @@
+---
+title: Release 2024.2
+date: 2024-05-18 14:00:00
+excerpt: "Bestagons are back"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+This release is all about grids and in particular giving hexagons some love.
+
+## Deprecation Notice
+
+Before moving on to the good stuff,
+I would like to announce that I intend to remove the label/filter system somewhere in the future.
+This is, _I think_, not really used wildly and it's a bit of a relic from the past.
+
+It's possible that a replacement or some alternative might be provided in the future,
+but the current implementation is just a bit too clunky to keep around.
+
+If this is something that you do use actively, please contact me.
+
+## Shape grid settings
+
+A new tab is added in the Edit Shape dialog called 'grid' to configure some new settings related to the grid behaviour of the shape.
+
+![Shape Grid Settings](./2024.2/grid-settings.png)
+
+### Shape grid size
+
+Snapping shapes to the grid works well for 1x1 shapes.
+But when you have a shape that is larger than 1x1, the snapping behaviour can be a bit unpredictable.
+This is because PA has to make a best guess on how many grid cells a certain shape is supposed to represent.
+
+If a shape takes up 75px by 75px and the grid is 50px, should it snap to a grid area matchin 1x1 or 2x2?
+The answer depends on the actual shape. Maybe it's just a very big art asset but it should only take up 1 grid cell.
+But it might as well be a very small asset for a bigger creature.
+
+This release gives more control over this behaviour by providing the option to explicitly specify the grid size a shape should take up.
+PA will still by default estimate the grid size based on the shape's dimensions, but you can now override this.
+
+
+### Show grid occupation
+
+This is a new setting that allows you to show the grid cells that a shape is currently occupying.
+You can specify the background colour and border colour of the grid cells.
+
+This can be useful if you have some assets that might not clearly indicate their size and you want to make sure their influence is clearly shown.
+
+### Hex orientation
+
+A part of the improved hexagon support, is the ability to configure the orientation of evenly-sized hexagons.
+
+These hexagons can have 2 orientations, so this setting allows you to toggle between the two.
+
+## Hexagons
+
+PA has had support for hexagonal grids for a while now, but it was always a bit of a second class citizen.
+Outside of rendering a flat or pointy hex grid, nothing else in the system interacted with hexes.
+This caused a lot of issues when trying to use hexes in practice.
+For example snapping shapes to the grid or points would not behave correctly as it was still using a square representation for its logic.
+
+This release aims to fix that and make hexes a proper first class citizen in PA.
+
+In particular snapping has been updated to work correctly with hexes.
+This includes snapping a point to the grid, but also snapping shapes to the grid.
+
+The Select, Draw, Ruler and Map tools have all been updated to better work with hexagons.
+
+## Ruler Tool: Grid Mode
+
+Another grid related change is that the ruler tool now has a new option that can be enabled which is called 'grid mode'.
+
+In grid mode, the ruler will no longer measure the distance between 2 points in a straight line, but instead will measure the distance following the grid.
+This should resolve some issues with measuring large distances on grids where you only care about the number of cells travelled and
+not so much about the actual distance in pixels.
+
+When enabling grid mode, the ruler will show both number of cells as well as the total distance.
+This behaviour can be configured in your Client Settings however, allowing you to only show 1 of the two instead.
+
+![Grid Mode Ruler](./2024.2/ruler-gridmode.png)
+
+## Context Menu UI update
+
+The right click context menu got a long overdue update to its visuals.
+
+Firstly, the UI has more space, making it easier to read and navigate.
+
+Secondly, as the menu kept growing, new subsections have been added.
+In particular all actions related to moving a shape to some other place,
+have been moved to a new 'Move' section.
+
+![New Context-Menu UI](./2024.2/context-menu.png)
+
+## Export/Import
+
+### Missing data
+
+The new note system implemented in the last release broke the export and import functionality.
+
+This release fixes that as well as some other things I happened to forget to add to the export/import system.
+In particular Characters, DataBlocks and Notes are now properly exported.
+
+### Import name
+
+When importing a campaign, you can now specify which name it should have instea of always using the name in the file.
+
+### Import cleanup
+
+Small improvements were made to the import code.
+
+When imports fail, the room that was being imported into is now properly cleaned up.
+
+An edgecase where the import code could run twice was also resolved.
+
+## Edit Shape: Groups UI
+
+This tab in the edit shape dialog has been non-responsive for a while now.
+Changes made would not immediately update causing confusion to whether or not it actually worked.
+
+This release overhauled the internals of this UI completely and it now should be responsive and working as one would expect.
+This applies to all badge related settings, but also to the addition/removal of members to the group.
+
+## Smaller changes
+
+### Note fixes
+
+The new note system is running quite well in general, but some small bugs have been reported and got resolved.
+
+- The filter was not properly rerunning when opening shape notes, causing notes from the previous shape to still be visible sometimes
+- When shape filtering, the shape name in the UI would change if you clicked on another shape with the select tool.
+- Note icons drawn on a shape could be drawn behind the shape in some circumstances.
+- Fix 'add shape' and 'remove shape' events not being synced immediately if you only have view access
+- Fixed rendering of markdown which included raw HTML elements in annotations
+- Notes were not properly saved on templates
+
+
+### Snapping fixes
+
+The Select and Draw tool got some small issue fixed where some operations (e.g. snap to point, resize) would try to snap to the point being moved.
+This caused odd behaviour where you're seemingly not snapping at all.
+
+The draw tool was also not snapping to a point on the initial click.
+
+### Spell tool
+
+The spell tool has builtin logic to return to the select tool after a spell has been cast.
+It was however being a bit too forceful in its requirement to return to the select tool.
+
+Selecting another tool manually would always result in the select tool being selected instead, this has been resolved.
+
+Another small QoL fix is the size input now better behaves when you're trying to input a number a smaller than 1.
+
+### Poylgon contains check
+
+The logic to detect if you clicked on a polygon had two faults that have been resolved.
+
+If a polygon reused a point (due to some self-intersection) the contains code would start hallucinating.
+
+The imaginary line between the first and last point when using a non-closing polygon was also seen as part of the polygon.
+
+### Other bugfixes
+
+- Moving shapes to front/back not updating immediately
+- Fixed an issue where Initiative.Order.Change would fail when called with some Shape Ids.
+- Changing client settings for the grid would not immediately update the screen
