@@ -131,12 +131,15 @@ The new note system is running quite well in general, but some small bugs have b
 - Note icons drawn on a shape could be drawn behind the shape in some circumstances.
 - Fix 'add shape' and 'remove shape' events not being synced immediately if you only have view access
 - Fixed rendering of markdown which included raw HTML elements in annotations
+- Notes were not properly saved on templates
 
 
 ### Snapping fixes
 
 The Select and Draw tool got some small issue fixed where some operations (e.g. snap to point, resize) would try to snap to the point being moved.
 This caused odd behaviour where you're seemingly not snapping at all.
+
+The draw tool was also not snapping to a point on the initial click.
 
 ### Spell tool
 
@@ -159,3 +162,4 @@ The imaginary line between the first and last point when using a non-closing pol
 
 - Moving shapes to front/back not updating immediately
 - Fixed an issue where Initiative.Order.Change would fail when called with some Shape Ids.
+- Changing client settings for the grid would not immediately update the screen
