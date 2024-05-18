@@ -1,6 +1,6 @@
 ---
 title: Release 2024.2
-date: 2024-03-27 12:00:00
+date: 2024-05-18 14:00:00
 excerpt: "Bestagons are back"
 author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
@@ -8,11 +8,24 @@ layout: ../../layouts/blog.astro
 
 This release is all about grids and in particular giving hexagons some love.
 
-# Shape grid settings
+## Deprecation Notice
+
+Before moving on to the good stuff,
+I would like to announce that I intend to remove the label/filter system somewhere in the future.
+This is, _I think_, not really used wildly and it's a bit of a relic from the past.
+
+It's possible that a replacement or some alternative might be provided in the future,
+but the current implementation is just a bit too clunky to keep around.
+
+If this is something that you do use actively, please contact me.
+
+## Shape grid settings
 
 A new tab is added in the Edit Shape dialog called 'grid' to configure some new settings related to the grid behaviour of the shape.
 
-## Shape grid size
+![Shape Grid Settings](./2024.2/grid-settings.png)
+
+### Shape grid size
 
 Snapping shapes to the grid works well for 1x1 shapes.
 But when you have a shape that is larger than 1x1, the snapping behaviour can be a bit unpredictable.
@@ -26,20 +39,20 @@ This release gives more control over this behaviour by providing the option to e
 PA will still by default estimate the grid size based on the shape's dimensions, but you can now override this.
 
 
-## Show grid occupation
+### Show grid occupation
 
 This is a new setting that allows you to show the grid cells that a shape is currently occupying.
 You can specify the background colour and border colour of the grid cells.
 
 This can be useful if you have some assets that might not clearly indicate their size and you want to make sure their influence is clearly shown.
 
-## Hex orientation
+### Hex orientation
 
 A part of the improved hexagon support, is the ability to configure the orientation of evenly-sized hexagons.
 
 These hexagons can have 2 orientations, so this setting allows you to toggle between the two.
 
-# Hexagons
+## Hexagons
 
 PA has had support for hexagonal grids for a while now, but it was always a bit of a second class citizen.
 Outside of rendering a flat or pointy hex grid, nothing else in the system interacted with hexes.
@@ -53,7 +66,7 @@ This includes snapping a point to the grid, but also snapping shapes to the grid
 
 The Select, Draw, Ruler and Map tools have all been updated to better work with hexagons.
 
-# Ruler Tool: Grid Mode
+## Ruler Tool: Grid Mode
 
 Another grid related change is that the ruler tool now has a new option that can be enabled which is called 'grid mode'.
 
@@ -64,22 +77,22 @@ not so much about the actual distance in pixels.
 When enabling grid mode, the ruler will show both number of cells as well as the total distance.
 This behaviour can be configured in your Client Settings however, allowing you to only show 1 of the two instead.
 
-_something about deprecating labels/filters_
+![Grid Mode Ruler](./2024.2/ruler-gridmode.png)
 
-# Export/Import
+## Export/Import
 
-## Missing data
+### Missing data
 
 The new note system implemented in the last release broke the export and import functionality.
 
 This release fixes that as well as some other things I happened to forget to add to the export/import system.
 In particular Characters, DataBlocks and Notes are now properly exported.
 
-## Import name
+### Import name
 
 When importing a campaign, you can now specify which name it should have instea of always using the name in the file.
 
-## Import cleanup
+### Import cleanup
 
 Small improvements were made to the import code.
 
@@ -95,9 +108,9 @@ Changes made would not immediately update causing confusion to whether or not it
 This release overhauled the internals of this UI completely and it now should be responsive and working as one would expect.
 This applies to all badge related settings, but also to the addition/removal of members to the group.
 
-# Smaller changes
+## Smaller changes
 
-## Note fixes
+### Note fixes
 
 The new note system is running quite well in general, but some small bugs have been reported and got resolved.
 
@@ -108,12 +121,12 @@ The new note system is running quite well in general, but some small bugs have b
 - Fixed rendering of markdown which included raw HTML elements in annotations
 
 
-## Snapping fixes
+### Snapping fixes
 
 The Select and Draw tool got some small issue fixed where some operations (e.g. snap to point, resize) would try to snap to the point being moved.
 This caused odd behaviour where you're seemingly not snapping at all.
 
-## Spell tool
+### Spell tool
 
 The spell tool has builtin logic to return to the select tool after a spell has been cast.
 It was however being a bit too forceful in its requirement to return to the select tool.
@@ -122,7 +135,7 @@ Selecting another tool manually would always result in the select tool being sel
 
 Another small QoL fix is the size input now better behaves when you're trying to input a number a smaller than 1.
 
-## Poylgon contains check
+### Poylgon contains check
 
 The logic to detect if you clicked on a polygon had two faults that have been resolved.
 
@@ -130,7 +143,7 @@ If a polygon reused a point (due to some self-intersection) the contains code wo
 
 The imaginary line between the first and last point when using a non-closing polygon was also seen as part of the polygon.
 
-## Other bugfixes
+### Other bugfixes
 
 - Moving shapes to front/back not updating immediately
 - Fixed an issue where Initiative.Order.Change would fail when called with some Shape Ids.
