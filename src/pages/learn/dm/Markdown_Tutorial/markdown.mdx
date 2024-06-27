@@ -176,7 +176,9 @@ Below is and example of inline images and hyperlinks.
 
 ![image_links](./assets/Image_links.png)
 
-For inline images you precede the item with `!` specify a tag name in `[ ]` and then the link in `( )`. 
+For ***some*** image URLs you can simply just cut and paste the image location and it should resolve the picture. 
+
+If it does not you should be able to insert inline images if you precede the item with `!` specify a tag name in `[ ]` and then the link in `( )`. 
 
 ```
 This is a Goblin below.
@@ -186,7 +188,7 @@ This is a Goblin below.
 
 
 
-The alternative method, which can make the code cleaner, is a reference method where instead of a link to the image, you can use a reference, which in turn links to the image. References can also supply tool tips so when a cursor hovers over an image a tool tip can be seen. These are made by quoting `" "` the tool tip text after the URL 
+There is an alternative method, which can make the code cleaner, called the reference method where instead of a link to the image, you can use a reference, which in turn links to the image. 
 
 ```
 ![Goblin][Goblin1]
@@ -201,9 +203,16 @@ This is another Goblin
 [Goblin2]:https://gamepedia.cursecdn.com/crafttheworld_gamepedia/thumb/b/be/Cave_Goblin.png/150px-Cave_Goblin.png "This is a Cave Goblin"
 ```
 
+References can also supply tool tips so when a cursor hovers over an image a tool tip can be seen. These are made by quoting `" "` the tool tip text after the URL 
 
 
-<u>**URL Links**</u>
+![Tooltip](assets/Tooltip-image.png)
+
+
+**NOTE:** When selecting images to insert they will be scaled in the chat window but when the image is clicked it will open up to a larger version in another window. 
+
+
+## <u>**URL Links**</u>
 
 
 URL links are the same above but without the preceding `!`
