@@ -12,7 +12,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
 ---
 
 <Main>
-    <HamburgerMenu element="docs-nav" toggleClass="open" client:only />
+    <HamburgerMenu element="docs-nav" toggleClass="open" client:only="vue" />
     <nav id="docs-nav">
         {
             docs.map((doc) => {

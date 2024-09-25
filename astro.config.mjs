@@ -31,6 +31,13 @@ export default defineConfig({
         ],
     },
     vite: {
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    api: "modern-compiler",
+                },
+            },
+        },
         plugins: [Icons({})],
         ssr: {
             external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"],
