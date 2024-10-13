@@ -9,7 +9,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format("D MMMM YYYY");
 ---
 
 <Main>
-    <HamburgerMenu element="blog-aside" toggleClass="open" client:only />
+    <HamburgerMenu element="blog-aside" toggleClass="open" client:only="vue" />
     <aside id="blog-aside">
         {
             headings.map((header) => {
