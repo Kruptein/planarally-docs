@@ -16,6 +16,8 @@ As announced in the previous release, the label/filter system is deprecated and 
 
 This release introduces a simple chat system that allows you to chat with other players in the campaign.
 
+![Chat Button Messages waiting](../docs/game/assets/chat.png)
+
 It's designed to be simple and to the point. Some formatting is available in the form of markdown, and image URLs are automatically converted to images.
 
 It's important to note that messages sent are not stored on the server currently. So any refresh or reconnection to the session will clear the chat history.
@@ -32,6 +34,8 @@ A big chunk of this release was spent on improving various aspects of the dice r
 ### Dice tool UI
 
 The dice tool UI has been revamped completely.
+
+![Dice tool](../docs/tools/dice.png)
 
 #### non-3D mode
 
@@ -95,6 +99,14 @@ which will push out all the shapes in their original position in regards to the 
 
 There is also a keyboard shortcut, while holding the letter 'c' (for collapse) your selection will collapse, it will auto expand when either releasing the mouse button or pressing 'c' again.
 
+<video autoplay loop muted style="max-width: min(750px, 75vw);">
+    <source src="/blog/release-2024.3/collapse-drag.webm" type="video/webm" />
+    <source src="/blog/release-2024.3/collapse-drag.mp4" type="video/mp4" />
+</video>
+
+<br />
+<br />
+
 ## Campaign Features
 
 A smaller addition is the ability for the DM to disable certain features.
@@ -122,11 +134,15 @@ Which meant that you often had to swap back and forth between both tools to eith
 
 Now the select tool also shows the ruler settings and allows you to change them directly.
 
+![Select tool ruler settings](../docs/tools/select-ui.png)
+
 ## Hexes in the spell tool
 
 The previous release did a big upgrade to hexagons, but did not cover all places where they might be useful.
 
 This release sees the spell tool become aware of which grid type you're using and now offers the option to create spell effects in various hex sizes.
+
+![Spell tool hex sizes](../docs/tools/spell-hex.png)
 
 ### Bugfixes
 
