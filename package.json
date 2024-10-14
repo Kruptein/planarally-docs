@@ -11,7 +11,7 @@
     "devDependencies": {
         "@astrojs/vue": "^4.5.2",
         "@iconify/json": "^2.2.258",
-        "astro": "^4.16.0",
+        "astro": "^4.16.3",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-vue": "^9.28.0",
