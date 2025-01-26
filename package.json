@@ -9,26 +9,26 @@
         "preview": "astro preview"
     },
     "devDependencies": {
-        "@astrojs/vue": "^4.5.2",
-        "@iconify/json": "^2.2.258",
-        "astro": "^4.16.3",
+        "@astrojs/vue": "^5.0.6",
+        "@iconify/json": "^2.2.299",
+        "astro": "^5.1.9",
         "eslint": "^8.56.0",
         "eslint-config-prettier": "^9.1.0",
-        "eslint-plugin-vue": "^9.28.0",
-        "prettier": "^3.3.3",
+        "eslint-plugin-vue": "^9.32.0",
+        "prettier": "^3.4.2",
         "prettier-plugin-astro": "^0.14.1",
-        "sass-embedded": "^1.79.4",
-        "unplugin-icons": "^0.19.3",
-        "vue": "^3.5.11"
+        "sass-embedded": "^1.83.4",
+        "unplugin-icons": "^22.0.0",
+        "vue": "^3.5.13"
     },
     "dependencies": {
-        "@astrojs/mdx": "^3.1.8",
-        "bufferutil": "^4.0.8",
+        "@astrojs/mdx": "^4.0.7",
+        "bufferutil": "^4.0.9",
         "dayjs": "^1.11.13",
         "medium-zoom": "^1.1.0",
         "rehype-autolink-headings": "^7.1.0",
         "rehype-slug": "^6.0.0",
-        "remark-directive": "^3.0.0",
+        "remark-directive": "^3.0.1",
         "sharp": "^0.33.5"
     }
 }
