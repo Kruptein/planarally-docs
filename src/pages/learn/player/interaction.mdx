@@ -47,52 +47,110 @@ It can take two forms depending on the **mode**, but as a player you'll almost e
 ![Play tools](./assets/tools-play.png)
 
 <Tip>
-    If you don't like the abstract icons, you can change the UI to show text labels instead in your Client Settings.
+    1: If you don't like the abstract icons, you can change the UI to show text labels instead in your Client Settings.
+    <br />
+    2: You can quickly change between the modes by pressing <kbd>tab</kbd>
 </Tip>
 
 Most interactions in PA will depend on which tool is currently active, which in the example above is the Select tool.
 
-### Select tool
+We'll quickly go over all the tools here, but limit the explanation to the essentials that you'll often use.
+For more in-depth information check out the [Tool documentation](/docs/tools/select/).
+
+### Select
 
 This is by far the most common tool you'll use. It's main use is ... selecting things!
 
 Left clicking on a shape will select it and add a red border around the shape.
-If you know left-click and hold while moving the mouse, you'll be able to move the shape around.
+If you now left-click and hold while moving the mouse, you'll be able to move the shape around.
 
 If you select multipe shapes, you'll be able to move them all around at once!
 
 Shocking stuff I know.
 
-The select tool has more in store however, when you have an active selection, 2 extra UI elements are visible.
+The select tool has more in store however, when you have an active selection,
+a special UI in the top left will appear with quick info about the selected shape.
 
-#### Quick shape info
+<Info title="Resizing / Rotating">
+The select tool also has the capability to resize or rotate a character.
+<br />
+Because this is usually not something you tend to do regularly, this functionality is only visible when you're in the Build mode.
+This prevents accidental resizes when you just want to drag your shape and happen to click a little bit too close to the corner.
+</Info>
 
-In the top right a small box will appear with some quick information about the selected shape.
+### Pan
 
-![Select Quick Info](./assets/select-quick-info.png)
+The next one is a tool that is probably the least used one, as it allows you to move/pan the screen with your left mouse click.
 
-It will list the name of the shape, and any trackers and auras it may have.
+As you can always pan from any tool with the middle or right mouse buttons,
+you'll only use this tool actively when you're on a device without a mouse.
 
-Next to the name two icons are visible, <PenSquare /> will open the shape details, this is an important one we'll go into later!
-The other one <Unlock /> will lock the shape's position when toggled. It's unlikely you'll quickly need this as a player \:D
+### Spell
 
-This sidebar doesn't only show things, it also allows you to quickly modify some elements.
-It's for example possible to click on the HP value and modify it, or toggle the light source.
+If you ever need to temporarily add some spell effect to the board, this tool got your back.
 
-Lastly there is also a section that will list any note you may have about the shape.
+It allows you to select some common spell shapes, configure the dimensions and place them on the map.
 
-#### Select configuration
+If you have a shape selected, a ruler is automatically tracked between the shape and the spell effect,
+to ensure you're aware of the distance you're casting at.
 
-The other new UI element that pops up when selecting a shape is in the bottom right, right above the toolbar.
+### Ruler
 
-![Select Configuration](./assets/tools-select.png)
+Your friend if you need to measure distances.
 
-In general UI elements shown here are related to configuration of the tool itself.
-For the select tool this comes down to a series of toggles that are all related to the 'Show ruler' setting.
+A very straightforward tool, you click and drag a line to measure the distance in either the amount of grid cells or the in-world distance (e.g. ft or m).
 
-The ruler is a completely separate tool allowing you to measure things on the map,
-it however also has a special integration with the select tool that can be configured here.
+<Tip>
+If you hit space while dragging the mouse, a new anchor point is made, allowing you to measure around corners!
+</Tip>
 
-![Select Ruler Example](./assets/tools-select-ruler.png)
+### Ping
 
-For more info on the ruler, check the ruler tool!
+Another small, but handy tool is the ping tool, which simply allows you to draw attention to a specific area on the map.
+
+### Vision
+
+This is a specialized tool that will only show up if you control multiple characters.
+
+It will limit your vision to the selected characters in this tool.
+
+### Dice
+
+A tool that you'll either use frequently or never at all is the dice tool.
+
+This allows you to resolve dice rolls either in a purely textual form or by actually simulating virtual 3D dice. 
+
+### Draw
+
+This tool is only visible when you're in Build mode!
+
+Using this tool you can draw a variety of shapes on the map.
+
+## Modifying your character
+
+Something not covered yet is how you modify your character, which is of course also an important part of playing.
+
+When you've got your character selected there are multiple ways to open the Edit UI.
+
+- Press the <PenSquare /> icon in the quick info (top-right)
+- Right click your character and click "show properties"
+- Press <kbd>Enter</kbd>
+
+Whatever you end up choosing, a bigger UI element should appear that allows you to edit multiple aspects of your character.
+A lot can be configured, but don't worry, as a player the most essential tabs are the Properties and the Trackers.
+
+### Properties
+
+Here you can edit some essentials like your character's name and asset.
+
+### Trackers
+
+Here you can configure trackers & auras.
+
+You can use trackers to well track numbers. They are purely a numeric thing, that you can optionally make visible above your character's token.
+
+Auras on the other hand are visual, they represent things like area effects and lights.
+If the aura is meant to give you vision (e.g. a torch or darkvision), make sure to toggle the "Light source".
+
+Auras have 2 values for their range input, the first value is how many ft of bright light there should be,
+whereas the second is how many ft of dim light. So a 5e torch should be 20 / 20 (and not 20 / 40!).
