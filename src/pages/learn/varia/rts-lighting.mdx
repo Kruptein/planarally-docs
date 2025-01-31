@@ -6,20 +6,22 @@ import Lightbulb from "~icons/fa-solid/lightbulb";
 
 # RTS-style Lighting
 
+Guide contributed by [@veritanuda](https://keybase.io/veritanuda)
+
 This tutorial will focus on a more complex lighting setup.
 Make sure you are familiar with PlanarAlly's [lighting & vision system](/docs/dm/lighting-vision/), as well as its [layers](/docs/dm/layers) and the tokens' [auras](/docs/game/shapes/#trackers--auras) and [access](/docs/game/shapes/#access).
 
 In this tutorial, we want to emulate RTS-style (*R*eal *T*ime *S*trategy) lighting setups.
 The setup **will**:
 
--   give players a map to explore and
--   show them areas they already explored.
+- give players a map to explore and
+- show them areas they already explored.
 
 The setup **will not**:
 
--   take into account player's actual line of sight, but work with simplifications,
--   add 'thin fog of war' that only hides tokens but not the map (PlanarAlly cannot do this), or
--   automate the process.
+- take into account player's actual line of sight, but work with simplifications,
+- add 'thin fog of war' that only hides tokens but not the map (PlanarAlly cannot do this), or
+- automate the process.
 
 ## Concept
 
@@ -33,17 +35,15 @@ It will have the draw-backs mentioned above, but will give players more (and bet
 
 In essence, we will
 
--   divide up the map into zones,
--   provide these zones with light sources, each,
--   light up the zones the moment, the players have explored it, so they will be able to see it, when they left.
+- divide up the map into zones,
+- provide these zones with light sources, each,
+- light up the zones the moment, the players have explored it, so they will be able to see it, when they left.
 
 ## Preparation
 
 First, set up your regular map using the lighting and vision system: fill the canvas with fog of war, add some walls and lights as it pleases you.
 
 ![rts-image-00](./assets/rts-image-00.png)
-
-
 
 ### Sectors
 
@@ -73,7 +73,6 @@ The `fow` layer will also strip the aura of _any_ colour.
 
 ![rts-image-04](./assets/rts-image-04.png)
 
-
 In case you want to be able to differentiate between actual sight and RTS-style sight, either give the players' sight a slight hue, or move the light sources to the _map_ layer instead.
 You can either make the token invisible or hide it beneath any map images you added via the `move to back` function.
 Use the `lock` function to prevent accidentally dragging the lights with your group or other elements of the map.
@@ -91,5 +90,3 @@ This way, you just need to tick a few <Lightbulb/>-icons to light up a zone.
 Note that this will light up not only the _map_ layer but also the _tokens_ layer.
 
 If you want to hide enemy movements for your player, move their tokens to the _DM_ layer.
-
-
