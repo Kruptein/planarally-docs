@@ -119,7 +119,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
     ],
     learn: [
         {
-            title: "Player tutorial",
+            title: "Player 101",
             path: "/player",
             items: [
                 {
@@ -130,7 +130,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             ],
         },
         {
-            title: "DM tutorial",
+            title: "DM 101",
             path: "/dm",
             items: [
                 {
