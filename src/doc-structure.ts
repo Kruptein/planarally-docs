@@ -134,8 +134,12 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             path: "/dm",
             items: [
                 {
-                    title: "Creating your first session",
-                    path: "/first-session/",
+                    title: "Introduction",
+                    path: "/intro/",
+                },
+                {
+                    title: "First Map",
+                    path: "/first-map/",
                 },
             ],
         },
