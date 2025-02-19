@@ -141,6 +141,10 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                     title: "First Map",
                     path: "/first-map/",
                 },
+                {
+                    title: "Other Features",
+                    path: "/other-features/",
+                },
             ],
         },
         {
