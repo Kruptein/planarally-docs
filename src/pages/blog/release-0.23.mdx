@@ -7,7 +7,6 @@ layout: ../../layouts/blog.astro
 ---
 
 import { Image } from "astro:assets";
-import LoginPicture from "../learn/_out-of-game/login.png";
 import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
 
 Time for a new release! Just like other releases we have a bunch of bugfixes, but there are other exciting things to be had as well.
@@ -66,8 +65,6 @@ This will also be key to sharing sets with other players.
 The login page has been redesigned and now has some more flair :)
 Additionally the register flow is more explicit as the old behaviour was not clear to everybody.
 
-<Image src={LoginPicture} width={800} aspectRatio={1920 / 947} alt="Login" />
-
 ### Edit dialog
 
 The shape edit dialog was becoming quite big with every couple of releases adding something to the dialog.
@@ -114,10 +111,10 @@ Older saves will not be touched, but feel free to move them to this new subdirec
 
 ## Varia fixes
 
--   Run docker container as non-root
--   Unlocking shape via quick menu no longer puts shape in drag mode
--   Map allowing some invalid inputs (negative numbers, 0, everything that isn't a number)
--   Note and annotation textareas not having the correct height initially
--   Console errors when attempting to move floors that you cannot access
--   Private shape names showing up as ? for users with access
--   [tech] Display error messages based on response body
+- Run docker container as non-root
+- Unlocking shape via quick menu no longer puts shape in drag mode
+- Map allowing some invalid inputs (negative numbers, 0, everything that isn't a number)
+- Note and annotation textareas not having the correct height initially
+- Console errors when attempting to move floors that you cannot access
+- Private shape names showing up as ? for users with access
+- [tech] Display error messages based on response body

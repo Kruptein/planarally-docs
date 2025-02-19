@@ -119,28 +119,39 @@ export const docStructure: Record<string, DocsNavigation[]> = {
     ],
     learn: [
         {
-            title: "General",
-            path: "/general",
+            title: "Player 101",
+            path: "/player",
             items: [
                 {
-                    title: "Getting to know the UI",
-                    path: "/ui/",
+                    title: "Introduction",
+                    path: "/intro/",
+                },
+                "Interaction",
+            ],
+        },
+        {
+            title: "DM 101",
+            path: "/dm",
+            items: [
+                {
+                    title: "Introduction",
+                    path: "/intro/",
                 },
                 {
-                    title: "Common tools",
-                    path: "/common-tools/",
+                    title: "First Map",
+                    path: "/first-map/",
+                },
+                {
+                    title: "Other Features",
+                    path: "/other-features/",
                 },
             ],
         },
         {
-            title: "DM",
-            path: "/dm",
+            title: "Varia",
+            path: "/varia",
             items: [
                 {
-                    title: "Creating your first session",
-                    path: "/first-session/",
-                },
-               {
                     title: "RTS-style lighting",
                     path: "/rts-lighting/",
                 },
@@ -151,7 +162,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 {
                     title: "Markdown Tutorial",
                     path: "/Markdown_Tutorial/markdown/",
-                   
+
                 },
             ],
         },
