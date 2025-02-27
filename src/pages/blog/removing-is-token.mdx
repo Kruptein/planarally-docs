@@ -1,0 +1,119 @@
+---
+title: Changes to the vision & access systems
+date: 2025-02-26 23:45:00
+excerpt: "Removing 'is a Token' and more"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+This is a short article about the vision state in its current form and some changes I intend to do,
+to make some of it actually more straightforward.
+
+Rest assured, the changes I want to do aren't big, they're rather subtle changes but I still felt that it deserved some separate article as vision is usually the core of gameplay.
+
+## How it currently works
+
+There is in-depth documentation on the lighting system over [here](/docs/dm/lighting-vision/#lighting--vision), but a short summary is as follows:
+
+When the board is filled with fog (DM setting: fill with FOW), everything is hidden for the player.
+Any shape that has an aura marked as public and as a light source however will appear to the player.
+Light sources not marked as public will only show up if the player has vision access to the shape.
+
+An extra vision setting can be enabled: line of sight (DM setting: LoS).
+With this enabled, players will only be able to see the aforementioned light sources if they have vision access over a shape that is explicitly marked as "is a token".
+Even more so, they'll only see the part of those lightsources that falls within their vision (taking walls and other vision blocking shapes into account).
+So you don't see whatever is behind the corner even if it's lit.
+
+## What are the problems?
+
+So what is wrong with this. Not a whole lot to be honest, but a few things stand out after using it for a while.
+
+- The `is a token` setting is quite unintuitive, it's impact is not directly clear
+- It's also very easy to forget, potentially giving some confusion/frustration at the table (e.g. "No, I can't see anything")
+- The meaning of the vision access right becomes equally confusing in combination with the `is token` property
+- As a DM you can sometimes have a wrong picture of what players might be able to see (more on this later)
+
+## Rethinking the token concept
+
+This ultimately made me think about the core idea behind the token concept. Why was it originally introduced?
+
+The answer to that question is rather simple: performance.
+
+Calculating the vision of shapes is one of the more intensive things that PA needs to do, and as a player you only own 1 or maybe a couple shapes so it's not that big of a deal,
+but the DM technically owns all shapes in the scene, which can end up being a lot of shapes.
+As such the token property was introduced to limit vision calculation only to those shapes that were marked as such, relieving the DM renderside heavily.
+
+Taking a step back however, this solution is actually kinda backwards.
+For players the solution is relatively straightforward.
+If they have access over a shape, they're likely to also require vision over what the shape can see.
+And a DM ultimately (usually) only cares about what the players can actually see.
+
+So can't we just drop the `is a token` concept and instead just check if the shape has a player with vision access attached to it?
+
+To answer that question we first need to confirm our hypothesis: Do players require vision over all the shapes they own?
+
+There are broadly speaking three different kind of shapes that a player might have access to:
+
+- Shapes that represent some character / player token
+- Shapes that represent something like a summon / pet / npc / other companion
+- Shapes that represent objects (e.g. spell effects, drawn shapes that represent obstructions..)
+
+The first shape should by all means in 99% of the cases give some form of vision as it represents the player's character fundamentally.
+The second shape however is already problematic however. The answer here is "it depends".
+For the last shape though the answer is in 99% of the cases no. There is no reason why the rectangle you drew to represent some barricade should give you vision,
+if anything it should actually block vision!
+
+So our hypothesis is sadly not true, so we can't drop the `is a token` property after all ?
+
+Not so fast! The attentive reader may have noticed that so far we've often referred to "vision access", which might imply there are other _accesses_?
+
+It turns out there are. PA has 3 levels of access that gradually increase permissions.
+Vision access gives you access to all private light/vision sources the shape has,
+Movement access adds the ability to move the token to that and finally Edit access gives you the ability to modify properties/auras/... of the shape.
+
+If we look back at our 4 examples, we would likely want all 3 access levels for the first shape, but only edit access and maybe movement to the second shape.
+Something like a pet/summon might have stats or some other things that the player should have control over, they might be able to move it, but usually they won't have vision access.
+
+This is currently not possible as PA assumes that these are additive permissions. But we can break this up in complete standalone permissions instead.
+
+## A solution at last
+
+So if we break up the access levels, drop the token property and instead just look at the "vision access" the player has.. we succeed!
+
+So to recap the changes I'm likely going to make:
+
+- Make the 3 access levels independent instead of stacking on top of each other
+- Remove the `is token` property
+- Decide shape vision state based on the vision access level
+
+## The DM side of things
+
+As I mentioned earlier there can be some confusion in the DM side of things when dealing with vision.
+Generally the DM can see all the players' vision combined and can deselect certain views with the vision tool.
+
+Private vision auras that are not associated with a player however end up giving funky effects.
+They will show up to the DM as the DM technically has access to every shape, so the private auras apply to the DM as well.
+These are however auras that will never show up to the player, so showing them in the DM's view is kind of strange.
+
+With the changes described above this particular "bug" will also be gone.
+
+It does add a new challenge however, if the `is token` is gone, how do you prepare a new map where the players are not yet in the location.
+You could in theory add a random player to a test shape to check if your lighting is set up correctly.
+You could also just configure the default vision access right of the shape.
+Both approaches work, though you'll have to pay extra attention that you don't forget to remove this again when your players are ready to explore the location.
+
+I think we can do better here. When preparing a map you usually don't actually care about the Line of Sight aspect, that's more of a playtime constraint for the players.
+The light & wall setup itself is all we really care about during prep. One could manually toggle the Line of Sight setting during prep and play, but that's quite cumbersome.
+The various game parameters (e.g. line of sight) should be constant. It's the DM environment that should be configurable.
+
+I see some options here:
+
+- Auto disable LoS for the DM, enable it when you activate fake-player mode
+- Add a new quick toggle below the toolbar that toggles LoS on/off **only** for the DM
+- Add a new quick toggle to enable "prep" mode. In this mode the campaign is auto-locked (i.e. players can't join) and some specific settings are active (e.g. LoS is turned off)
+
+The first option is going to be unintuitive I think, as you don't see an immediate change upon turning on the LoS DM setting, whereas it actually has a big effect.
+The second option feels good and is probably what I'm going to go for.
+I find the third option intriguing, but it's going to be something that is not going to work for everybody.
+I think instead that the lock-mode might also become a quick toggle actually.
+And at one point I'll probably make it configurable which toggles are visible if you don't use all of them.
