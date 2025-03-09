@@ -15,7 +15,6 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             path: "",
             items: [
                 { title: "Introduction", path: "/" },
-                "Terminology",
                 { title: "Quick Reference", path: "/reference/" },
                 { title: "Tools Overview", path: "/tools-overview/" },
             ],
