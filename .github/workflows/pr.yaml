@@ -1,0 +1,51 @@
+on: pull_request
+name: PR
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+jobs:
+    setup:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Use Node.js 22.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+                  cache: "npm"
+                  cache-dependency-path: package-lock.json
+
+            - name: npm i
+              run: npm ci
+
+            - name: cache deps
+              uses: actions/cache/save@v4
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+                  restore-keys: ${{ runner.os }}-
+
+    checks:
+        needs: setup
+        runs-on: ubuntu-latest
+        strategy:
+            fail-fast: true
+            matrix:
+                check: ["format:ci", "lint:ci"]
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Restore deps
+              uses: actions/cache/restore@v4
+              with:
+                  path: node_modules
+                  key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
+            - name: Use Node.js 22.x
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22.x
+
+            - name: Run ${{ matrix.check }}
+              run: npm run ${{ matrix.check }}
