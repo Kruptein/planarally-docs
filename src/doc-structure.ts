@@ -1,7 +1,4 @@
-type DocsNavigationItem = {
-    title: string;
-    path: string;
-};
+type DocsNavigationItem = { title: string; path: string };
 
 export interface DocsNavigation {
     title: string;
@@ -17,51 +14,27 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             title: "Overview",
             path: "",
             items: [
-                {
-                    title: "Introduction",
-                    path: "/",
-                },
+                { title: "Introduction", path: "/" },
                 "Terminology",
-                {
-                    title: "Quick Reference",
-                    path: "/reference/",
-                },
-                {
-                    title: "Tools Overview",
-                    path: "/tools-overview/",
-                },
+                { title: "Quick Reference", path: "/reference/" },
+                { title: "Tools Overview", path: "/tools-overview/" },
             ],
         },
         {
             title: "Dashboard",
             path: "/dashboard",
             items: [
-                {
-                    title: "Games",
-                    path: "/games/",
-                },
-                {
-                    title: "Assets",
-                    path: "/assets/",
-                },
-                {
-                    title: "Settings",
-                    path: "/settings/",
-                },
+                { title: "Games", path: "/games/" },
+                { title: "Assets", path: "/assets/" },
+                { title: "Settings", path: "/settings/" },
             ],
         },
         {
             title: "Game",
             path: "/game",
             items: [
-                {
-                    title: "Board",
-                    path: "/gameboard/",
-                },
-                {
-                    title: "Client Settings",
-                    path: "/settings/",
-                },
+                { title: "Board", path: "/gameboard/" },
+                { title: "Client Settings", path: "/settings/" },
                 "Markers",
                 "Snapping",
                 "Shapes",
@@ -73,17 +46,11 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             title: "DM",
             path: "/dm",
             items: [
-                {
-                    title: "Campaign Settings",
-                    path: "/settings/",
-                },
+                { title: "Campaign Settings", path: "/settings/" },
                 "Layers",
                 "Floors",
                 "Locations",
-                {
-                    title: "Lighting & Vision",
-                    path: "/lighting-vision/",
-                },
+                { title: "Lighting & Vision", path: "/lighting-vision/" },
                 "Assets",
             ],
         },
@@ -100,69 +67,29 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 "Vision",
                 "Zoom",
                 "Initiative",
-                {
-                    title: "Undo/Redo",
-                    path: "/undo/",
-                },
+                { title: "Undo/Redo", path: "/undo/" },
             ],
         },
-        {
-            title: "DM Tools",
-            path: "/tools",
-            items: ["Map", "Filter"],
-        },
-        {
-            title: "Integrations",
-            path: "/integrations",
-            items: [{ title: "Last Gameboard", path: "/last-gameboard/" }],
-        },
+        { title: "DM Tools", path: "/tools", items: ["Map"] },
     ],
     learn: [
-        {
-            title: "Player 101",
-            path: "/player",
-            items: [
-                {
-                    title: "Introduction",
-                    path: "/intro/",
-                },
-                "Interaction",
-            ],
-        },
+        { title: "Player 101", path: "/player", items: [{ title: "Introduction", path: "/intro/" }, "Interaction"] },
         {
             title: "DM 101",
             path: "/dm",
             items: [
-                {
-                    title: "Introduction",
-                    path: "/intro/",
-                },
-                {
-                    title: "First Map",
-                    path: "/first-map/",
-                },
-                {
-                    title: "Other Features",
-                    path: "/other-features/",
-                },
+                { title: "Introduction", path: "/intro/" },
+                { title: "First Map", path: "/first-map/" },
+                { title: "Other Features", path: "/other-features/" },
             ],
         },
         {
             title: "Varia",
             path: "/varia",
             items: [
-                {
-                    title: "RTS-style lighting",
-                    path: "/rts-lighting/",
-                },
-                {
-                    title: "Wall Masks Guide",
-                    path: "/Wall_guide/wall-masks/",
-                },
-                {
-                    title: "Markdown Tutorial",
-                    path: "/Markdown_Tutorial/markdown/",
-                },
+                { title: "RTS-style lighting", path: "/rts-lighting/" },
+                { title: "Wall Masks Guide", path: "/Wall_guide/wall-masks/" },
+                { title: "Markdown Tutorial", path: "/Markdown_Tutorial/markdown/" },
             ],
         },
     ],
@@ -170,40 +97,17 @@ export const docStructure: Record<string, DocsNavigation[]> = {
         {
             title: "Installation",
             path: "/setup",
-            items: [
-                {
-                    title: "Start",
-                    path: "/",
-                },
-                {
-                    title: "Self-hosted",
-                    path: "/self-hosting/",
-                },
-                "Managed",
-            ],
+            items: [{ title: "Start", path: "/" }, { title: "Self-hosted", path: "/self-hosting/" }, "Managed"],
         },
         {
             title: "Management",
             path: "/management",
-            items: [
-                "Configuration",
-                {
-                    title: "User Management",
-                    path: "/users/",
-                },
-                "API",
-            ],
+            items: ["Configuration", { title: "User Management", path: "/users/" }, "API"],
         },
         {
             title: "Advanced",
             path: "/advanced",
-            items: [
-                {
-                    title: "Reverse proxy setup",
-                    path: "/proxy/",
-                },
-                "Subpath",
-            ],
+            items: [{ title: "Reverse proxy setup", path: "/proxy/" }, "Subpath"],
         },
     ],
 };
@@ -212,11 +116,7 @@ export function getDocsNav(section: string, currentUrl: string): FlatDocsNavigat
     const nav: FlatDocsNavigation[] = [];
     for (const doc of docStructure[section]) {
         const { items, ...rest } = doc;
-        nav.push({
-            ...rest,
-            path: `/${section}${rest.path}`,
-            depth: 1,
-        });
+        nav.push({ ...rest, path: `/${section}${rest.path}`, depth: 1 });
         for (const item of items) {
             const pathEnd = typeof item === "string" ? `/${item.toLowerCase()}/` : item.path;
             const path = `/${section}${rest.path}${pathEnd}`;
