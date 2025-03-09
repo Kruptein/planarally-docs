@@ -60,10 +60,10 @@ The python server has gained some extra utilities to manage the server without h
 
 In particular it can now:
 
--   list all users
--   list all rooms (i.e. campaigns)
--   remove a specific user/room
--   reset a user's password
+- list all users
+- list all rooms (i.e. campaigns)
+- remove a specific user/room
+- reset a user's password
 
 ## SVG wall handling
 
@@ -122,22 +122,22 @@ When moving a shape with variants to another location, only a part of the varian
 
 ## Bugfixes
 
--   Locked shapes being able to move locations
--   Locked shapes being able to change floors
--   vision min range equal to max range bug
--   Angled auras not rotating with general shape rotation
--   Multiple styling issues in firefox
-    -   Annotations no longer fill entire screen width
-    -   Aura UI being way to wide
--   Viewport sync
-    -   viewport is sent immediately upon connecting (and does not wait for the first pan)
-    -   DM viewport move is now throttled and should no longer appear laggy on the client
--   Various DPI related fixes
--   Multiple experimental vision mode bugs
-    -   Fix startup not working correctly
-    -   Fix unsnapped move of blocking shape not updating movement triangulation
--   Movement block not updating directly when not using snapping
--   Some performance dropoff for big polygons
--   Remove lingering rotation UI when removing a shape in build mode
--   Select tool showing ruler without selection
--   Text resize not live-syncing to other clients
+- Locked shapes being able to move locations
+- Locked shapes being able to change floors
+- vision min range equal to max range bug
+- Angled auras not rotating with general shape rotation
+- Multiple styling issues in firefox
+    - Annotations no longer fill entire screen width
+    - Aura UI being way to wide
+- Viewport sync
+    - viewport is sent immediately upon connecting (and does not wait for the first pan)
+    - DM viewport move is now throttled and should no longer appear laggy on the client
+- Various DPI related fixes
+- Multiple experimental vision mode bugs
+    - Fix startup not working correctly
+    - Fix unsnapped move of blocking shape not updating movement triangulation
+- Movement block not updating directly when not using snapping
+- Some performance dropoff for big polygons
+- Remove lingering rotation UI when removing a shape in build mode
+- Select tool showing ruler without selection
+- Text resize not live-syncing to other clients

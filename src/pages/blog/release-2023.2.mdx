@@ -100,14 +100,14 @@ they haven't been updated to match new features and are thus missing some data t
 
 The following data is now also saved:
 
--   Annotation public visibility
--   Trackers:
-    -   Display on token
-    -   Colors for display on token
--   Auras:
-    -   Whether the aura is enabled
-    -   The stroke colour
-    -   The angle and direction
+- Annotation public visibility
+- Trackers:
+    - Display on token
+    - Colors for display on token
+- Auras:
+    - Whether the aura is enabled
+    - The stroke colour
+    - The angle and direction
 
 While revisiting these keys, I've also removed some settings that are no longer saved.
 The settings I've removed felt too situational to be saved as a general setting.
@@ -115,10 +115,10 @@ Ideally at some point while saving a template, you would get the option to choos
 
 The following data is no longer saved:
 
--   invisible state
--   defeated state
--   locked state
--   'show badge'
+- invisible state
+- defeated state
+- locked state
+- 'show badge'
 
 ## (Mobile) Touch scrolling
 
@@ -150,17 +150,17 @@ Lastly auras on the DM layer are also all hidden now.
 
 More general access related things were fixed as well.
 
--   Access: Fix players with specific access rules, having edit access at all times
--   Access: Changing access would not live update the edit shape UI if it was open by another client
--   Access: Fix default access in UI not being up to date if shape has no access modifications until reload
--   Access: Prevent DMs from having an explicit access rule
+- Access: Fix players with specific access rules, having edit access at all times
+- Access: Changing access would not live update the edit shape UI if it was open by another client
+- Access: Fix default access in UI not being up to date if shape has no access modifications until reload
+- Access: Prevent DMs from having an explicit access rule
 
 ## Rendering
 
--   Fix auras sometimes not being visible until a refresh or panning closer to the aura
--   Transparency of higher layers was no longer applied after a window resize
--   Some cases where vision access related changes would not rerender immediately
--   Grid not rendering horizontal lines when the width is smaller than the height of the screen
+- Fix auras sometimes not being visible until a refresh or panning closer to the aura
+- Transparency of higher layers was no longer applied after a window resize
+- Some cases where vision access related changes would not rerender immediately
+- Grid not rendering horizontal lines when the width is smaller than the height of the screen
 
 ## Varia Fixes
 

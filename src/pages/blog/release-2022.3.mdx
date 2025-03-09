@@ -201,15 +201,15 @@ This release also includes integration code with the last gameboard platform.
 
 ### Shape logic fixes
 
--   Teleport zone not properly triggering when initiated as a player
--   Teleport zone not properly landing in the center of the target
--   Player door toggles not syncing to the server/persisting
--   Door/Tp area preview not changing floors
+- Teleport zone not properly triggering when initiated as a player
+- Teleport zone not properly landing in the center of the target
+- Player door toggles not syncing to the server/persisting
+- Door/Tp area preview not changing floors
 
 ### Trackers/Auras
 
--   Shared trackers/auras not showing up in selection info
--   Shared trackers/auras removal not showing in client until refresh
+- Shared trackers/auras not showing up in selection info
+- Shared trackers/auras removal not showing in client until refresh
 
 ### Initiative
 
@@ -218,40 +218,40 @@ Unknown shapes can be caused by any number of reasons (e.g. shape has moved to a
 
 Some of the below entries are related to the above described issue, which has now been resolved, but some entries are a separate issue entirely.
 
--   Server should detect client errors in initiative listings better and reject wrong data
--   Modification of the initiative should retain the current active actor under more circumstances
--   Removal of shape caused some initiative inconsistencies
--   Changing between DM layer and player visible layer would trip up initiative sometimes
--   Initiative camera-lock not changing floors
+- Server should detect client errors in initiative listings better and reject wrong data
+- Modification of the initiative should retain the current active actor under more circumstances
+- Removal of shape caused some initiative inconsistencies
+- Changing between DM layer and player visible layer would trip up initiative sometimes
+- Initiative camera-lock not changing floors
 
 ### Assets
 
--   [DM] Assets not being able to moved up to parent folder
--   [DM] Assets not being removable if a shape with a link to the asset exists
--   [DM|server] The asset manager was no longer useable when using a subpath setup
+- [DM] Assets not being able to moved up to parent folder
+- [DM] Assets not being removable if a shape with a link to the asset exists
+- [DM|server] The asset manager was no longer useable when using a subpath setup
 
 ### Misc
 
--   Errors in prompt modals were not visible
--   Annotation visible info not syncing to other clients until refresh (UI only)
--   Player state clearing on location change
--   Zoom sensitivity on touchpad
--   Typo in location menu
--   In-game AssetPicker modal UI fixes
--   Prompt modal not clearing error message properly
--   Tool details not always being in the correct location (e.g. when changing mode)
--   Trim down noisy whitespace in selection info
--   Jump to marker not changing floors
--   Moving composite/variant shape to other floor and following would show extra selection boxes
--   Draw layer being rendered below the fog (e.g. rulers/ping etc)
--   Vision not properly recalculating when removing blocking shapes on multifloor setups
--   AssetPicker UI appearing too low
--   Polygon edit UI being left behind when panning
--   Moving polygon point when polyon is rotated
--   Normal shapes sometimes wrongly being identified as spawn locations
--   Dice sometimes going offscreen
--   Keyboard movement not moving select-tool's rotation helper
--   [DM] Annotations still being visible until refresh after removing player access
--   [DM] Resetting location specific settings was not immediately synchronizing to clients until a refresh
--   [DM] Enabling fake-player mode would hide the DM entries from the left sidebar
--   [server] Diceroller not working on subpath server
+- Errors in prompt modals were not visible
+- Annotation visible info not syncing to other clients until refresh (UI only)
+- Player state clearing on location change
+- Zoom sensitivity on touchpad
+- Typo in location menu
+- In-game AssetPicker modal UI fixes
+- Prompt modal not clearing error message properly
+- Tool details not always being in the correct location (e.g. when changing mode)
+- Trim down noisy whitespace in selection info
+- Jump to marker not changing floors
+- Moving composite/variant shape to other floor and following would show extra selection boxes
+- Draw layer being rendered below the fog (e.g. rulers/ping etc)
+- Vision not properly recalculating when removing blocking shapes on multifloor setups
+- AssetPicker UI appearing too low
+- Polygon edit UI being left behind when panning
+- Moving polygon point when polyon is rotated
+- Normal shapes sometimes wrongly being identified as spawn locations
+- Dice sometimes going offscreen
+- Keyboard movement not moving select-tool's rotation helper
+- [DM] Annotations still being visible until refresh after removing player access
+- [DM] Resetting location specific settings was not immediately synchronizing to clients until a refresh
+- [DM] Enabling fake-player mode would hide the DM entries from the left sidebar
+- [server] Diceroller not working on subpath server

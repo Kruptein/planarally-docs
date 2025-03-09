@@ -38,7 +38,7 @@ export default defineConfig({
                 },
             },
         },
-        plugins: [Icons({})],
+        plugins: [Icons({ compiler: 'vue3' })],
         ssr: {
             external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"],
         },

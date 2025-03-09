@@ -17,8 +17,8 @@ The first release of 2023 features mostly a collection of bug fixes along with s
 
 Once you dropped an asset on the map it becomes a shape and when you needed a different asset you had two options:
 
--   drop the new asset on the map and copy over all properties from the old shape and then remove the old shape
--   add the new asset as a variant
+- drop the new asset on the map and copy over all properties from the old shape and then remove the old shape
+- add the new asset as a variant
 
 The first option is clearly quite cumbersome and error prone and the second option is basically abusing a feature for something else.
 
@@ -53,11 +53,11 @@ This conveys the same information without having to input anything and without t
 
 Additionally a bunch of bugs related to the spell tool have been fixed:
 
--   Using the spell tool with a selection was actually broken in the last couple of releases
--   The fill colour did funky things if the border colour had < 1 opacity
--   Right clicking to draw the shape, was opening the context-menu
--   Once used, the select tool was not being properly activated
--   The 'is public' label in the spell tool UI was wrongly attached to the range input box
+- Using the spell tool with a selection was actually broken in the last couple of releases
+- The fill colour did funky things if the border colour had < 1 opacity
+- Right clicking to draw the shape, was opening the context-menu
+- Once used, the select tool was not being properly activated
+- The 'is public' label in the spell tool UI was wrongly attached to the range input box
 
 ## Initiative state
 
@@ -77,8 +77,8 @@ There are still some kinks/oddities to work out, but I want to see how people en
 
 ## Varia
 
--   The shape edit dialog now properly says "Edit Shape" instead of "Edit Asset"
--   A minimum height has been added to the dice tool UI so that there is no awkward jump when you first click a die to roll.
+- The shape edit dialog now properly says "Edit Shape" instead of "Edit Asset"
+- A minimum height has been added to the dice tool UI so that there is no awkward jump when you first click a die to roll.
 
 ## [DM] Quick access toggles
 
@@ -109,14 +109,14 @@ The DM layer is not visible to other players, so showing it in Fake Player mode 
 
 A variety of fixes for shapes in general were made.
 
--   Since a recent release, badges started to become transparent by default, which was an unintended change.
--   Displaying a tracker value on top of a shape was not working if the tracker was part of a variant setup and shared with all variants.
+- Since a recent release, badges started to become transparent by default, which was an unintended change.
+- Displaying a tracker value on top of a shape was not working if the tracker was part of a variant setup and shared with all variants.
 
 Multiple cases of clients being able to edit properties of a shape they don't have access to locally were fixed.
 In all of these instances the change was only reflected locally in the client and was never sent to other clients as the server rejected the changes.
 
--   Most tracker/aura properties were locally editable
--   The "is defeated" and "is locked" properties were editable by using the respective keybindings to toggle these properties
+- Most tracker/aura properties were locally editable
+- The "is defeated" and "is locked" properties were editable by using the respective keybindings to toggle these properties
 
 ### UI
 
@@ -172,5 +172,5 @@ If you did do this, you should remove the subpath again from the config as it wi
 
 ### Other fixes
 
--   Templates were only using the first character of the provided template name
--   Groups: Adding multiple shapes to group always prompting group question even if no groups are present
+- Templates were only using the first character of the provided template name
+- Groups: Adding multiple shapes to group always prompting group question even if no groups are present

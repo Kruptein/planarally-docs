@@ -165,9 +165,9 @@ PlanarAlly comes with support for last-gameboard grid, which means that you can 
 
 #### Prerequisites
 
--   Multiple gameboards connected to the same PlanarAlly server [^4]
--   A lastgameboard compatible PA server [^5]
--   Have access to the DM account
+- Multiple gameboards connected to the same PlanarAlly server [^4]
+- A lastgameboard compatible PA server [^5]
+- Have access to the DM account
 
 #### Configuration
 
@@ -192,8 +192,13 @@ While the grid settings are open, each board connected will also display their u
 A PlanarAlly server will currently keep the grid offsets for a specific client in memory. This means that when a client disconnects and reconnects later it will still be at the same offset. If however the server was restarted at some point you would have to reconfigure the board.
 
 [^1]: Currently the gameboard integration code is still being tested in a private repository, but there is an open PR to merge it into the main PA codebase. Which should happen soon!
+
 [^2]: Those that have a conductive base the board recognizes.
+
 [^3]: This can be accomplished by swiping the dice towards the board.
+
 [^4]: There is no requirement for these boards to be physically close to eachother or even on the same network.
+
 [^5]: This is either a PA server using the special `feature/lg` branch on the PlanarAlly github repository or the local server on one of the gameboards.
+
 [^6]: The X-axis goes from negative left to positive right, the Y axis goes from negative top to positive bottom.
