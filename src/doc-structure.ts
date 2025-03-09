@@ -71,11 +71,6 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             ],
         },
         { title: "DM Tools", path: "/tools", items: ["Map"] },
-        {
-            title: "Integrations",
-            path: "/integrations",
-            items: [{ title: "Last Gameboard", path: "/last-gameboard/" }],
-        },
     ],
     learn: [
         { title: "Player 101", path: "/player", items: [{ title: "Introduction", path: "/intro/" }, "Interaction"] },
