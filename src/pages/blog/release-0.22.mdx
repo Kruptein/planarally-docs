@@ -80,26 +80,26 @@ A last improvement is that panning will delay updating non visible floors until 
 
 ## Varia
 
--   There now is a lock/unlock toggle icon in the selection UI
--   Ruler distance readability is improved
--   Grid pixel size is now a client side feature, allowing the player to choose this value depending on which display method they use (e.g. projecter vs laptop screen)
+- There now is a lock/unlock toggle icon in the selection UI
+- Ruler distance readability is improved
+- Grid pixel size is now a client side feature, allowing the player to choose this value depending on which display method they use (e.g. projecter vs laptop screen)
 
 ## Bugfixes
 
--   Aura not displaying when token is outside the visible canvas
--   Firefox location scrollbar when left menu is open
--   Some significant performance bottlenecks
--   Server now quits, referring to docs/tutorial, if client was not built before start
--   Prefer snapped points over grid snapping
--   Remove white icon in topleft menu UI
--   Moving polygons with keyboard would only move origin point
--   Degenerate cases in triangulation
-    -   Triangulation code could hit a degenerate case when dealing with slight number differences in the order of 1e-15
-    -   Now the triangulation code will only take the first 10 digits after the dot into consideration to prevent numerical instability.
--   Mouseleave events where not triggered in some cases (e.g. alt tab), this could cause some shapes (e.g. rulers) to remain on the screen
--   Map tool resize does not replicate
--   Center calculation polygons with repeated points
--   Location moved shape now properly disappears on the old location
+- Aura not displaying when token is outside the visible canvas
+- Firefox location scrollbar when left menu is open
+- Some significant performance bottlenecks
+- Server now quits, referring to docs/tutorial, if client was not built before start
+- Prefer snapped points over grid snapping
+- Remove white icon in topleft menu UI
+- Moving polygons with keyboard would only move origin point
+- Degenerate cases in triangulation
+    - Triangulation code could hit a degenerate case when dealing with slight number differences in the order of 1e-15
+    - Now the triangulation code will only take the first 10 digits after the dot into consideration to prevent numerical instability.
+- Mouseleave events where not triggered in some cases (e.g. alt tab), this could cause some shapes (e.g. rulers) to remain on the screen
+- Map tool resize does not replicate
+- Center calculation polygons with repeated points
+- Location moved shape now properly disappears on the old location
 
 ## Reflection on the "Up next"
 
@@ -107,26 +107,26 @@ Last release I added an "Up next" section, to outline some of the things on the 
 
 ##### done
 
--   rotation
--   Rework startup sequence
--   Move to fontawesome-vue
--   Floor public visibility
--   Floor tool improvements
--   Fast load current floor
+- rotation
+- Rework startup sequence
+- Move to fontawesome-vue
+- Floor public visibility
+- Floor tool improvements
+- Fast load current floor
 
 ##### partially done
 
--   preparation work on metadata/export/import
+- preparation work on metadata/export/import
 
 ##### not done
 
--   In-game async asset list
--   Polygon improvements
--   Extend aura options
--   Improve cursor in draw tool
--   Hex grid
--   Blurhash
--   Multiple spawn locations
--   More grouping options
+- In-game async asset list
+- Polygon improvements
+- Extend aura options
+- Improve cursor in draw tool
+- Hex grid
+- Blurhash
+- Multiple spawn locations
+- More grouping options
 
 Although this release took a bit longer, I'm still happy with 6 out of 15 done. :)

@@ -31,10 +31,10 @@ I felt confident in already making it available for people to test.
 
 Things to be aware of:
 
--   The UI is very minimal, both import/export are just a single button, with no progress information.
--   There also is no client-side error information yet
--   You cannot import a campaign that shares a name with a campaign you already are running
--   You can only import a campaign on a server that is running the same or a newer version than the server where you exported
+- The UI is very minimal, both import/export are just a single button, with no progress information.
+- There also is no client-side error information yet
+- You cannot import a campaign that shares a name with a campaign you already are running
+- You can only import a campaign on a server that is running the same or a newer version than the server where you exported
 
 The first two points are things that I'll work on for a future release.
 The third point is a matter of UI/UX and offering a way to specify a different campaign name.
@@ -129,11 +129,11 @@ You can still ofcourse manually change the other block property as you see fit. 
 
 Multiple bugs related to shape logic were solved.
 
--   Draw tool door permissions not saving
--   Door logic toggle not immediately updating UI when shape properties are open
--   Teleport zones triggering from other floors
--   Logic init edge cases breaking UI until refresh
--   Logic Permission selector showing error in edgecase
+- Draw tool door permissions not saving
+- Door logic toggle not immediately updating UI when shape properties are open
+- Teleport zones triggering from other floors
+- Logic init edge cases breaking UI until refresh
+- Logic Permission selector showing error in edgecase
 
 ## UI/UX improvements
 
@@ -168,9 +168,9 @@ The rectangle showing the active viewport of players (when enabled) was using 1 
 
 ### Varia
 
--   Show default "no" button in delete/leave campaign prompt
--   Asset Manager correctly updates UI when using browser back/forward buttons
--   Dashboard navigation headers sometimes being wrongly styled
+- Show default "no" button in delete/leave campaign prompt
+- Asset Manager correctly updates UI when using browser back/forward buttons
+- Dashboard navigation headers sometimes being wrongly styled
 
 ## Server stuff
 
@@ -207,20 +207,20 @@ max_upload_size_in_bytes = 10_485_760
 
 A couple of fixes specifically for the SVG section in the shape Extra Settings menu:
 
--   ExtraSettings svg section not updating immediately until changing tabs
--   ExtraSettings remove svg not properly working
--   ExtraSettings add svg not working for shapes with no prior svg properties
+- ExtraSettings svg section not updating immediately until changing tabs
+- ExtraSettings remove svg not properly working
+- ExtraSettings add svg not working for shapes with no prior svg properties
 
 ### Undo/Redo fixes
 
--   Redo logic on resize operation not remembering correct location when it was snapped
--   Drawtool trying to add shape creation operation to undo stack when the shape was not valid
--   Undo/Redo not persisting to server for movement and rotation
+- Redo logic on resize operation not remembering correct location when it was snapped
+- Drawtool trying to add shape creation operation to undo stack when the shape was not valid
+- Undo/Redo not persisting to server for movement and rotation
 
 ### Misc
 
--   Spawn locations loading wrong
--   Points modified by the polygon edit UI are not snappable until a refresh
--   Asset socket was not cleaning up past connections
--   Auras that are light sources, no longer appear as a black circle of doom when FOW is not turned on
--   Default location zoom level is now 0.2 instead of 1.0
+- Spawn locations loading wrong
+- Points modified by the polygon edit UI are not snappable until a refresh
+- Asset socket was not cleaning up past connections
+- Auras that are light sources, no longer appear as a black circle of doom when FOW is not turned on
+- Default location zoom level is now 0.2 instead of 1.0

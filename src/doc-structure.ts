@@ -66,7 +66,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 "Snapping",
                 "Shapes",
                 "Notes",
-                "Chat"
+                "Chat",
             ],
         },
         {
@@ -162,7 +162,6 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 {
                     title: "Markdown Tutorial",
                     path: "/Markdown_Tutorial/markdown/",
-
                 },
             ],
         },

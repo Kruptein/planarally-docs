@@ -20,7 +20,7 @@ This is fine for many cases, but when dealing with smaller objects (e.g. tree tr
 this can often lead to a choice you have to make as a DM.
 
 - Do you fully obscure the object, giving it correct vision blocking behaviour,
-but ultimately lose immersion because it's not clear to the players what the random circle is that is blocking vision
+  but ultimately lose immersion because it's not clear to the players what the random circle is that is blocking vision
 - Do you make the vision blocking shape slightly smaller, to show a bit of the object, but lose correctness as a result
 
 ### The new mode
@@ -66,32 +66,32 @@ as there isn't much reason to place lights inside vision blocking shapes.
 The other big change in this release is an overhaul of the notes system.
 
 PlanarAlly has so far had 2 concepts of notes:
+
 - loose campaign notes
-  - These have a title and some freeform text
-  - Are always private
-  - can be kept open / dragged around
+    - These have a title and some freeform text
+    - Are always private
+    - can be kept open / dragged around
 - shape notes (known as annotations)
-  - These have markdown aware freeform text
-  - Can be public or private
-  - Limited to 1 per shape
-  - The rendered markdown is shown at the top of the screen when the related shape is hovered
+    - These have markdown aware freeform text
+    - Can be public or private
+    - Limited to 1 per shape
+    - The rendered markdown is shown at the top of the screen when the related shape is hovered
 
 ### A collection of problems
 
 Both of these concepts have their own problems and are inconsistent with eachother:
 
 - for loose notes
-  - there is no way to search
-  - there is no way to filter (e.g. only notes relevant for the current location)
-  - there is no way to share these with other users
-  - only 1 note can be open at the same time
-  - there is no markdown rendering at all
+    - there is no way to search
+    - there is no way to filter (e.g. only notes relevant for the current location)
+    - there is no way to share these with other users
+    - only 1 note can be open at the same time
+    - there is no markdown rendering at all
 - for shape notes
-  - there is no way to have both private and public information
-  - there is no way to have these popped out / access them without having the shape selected
-  - if you need the info you wrote for a shape, you have to find the actual shape wherever it may be
-  - unless it's a character, notes are lost when the shape is removed
-
+    - there is no way to have both private and public information
+    - there is no way to have these popped out / access them without having the shape selected
+    - if you need the info you wrote for a shape, you have to find the actual shape wherever it may be
+    - unless it's a character, notes are lost when the shape is removed
 
 ### A unified solution
 
@@ -212,11 +212,11 @@ Additionally if the aura is limited in angle (i.e. not 360 degrees), a rotation 
 
 ## Bug fixes
 
--   Polygon edit UI: was not taking rotation of shape into account
--   Teleport: shapes teleported without following would seemingly not move as the local sync was not updated
--   Dice tool: Ignore the GO button if nothing is entered
--   Character: a collection of bugs with variants have been fixed
--   Trackers: add max-height and scrolling to fix the UI when there are many trackers
--   RotationSlider: Fix synchronization issues
--   RotationSlider: Fix slider anchor not sticking to the rail under certain angles
--   \[server\] log spam of "unknown" shape when temporary shapes are moved
+- Polygon edit UI: was not taking rotation of shape into account
+- Teleport: shapes teleported without following would seemingly not move as the local sync was not updated
+- Dice tool: Ignore the GO button if nothing is entered
+- Character: a collection of bugs with variants have been fixed
+- Trackers: add max-height and scrolling to fix the UI when there are many trackers
+- RotationSlider: Fix synchronization issues
+- RotationSlider: Fix slider anchor not sticking to the rail under certain angles
+- \[server\] log spam of "unknown" shape when temporary shapes are moved
