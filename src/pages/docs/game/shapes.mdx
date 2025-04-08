@@ -114,15 +114,6 @@ This name will show up in some other places like the quick selection info and th
 The <Eye/> symbol is used to toggle whether other players without edit access are allowed to see this name.
 If this is not allowed, other players will see 'Unknown shape' irregardles of whether the name was set.
 
-#### Is a token
-
-Selecting this option classifies the object as a token.
-Tokens have a specific meaning, see [the terminology section](/docs/terminology/#tokens) for more information on what this entails.
-
-Check the [lighting and vision](/docs/dm/lighting-vision/) document for more information on how lighting works in relation to tokens.
-
-In general you only want to enable this property for shapes controlled by players.
-
 #### Is invisible
 
 Selecting this option turns the shape invisible to all players without vision or edit access to the shape _(\*)_.
@@ -309,11 +300,38 @@ By default the creator of the shape has full access right to the shape as well a
 
 You can modify the default access or set specific access rights for a player using the dropdown.
 
-Three levels of access can be given with a higher access level immediately also granting access to the lower levels.
+There are 3 different access levels and they can be enabled/disabled individually.
 
-<PencilAlt /> EDIT ACCESS /
-<ArrowsAlt /> MOVEMENT ACCESS /
-<Lightbulb /> VISION ACCESS.
+#### <PencilAlt /> Edit access
+
+When given, this allows the user to modify the properties of the shape.
+This includes all other settings like trackers and access itself.
+
+#### <ArrowsAlt /> Movement access
+
+Allows the user to move the shape around on the map.
+
+It's important to realize that when this access right is given without vision rights,
+it's possible for the player to move their shape into the fog and lose it.
+
+#### <Lightbulb /> Vision access
+
+When given, provides the user with vision access to the private auras on the shape.
+
+This is an important setting for Line of Sight based vision.
+
+#### Some access combinations
+
+When all access rights are given, you simply have full ownership of a shape. This is commonly used for player characters.
+
+As mentioned in the movement access, it's possible for you to have movement access without vision access.
+An example of a reason why you might want this are summons/pets/companions.\
+Basically any shape that you own to a certain extent, but don't actually have full vision rights to.
+(e.g. Usually you don't see what happens if you send these behind the corner, though special spells or features might change this)
+
+Another class of shapes that you shouldn't really have vision access over are the shapes created with the draw tool.
+These tend to represent objects like walls etc.
+When drawn they explicitly don't grant you the vision access right by default, though you can of course enable it when relevant.
 
 ### Group
 
