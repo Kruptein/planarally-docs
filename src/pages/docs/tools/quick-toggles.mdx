@@ -1,0 +1,33 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Quick Toggles
+
+The DM toolbar has some extra icons below it. These are quick toggles that are useful for a variety of things.
+
+<Image src={QuickTogglesImage} width={150} alt="Overview of the initiative tool" />
+
+## Fake Player
+
+When this is enabled the DM's screen will be rendered as if they are in fake player mode (See [Fake Player](/docs/dm/settings/#fake-player))
+
+## Line of Sight
+
+This quick toggle only shows up if you have [Line of Sight](/docs/dm/settings/#only-los) enabled.
+
+It allows you to disable LoS **only** on your own screen. Just like the Fake Player toggle, this helps with verifying light & vision setups during prep work.
+It will show green when LOS is enabled and red when it's (temporarily) disabled.
+
+In particular when working on a new location where you likely have no shapes with vision access ready you can use this to verify lights you setup without having to create temporary shapes.
+
+## Initiative
+
+The initiative quick toggle is compared to the other toggles more than a convenience.
+When enabled it will turn green (until clicked again) and indicates that [initiative](/docs/tools/initiative/) is active.
+
+It will automatically open the initiative UI for all players and will activate some of the [Initiative settings](/docs/game/settings/#initiative).
+These settings are only active when initiative is explicitly enabled using this toggle!
