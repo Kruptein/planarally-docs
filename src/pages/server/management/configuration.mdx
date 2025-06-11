@@ -354,3 +354,45 @@ Default: N/A\
 Type: `email-string`
 
 The default email address to use when sending mails.
+
+## Stats
+
+Section name: `stats`
+
+This is an optional section that when not specified will use a default set of values.
+It controls the collection and transmission of anonymous usage statistics.
+
+See [this github PR](https://github.com/Kruptein/PlanarAlly/pull/1608) for some information on what and why.
+
+### Field: `enabled`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to enable/disable the mail config without having to completely remove the section or comment it.
+When set to `false` no stats collection will happen at all.
+
+### Field: `enable_export`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to disable the export of statistics to the PA stats server.
+Local collection will still be done.
+
+### Field: `export_frequency_in_seconds`
+
+Default: `24 * 60 * 60` (1 day)\
+Type: `int`
+
+This determines how frequent the stats are sent to the PA stats server.
+
+It's not recommended to put this any lower than 1 day.
+Recommended rates are 1 day, 1 week or 1 month.
+
+### Field: `stats_url`
+
+Default: `https://stats.planarally.io`
+Type: `string`
+
+The receiving URL of the stats data.
