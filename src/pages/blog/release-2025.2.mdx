@@ -14,6 +14,7 @@ This release has a couple of things going on:
 - The isToken property has been removed and shape access now works differenty
 - Experimental mod support has gotten some improvements
 - Follow up on the reworked in-game asset manager from the last release
+- Anonymous stats collection added to the server
 
 <Warning title="Server config change">
     If you're a server owner, the server config was changed drastically and requires manual intervention, see below for
@@ -82,6 +83,23 @@ The dashboard asset manager has dedicated create-folder/upload-file/remove-selec
 Adding files and selection removal were still possible through mouse drag&drop and context menus, but folder creation was just not possible.
 
 These buttons are now also present in the in-game asset manager.
+
+Additionally some places where still using the old asset picker UI (e.g. campaign logo setter), these have all been updated to the new UI introduced last release.
+
+## Stat collection
+
+A question I often receive is how many users PA actually has and I can never actually answer this or even estimate this.
+
+There is no official PA server that I can base myself on for some estimates, I only have some vague numbers like github stars or discord users, but those don't really say anything about actual users and if they're any indication at all they're more likely to represent server owners than players.
+
+In order to get a feeling for what's actually going on out there I'm introducing a stats collection thingy on the server.
+This will in a later release also tie in with some changes I want to do to local server admin, allowing these stats to also be visible in the dashboard with proper permissions.
+
+The stats collected are very simple and contain no personal information of any kind. They only provide some inkling to me as to how many users/campaigns are actually actively in use.
+
+For more details on what statistics and how the privacy is handled see the [github PR](https://github.com/Kruptein/PlanarAlly/pull/1608), which got more information.
+
+For server owners this feature is configurable with the new config format.
 
 ## Mod updates
 
