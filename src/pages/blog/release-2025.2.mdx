@@ -7,7 +7,9 @@ layout: ../../layouts/blog.astro
 
 import Warning from "/src/components/directives/Warning.astro";
 
-This release has a couple of things going on:
+A new release with some goodies, though they're mostly aimed at DM and server owners.
+
+A quick summary:
 
 - The server's config format was completely changed
 - A mailserver can now be configured by the server admin, allowing a 'forgot password' flow
@@ -108,15 +110,23 @@ _Please note that mod support is still very experimental_
 A year ago early support for mods was added. This was still very rough, with one big problem being that only the server owner could add mods by manualy adding them to a specific folder.
 This release adds a UI per campaign, allowing the DM to upload mods used for that specific campaign.
 
-Additionally a lot of the internals of the mod API have been updated, in particularly the DataBlock API received some drastic changes, making the mod UI side ofthings way compacter.
-
-For more info, I'm deferring to the PR:
+Additionally a lot of the internals of the mod API have been updated, in particularly the DataBlock API received some drastic changes, making the mod UI side of things way compacter.
 
 All example mods in the planarally-mods repo have also been updated to the new API.
 
 _Further reading: [Mod PR](https://github.com/Kruptein/PlanarAlly/pull/1583)_
 
 ## Server: Config change
+
+The configuration format has completely changed and the location where it's stored in the server folder has also changed.
+It's now a toml based format and stored in the data folder.
+There are multiple reasons why this change was made and it was long overdue.
+
+It is **strongly** recommended to read up on the detailed reasoning and info in the [github PR](https://github.com/Kruptein/PlanarAlly/pull/1574).
+
+The server docs have been updated to show all [configuration options](/server/management/configuration/).
+
+If you need help with upgrading your existing config file, do not hesitate to contact the #help channel on the discord server.
 
 ## Bugfixes
 
