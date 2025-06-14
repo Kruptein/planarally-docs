@@ -19,9 +19,12 @@ A quick summary:
 - Follow up on the reworked in-game asset manager from the last release
 - Anonymous stats collection added to the server
 
-<Warning title="Server config change">
+<Warning title="Server changes">
     If you're a server owner, the server config was changed drastically and requires manual intervention, see below for
     more info!
+
+    The server now also usees UV for dependency management, which may impact your upgrade.
+
 </Warning>
 
 ## Mail
@@ -128,6 +131,15 @@ It is **strongly** recommended to read up on the detailed reasoning and info in 
 The server docs have been updated to show all [configuration options](/server/management/configuration/).
 
 If you need help with upgrading your existing config file, do not hesitate to contact the #help channel on the discord server.
+
+## Server: Dependency management change
+
+The server is now also managed using [UV](https://docs.astral.sh/uv/) for dependency management.
+
+This means if you manually manage the server using python/pip you'll have to install uv and adopt the new system as well.
+This is going to be a small number of users so impact should be small.
+
+For more information check the [github PR](https://github.com/Kruptein/PlanarAlly/pull/1550) and the server's readme which has been updated with info on how to use uv.
 
 ## Bugfixes
 
