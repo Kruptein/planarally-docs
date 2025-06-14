@@ -2,6 +2,7 @@
 layout: ../../../layouts/docs.astro
 ---
 
+import Info from "../../../components/directives/Info.astro";
 import Warning from "../../../components/directives/Warning.astro";
 import Cog from "~icons/fa-solid/cog";
 import TimesCircle from "~icons/fa-solid/times-circle";
@@ -111,6 +112,11 @@ You'll want to change this if you're playing on something like a projector for e
 
 <Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Initiative Settings" />
 
+<Info>
+    The two lock settings below are only in use if initiative is active. Initiative is only properly active when
+    toggled on using the [Quick Toggles](/docs/tools/quick-toggles/).
+</Info>
+
 ### Lock Camera
 
 By enabling this feature, every time the initiative moves to the next character,
@@ -122,13 +128,6 @@ By enabling this feature, the vision will be limited as if you only had access t
 
 This has the same impact as if you used the [vision tool](/docs/tools/vision/) and manually changed it to the active initiative participant every turn.
 This is only relevant if you control multiple characters.
-
-<Warning>
-There is currently no notion of "In combat" or "Initiative active", so this setting is always enabled when configured.
-
-If you go out of initiative and your vision is still focussed on only 1 character, use the [vision tool](/docs/tools/vision/) to reset it.
-
-</Warning>
 
 ### Effects
 

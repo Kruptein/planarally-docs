@@ -1,0 +1,142 @@
+---
+title: Release 2025.2
+date: 2025-06-14 16:25:00
+excerpt: "Mail, mods & QoL"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+A new release with some goodies, though they're mostly aimed at DM and server owners.
+
+A quick summary:
+
+- The server's config format was completely changed
+- A mailserver can now be configured by the server admin, allowing a 'forgot password' flow
+- The isToken property has been removed and shape access now works differenty
+- Experimental mod support has gotten some improvements
+- Follow up on the reworked in-game asset manager from the last release
+- Anonymous stats collection added to the server
+
+<Warning title="Server config change">
+    If you're a server owner, the server config was changed drastically and requires manual intervention, see below for
+    more info!
+</Warning>
+
+## Mail
+
+This was long overdue, but server owners can now configure mail server information in the (new) config.
+When configured PA will be able to use it to send out mails to players.
+
+There is currently only one use for it, but it's an important one: forgot password flow.
+
+_Further reading: [Mail config section](/server/management/configuration/#mail)_
+
+### Forgot Password
+
+When mail is configured the login screen will now show a "forgot password?" action under the password label,
+providing a flow to reset the password for a given email address.
+
+Note that this only works if the user has an email configured (note that email is optional during registration).
+
+A small tangential QoL update is that a success notification will now appear when you modify your email address in the dashboard.
+It was not super clear that something actually was modified when you did so until now.
+
+## Disable LoS rendering
+
+As a DM you might be familiar with the case where you're working on a new location and have configured a bunch of lights,
+but aren't sure if they actually cover what you expect them to cover because you have LoS enabled and your players are still on another location.
+
+There are a variety of "hacks" around this: creating a temporary shape with vision permissions, temporarily disabling LoS in the location settings, ...
+
+They all work, but tend to be a hassle or even error prone (e.g. forgetting to turn the LoS setting back on when you're ready for your players to visit the location).
+
+That's why there is now a new quick toggle under the toolbar for DMs titled 'LOS'.
+It's only visible if LoS is enabled in the location.
+It has a green (on) and red (off) mode that can be used to override the LoS setting purely on your local client.
+
+This allows you to quickly toggle the behaviour on/off without it impacting players, making level design easier.
+
+_Further reading: [Quick Toggles](/docs/tools/quick-toggles/)_
+
+## Access levels & isToken
+
+Every shape in PA has access levels that can be finetuned per player. Allowing some players full edit control over a shape and others only vision access.
+
+Up until now these access levels (vision/movement/edit) were additive. Every access level also gave all permissions related to the access levels below it (e.g. movement also included vision permissions).
+This has worked fine as a baseline for the majority of PA's existence, but I recently encountered some problems I wanted to tackle that were not possible due to this additive nature.
+
+Access levels are now completely separate. For example it's now possible to have edit access without vision access. This can be useful if a player has control over some pet's stats, but can't see what the pet can see.
+
+Additionally every shape also had a special property `isToken`. This was essential for vision calculation when LoS is enabled and something that all player shapes had to have enabled.
+This property is however not super intuitive to most new players and even some veterans aren't super sure on what it actually does, except that they need to enable it for LoS.
+
+This was introduced for performance reasons way back, but after some thinking time, I figured out that it's actually not needed if I modify how the access levels work.
+The result is that the `isToken` property has been removed, it's no longer needed to manually tag user shapes with this.
+Instead any shape that your user has vision access to, will be rendered as if it had isToken in the past.
+
+I wrote an [extended blog post](https://www.planarally.io/blog/removing-is-token/) about the reasons why these changes were made if you want some more info.
+
+_Further reading: [Shape Access](/docs/game/shapes/#access)_
+
+## Assets
+
+The dashboard asset manager has dedicated create-folder/upload-file/remove-selection buttons, which the in-game version did not have.
+Adding files and selection removal were still possible through mouse drag&drop and context menus, but folder creation was just not possible.
+
+These buttons are now also present in the in-game asset manager.
+
+Additionally some places where still using the old asset picker UI (e.g. campaign logo setter), these have all been updated to the new UI introduced last release.
+
+## Stat collection
+
+A question I often receive is how many users PA actually has and I can never actually answer this or even estimate this.
+
+There is no official PA server that I can base myself on for some estimates, I only have some vague numbers like github stars or discord users, but those don't really say anything about actual users and if they're any indication at all they're more likely to represent server owners than players.
+
+In order to get a feeling for what's actually going on out there I'm introducing a stats collection thingy on the server.
+This will in a later release also tie in with some changes I want to do to local server admin, allowing these stats to also be visible in the dashboard with proper permissions.
+
+The stats collected are very simple and contain no personal information of any kind. They only provide some inkling to me as to how many users/campaigns are actually actively in use.
+
+For more details on what statistics and how the privacy is handled see the [github PR](https://github.com/Kruptein/PlanarAlly/pull/1608), which got more information.
+
+For server owners this feature is configurable with the new config format.
+
+## Mod updates
+
+_Please note that mod support is still very experimental_
+
+A year ago early support for mods was added. This was still very rough, with one big problem being that only the server owner could add mods by manualy adding them to a specific folder.
+This release adds a UI per campaign, allowing the DM to upload mods used for that specific campaign.
+
+Additionally a lot of the internals of the mod API have been updated, in particularly the DataBlock API received some drastic changes, making the mod UI side of things way compacter.
+
+All example mods in the planarally-mods repo have also been updated to the new API.
+
+_Further reading: [Mod PR](https://github.com/Kruptein/PlanarAlly/pull/1583)_
+
+## Server: Config change
+
+The configuration format has completely changed and the location where it's stored in the server folder has also changed.
+It's now a toml based format and stored in the data folder.
+There are multiple reasons why this change was made and it was long overdue.
+
+It is **strongly** recommended to read up on the detailed reasoning and info in the [github PR](https://github.com/Kruptein/PlanarAlly/pull/1574).
+
+The server docs have been updated to show all [configuration options](/server/management/configuration/).
+
+If you need help with upgrading your existing config file, do not hesitate to contact the #help channel on the discord server.
+
+## Bugfixes
+
+- Draw tool polygon was not updating vision until shape completion
+- Reduced some render overhead when token shapes that the player did not own were moved
+- Shape context menu not closing when selecting an option
+- Select tool build UI not appearing when mode toggling
+- Datablocks for room and user categories had a bug in the server preventing creating them
+- Asset context-menu remove not working
+- Asset context-menu background colour being wrong in-game sometimes
+- Asset upload bar missing in the dashboard asset manager
+- Dropping assets you have shared-view permission for on the map was not working

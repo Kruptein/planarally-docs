@@ -15,7 +15,6 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             path: "",
             items: [
                 { title: "Introduction", path: "/" },
-                "Terminology",
                 { title: "Quick Reference", path: "/reference/" },
                 { title: "Tools Overview", path: "/tools-overview/" },
             ],
@@ -70,7 +69,11 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 { title: "Undo/Redo", path: "/undo/" },
             ],
         },
-        { title: "DM Tools", path: "/tools", items: ["Map"] },
+        {
+            title: "DM Tools",
+            path: "/tools",
+            items: ["Map", { title: "Quick toggles", path: "/quick-toggles/" }],
+        },
     ],
     learn: [
         { title: "Player 101", path: "/player", items: [{ title: "Introduction", path: "/intro/" }, "Interaction"] },

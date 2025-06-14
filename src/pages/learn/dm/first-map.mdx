@@ -268,24 +268,27 @@ In the video above we:
 
 If we now check what the player with username "test" can see we notice the following problem:
 
-![Player doesn't see their token](./assets/player-no-vision1.png)
-
-There are two problems actually:
-
-1. We don't see the test token, it's hidden behind the fog
-2. Our player can see the room with the light while their character is not even in there
-
-### "Is a Token"
-
-The first problem is easy to fix, open the test shape's settings and check the "is a token" property (in the properties tab).
-
-This property makes it so that PA recognizes this shape as a special token and basically indicates that this is a token that will be used to represent a player.
-
-Tokens will automatically have a minimal vision aura around them so that you don't lose them when moving in a place you can't see much in.
-
 ![Player doesn't see their token](./assets/player-no-vision2.png)
 
-This property however also plays a much bigger role when paired with a proper vision setup as we'll see below.
+Our player can see everything in the room with the light while their character is not even in there!
+
+### Vision access
+
+Before diving into Line of Sight Vision, we need to make a quick detour to talk about shape access levels.
+
+When we added the 'test' player access to the shape above, the 3 access permissions (edit/movement/vision) were granted automatically.
+The 3 access rights are not always given immediately, it depends on some context, so it's important to realise what they do.
+
+In particular the vision access permission is important as it decides what the players can see.
+With the access enabled, PA will assume the player has vision access to the private auras of the shape and essentially see what the token can see in the world.
+
+Even if no auras are configured on the token, a minimal vision aura will always be present around them so that you don't lose them when moving in a place you can't see much in.
+
+If you were to disable the vision access for the token we would instead see the following:
+
+![Player doesn't see their token](./assets/player-no-vision1.png)
+
+So even though we have edit & movement access, we don't actually see the shape because nothing is currently lighting up the area the shape is in.
 
 ## Vision
 
@@ -299,10 +302,10 @@ And this labour intensive approach will still end up with players being able to 
 
 To actually enable vision per character properly we need two things:
 
-1. Players need to have their shapes configured to be a token
+1. Players need to have vision access over their shapes
 2. The location needs to be configured to have line of sight enabled
 
-(1) we did in the "Is a token" section, so that is already covered, but for (2) we need to go back to our DM settings [where we enabled the "full FOW" setting earlier](#vision-settings).
+(1) We covered this in the earlier Vision access section, so that is already covered, but for (2) we need to go back to our DM settings [where we enabled the "full FOW" setting earlier](#vision-settings).
 
 <Tip>
 If you have multiple locations (see later), these DM settings can often also be configured on a per location basis.
@@ -311,7 +314,7 @@ The DM settings are the default settings and will be used when not explicitly ov
 
 </Tip>
 
-If everything went right we now have the following view:
+If everything went right we now have the following view (on the DM side):
 
 ![Player vision](./assets/player-vision.png)
 

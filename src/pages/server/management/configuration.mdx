@@ -7,148 +7,392 @@ import Warning from "/src/components/directives/Warning.astro";
 
 # Server Configuration
 
-The configuration of the software is done in the client and [campaign settings](/docs/dm/settings/).
-While you actually could modify the configuration stored in the save file (see below), it is not recommended and, thus, not documented, here.
-In contrast, this section focuses on the configuration that should be done within the central configuration file, which is `./server/server_config.cfg`.
-
-The configuration file is divided up into two sections: Webserver, and General.
-These sections are indicated by these designations, within square brackets (e.g. `[Webserver]`).
-Within each section, there are certain variables defined via a name and their value, using the scheme `name = value`, followed by a line-break.
-A leading `#` denotes a comment; every line with a leading `#` will be ignored.
-
-Only change the configuration if something does not work accordingly and you know what you're doing.
-
-## Webserver
-
-This section contains several variables concerning the webserver that distributes the client to the players.
-
-### host
-
-`host` (default: `0.0.0.0`, accepting strings resolveable by _DNS_) tells the server on what (IP-) address it is reachable.
-The default is set to `0.0.0.0` which, in this context, means: 'Any IP on this machine'.
-
-Most likely, you won't need to change this setting, unless you're sharing the machine with others (e.g. on a shared (v)server) or run several servers on the machine with different addresses.
-
-### port
-
-`port` (default: `8000`) tells the server on which port to listen.
-
-Be sure that the port you use is not used by any other application.
-Also, make sure the port you use is also accessible from outside of the machine.
-Especially when running from within a private network (e.g. at home) you might need to enable _port forwarding_ in your router's configuration.
-
-This configuration key will not be used, when `socket` is used, i.e. the `#` before `socket` is removed.
-
-### socket
-
-`socket` (default: `/tmp/planarally.sock`, accepting a filepath) tells the server where to look for a shared socket.
-This is an alternative to communicating via a host\:port.
-
-The `socket` option is disabled by default.
-If you activate the configuration-key by removing the leading `#`, sockets, regardless of `socket`'s value, will be used instead of `port`.
-
-### SSL
-
-PlanarAlly supports to encrypt communication in between the server and the players via [Secure Sockets Layer (SSL)](https://en.wikipedia.org/wiki/Transport_Layer_Security).
-Despite the name, this is independent from the _socket_ configuration, above.
-The SSL-configuration needs three variables to be configured: `ssl`, `ssl_fullchain`, and `ssl_privkey`.
-
-<Warning>
-    SSL is disabled by default. It is **strongly** recommended to make sure you serve to your endusers over https.
-
-    It's possible that your reverse proxy handles these things for you, in which case you can ignore these settings here.
-
+<Warning title="Recent changes">
+    The server configuration was completely changed in release 2025.2. The config described in this document refers to
+    the new format.
 </Warning>
 
-`ssl` (default: `false`, accepting true/false) tells the server whether SSL should be used.
-If set to `false` (default), the other two settings will simply be ignored as they are not needed by the server.
+The server can be configured by creating a `config.toml` file in the server's `data` folder.
+When no config file is provided, PA will use default values. The default config can be seen [here](#default-config).
 
-`ssl_fullchain` (default: `cert/fullchain.pem`, accepting a filepath) tells the server where to look for the `*.pem`-file containing the certificate containing the 'full chain' of certificates to your certificate authority (CA).
-Please note that neither the folder `cert`, nor the file `fullchain.pem` are shipped with PlanarAlly, but have to be generated/referred to for each individual installation by yourself.
+When a partial config file is provided, missing fields will similarly be replaced with default values were relevant.
 
-`ssl_privkey`(default: `cert/privkey.pem`, accepting a filepath) tells the server where to look for the `*.pem`-file containing your private certification key.
-Please note that neither the folder `cert`, nor the file `privkey.pem` are shipped with PlanarAlly, but have to be generated/referred to for each individual installation by yourself.
-**Please also take the 'private' in 'private key' _very_ seriously!**
+# Format
 
-### CORS
+As the extension of the config implies, the config is formatted using [TOML](https://toml.io/en/).
 
-This setting allows you to configure Cross Origin Resource Sharing.
-This functionality is deactivated by default and only accepts resources from the same origin.
+The config is split up in smaller sections which have a `[section]` heading, with subsections being denoted by `[section.some.subsection]`.
+Each (sub)section is then followed by separate lines to configure particular values.
 
-`cors_allowed_origins` (disabled by default, default: `*`).
-See [python-socketio on readthedocs.io](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) for more information on the meaning of the allowed values.
+Detailed information on how the TOML format works is out of scope of this document, but after checking the default config you should have a good grasp of how it works.
 
-<Warning>
-    The socketio API expects strings (e.g. `'*'`). The config file is already interpretting things as strings, so don't
-    add the extra `''`, but just write `\*`!
-</Warning>
+# Default config
 
-### Upload Limit
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+max_log_size_in_bytes = 200000
+max_log_backups = 5
 
-To prevent users from overloading the server, there is a limit to the size of the files being uploaded.
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
 
-`max_upload_size_in_bytes` (default: `10MB`, accepts: a number interpretted as bytes)
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+```
+
+<Info title="File paths">
+    When specifying paths to files or folders, you can use absolute paths (e.g. `/home/user/example.txt`) or relative
+    paths (e.g. `data/planar.sqlite`). When a relative path is used, it will be relative to the main server foler and
+    NOT the folder where the config is in.
+</Info>
+
+# Sections
+
+Here all the possible options will be listed along with their default values.
+If at any point this info would become out of date and causes errors, the source of truth can be [found on github](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py) in code form.
 
 ## General
 
-This section contains general settings for PlanarAlly.
+Section name: `general`
 
-### Asset Directory
+### Field: `save_file`
 
-This setting is used to specify an alternate location to save/load raw asset data from.
-By Default this is the `server/static/assets` folder.
+Default: `"data/planar.sqlite"`\
+Type: `string`
 
-`assets_directory` (disabled by default. Accepts path to a folder)
+Path to the save file. This is a crucial setting that when modified will have a big impact.
 
-### save_file
-
-`save_file` (active by default, default: `planar.sqlite`) tells the server where to look for the central save file wherein all users, settings, locations, assets and so on are saved.
+If the server starts and the chosen path does not exist, the server will create a new save file.
 
 <Info title="Savefile format">
-    Note that, at this moment, PlanarAlly only supports storing the saves in _.sqlite_ format.
+    Note that, at this moment, PlanarAlly only supports storing the saves in sqlite format.
 </Info>
 
 <Warning>
     While the server is running, extra files might be showing up (e.g. `planar.sqlite-shm` and `planar.sqlite-wal`).
     These files are essential for the server functionality.
 
-    When copying a save file, make sure to copy these files as well if they exist. (they should not exist if the server is not running)
+    If the server shuts down gracefully these files will be gone. They can however stick around if the server wasn't able to cleanly stop.
+    When copying a save file, make sure to copy these files as well if they exist or your save might be corrupt or out of date.
 
 </Warning>
 
-### public_name
+### Field: `client_url`
 
-`public_name` (inactive default, accepting valid ip or hostname) is used to set an ip or hostname address that is inserted into the invitation url via the [DM's campaign settings](/docs/dm/settings/#invitation-url).
-If inactive or empty, the server falls back to normal operation and uses the ip/hostname address it is accessed with.
+Default: N/A - optional field\
+Type: `string`\
+_It's generally recommended to configure this field, but it's not required for a minimal setup._
 
-### Logging
+When set this should be the full base URL of the frontend application. (e.g. "https://app.planarally.io").
 
-These settings configure the logging behaviour of PA.
-A rotation logger is used that will keep track of a maximum of `max_log_backups` files each containing maximum `max_log_size_in_bytes` bytes of logs.
+This is used in the invite URL and forgot password mails. When missing the invite URL will look at the current URL in the browser when generated. Email URLs will however **not** contain the root URL info as the server cannot predict this.
 
-`max_log_size_in_bytes` (default: `200_000`) \
-`max_log_backups` (default: `5`)
+### Field: `allow_signups`
 
-### Signups
+Default: `true`\
+Type: `boolean`
 
-This setting simply disables the option to register new users when set to `false`.
-This is useful for private servers, where the owner manually creates accounts for new users.
+This setting dictates whether users can register a new account using the frontend. When disabled account creation is only available through database manipulation.
 
-`allow_signups` (default: `true`, accepts: `true/false`)
+### Field: `enable_export`
 
-### Export/Import
+Default: `true`\
+Type: `boolean`
 
-This setting determines if the server allows users to import/export campaigns.
+When this setting is enabled account export **and** import is available for users.
 
-`enable_export` (default: `true`, accepts: `true/false`)
+This is generally recommended as this allows users to move their data to/from a different server as well as provide me with data for debugging.
 
-## APIserver
+### Field: `max_log_size_in_bytes`
 
-The API server is an administration server on which some API calls can be made.
-This contains the same options as the settings of the [configuration of the webserver](#Webserver), but applying them to the API server.
+Default: `200_000`\
+Type: `integer`
 
-Thus, only major differences are listed here:
+The max size in bytes for a single log file. This is used together with the next field to determine the logging strategy of PlanarAlly.
 
-- **Always** use a different port or socket than for the webserver.
-- `host` is defaulted to `localhost` instead of `0.0.0.0` to limit access.
-- `port` is defaulted to `8001` (using the port next to the webserver's default).
+### Field: `max_log_backups`
+
+Default: `5`\
+Type: `integer`
+
+Number of log files to keep around. This is used to prevent a million log files from being kept.
+
+## Webserver
+
+Section name: `webserver`
+
+### Subsection: `connection`
+
+_This is a subsection (see the [Default Config](#default-config) for an example on how to configure this)._
+
+This configures how the server is connected to the network stack. It has to be either a HostPort configuration or a socket configuration.
+By default a HostPort combination is used.
+
+#### field: `type`
+
+Default: `"hostport"`\
+Type: `"hostport" or "socket"
+
+The type field is what ultimately determines which connection type is used.
+
+```toml
+# Either a hostport connection is configured
+[webserver.connection]
+type = "hostport"
+...
+
+# Or a socket connection
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### HostPort fields
+
+#### field: `host`
+
+Default: `"0.0.0.0"`\
+Type: `string`
+
+The IP on which the server will attempt to bind.
+
+#### field: `port`
+
+Default: `8000`\
+Type: `integer`
+
+The port on which the server will attempt to bind.
+
+Be sure that the port you use is not used by any other application.
+Also, make sure the port you use is also accessible from outside of the machine.
+Especially when running from within a private network (e.g. at home) you might need to enable _port forwarding_ in your router's configuration.
+
+#### Example HostPort config
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Socket fields
+
+#### field: `socket`
+
+Default: N/A\
+Type: `string`
+
+The path to the socket that will be used to bind.
+
+#### Example Socket config
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+### Subsection: ssl
+
+This is an optional subsection, when omitted no SSL config is applied to the PA server itself.
+This does not prevent you from setting up SSL higher up in the chain (e.g. in your reverse proxy).
+
+It is strongly recommended to ensure that SSL is set up somewhere in the chain!
+
+#### Field: `enabled`
+
+Default: `false`\
+Type: `boolean`
+
+Allows you to enable/disable the ssl config without having to completely remove the SSL section or comment it.
+Only when this value is set to `true` will the SSL config actually be applied.
+
+#### Field: `fullchain`
+
+Default: N/A\
+Type: `string`
+
+Path to the full chain certificate.
+
+#### Field: `privkey`
+
+Default: N/A\
+Type: `string`
+
+Path to the private key certificate.
+
+#### Example SSL config
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+### Field: `cors_allowed_origins`
+
+Default: N/A (optional field)\
+Type: `string / List of strings`
+
+CORS configuration for the websocket server.
+
+This value is passed to the socketio server, more info can be found in the [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) docs.
+A value of `'*'` can be set to allow all origins, this is useful for testing purposes, but not secure.
+
+### Field: `max_upload_size_in_bytes`
+
+Default: `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
+Type: `integer`
+
+The maximum size a single upload of data from the client can be.
+
+It should be noted that this will mostly act as a chunking strategy.
+Asset uploads and campaigns transfers will be chunked according to this maximum, but the total size of these can thus exceed the limit!
+See the assets section of the config for info on how to limit user's asset sizes.
+
+## API server
+
+Section name: `apiserver`
+
+This is an optional section and is by default not enabled.
+
+The same values as the server section apply, but the hostport or socket must be different than the main webserver.
+
+## Assets
+
+### Field: `max_single_asset_size_in_bytes`
+
+Default: `0`\
+Type: `integer`
+
+The maximum size a single user uploaded asset can have in bytes.
+
+A value of `0` or smaller will be interpretted as no limit.
+
+Users will not be able to upload assets that are bigger and will receive an error notification.
+
+### Field: `max_total_asset_size_in_bytes`
+
+Default: `0`\
+Type: `integer`
+
+The maximum size a user can store on the server (assets only).
+
+A value of `0` or smaller will be interpretted as no limit.
+
+Users will not be able to upload an asset if it would bring their total storage on the server over this limit.
+
+Note that this setting will only affect new uploads and does not shrink/remove already uploaded assets if you lower this value at a later time.
+
+### Field: `directory`
+
+Default: `"static/assets"`\
+Type: `string`
+
+This can be used to specify a different path to where assets are located.
+
+This is mostly an experimental setting, use at your own risk.
+
+## Mail
+
+Section name: `mail`
+
+This is an optional section and is by default not enabled.
+
+It's currently only used to send mails as part of the forgot-password flow.
+
+### Field: `enabled`
+
+Default: `false`\
+Type: `boolean`
+
+Allows you to enable/disable the mail config without having to completely remove the section or comment it.
+Only when this value is set to `true` will the mail config actually be applied.
+
+### Field: `host`
+
+Default: N/A\
+Type: `string`
+
+The host of the SMTP mailserver, this must be filled in.
+
+### Field: `port`
+
+Default: N/A\
+Type: `integer`
+
+The port of the SMTP mailserver, this must be filled in.
+
+### Field: `username`
+
+Default: N/A (optional)\
+Type: `string`
+
+If applicable, the username can be specified to authenticate with.
+
+### Field: `password`
+
+Default: N/A (optional)\
+Type: `string`
+
+If applicable, the password can be specified to authenticate with.
+
+### Field: `default_from_address`
+
+Default: N/A\
+Type: `email-string`
+
+The default email address to use when sending mails.
+
+## Stats
+
+Section name: `stats`
+
+This is an optional section that when not specified will use a default set of values.
+It controls the collection and transmission of anonymous usage statistics.
+
+See [this github PR](https://github.com/Kruptein/PlanarAlly/pull/1608) for some information on what and why.
+
+### Field: `enabled`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to enable/disable the mail config without having to completely remove the section or comment it.
+When set to `false` no stats collection will happen at all.
+
+### Field: `enable_export`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to disable the export of statistics to the PA stats server.
+Local collection will still be done.
+
+### Field: `export_frequency_in_seconds`
+
+Default: `24 * 60 * 60` (1 day)\
+Type: `int`
+
+This determines how frequent the stats are sent to the PA stats server.
+
+It's not recommended to put this any lower than 1 day.
+Recommended rates are 1 day, 1 week or 1 month.
+
+### Field: `stats_url`
+
+Default: `https://stats.planarally.io`
+Type: `string`
+
+The receiving URL of the stats data.
