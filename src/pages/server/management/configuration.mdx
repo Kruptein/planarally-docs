@@ -12,10 +12,11 @@ import Warning from "/src/components/directives/Warning.astro";
     the new format.
 </Warning>
 
-The server can be configured by creating a `config.toml` file in the server's `data` folder.
-When no config file is provided, PA will use default values. The default config can be seen [here](#default-config).
+By default **NO** config file is present. Instead PA uses default values for all the settings. The default config values can be seen [here](#default-config)
 
-When a partial config file is provided, missing fields will similarly be replaced with default values were relevant.
+To change the behaviour, create a `config.toml` file in the server's `data` folder.
+
+When a partial config file is provided, missing fields/sections will be replaced with default values were relevant.
 
 # Format
 
@@ -249,6 +250,9 @@ CORS configuration for the websocket server.
 
 This value is passed to the socketio server, more info can be found in the [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) docs.
 A value of `'*'` can be set to allow all origins, this is useful for testing purposes, but not secure.
+
+This often has to be configured to either the wildcard value (\*) or the correct specific domain in order to work!
+The server console should log when the connection was rejected due to cors.
 
 ### Field: `max_upload_size_in_bytes`
 

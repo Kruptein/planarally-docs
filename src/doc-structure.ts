@@ -110,7 +110,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
         {
             title: "Advanced",
             path: "/advanced",
-            items: [{ title: "Reverse proxy setup", path: "/proxy/" }, "Subpath"],
+            items: [{ title: "Reverse proxy", path: "/proxy/" }, "Subpath"],
         },
     ],
 };
