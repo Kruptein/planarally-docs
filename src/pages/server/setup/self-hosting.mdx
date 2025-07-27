@@ -59,6 +59,8 @@ To override some of these options you can create a `config.toml` file in the ser
 
 See the [config docs](/server/management/configuration/) for the details.
 
+By default PA will run on port 8000, so if everything went successfull regardless of chosen host option, you should be able to see PA at http://localhost:8000
+
 ## Fully manual installation
 
 PA consists of two parts:
@@ -180,3 +182,22 @@ When you execute this file, a command prompt will appear (a black screen with so
     Nevertheless it can happen that a false-positive is triggered by an antivirus vendor out there for various reasons.
 
 </Warning>
+
+## Development
+
+You can configure the client and server to run in a special development mode. This way the frontend is hot-reloaded (i.e. changes made are immediately applied without needing a rebuild).
+
+This requires the server to be ran with the additional 'dev' argument:
+
+```bash
+uv run planarally.py dev
+```
+
+Additionally this also requires a separate process that handles the client hot-reloading
+
+```bash
+# in the client folder
+npm run dev
+```
+
+Note that although the client output will mention a port, you should just use the server port like you would for normal non-development use of PA.
