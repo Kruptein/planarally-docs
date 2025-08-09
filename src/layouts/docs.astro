@@ -321,5 +321,10 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
                 }
             }
         }
+
+        :global(#subsection) {
+            border-left: 3px solid red;
+            padding-left: 1rem;
+        }
     }
 </style>
