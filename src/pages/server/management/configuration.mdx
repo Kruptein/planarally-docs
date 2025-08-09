@@ -56,6 +56,16 @@ port = 8000
     NOT the folder where the config is in.
 </Info>
 
+# Important settings
+
+Some settings you probably want to checkout for certain are:
+
+- [Save file config](#field-save_file)
+- [The entire webserver.connection subsection](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+The [client URL](#field-client_url) is one you usually also want to configure, but is not critical.
+
 # Sections
 
 Here all the possible options will be listed along with their default values.
@@ -131,6 +141,11 @@ Number of log files to keep around. This is used to prevent a million log files 
 
 Section name: `webserver`
 
+One of the most important sections to configure is the webserver.
+It comprises the important `connection` subsection, which you'll want to configure to decide how the PA server is bound to the outside world.
+
+<div id="subsection">
+
 ### Subsection: `connection`
 
 _This is a subsection (see the [Default Config](#default-config) for an example on how to configure this)._
@@ -203,6 +218,10 @@ type = "socket"
 socket = "/var/run/pa.sock"
 ```
 
+</div>
+
+<div id="subsection">
+
 ### Subsection: ssl
 
 This is an optional subsection, when omitted no SSL config is applied to the PA server itself.
@@ -240,6 +259,8 @@ enabled = true
 fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
 privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
 ```
+
+</div>
 
 ### Field: `cors_allowed_origins`
 
