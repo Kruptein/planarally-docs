@@ -61,6 +61,7 @@ port = 8000
 Some settings you probably want to checkout for certain are:
 
 - [Save file config](#field-save_file)
+- [Admin user](#field-admin_user)
 - [The entire webserver.connection subsection](#subsection-connection)
 - [CORS](#field-cors_allowed_origins)
 
@@ -96,6 +97,14 @@ If the server starts and the chosen path does not exist, the server will create 
     When copying a save file, make sure to copy these files as well if they exist or your save might be corrupt or out of date.
 
 </Warning>
+
+### Field: `admin_user`
+
+Default: N/A - optional field\
+Type: `string`
+
+When a username is specified here, this user will be regarded as the main admin user.
+It will have access to extra features in the dashboard to manage things like users and campaigns on the server.
 
 ### Field: `client_url`
 
@@ -285,49 +294,6 @@ The maximum size a single upload of data from the client can be.
 It should be noted that this will mostly act as a chunking strategy.
 Asset uploads and campaigns transfers will be chunked according to this maximum, but the total size of these can thus exceed the limit!
 See the assets section of the config for info on how to limit user's asset sizes.
-
-## API server
-
-Section name: `apiserver`
-
-This is an optional section and is by default not enabled.
-
-The same values as the server section apply, but the hostport or socket must be different than the main webserver.
-
-## Assets
-
-### Field: `max_single_asset_size_in_bytes`
-
-Default: `0`\
-Type: `integer`
-
-The maximum size a single user uploaded asset can have in bytes.
-
-A value of `0` or smaller will be interpretted as no limit.
-
-Users will not be able to upload assets that are bigger and will receive an error notification.
-
-### Field: `max_total_asset_size_in_bytes`
-
-Default: `0`\
-Type: `integer`
-
-The maximum size a user can store on the server (assets only).
-
-A value of `0` or smaller will be interpretted as no limit.
-
-Users will not be able to upload an asset if it would bring their total storage on the server over this limit.
-
-Note that this setting will only affect new uploads and does not shrink/remove already uploaded assets if you lower this value at a later time.
-
-### Field: `directory`
-
-Default: `"static/assets"`\
-Type: `string`
-
-This can be used to specify a different path to where assets are located.
-
-This is mostly an experimental setting, use at your own risk.
 
 ## Mail
 
