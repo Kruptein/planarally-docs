@@ -105,7 +105,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
         {
             title: "Management",
             path: "/management",
-            items: ["Configuration", { title: "User Management", path: "/users/" }, "API"],
+            items: ["Configuration", { title: "User Management", path: "/users/" }],
         },
         {
             title: "Advanced",
