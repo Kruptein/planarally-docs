@@ -1,6 +1,6 @@
 ---
 title: Release 2025.3
-date: 2025-08-24 16:25:00
+date: 2025-09-08 20:00:00
 excerpt: "Small bugfixes and move of admin panel"
 author: Darragh Van Tichelen
 layout: ../../layouts/blog.astro
@@ -58,6 +58,13 @@ In the above image the blue rectangle is configured in "behind" vision block mod
 
 The details are quite technical, but I spent a couple of days working on this and I completely rewrote the logic for the "behind" vision mode and it should now be robust (TM).
 
+## Asset search fixes
+
+A sneaky syntax bug in the server code was causing assets from other players to show up when searching in the in-game asset manager.
+
+While fixing that bug I also noticed that shared assets where not being queried when searching assets.
+It's a more expensive operation to include those by default, so a toggle was added to the search bar to optionally opt-in searching assets that are shared with you.
+
 ## Removal of old config setup
 
 In the last release the config format was completely changed. It is since then stored in `data/config.toml` instead of the original `server_config.cfg`.
@@ -85,3 +92,4 @@ Also network issues for players causing rapid connects/disconnects will no longe
 
 - Don't re-open shape properties after a re-select
 - Last grid-line in X or Y axis sometimes not rendering
+- Floor renaming after a re-order would rename the wrong floor
