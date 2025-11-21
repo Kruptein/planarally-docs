@@ -48,6 +48,10 @@ max_upload_size_in_bytes = 10485760
 type = "hostport"
 host = "0.0.0.0"
 port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
 ```
 
 <Info title="File paths">
@@ -398,3 +402,69 @@ Default: `https://stats.planarally.io`
 Type: `string`
 
 The receiving URL of the stats data.
+
+## Logging
+
+Section name `logging`
+
+This is an optional section and its default configuration is to log to standard out at "INFO" level.
+
+<Info title="Multiple Entries">
+    The Logging section can be specified multiple times to setup multiple output files. As such you must have the
+    section header entered as `[[logging]]`
+</Info>
+
+### Field `level`
+
+Default: `INFO`\
+type: `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+The level this logger will output at. Levels above are also logged to this level. For example if you set to ERROR both ERROR and CRITICAL will be logged to this output
+
+### Field `mode`
+
+Type: `Literal["stdout", "file"]`
+
+If you specify stdout the only other field available is level.
+
+Here is a logging example that sets the standard output to critical
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### Field `file_path`
+
+Default: `data/planarally.log`\
+Type: `string`
+
+Sets the output path for a file based log. If using docker it is recommended to use the data folder so its available outside the container.
+
+### Field `max_log_size_in_bytes`
+
+Default: `200_000`\
+Type: `int`
+
+The maximum size a log file will be before it is rotated to the next file.
+
+### Field `max_log_backups`
+
+Default: `5`\
+Type: `int`
+
+The number of backup files to keep, older files will be automatically deleted.
+
+Here is an example of how to configure a file logger that has only 2 backup files. This can be combined with the standard output example to output to both standard out and a file.
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
