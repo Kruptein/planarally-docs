@@ -1,0 +1,176 @@
+---
+title: Release 2025.4
+date: 2025-12-12 20:00:00
+excerpt: "Character sheet basics + a lot of reworks"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Some exciting things packing in this release!
+Rexy712 once again contributed some code,
+this time updating the initative UI with some new paint as well as fixing some initiative related bugs.
+Additionally a bunch of technical internal reworks have been made that fix a couple longer standing issues
+that could not be fixed elegantly until now!
+And finally but not least, a new system is added that should function as a basic character sheet!
+
+## Initiative
+
+_These changes have been contributed by Rexy712_
+
+As mentioned in the intro, the UI has gotten some updates as can be seen below.
+
+It now also has an internal overflow scroll,
+so that the initiative element itself does not become gigantic if there are a lot of actors in the initiative.
+
+Another new addition is that when adding effects, you can now also make an effect infinite in time,
+previously you always had to fill in a number of turns until it would disappear.
+
+As a DM there is now also the option to just clear the entire initiative in one go,
+as well as buttons to advance initiative by a full round.
+
+## Character Sheet Basics
+
+### Why
+
+One of the complaints I tend to get from time to time revolves around the lack of character sheets.
+I've always believed that having a generic character sheet that would fit all systems/uses is not really feasible
+and as a result that character sheets are beter suited for mods.
+
+That said, mods are still very experimental, require technical knowledge to create
+and let's be honest PA is a very niche VTT.
+It's no surprise that as a result there has not really been any work in this space.
+
+I still believe that a decent looking 'one fits all' character sheet is not really feasible,
+but I ventured forth to create a more rudimentary system, that integrates with the dice system.
+This way, mods can still behind the scenes use this common core system, while offering a more visually pleasing UI.
+
+### How
+
+This release adds a new tab to the "edit shape" UI, called "custom data".
+
+In here you can freely add data related to the shape. You can organize the data in a tree style data format.
+
+The data you can add can be any of 3 types currently:
+
+- text
+- number
+- dice expression
+
+Most of these are pretty self-explanatory. The nice thing about dice expressions is that you can immediately load up the dice tool
+with the given expression, which can reference other custom data elements, called references for short.
+
+Additionally you can also use these references directly in the dice tool, which will show an auto complete UI to help select the stat from the correct shape.
+
+Another addition to the dice tool is that a quick button is present for each shape in your selection, that has dice expressions.
+This makes it so that you don't constantly have to open the shape settings, navigate to the custom data tab and click on the roll button for the desired roll.
+
+### Future
+
+The goal is to update some other places to interact with the references as well.
+Trackers and auras being one of the most prominent places that could benefit from this interaction.
+(e.g. a HP tracker related to a HP reference)
+
+Another things that I would love to do is make an actual system specific character sheet mod as a decent showcase.
+There is however for me a big problem of licensing/rights in this regard.
+
+For a lot of systems it's not allowed, or contracts need to be in place, to offer these things in an official capacity.
+D&D for example is something I'm very hesitant to touch in this regard, even though there is the SRD,
+they haven't really been welcoming of other players given that they have their own tools.
+Similarly I contacted the Mothership people to see what's possible, but I received a message that currently no vtt integrations are allowed.
+The wildsea system is very open and I actually started work on a wildsea related mod over in the example mods repository,
+but my one big problem there is that that system is actually one of the rare systems that I don't use a VTT myself at all,
+so it feels a bit silly.
+
+So I'm not really sure what I'm going to do here moving forward as it's a damned if I do damned if I don't kind of setup,
+where legally I can't really do a lot, but people seem to want integrations.
+
+## Technical reworks
+
+### Fixing data loss
+
+PA underwent multiple technical refactors that fixed a number of long openstanding issues,
+that I could not fix until these changes were made.
+
+In particular two things were modified:
+
+- How intermediate shape data is represented in the client
+- How (shape) templates are stored in the database
+
+I'll spare you the technical details, but the result is that the following actions now work correctly
+
+- undo/redo shape deletion
+- copy-paste a shape
+- dropping a template on the board
+
+What did all of these have in common that didn't work?
+
+They didn't interact with some newer systems, resulting in data loss when any of the actions were performed.
+For example information on notes was lost, similarly the new custom-data info would also be affected and
+so did the group system and character concept.
+
+### Asset templates
+
+#### Storage changes
+
+Asset templates are a nice system that allows to save data related to a certain asset
+so that if you drop the asset on the board in the future it is pre-populated. (e.g. remembering the HP/AC for a goblin)
+
+Among the problems mentioned in the earlier section, templates also had some other issues.
+By the way they were stored in the database, they were not affected by any migration of the database to a new version.
+
+This means that templates made in earlier versions could potentially not behave correctly when used in a new version.
+
+They will now be stored as regular shapes in the database, allowing auto-migration as well as making some other internal logic more consistent.
+
+#### Asset manager icon
+
+This is not a technical rework, but it is asset template related.
+
+The asset manager now shows an icon on those assets that have template data.
+This helps if you have multiple assets with the same name (due to different collections or the like) and
+you're not sure which one you have saved info on.
+
+### Pydantic upgrade
+
+This is a purely technical upgrade to a data validation library the server uses.
+It however has a significant impact on the data flow and although there should be no actual noticeable change for players,
+it's always possible that I missed some cases causing errors in the server.
+
+I'm mentioning it here mostly for server hosts,
+so that if they see any validation errors popping up in their server logs,
+that they report these issues asap!
+
+## Bugfixes
+
+#### Shape order inconsistency
+
+To ensure shapes are shown visually in the correct order when overlapping,
+the server keeps track of a position per shape.
+When moving a shape around, some shapes need their position adjusted as they may have moved up or down.
+
+Although this has been working pretty well for a long time,
+there is no real error correction today,
+so if for some reason somewhere something bugs and causes a gap in the order or a duplicate position entry,
+it could cause some funky behaviour.
+
+It would be quite expensive to constantly check the integrity of the order,
+so instead I ventured out to find a place where the inconsistency can be checked easily and that is not run frequently.
+
+From now on if you do the "move shape to back" action,
+a check will be done to see if the amount of updated shapes matches with the expected amount.
+If this is not the case, all shapes will be re-positioned and a notification will appear to all connected clients
+that explains the issue and asks for a refresh to ensure visual correctness.
+
+Additionally the position update query has been improved from a performance standpoint,
+though you're likely not going to notice this.
+
+#### Varia
+
+- off-screen token direction images overflowed their container
+- ignore keybinds in select element
+- ampersand in campaign name breaking game
+- rotated polygon fixes
+    - cutting
+    - moving points
