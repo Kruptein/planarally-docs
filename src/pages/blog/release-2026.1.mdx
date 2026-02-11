@@ -1,0 +1,296 @@
+---
+title: Release 2026.1
+date: 2026-02-?? 20:00:00
+excerpt: "Character sheet basics + a lot of reworks"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+Some exciting things packing in this release! Some highlights:
+
+- UI/UX updates to Initiative and to Notes
+- Fixes to copy paste and similar systems
+- A new 'custom data' concept has been added to shapes, allowing amongst other things a simple character sheet
+
+<Info title="Deprecation notice">
+    Variant functionality will be simplified in 2026.2, see [Variants](#variants) for more info.
+</Info>
+
+This release was originally slated for November/December, but the technical reworks (see later) ended up needing a longer period to iron out stability.
+
+This release also contains contributions from a variety of people, thanks to all of you, as well as to all the people who reported bugs on the development branch!
+
+## Initiative
+
+_These changes have been contributed by Rexy712_
+
+As mentioned in the intro, the UI has gotten some updates as can be seen below.
+
+![New initiative UI](./2026.1/initiative.png)
+
+It now also has an internal overflow scroll,
+so that the initiative element itself does not become gigantic if there are a lot of actors in the initiative.
+
+Another new addition is that when adding effects, you can now also make an effect infinite in time,
+previously you always had to fill in a number of turns until it would disappear.
+
+As a DM there is now also the option to just clear the entire initiative in one go,
+as well as buttons to advance initiative by a full round.
+
+## Character Sheet Basics
+
+### Why
+
+One of the complaints I tend to get from time to time revolves around the lack of character sheets.
+I've always believed that having a generic character sheet that would fit all systems/uses is not really feasible
+and as a result that character sheets are beter suited for mods.
+
+That said, mods are still very experimental, require technical knowledge to create
+and let's be honest PA is a very niche VTT.
+It's no surprise that as a result there has not really been any work in this space.
+
+I still believe that a decent looking 'one fits all' character sheet is not really feasible,
+but I ventured forth to create a more rudimentary system, that integrates with the dice system.
+This way, mods can still behind the scenes use this common core system, while offering a more visually pleasing UI.
+
+### How
+
+This release adds a new tab to the "edit shape" UI, called "custom data".
+
+![Custom data overview](./2026.1/custom-data-overview.png)
+
+In here you can freely add data related to the shape. You can organize the data in a tree style data format.
+
+The data you can add can be any of 3 types currently:
+
+- text
+- number
+- dice expression
+
+![Custom data edit](./2026.1/custom-data-edit.png)
+
+Most of these are pretty self-explanatory. The nice thing about dice expressions is that you can immediately load up the dice tool
+with the given expression, which can reference other custom data elements, called references for short.
+
+![Custom data dice expression](./2026.1/custom-data-dice-expression.png)
+
+Additionally you can also use these references directly in the dice tool, which will show an auto complete UI to help select the stat from the correct shape.
+
+![Custom data dice context](./2026.1/custom-data-dice-context.png)
+
+Another addition to the dice tool is that a quick button is present for each shape in your selection, that has dice expressions.
+This makes it so that you don't constantly have to open the shape settings, navigate to the custom data tab and click on the roll button for the desired roll.
+
+![Custom data dice macro](./2026.1/custom-data-dice-macro.png)
+
+### Future
+
+The goal is to update some other places to interact with the references as well.
+Trackers and auras being one of the most prominent places that could benefit from this interaction.
+(e.g. a HP tracker related to a HP reference)
+
+Another things that I would love to do is make an actual system specific character sheet mod as a decent showcase.
+There is however for me a big problem of licensing/rights in this regard.
+
+For a lot of systems it's not allowed, or contracts need to be in place, to offer these things in an official capacity.
+D&D for example is something I'm very hesitant to touch in this regard, even though there is the SRD,
+they haven't really been welcoming of other players given that they have their own tools.
+Similarly I contacted the Mothership people to see what's possible, but I received a message that currently no vtt integrations are allowed.
+The wildsea system is very open and I actually started work on a wildsea related mod over in the example mods repository,
+but my one big problem there is that that system is actually one of the rare systems that I don't use a VTT myself at all,
+so it feels a bit silly.
+
+So I'm not really sure what I'm going to do here moving forward as it's a damned if I do damned if I don't kind of setup,
+where legally I can't really do a lot, but people seem to want integrations.
+
+## Notes
+
+// todo
+
+## Variants
+
+### Permission fixes
+
+_contributed by Rexy712_
+
+The way access/permissions for variant shapes was set up was preventing non DMs from changing some aspects of them.
+The following fixes have been done:
+
+- Players may now add variants to shapes they have edit access to
+- Players may now swap between variants of shapes they have edit access to
+- [tech] Variants' access permissions are now based on the permissions of the parent shape only
+
+### Announcement of rework
+
+Variants are currently implemented in a quite complicated manner.
+For each variant there is a real shape instance and there is a hidden controller shape that is responsible for showing the correct shape and managing the state/interactions of all variants.
+
+The positive aspect of this is that each variant can be completely tuned to whatever it wants to be. All shape settings are unique to that variant, allowing full creative freedom.
+
+It however comes with a lot of downsides.
+
+- Any concept that is supposed to be shared between the variants has to be duplicated. Any change you do that might apply to all the variants, needs to be done to all the variants.
+    - The exception being trackers/auras for which a special system was added to make them shareable.
+- The entire codebase has to do extra logic just for this niche concept, as the way the shapes are managed affects a lot of interactions
+    - This adds extra overhead to every other feature to try and work nicely with potential variant shapes
+- Because they work so irregular to the vast majority of shapes, they frequently end up with subtle issues
+
+The reality is that the full creative freedom for every shape is just not worth all the hassle and in reality also just not needed in the vast majority of cases.
+At its core the idea of variants is just to be able to quickly swap between some art assets with potentially some small differences.
+
+The small differences I can envision to be actually handy are the size of the token, potentially a different name and some trackers/auras.
+
+I intend to reduce the entire complexity of multiple shapes and swapping between them, to just 1 shape.
+This 1 shape will have a new tab to manage variants, where you can add a new entry with an icon and a name.
+
+And that's it. For trackers and auras this also means that the special "shared" concept can be removed.
+My initial plans are to offer no special interactions for trackers/auras and to just have the user toggle the trackers/auras as necessary when changing variants.
+If this ends up being too much of a hassle, I'm open to look into adding some tracker/aura specific toggle logic to the new variant tab.
+
+This does also mean that the UX will be improved in general, as it's currently not possible to actually load a particular variant directly if you have multiple configured.
+You currently need to cycle through them, which reveals them momentarily to all players that can see the shape.
+
+<Warning>
+    This will be changed in 2026.2. If you have worries/problems with this change, contact me so that we can see what's
+    possible.
+</Warning>
+
+## Grid snapping fixes
+
+_contributed by Rexy712 and Craftidore_
+
+A variety of fixes to snapping behaviour have been made.
+
+### Keyboard interactions
+
+Keyboard movement now also snaps to the closest grid cell (when snapping is relevant).
+Until now this was not being done, causing some funky cases where you're moving a shape off-grid because it touched a wall once along the way.
+
+Additionally a bug was fixed that caused keyboard movement to move a shape twice if the ruler was enabled in the select tool during the move.
+
+### Horizontal vs Vertical size
+
+In [2024.2](/blog/release-2024.2#shape-grid-size) more control over a shape's size in the grid's context was added.
+Allowing the user to say how big the shape should act on the grid when moving it around regardless of the actual art size.
+It would also show you the inferred size PA thinks the shape is otherwise.
+
+This release adds further improvements to this by splitting up this size property in a horizontal and vertical component (for square grids).
+This fixes some snapping behaviour when a shape is irregular (e.g. 2x7).
+
+## Technical reworks
+
+### Data duplication improvements
+
+PA underwent multiple technical refactors that fixed a number of long openstanding issues,
+that I could not fix until these changes were made.
+
+In particular two things were modified:
+
+- How intermediate shape data is represented in the client
+- How (shape) templates are stored in the database
+
+I'll spare you the technical details, but the result is that the following actions all had a variety in bugs in common that should now work correctly
+
+- undo/redo shape deletion
+- copy-paste a shape
+- dropping a template on the board
+
+These 3 systems all have existed and worked (to some degree). They however all were not able to deal with shape information that is stored in more specialized places.
+Notes for example are stored in a separate database collection, causing the undo/redo to forget about a note relationship with a shape and copy-paste to have no clue either.
+
+Instead of having to add special cases all over the place, the new restructure works in such a way that the above 3 systems don't actually have to know about the details, it just works.
+
+### Asset templates
+
+#### Storage changes
+
+Asset templates are a nice system that allows the user to save data related to a certain asset
+so that if you drop the asset on the board in the future it is pre-populated. (e.g. remembering the HP/AC for a goblin)
+
+Among the problems mentioned in the earlier section, templates also had some other issues.
+By the way they were stored in the database, they were not affected by any migration of the database to a new version.
+
+This means that templates made in earlier versions could potentially not behave correctly when used in a new version.
+
+They will now be stored as regular shapes in the database, allowing auto-migration as well as making some other internal logic more consistent.
+
+#### Asset manager icon
+
+This is not a technical rework, but it is asset template related.
+
+The asset manager now shows an icon on those assets that have template data.
+This helps if you have multiple assets with the same name (due to different collections or the like) and
+you're not sure which one you have saved info on.
+
+### Pydantic upgrade
+
+This is a purely technical upgrade to a data validation library the server uses.
+It however has a significant impact on the data flow and although there should be no actual noticeable change for players,
+it's always possible that I missed some cases causing errors in the server.
+
+I'm mentioning it here mostly for server hosts,
+so that if they see any validation errors popping up in their server logs,
+that they report these issues asap!
+
+## Bugfixes
+
+#### Shape order inconsistency
+
+To ensure shapes are shown visually in the correct order when overlapping,
+the server keeps track of a position per shape.
+When moving a shape around, some shapes need their position adjusted as they may have moved up or down.
+
+Although this has been working pretty well for a long time,
+there is no real error correction today,
+so if for some reason somewhere something bugs and causes a gap in the order or a duplicate position entry,
+it could cause some funky behaviour.
+
+It would be quite expensive to constantly check the integrity of the order,
+so instead I ventured out to find a place where the inconsistency can be checked easily and that is not run frequently.
+
+From now on if you do the "move shape to back" action,
+a check will be done to see if the amount of updated shapes matches with the expected amount.
+If this is not the case, all shapes will be re-positioned and a notification will appear to all connected clients
+that explains the issue and asks for a refresh to ensure visual correctness.
+
+Additionally the position update query has been improved from a performance standpoint,
+though you're likely not going to notice this.
+
+## Server changes
+
+### Logging
+
+_contributed by nwhansen_
+
+Logging behaviour can now be configured using the server config.
+
+This allows the server owner to choose whether or not file logs are kept and which severity the various loggers capture.
+
+See [the config docs](/server/management/configuration/#logging) for more details.
+
+// todo: check the existing general.max_log_size_in_bytes
+
+## Varia
+
+- off-screen token direction images overflowed their container
+- ignore keybinds in select element
+- ampersand in campaign name breaking game
+- rotated polygon fixes
+    - cutting
+    - moving points
+- Campaign creator can no longer change their own role or kick themselves
+- Account settings text overlapping on smaller viewport widths
+- Moving special hide/reveal shapes from the fow layer could lead to a niche bug
+- Rotation slider not showing current value in text input on component load
+- DDraft files no longer being uploadable to the asset manager
+- Hovering on an initiative entry that is part of a group but not marked as a group entry would highlight all group members
+- Error log about viewports on the server
+- Toggling initiative off vision lock interactions
+- Initiative cog wheel not opening initiative tab in the client settings
+- Initiative entries would remain blurred if the focused entry was removed by another player.
+- Group system not properly cleaning up on location changes
+- Group badges were not sorted numerically in a shape's group settings when set to the numbers character set.
+- Tracker input resets to last value if left empty
