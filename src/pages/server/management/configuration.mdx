@@ -34,8 +34,6 @@ Detailed information on how the TOML format works is out of scope of this docume
 save_file = "data/planar.sqlite"
 allow_signups = true
 enable_export = true
-max_log_size_in_bytes = 200000
-max_log_backups = 5
 
 [assets]
 max_single_asset_size_in_bytes = 0
@@ -135,20 +133,6 @@ Type: `boolean`
 When this setting is enabled account export **and** import is available for users.
 
 This is generally recommended as this allows users to move their data to/from a different server as well as provide me with data for debugging.
-
-### Field: `max_log_size_in_bytes`
-
-Default: `200_000`\
-Type: `integer`
-
-The max size in bytes for a single log file. This is used together with the next field to determine the logging strategy of PlanarAlly.
-
-### Field: `max_log_backups`
-
-Default: `5`\
-Type: `integer`
-
-Number of log files to keep around. This is used to prevent a million log files from being kept.
 
 ## Webserver
 
