@@ -83,7 +83,7 @@ Section name: `general`
 Default: `"data/planar.sqlite"`\
 Type: `string`
 
-Path to the save file. This is a crucial setting that when modified will have a big impact.
+Path to the save file. This is a crucial setting that when modified will have a big impact. The save file should be backed up appropriately[^1].
 
 If the server starts and the chosen path does not exist, the server will create a new save file.
 
@@ -92,8 +92,9 @@ If the server starts and the chosen path does not exist, the server will create 
 </Info>
 
 <Warning>
-    While the server is running, extra files might be showing up (e.g. `planar.sqlite-shm` and `planar.sqlite-wal`).
-    These files are essential for the server functionality.
+    While the server is running, extra database files might be created (e.g. `planar.sqlite-shm` and `planar.sqlite-wal`).
+    The `planar.sqlite-wal` (or write-ahead-log) file is essential for the save database, and data will be lost if it is not saved.
+    The `planar.sqlite-shm` (or shared memory) file is not critical and does not need to be backed up.
 
     If the server shuts down gracefully these files will be gone. They can however stick around if the server wasn't able to cleanly stop.
     When copying a save file, make sure to copy these files as well if they exist or your save might be corrupt or out of date.
@@ -452,3 +453,5 @@ level = "INFO"
 max_log_backups = 2
 ...
 ```
+
+[^1]: The SQLite documentation documents the importance of the [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) and [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files) files.
