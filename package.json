@@ -8,36 +8,30 @@
         "start": "astro dev",
         "build": "astro build",
         "preview": "astro preview",
-        "lint": "eslint --fix",
-        "lint:ci": "eslint",
-        "format": "prettier --write src",
-        "format:ci": "prettier --check src"
-    },
-    "devDependencies": {
-        "@astrojs/vue": "^5.1.2",
-        "@eslint/js": "^9.38.0",
-        "@iconify/json": "^2.2.401",
-        "astro": "^5.16.0",
-        "eslint": "^9.38.0",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-astro": "^1.4.0",
-        "eslint-plugin-vue": "^10.5.1",
-        "globals": "^16.4.0",
-        "prettier": "^3.6.2",
-        "prettier-plugin-astro": "^0.14.1",
-        "sass-embedded": "^1.93.2",
-        "typescript-eslint": "^8.46.2",
-        "unplugin-icons": "^22.5.0",
-        "vue": "^3.5.22"
+        "lint": "oxlint --fix",
+        "lint:ci": "oxlint",
+        "format": "oxfmt",
+        "format:ci": "oxfmt --check"
     },
     "dependencies": {
-        "@astrojs/mdx": "^4.3.9",
-        "bufferutil": "^4.0.9",
-        "dayjs": "^1.11.18",
+        "@astrojs/mdx": "^4.3.13",
+        "bufferutil": "^4.1.0",
+        "dayjs": "^1.11.19",
         "medium-zoom": "^1.1.0",
         "rehype-autolink-headings": "^7.1.0",
         "rehype-slug": "^6.0.0",
         "remark-directive": "^4.0.0",
-        "sharp": "^0.34.4"
+        "sharp": "^0.34.5"
+    },
+    "devDependencies": {
+        "@astrojs/vue": "^5.1.4",
+        "@iconify/json": "^2.2.447",
+        "astro": "^5.18.0",
+        "globals": "^17.4.0",
+        "oxfmt": "^0.36.0",
+        "oxlint": "^1.51.0",
+        "sass-embedded": "^1.97.3",
+        "unplugin-icons": "^23.0.1",
+        "vue": "^3.5.29"
     }
 }
