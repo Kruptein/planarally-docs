@@ -1,12 +1,12 @@
-import { defineConfig } from "astro/config";
-import Icons from "unplugin-icons/vite";
+import mdx from "@astrojs/mdx";
 import vue from "@astrojs/vue";
+import { defineConfig } from "astro/config";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeSlug from "rehype-slug";
+import remarkDirective from "remark-directive";
 import remarkGfm from "remark-gfm";
 import remarkSmartypants from "remark-smartypants";
-import remarkDirective from "remark-directive";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import mdx from "@astrojs/mdx";
+import Icons from "unplugin-icons/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,7 +38,7 @@ export default defineConfig({
                 },
             },
         },
-        plugins: [Icons({ compiler: 'vue3' })],
+        plugins: [Icons({ compiler: "vue3" })],
         ssr: {
             external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"],
         },

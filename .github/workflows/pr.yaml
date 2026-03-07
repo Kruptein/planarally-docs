@@ -7,12 +7,12 @@ jobs:
     setup:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
 
-            - name: Use Node.js 22.x
-              uses: actions/setup-node@v4
+            - name: Use Node.js 24.x
+              uses: actions/setup-node@v6
               with:
-                  node-version: 22.x
+                  node-version: 24.x
                   cache: "npm"
                   cache-dependency-path: package-lock.json
 
@@ -20,7 +20,7 @@ jobs:
               run: npm ci
 
             - name: cache deps
-              uses: actions/cache/save@v4
+              uses: actions/cache/save@v5
               with:
                   path: node_modules
                   key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -34,18 +34,18 @@ jobs:
             matrix:
                 check: ["format:ci", "lint:ci"]
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
 
             - name: Restore deps
-              uses: actions/cache/restore@v4
+              uses: actions/cache/restore@v5
               with:
                   path: node_modules
                   key: ${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-            - name: Use Node.js 22.x
-              uses: actions/setup-node@v4
+            - name: Use Node.js 24.x
+              uses: actions/setup-node@v6
               with:
-                  node-version: 22.x
+                  node-version: 24.x
 
             - name: Run ${{ matrix.check }}
               run: npm run ${{ matrix.check }}
