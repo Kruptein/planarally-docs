@@ -5,8 +5,8 @@
     Instead this is handled by a blocking <script> in the main.astro file.
 */
 import { ref } from "vue";
-import Moon from "~icons/bx/moon";
 import Sun from "~icons/akar-icons/sun";
+import Moon from "~icons/bx/moon";
 
 const darkTheme = ref(false);
 
