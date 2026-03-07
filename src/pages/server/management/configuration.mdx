@@ -54,7 +54,7 @@ level = "INFO"
 
 <Info title="File paths">
     When specifying paths to files or folders, you can use absolute paths (e.g. `/home/user/example.txt`) or relative
-    paths (e.g. `data/planar.sqlite`). When a relative path is used, it will be relative to the main server foler and
+    paths (e.g. `data/planar.sqlite`). When a relative path is used, it will be relative to the main server folder and
     NOT the folder where the config is in.
 </Info>
 
@@ -453,5 +453,32 @@ level = "INFO"
 max_log_backups = 2
 ...
 ```
+
+## Assets
+
+Section name `assets`
+
+This is an optional section.
+
+### Field `max_single_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a newly uploaded asset can have.
+When this field is `<= 0` it is regarded as "no limit".
+
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
+
+### Field `max_total_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a user is allowed to have uploaded.
+When this field is `<= 0` it is regarded as "no limit".
+
+An asset will be rejected if its size would cause the total allowed for the user to exceed this value.
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
 
 [^1]: The SQLite documentation documents the importance of the [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) and [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files) files.
