@@ -18,3 +18,8 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+
+# generated types
+.astro
+.vscode/settings.json
