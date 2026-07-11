@@ -1,3 +1,4 @@
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import vue from "@astrojs/vue";
 import { defineConfig } from "astro/config";
@@ -10,26 +11,27 @@ import Icons from "unplugin-icons/vite";
 
 // https://astro.build/config
 export default defineConfig({
-    integrations: [vue(), mdx()],
-    // legacy: {
-    //     astroFlavoredMarkdown: true,
-    // },
-    markdown: {
-        remarkPlugins: [remarkGfm, remarkSmartypants, remarkDirective],
-        rehypePlugins: [
-            rehypeSlug,
-            [
-                rehypeAutolinkHeadings,
-                {
-                    behavior: "prepend",
-                    content: {
-                        type: "text",
-                        value: "#",
-                    },
-                },
-            ],
-        ],
-    },
+    integrations: [
+        vue(),
+        mdx({
+            processor: unified({
+                remarkPlugins: [remarkGfm, remarkSmartypants, remarkDirective],
+                rehypePlugins: [
+                    rehypeSlug,
+                    [
+                        rehypeAutolinkHeadings,
+                        {
+                            behavior: "prepend",
+                            content: {
+                                type: "text",
+                                value: "#",
+                            },
+                        },
+                    ],
+                ],
+            }),
+        }),
+    ],
     vite: {
         css: {
             preprocessorOptions: {

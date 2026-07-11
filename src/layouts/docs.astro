@@ -46,7 +46,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
 </Main>
 
 <style lang="scss">
-    @import "../styles/layout.scss";
+    @use "../styles/layout.scss" as *;
 
     #container {
         display: flex;
