@@ -11,6 +11,10 @@ import Icons from "unplugin-icons/vite";
 
 // https://astro.build/config
 export default defineConfig({
+    redirects: {
+        "/server": "/server/setup/",
+        "/server/": "/server/setup/",
+    },
     integrations: [
         vue(),
         mdx({
