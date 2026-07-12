@@ -46,7 +46,7 @@ When upgrading PA, a migration to the save file (default location `data/planar.s
 <Info>
 If you install PA using one of the release zips/tarballs (e.g. you extract a folder somewhere), it's generally recommended to extract these to a new location and move/copy the above 3 data folders.
 <br />
-Extracting over the existing installation will usually work, but it can sometimes lead to some subtle bugs where a file was removed in the codeabse, but will not be removed by overwriting.
+Extracting over the existing installation will usually work, but it can sometimes lead to some subtle bugs where a file was removed in the codebase, but will not be removed by overwriting.
 <br />
 When using git/docker this does not apply.
 
@@ -61,6 +61,16 @@ See the [config docs](/server/management/configuration/) for the details.
 
 By default PA will run on port 8000, so if everything went successfull regardless of chosen host option, you should be able to see PA at http://localhost:8000
 
+<Info>
+    There is no pre-configured admin user, so when you see the login page you'll have to go through the register flow
+    like any other user!
+
+    <br/>
+
+    If you desire you can configure your created user as an admin to see some extra UI by creating/modifying the server config.
+
+</Info>
+
 ## Fully manual installation
 
 PA consists of two parts:
@@ -72,7 +82,7 @@ While you will always need to run the server to use PA, you only need to re-buil
 
 ### Frontend
 
-To build the frontend you need `node` and `npm` installed. At the moment of writing at least version 22 of node is required.
+To build the frontend you need `node` and `npm` installed. At the moment of writing at least version 22 of node is required. (Though I would recommend version 24 if you don't have node installed yet)
 
 ```bash
 # You need to be in the client folder to get the client working!
@@ -118,8 +128,7 @@ uv sync
 uv run planarally.py
 ```
 
-When you want to (re)start your server in the future you only need to run step 5.
-If you changed the version of PA you also need to rerun step 4.
+When you want to (re)start your server in the future you only need to run step 5 (in the server folder).
 
 ## Pre-built client
 
@@ -200,4 +209,14 @@ Additionally this also requires a separate process that handles the client hot-r
 npm run dev
 ```
 
-Note that although the client output will mention a port, you should just use the server port like you would for normal non-development use of PA.
+<Warning>
+    The client output will mention a specific port, you should completely ignore this as the PA dev server is hooked up
+    in a special manner to be as closely similar to the regular setup.
+    <br />
+    So you still access PA using the same (server) port as you did before.
+</Warning>
+
+<Warning>
+    If this is a clean version of the repository, the client must have been build normally once before you can use the
+    dev server. Otherwise some files that get generated on the server will be missing.
+</Warning>
