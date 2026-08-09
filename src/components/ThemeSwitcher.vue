@@ -12,7 +12,7 @@ const darkTheme = ref(false);
 
 function applyTheme(isDark: boolean) {
     darkTheme.value = isDark;
-    
+
     if (isDark) {
         document.body.classList.add("dark-theme");
         document.body.classList.remove("light-theme");
@@ -20,7 +20,7 @@ function applyTheme(isDark: boolean) {
         document.body.classList.remove("dark-theme");
         document.body.classList.add("light-theme");
     }
-    
+
     localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
