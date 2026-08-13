@@ -35,14 +35,19 @@ function handleClick(event: MouseEvent) {
 <style lang="scss">
 #hamburger {
     position: fixed;
-    z-index: 20;
-    padding: 1.5rem;
-    margin: 0.5rem;
+    top: calc(70px + 0.5rem);
+    left: 0.5rem;
+    z-index: 25;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(150, 150, 150, 0.25);
 
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     background-color: var(---bg-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 
     @media (min-width: 960px) {
         display: none;
@@ -53,7 +58,9 @@ function handleClick(event: MouseEvent) {
     }
 
     #text {
-        margin-left: 0.75rem;
+        margin-left: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
     }
 }
 </style>

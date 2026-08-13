@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Games
+
+<Image src={Dashboard} alt="Dashboard" />
+
+The _Games_ section is where you can create campaigns or launch an existing campaign.
+
+The screen is split in two sections, a DM and a player section.
+Both listing all relevant campaigns where you either are a DM or a player.
+
+By clicking on a campaign, it will expand offering some options.
+
+<Image src={DashboardDmCampaign} alt="Dashboard DM campaign" />
+<Image src={DashboardPlayerCampaign} alt="Dashboard Player campaign" />
+
+As a DM you can edit the campaign logo or name by clicking on the pencil icons (<PencilAlt />).
+
+<Warning title="Deleting a campaign">This will irrevocably remove the campaign for you and *all* players.</Warning>
+
+## Create
+
+Creating a campaign is easy: Enter a name and click `Go`.
+You can also choose a logo for the campaign by clicking on the default logo displayed next to the name input.
+
+<Info title="Logo upload">The logo has to be uploaded as an [asset](/docs/dm/assets/).</Info>
+
+## Join
+
+To join a game you need the invite URL. This is something that the DM can create in-game through the DM-settings.

@@ -12,8 +12,11 @@ import Icons from "unplugin-icons/vite";
 // https://astro.build/config
 export default defineConfig({
     redirects: {
-        "/server": "/server/setup/",
-        "/server/": "/server/setup/",
+        "/": "/en/",
+        "/server": "/en/server/setup/",
+        "/server/": "/en/server/setup/",
+        "/en/server": "/en/server/setup/",
+        "/en/server/": "/en/server/setup/",
     },
     integrations: [
         vue(),
@@ -47,6 +50,13 @@ export default defineConfig({
         plugins: [Icons({ compiler: "vue3" })],
         ssr: {
             external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"],
+        },
+    },
+    i18n: {
+        locales: ["en"],
+        defaultLocale: "en",
+        routing: {
+            prefixDefaultLocale: true,
         },
     },
 });
