@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Aggancio
+
+Molti elementi in PlanarAlly hanno qualche forma di comportamento di aggancio.
+Esistono due tipi di aggancio: aggancio alla griglia e aggancio ai punti.
+
+L'aggancio alla griglia è abbastanza autoesplicativo, se muovi le forme in giro spesso vuoi che siano posizionate correttamente sulla griglia.
+Usando l'aggancio alla griglia non devi essere super preciso e PlanarAlly farà il lavoro per te.
+
+La seconda forma di aggancio è la capacità di agganciarsi a un altro punto esistente.
+Per punto si intendono qui i punti delle forme esistenti, ad es. gli angoli di un rettangolo o i punti di un poligono.
+
+Per impostazione predefinita l'aggancio è abilitato e agisce sulla maggior parte delle operazioni (ad es. movimento/ridimensionamento/rotazione).
+Puoi disabilitare questo comportamento per una specifica operazione premendo il modificatore `alt` durante l'azione.
+
+Se vuoi disabilitarlo permanentemente puoi invertire il comportamento nelle [impostazioni client](/it/docs/game/settings/), che farà sì che il tasto `alt` agisca come modificatore per abilitare invece l'aggancio.
+
+## Esempi
+
+Quando disegni un poligono, ogni punto cliccato cercherà di agganciarsi a un punto della griglia vicino o a un punto esistente.
+
+Quando ridimensioni un punto, cercherà di agganciarsi a un punto della griglia o a un punto esistente.
+
+Quando ruoti una forma, la rotazione si aggancerà a multipli di 45 gradi.

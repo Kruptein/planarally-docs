@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# Recursos
+
+El menú de recursos se usa para insertar recursos en tu juego.
+Pueden ser mapas, fichas, objetos o cualquier otra cosa que desees insertar.
+Para acceder a este menú, haz clic en el icono <Cog /> y haz clic en «Recursos» en el menú desplegable.
+
+## Colocar recursos
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Ejemplo de uso de un recurso" />
+
+Para usar tus recursos, primero abre la pestaña de recursos.
+Luego, abre la carpeta donde tienes almacenados tus archivos.
+Por último, arrastra el recurso al tablero de juego.
+Ahora podrás manipular tu recurso.
+
+Como alternativa, también puedes buscar un recurso usando la barra de búsqueda.
+Esto filtrará las carpetas y subcarpetas que no tengan elementos que coincidan con tu consulta de búsqueda.
+
+<Tip title="Dimensiones de los recursos">
+    Si el nombre del recurso incluye información de dimensiones, PA ajustará automáticamente el tamaño del recurso.
+
+    p. ej. goblin_5x5
+
+</Tip>
+
+### Plantillas
+
+En cualquier momento puedes guardar el estado de un recurso desde el menú contextual del clic derecho.
+
+Este estado incluye las propiedades predeterminadas, pero también los rastreadores, las auras y las dimensiones (ancho y alto).
+
+Cuando sueltas un recurso en el tablero que tiene plantillas asociadas, se te pedirá que elijas una plantilla en lugar del ajuste vacío base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Esto puede ser muy útil para reutilizar algunas fichas que usas con frecuencia para precargar cosas como HP y fuentes de luz.
+
+### Variantes
+
+<Warning title="¡Experimental!">
+    ¡Esta función es experimental! Se espera que aparezcan algunos casos extremos, así que, por favor, [informa de los
+    errores en el rastreador de GitHub](https://github.com/Kruptein/PlanarAlly/issues) si encuentras algún problema.
+</Warning>
+
+Puedes agregar _variantes_ a los objetos para darles una apariencia diferente sin tener que crear una ficha nueva y eliminar la anterior.
+Los casos de uso más populares serían la forma salvaje de un druida, arte alternativo para personajes, jefes de varias fases, revelaciones sorpresa, etc.
+
+Para agregar una variante, usa el botón `+` en la parte inferior de la ventana de edición del objeto base.
+Al hacer clic en el lápiz <PencilAlt/>, puedes editar el nombre de la variante activa.
+¡Ten en cuenta que el nombre de una variante no está conectado con el nombre del objeto!
+
+Si bien el objeto base puede ser cualquier forma (Shape, Token o Asset), solo se pueden agregar _recursos_ como variantes.
+En cualquier momento, solo una variante de un objeto es visible y se puede intercambiar por otra.
+
+Cada variante conserva su propio tamaño, propiedades, rastreadores y auras.
+Los rastreadores y las auras se pueden configurar para compartirse entre todas las variantes.
+Una variante recién creada no tendrá ninguna de las configuraciones aplicadas que tiene la variante base.
+¡Esto incluye los derechos de acceso, las propiedades generales de la forma (p. ej. el nombre) o las anotaciones!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Puedes eliminar una variante con el botón de la papelera <TrashAlt />.

@@ -1,0 +1,85 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import LayersPicture from "./assets/layers.png";
+
+# Livelli
+
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Informazioni sui livelli" />
+
+PlanarAlly organizza il tavolo di gioco in più livelli.
+Sono disegnati uno sopra l'altro.
+Questi molteplici livelli producono il risultato che vedi quando giochi.
+
+Ognuno di questi livelli ha un uso dedicato.
+È importante che il DM capisca lo scopo di ciascuno.
+Per una rapida panoramica di ogni livello, consulta il documento di [riferimento rapido](/it/docs/reference/).
+Per dettagli più approfonditi, continua a leggere!
+
+Ad eccezione del livello DM, tutti i livelli sono disegnati anche sui tavoli dei giocatori.
+Tuttavia, possono interagire solo con gli elementi del livello segnalini.
+
+_Attualmente questi livelli sono codificati, ma prevedo la possibilità di personalizzarli a tuo piacimento in futuro._
+
+## Mappa
+
+In fondo alla pila di disegno si trova il livello mappa.
+Questo livello serve per posizionare mappe, planimetrie e così via.
+
+Questo livello è disegnato sotto il livello griglia.
+Questo ti permette di allineare le linee della griglia ai tuoi vari sotterranei.
+Per il resto, questo livello si comporta come il livello segnalini.
+
+## Griglia
+
+Questo livello non può essere selezionato manualmente, ma può essere configurato usando il [menu delle opzioni DM](/it/docs/dm/settings/).
+Questo livello disegna le linee della griglia sullo schermo.
+
+Queste linee della griglia sono quadrati (predefinito) o esagoni.
+Possono essere disegnate sia griglie esagonali flat-top che point-top, ma al momento sono supportate solo sperimentalmente.
+
+<Warning title="Sperimentale">
+    Le griglie esagonali sono sperimentali, quindi potrebbero verificarsi comportamenti strani. Un esempio è l'aggancio
+    alla griglia che funziona ancora con griglie quadrate, nonostante venga visualizzata una griglia esagonale.
+</Warning>
+
+## Segnalini
+
+Il gameplay principale si svolgerà su questo livello.
+È il luogo in cui giocatori e personaggi non giocanti si muovono.
+Avrai spesso questo livello attivo.
+
+## DM
+
+Questo livello è accessibile solo al DM.
+I giocatori non vedranno nulla su questo livello.
+Può essere usato per pianificare gli incontri in anticipo.
+Può anche essere usato per posizionare etichette di testo per ricordare informazioni chiave.
+
+Puoi anche cambiare il livello di una forma.
+Nascondendo sul livello DM gli asset che i giocatori non devono ancora vedere, puoi assicurarti che i tuoi giocatori non vedano informazioni in anticipo.
+
+## FOW
+
+Questo livello ha alcuni comportamenti speciali che aiutano con la visione.
+
+Quando disegni i tuoi muri, vuoi che siano statici.
+Non vuoi che cambino, perché i tuoi giocatori potrebbero vedere sezioni della mappa che non dovrebbero ancora vedere.
+Disegnando i muri sul livello visione, ti assicuri che interagendo con il livello segnalini non sposti per errore un muro.
+Pertanto, questo livello esegue automaticamente due trucchi magici per te.
+
+La maggior parte delle forme che disegni su questo livello servirà per muri o porte, quindi le forme disegnate su questo livello vengono disegnate automaticamente con le impostazioni 'blocca il movimento' e 'blocca la visione' applicate.
+'Blocca il movimento' impedisce ai giocatori di attraversare queste forme.
+'Blocca la visione' impedisce ai giocatori di vedere attraverso queste forme.
+Puoi deselezionare queste opzioni se non ti servono, ma sappi che verranno applicate per impostazione predefinita su questo livello.
+
+**Tutto** ciò che è disegnato su questo livello è invisibile sugli altri livelli.
+Questo perché in genere la tua mappa avrà già i muri pre-disegnati.
+Quando disegni un brutto rettangolo nero per comunicare al sistema di illuminazione la presenza di un muro, non vuoi dover vedere quella brutta macchia quando sei sul livello segnalini.
+
+Questo livello è puramente per comodità.
+Se non ti piacciono le impostazioni automatiche o l'aspetto invisibile, puoi usare il livello segnalini e disegnare lì i tuoi muri con qualsiasi impostazione desideri.

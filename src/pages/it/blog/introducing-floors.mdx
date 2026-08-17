@@ -1,0 +1,39 @@
+---
+title: Presentazione dei piani e piccoli aggiornamenti
+date: 2020-02-13 21:02:34
+excerpt: "Un'introduzione a una nuova funzionalità in arrivo: i piani! E una piccola panoramica di altre cose in programma nella release 0.19.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Non ho una data di rilascio precisa in mente per la release 0.19.0, ma miro almeno a pubblicare qualcosa questo mese. Nel frattempo volevo già accennare ad alcune modifiche che dovresti aspettarti nella release 0.19.0 e mostrare uno sguardo più dettagliato su una nuova funzionalità in particolare.
+
+## Le novità della 0.19.0
+
+Per cominciare, finalmente il pulsante delle impostazioni visibile nella dashboard principale, dove puoi selezionare a quale sessione unirti, ha uno scopo.
+Ora ha una funzione e mostra delle impostazioni dell'account molto semplici. Puoi impostare un indirizzo email, cambiare la tua password ed eliminare il tuo account.
+Nota che al momento non viene fatto nulla con l'indirizzo email, ma un amministratore del server potrebbe usarlo per inviare informazioni di manutenzione o altro.
+
+Spero di estendere le impostazioni in futuro con molte altre cose, come le configurazioni predefinite per tutte le impostazioni legate al gioco.
+
+Un'altra cosa in arrivo nella prossima release è l'aggancio durante le azioni di disegno e ridimensionamento. Sebbene lo strumento poligono abbia già fornito la tanto necessaria semplicità nell'aspetto del disegno (e in particolare nel disegno della nebbia di guerra), aveva lo svantaggio scomodo che non c'era modo di agganciarsi esattamente ad altri punti, introducendo spesso piccoli spazi nella visione attorno a porte e muri.
+Ora posso felicemente dire che quei giorni sono finiti e ora puoi agganciare liberamente i punti dei poligoni (e di altre forme)!
+
+Infine, una piccola nota su una funzionalità contribuita da LDeeJay1969: ha introdotto un tasto (ctrl+0) per resettare la viewport a (0, 0) nel caso in cui ti perdessi nel vuoto infinito.
+Sono in arrivo altri lavori per quanto riguarda lo spostamento sulla mappa, ma questa piccola aggiunta è già un bel passo per evitare frustrazioni!
+
+## Piani
+
+Ora passiamo a una funzionalità con un impatto visivo maggiore: i piani!
+
+_Il seguente video usa contenuti della campagna Waterdeep\:Dragonheist pubblicata da Wizards of the coast_
+
+<video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
+
+Come si può vedere nel video qui sopra, si sta lavorando alla possibilità di definire più piani che vengono renderizzati uno sopra l'altro.
+
+Aggiungere piani aggiunge un'immersione molto più profonda rispetto a saltare tra luoghi o dover spostare la visuale sulla mappa.
+Ogni piano aggiunge però un carico maggiore sul client, dato che anche i piani sotto il piano attivo devono essere renderizzati!
+Giusto per essere chiari: questo sistema è completamente opzionale (cioè il default è solo 1 piano).
+
+Come si può vedere, illuminazione e visione vengono prese in considerazione per mostrare cosa un determinato giocatore può vedere. Si devono fare alcune semplificazioni/assunzioni, dato che PA non è un gioco 3D ma piuttosto una moltitudine di livelli 2D uno sopra l'altro, ma in generale l'illuminazione sui piani superiori e inferiori viene presa in considerazione durante il rendering.

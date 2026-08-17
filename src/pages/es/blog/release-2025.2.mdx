@@ -1,0 +1,153 @@
+---
+title: Release 2025.2
+date: 2025-06-14 16:25:00
+excerpt: "Correo, mods y QoL"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Una nueva versión con algunas cosillas, aunque dirigida sobre todo a DM y propietarios de servidores.
+
+Un resumen rápido:
+
+- El formato de configuración del servidor se ha cambiado por completo
+- El administrador del servidor ahora puede configurar un servidor de correo, lo que permite un flujo de 'contraseña olvidada'
+- La propiedad isToken se ha eliminado y el acceso a las formas ahora funciona de manera diferente
+- El soporte experimental para mods ha recibido algunas mejoras
+- Seguimiento del gestor de recursos en el juego rediseñado en la última versión
+- Recopilación anónima de estadísticas añadida al servidor
+
+<Warning title="Cambios en el servidor">
+    Si eres propietario de un servidor, la configuración del servidor ha cambiado drásticamente y requiere una intervención manual, ¡mira más abajo para más información!
+
+    El servidor ahora también usa UV para la gestión de dependencias, lo que puede afectar a tu actualización.
+
+</Warning>
+
+## Correo
+
+Llevaba mucho tiempo pendiente, pero ahora los propietarios de servidores pueden configurar la información del servidor de correo en la (nueva) configuración.
+Una vez configurado, PA podrá usarlo para enviar correos a los jugadores.
+
+Actualmente solo tiene un uso, pero es importante: el flujo de contraseña olvidada.
+
+_Lectura adicional: [sección de configuración de Mail](/es/server/management/configuration/#mail)_
+
+### Contraseña olvidada
+
+Cuando el correo está configurado, la pantalla de inicio de sesión ahora mostrará una acción de "¿contraseña olvidada?" debajo de la etiqueta de contraseña,
+proporcionando un flujo para restablecer la contraseña de una dirección de correo determinada.
+
+Ten en cuenta que esto solo funciona si el usuario tiene configurado un correo (ten en cuenta que el correo es opcional durante el registro).
+
+Una pequeña mejora de QoL tangencial es que ahora aparecerá una notificación de éxito al modificar tu dirección de correo en el panel de control.
+Hasta ahora no estaba muy claro que algo se hubiera modificado realmente.
+
+## Desactivar el renderizado de LoS
+
+Como DM puede que conozcas el caso en el que estás trabajando en una nueva ubicación y has configurado un montón de luces,
+pero no estás seguro de que realmente cubran lo que esperas, porque tienes la LoS activada y tus jugadores siguen en otra ubicación.
+
+Hay una variedad de "trucos" para esto: crear una forma temporal con permisos de visión, desactivar temporalmente la LoS en la configuración de la ubicación, ...
+
+Todos funcionan, pero tienden a ser una molestia o incluso propensos a errores (por ejemplo, olvidar volver a activar la configuración de LoS cuando estés listo para que tus jugadores visiten la ubicación).
+
+Por eso ahora hay un nuevo toggle rápido bajo la barra de herramientas para los DM titulado 'LOS'.
+Solo es visible si la LoS está activada en la ubicación.
+Tiene un modo verde (on) y rojo (off) que se puede usar para anular la configuración de LoS únicamente en tu cliente local.
+
+Esto te permite activar/desactivar rápidamente el comportamiento sin que afecte a los jugadores, haciendo más fácil el diseño de niveles.
+
+_Lectura adicional: [Quick Toggles](/es/docs/tools/quick-toggles/)_
+
+## Niveles de acceso e isToken
+
+Cada forma en PA tiene niveles de acceso que se pueden ajustar por jugador. Permitiendo a algunos jugadores control total de edición sobre una forma y a otros solo acceso de visión.
+
+Hasta ahora estos niveles de acceso (visión/movimiento/edición) eran aditivos. Cada nivel de acceso también otorgaba todos los permisos relacionados con los niveles inferiores (por ejemplo, el movimiento también incluía los permisos de visión).
+Esto ha funcionado bien como base durante la mayor parte de la existencia de PA, pero recientemente me encontré con algunos problemas que quería abordar y que no eran posibles debido a esta naturaleza aditiva.
+
+Ahora los niveles de acceso están completamente separados. Por ejemplo, ahora es posible tener acceso de edición sin acceso de visión. Esto puede ser útil si un jugador tiene control sobre las estadísticas de alguna mascota, pero no puede ver lo que ve la mascota.
+
+Además, cada forma también tenía una propiedad especial `isToken`. Era esencial para el cálculo de la visión cuando la LoS está activada y algo que todas las formas de los jugadores tenían que tener activado.
+Sin embargo, esta propiedad no es muy intuitiva para la mayoría de los jugadores nuevos, e incluso algunos veteranos no están muy seguros de qué hace realmente, aparte de que necesitan activarla para la LoS.
+
+Se introdujo hace mucho tiempo por razones de rendimiento, pero después de reflexionar un poco, me di cuenta de que en realidad no es necesaria si modifico cómo funcionan los niveles de acceso.
+El resultado es que la propiedad `isToken` se ha eliminado, ya no es necesario etiquetar manualmente las formas de los usuarios con esto.
+En su lugar, cualquier forma sobre la que tu usuario tenga acceso de visión se representará como si hubiera tenido isToken en el pasado.
+
+Escribí una [entrada de blog ampliada](https://www.planarally.io/blog/removing-is-token/) sobre las razones por las que se hicieron estos cambios si quieres más información.
+
+_Lectura adicional: [Acceso a las formas](/es/docs/game/shapes/#access)_
+
+## Recursos
+
+El gestor de recursos del panel de control tiene botones dedicados para crear carpetas/subir archivos/eliminar selección, que la versión en el juego no tenía.
+Añadir archivos y eliminar la selección seguían siendo posibles mediante arrastrar y soltar y menús contextuales, pero la creación de carpetas simplemente no era posible.
+
+Estos botones ahora también están presentes en el gestor de recursos del juego.
+
+Además, algunos lugares que todavía usaban la antigua interfaz de selección de recursos (por ejemplo, el selector del logotipo de la campaña) se han actualizado todos a la nueva interfaz introducida en la última versión.
+
+## Recopilación de estadísticas
+
+Una pregunta que recibo a menudo es cuántos usuarios tiene realmente PA y nunca puedo responderla ni siquiera estimarla.
+
+No hay un servidor PA oficial en el que pueda basarme para algunas estimaciones, solo tengo algunos números vagos como las estrellas de github o los usuarios de discord, pero esos no dicen nada sobre los usuarios reales y, si son una indicación de algo, es más probable que representen a propietarios de servidores que a jugadores.
+
+Para hacerme una idea de lo que realmente está pasando ahí fuera, estoy introduciendo un mecanismo de recopilación de estadísticas en el servidor.
+Esto se vinculará en una versión posterior con algunos cambios que quiero hacer en la administración local del servidor, permitiendo que estas estadísticas también sean visibles en el panel de control con los permisos adecuados.
+
+Las estadísticas recopiladas son muy simples y no contienen información personal de ningún tipo. Solo me dan una idea de cuántos usuarios/campañas están realmente en uso activo.
+
+Para más detalles sobre qué estadísticas se recopilan y cómo se maneja la privacidad, consulta la [PR de github](https://github.com/Kruptein/PlanarAlly/pull/1608), que contiene más información.
+
+Para los propietarios de servidores, esta función es configurable con el nuevo formato de configuración.
+
+## Actualizaciones de mods
+
+_Ten en cuenta que el soporte de mods sigue siendo muy experimental_
+
+Hace un año se añadió un soporte temprano para los mods. Era todavía muy rudimentario, con un gran problema: solo el propietario del servidor podía añadir mods añadiéndolos manualmente a una carpeta específica.
+Esta versión añade una interfaz por campaña, que permite al DM subir los mods usados para esa campaña concreta.
+
+Además, gran parte de los internos de la API de mods se han actualizado, en particular la API DataBlock recibió algunos cambios drásticos, haciendo que la parte de la interfaz de mods sea mucho más compacta.
+
+Todos los mods de ejemplo del repo planarally-mods también se han actualizado a la nueva API.
+
+_Lectura adicional: [PR de mods](https://github.com/Kruptein/PlanarAlly/pull/1583)_
+
+## Servidor: cambio de configuración
+
+El formato de configuración ha cambiado por completo y también ha cambiado la ubicación donde se almacena en la carpeta del servidor.
+Ahora es un formato basado en toml y se almacena en la carpeta de datos.
+Hay varias razones por las que se hizo este cambio y llevaba mucho tiempo pendiente.
+
+Se recomienda **encarecidamente** leer el razonamiento detallado y la información en la [PR de github](https://github.com/Kruptein/PlanarAlly/pull/1574).
+
+La documentación del servidor se ha actualizado para mostrar todas las [opciones de configuración](/es/server/management/configuration/).
+
+Si necesitas ayuda para actualizar tu archivo de configuración existente, no dudes en contactar con el canal #help en el servidor de discord.
+
+## Servidor: cambio en la gestión de dependencias
+
+El servidor ahora también se gestiona usando [UV](https://docs.astral.sh/uv/) para la gestión de dependencias.
+
+Esto significa que si gestionas el servidor manualmente con python/pip tendrás que instalar uv y adoptar también el nuevo sistema.
+Será un número pequeño de usuarios, así que el impacto debería ser pequeño.
+
+Para más información, consulta la [PR de github](https://github.com/Kruptein/PlanarAlly/pull/1550) y el readme del servidor, que se ha actualizado con información sobre cómo usar uv.
+
+## Correcciones de errores
+
+- El polígono de la herramienta Draw no actualizaba la visión hasta que la forma estaba completa
+- Reducido algo de sobrecarga de renderizado al mover formas de ficha que el jugador no poseía
+- El menú contextual de formas no se cerraba al seleccionar una opción
+- La interfaz Build de la herramienta Select no aparecía al cambiar de modo
+- Los datablocks de las categorías de room y usuario tenían un error en el servidor que impedía crearlos
+- La eliminación del menú contextual de recursos no funcionaba
+- El color de fondo del menú contextual de recursos a veces era incorrecto en el juego
+- Faltaba la barra de subida de recursos en el gestor de recursos del panel de control
+- Soltar en el mapa recursos sobre los que tienes permiso de vista compartida no funcionaba

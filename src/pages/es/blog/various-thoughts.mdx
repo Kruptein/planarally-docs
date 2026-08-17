@@ -1,0 +1,324 @@
+---
+title: Mirando atrás a 2021 y hacia adelante
+date: 2022-01-12 20:00:00
+excerpt: "Una actualización sobre el progreso de PA y los planes para el futuro"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+## Introducción
+
+Hola a todos, aquí Darragh para hacer un check-in y compartir algunos pensamientos, ideas y reflexiones sobre PA.
+
+No suelo escribir estas entradas del blog que no son solo notas de versión,
+simplemente porque a menudo no sé de qué hablar y en general no soy muy bueno escribiendo pensamientos coherentes.
+Las últimas versiones han sido relativamente pequeñas y más lentas, así que quería tomarme el tiempo para demostrar que no está muerto!
+
+## Lanzamientos de 2021
+
+El ritmo de los lanzamientos de PA siempre ha ido y venido debido a varios factores de mi vida que afectan mi productividad, así que mirando hacia atrás no es tan anormal ver un calendario de lanzamientos más lento en los últimos meses.
+
+Mirando mis entradas del blog, tuvimos 6 lanzamientos el año pasado, 3 de los cuales fueron en los primeros 3 meses, 2 en verano y luego otro más en octubre. Si miro los lanzamientos de 2020, en realidad es un aumento de 5 a 6!
+
+Ahora bien, los números puros no dicen mucho, porque algunos lanzamientos contienen más contenido que otros, así que veamos qué logramos realmente en el último año!
+
+_Solo voy a hablar de cosas notables, o de cosas sobre las que quiero decir algo: hicimos más que solo esto!_
+
+### Hexágonos
+
+_Añadidos en 0.24_
+
+El soporte para hexágonos se añadió a principios de año.
+Es un cambio bastante simple y desde entonces no se ha hecho mucho con los hexágonos, lo cual es una pena por mi parte, ya que siguen siendo ciudadanos de segunda clase: cosas como el ajuste aún no funcionan para estas cuadrículas.
+
+Es una de esas cosas que personalmente nunca uso, así que nunca me molestan, y tampoco escucho quejas al respecto, así que no sé cuánto se usan los hexágonos en general. Si eres alguien que usa hexágonos a menudo y te faltan algunas funciones en este sentido, hazte escuchar!
+
+### Mejoras en la lógica de grupos
+
+_Mejorada en 0.24_
+
+Los grupos ya eran un concepto en PA desde hace tiempo, pero el lanzamiento 0.24 aumentó bastante su usabilidad.
+Esta es una función que de hecho uso mucho yo mismo y que creo que está en una posición bastante buena ahora mismo. Así que estoy bastante contento con eso!
+
+### Variantes
+
+_Añadidas en 0.24 & 0.29_
+
+Las variantes, a veces llamadas 'Composite Shapes', se añadieron como una función experimental y siguen siendo muy experimentales. Incluso fueron desactivadas por un corto período después de una gran migración, porque pensé que nadie las usaba, pero me equivoqué, así que lo siento por eso!
+
+Esta función tiene un potencial divertido: tengo un jugador que la usa para modificar la paleta de colores de su eladrin, pero tiene muchos más usos que solo eso.
+
+Es funcional, pero todavía un poco áspera en algunas áreas, así que espero encontrar algo de tiempo para pulirla un poco.
+
+Esta forma añade mucha complejidad debido a que es una colección de formas vinculadas entre sí, algo en lo que profundizaremos en una sección posterior, pero también es la razón por la que a menudo dudo en tocarla, ya que es muy propensa a errores.
+
+### Iniciativa
+
+_Modificada en 0.24 & 0.27_
+
+La herramienta de iniciativa es una que uso mucho por razones obvias.
+Solía estar plagada de problemas de sincronización y otras travesuras de la interfaz, así que me alegró ver que un primer lote de problemas se arreglara en 0.24.
+
+Sin embargo, fue el lanzamiento 0.27 el que mejoró definitivamente la herramienta de iniciativa y no he tenido grandes problemas con ella desde ese lanzamiento. También vio una renovación de la interfaz, con más funciones para empoderar al DM en otros escenarios.
+
+### Importación/exportación de recursos
+
+_Añadida en 0.24_
+
+A principios de año también vimos la adición del soporte para importar/exportar recursos en el administrador de recursos.
+
+Esta es una de esas funciones que también son bastante básicas en este momento. Hacen más o menos lo que se supone que deben hacer, pero muchas cosas pueden mejorarse aquí.
+
+### Mejoras en los rastreadores y las auras
+
+_Modificadas en 0.25 + 0.26_
+
+Otro cambio con el que estoy realmente contento son los cambios en los rastreadores y las auras. La interfaz ahora es mucho más limpia y explica mejor las cosas en lugar de ser solo un poco aborrecible.
+
+También me he divertido mucho con las auras anguladas que ahora son posibles, aunque son más o menos una chuchería para el Dungeons & Dragons estándar :D
+
+Más tarde, en 0.26, Scoodle tuvo la amabilidad de añadir barras visuales para los rastreadores para seguir cosas como los PV o lo que quieras. Es algo que mis jugadores han empezado a usar mucho y en general parece ser bien recibido en mis propios círculos de juego.
+
+### Deshacer/Rehacer
+
+_Añadido en 0.25_
+
+Algo que faltó durante mucho tiempo en PA fue la capacidad de deshacer.
+Si estropeabas algo, no tenías suerte.
+
+Afortunadamente se añadió alguna forma de deshacer/rehacer para las grandes acciones como mover formas o eliminar cosas.
+Es una de esas cosas que a menudo olvido que no existía antes del año pasado, pero que puede ahorrar pequeños momentos de frustración de vez en cuando, lo cual es agradable de tener.
+
+De ninguna manera todas las acciones se pueden deshacer en este momento, y esa fue una decisión consciente para sacarlo lo antes posible para las operaciones grandes. Si hay algunas cosas que desearías que fueran parte del sistema de deshacer/rehacer, házmelo saber!
+
+### Herramienta de hechizos
+
+_Añadida en 0.25_
+
+Al lanzar hechizos en juegos como D&D, a menudo podemos beneficiarnos de una ayuda visual para ver qué acertaría o no acertaría. En teoría ya podíamos lograr esto con la herramienta de dibujo, pero eso requiere un esfuerzo y desperdicia un tiempo precioso en la mesa, que es la razón por la que se añadió la herramienta de hechizos.
+
+Estoy un poco en conflicto sobre el estado actual de la herramienta de hechizos: tengo jugadores que la usan con frecuencia, pero hay algunos pequeños errores que todavía parecen estar ahí y que pueden restar valor a todo el propósito de ahorrar tiempo. Así que espero encontrar tiempo para abordarlos este año!
+
+### Rediseños de la interfaz
+
+_Modificados en 0.26_
+
+Un GRAN cambio fue la interfaz para todo lo que no era el juego principal o el administrador de recursos. La pantalla de inicio de sesión, la configuración de usuario y la selección de juegos fueron rediseñadas en un estilo uniforme para deshacerse de la vieja y muy simple interfaz que solíamos tener.
+Escribiendo esto casi no podía recordar cómo solía verse!
+
+Este es un cambio que me encanta personalmente, por un lado porque era muy necesario y por otro porque en general soy malo con las cosas de diseño y creo que hice un trabajo decente aquí.
+
+Poder añadir un icono de campaña también fue un pequeño pero agradable detalle para enriquecer un poco las páginas mientras navegas.
+
+Lamentablemente también esperaba abordar el administrador de recursos e incluso integrarlo en la vista principal, pero nunca encontré el tiempo para hacerlo.
+
+Otro cambio de interfaz fue el de la configuración del cliente, que ahora también usa la clásica vista de panel-modal a la que estás acostumbrado al editar formas, etc.
+
+### Información externa de muros
+
+_Añadida en 0.26 & 0.29_
+
+Dibujar manualmente todos los muros no es algo que guste a todo el mundo, por lo que 0.26 añadió soporte para archivos svg y archivos dungeondraft para proporcionar la información sobre dónde están los muros.
+
+Esto es algo que personalmente no uso: soy bastante hábil dibujando muros simplemente por hacerlo mucho, y hay algunas desventajas de usar archivos svg que personalmente no me gustan.
+
+Dicho esto, es más poder para que las personas dediquen tiempo a otras cosas, lo cual siempre es genial.
+
+### El gran borde rojo
+
+Una cosa aleatoria de mencionar quizás, pero el borde rojo para mostrar que se ha perdido la conexión con el servidor es algo que aprecio mucho, aunque puede que sea solo porque a veces rompo cosas en mi configuración local y una pista visual ayuda mucho entonces :D
+
+Otra razón por la que quería destacar esto es que quiero mejorarlo un poco para asegurarme de que si permanece desconectado durante X tiempo, aparezca un mensaje/modal/algo más grande en el centro de la pantalla para asegurarse de que el usuario actual se dé cuenta de que algo anda mal. He oído que algunas personas pierden algo de trabajo porque no notaron el borde rojo, así que la sutileza no es para todos.
+
+### Animación de carga
+
+Un buen amigo mío y uno de mis jugadores hizo la encantadora nueva animación de carga que recorre los varios dados dX y me encanta :)
+
+### Sincronización de recursos
+
+Otra mejora menor que aprecio es que la lista de recursos en la barra lateral (en el juego) ahora se actualiza activamente si cambias cosas en el administrador de recursos. En el pasado a menudo tenía que actualizar la página para algo pequeño, lo cual simplemente no es divertido.
+
+### Mejoras en la herramienta de dibujo
+
+_Modificada en 0.28 & 0.29_
+
+La herramienta de dibujo oculta el cursor del mouse del sistema operativo para suavizar las cosas visualmente.
+Sin embargo, esto a veces dificultaba encontrar el cursor de PA, ya que era de un solo color y podía fundirse con el fondo en algunos casos.
+
+Una primera mejora llegó en 0.28, que añadió un color de borde al cursor de PA para distinguirlo de su contenido.
+
+No fue hasta 0.29 que creo que los problemas de raíz que la gente tenía desaparecieron. Este lanzamiento añadió un objeto similar a un mouse que sigue al cursor de PA, imitando un cursor del sistema operativo, pero conservando la suavidad al acoplarlo al mismo bucle de dibujo que el resto del juego.
+
+### Dados
+
+_Añadidos en 0.29_
+
+Una gran función fue añadir el lanzamiento de dados a PA.
+Finalmente aterrizó en 0.29, permitiendo a la gente lanzar dados virtuales con la configuración clásica de dX.
+
+Los dados llegaron en una versión sin pulir y no se han limpiado desde entonces, así que esta es una gran área que definitivamente podría necesitar mejoras por varias razones.
+
+Lo primero que me gustaría limpiar es la interfaz de la herramienta de dados en sí.
+Dicho esto, el comportamiento del lanzamiento también puede beneficiarse de algunas mejoras, así como el soporte para otros formatos de dados para otros juegos de rol.
+
+Otro aspecto que aún no he cubierto son los dados no visuales. A veces la gente solo quiere obtener rápidamente un resultado para 20d20 + 5d4 + 2 sin tener que esperar a que unos dados elegantes rueden.
+
+Otro lugar donde me gustaría introducir conceptos de dados es en las plantillas, permitiéndote hacer una plantilla de goblin con, en lugar de un grupo de PV fijo, una fórmula (2d6) que se resuelve automáticamente al unirse al campo de batalla.
+
+Así que espero encontrar tiempo para cubrir las mejoras de los dados como un gran tema en el próximo año!
+
+### Edición de polígonos
+
+_Añadida en 0.29_
+
+Otra función que finalmente pude abordar fue la modificación de polígonos.
+Uso tanto los polígonos que no sé por qué no abordé esto antes.
+
+Añadir o eliminar puntos, dividir o unir polígonos, ahora todo es posible!
+
+## Reflexiones sobre varios temas
+
+Después de mirar atrás a 2021, quería tomarme el tiempo para discutir algunas cosas aleatorias.
+
+Algunos de estos temas son técnicos, otros son muy especulativos y de ninguna manera planes fijos.
+
+Sobre algunos de estos temas aún no estoy seguro de cómo continuar o empezar y me encantaría escuchar tu opinión, la de mi comunidad, sobre algunos de estos temas!
+
+### Lanzamientos
+
+#### Cadencia de lanzamientos
+
+Una cosa sobre la que me gustaría conocer tu opinión es la cadencia de lanzamientos.
+
+Hasta ahora diría que intento lanzar aproximadamente cuando siento que el lanzamiento tiene suficiente contenido. A veces esto puede significar una rápida sucesión de lanzamientos como vimos en los primeros meses del año pasado, a veces puede significar que un lanzamiento espera un par de meses.
+
+Esto es algo con lo que estás de acuerdo?, o preferirías que cambiara a una cadencia más rápida en la que incluso si no tengo mucho (p. ej. una pequeña mejora/adición y algunas correcciones de errores), aún debería publicar un lanzamiento, digamos una vez al mes.
+
+#### Esquema de versionado
+
+Otro tema que quería discutir eran los números de versión.
+PA forma parte del [ZeroVer club](https://0ver.org) con el último lanzamiento siendo 0.29.0 después de casi 4 años!.
+
+Eso es simplemente porque no sé realmente qué sería necesario para llegar a un 1.0 para mí. Tendría que ser algo sustancial, dado que nunca llegué a 1.0 en el pasado para otros grandes cambios, lo que significa que probablemente no sucederá pronto según ese criterio.
+
+Lo que significa que podría reconsiderar el esquema de versionado para usar algo diferente.
+Las dos opciones principales que consideraría en este momento se describen a continuación.
+
+##### Eliminar la versión principal
+
+Hacer algo similar a firefox y simplemente eliminar el primer 0. Esto nos deja con un número grande que muestra la iteración y un número extra para posibles parches. (p. ej. 29.0 en lugar de 0.29.0)
+
+Esta solución es bastante fácil y realmente no cambia nada en la práctica.
+
+##### Lanzamientos por año
+
+Otra opción es hacer algo como "November 2021" o "2021.1, 2021.2, ...", donde en este último caso el 1/2 puede ser solo una indicación de iteración o realmente relacionarse con el mes en que se lanzó.
+
+Aún llevaríamos un seguimiento de algún otro número de versión (probablemente la otra sugerencia anterior), pero la comunicación general se haría por año e iteración.
+
+El principal beneficio de esto en mi opinión es que hace que la comunicación sea más fácil.
+Recuerdo más rápido si cierta cosa era parte del ciclo de lanzamientos de 2021 en comparación con ser parte de 0.24.0 y posteriores.
+
+Dado que de todos modos no suelo lanzar más de una vez al mes, esto podría ser una opción.
+
+### Servidor
+
+#### Limitaciones de recursos
+
+Una cosa importante que nunca he llegado a implementar son las configuraciones del servidor para limitar ciertas configuraciones relacionadas con los recursos.
+
+Actualmente no hay límite en cuántos recursos puede subir alguien, ni tampoco hay un límite en el tamaño de dichos archivos.
+
+Estas son 2 cosas que me gustaría abordar antes que tarde.
+
+#### Correo electrónico
+
+Otro aspecto que aún no está cubierto es todo lo relacionado con el correo electrónico.
+Actualmente no hay ningún mecanismo para restablecer las contraseñas de los jugadores aparte de contactar al administrador del servidor.
+La razón principal es que no hay ningún sistema de correo electrónico configurado.
+
+Este es un tema que tendré que investigar un poco,
+pero espero que resulte en la adición de algunas nuevas configuraciones al archivo de configuración para que el administrador del servidor configure los servidores de correo.
+
+Junto con el aspecto técnico de añadir soporte de correo electrónico, esto también significa añadir correos de bienvenida y correos de restablecimiento de contraseña, junto con otras cosas.
+
+#### Servidor oficial
+
+Me encantaría poder alojar algún servidor oficial de PA yo mismo también.
+Estoy muy contento y agradecido de que otras personas estén alojando servidores públicos por ahí,
+pero siento que tampoco vendría mal algún servidor oficial.
+
+De hecho https://app.planarally.io ha estado activo durante un tiempo ya, pero actualmente es un servidor de **desarrollo** y por lo tanto no se aconseja jugar realmente en él.
+
+### Cliente
+
+#### Migración del correo electrónico
+
+Otro cambio que me gustaría hacer está relacionado con el tema del correo electrónico de la sección del servidor, y es cambiar el proceso de inicio de sesión de una combinación nombre de usuario/contraseña a una combinación dirección de correo/contraseña.
+
+Una razón para esto es que hará mi vida mucho más fácil para importar archivos de guardado de otro servidor. Específicamente en relación con los usuarios, ya que actualmente no tengo forma de hacer coincidir un nombre de usuario de un servidor con uno de otro. Puede haber un 'tom' en ambos, pero podrían ser en realidad dos personas diferentes. Si hago esto con los correos electrónicos, combinado con una dirección de correo verificada, es un obstáculo menos que superar.
+
+Esto haría que las direcciones de correo fueran obligatorias, algo que no era el caso en el pasado, y la razón principal por la que elegí el inicio de sesión con nombre de usuario inicialmente fue para soportar el juego sin conexión.
+Significa esto que estoy eliminando el juego sin conexión? No, en absoluto. El juego sin conexión es y siempre será una gran característica de PA, y esto solo significa que la validación de correo y otras cosas relacionadas con el correo simplemente no serán relevantes. La dirección de correo actuará básicamente como un nombre de usuario normal.
+
+#### Usuario vs Jugador
+
+Otro cambio que me gustaría hacer es dar más poder a los jugadores.
+Actualmente el DM básicamente maneja todo, tiene que subir el arte de los personajes, etc.
+
+Un primer cambio es aportar una distinción más clara al concepto de Usuario y Jugador.
+Un usuario será identificado por un correo electrónico (si mis planes anteriores siguen adelante) y puede ser un jugador en múltiples campañas donde será identificado por uno o más nombres de personaje.
+
+Más adelante debería ser posible adjuntar recursos específicos a un personaje, dando al jugador más poder para hacer cosas como subir su propio arte, etc.
+
+#### Multi-formas
+
+Un tema completamente diferente y más una digresión que otra cosa es el concepto de multi-formas.
+Múltiples formas básicas que están vinculadas entre sí para formar una forma más grande.
+
+La razón principal por la que este es un tema con el que a veces juego es para acomodar cosas como mover el mapa y mover junto todos los muros asociados con el mapa.
+U otras formas que tienen alguna conexión con una forma en otra capa. Sin embargo, este es un tema que es técnicamente más desafiante, como se vio con mis experimentos con las variantes.
+
+Las variantes pueden considerarse una subclase del tema de las multi-formas, donde múltiples formas están relacionadas entre sí, pero solo una se muestra en cualquier momento.
+Además, para las variantes, las formas están todas ubicadas en la misma capa, así que también es más simple en ese sentido.
+
+Realmente no sé a dónde voy con esta sección, es solo algo sobre lo que he estado reflexionando :)
+
+### PA en el panorama de los VTT
+
+Esta última sección de reflexiones está relacionada con algunos temas de más alto nivel relacionados con PlanarAlly.
+
+#### Competencia
+
+PA creció de un deseo de intentar crear un VTT para mis propias campañas y no fue hecho con la intención original de ser algo grande.
+No vi ninguna razón para no hacer público el código en sí, y una cosa llevó a la otra y tengo una pequeña pero divertida comunidad alrededor de este proyecto!
+
+Algo a lo que como resultado no presto mucha atención es la "competencia", y uso esta palabra libremente, ya que los otros proyectos por ahí probablemente ni siquiera saben de la existencia de PlanarAlly.
+
+Pero existen otros VTT por ahí, los grandes, pero también los más pequeños, que están apareciendo en todas partes estos días tal como lo hizo PA.
+Así que a veces me siento un poco intimidado, como si estuviera luchando una batalla cuesta arriba que inevitablemente perderé.
+Pero he hecho las paces con simplemente aceptar que incluso si llega un momento en que otra plataforma es vastamente superior y mi base de jugadores se mueve,
+puedo decir que fue un experimento divertido y no debería sentirme triste.
+
+#### Patreon
+
+Algo relacionado con el último punto es que estoy muy agradecido a las personas que realmente donan algo de dinero en patreon.
+Realmente no publico cosas en patreon ni tengo niveles ni nada, porque no tengo idea de para qué podría usarlos.
+Debido a que la comunidad es bastante pequeña, me gusta simplemente decirle a todos si algo nuevo está por venir.
+
+Quizás no haya necesidad de hacer nada con ello y solo dejarlo como está ahora,
+pero si alguien tiene algunas ideas para mejorar mi participación en la página de patreon, házmelo saber!
+
+#### Last Gameboard
+
+Una última cosa que quería mencionar era el 'Last Gameboard', un producto/empresa con el que he estado interactuando el año pasado.
+Es un proyecto genial en el que he estado integrando PA y también es una razón por la que PA mismo fue un poco más lento en la segunda mitad del año pasado.
+El producto debería lanzarse en algún momento de este año, así que veremos cómo va y de qué manera PA en el dispositivo será bien recibido.
+
+Dicho esto, la mayor parte del desarrollo que hago para esa integración también ha encontrado su camino de vuelta al código principal, así que eso es genial.
+
+## Pensamientos finales
+
+Eso concluye mis reflexiones, si lograste leer hasta el final, gracias por tu paciencia :)
+
+Nunca esperé que este proyecto evolucionara a lo que es hoy y no puedo agradecerles a todos lo suficiente por eso, así que veamos qué nos trae 2022!

@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Riferimento rapido
+
+## Livelli predefiniti
+
+Per maggiori informazioni sui livelli consulta la [documentazione sui livelli](/it/docs/dm/layers/).
+
+| Nome   | Visibile al giocatore | Modificabile dal giocatore | Breve descrizione                                                                 |
+| ------ | --------------------- | -------------------------- | --------------------------------------------------------------------------------- |
+| Map    | Sì                    | No                         | Livello sotto la griglia, tipicamente usato per gli asset della mappa             |
+| Grid   | Sì                    | No                         | Non selezionabile nemmeno dal DM, ma configurabile nelle impostazioni di sessione |
+| Tokens | Sì                    | Sì                         | Il tavolo di gioco principale                                                     |
+| DM     | No                    | No                         | Un luogo dove il DM può posizionare oggetti nascosti ai giocatori                 |
+| Vision | Sì                    | No                         | Tutte le forme qui sono invisibili sugli altri livelli                            |
+
+## Scorciatoie
+
+Su Mac, usa `Command` invece di `Ctrl`.
+
+### Movimento
+
+Una buona parte delle scorciatoie è dedicata allo spostamento delle forme o dello schermo.
+
+| Tasto/Modificatore               | Contesto        | Azione                                                                       |
+| -------------------------------- | --------------- | ---------------------------------------------------------------------------- |
+| Frecce, Numpad 1-4, 6-9          | selezione vuota | Sposta il tavolo di 1 cella della griglia nella direzione premuta            |
+|                                  | selezione       | Sposta le forme selezionate di 1 cella della griglia nella direzione premuta |
+| Spazio, Numpad 0                 |                 | Centra lo schermo sul segnalino successivo (cicla tra i segnalini posseduti) |
+| Shift                            | selezione       | Sposta le forme attraverso il terreno che blocca il movimento (solo DM)      |
+| Ctrl + 0, Numpad 5               |                 | Focalizza l'origine (0,0) della griglia                                      |
+| Numpad 5                         | selezione       | Focalizza il centro della selezione                                          |
+| clic centrale del mouse (tenuto) |                 | Sposta il riquadro di visualizzazione                                        |
+| rotellina del mouse centrale     |                 | Zoom rispetto al puntatore del mouse corrente.                               |
+| Page su/giù                      |                 | Sposta il piano della telecamera su/giù                                      |
+| Page su/giù + alt                | selezione       | Sposta il piano della selezione su/giù                                       |
+| Page su/giù + shift + alt        | selezione       | Sposta il piano di selezione e telecamera su/giù                             |
+
+### Comportamento
+
+| Tasto/Modificatore | Contesto | Azione                                                            |
+| ------------------ | -------- | ----------------------------------------------------------------- |
+| Tab                |          | Commuta le modalità (Build/Play)                                  |
+| Alt (tenuto)       |          | Disabilita il [comportamento di aggancio](/it/docs/game/snapping) |
+| Ctrl + u           |          | Mostra/nascondi l'interfaccia                                     |
+| Ctrl + z           |          | Annulla                                                           |
+| Ctrl + shift + z   |          | Ripeti                                                            |
+| n                  |          | Apri il [Gestore note](/it/docs/game/notes)                       |
+| Spazio             | ruler    | Imposta i [waypoint del righello](/it/docs/tools/ruler)           |
+
+### Interazioni con la selezione / le forme
+
+| Tasto/Modificatore | Contesto  | Azione                                                        |
+| ------------------ | --------- | ------------------------------------------------------------- |
+| Invio              | selezione | Apre la finestra di modifica della forma                      |
+| Ctrl               | selezione | Estende la selezione attiva con le forme selezionate con ctrl |
+|                    | resize    | Mantiene le proporzioni                                       |
+| Spazio             | selezione | Imposta i [waypoint del righello](/it/docs/tools/ruler)       |
+| Canc, Backspace    | selezione | Elimina tutte le forme nella selezione attiva                 |
+| d                  | selezione | Deseleziona tutte le forme attualmente selezionate            |
+| x                  | selezione | Segna le forme come sconfitte                                 |
+| Ctrl + l           | selezione | (S)blocca le forme selezionate                                |
+| Ctrl + c           | selezione | Copia la selezione negli appunti                              |
+| Ctrl + v           |           | Incolla gli appunti sul tavolo                                |

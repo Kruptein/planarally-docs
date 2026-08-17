@@ -1,11 +1,16 @@
 ---
 import dayjs from "dayjs";
 import HamburgerMenu from "../components/HamburgerMenu.vue";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 import Main from "./main.astro";
 
 const { title, author, date } = Astro.props.content;
 const { headings } = Astro.props;
 const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format("D MMMM YYYY");
+const posted = useTranslations(getLangFromUrl(Astro.url))
+    ("blog.postedBy")
+    .replace("{date}", formattedDate)
+    .replace("{author}", author);
 ---
 
 <Main>
@@ -24,7 +29,7 @@ const formattedDate = dayjs(date, "YYYY-MM-DD HH:MM:SS").format("D MMMM YYYY");
     <div id="container">
         <main>
             <h1 id="title">{title}</h1>
-            <p id="author">Posted {formattedDate} by {author}</p>
+            <p id="author">{posted}</p>
             <slot />
         </main>
     </div>

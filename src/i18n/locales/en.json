@@ -4,6 +4,8 @@
     "nav.server": "Server",
     "nav.blog": "Blog",
 
+    "blog.postedBy": "Posted {date} by {author}",
+
     "sidebar.docs.overview": "Overview",
     "sidebar.docs.intro": "Introduction",
     "sidebar.docs.reference": "Quick Reference",

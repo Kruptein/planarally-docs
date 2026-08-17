@@ -1,0 +1,128 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+Il focus della 2023.3 sono le funzionalità sperimentali: le mod e un nuovo concetto chiamato 'character' sono le più importanti.
+Maggiori dettagli qui sotto, sono ancora molto nelle prime iterazioni,
+ma invece di tenere in ostaggio il ramo di sviluppo finché non sono soddisfatto, le sto già pubblicando così come sono.
+
+Parte della ragione è anche che ci sono alcune correzioni di bug in questa release che vorrei pubblicare il prima possibile.
+
+## Ordinamento delle campagne
+
+Inizieremo con una piccola miglioria alla qualità della vita che era attesa da tempo.
+L'elenco delle campagne ora può essere ordinato alfabeticamente o per interazione più recente.
+L'ordinamento predefinito sarà per attività più recente.
+
+Non c'è molto altro da dire, è un piccolo cambiamento ma è carino.
+
+## Illuminazione e Visione
+
+### Rendere di nuovo grandi i cerchi
+
+Il codice che gestisce la visione lavora con vertici e bordi.
+I cerchi non si adattano bene a questo modello così com'è, dato che un cerchio è un insieme infinito di punti.
+
+Storicamente questo è stato "risolto" usando semplicemente il bounding box del cerchio quando usato nel codice legato alla visione.
+Il che fa sì che pilastri e altre cose sulla tua mappa vengano rappresentati come quadrati nel sistema di visione.
+
+Questo ovviamente non è quello che vuoi, e così la maggior parte delle persone ha usato lo strumento poligono per soddisfare questa esigenza.
+
+Lo strumento poligono è uno strumento molto versatile e potente, ma a volte vuoi semplicemente usare un dannato cerchio.
+E quando PA mostra un cerchio come possibile forma da disegnare, ti aspetti qualcosa almeno vicino a un cerchio e non un quadrato.
+
+Quindi tl;dr i cerchi ora vengono approssimati da poligoni basati sulla dimensione del cerchio per tutte le cose legate alla visione.
+Non è un adattamento perfetto perché sarebbe computazionalmente costoso, ma è molto meglio di un quadrato.
+
+### Crash di triangolazione
+
+Il suddetto codice di visione che usa vertici e bordi è basato su un algoritmo di triangolazione.
+Sebbene raro, può accadere che qualcosa si blocchi in modo definitivo in questo codice e lasci il gioco in uno stato ingiocabile.
+
+Uno di questi rari casi limite è stato miracolosamente incontrato di recente da due persone diverse, anche se quel particolare caso limite esiste da diversi anni.
+Questo è affrontato in questa release e non dovrebbe più accadere.
+
+### Aure bugiarde
+
+A quanto pare, quando hai un'aura abilitata che ha sia i valori normal che dim impostati a zero ed è un'aura che interagisce con la visione, illuminava l'intera mappa.
+
+Questo non è più il caso e l'aura ora si comporterà come se fosse disabilitata.
+
+## Asset
+
+Sono state apportate alcune piccole modifiche alla logica di rimozione degli asset.
+
+La rimozione di un asset dal gestore asset non rimuoverà l'asset effettivo dal disco se ci sono ancora forme che usano quell'asset.
+
+Di conseguenza, quando si rimuovono forme in gioco, viene fatto un controllo extra per vedere se l'asset correlato può essere rimosso dal disco.
+
+## Aggiunte sperimentali
+
+Come menzionato nell'introduzione, questa release contiene alcune aggiunte sperimentali.
+Va notato di nuovo che ciascuna di queste è ancora nelle prime iterazioni ed è soggetta a modifiche.
+
+### Mod
+
+Sono solo una persona e a volte ricevo richieste che non ho il tempo di implementare o che sento non appartengono al codebase principale,
+anche se potrebbero essere interessanti. Le mod sono un modo per permettere ad altri di implementare queste funzionalità.
+
+Non ho molta familiarità con l'offerta di capacità di modding, quindi questa è molto un'esperienza di apprendimento anche per me.
+L'implementazione attuale è molto essenziale e sono sicuro che ci sono molte cose che potrebbero essere migliorate, ma abbiamo bisogno di un punto di partenza ed eccolo qui!
+
+Per maggiori informazioni sull'API di modding, cosa comporta esattamente e alcuni esempi, consulta [questa PR su github](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_queste sono informazioni puramente tecniche e non realmente rilevanti per gli utenti normali_
+
+Un altro nuovo concetto introdotto con le mod sono i "DataBlocks".
+Questo è il sistema che è attualmente proposto per offrire alle mod l'archiviazione lato server dei dati.
+
+Le mod sono puramente lato client, quindi non possono interagire direttamente con il database, né possono interagire direttamente con alcun codice lato server.
+Invece possono memorizzare e recuperare dati arbitrari sotto forma di DataBlocks.
+
+### Characters
+
+I "Characters" sono un nuovo concetto che è attualmente in esplorazione ed è adiacente al concetto di 'template'.
+
+I modelli offrono un modo per creare varianti di una particolare forma con informazioni precompilate. Una volta posizionati sulla mappa sono però completamente indipendenti tra loro.
+I casi d'uso tipici per un modello sono i mostri. Hai un modello per un goblin e puoi posizionare quanti goblin vuoi sulla mappa e i loro pf e ca sono già configurati.
+Non vuoi però che le modifiche a 1 goblin alterino gli altri goblin una volta che sono sulla mappa.
+
+I Characters sono il complemento di questo. Rappresentano un'istanza unica di una particolare forma. Le modifiche a un character vengono ricordate.
+Puoi rimuovere una forma che è collegata a un character e successivamente trascinare e rilasciare di nuovo il character sulla mappa e sarà esattamente nello stesso stato di quando l'hai rimosso.
+
+#### Creazione
+
+Puoi creare un character dal menu contestuale con il tasto destro su qualsiasi forma purché tu abbia accesso alla modifica.
+
+#### Azioni
+
+Una volta che una forma è collegata a un character, sarà elencata nella sezione Characters nella barra laterale sinistra.
+Come al solito il DM vedrà anche tutti i character creati dai giocatori, mentre i giocatori vedranno solo i propri character.
+
+Quando fai clic su un character in questo elenco, la tua fotocamera si sposterà per centrarlo su quel particolare character.
+
+Inoltre, come DM puoi trascinare e rilasciare il character come faresti con un asset. Questo teletrasporterà la forma esistente del character nel punto in cui l'hai rilasciato.
+Se non c'è attualmente una forma associata al character, verrà invece creata in quella posizione con tutti i suoi dati precedenti.
+
+#### Futuro
+
+L'idea è di fornire più funzionalità a questo concetto in futuro.
+In particolare la nozione di character sheet che potrebbero essere configurati attraverso l'interazione delle mod è qualcosa che viene esplorato.
+
+Un'altra idea è permettere ai giocatori di creare character dalla dashboard principale e poi collegarli a una campagna.
+In questo modo i giocatori possono creare i propri character in anticipo con la loro arte e statistiche già compilate, senza dover passare ogni volta dal DM.
+
+## Correzioni varie
+
+- Export: le campagne con note potevano fallire l'esportazione
+- Espulsione: il controllo per impedire al co-DM di espellere il DM principale era errato
+- Forme: l'angolo delle forme durante la rotazione veniva arrotondato a interi, il che è un po' scomodo quando si ha a che fare con i radianti
+    - In pratica questo spesso risultava in una forma ruotata che in realtà non ruotava affatto per gli altri giocatori o al refresh

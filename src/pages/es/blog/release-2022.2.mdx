@@ -1,0 +1,226 @@
+---
+title: Release 2022.2
+date: 2022-06-11 12:00:00
+excerpt: "Importación/Exportación"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Como prometí en la última release, quiero hacer actualizaciones más regulares aunque no añadan muchas funciones.
+Esta release corrige muchos errores, pero también introduce algunas novedades!
+
+_Administradores del servidor: se han realizado cambios en la server_config, consulta [Cosas del servidor](#server-stuff)_
+
+## Importación/Exportación
+
+La función nueva más destacada es la funcionalidad de importación/exportación.
+La funcionalidad de exportación ya se había añadido en la última release como función solo de API (es decir, sin interfaz para exportar),
+pero la funcionalidad de importación aún no estaba definida.
+
+_Como nota al margen, ¡gracias a esta funcionalidad de exportación logré ayudar a resolver algunos errores más rápido!_
+
+Esta release introduce la funcionalidad de importación y también la interfaz tanto para exportar como para importar, de modo que los usuarios finales también puedan usarla.
+
+### Experimental
+
+Quiero destacar que esta función aún no está en su forma final, pero dado que es una función muy de nicho,
+me sentí seguro de ponerla ya a disposición de la gente para que la pruebe.
+
+Cosas a tener en cuenta:
+
+- La interfaz es muy minimalista: tanto la importación como la exportación son solo un botón, sin información de progreso.
+- Tampoco hay todavía información de errores en el cliente
+- No puedes importar una campaña que comparta nombre con una campaña que ya estés ejecutando
+- Solo puedes importar una campaña en un servidor que ejecute la misma versión o una más reciente que el servidor desde el que exportaste
+
+Los dos primeros puntos son cosas en las que trabajaré para una futura release.
+El tercer punto es una cuestión de UI/UX y de ofrecer una forma de especificar un nombre de campaña distinto.
+El último es un límite técnico obvio, dado que un servidor más antiguo no tendrá idea de qué cambió en el formato de guardado.
+
+Para abordar este problema, habrá que crear un servicio aparte capaz de actualizar/retroceder archivos de guardado entre versiones arbitrarias. Requerirá bastante trabajo, así que no lo esperes muy pronto.
+
+### Cómo exportar/importar
+
+Tanto la funcionalidad de exportación como la de importación se accede desde el dashboard principal, ¡así que NO dentro del juego!
+
+Para exportar una campaña de la que eres DM, solo tienes que hacer clic en una campaña en tu sección "run" y luego hacer clic en el botón "export" de la barra lateral.
+Cuando la exportación termina (si no acabó fallando en el servidor), tu navegador te mostrará una solicitud de descarga del archivo. Exportar una campaña no es instantáneo, pero tampoco lleva muchísimo tiempo.
+
+El resultado de una campaña exportada es un único archivo con extensión ".pac", abreviatura de PlanarAlly Campaign.
+Este archivo contiene todos los recursos usados en la campaña exportada, así como toda la información de la base de datos relacionada con la campaña.
+
+Para importar luego esa campaña en otro servidor, ve a la sección "import" de la barra lateral de navegación y pulsa el sencillo botón.
+Cuando termine, serás redirigido a la sección "run" y la campaña importada debería aparecer en la lista.
+
+El tiempo que tarda tanto la exportación como la importación escala con el tamaño de la campaña (#ubicaciones, #plantas, #formas), así como con el tamaño de los recursos usados en esas campañas.
+
+### ¿Cuándo la usaría?
+
+Quizá te preguntes para qué sirve realmente esto, y apuesto a que la mayoría de la gente se quedará con 1 servidor y nunca tendrá que preocuparse por la exportación/importación!
+
+Estos son algunos posibles casos de uso:
+
+1. Encontraste un error, algo no funciona bien y tras una charla conmigo no queda claro qué está fallando.
+   Este es el momento perfecto para hacer una exportación de tu campaña y enviármela. Así puedo depurarla a mi ritmo sin tener que ir y venir contigo.
+
+2. Te gusta hacer tus propias copias de seguridad. Siempre es posible que algo salga mal con un servidor que estés usando. Tener una copia de seguridad no le hará daño a nadie.
+
+3. Estás a punto de jugar en un sitio sin internet. Exporta rápidamente tu campaña,
+   impórtala en un servidor local que puedas ejecutar y listo, puedes seguir jugando donde lo dejaste.
+   Cuando vuelvas a estar en un entorno con internet, ¡puedes importarla de nuevo!
+
+4. Simplemente quieres cambiar a otro servidor PA.
+
+## Selector de color
+
+El selector de color recibió un truco nuevo y divertido, y también 2 correcciones que me molestaban :D.
+
+### Recuerda los colores usados anteriormente
+
+El selector de color ahora recuerda qué colores has usado (\*).
+Se muestran en la parte inferior del selector en 2 filas (se registran como máximo 20 colores). Puedes hacer clic en cualquiera de estos colores para establecerlo como color actual. Al pasar el ratón por un color de la lista también se mostrará el valor rgba de ese color.
+
+El historial de colores se guarda por usuario en todas sus campañas.
+
+![Memoria de colores](./2022.2/colour-memory.png)
+
+(\*) Un color se añade a la lista cuando cierras el selector, _no_ al dibujar con él. Esto último habría requerido código en toda la codebase, mientras que ahora puede estar contenido en la lógica del selector de color.
+
+### Errores
+
+También se corrigieron 2 errores del selector de color.
+
+#### Restablecimiento de la opacidad
+
+Al hacer clic en la barra de color (la que está encima de la barra de opacidad), la opacidad se restablecía a menudo a 1 o 0, en lugar de recordar el nivel de opacidad actual.
+
+#### El panel de saturación vuelve al rojo
+
+Tras seleccionar por primera vez un color en la barra de color y hacer clic luego en el rectángulo de saturación, la barra de color se restablecía a menudo a su valor más a la izquierda (rojo). Ahora esto ya no debería ocurrir.
+
+## Ajustes de la lógica
+
+La lógica fue una de las novedades brillantes de la release 2022.1 y estamos aquí para pulir parte de ese nuevo esplendor!
+
+### Puerta: claridad de los iconos
+
+Al pasar el ratón sobre una puerta en modo Play aparece un icono <Lock /> o <Unlock />.
+Era solo un icono negro, difícil de ver sobre un fondo oscuro.
+
+Esta release añade un borde blanco a los iconos para que siempre sean visibles.
+
+### Puerta: especificar bloqueos
+
+La primera release de la lógica de puertas estaba pensada puramente para... puertas.
+Para una puerta estándar, las propiedades "block movement" y "block vision" deberían activarse/desactivarse al abrir o cerrar.
+Sin embargo, también hay variantes de puertas (por ejemplo, el rastrillo) o elementos como ventanas en los que quizá solo quieras alternar 1 propiedad.
+
+Ahora puedes especificar qué bloqueo debe alternar la puerta al hacer clic.
+
+![Modo de bloqueo de la puerta](./2022.2/door-block-mode.png)
+
+Por supuesto, todavía puedes cambiar manualmente la otra propiedad de bloqueo como creas conveniente. \
+(por ejemplo, hacer que una ventana use la lógica de puerta para alternar solo la visión e imitar cortinas, pero cambiar la propiedad de movimiento si alguien lanza un ladrillo por la ventana)
+
+### Errores
+
+Se resolvieron varios errores relacionados con la lógica de las formas.
+
+- Los permisos de puerta de la herramienta Draw no se guardaban
+- La lógica de puerta no actualizaba de inmediato la interfaz cuando las propiedades de la forma estaban abiertas
+- Las zonas de teletransporte se activaban desde otras plantas
+- Casos límite de la inicialización de la lógica rompían la interfaz hasta actualizarla
+- El selector de permisos de la lógica mostraba un error en un caso límite
+
+## Mejoras de UI/UX
+
+Se hicieron algunos cambios agradables para mejorar la UX y la interfaz general en ciertas áreas.
+
+### Mostrar la animación de carga más rápido
+
+Al abrir una campaña se muestra una bonita animación de carga.
+Sin embargo, esta animación solo comenzaba en cierto momento y, según el ordenador,
+podía haber un breve periodo en el que pareciera que no ocurría nada al abrir una campaña.
+
+La animación ahora se muestra inmediatamente al hacer clic en una campaña, de modo que quede claro que PA está haciendo algo y no que simplemente hiciste clic por error.
+
+### Escalar la derrota y la insignia con la forma
+
+La superposición de derrota de la forma y las insignias de las formas tenían un tamaño fijo.
+Esto significaba que una insignia para una criatura gigantesca era diminuta y una insignia para una criatura minúscula casi ocultaba la propia ficha de la criatura.
+Además, esto también se estropeaba al usar distintos tamaños de cuadrícula.
+
+Esta release ahora escala correctamente estos aspectos con el tamaño de la forma a la que pertenecen.
+
+### Gestión de modales en firefox
+
+El manejo de los eventos dragEnd de Firefox es muy inconsistente/lleno de errores, lo que rompía por completo el arrastre de modales.
+Parte de este comportamiento defectuoso está corregido en las versiones nightly de firefox, pero no todo lo que me molestaba se corregirá a corto plazo en firefox. Así que cambié la lógica de los modales para usar el evento drop. Requiere un poco más de código, pero al menos garantiza un comportamiento similar en todos los navegadores.
+
+### Viewport
+
+El rectángulo que muestra el viewport activo de los jugadores (cuando está habilitado) usaba un solo color sólido que, al igual que los iconos de las puertas, no era muy legible según el color de fondo. Ahora también usa un segundo color para el contraste.
+
+![Actualización de la interfaz del viewport](./2022.2/viewport.png)
+
+### Varia
+
+- Botón "no" predeterminado mostrado en el aviso de eliminar/salir de la campaña
+- Asset Manager actualiza correctamente la interfaz al usar los botones atrás/adelante del navegador
+- Los encabezados de navegación del dashboard a veces estaban mal estilizados
+
+## Cosas del servidor
+
+El lado del servidor recibió algunos cambios pequeños, incluidos cambios en la configuración del servidor!
+
+### Rotación de registros
+
+El servidor ahora hará una rotación de registros en lugar de tener un único archivo de registro enorme e interminable.
+
+La sección General recibió dos propiedades nuevas:
+
+```python
+max_log_size_in_bytes = 200_000
+max_log_backups = 5
+```
+
+Para más información sobre lo que hacen, consulta la documentación en la configuración del servidor.
+
+### Tamaño de los fragmentos de importación
+
+Los archivos de campaña pueden volverse grandes porque los recursos forman parte del archivo.
+Para evitar tener que configurar el tamaño de subida a un número absurdamente alto, lo que sería un riesgo de seguridad,
+el cliente enviará en su lugar los archivos de importación en fragmentos que coincidan con el tamaño máximo que acepta el servidor.
+
+Este tamaño ahora se puede configurar en la sección Webserver y su valor predeterminado es de 10 MiB.
+
+```python
+max_upload_size_in_bytes = 10_485_760
+```
+
+## Errores
+
+### Correcciones de SVG
+
+Un par de correcciones específicas para la sección SVG del menú Extra Settings de la forma:
+
+- La sección svg de ExtraSettings no se actualizaba de inmediato hasta cambiar de pestaña
+- La eliminación de svg en ExtraSettings no funcionaba correctamente
+- El añadido de svg en ExtraSettings no funcionaba para formas sin propiedades svg previas
+
+### Correcciones de Undo/Redo
+
+- La lógica de Redo en una operación de redimensionado no recordaba la ubicación correcta cuando se había producido un ajuste
+- La herramienta Draw intentaba añadir la operación de creación de la forma a la pila de deshacer cuando la forma no era válida
+- Undo/Redo no persistían en el servidor para movimiento y rotación
+
+### Miscelánea
+
+- Las ubicaciones de aparición se cargaban mal
+- Los puntos modificados con la interfaz de edición de polígonos no se podían ajustar hasta actualizar
+- El socket de recursos no limpiaba las conexiones pasadas
+- Las auras que son fuentes de luz ya no aparecen como un círculo negro siniestro cuando la FOW no está activada
+- El nivel de zoom predeterminado de la ubicación ahora es 0.2 en lugar de 1.0

@@ -1,0 +1,141 @@
+---
+title: Rodando suavemente hacia el otoño - Release 0.29.0
+date: 2021-10-28 20:00:00
+excerpt: "¿Qué hay de nuevo?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Ha pasado un tiempo, ¡llevábamos mucho retraso con una nueva versión! No es una versión muy grande, pero incluye algunas herramientas nuevas y divertidas con las que jugar, además del habitual conjunto de correcciones de errores.
+
+## Dados virtuales
+
+Una de las primeras grandes cosas es el lanzamiento de dados virtuales. Sin embargo, una palabra de advertencia: la versión que incluye esta release aún no está pulida.
+Espero recibir comentarios sobre cómo se siente para dar forma al futuro del lanzador de dados.
+
+El lanzamiento de dados está disponible como herramienta dedicada en el modo Play, tanto para el DM como para los jugadores.
+Puedes construir un conjunto de dados (actualmente limitado a dados dX) y lanzarlos en pantalla.
+El resultado aparecerá en pantalla en un diálogo y también se recordará dentro de la propia herramienta de Dados.
+
+Puedes elegir opcionalmente compartir los resultados de los dados con todos los jugadores, lo que mostrará una pequeña notificación en su pantalla cuando lances.
+(es decir, los dados no se lanzan visualmente en las pantallas de los otros jugadores)
+
+#### Una nota sobre el comportamiento
+
+Los dados se emulan/aproximan con un sistema de física real. Puede ocurrir que PA asuma que el dado ha aterrizado en su posición final y muestre un resultado, y aun así el dado ruede una última vez. Estos detalles se pulirán en el futuro; si tienes la intención de usar esto mucho en tu campaña, podría ser prudente decidir de antemano qué valor tratas como el valor real
+
+#### Una nota sobre la carga
+
+Los dados usan un sistema de renderizado 3D completo (un saludo a babylonjs y ammojs). Esto trae mucho código extra a través de las dependencias, lo que aumenta en gran medida el tamaño del bundle y, por tanto, el tiempo de carga de PA.
+
+Para evitar esto, todo el código relacionado con los dados no se carga durante la carga principal de PA, sino que se difiere hasta que haces clic en la herramienta de Dados por primera vez. Esto significa que puede haber una pequeña demora la primera vez que interactúas con la herramienta de Dados.
+
+## Cursor de la herramienta Draw
+
+Hace un tiempo se tomó la decisión de dejar de mostrar el puntero del ratón al usar la herramienta Draw, ya que nunca está sincronizado al 100 % con el bucle de dibujo de PA, lo que causaba cierto lag visual entre el cursor real y el cursor que asume el juego.
+
+Sin el cursor desincronizado, las operaciones de dibujo se sienten más fluidas, pero se hizo bastante fácil perder la noción de dónde estás realmente en el lienzo. Y esto es aún más cierto cuando dibujas con colores transparentes o muy cercanos al fondo del mapa.
+
+Esta versión vuelve a añadir un cursor de ratón, no el cursor real del sistema operativo, sino un cursor ficticio que es solo un polígono dentro de PA, que al ser una forma de PA estará siempre sincronizado con el bucle de dibujo y, por tanto, se sentirá fluido.
+
+## Herramientas de edición de polígonos
+
+Desde la introducción de los polígonos hace tiempo, han sido fácilmente mi forma más utilizada, especialmente para todo lo relacionado con iluminación/visión.
+
+A veces olvido que cierta pared tenía una puerta secreta y arreglarlo durante la sesión es bastante difícil, ya que tendrías que eliminar toda la pared y rehacerla, lo que según lo largo que sea el polígono puede ser un gran dolor. O simplemente mueves a los personajes a través de la pared con shift, que es a lo que recurro casi siempre.
+
+Esto ya no tiene por qué ser así, ¡ya que por fin he añadido herramientas para modificar polígonos existentes!
+
+Cuando seleccionas un polígono en el modo Build, aparecerá una interfaz extra cerca del polígono que seguirá tu ratón.
+Al pasar el cursor sobre un borde, tendrás la opción de añadir un punto extra al polígono o dividir el polígono en ese punto.
+Al pasar el cursor sobre un punto, podrás eliminar ese punto.
+
+## CLI de administración del servidor
+
+_Esto fue aportado por CalebKoch_
+
+El servidor python ha ganado algunas utilidades extra para gestionar el servidor sin tener que sumergirse en una shell de python.
+
+En particular, ahora puede:
+
+- listar todos los usuarios
+- listar todas las rooms (es decir, campañas)
+- eliminar un usuario/room específico
+- restablecer la contraseña de un usuario
+
+## Manejo de paredes SVG
+
+Desde la versión 0.26.0 ha sido posible adjuntar información de paredes en forma de archivo svg a prácticamente cualquier objeto en PA, aunque el caso de uso principal es obviamente para los mapas.
+Extraía la información de los path del svg y la almacenaba en las opciones de la forma para un acceso rápido.
+
+La antigua extracción de path ignoraba cualquier transform establecida en los elementos (p. ej. translate/scale) y, por tanto, podía hacer que a veces hubiera que voltear manualmente el svg sobre el eje y para obtener el resultado correcto en PA.
+
+Se ha escrito una nueva implementación del manejo de svg, que ya no mantiene todo el path asociado al recurso, sino solo una referencia al svg real, que luego se analiza por separado sobre la marcha, permitiendo que cualquier mejora futura en el manejo de svg se aplique también a los recursos existentes.
+
+Una de esas mejoras es el soporte para las transformaciones translate y scale.
+
+Como no quería romper los flujos svg existentes, tendrás que volver a aplicar el svg si quieres beneficiarte del nuevo y mejorado manejo de svg.
+
+En algún momento del futuro tengo la intención de eliminar el antiguo código de manejo de svg, así que recomiendo encarecidamente reaplicar todas las máscaras svg que uses o podrían dejar de funcionar en el futuro (los detalles se comunicarán más adelante).
+
+## Mejoras en la interfaz
+
+### Modo de herramienta activo
+
+La última versión cambió la interfaz relacionada con los modos de herramienta (es decir, Play y Build).
+La distinción entre los dos se ha aumentado aún más para dejar claro qué modo está activo actualmente.
+
+### Configuración de visión
+
+Ya no es posible configurar un rango máximo de visión menor que el rango mínimo de visión y viceversa.
+
+### Interfaz de ángulo
+
+Las auras suelen ser círculos completos de 360 grados, pero esto se puede configurar junto con un ángulo de visión para orientar el aura en una dirección concreta.
+La interfaz del ángulo de visión ahora también ofrece una entrada numérica si quieres ser más preciso o no te gusta el elemento de entrada circular.
+
+### Cambiador de variantes
+
+El cambiador de variantes se desactivó con la gran actualización de vue3, en parte porque sentía que tenía demasiados errores y que no era realmente utilizado por los demás.
+
+Aparentemente me equivoqué mucho en esa última evaluación, ya que recibí varias preguntas sobre por qué las variantes ya no funcionaban.
+
+Mis disculpas a aquellos que lo usaban: ¡se ha vuelto a activar con su funcionalidad original!
+
+#### Correcciones
+
+También se corrigieron dos errores relacionados con las formas con variantes:
+
+##### Trackers/Auras
+
+La lógica compartida de trackers/auras tenía algunos problemas de lógica que resultaban en un comportamiento inconsistente.
+
+Ahora deberían funcionar correctamente :)
+
+Además, al cambiar de variante y si la variante anterior tenía (varias) auras no compartidas, algunas de ellas permanecían en pantalla sin moverse junto con el resto (es decir, estáticas). Esto también se resolvió.
+
+##### Cambio de ubicación
+
+Al mover una forma con variantes a otra ubicación, solo se movía una parte de las variantes, lo que causaba múltiples problemas en general (incluido que la ubicación anterior ya no pudiera cargarse).
+
+## Correcciones de errores
+
+- Formas bloqueadas que podían moverse entre ubicaciones
+- Formas bloqueadas que podían cambiar de planta
+- Error del rango mínimo de visión igual al rango máximo
+- Auras inclinadas que no rotaban con la rotación general de la forma
+- Varios problemas de estilo en firefox
+    - Las anotaciones ya no ocupan todo el ancho de la pantalla
+    - Interfaz del aura demasiado ancha
+- Sincronización de la viewport
+    - la viewport se envía inmediatamente al conectarse (y no espera el primer pan)
+    - el movimiento de la viewport del DM ahora está limitado y ya no debería verse lento en el cliente
+- Varias correcciones relacionadas con el DPI
+- Varios errores del modo de visión experimental
+    - Corregido el inicio que no funcionaba correctamente
+    - Corregido el movimiento sin ajuste de una forma bloqueante que no actualizaba la triangulación del movimiento
+- El bloqueo de movimiento no se actualizaba directamente cuando no se usa el ajuste
+- Cierta caída de rendimiento para polígonos grandes
+- Eliminada la interfaz de rotación persistente al eliminar una forma en el modo Build
+- La herramienta Select mostraba la regla sin selección
+- El redimensionamiento de texto no se sincronizaba en vivo con otros clientes

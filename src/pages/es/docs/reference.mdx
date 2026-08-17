@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Referencia rápida
+
+## Capas predeterminadas
+
+Para más información sobre las capas, consulta la [documentación de capas](/es/docs/dm/layers/).
+
+| Nombre | Visible para el jugador | Editable por el jugador | Breve descripción                                                                          |
+| ------ | ----------------------- | ----------------------- | ------------------------------------------------------------------------------------------ |
+| Map    | Sí                      | No                      | Capa debajo de la cuadrícula que se usa normalmente para los recursos del mapa             |
+| Grid   | Sí                      | No                      | Tampoco es seleccionable por el DM, pero se puede configurar en la configuración de sesión |
+| Tokens | Sí                      | Sí                      | El tablero de juego principal                                                              |
+| DM     | No                      | No                      | Un lugar donde el DM puede colocar objetos ocultos para los jugadores                      |
+| Vision | Sí                      | No                      | Todas las formas aquí son invisibles en otras capas                                        |
+
+## Atajos de teclado
+
+En Mac, usa `Command` en lugar de `Ctrl`.
+
+### Movimiento
+
+Una buena parte de los atajos de teclado está dedicada a mover las formas o la pantalla.
+
+| Key/Modifier                                | Contexto        | Acción                                                                             |
+| ------------------------------------------- | --------------- | ---------------------------------------------------------------------------------- |
+| Arrow-keys, Numpad 1-4, 6-9                 | selección vacía | Mueve el tablero 1 celda de la cuadrícula en la dirección presionada               |
+|                                             | selección       | Mueve las formas seleccionadas 1 celda de la cuadrícula en la dirección presionada |
+| Space, Numpad 0                             |                 | Centra la pantalla en la siguiente ficha (recorre las fichas propias)              |
+| Shift                                       | selección       | Mueve las formas a través del terreno que bloquea el movimiento (solo DM)          |
+| Ctrl + 0, Numpad 5                          |                 | Enfoca el origen (0,0) de la cuadrícula                                            |
+| Numpad 5                                    | selección       | Enfoca el centro de la selección                                                   |
+| clic del botón central del mouse (mantener) |                 | Desplaza la pantalla                                                               |
+| desplazamiento del botón central del mouse  |                 | Hace zoom en relación con el puntero del mouse actual.                             |
+| Page up/down                                |                 | Mueve la planta de la cámara hacia arriba/abajo                                    |
+| Page up/down + alt                          | selección       | Mueve la planta de la selección hacia arriba/abajo                                 |
+| Page up/down + shift + alt                  | selección       | Mueve la planta de la selección y de la cámara hacia arriba/abajo                  |
+
+### Comportamiento
+
+| Key/Modifier     | Contexto | Acción                                                          |
+| ---------------- | -------- | --------------------------------------------------------------- |
+| Tab              |          | Alterna los modos (Build/Play)                                  |
+| Alt (mantener)   |          | Desactiva el [comportamiento de ajuste](/es/docs/game/snapping) |
+| Ctrl + u         |          | Alterna la interfaz                                             |
+| Ctrl + z         |          | Deshacer                                                        |
+| Ctrl + shift + z |          | Rehacer                                                         |
+| n                |          | Abre el [Administrador de notas](/es/docs/game/notes)           |
+| Space            | regla    | Establece [puntos de ruta de la regla](/es/docs/tools/ruler)    |
+
+### Selección / Interacciones con las formas
+
+| Key/Modifier   | Contexto      | Acción                                                             |
+| -------------- | ------------- | ------------------------------------------------------------------ |
+| Enter          | selección     | Abre el diálogo de edición de la forma                             |
+| Ctrl           | selección     | Extiende la selección activa con las formas seleccionadas con Ctrl |
+|                | redimensionar | Mantiene la relación de aspecto                                    |
+| Space          | selección     | Establece [puntos de ruta de la regla](/es/docs/tools/ruler)       |
+| Del, Backspace | selección     | Elimina todas las formas de la selección activa                    |
+| d              | selección     | Deselecciona todas las formas seleccionadas actualmente            |
+| x              | selección     | Marca las formas como derrotadas                                   |
+| Ctrl + l       | selección     | (Des)bloquea las formas seleccionadas                              |
+| Ctrl + c       | selección     | Copia la selección al portapapeles                                 |
+| Ctrl + v       |               | Pega el portapapeles en el tablero                                 |

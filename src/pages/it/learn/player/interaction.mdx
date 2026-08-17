@@ -1,0 +1,174 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import PenSquare from "~icons/fa-solid/pen-square";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Interagire con la partita
+
+È ora di usare davvero PA!
+
+## Muovere la mappa
+
+Iniziamo con le cose più facili: muovere la mappa.
+
+Una parte essenziale dell'uso di qualsiasi VTT è saper muovere la telecamera.
+
+### Zoom
+
+Lo zoom dentro/fuori è piuttosto semplice: basta scorrere la rotellina del mouse.
+Come visto nel capitolo precedente, c'è anche un apposito slider di zoom in alto a destra che puoi usare.
+
+La differenza principale è che lo slider fa sempre zoom rispetto al centro dello schermo,
+mentre lo zoom con il mouse fa zoom rispetto alla posizione attuale del mouse.
+
+### Scorrere la mappa
+
+Per muovere la mappa, puoi tenere premuto il pulsante centrale o destro del mouse e muovere il mouse.
+
+<Tip>
+    Puoi disabilitare il pulsante che non intendi usare per evitare scorrimenti accidentali nelle Impostazioni del
+    client
+</Tip>
+
+Puoi anche muoverti con la tastiera: premendo uno dei tasti freccia, lo schermo scorrerà nella direzione indicata.
+A ogni pressione lo schermo si sposterà di 1 cella della griglia.
+
+<Tip>Guarda le [scorciatoie da tastiera](/it/docs/reference/#keybindings) se vuoi scoprire altri modi!</Tip>
+
+## Diamo un'occhiata agli strumenti
+
+Diamo un'occhiata più da vicino alla barra degli strumenti in basso a destra.
+Può assumere due forme a seconda della **modalità**, ma come giocatore userai quasi esclusivamente la modalità Play:
+
+![Strumenti di Play](./assets/tools-play.png)
+
+<Tip>
+    1: Se non ti piacciono le icone astratte, puoi cambiare l'interfaccia per mostrare le etichette testuali nelle
+    Impostazioni del client.
+    <br />
+    2: Puoi cambiare rapidamente tra le modalità premendo <kbd>tab</kbd>
+</Tip>
+
+La maggior parte delle interazioni in PA dipenderà da quale strumento è attualmente attivo, che nell'esempio sopra è lo strumento Selezione.
+
+Esamineremo rapidamente tutti gli strumenti qui, limitando la spiegazione all'essenziale che userai spesso.
+Per informazioni più approfondite consulta la [documentazione sugli strumenti](/it/docs/tools/select/).
+
+### Selezione
+
+Questo è di gran lunga lo strumento più comune che userai. Il suo uso principale è... selezionare le cose!
+
+Cliccando con il tasto sinistro su una forma la selezionerai e aggiungerai un bordo rosso attorno alla forma.
+Se ora clicchi con il tasto sinistro e tieni premuto mentre muovi il mouse, potrai spostare la forma.
+
+Se selezioni più forme, potrai spostarle tutte insieme!
+
+Lo so, sconvolgente.
+
+Lo strumento Selezione ha però di più in serbo: quando hai una selezione attiva,
+apparirà un'interfaccia speciale in alto a destra con informazioni rapide sulla forma selezionata e
+le opzioni di configurazione extra dello strumento Selezione sono disponibili in basso a destra.
+
+<Info title="Ridimensionamento / Rotazione">
+    Lo strumento Selezione ha anche la capacità di ridimensionare o ruotare una forma.
+    <br />
+    Poiché di solito non è qualcosa che si fa regolarmente, questa funzionalità è visibile solo quando sei in modalità
+    Build. Questo previene ridimensionamenti accidentali quando vuoi solo trascinare la tua forma e ti capita di
+    cliccare un po' troppo vicino all'angolo.
+</Info>
+
+### Scorri
+
+Il prossimo è uno strumento che è probabilmente il meno usato, dato che ti permette di muovere/scorrere lo schermo con il clic sinistro del mouse.
+
+Poiché puoi sempre scorrere da qualsiasi strumento con i pulsanti centrale o destro del mouse,
+userai attivamente questo strumento solo quando sei su un dispositivo senza mouse.
+
+### Incantesimo
+
+Se mai hai bisogno di aggiungere temporaneamente qualche effetto incantesimo al tavolo, questo strumento ti copre.
+
+Ti permette di selezionare alcune forme di incantesimo comuni, configurare le dimensioni e piazzarle sulla mappa.
+
+Se hai una forma selezionata, un righello viene tracciato automaticamente tra la forma e l'effetto incantesimo,
+per assicurarti di essere consapevole della distanza a cui stai lanciando.
+
+### Righello
+
+Il tuo amico se hai bisogno di misurare le distanze.
+
+Uno strumento molto semplice: clicchi e trascini una linea per misurare la distanza sia in numero di celle della griglia che in distanza nel mondo (ad es. ft o m).
+
+<Tip>
+    Se premi spazio mentre trascini il mouse, viene creato un nuovo punto di ancoraggio, permettendoti di misurare
+    attorno agli angoli!
+</Tip>
+
+### Ping
+
+Un altro strumento piccolo ma utile è lo strumento ping, che ti permette semplicemente di attirare l'attenzione su un'area specifica della mappa.
+
+### Visione
+
+Questo è uno strumento specializzato che apparirà solo se controlli più personaggi.
+
+Limiterà la tua visione ai personaggi selezionati in questo strumento.
+
+### Dadi
+
+Uno strumento che userai o frequentemente o mai è lo strumento dadi.
+
+Ti permette di risolvere i tiri di dado sia in forma puramente testuale sia simulando effettivamente dadi 3D virtuali.
+
+### Disegno
+
+Questo strumento è visibile solo quando sei in modalità Build!
+
+Usando questo strumento puoi disegnare una varietà di forme sulla mappa.
+
+## Modificare il tuo personaggio
+
+Qualcosa non ancora trattato è come modificare il tuo personaggio, che ovviamente è anche una parte importante del gioco.
+
+Quando hai il tuo personaggio selezionato, ci sono diversi modi per aprire l'interfaccia di modifica.
+
+- Premi l'icona <PenSquare /> nelle informazioni rapide (in alto a destra)
+- Fai clic destro sul tuo personaggio e clicca "mostra proprietà"
+- Premi <kbd>Invio</kbd>
+
+Qualunque cosa scegli, dovrebbe apparire un elemento dell'interfaccia più grande che ti permette di modificare più aspetti del tuo personaggio.
+Si può configurare molto, ma non preoccuparti: come giocatore le schede più essenziali sono Proprietà e Tracker.
+
+### Proprietà
+
+Qui puoi modificare alcune cose essenziali come il nome e l'asset del tuo personaggio.
+
+### Tracker
+
+Qui puoi configurare tracker e aure.
+
+I tracker sono dati numerici che potresti voler tenere e modificare durante le partite (ad es. HP).
+Possono anche essere opzionalmente mostrati sopra il tuo personaggio sulla mappa, privatamente o visibili a tutti gli altri giocatori.
+
+Le aure invece sono sempre visive: rappresentano cose come effetti d'area e luci.
+Se l'aura è pensata per darti visione (ad es. una torcia o la scurovisione), assicurati di attivare l'opzione "Sorgente di luce".
+
+Le aure hanno 2 valori per il loro input di portata: il primo valore è quanti ft di luce intensa ci devono essere,
+mentre il secondo è quanti ft di luce fioca. Quindi una torcia di 5e dovrebbe essere 20 / 20 (e non 20 / 40!).
+
+## Letture aggiuntive
+
+Questa è stata una panoramica molto breve degli strumenti che ti permettono di interagire con PlanarAlly.
+
+Alcune cose non menzionate che potresti voler esplorare:
+
+- Note: Tieni traccia delle informazioni che hai raccolto su particolari npc o momenti chiave della storia
+- Chat: Una semplice chat testuale effimera
+- Iniziativa: Un tracciatore di iniziativa di base
+
+E se sei interessato a ospitare davvero una partita tu stesso, puoi dare un'occhiata alla [guida per DM](/it/learn/dm/intro/) e scoprire di cosa si tratta.

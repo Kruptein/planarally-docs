@@ -1,0 +1,109 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Iluminación y visión
+
+En esta sección describiremos cómo, como DM, puedes dar más vida a tus calabozos y brindar a tus jugadores una experiencia dinámica.
+
+_Si quieres un ejemplo práctico, revisa el [tutorial de la primera sesión](/es/learn/dm/first-map/#setting-up-a-light)._
+
+Como sugiere el título, hay 2 ideas principales en PlanarAlly que son responsables de cómo tus jugadores perciben el estado del tablero.
+
+Al agregar luces (u oscuridad) en algunos lugares del mapa, inmediatamente le das más personalidad a un lugar; además, puedes colocar una antorcha en el personaje de alguien y obtienes una sensación aún mayor de exploración de calabozos. Sin embargo, colocar luces por todo el mapa ya arruinará algunos lugares geniales para tus jugadores cuando aún están en la entrada. Para evitar esto, hay que tener en cuenta la visión de un personaje determinado y, si la tenemos, deberíamos tener una experiencia muy inmersiva.
+
+Primero repasaremos parte de la configuración de iluminación y, finalmente, hablaremos de cómo funciona la visión.
+
+## Iluminación
+
+Hay distintos grados de complejidad que podemos lograr en PlanarAlly y, dependiendo de cómo quieras dirigir tu juego, elegirás un método diferente.
+
+También hay 1 configuración de DM relacionada con la iluminación llamada 'Fill entire canvas with FOW' y se puede encontrar en la pestaña Vision. Esta configuración determina si toda la pantalla debe llenarse de niebla por defecto o no.
+
+<Warning>
+    Se recomienda encarecidamente llenar la pantalla de niebla si quieres usar el sistema de visión. Actualmente, el
+    sistema de visión sin niebla se comporta de forma extraña.
+</Warning>
+
+### Luces mágicas y oscuridad
+
+El primer tipo de iluminación es lo que yo llamo iluminación 'mágica', porque es tan poderosa que las luces mágicas no se pueden ocultar y la oscuridad mágica no puede ser atravesada por luces normales.
+
+Por emocionante que pueda sonar, en realidad uso este tipo de luces con poca frecuencia, ya que es muy estática. La uso para algunos casos extremos.
+
+#### Cómo usarlas
+
+Si seleccionas la herramienta Draw como DM, verás un alternador de modo en la parte superior. Cuando está configurado en reveal, estarás dibujando luces mágicas; cuando está configurado en hide, estarás dibujando oscuridad mágica.
+
+¡Todas las formas dibujadas en modo reveal u hide se dibujan automáticamente en la capa de visión (fow)! Así que si cometiste un error o quieres eliminar algo, por ejemplo, ¡ve a la capa de visión para arreglarlo!
+
+#### Cuándo usarlas
+
+Puede suceder que quieras mostrar rápidamente una parte determinada de la pantalla a los jugadores, sin tener que moverlos a todos. Quizás quieras mostrar la brújula en la pantalla en todo momento mientras toda la pantalla está cubierta de niebla por defecto. O quizás tengas una escena de luz diurna sin niebla, pero quieras asegurarte de que el contenido de un edificio no se revele hasta el enfrentamiento final.
+
+Otro caso de uso típico es cuando, como DM, quieres otorgar visión a los jugadores sobre la marcha, manteniendo visible todo lo que visitaron. Combinando la opción 'cubrir todo con niebla' y luego dibujando con el pincel en modo reveal, puedes pintar fácilmente un camino para tus jugadores.
+
+### Luces normales
+
+Un uso mucho más común de la iluminación es colocar luces en el mapa. Puedes adjuntar una luz a cualquier recurso y se irradiará desde el centro del recurso. Estas luces pueden atravesar la niebla normal, pero no la niebla mágica descrita anteriormente.
+
+#### Cómo usarlas
+
+Abre las propiedades del recurso haciendo clic derecho en el recurso y seleccionando 'edit properties'. Encuentra la sección titulada 'auras' y comienza a completar una nueva fila.
+
+Para más información, consulta la documentación de [auras](/es/docs/game/shapes/#auras).
+
+¡Asegúrate de marcar tu aura como fuente de luz!
+
+<Tip title="Fuentes de luz ocultas">
+    Las fuentes de luz siempre están adjuntas a las formas. Si quieres ocultar la forma a tus jugadores, pero mostrar su
+    efecto de luz, muévela a la capa `fow` o hazla invisible, si necesitas que se muestre el color del aura.
+</Tip>
+
+#### Cuándo usarlas
+
+Esta es la forma recomendada de agregar luces a tu escena en la mayoría de los casos. Adjuntar una luz a una ficha ofrece de inmediato iluminación dinámica cuando la ficha se mueve y, combinada con la visión más adelante, ofrece una combinación poderosa.
+
+## Visión
+
+Hasta ahora hemos logrado agregar algunas luces y/o niebla a nuestra escena, pero no hay nada que bloquee estas luces, por lo que atraviesan las paredes de nuestro mapa, a menos que afines meticulosamente cada luz, lo cual no será divertido.
+
+Por esta razón, PlanarAlly te ofrece la posibilidad de proporcionar información sobre dónde están las paredes, las puertas y otras obstrucciones en tu mapa, para que PA pueda evaluar adecuadamente cómo debe comportarse una luz.
+
+### Objetos que bloquean la luz
+
+La esencia de proporcionar a PA información sobre las paredes, etc., es dibujando formas como lo haces normalmente y seleccionando la opción 'blocks light' en el diálogo de propiedades de la forma. Como a menudo durante la preparación necesitas dibujar estas formas, PA ofrece una capa de visión dedicada (FOW) que aplica automáticamente la opción de bloquear la luz (y bloquear el movimiento) a cada forma dibujada en esta capa. Para más información sobre esta capa específica, consulta [la documentación de capas](/es/docs/dm/layers/).
+
+Puedes usar cualquiera de las formas disponibles para dibujar los esqueletos de tus edificios, pero algunas son más útiles que otras. Aunque el rectángulo puede ser útil para estructuras simples con paredes de 90 grados, últimamente me encuentro usando la herramienta de polígono casi exclusivamente. Consulta la [documentación de la herramienta Draw](/es/docs/tools/draw/) para obtener información más detallada sobre cómo se comportan estas formas.
+
+<Info>Esto solo bloquea las luces normales. Las luces 'mágicas' atraviesan cualquier niebla no mágica.</Info>
+
+### Línea de visión
+
+La última configuración que aún debemos discutir para completar la configuración de luz y visión es la configuración de línea de visión en los ajustes de DM.
+
+Sin esta configuración habilitada, tenemos nuestras luces iluminando las habitaciones, deteniéndose correctamente en el borde de nuestras paredes. Lo que no tenemos es una noción de lo que un personaje puede ver. Todas las habitaciones con una fuente de luz serán visibles, haya un jugador en la habitación o no.
+
+Cuando habilitas la configuración de línea de visión en los ajustes de DM, PlanarAlly tendrá en cuenta la posición de los personajes de los jugadores y solo se mostrarán a los jugadores las luces que realmente son visibles para una ficha.
+
+<Warning>
+    Esta configuración solo tendrá en cuenta los recursos sobre los que al menos un jugador tiene **acceso de visión**.
+    Si no hay fichas sobre las que un jugador tenga acceso de visión, ese jugador **no tendrá visión**.
+</Warning>
+
+## Visión mínima/máxima
+
+Estos se pueden configurar en la [configuración de campaña](/es/docs/dm/settings/).
+Estas configuraciones se comportan mucho como las auras, pero solo _limitan_ la visión de todas las fichas, en lugar de arrojar luz sobre el mapa.
+
+<Warning>Esto solo afecta el lienzo que está lleno de niebla de guerra.</Warning>
+
+Una ficha podrá ver todo dentro del límite de la _visión mínima_ con normalidad.
+Sin embargo, _no_ verá las fuentes de luz más allá del límite de la _visión máxima_.
+Cada fuente de luz entre los límites de la visión mínima y máxima se atenuará como un aura de luz tenue.
+
+<Info>Esto solo bloquea las luces normales. Las luces `mágicas atraviesan cualquier niebla no mágica.</Info>

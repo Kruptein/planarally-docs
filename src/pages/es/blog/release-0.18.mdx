@@ -1,0 +1,170 @@
+---
+title: Release 0.18.0 - What's new!
+date: 2019-11-15 21:02:34
+excerpt: "Un vistazo a las nuevas novedades de la próxima release 0.18.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Ha pasado un tiempo (~5 meses) desde la última release de PlanarAlly. Este retraso ha sido causado en parte porque mi campaña personal me tomó mucho tiempo, pero también por algunas funcionalidades técnicas que ni siquiera están listas para esta release :(.
+
+¡Sin embargo, el desarrollo no se ha detenido mientras tanto! Recibimos muchas contribuciones agradables a PA de @Daniferitto y @CalebKoch, por mencionar algunos.
+
+Los temas mencionados en esta actualización de release se enumeran a la izquierda, el changelog completo se puede encontrar en [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.18.0).
+
+Antes de sumergirme en la lista de cambios, también me gustaría notificar un par de cambios importantes para la versión 0.19.0 de PlanarAlly.
+
+##### Cambios en el horizonte (0.19.0+)
+
+Hasta ahora existía la opción de elegir entre el modo de visión "triángulo" más reciente o el modo "bhv" más antiguo.
+
+A partir de 0.19.0, el modo bhv desaparecerá. No ha recibido correcciones en tiempos recientes y es simplemente inferior en todos los aspectos en comparación con el modo triángulo.
+
+Otro modo de visión hará su entrada en la 0.19 que voy a llamar 'triángulo+'.
+Es el mismo algoritmo de visión pero, en lugar de tener que recalcular toda la triangulación en cada cambio, cambiará la triangulación en tiempo real.
+
+Esto significa que cualquier error en este sistema dañará irreversiblemente la triangulación, razón por la cual lo lanzo como una funcionalidad opcional para empezar.
+
+Este nuevo modo de visión debería ser incluso más rápido que el modo triángulo existente, ya que no tendrá que recalcular todo el espacio de visión ante un pequeño cambio.
+
+## Personalización
+
+### Unidades de longitud
+
+Lo primero en la lista es la adición para cambiar la representación de la unidad de distancia. Hasta ahora esto siempre estaba codificado en pies (es decir, ft.), principalmente porque los libros de reglas oficiales de dnd lo usan para todo.
+
+Ahora es posible elegir la representación por ubicación. ¡Así que podrías tener una ubicación de "mapa mundial" con unidades en km y otro mapa de "ciudad" con unidades en metros!
+
+Para cambiar la unidad de medida de la ubicación activa, ve a la configuración del DM y abre la pestaña de cuadrícula.
+
+<video src="/blog/release-0.18/size-units.webm" type="video/webm" autoplay loop></video>
+
+## Herramientas
+
+#### Clic derecho en todas las herramientas
+
+Anteriormente, el menú de clic derecho solo estaba disponible cuando la herramienta de selección estaba activa, lo cual era bastante molesto y por eso se hizo el cambio para proporcionarlo en todas las herramientas.
+
+#### Herramienta de ping
+
+Una nueva adición a la lista de herramientas es la herramienta de ping.
+
+Un truco común en el pasado era usar la regla y girarla rápidamente para llamar la atención sobre una cierta área del mapa. Obviamente esto es poco óptimo y por eso surgió la necesidad de algún tipo de herramienta de ping.
+
+Esta nueva herramienta de ping es una implementación muy básica que ofrece alguna solución al problema anterior, proporcionando al DM y a los jugadores una forma ligeramente más elegante de resaltar dónde quieren llamar la atención.
+
+<video src="/blog/release-0.18/ping-tool.webm" type="video/webm" autoplay loop></video>
+
+La idea es expandir esto más en el futuro con algunas opciones de animación para hacer crecer/encoger el símbolo del ping.
+
+### Herramienta de selección
+
+#### Operaciones de grupo
+
+Mover un grupo de fichas a diferentes capas tenía que hacerse ficha por ficha en el pasado.
+
+¡Ahora toda la selección puede moverse a la capa deseada de una sola vez!
+
+<video src="/blog/release-0.18/group-select.webm" type="video/webm" autoplay loop></video>
+
+#### Selección de fichas con ctrl
+
+Junto con la selección de grupo, se ha añadido otro cambio de calidad de vida a la herramienta de selección.
+
+Ahora puedes añadir formas a la selección activa usando la tecla ctrl. Puedes hacer clic con ctrl en una sola forma para añadirla o arrastrar una nueva caja de selección mientras mantienes presionada la tecla ctrl para añadir varias formas a la vez.
+
+<video src="/blog/release-0.18/ctrl-select.webm" type="video/webm" autoplay loop></video>
+
+### Herramienta de dibujo
+
+#### Escape para cancelar
+
+Ahora es posible cancelar el dibujo de la forma activa presionando la tecla escape.
+
+<video src="/blog/release-0.18/escape.webm" type="video/webm" autoplay loop></video>
+
+#### Polígonos abiertos
+
+La herramienta de polígono ya era una de mis herramientas más usadas, pero ahora con la adición de los polígonos abiertos se ha convertido en mi método preferido para crear rápidamente muros y otros objetos que bloquean la luz.
+
+Igual que la variante cerrada, el polígono abierto es una forma que puede dibujarse haciendo clic donde quieras añadir un punto a la forma del polígono y haciendo clic derecho para indicar que la forma está completa.
+Sin embargo, **no** crea una conexión automática entre el primer y el último punto del polígono.
+
+Otra diferencia es que el polígono abierto no tiene color de relleno, ya que no hay un área entre los puntos que se rellene.
+
+Uso esta forma extensamente para dibujar muros rápidamente.
+
+<video src="/blog/release-0.18/openpolygon.webm" type="video/webm" autoplay loop></video>
+
+#### Tamaño de pincel del polígono
+
+Junto con la adición de los polígonos abiertos, los polígonos ahora también tienen un tamaño de pincel igual que la herramienta de pincel.
+
+<video src="/blog/release-0.18/brushsize.webm" type="video/webm" autoplay loop></video>
+
+#### Bordes de círculos hacia dentro
+
+Debido a que la creación de fichas circulares a menudo tenía que redimensionarse para caber en una celda de cuadrícula, se tomó la decisión de hacer los bordes de los círculos hacia dentro.
+
+## Capas
+
+### FOW invisible en todo
+
+Cada forma en la capa FOW ahora es invisible cuando se selecciona otra capa.
+En el pasado esto solo se aplicaba a las formas que tenían activa la opción visionObstruction, pero ahora se aplica a todas las formas de la capa.
+Esto se relaciona puramente con la visibilidad real de la forma, ¡cualquier aura aplicada a la forma seguirá siendo visible!
+
+Esto permite configurar luces sin que sean visibles para los jugadores o crear muros invisibles transparentes y otras cosas buenas.
+
+## Barra de ubicaciones
+
+### Color de ubicación activa
+
+Un agradable cambio de calidad de vida trae un color de resaltado a la ubicación actualmente activa en la barra de ubicaciones, para que estés seguro de dónde estás ;).
+
+## Correcciones de errores
+
+Una breve lista de correcciones de errores prominentes.
+
+### Revelación de datos privados al mover
+
+La corrección de errores más importante es aquella en la que durante un movimiento de forma, la configuración específica del DM se perdía y, por tanto, cierta información se volvía pública para los jugadores,
+incluidas las auras y otras configuraciones relacionadas con la visión.
+
+Esto resultaba en que algunas áreas del mapa se volvían repentinamente visibles durante un movimiento del ratón, pero luego se revelaban de nuevo cuando se soltaba el ratón.
+Ahora esto debería comportarse correctamente.
+
+### Auras de luz atravesando muros
+
+Otro error molesto que ha sido aplastado está relacionado con las auras de luz.
+
+Para la capa de control, la visión se recortaba correctamente en los límites de visión como los muros, pero para el DM y otros jugadores potenciales, el aura mostraba un área visible correcta, pero además pasaba directamente a través del muro.
+
+### El estado de bloqueo funciona correctamente al unirse
+
+La nueva función de bloqueo para los DM siempre aparecía como 'desbloqueado' al unirse a una sesión incluso cuando la sesión estaba bloqueada.
+
+### Segmentos de vista previa de polígonos
+
+Al dibujar un polígono, siempre se muestra en vista previa una línea desde el último punto clicado hasta el puntero del ratón. Esta línea solía aparecer siempre en negro en lugar de usar los colores de dibujo activos.
+
+### Sesiones con barra
+
+Las sesiones con una barra en su nombre no funcionaban.
+
+### Ancho de zoom de la regla
+
+La herramienta de regla tenía un ancho inconsistente entre los distintos niveles de zoom. Ahora tiene el mismo ancho en pantalla a cualquier nivel de zoom.
+
+### El asistente de pincel que se quedaba
+
+El asistente de pincel (el punto de vista previa) solía quedarse en algunos casos límite. Ahora debería desaparecer correctamente al cambiar de herramientas o capas.
+
+### Formas temporales que se quedaban
+
+Cuando un jugador se iba o se reconectaba mientras dibujaba una forma temporal, esta solía quedarse hasta que todos actualizaran la página.
+Ahora esto debería limpiarse correctamente al desconectarse el jugador.
+
+### Círculos negativos
+
+En ciertas circunstancias era posible intentar crear un círculo con un radio negativo. Este intento rompía la página.

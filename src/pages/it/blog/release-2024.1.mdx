@@ -1,0 +1,181 @@
+---
+title: Release 2024.1
+date: 2024-01-27 12:00:00
+excerpt: "Migliorare note e visione"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Un nuovo anno, una nuova release!
+
+Come al solito sono stati corretti alcuni bug, ma le due star principali di questa release sono una revisione completa del sistema delle note e l'introduzione di una nuova modalità di blocco della visione che migliorerà l'immersione.
+
+## Una nuova modalità di blocco della visione
+
+### Perché ci serve una modalità extra?
+
+Fino ad ora, il blocco della visione era una cosa binaria: o riesci a vedere attraverso/oltre l'oggetto, o blocca completamente la visione. Questo va bene per molti casi, ma quando si ha a che fare con oggetti più piccoli (ad es. tronco d'albero, pilastro, roccia) spesso ci si trova a dover fare una scelta come DM.
+
+- Oscuri completamente l'oggetto, dandogli un corretto comportamento di blocco della visione, ma perdi alla fine l'immersione perché non è chiaro ai giocatori cosa sia quel cerchio casuale che blocca la visione
+- Rendi la forma di blocco della visione leggermente più piccola, per mostrare un po' dell'oggetto, ma perdi correttezza di conseguenza
+
+### La nuova modalità
+
+In questa release viene introdotta una nuova modalità di blocco della visione, chiamata `behind`. Accompagnerà l'attuale modalità di visione che sarà rinominata in `complete`.
+
+Quando la nuova modalità è attiva, la forma contrassegnata come blocco della visione verrà renderizzata come se non fosse una forma di blocco della visione, ma tutto ciò che c'è dietro sarà completamente oscurato. Questo ti permetterà, ad esempio, di avere un tronco d'albero che blocca la visione, ma di mostrare comunque ai giocatori ciò che stanno guardando (cioè un tronco d'albero).
+
+Un altro buon caso d'uso per questa nuova modalità sono le porte. Configurandola come blocco dietro (blocking behind), concedi una corretta visione dell'intero oggetto porta, rendendo più chiaro ai giocatori cosa stanno guardando.
+
+**Blocco completo:**
+
+![Blocco completo della visione](./2024.1/vision-complete.png)
+
+**Blocco dietro:**
+
+![Blocco della visione dietro](./2024.1/vision-behind.png)
+
+#### Limitazioni
+
+Questa modalità speciale funziona solo per le forme chiuse. In pratica significa che funziona per la maggior parte delle forme regolari (ad es. rettangolo/cerchio), ma non per forme speciali come lo strumento Brush o le forme di testo.
+
+I polygon possono essere aperti o chiusi! Quindi se vuoi usare questo per mostrare una forma irregolare usando lo strumento Polygon, assicurati di aver contrassegnato il polygon come chiuso. (questa è un'opzione nello strumento Draw)
+
+Un altro caso speciale è che le luci poste all'interno di oggetti con questa modalità abilitata potrebbero renderizzare quando la tua aura non raggiunge la forma. È un caso limite dell'implementazione, ma in pratica non dovrebbe essere un problema troppo grande, dato che non c'è molta ragione per posizionare luci all'interno di forme di blocco della visione.
+
+## Note e annotazioni
+
+L'altro grande cambiamento di questa release è una revisione completa del sistema delle note.
+
+Finora PlanarAlly aveva 2 concetti di note:
+
+- note di campagna libere
+    - Hanno un titolo e del testo libero
+    - Sono sempre private
+    - Possono essere tenute aperte / trascinate in giro
+- note delle forme (note come annotazioni)
+    - Hanno testo libero con supporto markdown
+    - Possono essere pubbliche o private
+    - Limitate a 1 per forma
+    - Il markdown renderizzato viene mostrato in cima allo schermo quando si passa il mouse sulla forma correlata
+
+### Una raccolta di problemi
+
+Entrambi questi concetti hanno i loro problemi e sono incoerenti tra loro:
+
+- per le note libere
+    - non c'è modo di cercare
+    - non c'è modo di filtrare (ad es. solo le note rilevanti per il luogo corrente)
+    - non c'è modo di condividerle con altri utenti
+    - solo 1 nota può essere aperta alla volta
+    - non c'è alcun rendering markdown
+- per le note delle forme
+    - non c'è modo di avere informazioni sia private che pubbliche
+    - non c'è modo di averle in popout / accedervi senza avere la forma selezionata
+    - se hai bisogno delle informazioni scritte per una forma, devi trovare la forma effettiva ovunque essa sia
+    - a meno che non sia un personaggio, le note vengono perse quando la forma viene rimossa
+
+### Una soluzione unificata
+
+Per risolvere questi problemi è stato creato un sistema di note unificato.
+
+In questo nuovo sistema non c'è più differenza tra note delle forme e note di campagna. Le note sono ora un unico concetto, possono essere collegate alle forme e gestite attraverso un nuovo elemento UI chiamato Note Manager.
+
+![Lista del Note Manager](../docs/game/assets/note-manager-list.png)
+
+### Cambiamenti evidenti
+
+Per una panoramica completa del nuovo sistema di note, consulta la [documentazione sulle note](/it/docs/game/notes/). È stata aggiornata per riflettere il nuovo sistema e contiene diverse immagini e una spiegazione più approfondita.
+
+#### Cambiamenti UI
+
+Il Note Manager è un nuovo elemento UI che può essere aperto con la scorciatoia da tastiera <kbd>n</kbd> o cliccando sulla sezione note nel menu di sinistra. È il cuore del nuovo sistema di note e ti permette di gestire tutte le tue note.
+
+Il Note Manager ha una barra di ricerca che ti permette di cercare in tutte le tue note. Le note ora possono anche avere tag arbitrari che possono essere usati sia per cercare sia per dare più contesto.
+
+Puoi comunque anche aprire le note in popout dal Note Manager (e da altre posizioni) per tenerle aperte mentre fai altre cose. Più di queste note possono essere aperte in popout contemporaneamente e possono essere trascinate singolarmente.
+
+Inoltre, le note in popout possono essere ridotte a icona così da mostrare solo il loro titolo. Questo può essere usato per le note a cui hai bisogno di accedere spesso in un breve lasso di tempo, senza ingombrare lo schermo.
+
+![Popout di modifica del Note Manager](../docs/game/assets/note-manager-edit-popout.png)
+
+#### Accesso
+
+Ora è possibile condividere le note con altri utenti e definire per loro diritti di accesso granulari.
+
+Questo significa che puoi dare accesso in visualizzazione a tutti i giocatori quando viene recuperata una certa nota, o dare a un giocatore specifico una nota privata che solo lui può vedere e modificare.
+
+Le note create dai giocatori sono una delle poche cose in PA che non sono visibili al DM! Quindi sono davvero private a meno che non vengano condivise specificamente.
+
+#### Forme
+
+Le note possono essere facoltativamente collegate alle forme. Una singola nota può essere collegata a più forme e una singola forma può avere più note collegate!
+
+Questo ti permette di avere sia informazioni pubbliche che private collegate a una forma.
+
+Inoltre c'è anche una nuova impostazione delle note che ti permette di configurare un'icona di nota da mostrare sulla forma. Questo è utile per ricordare la presenza di una nota importante. È diventata anche un'impostazione per decidere se la nota deve apparire in cima allo schermo quando si passa il mouse su una forma correlata. Ora è disattivata di default!
+
+![Trigger del Note Manager](../docs/game/assets/note-manager-edit-triggers.png)
+
+La sezione quick info sul lato destro dello schermo quando hai una forma selezionata ora mostra anche informazioni su tutte le note collegate alla forma. Puoi passare rapidamente il mouse sulle note per vedere il loro contenuto, ma puoi anche aprirle in popout da lì.
+
+Per vedere una panoramica di tutte le note di una particolare forma puoi cliccare sull'icona della nota nella sezione quick info o usare il menu contestuale della forma selezionata.
+
+#### Globale vs Locale
+
+Quando crei una nuova nota, scegli se è una nota globale o locale.
+
+Questo significa che una nota globale è indipendente dalla campagna e sarà visibile in tutte le campagne. Mentre una nota locale è legata alla campagna corrente e persino allo specifico luogo in cui è stata creata.
+
+Poiché le note globali sono disponibili in ogni campagna, dovresti fare attenzione a non crearne troppe, dato che di solito la maggior parte delle note non è rilevante per tutte le campagne.
+
+Un buon caso d'uso per le note globali, però, sono i blocchi di statistiche (stat block). Non vuoi ridefinire lo stat block di un mostro specifico in ogni campagna. Combinato con l'uso dei [Template degli asset](/it/docs/dm/assets/#templates) puoi rilasciare un goblin sul tavolo e fargli avere automaticamente lo stat block collegato.
+
+## Rapporto di rilascio degli asset
+
+È una nuova funzionalità che allo stesso tempo è anche un bugfix. Aggiunge una nuova impostazione alle impostazioni della griglia del luogo.
+
+PA ha un'opzione per ridimensionare automaticamente gli asset quando vengono rilasciati se hanno un formato specifico nel nome. Ad esempio, goblin_1x1 in circostanze normali dovrebbe occupare esattamente 1 cella della griglia, dragon_3x3 dovrebbe essere ridimensionato a 3 per 3 celle della griglia.
+
+L'implementazione esistente usava erroneamente un metodo basato sul sistema 5ft per adattare automaticamente questo quando un luogo aveva una dimensione maggiore (ad es. le mappe da 10ft facevano automaticamente entrare qualcosa come something_2x2 in 1 cella)
+
+Questo però si rompe completamente per tutto ciò che non usa il sistema 5ft, sia perché usi unità SI sia perché il tuo sistema usa qualcosa di personalizzato o ti piace definire le tue dimensioni in termini di pizze.
+
+La soluzione semplice è disabilitare quel sistema, ma allora rilasciare asset su mappe che hanno una scala diversa non funziona più correttamente. Quindi, per affrontare anche questo, è stata aggiunta una nuova impostazione: Asset Drop Ratio, che definisce come questi asset devono essere ridimensionati quando vengono rilasciati sulla mappa.
+
+Un drop ratio di 1 è il valore predefinito, significa che l'asset verrà ridimensionato puramente sulle sue dimensioni specificate (cioè goblin_1x1 occuperà 1 cella della griglia anche se rappresenta 10ft). Un drop ratio di 0.5 ridimensionerebbe qualcosa come something_2x2 a 1x1.
+
+## Cronologia dei dadi
+
+_Contributo di SuikaXhq_
+
+Ho piani più grandi per rifare la UI e il comportamento dei dadi, ma mentre avanzo lentamente su questo, SuikaXhq ha contribuito con un bel miglioramento alla cronologia dei dadi esistente.
+
+La cronologia dei dadi ora mostrerà più chiaramente chi ha lanciato i dadi (in precedenza veniva mostrato solo al passaggio del mouse) e contiene più dettagli sul lancio specifico invece di mostrare solo il risultato finale.
+
+![Blocco completo della visione](./2024.1/dice-history.png)
+
+## Miglioramenti alle informazioni di selezione
+
+_Contributo di SuikaXhq_
+
+Come accennato prima, la sezione selection info sul lato destro dello schermo ora include informazioni sulle note collegate alla forma selezionata.
+
+Questo però non è stato l'unico cambiamento alle informazioni di selezione!
+
+I Tracker e le Aure mostrano informazioni sui loro valori attuali e offrono una modifica rapida di questi valori. Per le Aure, però, questo non è molto utile, nella maggior parte dei casi non è qualcosa che vuoi cambiare spesso.
+
+Questa release cambia la sezione delle aure per offrire invece un interruttore per abilitare/disabilitare l'aura senza dover aprire le impostazioni dettagliate del tracker. Inoltre, se l'aura è limitata in angolo (cioè non a 360 gradi), viene mostrato anche uno slider di rotazione, per permetterti di cambiare rapidamente la rotazione dell'aura.
+
+![Aggiornamenti quick info](../docs/game/assets/note-manager-selection-notes.png)
+
+## Bugfix
+
+- UI di modifica dei polygon: non teneva conto della rotazione della forma
+- Teletrasporto: le forme teletrasportate senza seguire sembravano non muoversi perché la sincronizzazione locale non veniva aggiornata
+- Strumento Dice: ignora il pulsante GO se non è stato inserito nulla
+- Personaggio: è stata corretta una serie di bug con le varianti
+- Tracker: aggiungere max-height e scorrimento per sistemare la UI quando ci sono molti tracker
+- RotationSlider: corretti i problemi di sincronizzazione
+- RotationSlider: corretto il problema dell'ancora dello slider che non si attaccava alla guida con certi angoli
+- \[server\] spam di log di forme "unknown" quando le forme temporanee vengono spostate

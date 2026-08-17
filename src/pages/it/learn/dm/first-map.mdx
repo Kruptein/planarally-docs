@@ -1,0 +1,365 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# La tua prima mappa
+
+La maggior parte delle partite ruota attorno a una mappa; non è sempre così, ma in queste guide assumeremo che stiamo andando verso una classica configurazione da dungeon crawl.
+
+In questa guida aggiungeremo una mappa, configureremo muri, luci, personaggi dei giocatori e mostri.
+
+## Configurazione
+
+Prima di addentrarci nel lavoro vero e proprio, diamo un'occhiata ad alcune impostazioni che potremmo voler modificare.
+
+Apri l'icona <Cog /> in alto a sinistra e clicca su "Impostazioni DM".
+Questo aprirà l'interfaccia in cui puoi configurare una varietà di impostazioni globali per l'intera campagna.
+
+### Impostazioni Admin
+
+![Impostazioni Admin DM](./assets/dm-settings-admin.png)
+
+<Info>
+    Per aggiungere giocatori alla tua partita, devi inviare loro il link di invito, che puoi trovare in questa scheda!
+</Info>
+
+Più rilevanti per i nostri preparativi attuali, tuttavia, sono le schede griglia e visione.
+
+### Impostazioni Griglia
+
+![Impostazioni Griglia DM](./assets/dm-settings-grid.png)
+
+A seconda della tua partita, queste impostazioni predefinite potrebbero andare bene oppure richiedere qualche modifica.
+
+Alcune cose degne di nota:
+
+- Di default viene usata una griglia quadrata, che può essere cambiata in griglie esagonali
+- Una singola cella della griglia viene di default interpretata come una griglia di 5x5 ft per varie cose (ad es. lo strumento righello)
+
+### Impostazioni Visione
+
+![Impostazioni Visione DM](./assets/dm-settings-vision.png)
+
+Per ora abilita solo "Riempire la tela con la nebbia di guerra".
+
+Personalmente mi piace anche alzare l'opacità della nebbia di guerra (ad es. 0.7), ma dipende dai gusti personali.
+Determinerà quanto saranno visibili per te come DM le aree che i giocatori non possono vedere.
+
+Perché abbiamo abilitato questa impostazione della nebbia di guerra?
+
+Simuleremo un'incursione in un dungeon profondo sottoterra, quindi la configurazione predefinita sarà probabilmente quella di un mondo avvolto nell'oscurità, dove solo qualche torcia qua e là porterà luce nella scena.
+Ecco perché abbiamo riempito la tela con la nebbia di guerra.
+
+Con queste impostazioni iniziali configurate, chiudiamo le impostazioni DM e aggiungiamo davvero una mappa.
+
+## Aggiungere asset
+
+PA ha un gestore di asset in cui, proprio come nell'esplora file del tuo sistema operativo, puoi organizzare gli asset caricati in cartelle, rinominarli, ecc.
+Una volta che hai più partite o semplicemente vuoi caricare un sacco di arte per segnalini in una volta sola, vorrai esplorare a fondo il gestore di asset.
+
+Per ora invece trasciniamo semplicemente un asset dall'esplora file del tuo sistema operativo sulla mappa.
+Se tutto è andato per il verso giusto dovresti vedere quanto segue:
+
+![Mappa aggiunta al tavolo](./assets/add-map.png)
+
+La mappa usata qui è stata generata casualmente con il [generatore di dungeon donjon](http://donjon.bin.sh/d20/dungeon/index.cgi).
+
+Nota che lo schermo è piuttosto scuro, a causa della mia impostazione di opacità a 0.7. In questo momento, se un giocatore si unisse alla sessione, vedrebbe uno schermo completamente nero.
+
+## Un intermezzo sui livelli
+
+Se hai seguito anche la guida per giocatori, potresti aver notato l'interfaccia aggiuntiva in basso a sinistra che il giocatore non poteva vedere.
+È qui che controlli piani e livelli. I piani sono un argomento più avanzato che salteremo per ora, ma i livelli sono uno strumento essenziale del kit del DM.
+
+![Livelli](./assets/layers.png)
+
+I livelli sono organizzati verticalmente uno sopra l'altro e vengono usati per migliorare le prestazioni di rendering, ma anche per avere una separazione degli interessi.
+
+Il livello selezionato di default è il livello "segnalini". È pensato per tutti i segnalini generici (siano essi giocatori, npc o mostri).
+È l'unico livello con cui i giocatori possono realmente interagire.
+
+Come DM hai accesso a molti più livelli. A sinistra del livello segnalini c'è il livello mappa. È il livello più in basso e l'idea è che qui collochi i grandi elementi della mappa.
+Questo garantisce che in nessun momento una forma rimanga bloccata dietro l'arte della mappa o che tu sposti accidentalmente l'asset della mappa stesso.
+
+Il terzo livello è il livello DM, semplicemente un livello in cui tu come DM puoi conservare tutto ciò che vuoi che i giocatori non vedano.
+Forse hai un mostro nascosto da qualche parte che vuoi rivelare solo al momento giusto, oppure hai aggiunto del testo in certe posizioni come promemoria.
+
+L'ultimo livello è il livello Visione; lo useremo molto presto, ma per ora tutto ciò che devi sapere è che è il posto solito in cui disegnare muri e simili.
+
+### Spostare la nostra mappa
+
+Quindi quello che abbiamo imparato ora è che la mappa aggiunta prima è sul livello sbagliato!
+
+Potremmo eliminare la mappa, passare al livello mappa e aggiungere di nuovo la mappa, ma è un sacco di lavoro.
+
+Invece, fai clic destro sull'asset della mappa. (Assicurati di essere ancora sul livello segnalini! Non puoi interagire direttamente con gli asset di un altro livello)
+
+![Menu contestuale della mappa](./assets/context-menu.png)
+
+Qui possiamo spostare la forma selezionata su un livello diverso!
+È anche così che faresti apparire quel mostro nascosto del livello DM sul livello segnalini.
+
+<Info title="Il livello nascosto">
+    C'è in realtà un altro livello, uno che non puoi selezionare: il livello griglia. Il livello griglia è inserito
+    comodamente tra il livello mappa e il livello segnalini e può essere configurato solo dalle Impostazioni Griglia del
+    DM come abbiamo visto prima.
+
+    Nota come, quando la mappa era sul livello segnalini, le linee della griglia erano nascoste dietro la mappa, mentre
+    ora passano sopra la mappa!
+
+</Info>
+
+## Configurare una luce
+
+Bene, abbiamo la nostra mappa sul livello giusto, illuminiamola!
+
+Qualsiasi forma può fungere da sorgente di luce, quindi iniziamo disegnando un piccolo cerchio per rappresentare una torcia in una stanza.
+
+### Forma di base
+
+Per disegnare forme dobbiamo usare lo strumento disegno; è uno degli strumenti che fa parte della modalità Build della barra degli strumenti, dato che il suo uso principale è durante la preparazione della sessione.
+Quindi cambiamo la modalità in modalità Build (ricorda la scorciatoia <kbd>tab</kbd>) e selezioniamo lo strumento disegno.
+
+Scegli un cerchio (o un'altra forma!), un colore e disegnalo sul tavolo. Le forme si disegnano generalmente cliccando con il tasto sinistro del mouse e trascinando.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/add-light-shape.webm" type="video/webm" />
+    <source src="/learn/dm/add-light-shape.mp4" type="video/mp4" />
+</video>
+
+### Aggiungere la sorgente di luce
+
+Ora possiamo aprire le proprietà della forma appena disegnata e aggiungere una sorgente di luce!
+
+Questo può essere fatto nella scheda tracker configurando un'aura che agisce come sorgente di luce ed è pubblica.
+
+Sentiti libero di sperimentare! I due valori di portata sono rispettivamente il raggio di luce intensa e quello di luce fioca.
+Invece di un cerchio completo puoi limitare la sorgente di luce a un cono e orientarlo in una particolare direzione.
+
+Puoi anche dare alla tua luce un colore specifico per darle più l'aspetto di una vera torcia.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/add-light-source.webm" type="video/webm" />
+    <source src="/learn/dm/add-light-source.mp4" type="video/mp4" />
+</video>
+
+## Correggere le dimensioni della mappa
+
+Ora che abbiamo aggiunto una luce che dovrebbe avere un raggio di 40ft,
+potresti chiederti come questo si relazioni alle dimensioni della mappa, dato che abbiamo semplicemente lasciato cadere l'immagine della mappa sul tavolo senza alcuna modifica extra.
+
+Se prendessi lo strumento righello e misurassi la dimensione di una singola cella della griglia sulla mappa, confermeresti i tuoi sospetti: la mappa non è affatto in scala!
+Il disallineamento della mappa con la griglia di PA potrebbe averlo già rivelato ;)
+
+Potremmo provare a correggere manualmente le dimensioni della mappa usando lo strumento selezione e ridimensionando la mappa (in modalità Build).
+È però un lavoro soggetto a errori e noioso. Invece useremo uno strumento di build a cui solo i DM hanno accesso: lo strumento Mappa.
+
+Questo strumento ti permette di configurare le dimensioni della mappa. Puoi inserire larghezza/altezza complete sia in celle di griglia previste che in pixel di larghezza/altezza previsti,
+ma puoi anche trascinare un'area e configurare quante # celle di griglia dovrebbe rappresentare quell'area. Trovo quest'ultima l'opzione più facile.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/map-tool.webm" type="video/webm" />
+    <source src="/learn/dm/map-tool.mp4" type="video/mp4" />
+</video>
+
+Nel video qui sopra, facciamo i seguenti passi:
+
+1. Ci spostiamo sul livello mappa (visto che vogliamo interagire con la nostra forma della mappa)
+2. Selezioniamo la mappa e passiamo allo strumento Mappa
+3. Trasciniamo un'area sulla forma della mappa
+4. Inseriamo nello strumento Mappa quante celle di griglia deve rappresentare l'area trascinata, sia orizzontalmente che verticalmente
+5. Ho contato il numero orizzontale di celle trascinate, che è 5, e l'ho inserito nel campo orizzontale
+6. Prima di inserire il numero ho cliccato sull'icona della catena, che garantisce che qualsiasi modifica aggiorni automaticamente l'altro campo per mantenere le proporzioni
+7. Questo ha portato a ~5.02 per il campo verticale, che sembra andare bene
+8. Dopo aver premuto applica, la forma della mappa viene immediatamente ridimensionata per adattarsi ai nostri vincoli
+9. È però ancora disallineata, quindi torniamo allo strumento selezione e la trasciniamo in modo che combaci con la griglia di PA (le linee rosse)
+
+Potrebbe sembrare un processo laborioso, ma una volta presa la mano è in realtà un modo abbastanza rapido per allineare le mappe.
+
+<Tip title="Consigli">
+    1. Se trascini un'area più grande, la precisione aumenterà! Richiederà solo più lavoro contare il numero di celle di
+    griglia che hai selezionato. <br />
+    2. Io tengo il contorno della griglia relativamente debole; puoi cambiarlo nelle impostazioni del tuo client <br />
+    3. Anche se il risultato finale non è perfetto, dovresti riuscire a ridimensionare la mappa per farla combaciare in
+    modo molto più facile ora che la dimensione generale è approssimativamente corretta
+</Tip>
+
+## Aggiungere i muri
+
+Ora abbiamo una mappa allineata correttamente e una luce, ma la luce sta semplicemente ignorando la nostra mappa.
+Per risolvere questo problema dobbiamo informare PA su dove si trovano i muri.
+
+<Info>
+    Ci sono alcune opzioni più avanzate, come caricare un svg con le informazioni sui muri, disponibili per aiutarti in
+    questo processo. (Anche se personalmente la maggior parte delle volte disegno i muri manualmente)
+</Info>
+
+Come per la luce, anche i muri saranno disegnati usando lo strumento disegno.
+La domanda principale è: su quale livello vogliamo disegnarli?
+
+Anche se esiste una scelta ottimale, in realtà potremmo scegliere qualsiasi livello tranne il livello DM, perché quelli non saranno visibili ai giocatori.
+
+Potremmo disegnarli sul livello mappa o segnalini, ma il livello Visione ha alcuni miglioramenti di qualità della vita che lo rendono più interessante:
+
+Prima di tutto, le forme sul livello Visione non vengono renderizzate quando ti trovi su un altro livello, il che significa che il rumore visivo di molte forme di muro, ecc. può essere nascosto durante il gioco vero e proprio.
+Significa anche che puoi usare i colori per dare significati specifici alle tue forme (ad es. i segmenti di muro arancioni sono porte segrete) senza che quei colori possano inquinare la scena principale.
+
+Il secondo vantaggio è che quando selezioni il livello Visione, lo strumento disegno abilita automaticamente alcune impostazioni:
+
+![Impostazioni del livello Visione dello strumento disegno](./assets/draw-tool-vision.png)
+
+Come puoi vedere, le impostazioni `blocks vision/light` e `blocks movement` vengono abilitate automaticamente.
+È una piccola comodità che rende la configurazione dei muri un po' più semplice, dato che non devi ricordarti di configurarle ogni volta che vuoi disegnare un muro.
+
+Queste 2 impostazioni sono piuttosto importanti e possono essere modificate dopo il disegno. Come suggerisce il nome, la luce e il movimento saranno bloccati attraverso questa forma.
+Che è quello che di solito vuoi per un muro! Se vogliamo imitare una finestra, vorremmo mantenere `blocks movement` abilitato, ma disabilitare il blocco di luce e visione.
+
+<Info title="Colori predefiniti">
+Un'altra funzionalità di qualità della vita è la configurazione dei colori predefiniti per le forme di visione.
+Possono essere configurati nella scheda Aspetto delle impostazioni del tuo client:
+<br />
+![Colori predefiniti](./assets/default-colours.png)
+
+La forma userà automaticamente il colore definito qui quando rilevante. (ad es. le forme con entrambe le impostazioni di blocco attive agiscono come muri, e quelle con solo il blocco del movimento agiranno come finestre).
+
+Se vuoi disegnare queste forme con un colore particolare invece del loro colore predefinito, puoi deselezionare l'opzione 'Preferisci i colori predefiniti' nelle impostazioni di visione dello strumento disegno.
+
+</Info>
+
+Detto questo, disegniamo davvero il nostro muro! Puoi usare qualsiasi forma, ma lo strumento poligono è il più versatile per disegnare muri.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/draw-walls.webm" type="video/webm" />
+    <source src="/learn/dm/draw-walls.mp4" type="video/mp4" />
+</video>
+
+Come puoi vedere, disegnare muri è facilissimo! È un po' una preferenza stilistica quanto del muro vero e proprio vuoi tenere visibile ai giocatori;
+di solito mi piace mostrargliene un po' così che vedano visivamente che c'è un muro invece di affidarsi solo all'ombra.
+
+<Tip>
+    Devi cliccare col tasto destro per completare la forma del poligono!
+    <br />
+    Non preoccuparti troppo delle linee non dritte o dei punti che hai dimenticato di aggiungere. Lo strumento selezione
+    in modalità Build ti permette di spostare i punti del poligono, così come di aggiungere nuovi punti o rimuovere
+    punti esistenti. Disegnare prima l'immagine più grande e fare qualche rifinitura dopo è di solito molto più veloce.
+</Tip>
+
+Controlla come appare quando ora vai per esempio sul livello segnalini e nota che le forme dei muri disegnate sono sparite, ma l'ombra rimane!
+
+## Aggiungere i personaggi
+
+Ora abbiamo una mappa con dei muri e una sorgente di luce, ma nessun personaggio. Non c'è nulla che rappresenti i giocatori e non ci sono mostri o npc.
+
+Possiamo trascinare e rilasciare dei segnalini sul tavolo proprio come abbiamo fatto con la mappa. Per questa configurazione di esempio però creeremo un segnalino personaggio di base in PA stesso.
+Sono piccoli segnalini circolari con solo un'etichetta di testo. Facili per una prototipazione rapida o quando ti serve rapidamente un npc sul tavolo e non vuoi perdere tempo a cercare un asset nella tua sessione.
+
+Per aggiungere un segnalino personaggio di base, fai clic destro su un punto vuoto del tavolo. Idealmente lo facciamo sul livello segnalini!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/basic-token.webm" type="video/webm" />
+    <source src="/learn/dm/basic-token.mp4" type="video/mp4" />
+</video>
+
+Nel video qui sopra:
+
+- Creiamo un segnalino di base con il nome "test"
+- Diamo al giocatore con nome utente "test" il permesso sulla forma
+- Lo trasciniamo un po' testando se il muro funziona, e funziona!
+
+Se ora controlliamo cosa può vedere il giocatore con nome utente "test", notiamo il seguente problema:
+
+![Il giocatore non vede il suo segnalino](./assets/player-no-vision2.png)
+
+Il nostro giocatore può vedere tutto nella stanza illuminata mentre il suo personaggio non è nemmeno lì dentro!
+
+### Accesso alla visione
+
+Prima di addentrarci nella visione della linea di vista, dobbiamo fare una breve deviazione per parlare dei livelli di accesso alle forme.
+
+Quando sopra abbiamo aggiunto l'accesso del giocatore 'test' alla forma, i 3 permessi di accesso (modifica/movimento/visione) sono stati concessi automaticamente.
+I 3 diritti di accesso non vengono sempre concessi immediatamente; dipende da un certo contesto, quindi è importante capire cosa fanno.
+
+In particolare, il permesso di accesso alla visione è importante perché decide cosa possono vedere i giocatori.
+Con l'accesso abilitato, PA assume che il giocatore abbia accesso alla visione delle aura private della forma e vede essenzialmente ciò che il segnalino può vedere nel mondo.
+
+Anche se nessuna aura è configurata sul segnalino, un'aura di visione minima sarà sempre presente attorno a lui, così da non perderlo quando ti muovi in un posto dove non puoi vedere molto.
+
+Se disabilitassi l'accesso alla visione per il segnalino vedremmo invece quanto segue:
+
+![Il giocatore non vede il suo segnalino](./assets/player-no-vision1.png)
+
+Quindi, anche se abbiamo accesso alla modifica e al movimento, non vediamo effettivamente la forma perché nulla sta illuminando l'area in cui la forma si trova.
+
+## Visione
+
+Come sottolineato prima, potrebbe sembrare strano che il giocatore possa vedere la stanza illuminata da quella luce mentre il suo personaggio non è lì.
+Questo perché attualmente non applichiamo alcuna restrizione di visione al giocatore. Può semplicemente vedere tutto ciò che è (pubblicamente) illuminato.
+
+Questo può funzionare bene in certe configurazioni, ma quando ti aspetti che il giocatore possa vedere solo ciò che il suo personaggio può vedere,
+questo diventa molto faticoso, perché tu come DM dovrai accendere o spegnere le luci mentre esplorano la mappa.
+
+E questo approccio ad alta intensità di lavoro finirà comunque con i giocatori che possono vedere ciò che vedono gli altri giocatori, che potrebbe non essere ciò che desideri.
+
+Per abilitare correttamente la visione per ogni personaggio servono due cose:
+
+1. I giocatori devono avere accesso alla visione sulle loro forme
+2. Il luogo deve essere configurato con la linea di vista abilitata
+
+(1) L'abbiamo già coperto nella precedente sezione Accesso alla visione, quindi è già a posto, ma per (2) dobbiamo tornare alle nostre impostazioni DM [dove abbiamo abilitato prima l'impostazione "FOW completo"](#vision-settings).
+
+<Tip>
+Se hai più luoghi (vedi più avanti), queste impostazioni DM possono spesso essere configurate anche per singolo luogo.
+
+Le impostazioni DM sono le impostazioni predefinite e verranno usate quando non vengono esplicitamente sovrascritte da un luogo.
+
+</Tip>
+
+Se tutto è andato per il verso giusto, ora abbiamo la seguente visuale (lato DM):
+
+![Visione del giocatore](./assets/player-vision.png)
+
+Quello che succede è che il giocatore ora vede solo quei posti dove c'è luce visivamente nella sua linea di vista, basata sui muri che abbiamo disegnato.
+(Ricorda che abbiamo disegnato solo il muro interno nella camera a destra).
+
+Per aiutarti a visualizzare perché viene mostrato questo, ho fatto questo disegno approssimativo:
+
+![Visione del giocatore](./assets/player-vision-detail.png)
+
+- Le linee rosse sono i muri che abbiamo creato, bloccano la luce.
+- Le linee gialle mostrano il cono che la luce emette e che passa attraverso l'apertura della porta che abbiamo lasciato nel muro
+- Le linee verdi mostrano il cono che il personaggio può vedere nell'altra stanza passando attraverso quella stessa apertura della porta
+
+Per la stanza in cui si trova il personaggio:
+
+- Il personaggio può vedere l'intera stanza
+- La luce illumina solo una sezione (quel cono giallo)
+
+-> Solo la sezione del cono è effettivamente visibile
+
+Per la stanza in cui si trova la luce:
+
+- Il personaggio può vedere solo la sezione del cono verde
+- La luce illumina l'intera stanza
+
+-> Solo la sezione del cono è effettivamente visibile
+
+### Aure dei giocatori
+
+Di solito i personaggi hanno qualche abilità innata di vedere attraverso l'oscurità fino a una certa distanza, oppure semplicemente hanno un oggetto come una torcia che dà luce.
+
+Abbiamo [in precedenza](#add-light-source) visto come creare un'aura per la luce nell'altra stanza; possiamo semplicemente fare lo stesso per il nostro personaggio!
+Apri le impostazioni della forma, vai alla scheda Tracker e aggiungi una nuova aura.
+
+Le aure configurate come pubbliche appariranno a tutti i giocatori (con visione dell'aura), quindi sono perfette per una torcia, mentre un'aura privata è più adatta ad abilità innate come la scurovisione.
+
+È importante marcare la proprietà 'acts as light source' perché è ciò che la fa funzionare davvero come sorgente di luce/visione. (vision source sarebbe probabilmente un nome migliore)
+
+--
+
+Questo dovrebbe darti l'essenziale per preparare le tue mappe per il gioco!
+
+[Prossimo capitolo](/it/learn/dm/other-features): daremo un'occhiata ad alcune altre funzionalità di cui probabilmente vorrai essere a conoscenza come DM.

@@ -1,0 +1,62 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Strumento Spell
+
+Lo strumento Spell è accessibile tramite la barra degli strumenti in basso a destra dello schermo da tutti i giocatori, ma solo in [modalità Play](/it/docs/tools-overview/#toolbar-and-modes).
+
+Ha alcune somiglianze con lo strumento Draw, ma è focalizzato specificamente sul lancio di incantesimi durante il gioco.
+
+Puoi selezionare la forma dell'incantesimo (quadrato/cerchio/cono) e configurarne dimensione, portata, colore e, infine, se i tuoi incantesimi saranno condivisi con altri giocatori o se sono solo per te.
+
+Nella lista delle forme degli incantesimi manca notevolmente la linea, che è uno schema comune nel lancio di incantesimi.
+Abbiamo ritenuto che lo strumento Ruler esistente fosse sufficiente in questo caso e abbiamo trovato inutile aggiungere ulteriore zavorra allo strumento Spell.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+## Funzionamento generale
+
+A meno che la portata non sia impostata a 0, il tuo incantesimo seguirà il tuo mouse in ogni momento quando lo strumento Spell è attivo.
+
+La modalità incantesimo predefinita serve solo per misurare rapidamente le cose, ad esempio per vedere quante persone riusciresti a colpire.
+Il tuo incantesimo scomparirà se cambi strumento.
+
+Se hai un incantesimo che non è istantaneo, ma rimarrà sul campo di battaglia più a lungo, puoi **cliccare con il tasto sinistro** per trasformare l'incantesimo in una forma reale.
+Passerai automaticamente allo strumento Select.
+
+Se hai cliccato per errore, o se l'effetto dell'incantesimo svanisce, puoi rimuovere l'incantesimo come qualsiasi altra forma.
+Tieni anche presente che se hai 'show public' disattivato, nel momento in cui 'lanci' l'incantesimo riceverà la proprietà 'invisible'!
+Niente ti impedisce di rimuovere questa proprietà dopo il lancio.
+
+Il clic con il tasto destro ti riporterà anche allo strumento Select, ma non lancerà l'incantesimo.
+Questo è previsto come operazione di 'annullamento'.
+
+## Contesto di selezione
+
+La forma a cono e il parametro della portata sono disponibili solo quando hai una forma attivamente selezionata.
+
+Il primo perché non ho trovato esempi di coni usati sul campo che non siano auto-lanciati,
+ma anche perché ho avuto qualche difficoltà a immaginare l'ergonomia dell'UX per quanto riguarda la rotazione nel caso non auto-lanciato.
+
+Il secondo perché altrimenti non c'è alcun punto di riferimento.
+
+## Dimensione
+
+Il parametro della dimensione decide l'area coperta dall'incantesimo.
+Per un quadrato è la lunghezza di 1 lato.
+Per un cerchio e un cono è il raggio dell'incantesimo!
+
+Proprio come le aure, questi numeri sono definiti in termini della dimensione dell'unità configurata, che di default è 5 ft. (consulta le impostazioni della griglia del DM)
+
+## Portata
+
+_La portata dell'incantesimo, come menzionato sopra, può essere configurata solo se hai una forma attivamente selezionata._
+
+Se la portata è impostata a 0, si presume che l'incantesimo sia auto-lanciato e verrà centrato automaticamente sulla tua forma attiva.
+
+Se la portata è un qualsiasi numero >0, verrà mostrato un cerchio nero con raggio pari alla portata configurata.
+Questo

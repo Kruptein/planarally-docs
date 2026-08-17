@@ -1,0 +1,86 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import LayersPicture from "./assets/layers.png";
+
+# Capas
+
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Información de las capas" />
+
+PlanarAlly organiza su tablero de juego en múltiples capas.
+Se dibujan una encima de otra.
+Estas múltiples capas producen el resultado que ves al jugar.
+
+Cada una de estas capas tiene un uso dedicado.
+Es importante que el DM entienda el propósito de cada una.
+Para una referencia rápida de cada capa, consulta el documento de [referencia rápida](/es/docs/reference/).
+Para obtener detalles más profundos, ¡sigue leyendo!
+
+Excepto la capa DM, todas las capas también se dibujan en los tableros de los jugadores.
+Sin embargo, solo pueden interactuar con elementos de la capa tokens.
+
+_Actualmente estas capas están codificadas de forma fija, pero preveo la posibilidad de ajustarlas a tu preferencia en el futuro._
+
+## Map
+
+En la parte inferior de la pila de dibujo está la capa map.
+Esta capa sirve para colocar mapas, diseños de edificios, etc.
+
+Esta capa se dibuja debajo de la capa de cuadrícula.
+Esto te permite alinear las líneas de tu cuadrícula con tus diversos calabozos.
+De lo contrario, esta capa se comporta igual que la capa tokens.
+
+## Grid
+
+Esta capa no se puede seleccionar manualmente, pero se puede configurar usando el [Menú de opciones del DM](/es/docs/dm/settings/).
+Esta capa dibuja las líneas de la cuadrícula en la pantalla.
+
+Estas líneas de cuadrícula son cuadrados (por defecto) o hexágonos.
+Se pueden dibujar cuadrículas hexagonales tanto de punta plana como de punta vertical, aunque por ahora solo tienen soporte experimental.
+
+<Warning title="Experimental">
+    Las cuadrículas hexagonales son experimentales, por lo que puede ocurrir un comportamiento extraño con regularidad.
+    Un ejemplo es el ajuste de la cuadrícula que aún funciona con cuadrículas cuadradas, a pesar de que se muestre una
+    cuadrícula hexagonal.
+</Warning>
+
+## Tokens
+
+El juego principal tendrá lugar en esta capa.
+Es el lugar donde se mueven los jugadores y los personajes no jugadores.
+A menudo tendrás esta capa activa.
+
+## DM
+
+Esta capa solo es accesible para el DM.
+Los jugadores no verán nada en esta capa.
+Se puede usar para planificar encuentros con antelación.
+También se puede usar para colocar etiquetas de texto para recordar información clave.
+
+También puedes cambiar la capa de una forma.
+Al ocultar los recursos que los jugadores aún no deberían ver en la capa DM, puedes asegurarte de que tus jugadores no vean información de forma prematura.
+
+## FOW
+
+Esta capa tiene un comportamiento especial que ayuda con la visión.
+
+Cuando dibujas tus paredes, quieres que sean estáticas.
+No quieres que cambien, ya que tus jugadores podrían ver secciones del mapa que aún no deberían ver.
+Al dibujar las paredes en la capa de visión, te aseguras de que al interactuar con la capa tokens no muevas una pared accidentalmente.
+Por lo tanto, esta capa realiza dos trucos mágicos automáticamente por ti.
+
+La mayoría de las formas que dibujas en esta capa se usarán para paredes o puertas, por lo que las formas dibujadas en esta capa se dibujan automáticamente con las configuraciones de 'bloquea el movimiento' y 'bloquea la visión' aplicadas.
+'Bloquea el movimiento' impide que los jugadores atraviesen estas formas.
+'Bloquea la visión' impide que los jugadores vean a través de estas formas.
+Puedes deseleccionar estas opciones si no las necesitas, pero ten en cuenta que se aplicarán por defecto en esta capa.
+
+**Todo** lo dibujado en esta capa es invisible en las demás capas.
+Esto se debe a que, normalmente, tu mapa ya tendrá las paredes pre-dibujadas.
+Cuando dibujas un rectángulo negro feo para informar al sistema de iluminación sobre una pared, no quieres tener que ver esa mancha fea cuando estás en la capa tokens.
+
+Esta capa es puramente por conveniencia.
+Si no te gustan las configuraciones automáticas o el aspecto invisible, puedes usar la capa tokens y dibujar tus paredes allí con la configuración que desees.

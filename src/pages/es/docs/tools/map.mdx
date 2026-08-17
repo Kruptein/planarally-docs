@@ -1,0 +1,39 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Herramienta Map
+
+La herramienta Map se puede acceder desde la barra de herramientas en la parte inferior derecha del tablero de juego, pero solo en [Build mode](/es/docs/tools-overview/#toolbar-and-modes) y solo por el GM.
+Ofrece un método fácil de usar para ajustar una forma personalizada a la cuadrícula.
+Se puede usar para redimensionar formas arbitrarias, pero su uso principal está enfocado en mapas.
+
+Para usar la herramienta Map, primero se debe seleccionar una forma.
+Si este no es el caso, la herramienta Map te lo informará y podrás seleccionar una forma desde la herramienta Map sin cambiar a la herramienta Select.
+
+Si una forma está seleccionada, podrás seleccionar un área en esta forma que quieras usar como referencia, o escalar la imagen completa.
+Ten en cuenta que de cualquier manera se escala toda la imagen.
+Escalar 'la imagen completa' simplemente toma la imagen completa como referencia, sin seleccionar solo una parte como referencia.
+
+## Seleccionar área
+
+Seleccionar un área se hace arrastrando un cuadro a su alrededor.
+Por ejemplo, puedes seleccionar un área que debería representar un área de 3 por 3 en la cuadrícula.
+Puedes redimensionar y ajustar aún más esta selección después de tu selección inicial para asegurarte de que cubra exactamente lo que deseas.
+
+Si la selección es adecuada, puedes insertar las dimensiones X e Y que debe ocupar el área seleccionada y presionar aplicar.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+Lo anterior es un ejemplo del uso de la herramienta Map para reajustar el recurso de mapa importado a la cuadrícula.
+Seleccionamos un área, realizamos algunas modificaciones ligeras y luego informamos a la herramienta de las dimensiones
+deseadas.
+
+## Escalar imagen completa
+
+Escalar 'la imagen completa' toma toda la imagen como referencia para escalar.
+Esto se puede hacer estableciendo celdas de cuadrícula objetivo o píxeles objetivo.
+Apuntar a celdas de cuadrícula hará que la imagen cubra la cantidad indicada de celdas de cuadrícula, mientras que apuntar a píxeles redimensionará la imagen de acuerdo con la entrada.
+A ambas alternativas se les puede indicar mantener la relación de aspecto de la imagen conectando el símbolo de 'enlaces' justo a la derecha de los campos de entrada.

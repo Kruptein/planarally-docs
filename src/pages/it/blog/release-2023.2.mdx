@@ -1,0 +1,179 @@
+---
+title: Release 2023.2
+date: 2023-06-20 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+La 2023.2 è una release quasi interamente incentrata sulla correzione di bug. Quindi sarà piuttosto asciutta, dato che non viene aggiunto nulla di super eccitante in questa versione, scusa!
+
+Sono passati ben 4 mesi dall'ultima release, cosa che speravo di evitare questa volta.
+Dopo la 2023.1 avevo iniziato questa release con molta energia perché volevo usare offscreencanvas nei webworker per spingere le prestazioni.
+Ho passato molto tempo a provare varie strategie, ma alla fine non è venuto fuori nulla di cui fossi soddisfatto,
+il che mi ha lasciato un po' bruciato.
+
+Ho avuto un po' di tempo per lavorare su altri progetti privati per rilassare la mente e spero di poter
+pubblicare aggiornamenti più significativi nel prossimo futuro.
+
+## Gestore asset
+
+### Rilascio diretto degli asset
+
+Per far apparire qualcosa sulla mappa è sempre stato necessario che il DM avesse prima caricato l'asset nel gestore asset.
+Sebbene questo sia ancora il modo consigliato di gestire le cose, dato che puoi organizzare i tuoi asset correttamente nel gestore asset,
+questa release aggiunge l'opzione di rilasciare direttamente qualcosa sul tavolo di gioco senza prima caricarlo nel gestore asset.
+
+Questo è particolarmente utile quando devi aggiungere qualcosa a metà sessione.
+
+Gli asset caricati in questo modo vengono memorizzati nella cartella principale del tuo gestore asset,
+ma probabilmente verranno spostati in una cartella specifica in una release successiva per ridurre il disordine nella tua cartella principale.
+
+### Barra di avanzamento
+
+Il vecchio gestore asset aveva una barra di avanzamento. Da quando ci si è integrati con la nuova dashboard, questa funzione non era mai stata re-aggiunta.
+
+È tornata, tutto qui :)
+
+## Disegno a pennello
+
+La modalità pennello nello strumento Draw è stata un pugno nell'occhio per mooolto tempo.
+Esiste, ma è un divoratore di prestazioni, il che significa che probabilmente dovresti evitarla quasi in ogni momento.
+
+Il motivo di quel problema di prestazioni era in come la forma viene memorizzata internamente.
+Dietro le quinte è esattamente lo stesso tipo di struttura di una forma disegnata con lo strumento poligono,
+ma la differenza sta nella loro creazione. In modalità poligono, detti i punti con i clic, mentre in modalità pennello il trascinamento del mouse determina il poligono.
+
+Per farla breve, il trascinamento del mouse aggiungeva molti punti.
+Questa release implementa un algoritmo che durante un trascinamento semplifica il poligono
+cercando di rimuovere i punti che contribuiscono quasi nulla alla forma effettiva.
+
+Potrebbero verificarsi alcuni piccoli cambiamenti nella forma complessiva, ma se ci sono dovrebbero essere molto sottili.
+
+Ad esempio prendi l'immagine qui sotto:
+
+{/* <Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" /> */}
+![Riduzioni dei punti nel disegno a pennello](./2023.2/brush.png)
+
+I punti verdi sono punti che in passato venivano salvati anch'essi. Come puoi vedere, sono molti i punti che non devono più essere tracciati \:D
+
+## Teletrasporto
+
+Sono state apportate un paio di modifiche e correzioni alla funzione TeleportZone.
+
+### Modifica dell'area di richiesta
+
+Quando una zona TP è configurata con modalità "request", il DM riceve una notifica quando un utente vuole usare una zona di teletrasporto.
+
+Questa notifica contiene un pulsante per spostare la fotocamera del DM sulla zona di teletrasporto.
+In pratica questo portava il DM alla posizione di destinazione della zona di teletrasporto.
+
+Questa release cambia questo comportamento e porta il DM alla posizione di attivazione della zona di teletrasporto,
+poiché è lì che si trova il giocatore richiedente e di solito dà più contesto su ciò che sta accadendo.
+
+### Correzione dei TP non funzionanti per i giocatori
+
+Sono stati corretti un paio di casi in cui un giocatore avviava un teletrasporto:
+
+Le zone di teletrasporto configurate in modalità non immediata non funzionavano affatto se un giocatore avviava il teletrasporto.
+
+I teletrasporti avviati mentre la build mode era attiva non funzionavano nemmeno per i giocatori.
+
+### Porta lo zoom dei giocatori
+
+_Anche se non è correlato alle zone di teletrasporto, l'ho aggiunto qui perché sta comunque eseguendo un teletrasporto :V_
+
+Quando il DM usa l'azione "Bring Players",
+tutti i giocatori verranno teletrasportati in modo che l'area selezionata diventi centrata sul loro schermo.
+
+Inoltre, il livello di zoom di tutti i giocatori veniva anche modificato per corrispondere a quello del DM.
+
+Questo non è più il caso in questa release.
+I client possono avere diverse impostazioni di zoom per una miriade di ragioni e
+in nessun momento questo dovrebbe essere sovrascritto solo perché ci stiamo spostando altrove.
+
+## Modelli
+
+I modelli sono un modo per salvare una forma con alcune impostazioni precompilate per un riuso successivo.
+Da quando sono stati introdotti i modelli,
+non sono stati aggiornati per corrispondere alle nuove funzionalità e mancano quindi alcuni dati che ci si aspetterebbe venissero salvati.
+
+I seguenti dati ora vengono anche salvati:
+
+- Visibilità pubblica delle annotazioni
+- Tracker:
+    - Visualizzazione sul segnalino
+    - Colori per la visualizzazione sul segnalino
+- Aure:
+    - Se l'aura è abilitata
+    - Il colore del tratto
+    - L'angolo e la direzione
+
+Rivedendo queste chiavi, ho anche rimosso alcune impostazioni che non vengono più salvate.
+Le impostazioni che ho rimosso mi sembravano troppo situazionali per essere salvate come impostazione generale.
+Idealmente, ad un certo punto durante il salvataggio di un modello, avresti l'opzione di scegliere quali cose vengono salvate a un livello più granulare, permettendoti di salvarle comunque per casi specifici. Ma ahimè, non ci siamo ancora.
+
+I seguenti dati non vengono più salvati:
+
+- stato invisibile
+- stato sconfitto
+- stato bloccato
+- 'show badge'
+
+## (Mobile) Scorrimento touch
+
+Un piccolo cambiamento è che il tavolo di gioco principale e la barra dei menu non dovrebbero più attivare l'overscroll sui dispositivi touch mobili.
+
+Ci sono altri miglioramenti mobile/touch da fare, ma questa è una prima piccola cosa.
+
+## Gruppi
+
+I pulsanti di creazione e rimozione dei gruppi erano rotti in vari modi. Ora dovrebbero comportarsi di nuovo correttamente.
+
+Inoltre, sono state apportate alcune correzioni al codice di rete per i gruppi.
+I dati completi del gruppo venivano inviati per ogni forma, il che è enormemente inutile dato che abbiamo bisogno delle informazioni del gruppo solo una volta per gruppo.
+Anche le modifiche ai gruppi su altri client non venivano sincronizzate, quindi alcune modifiche ai gruppi erano visibili solo dopo un refresh.
+
+## Giocatore fittizio
+
+La modalità Giocatore fittizio serve a mimare rapidamente la visione del giocatore come DM.
+È stata però a lungo lasciata nel fango e gli sforzi sono iniziati con l'ultima release per ripulirla di nuovo.
+
+Questa release ha rielaborato gli interni di accesso che mi hanno permesso di correggere un mucchio di bug legati alla modalità giocatore fittizio.
+
+Le forme ora vengono renderizzate se e solo se qualche giocatore nella partita ha accesso alla visione di quella forma E la forma è attiva nello strumento Vision.
+Questo significa anche che le forme invisibili non vengono più renderizzate se non stai controllando attivamente quella forma.
+
+Infine, anche le aure sul livello DM sono ora tutte nascoste.
+
+## Accesso
+
+Sono state corrette anche altre cose più generali relative all'accesso.
+
+- Access: corretti i giocatori con regole di accesso specifiche che avevano accesso alla modifica in ogni momento
+- Access: la modifica dell'accesso non aggiornava in tempo reale la UI di modifica delle forme se era aperta da un altro client
+- Access: corretto l'accesso predefinito nella UI che non era aggiornato se la forma non ha modifiche all'accesso fino al reload
+- Access: impedito ai DM di avere una regola di accesso esplicita
+
+## Rendering
+
+- Corrette le aure che a volte non erano visibili fino a un refresh o a un panning più vicino all'aura
+- La trasparenza dei livelli superiori non veniva più applicata dopo un ridimensionamento della finestra
+- Alcuni casi in cui i cambiamenti legati all'accesso alla visione non venivano ri-renderizzati immediatamente
+- La griglia non renderizzava le linee orizzontali quando la larghezza è minore dell'altezza dello schermo
+
+## Correzioni varie
+
+    - Auth: un errore logico nel codice di routing dell'autenticazione - in alcuni casi dovevi andare manualmente alla pagina di login
+    - Labels: corretta la rimozione che non funzionava
+    - Toolbar: corretti gli strumenti Vision e filtro che non erano immediatamente disponibili quando rilevanti
+    - Logic: la modalità request non funzionava come previsto e si comportava come la modalità Enabled
+    - Token Directions: corretti i segnalini mostrati che non tenevano conto dei segnalini filtrati
+    - Select: la UI di rotazione dovrebbe rimanere coerente durante lo zoom
+    - LocationBar: corretta la larghezza della maniglia di trascinamento per le ubicazioni multilinea
+    - Properties: il toggle invisibile non veniva applicato fino a un refresh per i giocatori
+    - Initiative: il blocco della visione non controllava correttamente i segnalini attivi
+    - Initiative: la rimozione dell'ultima voce mentre è attiva poteva rompere l'iniziativa
+    - Vision: caso limite che poteva causare un ciclo infinito quando si disegnavano le linee di visione
+    - Annotation: Markdown non veniva più renderizzato in grassetto in firefox
+    - [server] Subpath: 2 casi in cui una configurazione basata su subpath non caricava correttamente le immagini (initiative e change asset)

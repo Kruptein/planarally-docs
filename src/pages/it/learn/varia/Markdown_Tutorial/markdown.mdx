@@ -1,0 +1,219 @@
+---
+layout: ../../../../../layouts/docs.astro
+---
+
+# **Guida al tutorial su Markdown.**
+
+Guida contribuita da [@veritanuda](https://keybase.io/veritanuda)
+
+Questa guida esplorerà nello specifico le funzionalità della formattazione Markdown in tutta PlanarAlly. Viene usata sia nei campi [Note](../../../../docs/game/notes) sia nella finestra [Chat](../../../../docs/game/chat).
+
+Le informazioni in questa guida provengono in gran parte da questa [Guida alla sintassi](https://markdown-it.github.io/)
+
+## **Effetti di testo**
+
+Quello che segue è un esempio degli Effetti di testo che possono essere applicati.
+
+![Text_effect_graphic](./assets/Text_effect_graphic.png)
+
+In esso puoi vedere:
+
+- Dimensioni dei titoli
+- Formattazione del testo
+- Stili di testo
+
+Ecco come appare nella finestra Note.
+
+![Text_effect_note_view](./assets/Text_effect_note_view.png)
+
+Ed ecco come appare in modalità modifica.
+
+![Text_effect_edit_view](./assets/Text_effect_edit_view.png)
+
+Il carattere `#` può essere usato per impostare le dimensioni dei titoli. 1 darà la dimensione più grande `Title Size 1`
+
+2 `#` danno la dimensione successiva `Title Size 2`
+
+3 `#` la dimensione ancora più piccola `Title Size 3`
+
+4 `#` equivale a usare il grassetto, che può essere fatto circondando il testo con `**` o `__`. `Title Size 4`
+
+La sottolineatura richiede la notazione HTML, che funzionerà anche per altri effetti di testo come il corsivo `<i> </i>` e il grassetto `<b></b>`.
+
+`<u>Underlined</u>`
+
+`*` è _Corsivo_
+
+`**` è **grassetto**
+
+`***` è **_Grassetto e Corsivo_**
+
+`~~` è ~~Barrato~~
+
+`<sup> </sup>` è Super<sup>script</sup>
+
+`<sub> </sub>` è Sub<sub>script</sub>
+
+``is`code`
+
+` ``` ` è
+
+```
+code
+block
+```
+
+---
+
+## **Layout del testo**
+
+Quello che segue è un esempio di Layout del testo
+
+![Text Layout](./assets/Text_Layout.png)
+
+### <u>Elenchi puntati</u>
+
+Gli elenchi puntati possono usare sia `*` che `-` per delimitare gli elementi dell'elenco.
+
+```
+Unordered List 1
+* First
+* Second
+* Third
+* Fourth
+```
+
+Unordered List 1
+
+- First
+- Second
+- Third
+- Fourth
+
+```
+Unordered List 2
+- First
+- Second
+- Third
+- Fouth
+```
+
+Unordered List 2
+
+- First
+- Second
+- Third
+- Fouth
+
+### <u>Elenchi numerati</u>
+
+Gli elenchi numerati usano `<numero>.` con i numeri che incrementano a partire dal primo numero che specifichi.
+
+```
+Ordered List
+1. First
+2. Second
+3. Third
+4. Fourth
+```
+
+Ordered List
+
+1. First
+2. Second
+3. Third
+4. Fourth
+
+### <u>Elenchi a più livelli</u>
+
+Gli elenchi a più livelli si ottengono aggiungendo uno spazio doppio tra ogni livello dell'elenco.
+
+```
+Stepped List
+- First
+- Second
+- Third
+  - 3 a
+  - 3 b
+- Fourth
+```
+
+Stepped List
+
+- First
+- Second
+- Third
+    - 3 a
+    - 3 b
+- Fourth
+
+### <u>Tabelle</u>
+
+Le tabelle usano `|` per delimitare le colonne mentre `-` e `:` vengono usati per specificare la giustificazione (opzionale, dato che la giustificazione a sinistra è quella predefinita)
+
+```
+|Col A|Col B|Col C|
+|--|:--:|--:|
+|Row 1|Row One|R 1|
+|Left|Centre|Right|
+```
+
+| Col A |  Col B  | Col C |
+| ----- | :-----: | ----: |
+| Row 1 | Row One |   R 1 |
+| Left  | Centre  | Right |
+
+---
+
+## <u>Immagini e collegamenti</u>
+
+Qui sotto c'è un esempio di immagini inline e collegamenti ipertestuali.
+
+![image_links](./assets/Image_links.png)
+
+Per **_la maggior parte_** degli URL di immagini puoi semplicemente copiare e incollare la posizione dell'immagine e dovrebbe risolvere l'immagine.
+
+Se non funziona, dovresti riuscire a inserire immagini inline precedendo l'elemento con `!`, specificando un nome di tag in `[ ]` e poi il collegamento in `( )`.
+
+```
+This is a Goblin below.
+
+![Goblin1](http://www.pngall.com/wp-content/uploads/4/Green-Goblin-Comic-PNG-Pic-180x180.png)
+```
+
+C'è un metodo alternativo, che può rendere il codice più pulito, chiamato metodo dei riferimenti, in cui invece di un collegamento all'immagine puoi usare un riferimento, che a sua volta collega all'immagine.
+
+```
+![Goblin][Goblin1]
+
+This is a Goblin above
+
+This is another Goblin
+
+![Goblin2][Goblin2]
+
+[Goblin1]:https://www.imarvintpa.com/Mapping/Tokens/g1/Goblin.png "This is a Goblin"
+[Goblin2]:https://gamepedia.cursecdn.com/crafttheworld_gamepedia/thumb/b/be/Cave_Goblin.png/150px-Cave_Goblin.png "This is a Cave Goblin"
+```
+
+I riferimenti possono anche fornire suggerimenti: quando il cursore passa sopra un'immagine si può vedere un suggerimento. Si creano citando `" "` il testo del suggerimento dopo l'URL
+
+![Tooltip](assets/Tooltip-image.png)
+
+**NOTA:** Quando si selezionano immagini da inserire, verranno ridimensionate nella finestra della chat, ma quando si clicca sull'immagine si aprirà una versione più grande in un'altra finestra.
+
+## <u>**Collegamenti URL**</u>
+
+I collegamenti URL sono come quelli sopra ma senza il `!` precedente
+
+```
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+```
+
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+
+# Conclusione
+
+Usare il markdown nelle note o nella chat è un modo utile per interagire con i tuoi giocatori e dare loro accesso a cose come dispense o immagini di mostri, per dare più profondità a una partita. Dal punto di vista di un GM, gestire le note sui segnalini per statistiche, abilità speciali, informazioni generali, descrizioni dei luoghi, ecc. può ridurre enormemente la quantità di informazioni che devi immagazzinare e consultare al di fuori della partita. Questo rende la gestione di una partita molto più fluida e senza attriti.
+
+Buon gioco!

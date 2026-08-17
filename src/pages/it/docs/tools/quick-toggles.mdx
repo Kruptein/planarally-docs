@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Attivazioni Rapide
+
+La barra degli strumenti del DM ha alcune icone extra sotto di essa. Si tratta di attivazioni rapide utili per varie cose.
+
+<Image src={QuickTogglesImage} width={150} alt="Panoramica delle attivazioni rapide" />
+
+## Giocatore Fittizio
+
+Quando questa opzione è abilitata, lo schermo del DM verrà renderizzato come se fosse in modalità giocatore fittizio (Consulta [Giocatore Fittizio](/it/docs/dm/settings/#fake-player))
+
+## Linea di Vista
+
+Questa attivazione rapida viene mostrata solo se hai la [Linea di Vista](/it/docs/dm/settings/#only-los) abilitata.
+
+Ti consente di disabilitare la LoS **solo** sul tuo schermo. Proprio come l'attivazione del Giocatore Fittizio, aiuta a verificare le impostazioni di luce e visione durante il lavoro di preparazione.
+Diventerà verde quando la LoS è abilitata e rossa quando è (temporaneamente) disabilitata.
+
+In particolare, quando lavori su un nuovo luogo in cui probabilmente non hai forme pronte con accesso alla visione, puoi usarla per verificare le luci che hai impostato senza dover creare forme temporanee.
+
+## Iniziativa
+
+L'attivazione rapida dell'iniziativa, rispetto alle altre, è più che una semplice comodità.
+Quando è abilitata diventerà verde (finché non verrà cliccata di nuovo) e indica che l'[iniziativa](/it/docs/tools/initiative/) è attiva.
+
+Aprirà automaticamente l'interfaccia dell'iniziativa per tutti i giocatori e attiverà alcune delle [impostazioni Iniziativa](/it/docs/game/settings/#initiative).
+Queste impostazioni sono attive solo quando l'iniziativa è esplicitamente abilitata usando questa attivazione!

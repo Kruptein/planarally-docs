@@ -1,0 +1,146 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# Impostazioni client
+
+Le impostazioni di gioco sono accessibili dal menu laterale (clicca sull'icona <Cog /> in alto a sinistra della finestra del tuo browser per aprire il menu).
+
+#### Sincronizzazione delle impostazioni
+
+Per impostazione predefinita le impostazioni mostrate derivano immediatamente dalle tue impostazioni client globali predefinite.
+Quando modifichi un'impostazione appariranno due pulsanti extra accanto ad essa, per indicare che questa impostazione sta sovrascrivendo il comportamento predefinito.
+
+Puoi ripristinare l'impostazione al valore predefinito cliccando sull'icona <TimesCircle />.
+
+Se invece vuoi rendere la tua modifica il nuovo valore predefinito, puoi cliccare su <SyncAlt />.
+Questo avrà effetto su tutte le altre campagne in cui non hai sovrascritto questa impostazione.
+
+## Aspetto
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Impostazioni Aspetto" />
+
+### Lingua
+
+Qui puoi scegliere una lingua diversa da visualizzare nell'interfaccia utente.
+Questo si replicherà in tutte le altre campagne a cui giochi o che gestisci, proprio come se fosse fatto tramite la [dashboard](/it/docs/dashboard/#localisation).
+
+### Barre degli strumenti
+
+_Aggiunto in 2022.3_
+
+Questa impostazione ti consente di scegliere tra icone o testo per gli strumenti della barra degli strumenti (ad es. l'icona del righello rispetto a "righello").
+
+### Griglia
+
+L'impostazione del colore definisce con quale colore verrà disegnato il [livello griglia](/it/docs/dm/layers/#grid) (cioè le linee della griglia).
+
+### Righello
+
+Qui può essere impostato il colore del [righello](/it/docs/tools/ruler).
+Se il righello viene usato pubblicamente, tutti gli altri giocatori vedranno il tuo righello nel colore che hai definito qui.
+
+### Nebbia
+
+Questo imposta il colore della nebbia che copre tutto ciò che non puoi vedere.
+
+## Comportamento
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Impostazioni Comportamento" />
+
+### Aggancio
+
+Se selezionata, questa impostazione inverte il [comportamento di aggancio](/it/docs/game/snapping/) predefinito.
+
+### Mouse e gesti
+
+Per impostazione predefinita lo scorrimento ti consente di fare zoom in o out, questo però può essere fastidioso sui dispositivi touch e può quindi essere disabilitato.
+
+### Info selezione
+
+_Aggiunto in 2022.3_
+
+Questa impostazione influenza come le modifiche ai tracker delle informazioni di selezione vengono interpretate per impostazione predefinita.
+
+Quando si usa la modalità assoluta, il risultato dell'espressione inserita sarà il nuovo valore del tracker.
+
+Quando si usa la modalità relativa, il risultato verrà aggiunto al valore originale del tracker.
+Questo ti consente di modificare rapidamente i valori con -5 o +5, per esempio.
+
+## Visualizzazione
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Impostazioni Visualizzazione" />
+
+L'impostazione HiDPI ti consente di aumentare la risoluzione del gioco renderizzato su schermi che offrono rendering dei subpixel.
+
+<Warning title="Costi di prestazioni aumentati">
+L'abilitazione di questa impostazione richiederà più prestazioni dal tuo computer.
+
+Se il gioco risulta lento, assicurati che questa opzione non sia abilitata.
+
+</Warning>
+
+### Tavolo di gioco
+
+Se usi PlanarAlly su uno schermo che utilizzi come tavolo di gioco fisico con miniature reali,
+vorrai configurare queste impostazioni per regolare correttamente la dimensione della griglia in modo che corrisponda alle tue miniature.
+
+Devi conoscere il PPI del tuo schermo perché questo funzioni correttamente.
+
+Nota che lo zoom in/out è attualmente disabilitato quando questa impostazione è attiva.
+
+### Griglia
+
+Quando _non_ usi un tavolo fisico, puoi configurare qui quanto grande deve essere una singola cella della griglia sul tuo schermo.
+
+Vorrai cambiare questo se stai giocando su qualcosa come un proiettore, per esempio.
+
+## Iniziativa
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Impostazioni Iniziativa" />
+
+<Info>
+    Le due impostazioni di blocco sottostanti sono usate solo se l'iniziativa è attiva. L'iniziativa è attiva
+    correttamente solo quando è attivata tramite le [Attivazioni rapide](/it/docs/tools/quick-toggles/).
+</Info>
+
+### Blocca camera
+
+Abilitando questa funzione, ogni volta che l'iniziativa passa al personaggio successivo,
+la camera si centrerà automaticamente su questo personaggio se hai accesso ad esso.
+
+### Blocca visione
+
+Abilitando questa funzione, la visione sarà limitata come se avessi accesso solo al personaggio dell'iniziativa attiva (fintanto che hai accesso a quella forma).
+
+Questo ha lo stesso effetto di usare lo [strumento visione](/it/docs/tools/vision/) e cambiarlo manualmente al partecipante dell'iniziativa attiva a ogni turno.
+Questo è rilevante solo se controlli più personaggi.
+
+### Effetti
+
+Questa impostazione ti consente di configurare quando devono essere visualizzati gli effetti dell'iniziativa.
+Per impostazione predefinita sono espansi solo gli effetti dell'attore attivo, ma puoi cambiarlo per avere tutti gli attori sempre espansi.
+
+## Prestazioni
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Impostazioni Prestazioni" />
+
+### Renderizzazione
+
+_Aggiunto in 2022.3_
+
+I piani sono un'esperienza immersiva ma costano più prestazioni.
+Questa impostazione ti consente di limitare la renderizzazione al piano attivo.

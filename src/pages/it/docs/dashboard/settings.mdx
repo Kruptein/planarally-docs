@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Impostazioni
+
+<Image src={DashboardSettings} alt="Impostazioni dashboard" />
+
+Attualmente sono disponibili solo le Impostazioni account.
+Questa sezione ti consente di impostare un indirizzo email se lo desideri e, cosa più importante, di cambiare la password o rimuovere il tuo account.
+
+<Warning title="Eliminazione di un account">
+    Questa è un'operazione di eliminazione definitiva, PA non conserva alcuna informazione su di te una volta rimosso.
+
+    !!Questo rimuove anche qualsiasi campagna attualmente posseduta da questo utente!!
+
+</Warning>
