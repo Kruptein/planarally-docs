@@ -29,7 +29,7 @@ In particular the client now always has to be build manually and the docker cont
 
 ## Client changes
 
-When you want to use a subpath, you have to [build the client yourself](/server/setup/self-hosting/#manual-installation).
+When you want to use a subpath, you have to [build the client yourself](/en/server/setup/self-hosting/#manual-installation).
 The subpath info needs to be baked into the build output files.
 This can simply be done by building the client while the PA_BASEPATH environment variable is set.
 
@@ -50,7 +50,7 @@ Add the following part to your docker command.
 
 ### Nginx
 
-When using nginx, you will have a very similar setup as the one described in [proxy](/server/advanced/proxy/), but all `location` parts will start with `/planarally` if that is your desired subpath.
+When using nginx, you will have a very similar setup as the one described in [proxy](/en/server/advanced/proxy/), but all `location` parts will start with `/planarally` if that is your desired subpath.
 
 Additionally you need to make one small modification to the socket.io specific location rule:
 
