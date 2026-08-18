@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Schnell-Umschalter
+
+Die DM-Symbolleiste hat darunter einige zusätzliche Symbole. Dies sind Schnell-Umschalter, die für verschiedene Dinge nützlich sind.
+
+<Image src={QuickTogglesImage} width={150} alt="Übersicht über die Schnell-Umschalter" />
+
+## Fake Player
+
+Wenn dies aktiviert ist, wird der DM-Bildschirm so gerendert, als befände sich der DM im Fake-Player-Modus (siehe [Fake Player](/de/docs/dm/settings/#fake-player)).
+
+## Sichtlinie
+
+Dieser Schnell-Umschalter erscheint nur, wenn du [Sichtlinie](/de/docs/dm/settings/#only-los) aktiviert hast.
+
+Er ermöglicht es dir, die Sichtlinie **nur** auf deinem eigenen Bildschirm zu deaktivieren. Wie beim Fake-Player-Umschalter hilft auch dieser bei der Überprüfung von Licht- und Sichtaufbauten während der Vorbereitungsarbeit.
+Er wird grün angezeigt, wenn die Sichtlinie aktiviert ist, und rot, wenn sie (vorübergehend) deaktiviert ist.
+
+Insbesondere wenn du an einem neuen Ort arbeitest, an dem du wahrscheinlich noch keine Formen mit Sichtzugriff vorbereitet hast, kannst du damit die von dir eingerichteten Lichter überprüfen, ohne temporäre Formen erstellen zu müssen.
+
+## Initiative
+
+Der Initiative-Schnell-Umschalter ist im Vergleich zu den anderen Umschaltern eher eine Bequemlichkeit.
+Wenn er aktiviert ist, wird er grün (bis du erneut klickst) und zeigt an, dass [Initiative](/de/docs/tools/initiative/) aktiv ist.
+
+Er öffnet automatisch die Initiative-Oberfläche für alle Spieler und aktiviert einige der [Initiative-Einstellungen](/de/docs/game/settings/#initiative).
+Diese Einstellungen sind nur aktiv, wenn Initiative mit diesem Umschalter ausdrücklich aktiviert ist!

@@ -1,0 +1,150 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import InitiativeOverviewPicture from "../../blog/2026.1/initiative.png";
+
+# Werkzeug Initiative
+
+Das Initiative-Werkzeug ist ein verschiebbares Popup-Fenster, mit dem du die Initiative-Reihenfolge verschiedener Objekte (normalerweise Tokens) verfolgen kannst.
+
+<Image
+    src={InitiativeOverviewPicture}
+    width={462}
+    aspectRatio={462 / 492}
+    alt="Übersicht über das Initiative-Werkzeug"
+/>
+
+## Zugriff
+
+Das Initiative-Werkzeug ist nicht über die Symbolleiste unten rechts auf der Benutzeroberfläche zugänglich.
+Stattdessen wird es über Kontextmenüs aufgerufen.
+Indem du irgendwo auf der Karte mit der rechten Maustaste klickst, kannst du im Kontextmenü immer `Show Initiative` wählen, um das Werkzeug zu aktivieren.
+Außerdem zeigt das Kontextmenü von Objekten (Formen, Assets oder Tokens) die Option `Show Initiative`, wenn das Objekt bereits in die Initiative-Liste eingetragen ist.
+Wenn das betreffende Objekt (noch) nicht in der Initiative-Liste steht, zeigt das Kontextmenü `Add Initiative` (bzw. `Add all to Initiative`, wenn mehrere Objekte ausgewählt sind), wodurch das Initiative-Werkzeug geöffnet und das Objekt gleichzeitig in die Liste aufgenommen wird.
+
+Das Initiative-Werkzeug öffnet ein verschiebbares Popup-Fenster, das durch Klicken auf das <WindowClose /> in der oberen rechten Ecke geschlossen werden kann.
+
+Es enthält die Initiative-Liste, die mehrere einzelne Einträge enthalten kann, und darunter eine Leiste mit mehreren Funktionen.
+
+## Initiative-Liste
+
+Die Initiative-Liste ist im Wesentlichen eine Tabelle mit sechs Spalten und einer Zeile für jedes Objekt, das zur Initiative-Liste hinzugefügt wird.
+Die _aktive_ Zeile bzw. der _aktive_ Eintrag wird durch einen grünen Hintergrund hervorgehoben, was anzeigt, dass dieses Objekt an der Reihe ist.
+
+Wenn du über einen Eintrag fährst, wird der Name der eingegebenen Form angezeigt und das zugehörige Objekt auf der Karte mit einem roten Rechteck hervorgehoben.
+Dies ist besonders nützlich, wenn sich mehrere Objekte auf der Karte befinden, die mit demselben Asset dargestellt werden (z. B. ähnliche Monster usw.).
+
+### Bezeichner
+
+Ganz links in jeder Zeile befindet sich der Bezeichner der zur Initiative hinzugefügten Form.
+Wenn das Objekt ein Asset ist, ist der Bezeichner eine miniaturisierte Version des Assets.
+Wenn das Objekt ein Basis-Token ist, ist der Bezeichner der auf dem Token angezeigte Text.
+Wenn das Objekt eine andere Form ist, ist der Bezeichner der Name der Form, wie er in den Eigenschaften eingegeben wurde, wenn das Objekt zur Initiative hinzugefügt wird.
+
+### Initiative-Wert & Sortierung
+
+Auf den Bezeichner folgt der Initiative-Wert, der eine beliebige Zahl sein kann.
+Spieler können nur den Initiative-Wert von Objekten ändern, für die ihnen Zugriff gewährt wurde.
+Der DM kann den Initiative-Wert aller Objekte in der Liste ändern.
+
+Die Einträge werden automatisch nach diesem Wert sortiert, wobei die höchsten Werte oben und die niedrigsten Werte unten in der Liste stehen.
+Wenn du über einen Eintrag fährst, wird er mit einem Rahmen hervorgehoben, der eine Kerbe in der unteren rechten Ecke zeigt.
+Jedes Element kann durch Klicken und Halten auf dieser Kerbe gezogen werden, wodurch die automatische Sortierung außer Kraft gesetzt wird.
+
+### Zeitlich begrenzte Effekte
+
+Die nächste Spalte zeigt ein <Stopwatch />, gefolgt von einer Zahl (Standard: 0).
+Diese Spalte zeigt an, wie viele zeitlich begrenzte Effekte (siehe unten) dem Objekt zugewiesen sind.
+Diese Funktion kann verwendet werden, um Buffs und/oder Effekte (z. B. Zaubersprüche) mit Schaden über Zeit leicht zu verfolgen.
+
+Zeitlich begrenzte Effekte sind frei formulierbare Einträge, die einem Eintrag in der Initiative-Liste zugewiesen werden und nur für eine begrenzte Zeit, d. h. Runden, gültig sind.
+Ein Linksklick auf das <Stopwatch />-Symbol fügt einen neuen zeitlich begrenzten Effekt hinzu, der mit dem jeweiligen Eintrag verbunden ist.
+Wenn du über einen Eintrag fährst, wird die Liste der zeitlich begrenzten Effekte darunter erweitert, verbunden mit dem Hervorhebungsrahmen.
+Die Liste der zeitlich begrenzten Effekte des aktiven Eintrags ist immer erweitert.
+
+Zeitlich begrenzte Effekte können jederzeit hinzugefügt werden.
+Der DM kann Effekte zu jedem Eintrag hinzufügen, Spieler nur zu Einträgen, für die ihnen Zugriff gewährt wurde.
+
+Jeder zeitlich begrenzte Effekt hat zwei Werte: den Bezeichner und die Dauer.
+Der Bezeichner wird links angezeigt (Standard bei der Erstellung: `New Effect`) und kann beliebiger Text sein.
+Die Dauer wird rechts angezeigt (Standard: `10`) und sollte eine Zahl sein; sie beschreibt die Dauer des Effekts in den kommenden Runden.
+Jedes Mal, wenn ein Eintrag _aktiv_ wird, verringert sich die Dauer um eins, bis sie `0` erreicht.
+
+Nachdem die Dauer `0` erreicht hat, verschwindet der zeitlich begrenzte Effekt, sobald der Eintrag das nächste Mal aktiv wird, statt von `0` auf `-1` zu wechseln.
+Er kann durch Klicken auf die Papierkorb-<TrashAlt />-Schaltfläche daneben gelöscht werden.
+
+### Sichtbarkeit
+
+Die nächste Spalte zeigt ein <Eye />, das die Sichtbarkeit des Eintrags umschaltet.
+Wenn das <Eye /> grau erscheint, ist ein Objekt unsichtbar, d. h. nur der DM kann die jeweilige Zeile sehen.
+Ein von einem Spieler hinzugefügtes Objekt ist standardmäßig sichtbar, während Objekte, die vom DM zur Initiative hinzugefügt werden, standardmäßig unsichtbar sind.
+
+### Gruppen-Initiative
+
+Die zweite Spalte von rechts zeigt ein <Users />-Symbol.
+Ein Klick auf das Symbol schaltet zwischen Einzel- und Gruppen-Initiative um.
+
+Wenn ein Eintrag als _Gruppen-Initiative_ markiert ist, kann er nicht gelöscht werden (siehe unten), weder durch Klicken auf das Papierkorb-<TrashAlt />-Symbol noch durch Entfernen des zugehörigen Objekts.
+Beim Überfahren wird weiterhin das zugehörige Token hervorgehoben; derzeit gibt es keine Funktion, um mehrere Objekte gleichzeitig hervorzuheben.
+
+### Löschen
+
+Die Spalte ganz rechts mit einem <TrashAlt /> dient zum Löschen des Eintrags aus der Liste.
+Der DM kann jeden Eintrag aus der Initiative-Liste löschen.
+Spieler können nur Einträge löschen, für die ihnen Zugriff gewährt wurde.
+
+Das Löschen eines Tokens, das zur Initiative hinzugefügt wurde, oder das Verschieben an einen anderen Ort löscht auch den zugehörigen Eintrag im Initiative-Werkzeug.
+
+Einträge, die zur Gruppen-Initiative hinzugefügt wurden (siehe oben), können nicht gelöscht werden.
+
+## Funktionsleiste
+
+Die Funktionsleiste ist eine einzelne Zeile, die links den `Round`-Indikator enthält, der die aktuelle Aktions-/Kampfrunde anzeigt, und rechts davon vier Schaltflächen.
+
+### Sicht-Autosperre
+
+<Eye /> schaltet die Sicht-Autosperre um. Diese Funktion ist nützlich für Spieler, die mehr als ein Token besitzen. Wenn
+sie aktiv ist, wird jedes Mal, wenn die Aktion einem anderen Objekt zugewiesen wird (siehe [nächste
+Runde](/de/docs/tools/initiative/#next-turn) unten), nur die Sicht dieses Objekts angezeigt. Dies kann von jedem Spieler
+einzeln ein- und ausgeschaltet werden. Die Sicht-Autosperre zeigt nur die Sicht von Objekten, für die die Spieler
+entsprechenden Zugriff haben.
+
+<Info title="Vision-Werkzeug">
+    Die Sicht-Autosperre löst eine Neuausrichtung des [Vision-Werkzeugs](/de/docs/tools/vision/) aus. Verwende dieses
+    Werkzeug, um zu konfigurieren, welche Sichtlinien du außerhalb der Initiative sehen möchtest.
+</Info>
+
+Die Schaltfläche hat für DMs keine Funktion, da sie immer alles sehen.
+
+### Kamera-Autosperre
+
+Das <Video /> schaltet die Kamera-Autosperre um.
+Wenn die Kamera-Autosperre aktiv ist, wird jedes Mal, wenn die Aktion einem anderen Objekt zugewiesen wird (siehe unten), die Ansicht auf das nun aktive Objekt zentriert.
+Dies kann von jedem Spieler einzeln ein- und ausgeschaltet werden.
+Die Kamera-Autosperre zentriert die Ansicht nur auf Objekte, die die Spieler steuern können.
+Für den DM ändert sich der Mittelpunkt der Ansicht daher praktisch bei jedem Klick auf _Next_.
+Die Ansicht der Spieler ändert sich nur, wenn ein Token, das sie steuern, laut Initiative-Tracker nun aktiv ist.
+
+### Zurücksetzen
+
+Die <SyncAlt />-Schaltfläche setzt Runden und Züge zurück.
+Die Runden werden auf Runde 0 zurückgesetzt und die Aktion dem Objekt ganz oben in der Liste zugewiesen.
+Beachte, dass weder die Initiative-Werte noch die zeitlich begrenzten Effekte zurückgesetzt werden.
+Diese Funktion ist nur für DMs verfügbar.
+
+### Nächste Runde
+
+Die <ChevronRight />-Schaltfläche (_Next_) weist den nächsten Spieler in der Initiative-Reihenfolge als _aktiv_ zu (siehe oben).
+Diese Funktion ist nur für DMs verfügbar.

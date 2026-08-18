@@ -1,0 +1,154 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
+
+import { Image } from "astro:assets";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
+
+# Paramètres de campagne
+
+En tant que DM, vous disposerez d'une fenêtre d'options spéciale.
+Elle vous permet de configurer les réglages de la campagne active.
+
+Les paramètres du DM sont accessibles depuis le menu latéral (cliquez sur l'icône <Cog /> en haut à gauche de la fenêtre de votre navigateur pour ouvrir le menu).
+
+## Admin
+
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="Paramètres du DM" />
+
+La section admin fournit des options administratives.
+
+### Players
+
+Dans la section Players, vous pouvez voir la liste des joueurs actuels.
+À côté du nom de chaque joueur, vous pouvez définir son rôle au sein de la campagne.
+
+<Warning title="Attention !">
+    Attribuer à un joueur le rôle de DM lui accorde un accès **sans restriction** à l'**ensemble** de la campagne !
+</Warning>
+
+Lorsque l'icône <Eye /> est activée, vous verrez la vue du joueur sur le calque DM.
+Cela vous permet de suivre l'endroit où les joueurs regardent ainsi que de changer l'endroit où ils regardent.
+
+Cliquez sur « kick » pour retirer des joueurs spécifiques de votre campagne.
+
+### URL d'invitation
+
+L'URL d'invitation vous permet d'inviter des joueurs dans votre campagne.
+À droite de l'URL se trouve un bouton qui copie l'URL dans votre presse-papiers.
+Appuyez sur « Refresh invitation code » pour actualiser l'URL.
+
+### Verrouiller la session
+
+Le bouton Lock this Session verrouille ou déverrouille la campagne.
+Lorsqu'elle est verrouillée, seul le DM peut accéder à la campagne.
+Cette fonctionnalité est utile si vous voulez modifier vos cartes et vous assurer qu'aucun de vos joueurs ne commence à fouiner pendant votre travail.
+
+### Supprimer la session
+
+Remove Session supprime **DÉFINITIVEMENT** la campagne du serveur PlanarAlly. Toutes les données seront irrécupérables. **À UTILISER AVEC PRUDENCE !**
+
+## Grid
+
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Paramètres de la grille" />
+
+Les paramètres de la grille vous offrent la possibilité d'ajuster les réglages de la grille, voire de désactiver complètement la grille.
+Ces réglages sont les valeurs par défaut de la campagne et peuvent être remplacés dans les [paramètres individuels des emplacements](/fr/docs/dm/locations/#grid).
+
+### Utiliser la grille
+
+Active ou désactive la grille. Cela s'applique également à tous les joueurs.
+
+### Type de grille
+
+PA offre une prise en charge complète des grilles carrées et une prise en charge minimale des grilles hexagonales.
+
+Les grilles hexagonales sont proposées en deux variantes (pointue & plate), mais n'ont pas toutes les fonctionnalités des grilles carrées.
+Le plus important : le [comportement d'accrochage](/fr/docs/game/snapping) n'a pas été mis à jour avec la prise en charge des hexagones.
+
+### Unité de taille
+
+L'unité de taille vous permet de changer la représentation par défaut des unités en pieds (ft, la norme DnD) pour autre chose.
+Cela pourrait servir à tout passer en mètres (y compris les fractions, p. ex. pour la norme DnD de 1,5&nbsp;m équivalant à 5&nbsp;ft), mais aussi à avoir un emplacement avec une carte du monde à l'échelle en kilomètres ou en miles.
+
+### Taille d'unité
+
+La taille d'unité est la distance qu'une cellule de grille représente dans votre système de jeu. Lorsque vous utilisez l'outil Ruler pour mesurer des distances, ces informations seront utilisées pour effectuer la conversion.
+
+## Vision
+
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Paramètres de vision" />
+
+La vision est l'un des réglages les plus importants pour le DM.
+Ces réglages vous permettent de modifier ce que voient les joueurs et la façon dont ils le voient.
+Ils sont également mentionnés dans la section DM consacrée à l'[éclairage et à la vision](/fr/docs/dm/lighting-vision/).
+
+Les réglages définis dans cette boîte de dialogue sont les valeurs par défaut de la campagne qui peuvent être remplacées dans les [paramètres individuels des emplacements](/fr/docs/dm/locations/#vision).
+
+### Faux joueur
+
+Lorsque cette option est activée, l'écran est rendu sans vos privilèges de DM.
+Il est rendu à la place en utilisant la vision de tous les joueurs que vous avez sélectionnés dans [l'outil Vision](/fr/docs/tools/vision/).
+Cela peut aider à vérifier pendant la préparation, ou même en pleine partie, que votre configuration de vision est correcte.
+
+Vous pouvez activer/désactiver rapidement cette option à l'aide de [Quick Toggles](/fr/docs/tools/quick-toggles/#fake-player).
+
+### Remplir tout le canevas de FoW
+
+_FoW signifie Fog of War (brouillard de guerre)_
+
+Avec cette option activée, tout ce qui est à l'écran est caché aux joueurs par défaut.
+Des lumières doivent être ajoutées pour accorder la vision dans certaines zones.
+
+Avec cette option désactivée, tout ce qui est à l'écran est montré aux joueurs par défaut.
+Du brouillard de guerre doit être ajouté pour retirer la vision dans certaines zones.
+
+### LoS uniquement
+
+_LoS signifie Line of Sight (ligne de vue)_
+
+Cette option active un mode d'éclairage avancé.
+
+Lorsqu'elle est désactivée, chaque endroit à l'écran avec une source de lumière sera visible.
+Peu importe qu'un joueur se trouve dans cet endroit ou non.
+
+Lorsqu'elle est activée, seules les choses dans la ligne de vue des pions des joueurs seront visibles à l'écran.
+Un joueur doit voir la lumière pour qu'elle apparaisse à l'écran.
+
+Consultez la [documentation sur l'éclairage](/fr/docs/dm/lighting-vision/) pour plus d'informations sur ce sujet.
+
+### Opacité du FoW
+
+Ce réglage permet au DM de choisir l'opacité des zones cachées, telle qu'elle apparaît pour le DM.
+Les joueurs auront toujours ce réglage à 1,0 pour eux-mêmes et ne peuvent pas le modifier.
+
+En mode faux joueur, vous resterez également bloqué à 1,0.
+
+### Mode de vision
+
+<Warning>C'est un réglage technique que vous ne devez toucher que si vous savez ce que vous faites.</Warning>
+
+Le mode de vision expérimental calcule l'éclairage et la vision différemment par rapport à la version par défaut.
+
+Dans la version expérimentale, les changements d'éclairage et de vision sont effectués de manière incrémentale au lieu d'un recalcul complet à chaque changement. Les avantages sont très évidents ; en contrepartie, la version est moins testée et, en cas d'erreur, elle pourrait complètement se bloquer.
+
+Vous pourriez envisager d'utiliser cette option si vous avez de nombreux objets liés à l'éclairage et à la vision sur votre carte et que vous constatez des mises à jour lentes de l'écran lorsque vous déplacez des éléments.
+
+### Vision minimale/maximale
+
+Ces réglages sont des facteurs d'ajustement du [système de vision](/fr/docs/dm/lighting-vision/).
+Ils déterminent les limites de la vision de tous les pions.
+
+Supposons un champ immense et ouvert s'étendant sur 5000 ft. et entièrement illuminé.
+On pourrait s'attendre à ce que toute la zone soit visible pour votre pion debout au milieu de ce champ.
+Il existe cependant des limites à l'œil humain et non humain, d'où l'introduction de ces réglages.
+
+Tout ce qui se trouve jusqu'à la portée de vision minimale peut être vu comme d'habitude.
+Tout ce qui se trouve au-delà de la portée maximale ne peut pas être vu et relève du brouillard de guerre.
+Tout ce qui se trouve entre les deux est affiché avec une opacité croissante à mesure que l'on s'approche du bord de la vision.

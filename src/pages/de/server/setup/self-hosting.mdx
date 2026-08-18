@@ -1,0 +1,223 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Selbst gehostet
+
+## Allgemeine Informationen
+
+PlanarAlly selbst zu hosten erfordert etwas mehr Einrichtung, als einfach einen bestehenden Dienst zu nutzen, aber es gibt dir mehr Kontrolle und du kannst dich darauf verlassen, dass es auch offline funktioniert.
+
+Um PlanarAlly selbst zu hosten, hast du vier Möglichkeiten:
+
+- Den Client manuell bauen und den Server ausführen
+- Den Server mit einem vorgebauten Client ausführen
+- Einen Docker-Container verwenden
+- Ein vorkompiliertes Programm verwenden
+
+Die ersten 2 erfordern, dass du manuell einige Dinge installierst (z. B. python, Abhängigkeiten, ...).\
+Docker erspart dir einen Teil der Handarbeit, erfordert aber Verständnis für Container und Volumes.
+
+Zuletzt ist eine `.exe` für Menschen verfügbar, die nicht sehr technisch versiert sind. Sie sollte den Zweck erfüllen, ist aber weniger getestet.
+
+### Versionen
+
+Je nach gewählter Option kannst du entscheiden, welche PA-Version du verwenden möchtest.
+
+Für Produktionsversionen findest du die offiziellen Releases [hier](https://github.com/Kruptein/PlanarAlly/releases).\
+Für eine Entwicklungsversion kannst du einfach einen beliebigen git-Commit/Branch auschecken und ihn manuell bauen.\
+Für alle Releases sowie den Entwicklungsbranch werden Docker-Images automatisch auf [dockerhub](https://hub.docker.com/r/kruptein/planarally/tags) veröffentlicht.
+
+### Backups und Updates
+
+Beim Sichern deiner Daten sind drei Ordner wichtig (relativ zum Serverordner):
+
+- data
+- static/assets
+- static/mods
+
+Wenn du Änderungen an der Konfiguration (`data/config.toml`) vorgenommen hast, müssen möglicherweise auch andere Ordner/Dateien gesichert werden.
+
+Beim Upgrade von PA kann eine Migration der Speicherdatei (Standardpfad `data/planar.sqlite`) stattfinden. Eine Sicherung der aktuellen Speicherdatei wird im Ordner `save_backups` abgelegt.
+
+<Info>
+Wenn du PA über eines der Release-Zips/Tarballs installierst (z. B. indem du einen Ordner irgendwo entpackst), wird allgemein empfohlen, diese an einem neuen Ort zu entpacken und die oben genannten 3 Datenordner zu verschieben/kopieren.
+<br />
+Das Entpacken über die bestehende Installation funktioniert in der Regel, kann aber manchmal zu subtilen Fehlern führen, wenn eine Datei aus dem Codebase entfernt wurde, aber durch Überschreiben nicht entfernt wird.
+<br />
+Bei git/docker trifft dies nicht zu.
+
+</Info>
+
+### Konfiguration
+
+Es ist normal, dass du keine Konfigurationsdatei findest. PA verwendet Standardwerte, die intern gespeichert sind.
+Um einige dieser Optionen zu überschreiben, kannst du eine `config.toml`-Datei im `data`-Ordner des Servers erstellen, um die Konfiguration zu ändern.
+
+Details findest du in der [Konfigurationsdokumentation](/de/server/management/configuration/).
+
+Standardmäßig läuft PA auf Port 8000. Wenn also alles unabhängig von der gewählten Hosting-Option erfolgreich war, solltest du PA unter http://localhost:8000 sehen können.
+
+<Info>
+    Es gibt keinen vorkonfigurierten Admin-Benutzer. Wenn du also die Anmeldeseite siehst, musst du den
+    Registrierungsprozess wie jeder andere Benutzer durchlaufen!
+
+    <br/>
+
+    Falls du möchtest, kannst du deinen erstellten Benutzer als Admin konfigurieren, um zusätzliche UI-Elemente zu sehen,
+    indem du die Serverkonfiguration erstellst/änderst.
+
+</Info>
+
+## Vollständig manuelle Installation
+
+PA besteht aus zwei Teilen:
+
+- einem Server, der in python geschrieben ist
+- einem Frontend, das in typescript geschrieben ist
+
+Während du den Server immer ausführen musst, um PA zu nutzen, musst du den Client nur neu bauen, wenn du die PA-Version herunterlädst/änderst.
+
+### Frontend
+
+Um das Frontend zu bauen, benötigst du `node` und `npm`. Zum Zeitpunkt des Schreibens ist mindestens Version 22 von node erforderlich. (Ich würde allerdings Version 24 empfehlen, falls du node noch nicht installiert hast)
+
+```bash
+# You need to be in the client folder to get the client working!
+cd client
+# Update dependencies, a new version usually comes with new dependencies
+npm i
+# Build the server
+npm run build
+```
+
+Dadurch werden die typescript-Dateien in ein paar minifizierte javascript-Dateien umgewandelt und im static-Ordner des Servers abgelegt, sodass der Server ausgeführt werden kann.
+
+Das war's!
+
+### Backend
+
+Du benötigst eine aktuelle python-Version, um PA auszuführen. Ich glaube, 3.11 ist die Mindestversion, aber offiziell getestet wird gegen 3.13.
+
+Du kannst jede beliebige Methode zur Installation von python verwenden, der empfohlene Weg ist jedoch [uv](https://docs.astral.sh/uv/getting-started/installation/).
+Dies trennt python-Installationen sauber voneinander und ist außerdem unglaublich schnell. Darüber hinaus wird es von PA selbst für das Abhängigkeitsmanagement verwendet.
+
+<Info title="Abhängigkeiten ohne uv">
+Wenn du uv nicht verwenden willst oder kannst, sei darauf hingewiesen, dass es im Repository keine `requirements.txt`-Datei gibt.
+PA verwendet die moderne `pyproject.toml`-Datei, die uv (sowie andere Werkzeuge) verstehen.
+
+Das bedeutet jedoch, dass du kein traditionelles `pip install -r requirements.txt` durchführen kannst. Die Liste der Abhängigkeiten, die du installieren musst, findest du in der zuvor erwähnten `pyproject.toml`-Datei.
+
+</Info>
+
+Die folgenden Anweisungen setzen voraus, dass du uv verwendest; passe die Befehle an deine Bedürfnisse an, falls du einen anderen Ansatz verwendest.
+
+```bash
+# 1. Install python (can be skipped if you already have this)
+uv python install 3.13
+# 2. Move to the server folder!
+# (if you're still in the client folder you need to use `cd ../server`!)
+cd server
+# 3. Create a virtual environment for your python install
+uv venv
+# 4. Install the dependencies
+uv sync
+# 5. Run PA
+uv run planarally.py
+```
+
+Wenn du deinen Server in Zukunft (neu) starten möchtest, musst du nur Schritt 5 ausführen (im Serverordner).
+
+## Vorgebauter Client
+
+Wenn du die Serverinstallation selbst verwalten möchtest, aber keine Lust hast, den Client zu bauen, kannst du die vorgebauten Client-Dateien verwenden.
+Diese erscheinen als `Planarally-bin`-Dateien in den Releases.
+
+Diese enthalten nur einen Serverordner; du kannst denselben Schritten wie bei der vollständig manuellen Installation oben folgen, aber alle Frontend-/Client-bezogenen Schritte überspringen.
+
+## Docker-Container
+
+### Vanilla
+
+Du kannst den [offiziellen Container](https://hub.docker.com/r/kruptein/planarally) mit diesem Befehl holen.  
+`docker pull kruptein/planarally`
+
+Es gibt 3 Volumes, die gemountet werden sollten, um Datenpersistenz zu gewährleisten:
+
+- data: Hier werden normalerweise die Konfiguration sowie die Speicherdatei gespeichert
+- assets: Hier werden die von Benutzern hochgeladenen Assets gespeichert
+- mods: Dies ist ein optionales Volume, nur erforderlich, wenn du Mods auf dem Server erlaubst/verwendest.
+
+Es wird empfohlen, explizite Volumes dafür mit `docker volume create` zu erstellen (siehe https://docs.docker.com/storage/volumes/)
+
+PA läuft im Docker-Container als eingeschränkter Benutzer. Du musst den Besitz der erstellten Volumes entsprechend ändern:
+
+```
+cd /var/lib/docker/volumes
+sudo chown -R 9000:9000 data/
+# repeat for other volumes
+```
+
+Mit eingerichteten Volumes bist du bereit, den Container tatsächlich auszuführen.
+
+```
+# PA runs on port 8000, You can drop the mods volume if you don't intend to use it or allow it
+# It's generally recommended to specify a particular tag of the docker image (e.g. v2025.2.2) instead of using the latest
+# New versions can come with database migrations and might require some manual intervention that you want to do when you have some time
+docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ -v mods:/planarally/static/mods --name planarally kruptein/planarally
+```
+
+### compose
+
+Es gibt derzeit keine offizielle docker-compose-Datei, aber ein Community-Mitglied hat einmal [diese Anleitung](https://github.com/edmael/selfhosted-planarally) zur Verwendung von docker-compose, ssl und nginx geschrieben.
+
+Es gibt auch eine compose-Datei in einer Beispielkonfiguration für den Traefik-Reverse-Proxy, die [hier](/de/server/advanced/proxy/#traefik) zu finden ist.
+
+## Vorkompiliertes Programm
+
+_Hinweis: Die Versionsnummern in den Dateinamen der Releases sind in diesem Tutorial weggelassen._
+
+Um PlanarAlly unter Windows auszuführen, lade die `planarally-windows.zip` von der Release-Seite herunter und entpacke sie irgendwo in einen neuen Ordner.
+
+Dieser Ordner enthält viele verschiedene Dateien, aber die für dich jetzt wichtige ist die Datei mit dem Namen `planarally.exe`.
+Wenn du diese Datei ausführst, erscheint eine Eingabeaufforderung (ein schwarzer Bildschirm mit etwas Text).
+
+<Warning>
+    Es ist gesund, vorsichtig gegenüber beliebigen ausführbaren Dateien im Internet zu sein. Diese `.exe`-Dateien werden
+    mit Nuitka aus dem python-Quellcode in einer isolierten CI-Umgebung erzeugt.
+
+    Dennoch kann es vorkommen, dass ein Antiviren-Anbieter aus verschiedenen Gründen einen Fehlalarm auslöst.
+
+</Warning>
+
+## Entwicklung
+
+Du kannst den Client und den Server so konfigurieren, dass sie in einem speziellen Entwicklungsmodus laufen. Auf diese Weise wird das Frontend hot-reloaded (d. h. Änderungen werden sofort angewendet, ohne dass ein Neubau erforderlich ist).
+
+Dafür muss der Server mit dem zusätzlichen 'dev'-Argument ausgeführt werden:
+
+```bash
+uv run planarally.py dev
+```
+
+Zusätzlich ist ein separater Prozess erforderlich, der das Hot-Reloading des Clients übernimmt:
+
+```bash
+# in the client folder
+npm run dev
+```
+
+<Warning>
+    Die Client-Ausgabe wird einen bestimmten Port erwähnen. Du solltest diesen völlig ignorieren, da der PA-Dev-Server
+    auf besondere Weise angeschlossen ist, um der regulären Konfiguration möglichst ähnlich zu sein.
+    <br />
+    Du greifst also weiterhin über denselben (Server-)Port auf PA zu wie zuvor.
+</Warning>
+
+<Warning>
+    Wenn es sich um eine saubere Version des Repositories handelt, muss der Client vor der Verwendung des Dev-Servers
+    einmal normal gebaut worden sein. Andernfalls fehlen einige Dateien, die auf dem Server generiert werden.
+</Warning>

@@ -1,0 +1,132 @@
+---
+title: Release 0.22.0 - Quoi de neuf !
+date: 2020-08-26 20:00:00
+excerpt: "Quoi de neuf dans la 0.22.0 ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cela fait plus de 2 mois depuis la dernière release, une mise à jour se faisait donc vraiment attendre !
+Cette release n'apporte pas énormément de nouvelles fonctionnalités, mais en contient une grosse : la rotation !
+Le reste de la release comprend un tas d'améliorations de performance, quelques changements de qualité de vie sur les étages et un ensemble de changements et de corrections plus petits.
+
+## Rotation
+
+La rotation des formes est une fonctionnalité souvent demandée, pour des raisons évidentes.
+C'est toutefois un changement plus technique qui a nécessité quelques ajustements au cœur de la logique de dessin,
+mais tout s'est finalement bien passé.
+
+La rotation se fait dans l'outil Select, mais uniquement en mode Build (tout comme le redimensionnement).
+Quand vous entrez en mode Build, une interface spécifique à la rotation apparaît (une ligne avec une boule).
+En saisissant la boule et en vous déplaçant, vous pouvez faire pivoter librement une forme autour de son centre.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Lorsque plusieurs formes sont sélectionnées, l'interface de rotation sera dessinée autour du groupe entier et permet de faire pivoter toutes les formes d'un coup.
+Cette rotation est là encore effectuée par rapport au centre de cette boîte de rotation !
+
+De plus, lorsque vous utilisez l'accrochage, la rotation s'accrochera à des angles nets de 45 degrés.
+
+## Améliorations de qualité de vie sur les étages
+
+J'ai vraiment fini par apprécier les étages, mais il restait quelques petits points douloureux que j'espère corriger ici.
+
+### Accessibilité
+
+Le DM peut maintenant activer/désactiver l'accessibilité des étages. Concrètement, cela signifie qu'il peut empêcher les joueurs d'aller manuellement sur un étage spécifique.
+
+**Cela n'empêche pas la vision d'un étage sur la table de jeu réelle** (par ex. un joueur sur un étage supérieur regardant par une fenêtre un champ herbeux en dessous)
+
+### Renommage
+
+Les étages peuvent maintenant être renommés, youpi.
+
+### Ordre d'affichage
+
+L'ordre dans lequel les étages sont affichés dans le menu contextuel est maintenant inversé. Il suit désormais un ordre plus logique où l'entrée tout en haut est l'étage le plus élevé.
+
+### Réorganisation
+
+Il est maintenant aussi possible de réorganiser les étages en les faisant glisser. Vous n'avez donc plus besoin de tout prévoir à l'avance ni de déplacer un tas de choses manuellement !
+
+### Bug du brouillard
+
+Une quantité inutile de brouillard était ajoutée aux étages inférieurs, les rendant plus sombres.
+
+## Améliorations de performance
+
+Un tas d'ajustements de performance ont été effectués, ce qui devrait avoir un impact important !
+
+### Temps de démarrage
+
+Quelques changements dans la gestion des websockets font que le client réagit maintenant beaucoup plus vite aux données du serveur,
+ce qui devrait se refléter à son tour dans un chargement visuel plus rapide sur toutes les cartes.
+
+De plus, les étages sont maintenant chargés séparément au démarrage, le dernier étage visité étant chargé en premier.
+Cela devrait améliorer considérablement le temps d'affichage initial (time to first paint) sur les cartes avec beaucoup d'étages.
+
+Les icônes fontawesome utilisées dans toute l'interface sont maintenant chargées avec une bibliothèque vue. Par le passé, toutes les icônes étaient chargées avec un script fontawesome.js ; maintenant nous ne chargeons que les icônes réellement utilisées, ce qui économise un tas de données !
+
+La boucle de jeu n'est maintenant démarrée que lorsque le premier étage arrive ; c'est une amélioration assez petite dans le grand ordre des choses, mais une belle amélioration tout de même.
+
+### Autres
+
+Une autre grande amélioration est faite dans le déplacement des formes. Les déplacements de groupe sont gérés plus efficacement et moins de données sont requises pour chaque déplacement de forme.
+
+Une dernière amélioration est que le pan retardera la mise à jour des étages non visibles jusqu'à ce que l'action de pan soit terminée, ce qui profite encore une fois aux cartes avec beaucoup d'étages.
+
+## Divers
+
+- Il y a maintenant une icône de verrouillage/déverrouillage dans l'interface de sélection
+- La lisibilité de la distance de la règle est améliorée
+- La taille en pixels de la grille est maintenant une fonctionnalité côté client, permettant au joueur de choisir cette valeur selon la méthode d'affichage utilisée (par ex. projecteur vs écran d'ordinateur portable)
+
+## Corrections de bugs
+
+- Aura non affichée lorsque le pion est en dehors du canevas visible
+- Barre de défilement de l'emplacement dans firefox lorsque le menu de gauche est ouvert
+- Quelques goulets d'étranglement de performance significatifs
+- Le serveur se ferme maintenant, en référence aux docs/tutoriel, si le client n'a pas été construit avant le démarrage
+- Préférer les points accrochés à l'accrochage sur la grille
+- Suppression de l'icône blanche dans l'interface du menu en haut à gauche
+- Déplacer des polygones au clavier ne déplaçait que le point d'origine
+- Cas dégénérés dans la triangulation
+    - Le code de triangulation pouvait rencontrer un cas dégénéré lors de très légères différences numériques de l'ordre de 1e-15
+    - Le code de triangulation ne prendra désormais en compte que les 10 premiers chiffres après la virgule pour prévenir l'instabilité numérique.
+- Les événements mouseleave n'étaient pas déclenchés dans certains cas (par ex. alt tab), ce qui pouvait faire rester certaines formes (par ex. les règles) à l'écran
+- Le redimensionnement de l'outil Map n'est pas répliqué
+- Calcul du centre des polygones avec des points répétés
+- Une forme déplacée d'emplacement disparaît maintenant correctement de l'ancien emplacement
+
+## Retour sur « À venir »
+
+Lors de la dernière release, j'ai ajouté une section « À venir » pour esquisser certaines choses de la feuille de route. Je voulais faire le point sur le statut avec cette release terminée.
+
+##### fait
+
+- rotation
+- Refonte de la séquence de démarrage
+- Passage à fontawesome-vue
+- Visibilité publique des étages
+- Améliorations de l'outil d'étage
+- Chargement rapide de l'étage courant
+
+##### partiellement fait
+
+- travail préparatoire sur les métadonnées/export/import
+
+##### pas fait
+
+- Liste asynchrone des ressources dans le jeu
+- Améliorations des polygones
+- Extension des options d'aura
+- Amélioration du curseur de l'outil Draw
+- Grille hexagonale
+- Blurhash
+- Points d'apparition multiples
+- Plus d'options de regroupement
+
+Bien que cette release ait pris un peu plus de temps, je suis quand même content des 6 sur 15 faits. :)

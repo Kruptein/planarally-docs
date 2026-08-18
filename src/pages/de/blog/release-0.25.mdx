@@ -1,0 +1,134 @@
+---
+title: Zauber wirken und vergangene Aktionen rückgängig machen - Release 0.25.0
+date: 2021-02-07 13:30:00
+excerpt: "Eine Übersicht über neue Goodies"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
+Für das zweite Release des Jahres habe ich ein vielleicht kleineres Release als üblich bekommen, aber es hat es in sich.
+
+Dieses Release enthält einige Funktionen, über die sich auch Spieler richtig freuen werden!
+
+## Aura-Überarbeitung
+
+An erster Stelle und eines meiner persönlichen Lieblingsfeatures dieses Releases ist eine Überarbeitung der Auren!
+
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Beispiel für einen Asset-Tracker" />
+
+Die meisten werden sofort die dramatische UI-Änderung bemerken, die der Auren-Bereich bekommen hat, aber das geschulte Auge wird auch 3 neue Funktionen entdecken, die hinzugefügt wurden.
+
+### UI-Änderungen
+
+Die UI wurde so geändert, dass standardmäßig nur die Basisinformationen sichtbar sind (Name + aktiviert/deaktiviert) und man beim Öffnen einer Aura alle Details sehen kann.
+Eine weitere große Änderung ist, dass die kryptischen Auren-Symbole jetzt eigene Textbeschriftungen haben, um hoffentlich Verwirrung zu vermeiden.
+
+### Aktivieren/Deaktivieren
+
+In der Vergangenheit gab es keine explizite Möglichkeit, eine Aura zu deaktivieren, man konnte sie entweder entfernen oder ihre Reichweitenwerte auf 0 setzen.
+
+Beide Aktionen sind etwas nervig, und so gibt es jetzt endlich einen eigenen Umschalter, der immer sichtbar ist.
+
+### Rahmen
+
+In der Vergangenheit war der Rahmen unsichtbar, aber jetzt ist es möglich, eine Farbe für den Rahmen festzulegen.
+
+Das ist besonders nützlich für Auren, die keine Lichtquellen sind, bei denen du vielleicht etwas verfolgen möchtest, aber nicht willst, dass die gesamte Aura mit Farbe gefüllt ist, da es bei vielen Auren zu einem visuellen Durcheinander werden könnte. So kannst du die Aura jetzt zum Beispiel transparent machen und ihr eine durchgehende schwarze Umrandung geben.
+
+### Kegel
+
+Die letzte Änderung ist die Möglichkeit, eine Aura so zu ändern, dass sie keinen vollen Kreis abdeckt, sondern sich auf einen Kegel beschränkt.
+
+Der Winkelparameter enthält 2 Eingabewerkzeuge: das erste ist ein normales Zahlenfeld, um die Breite des Winkels zu wählen,
+das zweite, um die tatsächliche Richtung zu wählen, in die die Aura zeigen soll.
+
+Das ist eine eher spezielle Funktion, von der ich nicht erwarte, dass sie viel genutzt wird, aber man kann sie für einige Hardcore-Sichtregeln, spezielle Lichtquellen oder einfach alles verwenden, was einem einfällt!
+
+## Undo/Redo
+
+Ein oft angefragtes Feature, aus gutem Grund, ist die Möglichkeit, Aktionen rückgängig zu machen.
+
+Dieses Release fügt eine erste Version der Undo- und Redo-Funktionalität hinzu, die auf eine anfängliche Reihe von Aktionen beschränkt ist.
+Diese Aktionen sind:
+
+- Formenbewegung
+- Formendrehung
+- Formen-Größenänderung
+- Etagenwechsel
+- Ebenenwechsel
+- Formenerstellung/-entfernung
+
+Das sollte einige grundlegende Dinge (Herumbewegen) und auch das Wichtigste abdecken, das nervt: das versehentliche Entfernen von Formen.
+Dinge wie spezifische Eigenschaftsänderungen und ähnliches sind also noch nicht rückgängig machbar, aber es gibt eine Basis, mit der man arbeiten kann.
+
+ctrl+z wird verwendet, um Aktionen rückgängig zu machen, ctrl+shift+z wird verwendet, um Aktionen zu wiederholen.
+
+Derzeit gibt es einen fest kodierten Aktionsspeicher von 50 Aktionen.
+
+_Warum nicht ctrl+r zum Wiederholen? Das würde eine gängige Browser-Neuladen-Taste überschreiben, was ich lieber nicht tue._
+
+## Zauber wirken
+
+Eine Anfrage, die ich schon ein paar Mal bekommen habe, ist, etwas bereitzustellen, das das Wirken von Zaubern erlaubt oder zumindest ein Werkzeug, um zu sehen, ob bestimmte Gegner von einem bestimmten Zauber getroffen würden.
+
+Du wirst jetzt ein neues Werkzeug in der Werkzeugleiste (im Spielmodus) sehen, passenderweise „Spell“ genannt, das genau das ermöglicht!
+
+Hier ist eine kleine Vorschau, was dich erwartet:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+Wie man sehen kann, hast du die Wahl zwischen 3 Basisformen (Kreis/Quadrat/Kegel) und kannst Dinge wie Zaubergröße und Reichweite konfigurieren.
+
+Das Standardverhalten ist auf reines Messen ausgerichtet, um zu sehen, welche Auswirkung Zauber hätten,
+aber wenn du mit der linken Maustaste klickst, „wirkst“ du den Zauber tatsächlich und der Effekt bleibt auf dem Schlachtfeld!
+
+Weitere Informationen, wie das Zauberwerkzeug funktioniert, findest du in [der Dokumentation](/de/docs/tools/spell/)
+
+## Ort-Archivierung
+
+Wenn eine Kampagne lange läuft, kommt irgendwann der Zeitpunkt, an dem sich deine Ort-Leiste füllen könnte.
+Du kannst einfach damit leben und nach rechts scrollen oder du kannst die aktiven Orte manuell nach links ziehen.
+
+Mit diesem Release gibt es jetzt die Option, Orte zu archivieren. Das versteckt sie einfach von der Leiste, lässt sie aber ansonsten intakt.
+Das Archivieren erfolgt über die Ort-Einstellungen.
+
+Links neben der Ort-Leiste wird ein neuer UI-Button hinzugefügt, um archivierte Orte zurück in die Leiste zu holen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
+</video>
+
+## Öffentliche Annotationen
+
+Ein kleineres Feature ist, dass es jetzt die Option gibt, Form-Annotationen öffentlich zu machen.
+
+## Bemerkenswerte Fehlerbehebungen
+
+### (DM) Ort-Leiste
+
+Der Ort von Spielern wird jetzt live korrekt aktualisiert, wenn sie im Rahmen eines Teleports zu einem Spawn an einen anderen Ort verschoben werden.
+
+### Private Auren des Sicht-Werkzeugs
+
+Das Sicht-Werkzeug ist ein nützliches Werkzeug, wenn du mehrere Charaktere auf einem Bildschirm steuerst.
+Es berücksichtigte jedoch die öffentliche/private Einstellung von Auren nicht richtig und zeigte immer alle Auren der Token, die du steuerst, auch wenn du die Sicht eines der Token deaktiviert hast.
+
+### Neue Etagen funktionierten bis zum Neuladen nicht
+
+Beim Erstellen neuer Etagen musst du nicht mehr neu laden, weil sie nicht richtig trianguliert wurden.
+
+### Synchronisierung des Formnamens
+
+Beim Umschalten der Sichtbarkeit des Formnamens gab es einige Synchronisierungsprobleme, die nun ausgeräumt wurden.
+
+### Sicht auf mehreren Etagen
+
+Es gab kürzlich einen Fehler, der es ermöglichte, dass Auren auf einer Etage auch Dinge auf den Etagen darunter beleuchteten.

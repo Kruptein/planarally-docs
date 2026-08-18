@@ -1,0 +1,143 @@
+---
+title: Sanft in den Herbst rollen - Release 0.29.0
+date: 2021-10-28 20:00:00
+excerpt: "Was gibt's Neues?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Es ist eine Weile her, ein neues Release war längst überfällig!
+Das Release ist nicht super groß, hat aber ein paar unterhaltsame neue Werkzeuge zum Ausprobieren sowie die übliche Reihe an Fehlerbehebungen.
+
+## Virtuelle Würfel
+
+Eine erste große Sache ist das virtuelle Würfeln!
+Ein Wort der Vorsicht allerdings: Die Version, die in diesem Release ausgeliefert wird, ist noch nicht poliert.
+Ich hoffe, Feedback dazu zu bekommen, wie sich die Dinge anfühlen, um die Zukunft des Würfelwerfers weiter zu formen.
+
+Das Würfeln ist als eigenes Werkzeug im Play-Modus verfügbar, und zwar sowohl für den DM als auch für Spieler.
+Du kannst einen Satz Würfel zusammenstellen (derzeit auf dX-Würfel beschränkt) und sie auf dem Bildschirm rollen lassen.
+Das Ergebnis erscheint in einem Dialog auf dem Bildschirm und wird auch im Würfel-Werkzeug selbst gespeichert.
+
+Du kannst optional wählen, Würfelergebnisse mit allen Spielern zu teilen, was eine kleine Benachrichtigung auf deren Bildschirm anzeigt, wenn du würfelst.
+(d. h. die Würfel werden nicht visuell auf den Bildschirmen anderer Spieler gerollt)
+
+#### Eine Anmerkung zum Verhalten
+
+Die Würfel werden mit einem ordentlichen Physiksystem emuliert/approximiert. Es kann vorkommen, dass PA annimmt, der Würfel habe seine endgültige Position erreicht, und ein Ergebnis anzeigt, und der Würfel doch noch ein letztes Mal kippt. Diese Eigenheiten werden in der Zukunft geglättet. Wenn du beabsichtigst, dies intensiv in deiner Kampagne zu nutzen, könnte es klug sein, im Voraus zu entscheiden, welchen Wert du als den echten Wert betrachtest
+
+#### Eine Anmerkung zum Laden
+
+Die Würfel verwenden ein vollständiges 3D-Rendersystem (Props an babylonjs und ammojs). Das bringt viel zusätzlichen Code über die Abhängigkeiten ein, was die Bundle-Größe stark erhöht und damit die Ladezeit von PA.
+
+Um das zu umgehen, wird der gesamte würfelbezogene Code nicht beim Haupt-Laden von PA geladen, sondern erst bis zu dem Zeitpunkt verschoben, an dem du das erste Mal auf das Würfel-Werkzeug klickst. Das bedeutet, dass es beim ersten Interagieren mit dem Würfel-Werkzeug eine kleine Verzögerung geben kann.
+
+## Draw-Werkzeug-Zeiger
+
+Vor einiger Zeit wurde die Entscheidung getroffen, den Mauszeiger bei der Verwendung des Draw-Werkzeugs nicht mehr anzuzeigen, da er nie zu 100 % mit der PA-Draw-Schleife synchron ist, was zu etwas visueller Verzögerung zwischen dem echten Cursor und dem im Spiel angenommenen Cursor führte.
+
+Ohne den nicht synchronisierten Cursor fühlen sich Zeichenoperationen flüssiger an, aber es wurde ziemlich leicht, den Überblick darüber zu verlieren, wo auf der Canvas du dich tatsächlich befindest. Das gilt umso mehr, wenn du in transparenten Farben oder Farben zeichnest, die sehr nahe am Hintergrund der Karte liegen.
+
+Dieses Release fügt wieder einen Mauszeiger hinzu - nicht den echten OS-Mauszeiger, sondern einen Fake-Mauszeiger, der nur ein Polygon in PA selbst ist, der, da er eine PA-Form ist, immer mit der Draw-Schleife synchron ist und sich daher flüssig anfühlt.
+
+## Polygon-Bearbeitungswerkzeuge
+
+Seit der Einführung von Polygonen vor langer Zeit ist das leicht mein meistgenutztes Form, besonders für alles, was mit Beleuchtung/Sicht zu tun hat.
+
+Manchmal vergesse ich, dass eine bestimmte Wand eine Geheimtür hatte, und das mitten in der Sitzung zu beheben ist ziemlich schwierig, da du die gesamte Wand entfernen und neu machen müsstest, was je nach Länge des Polygons eine große Qual sein kann. Oder du verschiebst einfach die Figur(en) durch die Wand, was meist mein Rückgriff ist.
+
+Das muss nicht mehr der Fall sein, da ich endlich Werkzeuge zum Ändern bestehender Polygone hinzugefügt habe!
+
+Wenn du ein Polygon im Build-Modus auswählst, erscheint zusätzliche UI in der Nähe des Polygons und folgt deiner Maus.
+Wenn du über eine Kante fährst, hast du die Option, entweder einen zusätzlichen Punkt zum Polygon hinzuzufügen oder das Polygon an diesem Punkt zu teilen.
+Wenn du über einen Punkt fährst, kannst du den Punkt entfernen.
+
+## Server-Admin-CLI
+
+_Dies wurde von CalebKoch beigetragen_
+
+Der Python-Server hat einige zusätzliche Dienstprogramme erhalten, um den Server zu verwalten, ohne in eine Python-Shell eintauchen zu müssen.
+
+Insbesondere kann er nun:
+
+- alle Benutzer auflisten
+- alle Räume auflisten (d. h. Kampagnen)
+- einen bestimmten Benutzer/Raum entfernen
+- das Passwort eines Benutzers zurücksetzen
+
+## SVG-Wandbehandlung
+
+Seit Release 0.26.0 ist es möglich, Wandinformationen in Form einer SVG-Datei an fast jedes Objekt in PA anzuhängen, obwohl der primäre Anwendungsfall offensichtlich Karten sind.
+Es extrahierte die Pfadinformationen aus dem SVG und speicherte sie in den Optionen der Form für schnellen Zugriff.
+
+Die alte Pfadextraktion ignorierte mögliche Transforms, die auf den Elementen gesetzt waren (z. B. translate/scale), und konnte daher dazu führen, dass man das SVG manchmal manuell über die Y-Achse spiegeln musste, um das richtige Ergebnis in PA zu erhalten.
+
+Eine neue Implementierung der SVG-Behandlung wurde geschrieben, die nicht mehr den gesamten Pfad mit dem Asset assoziiert, sondern nur eine Referenz auf das tatsächliche SVG, das dann separat on the fly geparst wird, sodass zukünftige Verbesserungen der SVG-Behandlung auch auf bestehende Assets angewendet werden können.
+
+Eine solche Verbesserung ist die Unterstützung für translate- und scale-Transforms.
+
+Da ich bestehende SVG-Abläufe nicht brechen wollte, musst du das SVG erneut anwenden, wenn du von der neuen und verbesserten SVG-Behandlung profitieren möchtest.
+
+Irgendwann in der Zukunft beabsichtige ich, den alten SVG-Behandlungscode zu entfernen, daher empfehle ich dringend, alle deine verwendeten SVG-Masken erneut anzuwenden, sonst könnten sie in Zukunft aufhören zu funktionieren (Details werden später mitgeteilt).
+
+## UI-Verbesserungen
+
+### aktiver Werkzeugmodus
+
+Das letzte Release hat die UI der Werkzeugmodi (d. h. Play und Build) geändert.
+Die Unterscheidung zwischen den beiden wurde weiter erhöht, um klar zu machen, welcher Modus derzeit aktiv ist.
+
+### Sicht-Einstellungen
+
+Es ist nicht mehr möglich, eine maximale Sichtweite zu konfigurieren, die kleiner ist als die minimale Sichtweite, und umgekehrt.
+
+### Winkel-UI
+
+Auren sind normalerweise vollständige 360-Grad-Kreise, das kann jedoch zusammen mit einem Betrachtungswinkel konfiguriert werden, um die Aura in eine bestimmte Richtung auszurichten.
+Die UI für den Betrachtungswinkel bietet nun auch eine Zahleneingabe, wenn du präziser sein willst oder das Kreiseingabeelement nicht magst.
+
+### Varianten-Umschalter
+
+Der Varianten-Umschalter wurde mit dem großen Vue3-Update deaktiviert, teils weil ich das Gefühl hatte, dass er zu fehlerhaft war und von anderen nicht wirklich genutzt wurde.
+
+Mit dieser letzten Einschätzung lag ich offenbar sehr falsch, da ich mehrere Fragen dazu erhielt, warum die Varianten nicht mehr funktionierten.
+
+Meine Entschuldigung an die Betroffenen: Er wurde wieder in seiner ursprünglichen Funktionalität aktiviert!
+
+#### Fixes
+
+Zwei Fehler im Zusammenhang mit Formen mit Varianten wurden ebenfalls behoben:
+
+##### Tracker/Auren
+
+Die geteilte Tracker-/Auren-Logik hatte einige Logikprobleme, mit inkonsistentem Verhalten als Ergebnis.
+
+Sie sollten nun ordnungsgemäß funktionieren :)
+
+Zusätzlich: Beim Wechseln von Varianten, wenn die vorherige Variante (mehrere) nicht-geteilte Auren hatte, blieben einige davon auf dem Bildschirm, bewegten sich aber nicht mit (d. h. statisch). Das wurde ebenfalls behoben.
+
+##### Ort wechseln
+
+Beim Verschieben einer Form mit Varianten an einen anderen Ort wurde nur ein Teil der Varianten verschoben, was überall mehrere Probleme verursachte (einschließlich, dass der alte Ort nicht mehr geladen werden konnte).
+
+## Fehlerbehebungen
+
+- Gesperrte Formen konnten Orte wechseln
+- Gesperrte Formen konnten Etagen wechseln
+- Fehler mit Sicht-Minimalbereich gleich Maximalbereich
+- Winkel-Auren rotierten nicht mit der allgemeinen Formrotation
+- Mehrere Styling-Probleme in Firefox
+    - Anmerkungen füllen nicht mehr die gesamte Bildschirmbreite
+    - Auren-UI war viel zu breit
+- Ansichts-Synchronisierung (Viewport-Sync)
+    - Die Ansicht wird sofort beim Verbinden gesendet (und wartet nicht auf das erste Pan)
+    - Die DM-Ansichtsbewegung wird nun gedrosselt und sollte auf dem Client nicht mehr verzögert erscheinen
+- Verschiedene DPI-bezogene Fixes
+- Mehrere Fehler im experimentellen Sichtmodus
+    - Behoben: Der Start funktionierte nicht korrekt
+    - Behoben: Nicht eingerastete Bewegung einer blockierenden Form aktualisierte die Bewegungstriangulation nicht
+- Der Bewegungsblock aktualisierte nicht direkt, wenn kein Einrasten verwendet wurde
+- Einiger Leistungsabfall bei großen Polygonen
+- Entfernt: Verbleibende Rotations-UI beim Entfernen einer Form im Build-Modus
+- Das Select-Werkzeug zeigte Ruler ohne Auswahl
+- Die Textgrößenänderung wurde nicht live an andere Clients synchronisiert

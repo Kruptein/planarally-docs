@@ -1,0 +1,166 @@
+---
+title: Release 0.19.0 - Les nouveautés !
+date: 2020-03-20 21:02:34
+excerpt: "Les nouveautés de 2020 ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Avec la 0.19.0, nous avons notre première release de l'année ! Il y a quelques grandes nouvelles fonctionnalités (les étages et les badges) et beaucoup de petites corrections et améliorations de qualité de vie.
+
+Les sujets mentionnés dans cette note de release sont listés à gauche ; le changelog complet se trouve sur [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.19.0).
+
+_J'ai aussi créé un [compte patreon](https://www.patreon.com/planarally), n'hésitez pas à y jeter un œil :)_
+
+## Vision
+
+### Étages
+
+L'une des plus grandes nouveautés de cette release est l'introduction des étages. Tout comme dans la vie réelle, un bâtiment peut être composé de plusieurs étages.
+Jusqu'à présent, si vous vouliez émuler cela dans PA, vous deviez soit utiliser des emplacements séparés, soit avoir différentes zones dans un même emplacement représentant différents étages.
+Les deux approches nécessitent beaucoup de sauts d'un endroit à l'autre, ce qui est au final peu souhaitable.
+
+Avec cette release, cela change : le DM peut créer/supprimer un étage à l'aide du bouton étage dans le coin inférieur gauche, juste à côté du sélecteur de calque. Le nombre affiché dans cette case est le numéro de l'étage actif.
+
+La vision et les lumières fonctionnent à travers les étages de manière naturelle ; un pion à l'étage supérieur peut voir un pion portant une lumière dans le jardin à travers une fenêtre, de même quelqu'un dans le jardin peut voir la personne sur le balcon supérieur. _À noter qu'il ne s'agit pas d'un véritable rendu 3D, de petits cas limites où la hauteur de certains objets est inconnue peuvent donc se produire._
+
+**La vidéo ci-dessous peut contenir des spoilers de carte pour l'aventure WotC Waterdeep Dragonheist.**
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/newfloors.webm" type="video/webm" />
+    <source src="/blog/release-0.19/newfloors.mp4" type="video/mp4" />
+</video>
+
+L'exemple ci-dessus montre comment fonctionne la vision entre étages, où le côté gauche représente un joueur possédant le pion Y au premier étage. Le côté droit représente le DM qui a accès aux deux pions.
+
+Pour changer d'étage, cliquez sur le bouton étage en bas à gauche et sélectionnez l'étage souhaité. Pour changer l'étage d'une forme ou d'un groupe de formes, faites un clic droit dessus et utilisez le sous-menu étage.
+
+**Conseil d'initié :** Il existe quelques raccourcis clavier supplémentaires dédiés aux étages, qui vous permettront de basculer de manière transparente. Page Up/Down vous déplace d'un étage vers le haut ou vers le bas. Vous pouvez aussi déplacer une sélection de formes vers d'autres étages via des raccourcis clavier ; Ctrl + Page Up/Down déplacera les pions d'un étage vers le haut ou vers le bas, si vous voulez vous déplacer immédiatement en même temps, utilisez plutôt Ctrl + Shift + Page Up/Down.
+
+Notez qu'actuellement les joueurs sont libres de se déplacer vers l'étage qu'ils souhaitent. Un contrôle d'accès supplémentaire sera ajouté à l'avenir, mais avec les bons réglages de vision, cela devrait en fait être tout à fait acceptable !
+
+Chaque étage est en substance un tout nouvel ensemble de calques. Cela signifie aussi qu'il y a une charge supplémentaire côté client pour chaque étage ajouté. À l'avenir, une option permettant de ne rendre que l'étage actif sera ajoutée pour les joueurs qui pourraient ne pas gérer l'augmentation de la charge. Le cas par défaut avec un seul étage n'aura aucun surcoût par rapport aux releases précédentes.
+
+### Modes disponibles
+
+Le mode de vision hérité basé sur les hiérarchies de volumes englobants (bvh) est désormais retiré du jeu ; toute carte qui l'utilisait encore devrait passer au mode par défaut basé sur l'expansion de triangles.
+
+De plus, un nouveau mode de vision est disponible. C'est une mise à niveau expérimentale du mode de vision par défaut basé sur les triangles, qui ne recalcule pas toute la scène mais fonctionne de manière itérative. Cela devrait apporter des améliorations de performances notables sur les cartes avec de nombreux éléments de vision, mais peut encore contenir des bugs qui casseront la vision ; si cela se produit, recharger la page devrait fonctionner correctement.
+
+## Formes
+
+### Badges
+
+Une autre nouvelle fonctionnalité, suggérée par @adunis sur github, est l'introduction des badges ; ce sont de petites icônes numérotées dans le coin inférieur droit des pions.
+
+L'affichage des badges peut être activé ou désactivé par groupe de pions. Un groupe de pions est ici défini comme toutes les instances résultant du copier-coller du même pion. _(par ex. je fais glisser un pion orc sur la table de jeu et je le copie-colle plusieurs fois, tous ces pions forment un seul groupe. Faire glisser un nouveau pion orc sur la table de jeu est un groupe différent.)_
+
+Les badges prennent leur couleur d'arrière-plan de la couleur du contour de la forme, et leur couleur de bordure et de police comme noir ou blanc selon ce qui est le plus lisible. Les numéros des pions sont automatiquement incrémentés lors du collage.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/badges.webm" type="video/webm" />
+    <source src="/blog/release-0.19/badges.mp4" type="video/mp4" />
+</video>
+
+### Annotations
+
+J'avais oublié un bug signalé en août, mais il est enfin corrigé !
+
+Les annotations cessaient de fonctionner lors des changements d'emplacement. Cela a maintenant été résolu :)
+
+## Outils
+
+### Accrochage
+
+L'outil polygone est un outil que j'utilise beaucoup. En particulier la version qui ne se referme pas automatiquement. Un problème auquel je me heurtais souvent était cependant que je n'avais aucun moyen fiable d'ajouter précisément un point à mon polygone qui correspondait exactement à un point existant (par ex. pour relier des murs). Cela provoquait de très petits mais perceptibles problèmes d'éclairage autour des zones où des polygones ouverts se rejoignaient.
+
+Cette release ajoute une fonctionnalité d'accrochage qui attirera automatiquement votre curseur de souris vers un point existant proche lorsque vous vous en approchez. Ce comportement d'accrochage n'est actif que lors du redimensionnement ou avec l'outil draw. L'outil draw met désormais aussi en évidence les points accrochables lors de son activation (c'est peut-être quelque chose que je retirerai à l'avenir, selon les retours).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/snapping.webm" type="video/webm" />
+    <source src="/blog/release-0.19/snapping.mp4" type="video/mp4" />
+</video>
+
+Comme vous pouvez le voir à la fin de la vidéo, un seul point rouge apparaît à l'endroit où deux polygones se rejoignent. Auparavant, il y avait plusieurs points très proches les uns des autres.
+
+_Rappel : pour fermer un polygone, utilisez le clic droit ; une future release devrait rendre cela plus clair dans l'interface_.
+
+### Gestes tactiles
+
+Le support tactile a toujours été très aléatoire, pour le moins. C'est un premier pas pour permettre aux appareils tactiles d'interagir avec PlanarAlly de manière plus intuitive.
+
+L'ajout de ces changements est principalement limité à l'interaction avec les divers éléments de l'interface par le toucher ; certains gestes plus « avancés » comme le pincement pour zoomer, etc., ne sont pas encore ajoutés.
+
+_Cette fonctionnalité a été contribuée par @ZachMyers3 sur github_
+
+### Corrections de l'outil select
+
+Il y avait un ensemble de bugs liés à l'outil select qui pouvaient résulter en une mauvaise expérience utilisateur, ils sont désormais, espérons-le, résolus.
+
+En particulier, faire glisser un groupe de pions commençait souvent par un saut soudain inattendu, causé par de mauvais calculs de vecteurs ; faire glisser plusieurs formes à la fois devrait désormais être bien meilleur.
+
+Le curseur de redimensionnement n'apparaissait pas non plus correctement pour toutes les formes dans une multi-sélection.
+
+Le redimensionnement en général était aussi cassé si vous faisiez glisser un coin sur un autre coin.
+
+## Réglages
+
+### Paramètres du compte
+
+Une page de paramètres du compte très basique a été créée. La roue dentée du dashboard a désormais un véritable but !
+
+![Paramètres du compte](./0.19/accountsettings.png)
+
+Comme on peut le voir, elle est assez limitée dans sa portée, mais vous pouvez désormais changer votre nom d'utilisateur, ajouter une adresse email, changer votre mot de passe et supprimer votre compte si vous le souhaitez.
+
+Notez que l'adresse email n'est utilisée d'aucune manière par PA (ni n'est-elle obligatoire), mais elle est là pour de possibles changements futurs ou si un administrateur de serveur souhaite envoyer un email à ses utilisateurs.
+
+## Varia
+
+### Ctrl 0
+
+Étant donné que PA a une carte infinie, il peut arriver que vous ne retrouviez plus votre carte réelle après avoir fait un panoramique/défilé.
+
+Pour contourner simplement ce problème, il existe désormais un raccourci clavier ctrl+0 pour réinitialiser votre caméra à l'origine de la carte.
+
+_Cette fonctionnalité a été contribuée par @LDeeJay1969 sur github_
+
+### /\_load
+
+Espérons que la plupart des utilisateurs n'auront pas remarqué ceci, mais PA avait un chemin spécial /\_load utilisé pour la transition entre les chemins.
+Si toutefois vous reveniez en arrière avec le bouton retour de votre navigateur, vous pouviez atterrir sur cette page spéciale avec laquelle il n'y avait rien à interagir.
+
+Le mécanisme de chargement a maintenant été changé et ne nécessite plus le chemin spécial.
+
+_Cette fonctionnalité a été contribuée par @ZachMyers3 sur github_
+
+### Numéro de version
+
+Pour pouvoir voir quelle version de PA le serveur sur lequel vous êtes utilise réellement, le panneau de connexion affiche désormais le numéro de version dans son titre.
+
+![Numéro de version](./0.19/version.png)
+
+_Cette fonctionnalité a été contribuée par @ZachMyers3 sur github_
+
+### Suppression des artefacts js
+
+C'est un changement technique qui ne concerne que les contributeurs au code.
+
+Auparavant, les artefacts de build js étaient stockés dans le dépôt git afin que le dossier du serveur puisse être utilisé immédiatement sans build js supplémentaire.
+Cela conduisait cependant à une tonne de conflits de fusion et de fichiers inutiles dans le dépôt.
+
+Vous devriez désormais construire vous-même les fichiers js si vous voulez tester localement.
+
+## Prévu pour la 0.20.0
+
+### Refonte des emplacements
+
+Ce que j'aimerais absolument aborder dans la prochaine release, c'est l'interface/UX de la barre des emplacements. C'est actuellement une chose laide avec une fonctionnalité limitée.
+
+### Marqueurs
+
+@LDeeJay1969 travaille sur un système de marqueurs pour sauter vers des emplacements marqués.
+
+### Fenêtre des raccourcis clavier
+
+@Daniferrito a commencé à travailler sur une fenêtre des raccourcis clavier.

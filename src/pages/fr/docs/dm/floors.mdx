@@ -1,0 +1,64 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import FloorsPicture from "./assets/floors.png";
+
+# Étages
+
+Un ensemble complet de [calques](/fr/docs/dm/layers/) empilés est appelé un _étage_.
+
+Les étages sont dessinés les uns par-dessus les autres.
+Ainsi, sur un étage nouvellement créé, l'étage situé en dessous serait entièrement visible.
+Cela vaut pour chaque partie de la table de jeu qui n'est pas recouverte par autre chose, qu'il s'agisse d'une ressource sur le calque _map_ ou d'une forme sur le calque _tokens_.
+
+<Image src={FloorsPicture} width={300} aspectRatio={314 / 277} alt="Le bouton étages avec le menu des étages ouvert" />
+
+Les étages sont accessibles via le bouton étages en bas à gauche de l'écran.
+Les étages sont numérotés (présentés à gauche du menu ouvert) et portent des noms (présentés à droite).
+Le bouton étages affiche toujours le numéro de votre étage actif.
+
+**Astuce** : n'oubliez pas de consulter les [raccourcis clavier de déplacement](/fr/docs/reference/#movement) pour naviguer facilement entre les étages !
+
+À chaque [emplacement](/fr/docs/dm/locations), il y a toujours au moins un étage présent ; ainsi, à la création de l'emplacement, le premier étage sera créé automatiquement.
+Il s'appellera `ground` et portera le numéro `0`, qui est toujours le numéro de l'étage tout en bas de la pile.
+
+Les étages sont listés dans leur ordre de présentation. L'étage le plus haut est le premier de la liste.
+
+Les étages sont un outil très pratique pour améliorer l'immersion et la perception, et il est conseillé de les utiliser fréquemment lorsque cela est pertinent. Notez que chaque étage augmente le temps de rendu. Des optimisations existent pour réduire cette charge (p. ex. les étages supérieurs ne sont pas rendus/calculés), mais gardez cela à l'esprit.
+
+## Créer de nouveaux étages
+
+Vous pouvez créer de nouveaux étages en cliquant sur `Add new floor`.
+Une fenêtre vous demandera le nom de l'étage.
+
+<Info title="Pas de doublons">Notez que deux étages d'un même emplacement ne peuvent pas porter le même nom.</Info>
+
+## Réorganiser les étages
+
+Vous pouvez réorganiser les étages en les faisant glisser vers une autre position. Tous les objets d'un étage resteront associés à ce même étage.
+
+## Actions sur les étages
+
+### Renommer
+
+En cliquant sur le crayon <PencilAlt/>, une fenêtre apparaîtra dans laquelle vous pourrez saisir un nouveau nom pour l'étage.
+
+### Activer/désactiver l'accès des joueurs
+
+En cliquant sur l'œil <Eye/>, vous pouvez activer ou désactiver la possibilité pour les joueurs d'accéder manuellement à cet étage.
+
+**Sachez** que cela ne masque pas l'étage ! Il peut y avoir une fenêtre à travers laquelle l'étage est visible.
+
+### Supprimer
+
+Supprimer des étages est aussi simple que de cliquer sur le bouton <TrashAlt /> dans le menu ouvert.
+Vous devrez confirmer la suppression de l'étage, _car il n'existe aucun moyen d'annuler cette action_ !
+
+Lors de la suppression, l'étage sera retiré de la pile et écarté. Tous les objets de l'étage seront également supprimés.

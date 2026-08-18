@@ -1,0 +1,145 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import InitiativeOverviewPicture from "../../blog/2026.1/initiative.png";
+
+# Outil Initiative
+
+L'outil Initiative est une fenêtre contextuelle déplaçable qui vous permet de suivre l'ordre d'initiative de divers objets (normalement des pions).
+
+<Image src={InitiativeOverviewPicture} width={462} aspectRatio={462 / 492} alt="Aperçu de l'outil initiative" />
+
+## Accès
+
+L'outil Initiative n'est pas accessible via la barre d'outils en bas à droite de l'interface utilisateur.
+Il est plutôt accessible via les menus contextuels.
+En cliquant avec le bouton droit n'importe où sur la carte, vous pouvez toujours choisir `Show Initiative` dans le menu contextuel pour activer l'outil.
+De plus, le menu contextuel des objets (formes, ressources ou pions) affiche l'option `Show Initiative`, si l'objet est déjà inscrit dans la liste d'initiative.
+Si l'objet concerné n'est pas (encore) répertorié dans la liste d'initiative, le menu contextuel affichera `Add Initiative` (`Add all to Initiative`, si plusieurs objets sont sélectionnés), ouvrant l'outil Initiative et inscrivant l'objet dans la liste, en même temps.
+
+L'outil Initiative ouvre une fenêtre contextuelle déplaçable qui peut être fermée en cliquant sur le <WindowClose /> dans le coin supérieur droit.
+
+Elle contient la liste d'initiative qui peut comprendre plusieurs entrées individuelles et, en dessous, une barre avec plusieurs fonctions.
+
+## Liste d'initiative
+
+La liste d'initiative est, en substance, un tableau de six colonnes et d'une ligne pour chaque objet ajouté à la liste d'initiative.
+La ligne/entrée _active_ est mise en évidence par un fond vert, indiquant que c'est le tour de cet objet.
+
+Survoler une entrée affiche le nom de la forme inscrite et met également en évidence l'objet associé sur la carte avec un rectangle rouge autour de lui.
+C'est particulièrement utile s'il y a plusieurs objets sur la carte illustrés avec la même ressource (c'est-à-dire des monstres similaires, etc.).
+
+### Désignateur
+
+À l'extrême gauche de chaque ligne se trouve le désignateur de la forme ajoutée à l'initiative.
+Si l'objet est une ressource, le désignateur sera une version miniaturisée de la ressource.
+Si l'objet est un pion basique, le désignateur sera le texte affiché sur le pion.
+Si l'objet est une autre forme, le désignateur sera le nom de la forme tel que saisi dans les propriétés lorsque l'objet est ajouté à l'initiative.
+
+### Valeur d'initiative et tri
+
+Le désignateur est suivi de la valeur d'initiative, qui peut être n'importe quel nombre.
+Les joueurs ne peuvent modifier la valeur d'initiative que des objets auxquels ils ont accès.
+Le DM peut modifier la valeur d'initiative de tous les objets de la liste.
+
+Les entrées sont automatiquement triées par cette valeur, les valeurs les plus élevées en haut et les plus basses en bas de la liste.
+Survoler une entrée la met en évidence avec une bordure comportant une encoche dans le coin inférieur droit.
+Tout élément peut être déplacé en cliquant et en maintenant cette encoche, ce qui remplace le tri automatique.
+
+### Effets temporisés
+
+La colonne suivante affiche un <Stopwatch />, suivi d'un nombre (par défaut 0).
+Cette colonne indique combien d'Effets temporisés (voir ci-dessous) sont assignés à l'objet.
+Cette fonction peut être utilisée pour suivre facilement les buffs et/ou les effets (par exemple les sorts) infligeant des dégâts sur la durée.
+
+Les Effets temporisés sont des entrées en texte libre assignées à une entrée de la liste d'initiative qui ne sont valables que pour une durée limitée, c'est-à-dire des rounds.
+Un clic gauche sur l'icône <Stopwatch /> ajoute un nouvel Effet temporisé associé à l'entrée correspondante.
+Survoler une entrée déploie la liste des Effets temporisés en dessous, reliée à la bordure de mise en évidence.
+La liste des Effets temporisés de l'entrée active est toujours déployée.
+
+Les Effets temporisés peuvent être ajoutés à tout moment.
+Le DM peut ajouter des Effets à n'importe quelle entrée, les Joueurs uniquement aux entrées auxquelles ils ont accès.
+
+Chaque Effet temporisé possède deux valeurs : le descripteur et la durée.
+Le descripteur est affiché à gauche (par défaut à la création : `New Effect`) et peut être n'importe quel texte.
+La durée est affichée à droite (par défaut : `10`) et doit être un nombre ; elle décrit la durée de l'effet en rounds à venir.
+Chaque fois qu'une entrée devient _active_, la durée diminue de un, jusqu'à atteindre `0`.
+
+Une fois la durée arrivée à `0`, la fois suivante où l'entrée devient active, au lieu de passer de `0` à `-1`, l'Effet temporisé disparaît.
+Il peut être supprimé en cliquant sur le bouton poubelle <TrashAlt /> à côté.
+
+### Visibilité
+
+La colonne suivante affiche un <Eye /> qui active/désactive la visibilité de l'entrée.
+Si le <Eye /> apparaît gris, un objet est invisible, c'est-à-dire que seul le DM peut voir la ligne correspondante.
+Un objet ajouté par un Joueur est visible par défaut, tandis que les objets ajoutés à l'initiative par le DM sont invisibles par défaut.
+
+### Initiative de groupe
+
+L'avant-dernière colonne à droite affiche une icône <Users />.
+Cliquer sur l'icône bascule entre l'initiative individuelle et l'initiative de groupe.
+
+Lorsqu'une entrée est marquée comme _initiative de groupe_, elle ne peut être supprimée (voir ci-dessous), ni en cliquant sur le symbole poubelle <TrashAlt /> ni en supprimant l'objet associé.
+Elle mettra toujours en évidence le pion associé au survol ; pour l'instant, il n'y a aucune fonctionnalité permettant de mettre en évidence plusieurs objets à la fois.
+
+### Suppression
+
+La colonne la plus à droite, représentant un <TrashAlt />, sert à supprimer l'entrée de la liste.
+Le DM peut supprimer n'importe quelle entrée de la liste d'initiative.
+Les joueurs ne peuvent supprimer que les entrées auxquelles ils ont accès.
+
+Supprimer un pion ajouté à l'initiative, ou le déplacer vers un autre emplacement, supprime également l'entrée associée dans l'outil Initiative.
+
+Les entrées ajoutées à l'Initiative de groupe (voir ci-dessus) ne peuvent pas être supprimées.
+
+## Barre de fonctions
+
+La barre de fonctions est une rangée unique contenant l'indicateur `Round` affichant le round d'action/combat en cours à gauche, et quatre boutons à droite de cet indicateur.
+
+### Verrouillage automatique de la vision
+
+<Eye /> active/désactive le verrouillage automatique de la vision. Cette fonction est utile pour les joueurs qui
+possèdent plus d'un pion. Si elle est active, chaque fois que l'action est assignée à un autre objet (voir [tour
+suivant](/fr/docs/tools/initiative/#next-turn) ci-dessous), seule la vision de cet objet sera affichée. Ce réglage peut
+être activé/désactivé individuellement par chaque joueur. Le verrouillage automatique de la vision n'affichera que la
+vision des objets auxquels les joueurs ont un accès approprié.
+
+<Info title="Outil Vision">
+    Le verrouillage automatique de la vision déclenche la reconfiguration de l'[outil Vision](/fr/docs/tools/vision/).
+    Utilisez cet outil pour configurer quelles lignes de vue vous souhaitez voir, hors initiative.
+</Info>
+
+Le bouton n'a aucune fonction pour les DM, car ils voient toujours tout.
+
+### Verrouillage automatique de la caméra
+
+Le <Video /> active/désactive le verrouillage automatique de la caméra.
+Lorsque le verrouillage automatique de la caméra est actif, chaque fois que l'action est assignée à un autre objet (voir ci-dessous), la vue est centrée sur l'objet désormais actif.
+Ce réglage peut être activé/désactivé individuellement par chaque joueur.
+Le verrouillage automatique de la caméra ne centre la vue que sur les objets que les joueurs sont capables de contrôler.
+Ainsi, pour le DM, le centre de la vue changera pratiquement à chaque clic sur _Next_.
+La vue des Joueurs ne changera que lorsqu'un pion qu'ils contrôlent devient actif selon le suivi d'initiative.
+
+### Réinitialiser
+
+Le bouton <SyncAlt /> réinitialise les rounds et les tours.
+Les rounds seront réinitialisés à Round 0 et l'action sera assignée à l'objet en haut de la liste.
+Notez que ni les valeurs d'initiative ni les Effets temporisés ne sont réinitialisés.
+Cette fonction n'est disponible que pour les DM.
+
+### Tour suivant
+
+Le bouton <ChevronRight /> (_Next_) assigne le joueur suivant dans l'ordre d'initiative comme _active_ (voir ci-dessus).
+Cette fonction n'est disponible que pour les DM.

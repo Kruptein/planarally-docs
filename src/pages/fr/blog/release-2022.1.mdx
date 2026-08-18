@@ -1,0 +1,166 @@
+---
+title: Release 2022.1
+date: 2022-04-20 20:00:00
+excerpt: "Enfin une nouvelle version"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cela fait _très_ longtemps depuis la dernière version, plus d'une demi-année s'est écoulée et j'ai de nombreuses raisons de dire pourquoi et comment, mais au final je veux simplement m'excuser et j'espère que nous verrons un rythme plus régulier dans un avenir proche :)
+
+## Changement du format de version
+
+_Vous pouvez tout à fait ignorer cette section si vous voulez juste savoir ce qui a réellement changé !_
+
+Quelqu'un de familier avec PlanarAlly remarquera probablement aussi que le numéro de version a changé. C'est quelque chose que j'avais évoqué dans mon post de bilan de 2021 et que j'ai décidé de mettre en œuvre pour la première version de 2022.
+
+Bien qu'il n'y ait rien de nécessairement mauvais dans le schéma de versionnage original, rien de dramatique ne se profilait à l'horizon qui justifiait, selon moi, de passer à une 1.0.0, ce qui rendait en substance le premier nombre dénué de sens. Le numéro mineur sans cesse croissant ne semblait pas non plus être une bonne solution, il était donc temps de faire quelque chose de nouveau.
+
+Nous passons d'un schéma de version majeur.mineur.correctif à un schéma année.mineur.correctif, où chaque année recommence avec une 1.0.
+Cela garde les numéros de version suffisamment petits pour raisonner facilement à leur sujet et les situe dans un cadre temporel clair, alors que 0.18.0 aurait pu être n'importe où au cours des 3 dernières années.
+
+## Systèmes logiques
+
+La principale nouveauté de cette version est l'ajout de petits modules logiques qui peuvent être ajoutés aux formes.
+Cette version en apporte deux types : les portes et les zones de téléportation.
+
+Un nouvel onglet a été ajouté à la boîte de dialogue d'édition de forme, à partir duquel vous pouvez activer, désactiver et configurer le comportement de ces modules.
+
+#### Permissions
+
+Les deux modules peuvent être configurés avec un système de permissions.
+Le DM aura toujours accès et, par défaut, tous les autres joueurs ne l'auront pas.
+Vous pouvez modifier l'accès par défaut ainsi que configurer l'accès de joueurs spécifiques sur enabled/request/disabled, où request signifie que le DM recevra une notification pour autoriser ou refuser l'action.
+
+### Portes
+
+Lorsque les joueurs rencontrent une forme qui bloque l'accès à une autre zone, il existe plusieurs façons pour le DM de fournir aux joueurs un moyen de franchir cet obstacle. Le DM pourrait simplement les déplacer par-dessus l'objet avec ses pouvoirs magiques de la touche maj. Il pourrait tout simplement supprimer la forme. Il pourrait aller dans les propriétés de la forme et désactiver les propriétés « blocks vision » et « blocks movement ». Ou il pourrait passer en mode Build et faire glisser la forme de telle sorte que les joueurs puissent passer.
+
+Personnellement, j'avais tendance à utiliser la dernière option, mais mes portes sont généralement aussi sur le calque du brouillard de guerre, donc je devais changer à la fois les calques et les modes, bref, un peu pénible.
+
+C'est là que le module de porte entre en jeu. Lorsqu'une forme est configurée comme une porte, ses propriétés bloquantes peuvent être activées/désactivées immédiatement en cliquant simplement sur la forme en mode Play depuis n'importe quel calque. Simple et facile !
+
+Pour rendre les choses encore plus faciles, vous pourrez désormais aussi appliquer cela automatiquement aux formes que vous dessinez avec l'outil Draw, plus d'informations plus tard !
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/doors.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/doors.mp4" type="video/mp4" />
+</video>
+
+Dans la vidéo ci-dessus, la porte de gauche a été configurée pour être activée par défaut pour tous les joueurs et peut donc être activée/désactivée sans problème par le joueur. La porte devant le joueur a quant à elle été configurée avec la permission de demande.
+Dans ces cas, le DM recevra une demande comme suit, où il pourra choisir d'accepter ou de refuser la demande, ainsi que de déplacer la caméra vers la porte en question, s'il regarde actuellement ailleurs.
+
+![Demande de porte logique au DM](./2022.1/door-dm-request.png)
+
+### Zones de téléportation
+
+Le deuxième module offre une autre amélioration de la qualité de vie.
+Comme vous pouvez le deviner d'après son nom, il vous permet de configurer une forme pour agir comme une zone spéciale où, si une forme y entre, elle est téléportée vers un autre emplacement.
+
+Les cas d'utilisation potentiels de cette fonctionnalité sont les escaliers vers d'autres étages, les pièges ou... les cercles de téléportation !
+
+Les cibles de ces zones de téléportation sont les emplacements d'apparition existants, alors assurez-vous de les configurer d'abord !
+Ces emplacements d'apparition peuvent également se trouver sur d'autres emplacements, le voyage interdimensionnel n'est donc pas un problème non plus.
+
+Par défaut, une zone de téléportation ne s'activera pas immédiatement,
+mais une notification sera plutôt affichée aux joueurs pendant qu'ils sont dans la zone, leur permettant de l'activer à volonté (par ex. un joueur pourrait simplement se tenir sur un escalier sans avoir l'intention de monter).
+Il est cependant aussi possible de la configurer pour agir immédiatement (par ex. un piège à fosse n'est généralement pas optionnel !)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/tp.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/tp.mp4" type="video/mp4" />
+</video>
+
+## UI
+
+Deux petits changements ont été apportés à l'interface des outils.
+
+### Restructuration de l'outil Draw
+
+Le panneau déroulant de l'outil Draw devenait encombré, ce qui empêchait d'ajouter de nouvelles choses.
+Cette version repense l'apparence de ce panneau et utilise désormais une structure avec 3 onglets séparés.
+
+L'onglet de base contient la configuration avec laquelle vous interagirez la plupart du temps et qui concerne l'apparence réelle de l'objet que vous allez dessiner.
+
+Le deuxième onglet est axé sur le comportement du brouillard de guerre. Le DM peut y sélectionner le mode de dessin. De plus, les propriétés bloquantes de la forme dessinée peuvent désormais aussi être modifiées depuis l'outil Draw.
+Ces réglages s'activeront toujours automatiquement lorsque vous sélectionnez le calque du brouillard de guerre, et se désactiveront à nouveau lorsque vous sélectionnez un autre calque. Vous avez cependant désormais le choix de configurer cela pour toutes les formes que vous allez dessiner, sans avoir à les modifier une par une ensuite.
+
+Le dernier onglet est destiné aux nouveaux systèmes logiques et n'offre actuellement qu'une option pour configurer automatiquement le module de porte pour toutes les formes dessinées. Lorsque je travaille sur une carte, je recommande de faire d'abord tous les murs, puis de faire une passe pour les portes avec ce réglage activé. (Et une autre passe pour les fenêtres avec seulement le blocage du mouvement activé !)
+
+### Interface d'édition des polygones
+
+Une petite amélioration de la qualité de vie pour l'interface d'édition des polygones : l'interface sera désormais masquée pendant que vous faites glisser, car elle n'était que du bruit visuel qui interférait parfois avec votre opération de glissement.
+
+## Gestion des ressources
+
+### Prise en charge du dépôt de dossiers
+
+Il devrait désormais être possible, dans la plupart des navigateurs, de déposer des dossiers dans le gestionnaire de ressources !
+
+Cette simple chose était souvent demandée, ce qui se comprend, mais la prise en charge par les navigateurs de certaines fonctions utilisées n'était pas encore standardisée, ce qui devrait maintenant être le cas.
+
+### Informations de dimension
+
+Si une ressource a des informations de dimension dans son nom, elle occupera automatiquement le nombre attendu de cellules de grille lorsqu'elle est déposée sur la table de jeu.
+
+PA recherche spécifiquement un motif correspondant à ?x? où les points d'interrogation représentent un ou plusieurs chiffres. (par ex. 20x20 ou 5x12)
+Les chiffres représentant le nombre de cellules de grille dans les directions X et Y.
+
+## Gestion du serveur
+
+Pour ceux qui hébergent un serveur PA, nous avons aussi quelques changements sympas !
+
+### Désactiver l'inscription
+
+Il est désormais possible d'empêcher les gens de créer de nouveaux comptes, rendant ainsi votre serveur effectivement privé. Il suffit de configurer l'option `allow_signups` dans votre fichier de configuration serveur et le tour est joué.
+
+Il n'existe pas encore de mécanisme pour offrir au propriétaire du serveur (ou à quelqu'un d'autre) la possibilité d'admettre des personnes en particulier.
+Il est cependant possible d'ajouter manuellement un nouvel utilisateur si vous êtes familier avec python, ou simplement d'activer les inscriptions pour une courte période.
+
+### Tableau de bord d'administration
+
+Un tableau de bord d'administration minimaliste peut désormais être activé, qui tourne sur le même port que le serveur API.
+
+Grâce à ce tableau de bord, vous pouvez lister tous les utilisateurs enregistrés, réinitialiser leur mot de passe ou les supprimer entièrement. Vous pouvez également lister toutes les campagnes.
+
+### Prise en charge Docker arm64
+
+Une fonctionnalité de niche : PA construit désormais aussi des images docker arm64 pour les branches release et dev.
+
+### [BREAKING] Gestion des sous-chemins
+
+La manière dont l'hébergement en sous-chemin est géré a été modifiée dans cette version.
+Si vous hébergez un serveur PlanarAlly qui est hébergé via un sous-chemin, assurez-vous de mettre à jour votre configuration.
+
+#### Est-ce que j'utilise un sous-chemin ?
+
+L'hébergement en sous-chemin fait ici spécifiquement référence à une configuration où vous n'hébergez pas PA à la racine de votre domaine (par ex. `http://somedomain.org/`, `http://somedomain.org:2345/` ou `http://subdomain.somedomain.org/`), mais plutôt à un sous-chemin (par ex. `http://somedomain.org/planarally/`)
+
+Il est désormais attendu que le client soit spécifiquement construit avec les informations de sous-chemin. Cela signifie que la variable d'environnement PA_BASEPATH doit être définie lors de la construction.
+
+De plus, le chemin doit désormais explicitement se terminer par une barre oblique.
+
+Si vous utilisiez docker, vous devrez désormais construire l'image vous-même, car vous devrez fournir ces informations supplémentaires pour l'étape de construction du client en utilisant l'option `--build-arg PA_BASEPATH='/subpath/'` au lieu de l'ancienne configuration utilisant `--env PA_BASEPATH`
+
+## Corrections de bugs
+
+Beaucoup de bugs ont été corrigés dans cette version !
+
+- L'étage n'étant plus mémorisé lors du rechargement après l'action « Bring Players »
+- Le collage de formes n'incrémentant pas correctement les compteurs de badges
+- Les formes de vision par défaut agissant toujours comme des pions (indépendamment de isToken)
+- Le verrouillage du rapport d'aspect de l'outil Map ne fonctionnant plus
+- Les modales changeront désormais de position lorsqu'un redimensionnement de la fenêtre les placerait hors de la zone visible de l'écran
+- Correction des barres de défilement visibles en raison du canevas de dés dont la taille n'était pas strictement définie
+- Correction des bloqueurs de mouvement qui s'intersectaient avec eux-mêmes lors d'un déplacement sur le calque des pions
+- Correction des ressources devenant invisibles lors d'une configuration en sous-chemin (ne s'applique qu'aux nouvelles ressources)
+- Correction du sélecteur de couleur qui ne permettait pas de modifier manuellement les valeurs rgba/hsla/hex
+- La suppression de compte ne redirigeant pas correctement vers la connexion
+- La sélection d'une forme dessinée en mode reveal ne supprimait plus l'ombre pendant la sélection
+- La suppression d'une ressource supprimait toute campagne l'utilisant comme logo
+- La saisie numérique de la direction d'une aura ne synchronisant pas le changement avec le serveur
+- Quelques fuites de mémoire lors du changement d'emplacements
+- Le comportement de l'éclairage des étages pour les images à chargement tardif
+- Les téléversements DDraft ne progressant pas dans le gestionnaire de ressources
+- Les lumières DDraft n'étant pas correctement configurées
+- [asset-manager] Le gestionnaire de ressources ne vérifiait pas les fichiers obsolètes lors de la suppression d'un dossier

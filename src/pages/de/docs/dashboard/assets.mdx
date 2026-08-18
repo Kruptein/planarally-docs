@@ -1,0 +1,59 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
+
+# Assets
+
+<Image src={DashboardAssets} alt="Dashboard-Assets" />
+
+Im Bereich **Assets** kannst du Assets verwalten oder erstellen, die in Kampagnen verwendet werden können.
+_Siehe den Abschnitt [DM-Assets](/de/docs/dm/assets/), um zu erfahren, wie du sie verwendest_.
+
+<Info>
+    Derzeit sind Assets nur für den DM von Interesse. In Zukunft soll dies auch ein Ort werden, an dem Spieler Assets
+    hochladen können.
+</Info>
+
+Oben rechts findest du eine kleine Aktionsleiste, mit der du einen Ordner erstellen, neue Assets hochladen oder die aktive Auswahl entfernen kannst.
+
+## Durch die Ordner navigieren
+
+Der Hauptbildschirm bietet dir einen Ordner-Explorer, in dem du durch Doppelklick in einen Ordner wechseln kannst.
+Dein aktueller Ordnerpfad wird mit einer Breadcrumb-Krümelleiste direkt unter dem Titel 'MANAGE ASSETS' angezeigt.
+
+Um zum vorherigen Ordner zurückzukehren, kannst du auf den Ordner ".."[^1] doppelklicken.
+Du kannst auch auf ein beliebiges Segment der Breadcrumb-Krümelleiste klicken, um mehrere Ordner auf einmal zurückzugehen.
+
+## Assets hochladen
+
+Assets können hochgeladen werden, indem du auf das Symbol zum Hinzufügen von Dateien in der Aktionsleiste klickst oder die Assets auf den Asset-Manager ziehst.
+
+## Assets verschieben
+
+Du kannst Assets verschieben, indem du sie in den gewünschten Ordner ziehst.
+Wenn du also ein Asset eine Ebene nach oben verschieben möchtest, ziehe es über den Ordner "..".
+
+Du kannst mehrere Assets gleichzeitig verschieben, entweder indem du einen Ordner mit mehreren Assets ziehst oder mehrere Assets auswählst.
+
+## Assets auswählen
+
+Ein einfacher Klick auf ein Asset wählt es aus und hebt die Auswahl aller anderen Assets auf.
+
+Wenn du die Auswahl erweitern möchtest, kannst du entweder strg+Klick oder umschalt+Klick verwenden.
+Ersteres fügt nur die angeklickte Datei zur Auswahl hinzu,
+während Letzteres alle Dateien zwischen der letzten Auswahl und der neuen Auswahl hinzufügt.
+
+<Info>
+    Das aktuelle Verhalten ist ein Überbleibsel des vorherigen Asset-Managers und imitiert die üblichen Datei-Explorer-Semantiken.
+
+    Die Art und Weise, wie die Auswahl derzeit angezeigt wird, macht dies jedoch etwas unintuitiv.
+    Das könnte sich also in Zukunft ändern.
+
+</Info>
+
+[^1]: Dies ist ein Konzept aus der Unix-Welt.

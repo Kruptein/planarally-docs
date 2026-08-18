@@ -1,0 +1,391 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ArrowsAlt from "~icons/fa-solid/arrows-alt";
+import Eye from "~icons/fa-solid/eye";
+import Lightbulb from "~icons/fa-solid/lightbulb";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+import { Image } from "astro:assets";
+import AssetListPicture from "./assets/asset-list.png";
+import EditAssetPropertiesPicture from "./assets/edit-asset-properties.png";
+import EditAssetDefeatedPicture from "./assets/defeated.png";
+import EditAssetTrackersPicture from "./assets/edit-asset-trackers.png";
+import EditAssetLogicPicture from "./assets/edit-asset-logic.png";
+import EditAssetExtraPicture from "./assets/edit-asset-extra.png";
+import EditAssetAccessPicture from "./assets/edit-asset-access.png";
+import EditAssetAnnotationsPicture from "./assets/edit-asset-annotations.png";
+import ShapeBadgePicture from "./assets/shape-badge.png";
+import LabelManagerPicture from "./assets/label-manager.png";
+
+# Formen
+
+_Um Assets auf die Karte zu bringen, musst du DM sein. Siehe dazu die [DM-Asset-Dokumentation](/de/docs/dm/assets/)._
+
+## Objekte bearbeiten
+
+Das Auswählen bzw. die Interaktion mit Objekten erfolgt hauptsächlich über das [Select-Werkzeug](/de/docs/tools/select/).
+
+Wenn die Form ausgewählt ist, kannst du sie auch mit den Pfeiltasten bewegen.
+
+<Tip title="DM-Cheats">
+    Als DM kannst du durch das Halten der Umschalttaste Formen durch Gelände bewegen, das Bewegung blockiert.
+</Tip>
+
+### Kontextmenü
+
+Ein Rechtsklick auf eine Form zeigt eine Liste von Optionen.
+Die angezeigten Optionen unterscheiden sich je nachdem, ob du DM bist oder nicht,
+aber auch je nach Zustand des Tokens (z. B. „Hinzufügen“ gegenüber „Initiative anzeigen“).
+
+<Image src={AssetListPicture} width={500} aspectRatio={532 / 520} alt="Kontextmenü" />
+
+Die obige Liste zeigt die DM-Ansicht.
+
+#### (DM) Etage/Ebene/Ort
+
+Wenn du mit dem Mauszeiger über die Optionen Etage/Ebene/Ort fährst, öffnet sich ein Untermenü, mit dem du die ausgewählte Form zur gewählten Option verschieben kannst.
+
+Beim Verschieben der Form auf eine andere Etage oder Ebene behält sie dieselben Koordinaten.
+Wenn du die Form jedoch an einen anderen Ort verschiebst, musst du den gewünschten Spawn-Ort wählen, an dem die Form erscheinen soll.
+
+Weitere Informationen findest du in den Dokumenten zu [Etagen](/de/docs/dm/floors/), [Ebenen](/de/docs/dm/layers/) oder [Orten](/de/docs/dm/locations/).
+
+#### Nach vorne verschieben & Nach hinten verschieben
+
+Mit diesen Optionen platzierst du deine Form entweder ganz vorne oder ganz hinten im Stapel der aktiven Ebene.
+So kannst du mehrere Objekte auf derselben Ebene platzieren und sie auf bestimmte Weise überlappen lassen.
+
+#### Zur Initiative hinzufügen oder Initiative anzeigen
+
+Mit dieser Option werden Tokens in das Initiativ-Menü aufgenommen.
+Wenn sie bereits im Initiativ-Menü sind, erscheint die Option als „Initiative anzeigen“.
+Weitere Informationen findest du im Dokument zur [Initiative](/de/docs/tools/initiative/).
+
+#### Formen löschen
+
+Diese Option löscht die ausgewählte(n) Form(en).
+Du kannst dazu auch `Del` oder `Backspace` drücken.
+
+<Tip title="Undo/Redo">
+    Wenn du versehentlich eine Form entfernst, kannst du das mit dem Tastenkürzel ctrl+z rückgängig machen. Das
+    funktioniert auch für bestimmte andere Operationen wie Bewegungen.
+</Tip>
+
+#### Marker setzen
+
+Diese Option setzt die Form als Marker.
+Weitere Informationen findest du unter [Marker](/de/docs/game/markers/).
+
+#### (DM) Vorlage speichern
+
+Wenn du eine Form als Vorlage speicherst, speicherst du die aktuellen Informationen zu dieser Form (z. B. Größe, Tracker, ...) auf dem Server.
+
+Wenn du mit Vorlagen ein Asset auf den Spieltisch ziehst, kannst du deine gespeicherten Informationen auswählen, um es vorauszufüllen.
+
+Weitere Informationen findest du unter [Asset-Vorlagen](/de/docs/dm/assets/#templates).
+
+#### Eigenschaften anzeigen
+
+Diese Option öffnet den Dialog „Asset bearbeiten“, der weiter unten beschrieben wird.
+
+## Formeigenschaften
+
+Durch einen Rechtsklick und die Auswahl der Option „Eigenschaften anzeigen“ öffnest du den Dialog „Asset bearbeiten“,
+mit dem du verschiedene Einstellungen der ausgewählten Form ändern kannst.
+
+<Tip title="Formeigenschaften schneller öffnen">
+    Du kannst auch **Enter** drücken, um diesen Dialog sofort zu öffnen!
+</Tip>
+
+### Eigenschaften
+
+<Image src={EditAssetPropertiesPicture} width={800} aspectRatio={784 / 698} alt="Dialog für Asset-Eigenschaften" />
+
+Der erste Abschnitt besteht aus allgemeinen Eigenschaften der ausgewählten Form.
+
+#### Name
+
+Der Name der Form. Dies ist ein optionales Feld, das standardmäßig auf „Unknown shape“ gesetzt ist.
+Dieser Name erscheint auch an anderen Stellen, z. B. in den Schnellauswahlinformationen und in der [Initiativ-Liste](/de/docs/tools/initiative/).
+
+Das <Eye/>-Symbol schaltet um, ob andere Spieler ohne Bearbeitungszugriff diesen Namen sehen dürfen.
+Ist das nicht erlaubt, sehen andere Spieler unabhängig vom gesetzten Namen „Unknown shape“.
+
+#### Ist unsichtbar
+
+Wenn diese Option ausgewählt ist, wird die Form für alle Spieler unsichtbar, die keine Sicht- oder Bearbeitungsrechte für die Form haben _(\*)_.
+
+Beispiele für diese Funktion sind unsichtbare Beschwörungen, die ein Spieler kontrolliert.
+
+Es gibt derzeit keinen visuellen Hinweis auf dem Spieltisch, der daran erinnert, dass eine Form gerade unsichtbar ist.
+
+_(\*) Der DM sieht unsichtbare Formen ebenfalls, da er impliziten Bearbeitungszugriff auf alle Formen hat_
+
+#### Ist besiegt
+
+Wenn aktiviert, wird ein einfaches rotes `x` über der Form angezeigt, um anzuzeigen, dass sie besiegt ist.
+Diese Eigenschaft kann auch durch Drücken von `x` umgeschaltet werden.
+
+<Image src={EditAssetDefeatedPicture} width={200} aspectRatio={194 / 146} alt="Besiegtes Asset" />
+
+#### Rahmenfarbe & Füllfarbe
+
+Wie die Namen schon vermuten lassen, wirken sich diese Optionen auf die Farben der Form aus.
+
+_Beachte, dass bei einigen bestimmten Formtypen nur eine der beiden Farben verwendet wird._
+
+#### Blockiert Sicht/Licht
+
+Wenn diese Option ausgewählt ist, können Sicht und Licht nicht durch die Form dringen.
+Weitere Informationen zur Beleuchtung findest du im Dokument [Beleuchtung und Sicht](/de/docs/dm/lighting-vision/).
+
+Beispiele hierfür sind Wände/Türen/...
+
+Aus Leistungsgründen solltest du diese Eigenschaft in der Regel nicht Formen zuweisen, die sich regelmäßig bewegen.
+
+#### Blockiert Bewegung
+
+Wenn diese Option ausgewählt ist, können andere Formen nicht durch sie hindurch bewegt werden.
+
+Für Wände wird dies häufig zusammen mit „blockiert Sicht“ verwendet, kann aber auch allein für Dinge wie Fenster genutzt werden.
+
+<Tip title="DM-Cheats">
+    Als DM kannst du diese Einschränkung umgehen, indem du beim Bewegen von Formen die **Umschalttaste** gedrückt
+    hältst.
+</Tip>
+
+Aus Leistungsgründen solltest du diese Eigenschaft in der Regel nicht Formen zuweisen, die sich regelmäßig bewegen.
+
+#### Ist gesperrt
+
+Wenn diese Option ausgewählt ist, wird die Form an ihrer Position fixiert.
+Das kann für statische Formen nützlich sein, die du beim Spielen nicht versehentlich bewegen möchtest.
+Besonders nützlich ist das für deine Karten, deren erneutes Ausrichten am Raster sonst Zeit in Anspruch nehmen könnte.
+
+Drücke `Ctrl + L`, um dies zu tun, ohne das Menü „Asset bearbeiten“ zu öffnen.
+
+#### Abzeichen anzeigen
+
+Wenn diese Option ausgewählt ist, wird unten rechts an der Form ein Abzeichen angezeigt.
+Standardmäßig ist die Abzeichenzahl 1.
+Beim Kopieren und Einfügen dieser Form erhöht sich die Abzeichenzahl schrittweise.
+
+<Image src={ShapeBadgePicture} width={150} aspectRatio={177 / 150} alt="Beispiel für ein Form-Abzeichen" />
+
+Diese Option ist entscheidend für Situationen, in denen du große Gruppen ähnlicher Tokens hast.
+Wenn alle Kreaturen dasselbe Symbol haben, ist es während des Kampfes schwer, sie voneinander zu unterscheiden.
+Wenn du diese Option aktivierst, ist sichergestellt, dass die Spieler und der DM über dieselben Formen sprechen.
+
+Wie die Abzeichenwerte generiert werden, kannst du im Abschnitt [Gruppe](#group) konfigurieren.
+
+### Tracker & Auren
+
+<Image src={EditAssetTrackersPicture} width={800} aspectRatio={1371 / 958} alt="Beispiel für Asset-Tracker" />
+
+#### Tracker
+
+Tracker können verwendet werden, um verschiedene Zustände zu verfolgen.
+Häufige Anwendungen sind z. B. HP, die Einstellung von NSCs oder der Pfeil-/Munitionsverbrauch.
+
+Ein Tracker besteht aus einem Wert und optional einem Namen und einem Sekundärwert.
+Der zweite Wert kann verwendet werden, um ein Maximum anzugeben (z. B. HP 20/40).
+
+Tracker werden erstellt, indem du auf `New Tracker` klickst und einen Wert einträgst.
+
+Ein Tracker, der als `public` festgelegt ist, wird für alle angezeigt, die die Form auswählen.
+Andernfalls können nur Spieler mit `edit`-Zugriff auf das Token ihn sehen.
+
+Die Aktivierung von `display on token` zeigt einen horizontalen Balken oben auf dem Token.
+Er kann mit zwei Farben konfiguriert werden: Die Primärfarbe zeigt den ersten Wert links vom Balken, die Sekundärfarbe den zweiten Wert rechts vom Balken.
+Der Balken folgt der `public`-Einstellung zur Bestimmung seiner Sichtbarkeit.
+
+Ein Klick auf die Titelleiste des Trackers klappt den Tracker zusammen, um die Übersicht zu verbessern.
+Ein Tracker wird entfernt, indem du auf das Papierkorb-Symbol <TrashAlt/> rechts auf der Titelleiste klickst.
+
+#### Auren
+
+Auren ähneln Trackern, haben aber eine visuelle Wirkung auf dem Spieltisch.
+
+##### Reichweite
+
+Um eine Aura auf dem Spieltisch zu zeichnen, musst du ihre Reichweite angeben.
+Dieses Konzept besteht aus zwei Werten: dem „normalen“ Teil und dem „schwachen“ Teil.
+
+Der normale Wert wird verwendet, um einen Kreis mit dem angegebenen Radius in voller Deckkraft zu zeichnen,
+während der schwache Teil einen zusätzlichen Radius zeichnet, dessen Deckkraft zum Rand hin abnimmt.
+
+In D&D 5e zum Beispiel ist eine Fackel als 20 ft helles und 20 ft schwaches Licht definiert, hier würde man also ebenfalls 20/20 eintragen.
+
+Die eingegebenen Zahlen stehen in direktem Zusammenhang mit der Art, wie der DM das Raster konfiguriert hat. Standardmäßig gilt 5 ft = 1 Raster, ein Wert von 20 würde also zu einer Aura führen, die 4 Felder (Radius) abdeckt.
+
+##### Winkel
+
+Dies ist eine Nischenfunktion, die verwendet werden kann, wenn die Aura keinen vollständigen Kreis, sondern eher einen Kegel abdecken soll.
+
+Der erste Wert bestimmt die Breite des Kegelwinkels und ist standardmäßig 360 (d. h. ein vollständiger Kreis).
+Der zweite Wert – eingestellt durch Ziehen des Drehknopfs am Kreis oder durch Ändern des Textfelds –
+bestimmt die Richtung, in die der Kegel zeigt. Bei einem vollständigen Kreis wird dieser Wert aus offensichtlichen Gründen ignoriert.
+
+Die Richtung ist relativ zur Rotation der Form. Wenn du deine Form also drehst, dreht sich der Kegel mit!
+
+##### Farbe & Rahmen
+
+Jede Aura kann zwei verschiedene Farben haben (einschließlich Transparenzeinstellungen).
+Diese werden auf dem Spieltisch gezeichnet, wenn die Aura aktiv ist.
+Die für `aura` festgelegte Farbe wirkt sich auf die von der Aura abgedeckte Fläche aus.
+Unabhängig davon kann eine Farbe für den Rahmen der Aura festgelegt werden.
+
+<Tip title="Lichter & Zauber">
+    Verwende Winkel und Farben, um Lichter anzugeben, die der Charakter trägt, und Rahmen, um die Reichweite von Zaubern
+    anzugeben, die auf dich zentriert sind, z. B. _Magie entdecken_ oder _Unsichtbarkeit aufheben_. Du kannst das auch
+    verwenden, um dich an die besondere Reichweite von Angriffen usw. zu erinnern.
+</Tip>
+
+##### Öffentlich
+
+Standardmäßig ist jede Form oder Aura nur für den DM und jeden Spieler sichtbar, der Bearbeitungszugriff auf die Form hat.
+
+Manchmal möchtest du Auren jedoch allen Spielern zeigen; dann machst du die Aura öffentlich.
+
+Du würdest diese Einstellung z. B. für eine Fackel aktivieren, aber für Dunkelsicht deaktivieren.
+
+##### Lichtquelle
+
+Dieser kleine Schalter hat große Auswirkungen auf die Aura und macht das Sichtsystem von PA so angenehm!
+
+Standardmäßig werden Auren einfach auf dem Spieltisch gerendert – unabhängig von Wänden oder anderen Hindernissen – und geben dir keine Sicht.
+Das ist perfekt für Dinge wie Paladin-Auren und Ähnliches.
+
+Wenn du die Option „Lichtquelle“ aktivierst, signalisierst du PA, dass dies keine normale Aura, sondern tatsächlich eine Licht-/Sichtquelle ist.
+Wenn Wände im Weg sind, stoppt die Aura an den Rändern und gibt nichts dahinter preis. Außerdem offenbart sie dem Spieler alles, was sich innerhalb der Aura befindet (und allen anderen Spielern, wenn es sich um eine öffentliche Lichtquelle handelt).
+
+Häufige Verwendungen sind Dunkelsicht, die eine private Lichtquelle ist, und eine Fackel, die eine öffentliche Lichtquelle ist.
+
+_Hinweis: Sicht und Beleuchtung sind in der Regel nur relevant, wenn du das Sichtsystem mit Sichtlinien verwendest_
+
+### Logik
+
+<Image src={EditAssetLogicPicture} width={500} aspectRatio={580 / 449} alt="Asset-Erweiterungen" />
+
+In diesem Abschnitt kannst du der Form zusätzliche Logik hinzufügen.
+Derzeit gibt es zwei Arten von Logik: „Türen“ und „Teleportzonen“.
+
+#### Türen
+
+Eine Form mit Tür-Logik zeigt ein <Lock />- oder <Unlock />-Symbol, wenn du sie im Play-Modus überfährst.
+Ein Klick, während dieses Symbol angezeigt wird, öffnet bzw. schließt die Tür.
+
+Standardmäßig werden sowohl die Sicht- als auch die Bewegungseigenschaften umgeschaltet, um eine Tür nachzuahmen.
+Du kannst dies aber z. B. so ändern, dass nur die Sicht umgeschaltet wird, um ein Fenster nachzuahmen.
+
+Im Berechtigungsabschnitt kannst du festlegen, wer die „Tür“ öffnen bzw. schließen kann.
+
+#### Teleportzonen
+
+Eine Form, die als Teleportzone (tp zone) markiert ist, kann Formen, die in sie eintreten, an einen anderen Ort teleportieren.
+Das Ziel einer Teleportzone ist immer ein Spawn-Ort und kann auf einer anderen Etage oder sogar an einem anderen Ort liegen.
+
+Teleportzonen gibt es in zwei Ausführungen, die über die Einstellung „immediate mode“ gesteuert werden.
+Im Immediate-Modus löst die Teleportzone automatisch aus, wenn eine Form ihre Bewegung auf der Zone beendet. (z. B. eine auslösende Falle)
+Andernfalls wird eine Benachrichtigung angezeigt, mit der du die Zone bei Bedarf auslösen kannst. (z. B. die Landung einer Treppe)
+
+### Zugriff
+
+<Image src={EditAssetAccessPicture} width={400} aspectRatio={424 / 216} alt="Beispiel für Asset-Zugriff" />
+
+In diesem Abschnitt kann der Spielerzugriff auf die Form konfiguriert werden.
+Standardmäßig haben der Ersteller der Form sowie der DM volle Zugriffsrechte auf die Form.
+
+Über das Dropdown-Menü kannst du den Standardzugriff ändern oder bestimmte Zugriffsrechte für einen Spieler festlegen.
+
+Es gibt 3 verschiedene Zugriffsstufen, die einzeln aktiviert bzw. deaktiviert werden können.
+
+#### <PencilAlt /> Bearbeitungszugriff
+
+Wenn er gewährt wird, kann der Benutzer die Eigenschaften der Form ändern.
+Das umfasst alle anderen Einstellungen wie Tracker und den Zugriff selbst.
+
+#### <ArrowsAlt /> Bewegungszugriff
+
+Erlaubt dem Benutzer, die Form auf der Karte zu bewegen.
+
+Es ist wichtig zu wissen, dass der Spieler seine Form in den Nebel bewegen und sie dort verlieren kann,
+wenn dieses Zugriffsrecht ohne Sichtrechte gewährt wird.
+
+#### <Lightbulb /> Sichtzugriff
+
+Wenn er gewährt wird, erhält der Benutzer Sichtzugriff auf die privaten Auren der Form.
+
+Dies ist eine wichtige Einstellung für die Sicht, die auf Sichtlinien basiert.
+
+#### Einige Zugriffskombinationen
+
+Wenn alle Zugriffsrechte gewährt sind, hast du einfach den vollen Besitz einer Form. Das wird häufig für Spielercharaktere verwendet.
+
+Wie beim Bewegungszugriff erwähnt, ist es möglich, Bewegungszugriff ohne Sichtzugriff zu haben.
+Ein Beispiel für einen Grund, warum du das möchtest, sind Beschwörungen/Vertraute/Begleiter.\
+Grundsätzlich jede Form, die du in gewissem Maße besitzt, auf die du aber nicht wirklich volle Sichtrechte hast.
+(z. B. siehst du normalerweise nicht, was passiert, wenn du sie um die Ecke schickst, auch wenn besondere Zauber oder Funktionen das ändern könnten)
+
+Eine weitere Klasse von Formen, über die du eigentlich keine Sichtrechte haben solltest, sind die mit dem Draw-Werkzeug erstellten Formen.
+Diese stellen in der Regel Objekte wie Wände usw. dar.
+Beim Zeichnen gewähren sie dir standardmäßig ausdrücklich kein Sichtzugriffsrecht, auch wenn du es natürlich bei Bedarf aktivieren kannst.
+
+### Gruppe
+
+Gruppen sind eine Möglichkeit, Formen zu organisieren und optional mit einem Abzeichen zu unterscheiden (z. B. Oger 5).
+Innerhalb einer Gruppe hat jede Form einen eindeutigen\* Wert, ihr Abzeichen.
+
+_\* Beim Zusammenführen von Gruppen hast du die Option, die ursprünglichen Abzeichenwerte beizubehalten, was zu doppelten Abzeichen führen kann_
+
+Die Gruppenoptionen werden in diesem UI-Menü konfiguriert. Es zeigt die geltenden Regeln, die vorhandenen Mitglieder im aktiven Ort, und du kannst einzelne Mitglieder umschalten/entfernen oder die gesamte Gruppe auf einmal umschalten.
+
+Außerhalb dieses Dialogs gibt es außerdem ein Kontextmenü, wenn du bei einer Auswahl, die mehrere Elemente enthält, mit der rechten Maustaste klickst.
+Dieses Kontextmenü bietet ebenfalls Optionen zum Erstellen/Zusammenführen/Aufteilen/Entfernen von Gruppen.
+
+Standardmäßig werden Formen beim Kopieren und Einfügen in dieselbe Gruppe eingeordnet.
+
+#### Zeichensatz
+
+Standardmäßig bestehen Abzeichen aus Zahlen, aber andere Zeichen können bevorzugt werden.
+Es gibt 2 Voreinstellungen (Zahlen und lateinische Zeichen), aber ein benutzerdefinierter Zeichensatz kann als `,`-getrennte Liste angegeben werden (z. B. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+#### Erstellungsreihenfolge
+
+Standardmäßig erhält ein neues Mitglied beim Hinzufügen zur Gruppe eine neue Nummer, die 1 höher ist als die bisher höchste Nummer in der Gruppe.
+Das bedeutet, dass entfernte Nummern übersprungen werden (z. B.: Wenn es 5 Orks gibt und Ork 2 stirbt und ein neuer Ork erstellt wird, erhält er die Nummer 6 und nicht 2).
+
+Eine weitere verfügbare Option ist das Randomisieren von Nummern.
+Beim Randomisieren wird ein Abzeichenindex zufällig zwischen 0 und dem Zweifachen der Anzahl der Mitglieder im Satz zugewiesen (mit einem Minimum von 10).
+Der verfügbare Zufallsraum skaliert dadurch automatisch nach oben, ohne Metagamern zu viel zu verraten.
+
+Wenn du die Erstellungsreihenfolge änderst, werden alle vorhandenen Formen mit neuen Abzeichen versehen (nach einem Bestätigungsdialog).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+#### Gruppen über mehrere Orte verteilt
+
+Ja, das kann der Fall sein: Wenn eine Gruppe Monster die Abenteuergruppe zu einem anderen Ort jagt,
+kommen sie möglicherweise nicht alle zur selben Zeit an oder ziehen sogar nie alle in den neuen Ort um.
+
+Obwohl technisch möglich, ist die Verfolgung über mehrere Orte hinweg ein riesiger Aufwand mit vielen Sonderfällen.
+Aus diesem Grund und weil der tatsächliche Einfluss gering erscheint, entscheidet sich PA für Einfachheit.
+Wenn du in einer Gruppe mit mehreren Orten ein neues Mitglied hinzufügst, ist dessen Abzeichen-Eindeutigkeit nur innerhalb der Mitglieder garantiert, die sich denselben Ort teilen.
+Bei zufälliger Erstellungsreihenfolge ist die Wahrscheinlichkeit einer tatsächlichen Kollision sehr gering, bei fortlaufender Reihenfolge hängt sie davon ab, welcher Ort das Mitglied mit dem höchsten Wert hat.
+Wie dem auch sei, der Einfluss ist so gering im Vergleich zu der zusätzlichen Programmlogik, die hinzugefügt werden müsste, dass es ein lohnender Kompromiss ist.
+
+### Extras
+
+<Image src={EditAssetExtraPicture} width={400} aspectRatio={484 / 382} alt="Asset-Erweiterungen" />
+
+Dieses Panel enthält einige Einstellungen, die an keiner anderen Stelle passen.

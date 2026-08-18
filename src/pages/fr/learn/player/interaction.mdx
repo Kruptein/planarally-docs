@@ -1,0 +1,176 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import PenSquare from "~icons/fa-solid/pen-square";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Interagir avec la partie
+
+Il est temps d'utiliser PA pour de vrai !
+
+## Déplacer la carte
+
+Commençons par le plus simple : déplacer la carte.
+
+Une partie essentielle de l'utilisation de tout VTT est de savoir comment déplacer la caméra.
+
+### Zoom
+
+Zoomer avant/arrière est assez simple, il suffit de faire défiler la molette de la souris.
+Comme vu dans le chapitre précédent, il existe aussi un curseur de zoom dédié en haut à droite que vous pouvez également utiliser.
+
+La principale différence est que le curseur zoomera toujours par rapport au centre de l'écran,
+tandis que le zoom à la souris zoomera par rapport à la position actuelle du curseur.
+
+### Panoramique
+
+Pour déplacer la carte, vous pouvez maintenir enfoncé le bouton central ou droit de la souris et déplacer la souris.
+
+<Tip>
+    Vous pouvez désactiver le bouton que vous n'avez pas l'intention d'utiliser pour éviter les panoramiques accidentels
+    dans vos Paramètres du client
+</Tip>
+
+Vous pouvez aussi vous déplacer au clavier : en appuyant sur l'une des flèches, l'écran effectuera un panoramique dans la direction indiquée.
+À chaque pression, l'écran se déplace d'une cellule de grille.
+
+<Tip>
+    Consultez les [raccourcis clavier](/fr/docs/reference/#keybindings) si vous voulez découvrir d'autres façons de
+    faire !
+</Tip>
+
+## Examiner les outils
+
+Examinons de plus près la barre d'outils en bas à droite.
+Elle peut prendre deux formes selon le **mode**, mais en tant que joueur, vous utiliserez presque exclusivement le mode Play :
+
+![Outils de Play](./assets/tools-play.png)
+
+<Tip>
+    1 : Si vous n'aimez pas les icônes abstraites, vous pouvez modifier l'interface pour afficher des libellés de texte
+    à la place dans vos Paramètres du client.
+    <br />2 : Vous pouvez changer rapidement de mode en appuyant sur <kbd>tab</kbd>
+</Tip>
+
+La plupart des interactions dans PA dépendent de l'outil actuellement actif, qui dans l'exemple ci-dessus est l'outil Select.
+
+Nous allons passer rapidement en revue tous les outils ici, mais en limitant les explications à l'essentiel que vous utiliserez souvent.
+Pour des informations plus approfondies, consultez la [documentation des outils](/fr/docs/tools/select/).
+
+### Select
+
+C'est de loin l'outil le plus courant que vous utiliserez. Son utilité principale est... de sélectionner des choses !
+
+Un clic gauche sur une forme la sélectionne et ajoute un bord rouge autour de la forme.
+Si vous cliquez maintenant avec le bouton gauche tout en maintenant et en déplaçant la souris, vous pourrez déplacer la forme.
+
+Si vous sélectionnez plusieurs formes, vous pourrez les déplacer toutes en même temps !
+
+De quoi vous surprendre, je sais.
+
+L'outil Select a cependant plus à offrir : lorsque vous avez une sélection active,
+une interface spéciale apparaît en haut à droite avec des informations rapides sur la forme sélectionnée, et
+des options de configuration supplémentaires de l'outil Select sont disponibles en bas à droite.
+
+<Info title="Redimensionner / Faire pivoter">
+    L'outil Select a aussi la capacité de redimensionner ou de faire pivoter une forme.
+    <br />
+    Comme ce n'est généralement pas quelque chose que l'on fait régulièrement, cette fonctionnalité n'est visible que
+    lorsque vous êtes en mode Build. Cela évite les redimensionnements accidentels lorsque vous voulez simplement faire
+    glisser votre forme et que vous cliquez un peu trop près du coin.
+</Info>
+
+### Pan
+
+L'outil suivant est probablement l'un des moins utilisés, car il permet de déplacer/pivoter l'écran avec un clic gauche de la souris.
+
+Comme vous pouvez toujours faire un panoramique depuis n'importe quel outil avec les boutons du milieu ou droit de la souris,
+vous n'utiliserez cet outil activement que sur un appareil sans souris.
+
+### Spell
+
+Si vous avez un jour besoin d'ajouter temporairement un effet de sort à la table de jeu, cet outil est là pour vous.
+
+Il vous permet de sélectionner certaines formes de sorts courantes, de configurer leurs dimensions et de les placer sur la carte.
+
+Si vous avez une forme sélectionnée, une règle est automatiquement tracée entre la forme et l'effet du sort,
+afin de vous assurer que vous connaissez la distance à laquelle vous lancez votre sort.
+
+### Ruler
+
+Votre allié si vous devez mesurer des distances.
+
+Un outil très simple : vous cliquez et faites glisser une ligne pour mesurer la distance, soit en nombre de cellules de grille, soit en distance du monde (par ex. pieds ou mètres).
+
+<Tip>
+    Si vous appuyez sur espace tout en faisant glisser la souris, un nouveau point d'ancrage est créé, ce qui vous
+    permet de mesurer autour des coins !
+</Tip>
+
+### Ping
+
+Un autre petit outil bien pratique est l'outil Ping, qui permet simplement d'attirer l'attention sur une zone spécifique de la carte.
+
+### Vision
+
+C'est un outil spécialisé qui n'apparaît que si vous contrôlez plusieurs personnages.
+
+Il limitera votre vision aux personnages sélectionnés dans cet outil.
+
+### Dice
+
+Un outil que vous utiliserez soit fréquemment, soit jamais du tout : l'outil Dice.
+
+Il permet de résoudre des lancers de dés soit sous une forme purement textuelle, soit en simulant réellement des dés 3D virtuels.
+
+### Draw
+
+Cet outil n'est visible que lorsque vous êtes en mode Build !
+
+Avec cet outil, vous pouvez dessiner une variété de formes sur la carte.
+
+## Modifier votre personnage
+
+Quelque chose qui n'a pas encore été couvert est la façon de modifier votre personnage, ce qui est bien sûr aussi une partie importante du jeu.
+
+Lorsque votre personnage est sélectionné, il existe plusieurs façons d'ouvrir l'interface d'édition.
+
+- Appuyez sur l'icône <PenSquare /> dans les informations rapides (en haut à droite)
+- Faites un clic droit sur votre personnage et cliquez sur « show properties »
+- Appuyez sur <kbd>Entrée</kbd>
+
+Quel que soit votre choix, un élément d'interface plus grand devrait apparaître, vous permettant de modifier de nombreux aspects de votre personnage.
+Beaucoup de choses sont configurables, mais ne vous inquiétez pas : en tant que joueur, les onglets les plus essentiels sont Properties et Trackers.
+
+### Properties
+
+Ici, vous pouvez modifier certains éléments essentiels comme le nom de votre personnage et sa ressource.
+
+### Trackers
+
+Ici, vous pouvez configurer des trackers et des auras.
+
+Les trackers sont des données numériques que vous pourriez vouloir conserver et modifier au fil des parties (par ex. les PV).
+Ils peuvent aussi éventuellement être affichés au-dessus de votre personnage sur la carte, soit en privé, soit visiblement pour tous les autres joueurs.
+
+Les auras, en revanche, sont toujours visuelles ; elles représentent des choses comme des effets de zone et des lumières.
+Si l'aura est censée vous donner de la vision (par ex. une torche ou la vision dans le noir), assurez-vous d'activer l'option « Light source ».
+
+Les auras ont 2 valeurs pour leur portée : la première valeur est le nombre de pieds de lumière vive qu'il doit y avoir,
+tandis que la seconde est le nombre de pieds de lumière tamisée. Ainsi, une torche de 5e doit être 20 / 20 (et non 20 / 40 !).
+
+## Lectures complémentaires
+
+Ceci était un aperçu très bref des outils qui vous permettent d'interagir avec PlanarAlly.
+
+Certaines choses non mentionnées que vous voudrez peut-être explorer :
+
+- Notes : gardez une trace des informations que vous avez recueillies sur des PNJ particuliers ou des temps forts de l'histoire
+- Chat : un simple chat textuel éphémère
+- Initiative : un outil d'initiative de base
+
+Et si vous êtes intéressé par l'hébergement d'une partie vous-même, vous pouvez consulter le [guide du DM](/fr/learn/dm/intro/) et découvrir de quoi il s'agit.

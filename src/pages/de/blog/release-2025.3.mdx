@@ -1,0 +1,88 @@
+---
+title: Release 2025.3
+date: 2025-09-08 20:00:00
+excerpt: "Kleine Bugfixes und Umzug des Admin-Panels"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Dies ist ein sehr kleines Release, das darauf abzielt, einige diverse Bugfixes herauszubringen, das alte Server-Config-Setup aufzuräumen und den alten separaten Admin-Client durch ein eingebautes Admin-Panel zu ersetzen.
+
+## Umzug des Admin-Panels
+
+Bis zu diesem Release war es dem Server-Besitzer möglich, neben dem Haupt-PlanarAlly-Server einen zweiten, speziellen Nur-Admin-Webserver zu betreiben. Dieser Admin-Server konnte für sehr einfache Dinge wie das Auflisten aller Benutzer, das Zurücksetzen von Passwörtern usw. verwendet werden.
+
+Er war ziemlich nischig, erforderte für die Einrichtung etwas technisches Wissen und machte das Server-Setup etwas komplizierter. Da er eine separate Anwendung war, wurde er von mir außerdem oft ignoriert, wodurch Abhängigkeiten veraltet waren und er insgesamt einfach keine Updates erhielt.
+
+Also beschloss ich, das Ganze loszuwerden und es einfach in die Hauptanwendung zu integrieren. Eine neue Config-Option „admin_user" (siehe [das Config-Handbuch](/de/server/management/configuration/#field-admin_user)) wurde hinzugefügt, mit der ein bestimmter Benutzer als Haupt-Admin festgelegt werden kann.
+
+Dieser Benutzer sieht in seinem Dashboard einen zusätzlichen Abschnitt „Admin", der das Admin-Dashboard öffnet. Es sind größtenteils dieselben Daten wie im ursprünglichen Admin-Panel, aber mit einigen kleinen Ergänzungen.
+
+Das Ziel ist es, dies in Zukunft mit Dingen wie folgenden zu erweitern:
+
+- Modifikation der Server-Config
+- Anderen Benutzern Berechtigungen geben, bestimmte Dinge zu sehen/zu verwalten
+- Die Statistiken anzeigen, die seit 2025.2 gesammelt werden
+
+Aber das ist etwas für ein zukünftiges Release ;)
+
+## Verbesserungen beim Zoom-Scrollen
+
+Wenn man weit hineingezoomt war, gab es große Sprünge in der Zoom-Stufe, was ziemlich ruckartig und nervig war.
+
+Die Zoom-Erfahrung sollte jetzt deutlich flüssiger sein.
+
+## Initiative-Fixes
+
+Rexy hat eine Reihe von Fixes am Initiative-Verhalten vorgenommen!
+
+- Das Zurückgehen um einen Zug dekrementierte die Effekt-Timer
+- Das Entfernen eines Initiative-Eintrags konnte zu einigen Zustandsinkonsistenzen führen
+
+Beim Entfernen eines Initiative-Eintrags wird jetzt der nächste Eintrag in der Liste zum aktiven Eintrag.
+
+## Fixes für den „Behind"-Sichtmodus
+
+In [2024.1](/de/blog/release-2024.1) wurde der „behind"-Sichtblockierungsmodus eingeführt.
+
+Ursprünglich wurde er mit einer Art cleverem Hack implementiert. Allerdings wurde mir kürzlich (vom bereits erwähnten Rexy) zu Ohren getragen, dass es einige Fälle gibt, in denen dies zu falschen Renderergebnissen führte.
+
+![Falsches „Behind"-Sicht-Rendering](./2025.3/behind-vision-wrong.png)
+
+Im obigen Bild ist das blaue Rechteck im „behind"-Sichtblockmodus konfiguriert, aber irgendwie ist ein großer Teil davon sichtbar, wo er es nicht sein sollte.
+
+Die Details sind ziemlich technisch, aber ich habe ein paar Tage daran gearbeitet und die Logik für den „behind"-Sichtmodus komplett neu geschrieben; sie sollte jetzt robust (TM) sein.
+
+## Asset-Suche-Fixes
+
+Ein heimtückischer Syntaxfehler im Server-Code führte dazu, dass beim Suchen im In-Game-Asset-Manager Assets anderer Spieler angezeigt wurden.
+
+Während ich diesen Fehler behob, fiel mir außerdem auf, dass geteilte Assets beim Suchen nicht abgefragt wurden. Diese standardmäßig einzubeziehen ist eine teurere Operation, also wurde der Suchleiste ein Toggle hinzugefügt, um optional nach Assets zu suchen, die mit dir geteilt wurden.
+
+## Entfernung des alten Config-Setups
+
+Im letzten Release wurde das Config-Format komplett geändert. Seitdem wird es in `data/config.toml` gespeichert statt in der ursprünglichen `server_config.cfg`.
+
+Da die ursprüngliche Config in die Versionsverwaltung eingecheckt war, wollte ich die Leute nicht überraschen, wenn diese Datei beim Upgrade plötzlich entfernt würde. Rückblickend hätte ich sie einfach entfernen sollen (oder ein großes Banner zur Datei hinzufügen), denn es gab einige Verwirrung, weil diese Dateien weiterhin vorhanden waren, obwohl sie nicht mehr verwendet werden.
+
+Na ja, aus Fehlern lernt man!
+
+Wie auch immer, die alten Config-Dateien wurden entfernt.
+
+## Ungültige Server-Config
+
+Der Server wird jetzt bei unbekannten/falschen Config-Daten nicht mehr starten und Fehler melden.
+
+Das ist eine zusätzliche Maßnahme, um Überraschungen für Leute zu verhindern, die glauben, etwas richtig konfiguriert zu haben, es aber in Wirklichkeit nicht haben.
+
+## Statistiken
+
+An den internen APIs wurden einige kleine Änderungen vorgenommen; insbesondere erfolgt der Export an den zentralen PA-Statistikserver jetzt in Chunks, um große Datenpakete zu verhindern, falls der Export eine Weile nicht stattgefunden hat.
+
+Außerdem werden Netzwerkprobleme von Spielern, die schnelles Verbinden/Trennen verursachen, nicht mehr in den Statistiken erfasst, da sie die Daten ohne echten Wert überfluten könnten.
+
+## Diverse Bugfixes
+
+- Formeigenschaften nach erneutem Auswählen nicht wieder öffnen
+- Die letzte Rasterlinie auf der X- oder Y-Achse wurde manchmal nicht gerendert
+- Das Umbenennen einer Etage nach einer Neusortierung benannte die falsche Etage um

@@ -1,0 +1,256 @@
+---
+title: Release 2022.3
+date: 2022-12-12 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+J'avais promis des mises à jour plus régulières et j'ai échoué lamentablement, mais voici une nouvelle release !
+
+_Propriétaires de serveur : des modifications ont été apportées au démarrage du serveur, consultez [Server](#server)_
+
+## Changements d'interface
+
+### Refonte de la dashboard
+
+Nous avions déjà refondu la dashboard en 0.26 (mars 2021), mais nous y revoilà \:D
+
+La section des jeux est passée de 3 entrées de navigation (run/play/create) à une seule section.
+De plus, la barre latérale « détails » que nous avions auparavant prenait beaucoup de place sur les appareils disposant de moins d'espace d'écran.
+Cette section a maintenant été retravaillée pour que la plupart de ces options soient disponibles en cliquant sur un jeu dans la liste.
+
+![Dashboard](../docs/dashboard/assets/dashboard.png)
+
+Il est également important de mentionner que cette fois-ci, le gestionnaire de ressources a réellement été inclus dans la refonte.
+Espérons que cela rendra certaines personnes heureuses, car l'itération précédente était toute autre chose \:D
+
+![Ressources de la dashboard](../docs/dashboard/assets/dashboard-assets.png)
+
+### Icônes de la barre d'outils
+
+Un autre changement visuel : la barre d'outils affiche désormais des icônes au lieu d'étiquettes.
+
+Il existe une option utilisateur pour revenir aux étiquettes si cela ne vous plaît pas.
+
+![Exemple de la barre d'outils d'un DM en mode « Build » avec l'outil Select actif et le mode prêt à être changé en Play mode, tandis que l'outil de filtre peut être utilisé, mais pas l'outil de vision.](../docs/assets/toolbar-example.png)
+
+## Se déplacer sur la toile
+
+Parfois, on perd le fil de là où l'on se trouve sur la table de jeu, ou on veut changer de vue pour adopter celle d'un autre personnage.
+
+L'utilisateur PA aguerri saura qu'il peut généralement utiliser la barre d'espace pour y parvenir.
+Dans cette release, j'ai toutefois ajouté 2 éléments visuels supplémentaires pour améliorer cette expérience.
+
+### Retour au contenu
+
+La première fonctionnalité est destinée au moment où vous êtes perdu sur la toile infinie et ne voyez qu'un écran rempli de brouillard.
+
+Si cela arrive, un nouvel élément d'interface apparaîtra en bas de l'écran.
+Lorsque vous cliquez sur cet élément, votre vue se centre sur l'élément visible le plus proche.
+
+Cela tiendra compte du mode vision de la campagne (réglages de brouillard de guerre et de ligne de vue).
+
+### Directions des pions
+
+Autre ajout : les pions (auxquels vous avez accès) hors écran apparaîtront désormais sur les bords de l'écran avec une flèche pointant dans leur direction.
+En cliquant sur cette flèche, vous centrez votre vue sur la forme correspondante.
+
+![Exemple de directions de pions](./2022.3/token-directions.png)
+
+Ils prennent la même couleur que la couleur de votre Ruler configuré.
+La fonctionnalité peut également être désactivée via un nouveau paramètre du client.
+
+## Qualité de vie
+
+Tout un lot de changements pour la qualité de vie ont été ajoutés.
+
+### Pan
+
+Il était déjà possible de faire un pan avec le bouton du milieu de la souris, désormais le clic droit lancera aussi le mode pan pendant le glissement.
+
+Cela vise surtout à améliorer l'expérience des personnes utilisant un pavé tactile, où le clic du bouton du milieu est moins aisé.
+
+### Rappels de comportement
+
+L'outil Draw et l'outil Vision auront désormais un fond orange lorsque leur comportement est modifié.
+Cela devrait attirer votre attention lorsque vous avez changé quelque chose puis l'avez oublié.
+
+Pour l'outil Vision, il se mettra en surbrillance à chaque fois que vous n'avez pas tous les pions actifs.
+
+Pour l'outil Draw, il mettra en surbrillance les onglets logique et/ou vision lorsqu'un de leurs éléments est actif.
+
+### Prise en charge d'expressions complexes pour les trackers
+
+Lorsqu'on utilise des trackers, les informations de sélection rapide sont un vrai sauveur pour modifier rapidement les trackers pendant la partie.
+Jusqu'à présent, vous étiez toutefois limité à un seul nombre et pouviez ajouter un `+` ou un `-` devant pour le rendre relatif à la valeur d'origine.
+
+À partir de cette release, cette interface a été modifiée pour prendre en charge des expressions plus complexes.
+À peu près n'importe quelle expression mathématique (basée sur math.js) devrait désormais être prise en charge.
+
+Elle dispose aussi de 2 modes : le mode absolu et le mode relatif. Ce dernier ajoute le résultat de l'expression à la valeur d'origine.
+
+Un nouveau paramètre du client permet aussi de choisir quel mode est sélectionné par défaut au lancement d'une partie.
+
+Quelques exemples :
+
+Si votre tracker a une valeur de 50 et que vous exécutez l'expression suivante :
+
+`-(10 + 20 + 5 * 2) + sqrt(4)`
+
+En mode absolu, le tracker sera `-38`, en mode relatif il sera `12` (`50-38`)
+
+De même, en partant toujours de 50 :
+
+`12`
+
+En mode absolu, il deviendra `12` et en mode relatif `62` (`50+12`)
+
+### Outil Vision - auras privées
+
+Lorsqu'on désélectionne une forme dans l'outil Vision, ses auras privées ne sont plus visibles.
+
+### Import/Export
+
+Des ajustements ont été apportés au code d'importation et d'exportation.
+
+Les DM peuvent exporter leur campagne depuis la liste des jeux de la dashboard.
+L'importation peut se faire en allant sur « new game ».
+
+L'importation comme l'exportation affichent désormais une page séparée sur laquelle les informations de progression sont visibles.
+Cela devrait clarifier si l'importation/exportation fonctionne ou si elle a échoué quelque part.
+
+### Dés
+
+Les résultats de chaque dé sont désormais aussi affichés, en plus des sous-totaux et du total général d'un lancer.
+
+Ceci pour s'adapter aux systèmes où le résultat de chaque dé peut avoir un impact sur le résultat final.
+
+## DM : Joueurs
+
+### Rectangles des clients
+
+Le DM a la possibilité de voir la vue de certains joueurs dans les paramètres DM.
+Ce paramètre fonctionne bien lorsque vos joueurs ne sont connectés qu'une seule fois (c'est-à-dire qu'ils ont 1 client).
+
+Lorsqu'un joueur est connecté depuis plusieurs navigateurs (c'est-à-dire >1 client), la vue affichée au DM suivait toujours le client déplacé le plus récemment.
+C'est déroutant et ce n'est pas ce que l'on attend. Désormais, un rectangle séparé sera affiché pour chaque client connecté.
+
+Il est important de savoir que le déplacement d'un client s'appliquera toujours aussi à l'autre client.
+
+### Joueurs actifs
+
+La barre latérale gauche aura désormais aussi une section Joueurs pour le DM qui liste tous les joueurs connectés.
+Cliquer sur un nom dans cette liste centrera votre vue sur sa vue actuelle.
+
+Il s'agit d'un dispositif temporaire, car j'ai l'intention d'explorer davantage le concept de joueur,
+mais je n'ai pas encore trouvé le temps depuis le début de ce prototype grossier.
+
+## Performances
+
+Quelques améliorations de performances ont été ajoutées.
+
+### Limiter le rendu des étages
+
+Il existe désormais une option utilisateur pour limiter le rendu au seul étage actif.
+
+C'est utile lorsque vous avez un ou plusieurs joueurs qui constatent des performances insuffisantes sur une carte avec de nombreux étages.
+
+### Calcul du centre des formes
+
+Le centre d'une forme est utilisé à de nombreux endroits et était calculé à la volée à chaque fois qu'on en avait besoin.
+
+Désormais, le centre sera calculé une seule fois puis mémorisé, jusqu'à ce qu'une action fasse changer le centre (par ex. la forme a bougé), auquel cas il sera recalculé.
+
+La plupart des formes ne changent pas souvent de position (par ex. les murs), donc cela _devrait_ en théorie améliorer les performances.
+
+### Secteurs
+
+Lors du rendu de la scène, pour chaque calque, seules les formes visibles à l'écran sont prises en compte.
+Jusqu'à présent, cela se faisait en parcourant les formes et en effectuant un contrôle visibleInCanvas.
+
+Nouveauté de cette release : les formes sont désormais ordonnées en secteurs (ou chunks) et seuls les secteurs visibles sont contrôlés.
+
+Cela pourrait nécessiter quelques réglages supplémentaires.
+
+## Server
+
+### Emplacement alternatif des fichiers de ressources
+
+Il est désormais possible de changer l'emplacement du dossier des fichiers de ressources, depuis lequel toutes les ressources sont servies.
+
+### Démarrage du serveur
+
+Pour gérer le serveur un peu plus facilement, les fichiers ont été réorganisés.
+Cela affecte le démarrage du serveur : vous devez maintenant appeler le fichier `planarally.py` au lieu du fichier `planarserver.py`.
+
+Il accepte les mêmes paramètres, etc., que le script d'origine.
+
+L'image docker a été modifiée, donc si vous l'utilisez, vous n'avez rien à changer.
+
+### Import/Export
+
+L'importation et l'exportation devraient désormais être plus stables et ont été réactivées par défaut dans le server_config.
+
+## Last-Gameboard
+
+Cette release inclut également le code d'intégration avec la plateforme last gameboard.
+
+## Bugs
+
+### Corrections de la logique des formes
+
+- La zone de téléportation ne se déclenchait pas correctement lorsqu'elle était initiée en tant que joueur
+- La zone de téléportation n'atterrissait pas correctement au centre de la cible
+- Les activations/désactivations de portes par les joueurs n'étaient pas synchronisées avec le serveur / ne persistaient pas
+- L'aperçu des zones porte/Tp ne changeait pas d'étage
+
+### Trackers/Auras
+
+- Les trackers/auras partagés n'apparaissaient pas dans les informations de sélection
+- La suppression des trackers/auras partagés n'apparaissait pas chez le client avant l'actualisation
+
+### Initiative
+
+Depuis un changement technique dans 2022.1, le système d'initiative se comportait mal lorsque des formes inconnues étaient présentes pour le client.
+Les formes inconnues peuvent avoir de nombreuses causes (par ex. la forme a été déplacée vers un autre emplacement, la forme se trouve sur le calque DM et est donc inconnue d'un joueur, ...).
+
+Certaines des entrées ci-dessous sont liées au problème décrit ci-dessus, désormais résolu, mais d'autres constituent un problème entièrement distinct.
+
+- Le serveur devrait mieux détecter les erreurs client dans les listes d'initiative et rejeter les données erronées
+- La modification de l'initiative devrait conserver l'acteur actif actuel dans davantage de circonstances
+- La suppression d'une forme causait des incohérences d'initiative
+- Le passage entre le calque DM et le calque visible par le joueur perturbait parfois l'initiative
+- Le verrouillage de caméra de l'initiative ne changeait pas d'étage
+
+### Ressources
+
+- [DM] Les ressources ne pouvaient pas être déplacées vers le dossier parent
+- [DM] Les ressources ne pouvaient pas être supprimées si une forme liée à la ressource existait
+- [DM|server] Le gestionnaire de ressources n'était plus utilisable avec une configuration en sous-chemin
+
+### Divers
+
+- Les erreurs des fenêtres modales de prompt n'étaient pas visibles
+- Les informations visibles des annotations n'étaient pas synchronisées avec les autres clients avant l'actualisation (interface uniquement)
+- L'état du joueur se réinitialisait lors d'un changement d'emplacement
+- Sensibilité du zoom sur pavé tactile
+- Faute de frappe dans le menu d'emplacement
+- Corrections de l'interface de la fenêtre modale AssetPicker en jeu
+- La fenêtre modale de prompt n'effaçait pas correctement le message d'erreur
+- Les détails des outils n'étaient pas toujours au bon emplacement (par ex. lors d'un changement de mode)
+- Réduction des espaces superflus dans les informations de sélection
+- Le saut vers un marqueur ne changeait pas d'étage
+- Déplacer une forme composite/variante vers un autre étage puis la suivre affichait des boîtes de sélection supplémentaires
+- Le calque Draw était rendu sous le brouillard (par ex. ruler/ping, etc.)
+- La vision n'était pas correctement recalculée lors de la suppression de formes bloquantes dans les configurations multi-étages
+- L'interface AssetPicker apparaissait trop basse
+- L'interface d'édition de polygone restait en arrière lors du pan
+- Le déplacement d'un point de polygone lorsque le polygone est pivoté
+- Les formes normales étaient parfois identifiées à tort comme des emplacements d'apparition
+- Les dés sortaient parfois de l'écran
+- Le déplacement au clavier ne déplaçait pas l'outil d'aide à la rotation de l'outil Select
+- [DM] Les annotations restaient visibles jusqu'à l'actualisation après la suppression de l'accès d'un joueur
+- [DM] La réinitialisation des paramètres spécifiques à l'emplacement n'était pas immédiatement synchronisée avec les clients avant une actualisation
+- [DM] L'activation du mode faux joueur masquait les entrées DM de la barre latérale gauche
+- [server] Le lanceur de dés ne fonctionnait pas sur un serveur en sous-chemin

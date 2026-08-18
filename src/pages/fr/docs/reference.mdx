@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Référence rapide
+
+## Calques par défaut
+
+Pour plus d'informations sur les calques, consultez la [documentation des calques](/fr/docs/dm/layers/).
+
+| Nom    | Visible par les joueurs | Modifiable par les joueurs | Description courte                                                                      |
+| ------ | ----------------------- | -------------------------- | --------------------------------------------------------------------------------------- |
+| Map    | Oui                     | Non                        | Calque sous la grille, généralement utilisé pour les ressources de carte                |
+| Grid   | Oui                     | Non                        | Non sélectionnable non plus par le DM, mais configurable dans les paramètres de session |
+| Tokens | Oui                     | Oui                        | La table de jeu principale                                                              |
+| DM     | Non                     | Non                        | Un emplacement pour le DM afin d'y placer des objets cachés aux joueurs                 |
+| Vision | Oui                     | Non                        | Toutes les formes de ce calque sont invisibles sur les autres calques                   |
+
+## Raccourcis clavier
+
+Sur un Mac, utilisez `Command` à la place de `Ctrl`.
+
+### Déplacement
+
+Une grande partie des raccourcis clavier est consacrée au déplacement des formes ou de l'écran.
+
+| Touche/Modificateur         | Contexte       | Action                                                                              |
+| --------------------------- | -------------- | ----------------------------------------------------------------------------------- |
+| Arrow-keys, Numpad 1-4, 6-9 | sélection vide | Déplacer la table de jeu d'une cellule de grille dans la direction pressée          |
+|                             | sélection      | Déplacer les formes sélectionnées d'une cellule de grille dans la direction pressée |
+| Space, Numpad 0             |                | Centrer l'écran sur le prochain pion (passe en revue les pions possédés)            |
+| Shift                       | sélection      | Déplacer les formes à travers le terrain bloquant les déplacements (DM uniquement)  |
+| Ctrl + 0, Numpad 5          |                | Centrer sur l'origine (0,0) de la grille                                            |
+| Numpad 5                    | sélection      | Centrer sur le centre de la sélection                                               |
+| middle mouse click (hold)   |                | Faire défiler la vue de l'écran                                                     |
+| middle mouse scroll         |                | Zoomer selon la position actuelle du pointeur de la souris.                         |
+| Page up/down                |                | Déplacer la caméra d'un étage vers le haut/bas                                      |
+| Page up/down + alt          | sélection      | Déplacer la sélection d'un étage vers le haut/bas                                   |
+| Page up/down + shift + alt  | sélection      | Déplacer la sélection et la caméra d'un étage vers le haut/bas                      |
+
+### Comportement
+
+| Touche/Modificateur | Contexte | Action                                                            |
+| ------------------- | -------- | ----------------------------------------------------------------- |
+| Tab                 |          | Basculer entre les modes (Build/Play)                             |
+| Alt (hold)          |          | Désactiver le [comportement d'accrochage](/fr/docs/game/snapping) |
+| Ctrl + u            |          | Afficher/masquer l'interface                                      |
+| Ctrl + z            |          | Undo                                                              |
+| Ctrl + shift + z    |          | Redo                                                              |
+| n                   |          | Ouvrir le [gestionnaire de notes](/fr/docs/game/notes)            |
+| Space               | ruler    | Définir des points de passage du [ruler](/fr/docs/tools/ruler)    |
+
+### Interactions de sélection / formes
+
+| Touche/Modificateur | Contexte  | Action                                                                     |
+| ------------------- | --------- | -------------------------------------------------------------------------- |
+| Enter               | sélection | Ouvrir la boîte de dialogue d'édition de la forme                          |
+| Ctrl                | sélection | Étendre la sélection active avec les formes sélectionnées à l'aide de Ctrl |
+|                     | resize    | Conserver le rapport hauteur/largeur                                       |
+| Space               | sélection | Définir des points de passage du [ruler](/fr/docs/tools/ruler)             |
+| Del, Backspace      | sélection | Supprimer toutes les formes de la sélection active                         |
+| d                   | sélection | Désélectionner toutes les formes actuellement sélectionnées                |
+| x                   | sélection | Marquer la ou les formes comme vaincues                                    |
+| Ctrl + l            | sélection | Verrouiller/déverrouiller la ou les formes sélectionnées                   |
+| Ctrl + c            | sélection | Copier la sélection dans le presse-papiers                                 |
+| Ctrl + v            |           | Coller le contenu du presse-papiers sur la table de jeu                    |

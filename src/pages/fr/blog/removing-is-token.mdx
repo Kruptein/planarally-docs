@@ -1,0 +1,119 @@
+---
+title: Changements apportés aux systèmes de vision et d'accès
+date: 2025-02-26 23:45:00
+excerpt: "Suppression de « is a Token » et plus encore"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cet article est un bref aperçu de l'état de la vision dans sa forme actuelle et des changements que j'envisage d'apporter,
+afin de rendre une partie de tout cela plus simple à comprendre.
+
+Soyez assurés que les changements que je veux apporter ne sont pas importants, ce sont des changements plutôt subtils, mais j'ai quand même estimé qu'ils méritaient un article séparé, car la vision est généralement au cœur du gameplay.
+
+## Comment cela fonctionne actuellement
+
+Une documentation détaillée sur le système d'éclairage est disponible [ici](/fr/docs/dm/lighting-vision/#lighting--vision), mais voici un bref résumé :
+
+Lorsque la table de jeu est remplie de brouillard (paramètre DM : remplir avec du brouillard de guerre), tout est caché pour le joueur.
+Cependant, toute forme ayant une aura marquée comme publique et comme source de lumière apparaîtra au joueur.
+Les sources de lumière non marquées comme publiques ne s'afficheront que si le joueur a un accès en vision sur la forme.
+
+Un paramètre de vision supplémentaire peut être activé : la ligne de vue (paramètre DM : LoS).
+Avec ce paramètre activé, les joueurs ne pourront voir les sources de lumière susmentionnées que s'ils ont un accès en vision sur une forme explicitement marquée comme « is a token ».
+Qui plus est, ils ne verront que la partie de ces sources de lumière qui se trouve dans leur vision (en tenant compte des murs et des autres formes bloquant la vision).
+Ainsi, vous ne voyez pas ce qui se trouve derrière le coin, même si c'est éclairé.
+
+## Quels sont les problèmes ?
+
+Alors, qu'est-ce qui cloche dans tout cela ? Pas grand-chose pour être honnête, mais quelques points ressortent après avoir utilisé ce système pendant un certain temps.
+
+- Le paramètre `is a token` est assez contre-intuitif, son impact n'est pas clair au premier abord
+- Il est aussi très facile à oublier, ce qui peut causer de la confusion/frustration autour de la table (par ex. « Non, je ne vois rien »)
+- La signification du droit d'accès en vision devient tout aussi confuse en combinaison avec la propriété `is token`
+- En tant que DM, vous pouvez parfois avoir une fausse idée de ce que les joueurs peuvent voir (nous y reviendrons)
+
+## Repenser le concept de pion
+
+Cela m'a finalement poussé à réfléchir à l'idée centrale derrière le concept de pion. Pourquoi avait-il été introduit à l'origine ?
+
+La réponse à cette question est assez simple : la performance.
+
+Le calcul de la vision des formes est l'une des tâches les plus coûteuses que PA doit effectuer, et en tant que joueur, vous ne possédez qu'une forme, ou peut-être quelques-unes, donc ce n'est pas un gros problème,
+mais le DM possède techniquement toutes les formes de la scène, ce qui peut représenter beaucoup de formes.
+C'est pourquoi la propriété de pion a été introduite pour limiter le calcul de la vision aux seules formes marquées comme telles, soulageant considérablement le côté rendu du DM.
+
+En prenant du recul, cette solution est en réalité un peu à l'envers.
+Pour les joueurs, la solution est relativement simple.
+S'ils ont un accès sur une forme, ils sont susceptibles d'avoir aussi besoin de la vision sur ce que la forme peut voir.
+Et un DM ne se préoccupe finalement (généralement) que de ce que les joueurs peuvent réellement voir.
+
+Ne pouvons-nous donc pas tout simplement abandonner le concept `is a token` et vérifier plutôt si la forme est liée à un joueur ayant un accès en vision ?
+
+Pour répondre à cette question, nous devons d'abord confirmer notre hypothèse : les joueurs ont-ils besoin de la vision sur toutes les formes qu'ils possèdent ?
+
+Il existe, grosso modo, trois types différents de formes auxquelles un joueur peut avoir accès :
+
+- Des formes qui représentent un personnage / un pion de joueur
+- Des formes qui représentent quelque chose comme une invocation / un familier / un PNJ / un autre compagnon
+- Des formes qui représentent des objets (par ex. des effets de sort, des formes dessinées représentant des obstructions...)
+
+La première forme devrait, à tout prix, donner une certaine forme de vision dans 99% des cas, car elle représente fondamentalement le personnage du joueur.
+La deuxième forme est cependant déjà problématique. La réponse ici est « ça dépend ».
+Pour la dernière forme, la réponse est non dans 99% des cas. Il n'y a aucune raison pour que le rectangle que vous avez dessiné pour représenter une barricade vous donne la vision,
+bien au contraire, il devrait bloquer la vision !
+
+Notre hypothèse est donc, malheureusement, fausse : nous ne pouvons donc pas abandonner la propriété `is a token` après tout ?
+
+Pas si vite ! Le lecteur attentif aura peut-être remarqué que jusqu'à présent nous avons souvent parlé d'« accès en vision », ce qui pourrait laisser entendre qu'il existe d'autres _accès_ ?
+
+Il s'avère que oui. PA dispose de 3 niveaux d'accès qui augmentent progressivement les permissions.
+L'accès en vision vous donne accès à toutes les sources privées de lumière/vision de la forme,
+l'accès en mouvement ajoute la possibilité de déplacer le pion jusqu'à celle-ci, et enfin l'accès en édition vous donne la possibilité de modifier les propriétés/auras/... de la forme.
+
+Si nous reprenons nos 4 exemples, nous voudrions probablement les 3 niveaux d'accès pour la première forme, mais seulement l'accès en édition et peut-être le mouvement pour la deuxième forme.
+Quelque chose comme un familier/une invocation peut avoir des statistiques ou d'autres éléments que le joueur devrait contrôler, il pourrait le déplacer, mais généralement il n'aura pas d'accès en vision.
+
+Ce n'est actuellement pas possible, car PA suppose que ces permissions sont additives. Mais nous pouvons les décomposer en permissions totalement indépendantes à la place.
+
+## Une solution, enfin
+
+Donc si nous décomposons les niveaux d'accès, abandonnons la propriété de pion et ne nous intéressons qu'à « l'accès en vision » du joueur... nous réussissons !
+
+Récapitulons donc les changements que je vais probablement apporter :
+
+- Rendre les 3 niveaux d'accès indépendants au lieu de les empiler les uns sur les autres
+- Supprimer la propriété `is token`
+- Déterminer l'état de vision d'une forme en fonction du niveau d'accès en vision
+
+## Le point de vue du DM
+
+Comme je l'ai mentionné plus tôt, il peut y avoir une certaine confusion du côté du DM lorsqu'il s'agit de gérer la vision.
+Généralement, le DM peut voir la vision combinée de tous les joueurs et peut désélectionner certaines vues avec l'outil Vision.
+
+Les auras de vision privées qui ne sont pas associées à un joueur produisent cependant des effets bizarres.
+Elles apparaîtront au DM, car le DM a techniquement accès à toutes les formes, donc les auras privées s'appliquent aussi au DM.
+Ce sont pourtant des auras qui ne s'afficheront jamais pour le joueur, donc les afficher dans la vue du DM est plutôt étrange.
+
+Avec les changements décrits ci-dessus, ce « bug » particulier disparaîtra également.
+
+Cela ajoute cependant un nouveau défi : si `is token` disparaît, comment préparer une nouvelle carte alors que les joueurs ne sont pas encore dans l'emplacement ?
+Vous pourriez, en théorie, ajouter un joueur au hasard sur une forme de test pour vérifier si votre éclairage est correctement configuré.
+Vous pourriez aussi simplement configurer le droit d'accès en vision par défaut de la forme.
+Les deux approches fonctionnent, mais vous devrez être particulièrement attentif à ne pas oublier de retirer cela à nouveau lorsque vos joueurs seront prêts à explorer l'emplacement.
+
+Je pense que nous pouvons faire mieux ici. Lors de la préparation d'une carte, l'aspect ligne de vue ne vous importe généralement pas vraiment, c'est davantage une contrainte de jeu pour les joueurs.
+La configuration des lumières et des murs est tout ce qui nous importe vraiment pendant la préparation. On pourrait activer/désactiver manuellement le paramètre de ligne de vue pendant la préparation et le jeu, mais c'est assez pénible.
+Les différents paramètres de jeu (par ex. la ligne de vue) devraient être constants. C'est l'environnement du DM qui devrait être configurable.
+
+Je vois plusieurs options ici :
+
+- Désactiver automatiquement la LoS pour le DM, et l'activer lorsque vous activez le mode faux joueur
+- Ajouter une nouvelle bascule rapide sous la barre d'outils qui active/désactive la LoS **uniquement** pour le DM
+- Ajouter une nouvelle bascule rapide pour activer le mode « préparation ». Dans ce mode, la campagne est automatiquement verrouillée (c'est-à-dire que les joueurs ne peuvent pas la rejoindre) et certains paramètres spécifiques sont actifs (par ex. la LoS est désactivée)
+
+Je pense que la première option sera contre-intuitive, car vous ne verrez pas de changement immédiat en activant le paramètre LoS du DM, alors qu'il a en réalité un gros effet.
+La deuxième option me semble bonne et c'est probablement celle que je vais retenir.
+Je trouve la troisième option intrigante, mais elle ne fonctionnera pas pour tout le monde.
+Je pense plutôt que le mode de verrouillage pourrait lui aussi devenir une bascule rapide.
+Et à un moment donné, je rendrai probablement configurable quelles bascules sont visibles si vous ne les utilisez pas toutes.

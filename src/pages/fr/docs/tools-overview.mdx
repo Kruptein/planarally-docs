@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# Vue d'ensemble des outils
+
+PlanarAlly fournit un ensemble d'outils pour interagir avec le jeu et les autres joueurs.
+Les DM disposent de quelques outils supplémentaires adaptés à leurs besoins.
+La plupart de ces outils, mais pas tous, sont accessibles via une barre d'outils en bas à droite de l'écran.
+
+<Image
+    src={ToolbarExample}
+    alt="Exemple de la barre d'outils d'un DM en mode « Build » avec l'outil Select actif et le mode prêt à passer en mode Play, tandis que l'outil de filtre peut être utilisé, mais pas l'outil Vision."
+/>
+
+## Barre d'outils et modes
+
+Pour éviter que la barre d'outils ne soit inondée d'options, les outils sont affichés selon un mode de barre d'outils.
+Il existe actuellement 2 modes : « Play » et « Build », le premier se concentrant sur les outils réellement utilisés pendant la partie
+et le second sur les outils principalement utilisés lors de la préparation du DM.
+
+Pour changer de mode, cliquez sur le mode souhaité ou utilisez la touche `Tab`.
+
+Voici une vue d'ensemble de tous les outils et du mode dans lequel ils sont disponibles.
+Notez que certains outils peuvent avoir un comportement différent selon le mode.
+
+## Référence rapide des outils
+
+| Outil                                    | Accès | Mode         | Description                                                                              |
+| ---------------------------------------- | ----- | ------------ | ---------------------------------------------------------------------------------------- |
+| [Select](/fr/docs/tools/select/)         | Tous  | Les deux[^1] | Sélectionner, déplacer, faire pivoter ou redimensionner des formes.                      |
+| [Pan](/fr/docs/tools/pan/)               | Tous  | Les deux     | Faire défiler la vue du jeu.                                                             |
+| [Draw](/fr/docs/tools/draw/)             | Tous  | Build        | Créer des formes de base variées.                                                        |
+| [Spell](/fr/docs/tools/spell/)           | Tous  | Play         | Mesurer et lancer des sorts.                                                             |
+| [Ruler](/fr/docs/tools/ruler/)           | Tous  | Les deux     | Mesurer les distances.                                                                   |
+| [Ping](/fr/docs/tools/ping/)             | Tous  | Play         | Afficher un signal temporaire visible par tous.                                          |
+| [Map](/fr/docs/tools/map/)               | DM    | Build        | Aide à redimensionner les ressources (surtout les cartes) pour correspondre à la grille. |
+| [Vision](/fr/docs/tools/vision/)         | Tous  | Play[^2]     | Limiter les personnages qui contribuent à la vision.                                     |
+| [Zoom](/fr/docs/tools/zoom/)             | Tous  | Les deux[^3] | Effectuer un zoom avant/arrière sur une partie du jeu.                                   |
+| [Initiative](/fr/docs/tools/initiative/) | Tous  | Les deux[^3] | Suivre l'ordre de l'initiative et les effets temporisés.                                 |
+| [Undo/Redo](/fr/docs/tools/undo/)        | Tous  | Les deux[^3] | Annuler et rétablir certaines actions.                                                   |
+
+[^1]: Les fonctionnalités diffèrent selon le mode.
+
+[^2]: Visible dans la barre d'outils uniquement lorsqu'il est réellement utilisable.
+
+[^3]: Ne fait pas partie de la barre d'outils.

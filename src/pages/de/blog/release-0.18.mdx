@@ -1,0 +1,170 @@
+---
+title: Release 0.18.0 - What's new!
+date: 2019-11-15 21:02:34
+excerpt: "Ein Blick auf die neuen Features des kommenden 0.18.0-Releases."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Es ist schon eine Weile her (~5 Monate) seit dem letzten PlanarAlly-Release. Diese Verzögerung ist teilweise dadurch verursacht, dass meine persönliche Kampagne viel Zeit in Anspruch genommen hat, aber auch durch einige technische Features, die für dieses Release noch nicht einmal bereit sind :(.
+
+Die Entwicklung hat in der Zwischenzeit jedoch nicht stillgestanden! Wir haben viele schöne Beiträge zu PA von @Daniferrito und @CalebKoch erhalten, um nur einige zu nennen.
+
+Die Themen, die in diesem Release-Update erwähnt werden, sind links aufgelistet. Das vollständige Changelog findest du auf [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.18.0).
+
+Bevor wir in die Liste der Änderungen eintauchen, möchte ich auch auf ein paar wichtige Änderungen für Version 0.19.0 von PlanarAlly hinweisen.
+
+##### Änderungen am Horizont (0.19.0+)
+
+Bisher gab es die Option, zwischen dem neueren „triangle"-Sichtmodus und dem älteren „bhv"-Modus zu wählen.
+
+Ab 0.19.0 wird der bhv-Modus verschwinden. Er hat in letzter Zeit keine Fixes erhalten und ist in jeder Hinsicht dem triangle-Modus einfach unterlegen.
+
+Ein weiterer Sichtmodus wird in 0.19 Einzug halten, den ich mal „triangle+" nennen werde.
+Es ist derselbe Sicht-Algorithmus, aber statt bei jeder Änderung die gesamte Triangulierung neu berechnen zu müssen, wird er die Triangulierung live ändern.
+
+Das bedeutet, dass jeder Bug in diesem System die Triangulierung unwiderruflich lahmlegen wird, was der Grund ist, warum ich es zunächst als optionales Feature einführe.
+
+Dieser neue Sichtmodus sollte sogar schneller sein als der bestehende triangle-Modus, da er bei einer kleinen Änderung nicht den gesamten Sichtbereich neu berechnen muss.
+
+## Anpassung
+
+### Längeneinheiten
+
+An erster Stelle der Liste steht die Möglichkeit, die Einheitendarstellung für Entfernungen zu ändern. Bisher war dies immer in Fuß (d. h. ft.) fest verdrahtet, hauptsächlich weil die offiziellen dnd-Quellenbücher dies für alles verwenden.
+
+Jetzt ist es möglich, die Darstellung pro Ort zu wählen. Du könntest also eine „Weltkarten"-Ort-Karte mit Einheiten in km und eine andere „Stadt"-Karte mit Einheiten in Metern haben!
+
+Um die Größeneinheit des aktiven Ortes zu ändern, geh zu den DM-Einstellungen und öffne den Raster-Tab.
+
+<video src="/blog/release-0.18/size-units.webm" type="video/webm" autoplay loop></video>
+
+## Werkzeuge
+
+#### Rechtsklick in jedem Werkzeug
+
+Zuvor war das Rechtsklick-Menü nur verfügbar, wenn das Select-Werkzeug aktiv war. Das war ziemlich nervig, und daher wurde die Änderung vorgenommen, es in jedem Werkzeug bereitzustellen.
+
+#### Ping-Werkzeug
+
+Eine neue Ergänzung zur Werkzeugliste ist das Ping-Werkzeug.
+
+Ein gängiger Lifehack in der Vergangenheit war es, das Lineal zu verwenden und schnell herumzudrehen, um die Aufmerksamkeit auf einen bestimmten Bereich der Karte zu lenken. Das ist offensichtlich suboptimal, und daher entstand die Notwendigkeit für eine Art Ping-Werkzeug.
+
+Dieses neue Ping-Werkzeug ist eine sehr rudimentäre Implementierung, die eine gewisse Lösung für das obige Problem bietet und DM und Spielern eine etwas elegantere Form bietet, hervorzuheben, wo sie Aufmerksamkeit möchten.
+
+<video src="/blog/release-0.18/ping-tool.webm" type="video/webm" autoplay loop></video>
+
+Die Idee ist, dies in Zukunft mit einigen Animationsoptionen zum Vergrößern/Verkleinern des Ping-Symbols weiter auszubauen.
+
+### Select-Werkzeug
+
+#### Gruppenoperationen
+
+Das Verschieben einer Gruppe von Token auf verschiedene Ebenen musste in der Vergangenheit Token für Token erledigt werden.
+
+Jetzt kann die gesamte Auswahl auf einmal auf die gewünschte Ebene verschoben werden!
+
+<video src="/blog/release-0.18/group-select.webm" type="video/webm" autoplay loop></video>
+
+#### Strg-Taste + Token auswählen
+
+Zusammen mit der Gruppenauswahl wurde eine weitere Qualitätsverbesserung am Select-Werkzeug vorgenommen.
+
+Du kannst jetzt mit der Strg-Taste Formen zur aktiven Auswahl hinzufügen. Du kannst entweder eine einzelne Form mit Strg-Klick hinzufügen oder ein neues Auswahlfeld ziehen, während du die Strg-Taste gedrückt hältst, um mehrere Formen auf einmal hinzuzufügen.
+
+<video src="/blog/release-0.18/ctrl-select.webm" type="video/webm" autoplay loop></video>
+
+### Draw-Werkzeug
+
+#### Escape zum Abbrechen
+
+Es ist jetzt möglich, das aktive Zeichnen einer Form durch Drücken der Escape-Taste abzubrechen.
+
+<video src="/blog/release-0.18/escape.webm" type="video/webm" autoplay loop></video>
+
+#### Offene Polygone
+
+Das Polygon-Werkzeug war bereits eines meiner am häufigsten verwendeten Werkzeuge, aber jetzt, mit der Möglichkeit offener Polygone, ist es meine bevorzugte Methode, um schnell Wände und andere lichtblockierende Objekte zu erstellen.
+
+Genau wie die geschlossene Variante ist das offene Polygon eine Form, die gezeichnet werden kann, indem man dort klickt, wo man einen Punkt zur Polygonform hinzufügen möchte, und mit Rechtsklick signalisiert, dass die Form vollständig ist.
+Es wird jedoch **keine** automatische Verbindung zwischen dem ersten und letzten Punkt des Polygons erstellt.
+
+Ein weiterer Unterschied ist, dass das offene Polygon keine Füllfarbe hat, da es keinen Bereich zwischen den Punkten gibt, der gefüllt würde.
+
+Ich verwende diese Form ausgiebig zum schnellen Zeichnen von Wänden.
+
+<video src="/blog/release-0.18/openpolygon.webm" type="video/webm" autoplay loop></video>
+
+#### Pinselgröße für Polygone
+
+Zusammen mit der Einführung offener Polygone haben Polygone jetzt auch eine Pinselgröße, genau wie das Pinsel-Werkzeug.
+
+<video src="/blog/release-0.18/brushsize.webm" type="video/webm" autoplay loop></video>
+
+#### Kreise mit nach innen versetztem Rand
+
+Da kreisförmige Token oft verkleinert werden mussten, um in eine Rasterzelle zu passen, wurde die Entscheidung getroffen, die Kreisränder nach innen zu versetzen.
+
+## Ebenen
+
+### FOW: alles unsichtbar
+
+Jede Form auf der FOW-Ebene ist jetzt unsichtbar, wenn eine andere Ebene ausgewählt ist.
+In der Vergangenheit galt dies nur für Formen, die die Option visionObstruction aktiv hatten, aber jetzt gilt dies für alle Formen auf der Ebene.
+Das hängt rein mit der tatsächlichen Sichtbarkeit der Form zusammen; jede auf die Form angewendete Aura bleibt weiterhin sichtbar!
+
+Das ermöglicht es, Lichter einzurichten, ohne dass sie für die Spieler sichtbar sind, oder einige durchsichtige unsichtbare Wände und andere gute Dinge.
+
+## Ort-Leiste
+
+### Aktiver Ort hervorgehoben
+
+Eine nette Qualitätsverbesserung bringt eine Hervorhebungsfarbe für den aktuell aktiven Ort in der Ort-Leiste, damit du sicher weißt, wo du bist ;).
+
+## Bugfixes
+
+Eine kurze Liste der wichtigsten Bugfixes.
+
+### Private Daten bei Bewegung aufgedeckt
+
+Der wichtigste Bugfix betrifft die Situation, in der während des Bewegens einer Form die DM-spezifischen Einstellungen verloren gingen und dadurch einige Informationen für die Spieler öffentlich wurden,
+einschließlich Auren und anderen sichtbezogenen Einstellungen.
+
+Das führte dazu, dass einige Bereiche der Karte während einer Mausbewegung plötzlich sichtbar wurden, sich dann aber wieder verdeckten, wenn die Maus losgelassen wurde.
+Das sollte jetzt ordnungsgemäß funktionieren.
+
+### Licht-Auren schneiden durch Wände
+
+Ein weiterer hartnäckiger Bug, der beseitigt wurde, betrifft Licht-Auren.
+
+Für die steuernde Ebene wurde die Sicht korrekt an Sichtgrenzen wie Wänden abgeschnitten. Für den DM und mögliche andere Spieler zeigte die Aura jedoch einen korrekten sichtbaren Bereich, ging zusätzlich aber auch direkt durch die Wand.
+
+### Sperrzustand funktioniert beim Beitreten korrekt
+
+Das neue Sperr-Feature für DMs zeigte beim Beitreten einer Sitzung immer „entsperrt", selbst wenn die Sitzung gesperrt war.
+
+### Polygon-Vorschausegmente
+
+Beim Zeichnen eines Polygons wird immer eine Linie vom zuletzt angeklickten Punkt zum Mauszeiger vorgeschaut. Diese Linie erschien früher immer in Schwarz, statt die aktiven Zeichenfarben zu verwenden.
+
+### Sitzungen mit Schrägstrich
+
+Sitzungen mit einem Schrägstrich im Namen funktionierten nicht.
+
+### Lineal-Zoombreite
+
+Das Lineal-Werkzeug hatte über mehrere Zoomstufen hinweg eine inkonsistente Breite. Es hat jetzt auf jeder Zoomstufe dieselbe Bildschirmbreite.
+
+### Pinsel-Helfer bleibt hängen
+
+Der Pinsel-Helfer (der Vorschau-Punkt) blieb in einigen Randfällen oft hängen. Er sollte jetzt ordnungsgemäß verschwinden, wenn man Werkzeuge oder Ebenen wechselt.
+
+### Temporäre Formen bleiben hängen
+
+Wenn ein Spieler das Spiel verlässt oder sich neu verbindet, während eine temporäre Form gezeichnet wird, blieb sie oft hängen, bis alle aktualisierten.
+Das sollte jetzt ordnungsgemäß beim Verbindungsabbruch des Spielers bereinigt werden.
+
+### Negative Kreise
+
+Unter bestimmten Umständen war es möglich, zu versuchen, einen Kreis mit negativem Radius zu erstellen. Dieser Versuch ließ die Seite abstürzen.

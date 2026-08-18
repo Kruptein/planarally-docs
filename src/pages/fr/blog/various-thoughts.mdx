@@ -1,0 +1,324 @@
+---
+title: Rétrospective sur 2021 et regards vers l'avenir !
+date: 2022-01-12 20:00:00
+excerpt: "Une mise à jour sur l'avancement de PA et les projets pour l'avenir"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+## Introduction
+
+Salut tout le monde, c'est Darragh qui passe faire un point et partager quelques pensées, idées et divagations sur PA.
+
+Je ne fais pas souvent ce genre d'articles de blog qui ne sont pas que des notes de release,
+tout simplement parce que je ne sais pas souvent de quoi parler et que je ne suis généralement pas très doué pour écrire des pensées cohérentes.
+Les dernières releases ont toutefois été relativement petites et plus espacées, alors je voulais prendre le temps de montrer que ce n'est pas mort !
+
+## Les releases de 2021
+
+Le rythme des releases de PA a toujours connu des hauts et des bas en raison de divers facteurs de ma vie affectant ma productivité, donc avec le recul, un rythme de publication plus lent ces derniers mois n'a rien d'anormal.
+
+En regardant mes articles de blog, nous avons eu 6 releases l'année dernière, dont 3 au cours des 3 premiers mois, 2 en été, puis une autre en octobre. Si je regarde les releases de 2020, c'est en fait une augmentation de 5 à 6 !
+
+Les chiffres purs ne disent pas grand-chose, car certaines releases contiennent plus de choses que d'autres, alors voyons ce que nous avons réellement accompli l'année dernière !
+
+_Je ne vais mentionner que les choses notables, ou celles à propos desquelles je souhaite dire quelque chose, nous avons fait bien plus que cela !_
+
+### Les hexagones
+
+_Ajouté dans 0.24_
+
+Le support des hexagones a été ajouté au début de l'année.
+C'est un changement assez simple et peu de choses ont été faites avec les hexagones depuis, ce qui est un peu dommage de mon côté car ils restent des citoyens de seconde zone, des choses comme l'accrochage ne fonctionnant pas encore pour ces grilles.
+
+C'est l'une de ces choses que je n'utilise personnellement jamais, donc dont je ne suis jamais gêné, et dont je n'entends pas vraiment de plaintes non plus, donc je ne sais pas à quel point les hexagones sont utilisés en général. Si vous êtes quelqu'un qui utilise souvent les hexagones et qui manque de certaines fonctionnalités à cet égard, faites-vous entendre !
+
+### Améliorations de la logique de groupe
+
+_Amélioré dans 0.24_
+
+Les groupes étaient déjà un concept dans PA depuis un moment, mais la release 0.24 a considérablement amélioré leur facilité d'utilisation.
+C'est une fonctionnalité que j'utilise moi-même beaucoup et que je pense être dans une assez bonne position actuellement. Je suis donc plutôt content de ça !
+
+### Les variantes
+
+_Ajouté dans 0.24 & 0.29_
+
+Les variantes, parfois appelées « formes composites », ont été ajoutées comme fonctionnalité expérimentale et le sont très largement encore. Elles ont même été désactivées pendant une courte période après une grosse migration, car je pensais que personne ne les utilisait, mais je me trompais, donc désolé pour ça !
+
+Cette fonctionnalité a un potentiel amusant, j'ai un joueur qui l'utilise pour modifier la palette de couleurs de son eladrin, mais elle a bien plus d'utilisations que cela.
+
+Elle est fonctionnelle, mais reste un peu brute dans certains domaines, donc j'espère trouver le temps de nettoyer tout ça un peu.
+
+Cette forme ajoute beaucoup de complexité car il s'agit d'une collection de formes reliées entre elles, un point que nous aborderons plus en détail dans une section ultérieure, mais c'est aussi la raison pour laquelle je suis souvent hésitant à y toucher, car elle est très sujette aux erreurs.
+
+### Initiative
+
+_Modifié dans 0.24 & 0.27_
+
+L'outil d'initiative est un de ceux que j'utilise beaucoup pour des raisons évidentes.
+Il était criblé de problèmes de synchronisation et d'autres bizarreries d'interface, j'ai donc été heureux de voir une première série de problèmes corrigée dans 0.24.
+
+C'est toutefois la release 0.27 qui a réellement amélioré l'outil d'initiative pour de bon, et je n'ai eu aucun gros problème avec lui depuis cette release. Il a aussi connu une refonte de son interface, avec plus de fonctionnalités pour donner plus de pouvoir au DM dans d'autres scénarios.
+
+### Import/export de ressources
+
+_Ajouté dans 0.24_
+
+Au début de l'année, nous avons aussi vu l'ajout du support d'import/export de ressources au gestionnaire de ressources.
+
+C'est l'une de ces fonctionnalités qui sont aussi plutôt basiques pour le moment. Elles font à peu près ce qu'elles sont censées faire, mais beaucoup de choses peuvent être améliorées ici.
+
+### Améliorations des trackers et des auras
+
+_Modifié dans 0.25 + 0.26_
+
+Un autre changement dont je suis vraiment content du résultat concerne les changements apportés aux trackers et aux auras. L'interface est maintenant beaucoup plus claire et explique mieux les choses au lieu d'être juste un peu fonctionnelle.
+
+J'ai aussi pris beaucoup de plaisir avec les auras angulaires qui sont maintenant possibles, même si elles sont un peu un gadget pour les donjons et dragons standards :D
+
+Plus tard dans 0.26, Scoodle a eu la gentillesse d'ajouter des barres visuelles pour les trackers afin de suivre des choses comme les PV ou ce que vous voulez. C'est quelque chose que mes joueurs ont commencé à utiliser beaucoup et qui semble généralement bien accueilli dans mes propres cercles de jeu.
+
+### Undo/Redo
+
+_Ajouté dans 0.25_
+
+Une chose qui manquait depuis longtemps dans PA était les capacités d'annulation.
+Vous avez fait une erreur ? Pas de chance.
+
+Heureusement, une certaine forme d'annulation/rétablissement a été ajoutée pour les grandes actions comme déplacer des formes ou supprimer des choses.
+C'est une de ces choses dont j'oublie souvent qu'elles n'existaient pas avant l'année dernière, mais qui peut éviter quelques petites frustrations de temps en temps, ce qui est agréable à avoir.
+
+De loin pas toutes les actions sont annulables pour le moment, et c'était une décision consciente pour le publier aussi vite que possible pour les grosses opérations. S'il y a des choses que vous souhaiteriez voir intégrées au système d'annulation/rétablissement, faites-le moi savoir !
+
+### Outil Spell
+
+_Ajouté dans 0.25_
+
+Lorsqu'on lance des sorts dans des jeux comme D&D, une aide visuelle pour voir ce qui toucherait ou ne toucherait pas peut souvent nous être bénéfique. En théorie, nous pouvions déjà y parvenir avec l'outil Draw, mais cela demande un certain effort et fait perdre un temps précieux à la table de jeu, ce qui est la raison pour laquelle l'outil Spell a été ajouté.
+
+Je suis un peu partagé sur l'état actuel de l'outil Spell, j'ai des joueurs qui l'utilisent fréquemment, mais il semble encore y avoir quelques petits bugs qui peuvent aller à l'encontre de tout l'objectif de gagner du temps. J'espère donc trouver le temps de m'y attaquer cette année !
+
+### Refontes de l'interface
+
+_Modifié dans 0.26_
+
+Un GROS changement a été l'interface de tout ce qui n'était pas le jeu principal ou le gestionnaire de ressources. L'écran de connexion, les paramètres utilisateur et la sélection de jeu ont tous été redessinés dans un style uniforme pour se débarrasser de l'ancienne interface, très simple, que nous avions.
+En écrivant ceci, je me souviens à peine de ce à quoi elle ressemblait !
+
+C'est un changement que j'aime personnellement, d'une part parce qu'il était largement attendu, d'autre part parce que je suis généralement mauvais avec le design et que je pense avoir fait un travail correct ici.
+
+Pouvoir ajouter une icône de campagne était aussi une petite touche agréable pour enrichir un peu les pages pendant que vous naviguez.
+
+Malheureusement, j'espérais aussi m'attaquer au gestionnaire de ressources et même l'intégrer à la vue principale, mais je n'ai jamais trouvé le temps de le faire.
+
+Un autre changement d'interface a été celui des paramètres du client, qui utilisent désormais aussi la vue classique panneau-modale à laquelle vous êtes habitués pour l'édition des formes, etc.
+
+### Informations sur les murs externes
+
+_Ajouté dans 0.26 & 0.29_
+
+Dessiner manuellement tous les murs n'est pas quelque chose que tout le monde aime, c'est pourquoi 0.26 a ajouté le support des fichiers svg et des fichiers dungeondraft pour fournir l'information sur l'emplacement des murs.
+
+C'est quelque chose que je n'utilise personnellement pas, je suis assez doué pour dessiner des murs à force de le faire beaucoup, et l'utilisation de fichiers svg présente quelques inconvénients que je n'aime pas personnellement.
+
+Cela dit, c'est plus de liberté pour les gens de consacrer du temps à d'autres choses, ce qui est toujours formidable.
+
+### La grande bordure rouge
+
+Une chose peut-être aléatoire à mentionner, mais la bordure rouge qui indique que la connexion au serveur a été perdue est quelque chose que j'apprécie beaucoup, mais c'est peut-être juste parce que je casse parfois des choses dans ma configuration locale et qu'un indice visuel aide beaucoup dans ce cas :D
+
+Une autre raison pour laquelle je voulais souligner ce point est que je veux l'améliorer un peu pour m'assurer que s'il reste déconnecté pendant un certain temps, un message/une modale/quelque chose de plus grand apparaisse au centre de l'écran pour s'assurer que l'utilisateur actuel remarque que quelque chose cloche. J'ai entendu dire que certaines personnes ont perdu du travail parce qu'elles n'avaient pas remarqué la bordure rouge, la subtilité n'est donc pas pour tout le monde.
+
+### Animation de chargement
+
+Un bon ami à moi, et l'un de mes joueurs, a créé la jolie nouvelle animation de chargement qui parcourt les différents dés dX et je l'adore :)
+
+### Synchronisation des ressources
+
+Une autre petite amélioration que j'apprécie est que la liste des ressources dans la barre latérale (dans le jeu) est maintenant activement mise à jour si vous modifiez des choses dans le gestionnaire de ressources. Dans le passé, je devais souvent rafraîchir la page pour un petit détail, ce qui n'est pas amusant.
+
+### Améliorations de l'outil Draw
+
+_Modifié dans 0.28 & 0.29_
+
+L'outil Draw masque le curseur de la souris du système pour adoucir les choses visuellement.
+Cela rendait toutefois difficile la recherche du curseur PA parfois, car il était d'une seule couleur et pouvait donc se confondre avec l'arrière-plan dans certains cas.
+
+Une première amélioration est arrivée dans 0.28, qui a ajouté une couleur de bordure au curseur PA pour le distinguer de son contenu.
+
+Ce n'est qu'à partir de 0.29 que je pense que les problèmes de fond rencontrés par les gens ont disparu. Cette release a ajouté un objet ressemblant à une souris qui suit le curseur PA, imitant un curseur système, mais conservant la fluidité en le couplant à la même boucle de rendu que le reste du jeu.
+
+### Les dés
+
+_Ajouté dans 0.29_
+
+Une grosse fonctionnalité a été l'ajout des jets de dés à PA.
+Cela a finalement abouti dans 0.29, permettant aux gens de lancer des dés virtuels avec la configuration classique dX.
+
+Les dés sont arrivés dans une version non polie et n'ont pas été nettoyés depuis, c'est donc un grand domaine qui pourrait définitivement bénéficier d'améliorations pour diverses raisons.
+
+La première chose que je voudrais nettoyer est l'interface de l'outil Dés lui-même.
+Cela dit, le comportement des jets peut aussi bénéficier d'améliorations, ainsi que le support d'autres formats de dés pour d'autres JDR.
+
+Un autre aspect que je n'ai pas encore abordé est celui des dés non visuels. Parfois, les gens veulent juste obtenir rapidement un résultat pour 20d20 + 5d4 + 2 sans avoir à attendre que de beaux dés roulent.
+
+Un autre endroit où j'aimerais introduire des concepts de dés est dans les templates, permettant de créer un template de gobelin avec, au lieu d'un pool de PV fixe, une formule (2d6) qui se résout automatiquement lors de l'entrée sur le champ de bataille.
+
+J'espère donc trouver le temps de couvrir les améliorations des dés comme un grand sujet dans l'année à venir !
+
+### Édition des polygones
+
+_Ajouté dans 0.29_
+
+Une autre fonctionnalité à laquelle je me suis enfin attaqué est la modification des polygones.
+J'utilise tellement les polygones que je ne sais pas pourquoi je ne m'y suis pas attaqué plus tôt.
+
+Ajouter ou supprimer des points, scinder ou fusionner des polygones, tout est maintenant possible !
+
+## Divagations sur divers sujets
+
+Après cette rétrospective sur 2021, je voulais prendre le temps de discuter de quelques choses aléatoires.
+
+Certains de ces sujets sont techniques, d'autres très spéculatifs et en aucun cas des plans gravés dans le marbre.
+
+Sur certains de ces sujets, je ne sais pas encore comment continuer ou commencer, et j'aimerais beaucoup avoir votre avis, à vous, ma communauté !
+
+### Les releases
+
+#### Rythme de publication
+
+Une chose sur laquelle j'aimerais connaître votre avis est le rythme de publication.
+
+Jusqu'à présent, je dirais que j'essaie à peu près de publier quand je sens que la release contient assez de contenu. Parfois, cela peut signifier une succession rapide de releases comme nous l'avons vu au cours des premiers mois de l'année dernière, parfois cela peut signifier qu'une release attend quelques mois.
+
+Est-ce quelque chose qui vous convient ?, ou préféreriez-vous que je passe à un rythme plus rapide, où même si je n'ai pas grand-chose (par ex. une petite amélioration/addition et quelques corrections de bugs), je devrais quand même sortir une release, disons une fois par mois.
+
+#### Schéma de versionnage
+
+Un autre sujet dont je voulais discuter est la numérotation des releases.
+PA fait partie du [club ZeroVer](https://0ver.org), la dernière release étant 0.29.0 après presque 4 ans !
+
+C'est tout simplement parce que je ne sais pas vraiment ce qu'il faudrait pour passer à une version 1.0 pour moi. Il faudrait que ce soit quelque chose de substantiel, étant donné que je ne suis jamais passé à la 1.0 par le passé pour d'autres grands changements, ce qui signifie que cela n'arrivera probablement pas de si tôt.
+
+Cela signifie que je pourrais reconsidérer le schéma de versionnage pour utiliser quelque chose de différent.
+Les deux principales options que je considérerais actuellement sont décrites ci-dessous.
+
+##### Supprimer le premier chiffre
+
+Faire quelque chose de similaire à firefox et simplement supprimer le premier 0. Cela nous laisse avec un grand nombre qui montre l'itération et un nombre supplémentaire pour les éventuels correctifs. (par ex. 29.0 au lieu de 0.29.0)
+
+Cette solution est assez simple et ne change pas vraiment les choses en pratique.
+
+##### Releases par année
+
+Une autre option est de faire quelque chose comme « November 2021 » ou « 2021.1, 2021.2, ... », où dans ce dernier cas le 1/2 peut soit simplement être une indication d'itération, soit réellement correspondre au mois de sortie.
+
+Nous continuerions de suivre un autre numéro de version (probablement l'autre suggestion ci-dessus), mais la communication générale se ferait par année et par itération.
+
+Le principal avantage de ceci à mon avis est que cela facilite la communication.
+Je me souviens plus vite si telle chose faisait partie du cycle de releases de 2021 plutôt que de la 0.24.0 et plus.
+
+Étant donné que je ne publie de toute façon pas plus d'une fois par mois, cela pourrait être une option.
+
+### Serveur
+
+#### Limites de ressources
+
+Une chose importante que je n'ai jamais pris le temps d'implémenter est la configuration serveur pour limiter certains paramètres liés aux ressources.
+
+Il n'y a actuellement aucune limite sur le nombre de ressources qu'une personne peut téléverser, ni de limite sur la taille de ces fichiers.
+
+Ce sont deux choses que j'aimerais traiter plutôt tôt que tard.
+
+#### Email
+
+Un autre aspect qui n'est pas encore couvert est tout ce qui concerne les emails.
+Il n'existe actuellement aucun mécanisme pour réinitialiser les mots de passe des joueurs en dehors de la prise de contact avec l'administrateur du serveur.
+La raison principale est qu'aucun système d'email n'est configuré.
+
+C'est un sujet que je devrai un peu étudier,
+mais je m'attends à ce que cela aboutisse à l'ajout de quelques nouveaux paramètres au fichier de configuration pour que l'administrateur du serveur configure les serveurs d'email.
+
+En plus de l'aspect technique de l'ajout du support email, cela signifie aussi ajouter des emails de bienvenue et des emails de réinitialisation de mot de passe, ainsi que d'autres choses.
+
+#### Serveur officiel
+
+J'aimerais aussi pouvoir héberger moi-même un serveur PA officiel.
+Je suis très content et heureux que d'autres personnes hébergent des serveurs publics,
+mais je sens qu'un serveur officiel ne ferait pas de mal non plus.
+
+En fait, https://app.planarally.io est opérationnel depuis un moment déjà, mais c'est actuellement un serveur de **développement** et il n'est donc pas conseillé d'y jouer.
+
+### Client
+
+#### Migration email
+
+Un autre changement que j'aimerais faire est lié au sujet email dans la section serveur, à savoir changer le processus de connexion d'une combinaison nom d'utilisateur/mot de passe à une combinaison adresse email/mot de passe.
+
+Une des raisons est que cela me facilitera beaucoup la vie pour importer des fichiers de sauvegarde depuis un autre serveur. Plus précisément en ce qui concerne les utilisateurs, car je n'ai actuellement aucun moyen de faire correspondre un nom d'utilisateur d'un serveur à celui d'un autre. Il pourrait y avoir un « tom » sur les deux, mais il pourrait en réalité s'agir de deux personnes différentes. Si je fais cela avec les emails, combinés à une adresse email vérifiée, c'est un obstacle de moins à franchir.
+
+Cela rendrait les adresses email obligatoires, ce qui n'était pas le cas par le passé, et la raison principale pour laquelle j'ai initialement choisi une connexion par nom d'utilisateur était de supporter le jeu hors ligne.
+Est-ce que cela signifie que je supprime le jeu hors ligne ? Non, pas du tout. Le jeu hors ligne est et restera toujours une grande fonctionnalité de PA, et cela signifie simplement que la validation email et les autres choses liées aux emails ne seront tout simplement pas pertinentes. L'adresse email agira en gros comme un nom d'utilisateur régulier.
+
+#### Utilisateur vs joueur
+
+Un autre changement que j'aimerais faire est de donner plus de pouvoir aux joueurs.
+Actuellement, le DM gère à peu près tout, il doit téléverser les artworks des personnages, etc.
+
+Un premier changement est d'apporter une distinction plus claire entre le concept d'Utilisateur et celui de Joueur.
+Un utilisateur sera identifié par un email (si mes projets ci-dessus aboutissent) et peut être un joueur dans plusieurs campagnes où il sera identifié par un ou plusieurs noms de personnages.
+
+Plus tard, il devrait être possible d'attacher des ressources spécifiques à un personnage, donnant ainsi au joueur plus de pouvoir pour faire des choses comme téléverser ses propres artworks, etc.
+
+#### Formes multiples
+
+Un sujet complètement différent et plus une digression qu'autre chose est le concept de formes multiples.
+Plusieurs formes de base reliées entre elles pour en former une seule, plus grande.
+
+La principale raison pour laquelle c'est un sujet auquel je m'amuse parfois est d'accommoder des choses comme déplacer la carte et déplacer tous les murs associés à la carte.
+Ou d'autres formes qui ont une certaine connexion avec une forme sur un autre calque. C'est cependant un sujet techniquement plus difficile comme le montrent mes expériences avec les variantes.
+
+Les variantes peuvent être considérées comme une sous-classe du sujet des formes multiples, où plusieurs formes sont liées entre elles, mais où une seule est affichée à la fois.
+De plus, pour les variantes, toutes les formes se trouvent sur le même calque, donc c'est aussi plus simple à cet égard.
+
+Je ne sais pas vraiment où je vais avec cette section, c'est juste quelque chose sur lequel je réfléchis :)
+
+### PA dans le paysage des VTT
+
+Cette dernière section de divagations concerne des sujets plus généraux liés à PlanarAlly.
+
+#### Concurrence
+
+PA est né du désir d'essayer de créer un VTT pour mes propres campagnes et n'a pas été créé avec l'intention première d'être quelque chose de grand.
+Je ne voyais aucune raison de ne pas rendre le code lui-même public, et une chose en entraînant une autre, j'ai une petite mais sympathique communauté autour de ce projet !
+
+Une chose à laquelle je ne fais par conséquent pas du tout attention est la « concurrence », et j'utilise ce mot librement ici car les autres projets n'ont probablement même pas conscience de l'existence de PlanarAlly.
+
+Mais d'autres VTT existent, les grands, mais aussi les plus petits, qui surgissent partout ces temps-ci tout comme PA l'a fait.
+Alors parfois je me sens un peu intimidé, comme si je menais un combat contre des moulins à vent que je perdrai inévitablement.
+Mais je me suis fait une raison en acceptant que même si un moment vient où une autre plateforme est de loin supérieure et que ma base de joueurs passe à autre chose,
+je pourrai dire que ce fut une expérience amusante et que je ne devrais pas être triste.
+
+#### Patreon
+
+Assez lié au dernier point, je suis très reconnaissant envers les personnes qui font des dons sur patreon.
+Je ne publie pas vraiment de choses sur patreon et je n'ai pas de paliers ou quoi que ce soit, parce que je n'ai aucune idée de ce que je pourrais en faire.
+Comme la communauté est assez petite, j'aime simplement dire à tout le monde quand quelque chose de nouveau arrive.
+
+Peut-être qu'il n'y a pas besoin d'en faire quoi que ce soit et qu'il faut juste laisser les choses telles quelles pour l'instant,
+mais si quelqu'un a des idées pour améliorer mon implication sur la page patreon, faites-le moi savoir !
+
+#### Last Gameboard
+
+Une dernière chose que je voulais mentionner est le « Last Gameboard », un produit/une entreprise avec laquelle j'ai interagi l'année dernière.
+C'est un projet sympa sur lequel j'ai intégré PA, et c'est aussi une raison pour laquelle PA a été un peu plus lent dans la seconde moitié de l'année dernière.
+Le produit devrait être lancé quelque part cette année, donc nous verrons comment ça se passe et comment PA sur l'appareil sera bien accueilli.
+
+Cela dit, la plupart du développement que je fais pour cette intégration a aussi trouvé son chemin dans la base de code principale, ce qui est sympa.
+
+## Réflexions finales
+
+Voilà qui conclut mes divagations, si vous avez réussi à lire jusqu'en bas, merci pour votre patience :)
+
+Je n'ai jamais pensé que ce projet évoluerait jusqu'à ce qu'il est aujourd'hui et je ne peux pas vous remercier assez pour cela, alors voyons ce que 2022 nous réserve !

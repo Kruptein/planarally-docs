@@ -1,0 +1,134 @@
+---
+title: Lancez des sorts et annulez vos actions passées - Release 0.25.0
+date: 2021-02-07 13:30:00
+excerpt: "Un aperçu des nouvelles fonctionnalités"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
+Pour la deuxième release de l'année, j'ai une release peut-être plus petite que d'habitude, mais elle a de quoi marquer les esprits.
+
+Cette release contient quelques fonctionnalités que les joueurs vont aussi beaucoup apprécier !
+
+## Refonte des auras
+
+En premier lieu, et c'est l'une de mes fonctionnalités préférées de cette release, une refonte des auras !
+
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Exemple de tracker de ressource" />
+
+La plupart remarqueront immédiatement le changement spectaculaire de l'interface que la section des auras a reçu, mais l'œil averti remarquera aussi 3 nouvelles fonctionnalités ajoutées.
+
+### Changements d'interface
+
+L'interface a été modifiée pour que seule l'information de base soit visible par défaut (nom + activée/désactivée) et lorsqu'on ouvre une aura, on voit tous les détails.
+Un autre grand changement est que les icônes d'aura cryptiques ont désormais des libellés de texte dédiés pour, espérons-le, éviter toute confusion.
+
+### Activer/Désactiver
+
+Par le passé, il n'y avait aucun moyen explicite de désactiver une aura, on pouvait soit la supprimer, soit mettre ses valeurs de portée à 0.
+
+Ces deux actions sont plutôt pénibles, il y a donc enfin un interrupteur dédié, visible à tout moment.
+
+### Bordure
+
+Par le passé, la bordure était invisible, mais il est maintenant possible de spécifier une couleur pour la bordure.
+
+C'est particulièrement pratique pour les auras qui ne sont pas des sources de lumière, où vous voulez peut-être suivre quelque chose sans remplir toute l'aura de couleur, car cela pourrait devenir visuellement fouillis s'il y a beaucoup d'auras. Vous pouvez donc maintenant rendre l'aura transparente mais lui donner une bordure noire pleine, par exemple.
+
+### Cônes
+
+Le dernier changement est la possibilité de faire en sorte que l'aura ne couvre pas un cercle complet, mais se limite à un cône.
+
+Le paramètre d'angle contient 2 outils de saisie : le premier est un champ numérique régulier pour choisir la largeur de l'angle,
+le second pour choisir la direction réelle vers laquelle l'aura doit pointer.
+
+C'est une fonctionnalité plus de niche, dont je ne m'attends pas à ce qu'elle soit beaucoup utilisée, mais les gens peuvent l'utiliser pour des règles de vision hardcore, des sources de lumière spéciales ou simplement tout ce qui leur vient à l'esprit !
+
+## Undo/Redo
+
+Une fonctionnalité souvent demandée, pour de bonnes raisons, est la possibilité d'annuler des actions.
+
+Cette release ajoute une première version de la fonctionnalité annuler (undo) et refaire (redo), limitée à un ensemble initial d'actions.
+Ces actions sont :
+
+- déplacement de forme
+- rotation de forme
+- redimensionnement de forme
+- changement d'étage
+- changement de calque
+- création/suppression de forme
+
+Cela couvre quelques notions de base (se déplacer) et aussi la chose la plus importante qui soit agaçante : la suppression accidentelle de formes.
+Des choses comme les changements de propriétés spécifiques et autres ne sont donc pas encore annulables, mais il y a une base sur laquelle travailler.
+
+ctrl+z est utilisé pour annuler les actions, ctrl+shift+z est utilisé pour refaire les actions.
+
+Actuellement, il y a une mémoire d'actions codée en dur de 50 actions.
+
+_Pourquoi pas ctrl+r pour refaire ? Cela remplacerait une touche courante de rechargement du navigateur, ce que je préfère éviter._
+
+## Lancement de sorts
+
+Une demande que j'ai eue à plusieurs reprises est de fournir quelque chose pour permettre de lancer des sorts, ou au moins un outillage pour voir si certains ennemis seraient touchés par un sort donné.
+
+Vous verrez maintenant un nouvel outil apparaître dans la barre d'outils (en mode Play), à juste titre nommé « Spell », qui vous permettra de faire exactement cela !
+
+Voici un petit aperçu de ce que vous pouvez attendre :
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+Comme on peut le voir, vous avez le choix entre 3 formes de base (cercle/carré/cône) et pouvez configurer des choses comme la taille et la portée du sort.
+
+Le comportement par défaut est axé sur la simple mesure, pour voir quel serait l'impact des sorts,
+mais lorsque vous faites un clic gauche, vous « lancez » réellement le sort et l'effet restera sur le champ de bataille !
+
+Pour plus d'informations sur le fonctionnement de l'outil Spell, voir [la documentation](/fr/docs/tools/spell/)
+
+## Archivage des emplacements
+
+Quand une campagne dure longtemps, il arrive un moment où votre barre d'emplacements peut se remplir.
+Vous pouvez simplement vivre avec et faire défiler vers la droite, ou vous pouvez faire glisser manuellement les emplacements actifs vers la gauche.
+
+Avec cette release, il y a maintenant l'option d'archiver des emplacements. Cela les masque simplement de la barre mais les laisse autrement intacts.
+L'archivage se fait depuis les paramètres des emplacements.
+
+Un nouveau bouton d'interface est ajouté à gauche de la barre des emplacements pour restaurer les emplacements archivés dans la barre.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
+</video>
+
+## Annotations publiques
+
+Une fonctionnalité plus petite : il y a maintenant une option pour rendre les annotations de formes publiques.
+
+## Corrections notables
+
+### Barre d'emplacements (DM)
+
+L'emplacement des joueurs est maintenant mis à jour avec précision en direct lorsqu'ils sont déplacés vers un autre emplacement dans le cadre d'un téléport vers un point d'apparition.
+
+### Auras privées de l'outil Vision
+
+L'outil Vision est un bel outil à avoir quand vous contrôlez plusieurs personnages sur un seul écran.
+Il ne prenait cependant pas correctement en compte le paramètre public/privé des auras et affichait toujours toutes les auras des pions que vous contrôlez, même si vous aviez désactivé la vision d'un de ces pions.
+
+### Nouveaux étages non fonctionnels avant un rafraîchissement
+
+Lors de la création de nouveaux étages, vous n'aurez plus besoin de rafraîchir, car ils ne sont plus mal triangulés.
+
+### Synchronisation des noms de formes
+
+Lors du basculement de la visibilité du nom d'une forme, il y avait des problèmes de synchronisation qui ont été corrigés.
+
+### Vision sur plusieurs étages
+
+Un bug s'était récemment glissé qui permettait aux auras d'un étage d'éclairer aussi des éléments des étages inférieurs.

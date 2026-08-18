@@ -1,0 +1,79 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Table de jeu
+
+C'est le cœur de PlanarAlly.
+En jouant, vous interagirez principalement avec la table de jeu, déplaçant des pions sur une carte qui montre (ou ne montre pas) l'environnement de votre personnage ainsi que les autres personnages PJ et PNJ qui l'entourent.
+
+<Warning title="La grande bordure rouge">
+    La plupart de vos actions doivent être synchronisées avec le serveur. Si cette connexion est perdue pour une raison
+    quelconque, une épaisse bordure rouge autour de l'écran vous avertira. Toute modification effectuée pendant une
+    déconnexion risque d'être perdue.
+</Warning>
+
+## Aperçu
+
+Ce document offre une brève introduction technique aux concepts d'emplacements, d'étages et de calques.
+Cette lecture n'est pas indispensable pour un joueur, mais elle peut donner un meilleur aperçu du comportement de certains systèmes.
+En tant que DM, vous trouverez des informations plus approfondies sur chacun de ces concepts dans la section DM.
+
+PlanarAlly organise les campagnes à l'aide de 3 concepts. Une campagne possède 1 ou plusieurs **emplacements**, chacun composé de 1 ou plusieurs **étages**, chacun composé d'un ensemble fixe de **calques**.
+L'ensemble de ces éléments aboutit à un scénario dessiné à l'écran avec lequel vous interagissez.
+
+En tant que joueur, vous n'êtes généralement pas en mesure de modifier l'emplacement, l'étage ou le calque actif,
+mais vous interagissez néanmoins avec ces concepts chaque fois que vous déplacez une forme.
+
+## Emplacements
+
+Au sommet de l'organisation se trouve le concept d'emplacements.
+Une campagne a au moins 1 emplacement, mais peut en avoir plusieurs.
+
+Un emplacement peut être considéré comme une instance spécifique de votre monde de jeu.
+Il peut s'agir d'un bâtiment très précis que le groupe explore, d'une vue à plus grande échelle d'un village ou même de la carte du monde.
+
+À tout moment, un joueur interagit toujours avec exactement 1 emplacement, mais le DM peut déplacer les joueurs au fur et à mesure qu'ils parcourent le monde.
+
+Consultez la [documentation DM sur les emplacements](/fr/docs/dm/locations/) pour plus d'informations.
+
+## Calques
+
+Lors du chargement d'un emplacement, des éléments doivent être dessinés sur votre écran.
+Vous vous attendez à voir une carte, les pions de vos personnages et peut-être un peu de lumière ou d'ombre.
+
+Bien que tous ces éléments semblent se trouver sur le même plan 2D, PlanarAlly empile en réalité plusieurs **calques** les uns sur les autres.
+
+En tant que joueur, vous ne pouvez interagir qu'avec le calque des _pions_.
+C'est le calque principal sur lequel vous déplacez vos pions et les formes que vous avez dessinées.
+
+Il existe d'autres calques qu'un joueur peut voir, mais avec lesquels il ne peut pas interagir : le calque de carte et le calque de grille en sont les exemples les plus évidents.
+Ces deux calques sont rendus sous le calque des pions.
+
+Certains autres calques sont totalement invisibles pour les joueurs.
+Le calque DM, par exemple, n'est visible que par le DM et peut être utilisé pour dissimuler des secrets jusqu'au moment où ils deviennent pertinents.
+
+Pour une explication plus détaillée des différents calques, consultez la [doc DM](/fr/docs/dm/layers/) !
+
+## Étages
+
+Avec les emplacements et les calques, nous sommes prêts à jouer.
+PlanarAlly a cependant un atout supplémentaire dans sa manche.
+
+Un ensemble de calques est appelé un **étage**.
+Un emplacement en possède toujours 1, mais peut être étendu pour en compter plusieurs.
+
+En explorant un manoir inquiétant, vous êtes inévitablement amené à monter ou descendre des escaliers.
+Lorsque vous montez un escalier, vous préférez idéalement que le DM n'ait pas trop de travail pour déplacer votre pion sur la carte de cet étage.
+On pourrait utiliser un autre emplacement PA ou une autre zone de l'emplacement actif, mais c'est peu pratique.
+
+Les étages PA sont un outil qui permet au DM d'organiser ce genre de choses plus naturellement.
+Tout comme dans un bâtiment réel, les étages PA sont rendus les uns au-dessus des autres ; vous pourrez donc peut-être voir les étages situés sous celui où vous vous trouvez.
+
+Un exemple courant serait une fenêtre, un balcon ou même un trou dans le plancher.
+Ainsi, si rien n'obstrue votre vue, vous pouvez encore voir certaines choses se produire aux étages inférieurs (par exemple en regardant par une fenêtre).
+
+Si le DM vous permet de changer d'étage manuellement, vous pouvez y accéder via le menu en bas à gauche de votre écran ou utiliser l'un des raccourcis clavier.
+Notez que vous pourriez ne pas voir tout ce qui se trouve sur un autre étage, selon l'[éclairage](/fr/docs/dm/lighting-vision) et selon que vous avez un accès suffisant aux pions de cet étage.

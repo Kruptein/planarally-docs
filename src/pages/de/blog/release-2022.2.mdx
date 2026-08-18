@@ -1,0 +1,226 @@
+---
+title: Release 2022.2
+date: 2022-06-11 12:00:00
+excerpt: "Import/Export"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Wie im letzten Release versprochen, möchte ich regelmäßigere Updates machen, auch wenn sie nicht viele Funktionen hinzufügen.
+Dieses Release behebt viele Fehler, bringt aber auch einige neue Dinge!
+
+_Serverbetreiber: Es wurden Änderungen an der server_config vorgenommen, siehe [Serverangelegenheiten](#server-stuff)_
+
+## Import/Export
+
+Die markanteste neue Funktion ist die Import/Export-Funktionalität.
+Die Exportfunktion wurde bereits im letzten Release als reines API-Feature hinzugefügt (d. h. ohne UI zum Exportieren),
+aber die Importfunktion war noch nicht definiert.
+
+_Nebenbei bemerkt konnte ich dank dieser Exportfunktion einige Fehler schneller beheben!_
+
+Dieses Release bringt sowohl die Importfunktion als auch eine UI für Export und Import, sodass auch Endbenutzer sie nutzen können.
+
+### Experimentell
+
+Ich möchte betonen, dass diese Funktion noch nicht ihre endgültige Form hat, aber da sie eine sehr spezielle Funktion ist,
+war ich zuversichtlich, sie bereits zum Testen zur Verfügung zu stellen.
+
+Worauf du achten solltest:
+
+- Die UI ist sehr minimalistisch, sowohl Import als auch Export sind nur ein einzelner Button ohne Fortschrittsanzeige.
+- Es gibt auch noch keine clientseitigen Fehlerinformationen
+- Du kannst keine Kampagne importieren, die denselben Namen trägt wie eine Kampagne, die du bereits läufst
+- Du kannst eine Kampagne nur auf einem Server importieren, der dieselbe oder eine neuere Version läuft als der Server, auf dem du exportiert hast
+
+Die ersten beiden Punkte sind Dinge, an denen ich für ein zukünftiges Release arbeiten werde.
+Der dritte Punkt ist eine Frage von UI/UX und der Möglichkeit, einen anderen Kampagnennamen anzugeben.
+Letzteres ist eine offensichtliche technische Einschränkung, da ein älterer Server keine Ahnung hat, was sich am Speicherformat geändert hat.
+
+Um dieses Problem anzugehen, müsste ein separater Dienst erstellt werden, der in der Lage ist, Speicherdateien zwischen beliebigen Versionen zu aktualisieren/downgraden. Das wird einiges an Arbeit erfordern, also erwarte das nicht zu bald.
+
+### Wie man exportiert/importiert
+
+Sowohl Export als auch Import werden über das Haupt-Dashboard aufgerufen, also NICHT im Spiel!
+
+Um eine Kampagne zu exportieren, die du als DM leitest, klickst du einfach auf eine Kampagne in deinem „Laufen“-Bereich und dann im Seitenmenü auf den „Export“-Button.
+Wenn der Export fertig ist (falls er nicht auf der Serverseite fehlgeschlagen ist), wirst du von deinem Browser zu einem Dateidownload aufgefordert. Das Exportieren einer Kampagne ist nicht sofort erledigt, dauert aber auch nicht super lange.
+
+Das Ergebnis einer exportierten Kampagne ist eine einzelne Datei mit der Erweiterung „.pac“, kurz für PlanarAlly Campaign.
+Diese Datei enthält alle Assets, die in der exportierten Kampagne verwendet werden, sowie alle Informationen aus der Datenbank, die sich auf die Kampagne beziehen.
+
+Um diese Kampagne dann auf einem anderen Server zu importieren, gehst du zum „Import“-Bereich in der Navigations-Seitenleiste und drückst den einfachen Button.
+Wenn es fertig ist, wirst du zum „Laufen“-Bereich weitergeleitet und die importierte Kampagne sollte dort aufgelistet sein.
+
+Die Zeit, die sowohl für Export als auch Import benötigt wird, skaliert mit der Größe der Kampagne (#Orte, #Etagen, #Formen) sowie der Größe der in diesen Kampagnen verwendeten Assets.
+
+### Wann würde ich das nutzen?
+
+Du fragst dich vielleicht, was der eigentliche Nutzen davon ist, und ich wette, die meisten Leute bleiben bei einem Server und müssen sich nie um Export/Import kümmern!
+
+Hier sind einige potenzielle Anwendungsfälle:
+
+1. Du hast einen Fehler gefunden, etwas funktioniert nicht richtig und aus einem Chat mit mir ist nicht sofort klar, was schiefgeht.
+   Das ist ein perfekter Zeitpunkt, um einen Export deiner Kampagne zu machen und ihn mir zu schicken. So kann ich in Ruhe debuggen, ohne ständig hin und her zu schreiben.
+
+2. Du machst gerne eigene Backups. Es ist immer möglich, dass etwas mit einem Server schiefgeht, den du nutzt. Ein Backup zu behalten schadet niemandem.
+
+3. Du bist dabei, irgendwo ohne Internet zu spielen. Exportiere schnell deine Kampagne,
+   importiere sie auf einem lokalen Server, den du starten kannst, und zack, kannst du weiterspielen, wo du aufgehört hast.
+   Sobald du wieder eine Internetverbindung hast, kannst du sie zurückimportieren!
+
+4. Du möchtest einfach zu einem anderen PA-Server wechseln.
+
+## Farbwähler
+
+Der Farbwähler hat einen lustigen neuen Trick bekommen und außerdem 2 Fehlerbehebungen, die mich gestört haben :D.
+
+### Bereits verwendete Farben merken.
+
+Der Farbwähler merkt sich jetzt, welche Farben du verwendet hast (\*).
+Sie werden am unteren Ende des Wählers in 2 Reihen angezeigt (maximal 20 Farben werden gespeichert). Du kannst auf eine dieser Farben klicken, um sie als aktuelle Farbe festzulegen. Wenn du über eine Farbe in der Liste fährst, wird auch der rgba-Wert dieser Farbe angezeigt.
+
+Der Farbverlauf wird pro Benutzer über alle seine Kampagnen hinweg gespeichert.
+
+![Farbspeicher](./2022.2/colour-memory.png)
+
+(\*) Eine Farbe wird zur Liste hinzugefügt, wenn du den Wähler schließt, _nicht_ wenn du damit zeichnest. Letzteres würde Code in der gesamten Codebasis erfordern, während das jetzt in der Farbwähler-Logik enthalten bleiben kann.
+
+### Fehler
+
+Es wurden auch 2 Fehler mit dem Farbwähler behoben.
+
+#### Deckkraft-Reset
+
+Wenn man auf die Farbleiste klickt (die über der Deckkraft-Leiste), wurde die Deckkraft oft auf 1 oder 0 zurückgesetzt, statt das aktuelle Deckkraft-Niveau zu behalten.
+
+#### Sättigungsfeld kehrt zu Rot zurück
+
+Wenn man zuerst eine Farbe auf der Farbleiste auswählt und dann auf das Sättigungsrechteck klickt, wurde die Farbleiste oft auf ihren äußersten linken Wert (Rot) zurückgesetzt. Das sollte jetzt nicht mehr passieren.
+
+## Logik-Anpassungen
+
+Logik war eines der glänzenden neuen Dinge im 2022.1-Release und wir sind hier, um etwas von diesem neuen Glanz zu polieren!
+
+### Tür: Symbol-Klarheit
+
+Wenn man im Spielmodus über eine Tür fährt, erscheint ein <Lock />- oder <Unlock />-Symbol.
+Das war nur ein schwarzes Symbol, das auf dunklem Hintergrund schwer zu erkennen ist.
+
+Dieses Release fügt den Symbolen eine weiße Umrandung hinzu, damit sie immer sichtbar sind.
+
+### Tür: Blockierer festlegen
+
+Das erste Release der Tür-Logik war rein auf ... Türen ausgerichtet.
+Bei einer Standardtür sollten die Eigenschaften „Bewegung blockieren“ und „Sicht blockieren“ beim Öffnen oder Schließen umgeschaltet werden.
+Es gibt jedoch auch Varianten von Türen (z. B. Fallgitter) oder Dinge wie Fenster, bei denen du vielleicht nur 1 Eigenschaft umschalten möchtest.
+
+Du kannst jetzt festlegen, welchen Blockierer die Tür beim Klicken umschalten soll.
+
+![Tür-Blockmodus](./2022.2/door-block-mode.png)
+
+Du kannst die andere Blockiereigenschaft natürlich weiterhin manuell ändern, wie du es für richtig hältst. \
+(z. B. ein Fenster mit der Tür-Logik zu versehen, um nur die Sicht zu togglen, um Vorhänge nachzuahmen, aber die Bewegungseigenschaft zu ändern, wenn jemand einen Ziegel durch das Fenster wirft)
+
+### Fehler
+
+Mehrere Fehler im Zusammenhang mit Form-Logik wurden behoben.
+
+- Türberechtigungen des Zeichenwerkzeugs wurden nicht gespeichert
+- Das Umschalten der Tür-Logik aktualisierte die UI nicht sofort, wenn Formeigenschaften geöffnet sind
+- Teleportzonen lösten von anderen Etagen aus
+- Logik-Init-Randfälle brachen die UI bis zum Neuladen
+- Der Logik-Berechtigungsauswahler zeigte in einem Randfall einen Fehler
+
+## UI/UX-Verbesserungen
+
+Es wurden einige schöne Änderungen vorgenommen, um die UX und die allgemeine UI in bestimmten Bereichen zu verbessern.
+
+### Ladeanimation schneller anzeigen
+
+Beim Öffnen einer Kampagne wird eine schöne Ladeanimation angezeigt.
+Diese Animation startete jedoch erst zu einem bestimmten Zeitpunkt und je nach Computer
+konnte es beim Öffnen einer Kampagne eine kurze Zeit geben, in der scheinbar nichts passierte.
+
+Die Animation wird jetzt sofort beim Klicken auf eine Kampagne angezeigt, damit klar ist, dass PA etwas tut und du nicht einfach danebengeklickt hast.
+
+### Skalierung von Besiegt-Overlay und Badge mit der Form
+
+Das Besiegt-Overlay der Form und die Form-Badges hatten eine feste Größe.
+Das bedeutete, dass ein Badge für eine gigantische Kreatur winzig war und ein Badge für eine winzige Kreatur das Kreatur-Token selbst ziemlich verdeckte.
+Außerdem führte das bei unterschiedlichen Rastergrößen zu Problemen.
+
+Dieses Release skaliert diese Aspekte nun richtig mit der Größe der Form, zu der sie gehören.
+
+### Modal-Behandlung in Firefox
+
+Firefox' Behandlung von dragEnd-Events ist sehr inkonsistent/fehlerhaft, was dazu führte, dass das Ziehen von Modals komplett kaputtging.
+Teile dieses seltsamen Verhaltens sind in den Nightly-Versionen von Firefox behoben, aber nicht alles, was mich störte, wird kurzfristig in Firefox behoben. Also habe ich die Modal-Logik geändert, um stattdessen das drop-Event zu verwenden. Das erfordert etwas mehr Code, garantiert aber zumindest ein ähnliches Verhalten in allen Browsern.
+
+### Ansicht
+
+Das Rechteck, das die aktive Ansicht der Spieler anzeigt (wenn aktiviert), verwendete eine einzige Volltonfarbe, die ähnlich wie die Tür-Symbole je nach Hintergrundfarbe nicht sehr gut lesbar war. Jetzt wird eine zweite Farbe für den Kontrast verwendet.
+
+![Ansichts-UI-Update](./2022.2/viewport.png)
+
+### Sonstiges
+
+- Standardmäßig „Nein“-Button im Löschen/Verlassen-Kampagnen-Dialog anzeigen
+- Der Asset-Manager aktualisiert die UI korrekt bei Verwendung der Browser-Vor/Zurück-Buttons
+- Dashboard-Navigationsüberschriften wurden manchmal falsch gestylt
+
+## Serverangelegenheiten
+
+Die Serverseite hat einige kleine Änderungen bekommen, einschließlich Änderungen an der Serverkonfiguration!
+
+### Log-Rotation
+
+Der Server macht jetzt eine Log-Rotation, statt nur eine große endlose Logdatei zu haben.
+
+Der Abschnitt „General“ hat zwei neue Eigenschaften bekommen:
+
+```python
+max_log_size_in_bytes = 200_000
+max_log_backups = 5
+```
+
+Weitere Informationen darüber, was sie bewirken, findest du in der Dokumentation der Serverkonfiguration.
+
+### Import-Chunk-Größe
+
+Kampagnendateien können groß werden, da die Assets Teil der Datei sind.
+Um zu vermeiden, dass die Upload-Größe auf eine absurde Höhe konfiguriert werden muss, was ein Sicherheitsrisiko wäre,
+sendet der Client die Importdateien stattdessen in Chunks, die der maximalen Größe entsprechen, die der Server akzeptiert.
+
+Diese Größe kann jetzt im Webserver-Abschnitt konfiguriert werden und beträgt standardmäßig 10 MiB.
+
+```python
+max_upload_size_in_bytes = 10_485_760
+```
+
+## Fehler
+
+### SVG-Korrekturen
+
+Ein paar Korrekturen speziell für den SVG-Bereich im Extra-Einstellungen-Menü von Formen:
+
+- Der SVG-Bereich der Extra-Einstellungen wurde erst nach einem Tab-Wechsel sofort aktualisiert
+- Entfernen von SVG in den Extra-Einstellungen funktionierte nicht richtig
+- Hinzufügen von SVG funktionierte nicht für Formen ohne zuvor gesetzte SVG-Eigenschaften
+
+### Undo/Redo-Korrekturen
+
+- Die Redo-Logik bei Größenänderungsoperationen merkte sich die falsche Position, wenn sie eingerastet war
+- Das Zeichenwerkzeug versuchte, eine Form-Erstellungsoperation zum Undo-Stack hinzuzufügen, wenn die Form nicht gültig war
+- Undo/Redo wurde bei Bewegung und Drehung nicht auf dem Server gespeichert
+
+### Sonstiges
+
+- Spawn-Orte wurden falsch geladen
+- Punkte, die über die Polygon-Bearbeitungs-UI geändert wurden, waren erst nach einem Neuladen einrastbar
+- Der Asset-Socket räumte vergangene Verbindungen nicht auf
+- Auren, die Lichtquellen sind, erscheinen nicht mehr als schwarzer Untergangskreis, wenn Kriegsnebel nicht aktiviert ist
+- Der Standard-Zoom-Level für Orte ist jetzt 0.2 statt 1.0

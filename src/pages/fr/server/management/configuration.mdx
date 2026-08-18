@@ -1,0 +1,489 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Configuration du serveur
+
+<Warning title="Changements récents">
+    La configuration du serveur a été complètement modifiée dans la version 2025.2. La configuration décrite dans ce
+    document fait référence au nouveau format.
+</Warning>
+
+Par défaut, **aucun** fichier de configuration n'est présent. À la place, PA utilise des valeurs par défaut pour tous les paramètres. Les valeurs de configuration par défaut peuvent être consultées [ici](#default-config)
+
+Pour modifier le comportement, créez un fichier `config.toml` dans le dossier `data` du serveur.
+
+Lorsqu'un fichier de configuration partiel est fourni, les champs/sections manquants seront remplacés par les valeurs par défaut lorsque c'est pertinent.
+
+# Format
+
+Comme l'extension de la configuration le laisse entendre, la configuration est formatée en utilisant [TOML](https://toml.io/en/).
+
+La configuration est divisée en sections plus petites qui portent un en-tête `[section]`, les sous-sections étant indiquées par `[section.some.subsection]`.
+Chaque (sous)section est ensuite suivie de lignes distinctes pour configurer des valeurs particulières.
+
+Les informations détaillées sur le fonctionnement du format TOML sortent du cadre de ce document, mais après avoir consulté la configuration par défaut, vous devriez avoir une bonne compréhension de son fonctionnement.
+
+# Configuration par défaut
+
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
+```
+
+<Info title="Chemins de fichiers">
+    Lorsque vous spécifiez des chemins vers des fichiers ou des dossiers, vous pouvez utiliser des chemins absolus (par
+    exemple `/home/user/example.txt`) ou des chemins relatifs (par exemple `data/planar.sqlite`). Lorsqu'un chemin
+    relatif est utilisé, il sera relatif au dossier principal du serveur et NON au dossier où se trouve la
+    configuration.
+</Info>
+
+# Paramètres importants
+
+Certains paramètres que vous voudrez probablement consulter en particulier sont :
+
+- [Configuration du fichier de sauvegarde](#field-save_file)
+- [Utilisateur administrateur](#field-admin_user)
+- [Toute la sous-section webserver.connection](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+L'[URL du client](#field-client_url) est également généralement souhaitable à configurer, mais elle n'est pas critique.
+
+# Sections
+
+Ici, toutes les options possibles seront listées avec leurs valeurs par défaut.
+Si à un moment donné ces informations devenaient obsolètes et causaient des erreurs, la source de vérité peut être trouvée [sur github](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py) sous forme de code.
+
+## General
+
+Nom de la section : `general`
+
+### Champ : `save_file`
+
+Défaut : `"data/planar.sqlite"`\
+Type : `string`
+
+Chemin vers le fichier de sauvegarde. C'est un paramètre crucial dont la modification aura un impact important. Le fichier de sauvegarde doit être sauvegardé de manière appropriée[^1].
+
+Si le serveur démarre et que le chemin choisi n'existe pas, le serveur créera un nouveau fichier de sauvegarde.
+
+<Info title="Format du fichier de sauvegarde">
+    Notez qu'à l'heure actuelle, PlanarAlly ne prend en charge que le stockage des sauvegardes au format sqlite.
+</Info>
+
+<Warning>
+    Pendant que le serveur est en cours d'exécution, des fichiers de base de données supplémentaires peuvent être créés
+    (par exemple `planar.sqlite-shm` et `planar.sqlite-wal`).
+    Le fichier `planar.sqlite-wal` (ou write-ahead-log) est essentiel pour la base de données de sauvegarde, et des
+    données seront perdues s'il n'est pas sauvegardé.
+    Le fichier `planar.sqlite-shm` (ou mémoire partagée) n'est pas critique et n'a pas besoin d'être sauvegardé.
+
+    Si le serveur s'arrête correctement, ces fichiers disparaîtront. Ils peuvent toutefois persister si le serveur n'a
+    pas pu s'arrêter proprement.
+    Lors de la copie d'un fichier de sauvegarde, assurez-vous de copier ces fichiers également s'ils existent, sinon
+    votre sauvegarde pourrait être corrompue ou obsolète.
+
+</Warning>
+
+### Champ : `admin_user`
+
+Défaut : N/A - champ optionnel\
+Type : `string`
+
+Lorsqu'un nom d'utilisateur est spécifié ici, cet utilisateur sera considéré comme l'utilisateur administrateur principal.
+Il aura accès à des fonctionnalités supplémentaires dans le tableau de bord pour gérer des choses comme les utilisateurs et les campagnes sur le serveur.
+
+### Champ : `client_url`
+
+Défaut : N/A - champ optionnel\
+Type : `string`\
+_Il est généralement recommandé de configurer ce champ, mais il n'est pas requis pour une installation minimale._
+
+Lorsqu'il est défini, il doit s'agir de l'URL de base complète de l'application frontale. (par exemple "https://app.planarally.io").
+
+Ce champ est utilisé dans l'URL d'invitation et les mails de mot de passe oublié. En son absence, l'URL d'invitation utilisera l'URL actuelle du navigateur lorsqu'elle sera générée. Les URL des mails ne contiendront cependant **pas** l'URL racine, car le serveur ne peut pas la prédire.
+
+### Champ : `allow_signups`
+
+Défaut : `true`\
+Type : `boolean`
+
+Ce paramètre détermine si les utilisateurs peuvent créer un nouveau compte via le front-end. Lorsqu'il est désactivé, la création de compte n'est possible que par manipulation de la base de données.
+
+### Champ : `enable_export`
+
+Défaut : `true`\
+Type : `boolean`
+
+Lorsque ce paramètre est activé, l'export **et** l'import de compte sont disponibles pour les utilisateurs.
+
+C'est généralement recommandé, car cela permet aux utilisateurs de transférer leurs données vers/depuis un autre serveur, ainsi que de me fournir des données pour le débogage.
+
+## Webserver
+
+Nom de la section : `webserver`
+
+L'une des sections les plus importantes à configurer est le webserver.
+Elle comprend l'importante sous-section `connection`, que vous voudrez configurer pour décider comment le serveur PA est lié au monde extérieur.
+
+<div id="subsection">
+
+### Sous-section : `connection`
+
+_C'est une sous-section (voir la [Configuration par défaut](#default-config) pour un exemple de configuration)._
+
+Ceci configure la façon dont le serveur est connecté à la pile réseau. Il doit s'agir d'une configuration HostPort ou d'une configuration par socket.
+Par défaut, une combinaison HostPort est utilisée.
+
+#### champ : `type`
+
+Défaut : `"hostport"`\
+Type : `"hostport" or "socket"
+
+Le champ de type est ce qui détermine en fin de compte quel type de connexion est utilisé.
+
+```toml
+# Soit une connexion hostport est configurée
+[webserver.connection]
+type = "hostport"
+...
+
+# Soit une connexion socket
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### Champs HostPort
+
+#### champ : `host`
+
+Défaut : `"0.0.0.0"`\
+Type : `string`
+
+L'IP sur laquelle le serveur tentera de se lier.
+
+#### champ : `port`
+
+Défaut : `8000`\
+Type : `integer`
+
+Le port sur lequel le serveur tentera de se lier.
+
+Assurez-vous que le port que vous utilisez n'est pas utilisé par une autre application.
+Assurez-vous également que le port que vous utilisez est accessible depuis l'extérieur de la machine.
+Surtout lorsque vous exécutez PA depuis un réseau privé (par exemple à la maison), vous devrez peut-être activer la _redirection de ports_ dans la configuration de votre routeur.
+
+#### Exemple de configuration HostPort
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Champs Socket
+
+#### champ : `socket`
+
+Défaut : N/A\
+Type : `string`
+
+Le chemin vers le socket qui sera utilisé pour se lier.
+
+#### Exemple de configuration Socket
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+</div>
+
+<div id="subsection">
+
+### Sous-section : ssl
+
+C'est une sous-section optionnelle ; lorsqu'elle est omise, aucune configuration SSL n'est appliquée au serveur PA lui-même.
+Cela ne vous empêche pas de configurer SSL plus haut dans la chaîne (par exemple dans votre proxy inverse).
+
+Il est fortement recommandé de s'assurer que SSL est configuré quelque part dans la chaîne !
+
+#### Champ : `enabled`
+
+Défaut : `false`\
+Type : `boolean`
+
+Vous permet d'activer/désactiver la configuration SSL sans avoir à supprimer complètement la section SSL ou à la commenter.
+Ce n'est que lorsque cette valeur est définie sur `true` que la configuration SSL sera réellement appliquée.
+
+#### Champ : `fullchain`
+
+Défaut : N/A\
+Type : `string`
+
+Chemin vers le certificat de la chaîne complète.
+
+#### Champ : `privkey`
+
+Défaut : N/A\
+Type : `string`
+
+Chemin vers le certificat de la clé privée.
+
+#### Exemple de configuration SSL
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+</div>
+
+### Champ : `cors_allowed_origins`
+
+Défaut : N/A (champ optionnel)\
+Type : `string / List of strings`
+
+Configuration CORS pour le serveur websocket.
+
+Cette valeur est transmise au serveur socketio, plus d'informations peuvent être trouvées dans la documentation [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class).
+Une valeur de `'*'` peut être définie pour autoriser toutes les origines, ce qui est utile à des fins de test, mais pas sûr.
+
+Ceci doit souvent être configuré soit avec la valeur générique (\*) soit avec le domaine spécifique correct pour que cela fonctionne !
+La console du serveur doit journaliser lorsqu'une connexion a été rejetée à cause du cors.
+
+### Champ : `max_upload_size_in_bytes`
+
+Défaut : `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
+Type : `integer`
+
+La taille maximale d'un téléversement unique de données en provenance du client.
+
+Il faut noter que cela servira surtout de stratégie de fragmentation.
+Les téléversements d'assets et les transferts de campagnes seront fragmentés selon ce maximum, mais la taille totale de ceux-ci peut donc dépasser la limite !
+Voir la section assets de la configuration pour savoir comment limiter la taille des assets des utilisateurs.
+
+## Mail
+
+Nom de la section : `mail`
+
+C'est une section optionnelle et elle n'est pas activée par défaut.
+
+Elle n'est actuellement utilisée que pour envoyer des mails dans le cadre du flux de mot de passe oublié.
+
+### Champ : `enabled`
+
+Défaut : `false`\
+Type : `boolean`
+
+Vous permet d'activer/désactiver la configuration mail sans avoir à supprimer complètement la section ou à la commenter.
+Ce n'est que lorsque cette valeur est définie sur `true` que la configuration mail sera réellement appliquée.
+
+### Champ : `host`
+
+Défaut : N/A\
+Type : `string`
+
+L'hôte du serveur de messagerie SMTP, il doit être renseigné.
+
+### Champ : `port`
+
+Défaut : N/A\
+Type : `integer`
+
+Le port du serveur de messagerie SMTP, il doit être renseigné.
+
+### Champ : `username`
+
+Défaut : N/A (optionnel)\
+Type : `string`
+
+Le cas échéant, le nom d'utilisateur peut être spécifié pour s'authentifier.
+
+### Champ : `password`
+
+Défaut : N/A (optionnel)\
+Type : `string`
+
+Le cas échéant, le mot de passe peut être spécifié pour s'authentifier.
+
+### Champ : `default_from_address`
+
+Défaut : N/A\
+Type : `email-string`
+
+L'adresse e-mail par défaut à utiliser lors de l'envoi de mails.
+
+### Champ : `ssl_mode`
+
+Défaut : `"starttls"`\
+Type : `Literal["ssl", "tls", "starttls", "lmtp"]`\
+Ajouté : v2025.2.1
+
+Ceci configure le mode de connexion du client utilisé.
+Par défaut, la méthode starttls est utilisée, ce qui devrait couvrir une large gamme de cas.
+
+Cela peut parfois ne pas fonctionner correctement, auquel cas vous pouvez essayer le mode `"ssl"` ou l'un des autres modes à la place.
+
+## Stats
+
+Nom de la section : `stats`
+
+C'est une section optionnelle qui, lorsqu'elle n'est pas spécifiée, utilisera un ensemble de valeurs par défaut.
+Elle contrôle la collecte et la transmission de statistiques d'utilisation anonymes.
+
+Voir [cette PR github](https://github.com/Kruptein/PlanarAlly/pull/1608) pour quelques informations sur ce qui est collecté et pourquoi.
+
+### Champ : `enabled`
+
+Défaut : `true`\
+Type : `boolean`
+
+Vous permet d'activer/désactiver la configuration mail sans avoir à supprimer complètement la section ou à la commenter.
+Lorsqu'elle est définie sur `false`, aucune collecte de statistiques n'aura lieu du tout.
+
+### Champ : `enable_export`
+
+Défaut : `true`\
+Type : `boolean`
+
+Vous permet de désactiver l'export des statistiques vers le serveur de statistiques PA.
+La collecte locale sera toujours effectuée.
+
+### Champ : `export_frequency_in_seconds`
+
+Défaut : `24 * 60 * 60` (1 jour)\
+Type : `int`
+
+Ceci détermine la fréquence à laquelle les statistiques sont envoyées au serveur de statistiques PA.
+
+Il n'est pas recommandé de descendre en dessous de 1 jour.
+Les fréquences recommandées sont 1 jour, 1 semaine ou 1 mois.
+
+### Champ : `stats_url`
+
+Défaut : `https://stats.planarally.io`
+Type : `string`
+
+L'URL de réception des données de statistiques.
+
+## Logging
+
+Nom de la section : `logging`
+
+C'est une section optionnelle et sa configuration par défaut consiste à journaliser sur la sortie standard au niveau "INFO".
+
+<Info title="Entrées multiples">
+    La section Logging peut être spécifiée plusieurs fois pour configurer plusieurs fichiers de sortie. À ce titre,
+    l'en-tête de section doit être saisi sous la forme `[[logging]]`
+</Info>
+
+### Champ `level`
+
+Défaut : `INFO`\
+type : `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+Le niveau auquel ce logger émet. Les niveaux supérieurs sont également journalisés à ce niveau. Par exemple, si vous définissez ERROR, ERROR et CRITICAL seront tous deux journalisés vers cette sortie
+
+### Champ `mode`
+
+Type : `Literal["stdout", "file"]`
+
+Si vous spécifiez stdout, le seul autre champ disponible est level.
+
+Voici un exemple de logging qui définit la sortie standard sur critical
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### Champ `file_path`
+
+Défaut : `data/planarally.log`\
+Type : `string`
+
+Définit le chemin de sortie pour un log basé sur un fichier. Si vous utilisez docker, il est recommandé d'utiliser le dossier data pour qu'il soit accessible depuis l'extérieur du conteneur.
+
+### Champ `max_log_size_in_bytes`
+
+Défaut : `200_000`\
+Type : `int`
+
+La taille maximale d'un fichier de log avant qu'il ne soit tourné vers le fichier suivant.
+
+### Champ `max_log_backups`
+
+Défaut : `5`\
+Type : `int`
+
+Le nombre de fichiers de sauvegarde à conserver ; les fichiers plus anciens seront automatiquement supprimés.
+
+Voici un exemple de configuration d'un logger fichier qui ne possède que 2 fichiers de sauvegarde. Ceci peut être combiné avec l'exemple de sortie standard pour émettre à la fois sur la sortie standard et dans un fichier.
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
+
+## Assets
+
+Nom de la section : `assets`
+
+C'est une section optionnelle.
+
+### Champ `max_single_asset_size_in_bytes`
+
+Défaut : `0`\
+type : `int`
+
+La taille maximale en octets qu'un asset nouvellement téléversé peut avoir.
+Lorsque ce champ est `<= 0`, il est considéré comme « sans limite ».
+
+Il faut noter que cela n'affecte que les nouveaux téléversements d'assets. La modification de la valeur n'aura aucun impact sur les assets existants.
+
+### Champ `max_total_asset_size_in_bytes`
+
+Défaut : `0`\
+type : `int`
+
+La taille maximale en octets qu'un utilisateur est autorisé à avoir téléversée.
+Lorsque ce champ est `<= 0`, il est considéré comme « sans limite ».
+
+Un asset sera rejeté si sa taille devait faire dépasser cette valeur au total autorisé pour l'utilisateur.
+Il faut noter que cela n'affecte que les nouveaux téléversements d'assets. La modification de la valeur n'aura aucun impact sur les assets existants.
+
+[^1]: La documentation SQLite documente l'importance des fichiers [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) et [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files).

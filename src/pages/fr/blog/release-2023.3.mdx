@@ -1,0 +1,128 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+L'accent de 2023.3 est mis sur les fonctionnalités expérimentales : les mods et un nouveau concept appelé « personnage » étant les plus importants.
+Plus de détails ci-dessous, ils en sont encore à de très premières itérations,
+mais au lieu de garder la branche de développement en otage jusqu'à ce que je sois satisfait, je publie déjà ces fonctionnalités telles quelles.
+
+Une partie de la raison de cela est aussi qu'il y a des corrections de bugs dans cette release que je souhaite publier dès que possible.
+
+## Tri des campagnes
+
+Nous commencerons par une petite amélioration de qualité de vie attendue depuis longtemps.
+La liste des campagnes peut désormais être triée par ordre alphabétique ou par interaction la plus récente.
+Le tri par défaut se fera sur l'activité la plus récente.
+
+Il n'y a pas grand-chose d'autre à dire, c'est un petit changement mais c'en est un agréable.
+
+## Éclairage et vision
+
+### Rendons leur grandeur aux cercles
+
+Le code gérant la vision fonctionne avec des sommets et des arêtes.
+Les cercles ne s'intègrent pas vraiment dans ce modèle d'emblée, car un cercle est un ensemble infini de points.
+
+Historiquement, ce problème était « résolu » en utilisant simplement la boîte englobante du cercle dans le code lié à la vision.
+Cela fait que les piliers et autres éléments de votre carte sont représentés comme des carrés dans le système de vision.
+
+Ce n'est bien sûr pas vraiment ce que vous voulez, et c'est pourquoi la plupart des gens ont utilisé l'outil polygone pour répondre à ce besoin.
+
+L'outil polygone est un outil très polyvalent et puissant, mais parfois vous voulez simplement utiliser un fichu cercle.
+Et lorsque PA affiche un cercle comme forme possible à dessiner, vous vous attendez à quelque chose d'au moins proche d'un cercle, et non d'un carré.
+
+Donc, en résumé (tl;dr), les cercles sont désormais approximés par des polygones basés sur la taille du cercle pour tout ce qui concerne la vision.
+Ce n'est pas une approximation parfaite, car cela serait coûteux en calcul, mais c'est bien mieux qu'un carré.
+
+### Plantages de triangulation
+
+Le code de vision susmentionné, utilisant des sommets et des arêtes, repose sur un algorithme de triangulation.
+Bien que rare, il peut arriver que quelque chose se bloque durement dans ce code et laisse le jeu dans un état injouable.
+
+L'un de ces cas limites rares a été miraculeusement rencontré récemment par deux personnes différentes, même si ce cas limite particulier existe depuis plusieurs années.
+Ce problème est traité dans cette release et ne devrait plus se produire.
+
+### Auras tricheuses
+
+Apparemment, lorsqu'une aura activée avait à la fois ses valeurs normales et faibles réglées à zéro et qu'il s'agissait d'une aura interagissant avec la vision, elle éclairait toute la carte.
+
+Ce n'est plus le cas, et l'aura se comportera désormais comme si elle était désactivée.
+
+## Ressources
+
+Quelques petits changements ont été apportés à la logique de suppression des ressources.
+
+La suppression d'une ressource depuis le gestionnaire de ressources ne supprimera pas la ressource réelle du disque si des formes utilisent encore cette ressource.
+
+Par conséquent, lors de la suppression de formes en jeu, une vérification supplémentaire est effectuée pour déterminer si la ressource associée peut être supprimée du disque.
+
+## Ajouts expérimentaux
+
+Comme mentionné dans l'introduction, cette release contient des ajouts expérimentaux.
+Il faut à nouveau noter que chacun d'eux en est encore à de premières itérations et est susceptible de changer.
+
+### Mods
+
+Je ne suis qu'une seule personne et parfois je reçois des demandes que je n'ai tout simplement pas le temps de mettre en œuvre ou qui, selon moi, n'ont pas leur place dans le codebase principal,
+même si elles pourraient être intéressantes. Les mods sont un moyen de permettre à d'autres d'implémenter ces fonctionnalités.
+
+Je ne suis pas très familier avec l'offre de capacités de modding, c'est donc aussi une grande expérience d'apprentissage pour moi.
+L'implémentation actuelle est très basique et je suis sûr qu'il y a beaucoup de choses à améliorer, mais nous avons besoin d'un point de départ, alors la voilà !
+
+Pour plus d'informations sur l'API de modding, ce qu'elle implique exactement et quelques exemples, consultez [cette PR sur github](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_il s'agit d'informations purement techniques, sans grande pertinence pour les utilisateurs réguliers_
+
+Un autre nouveau concept introduit avec les mods est celui des « DataBlocks ».
+C'est le système actuellement proposé pour offrir aux mods un stockage de données côté serveur.
+
+Les mods sont purement côté client, ils ne peuvent donc pas interagir directement avec la base de données, ni avec le code côté serveur.
+À la place, ils peuvent stocker et récupérer des données arbitraires sous la forme de DataBlocks.
+
+### Personnages
+
+Les « personnages » sont un nouveau concept actuellement exploré, proche du concept de « modèles ».
+
+Les modèles offrent un moyen de créer des variantes d'une forme particulière avec des informations pré-remplies. Une fois déposés sur la carte, ils sont cependant complètement indépendants les uns des autres.
+Les cas d'usage typiques d'un modèle sont les monstres. Vous avez un modèle pour un gobelin et vous pouvez déposer autant de gobelins que vous voulez sur la carte, et leurs points de vie et leur CA sont déjà configurés.
+Vous ne voulez cependant pas que des modifications apportées à un gobelin altèrent les autres gobelins une fois qu'ils sont sur la carte.
+
+Les personnages sont le complément de cela. Ils représentent une instance unique d'une forme particulière. Les modifications apportées à un personnage sont mémorisées.
+Vous pouvez supprimer une forme liée à un personnage puis, plus tard, faire un glisser-déposer du personnage sur la carte, et il sera exactement dans le même état qu'au moment de sa suppression.
+
+#### Création
+
+Vous pouvez créer un personnage à partir du menu contextuel (clic droit) de n'importe quelle forme, à condition d'avoir un accès en édition sur celle-ci.
+
+#### Actions
+
+Une fois qu'une forme est liée à un personnage, elle apparaîtra dans la section Personnages de la barre latérale gauche.
+Comme d'habitude, le DM verra aussi tous les personnages créés par les joueurs, tandis que les joueurs ne verront que leurs propres personnages.
+
+Lorsque vous cliquez sur un personnage dans cette liste, votre caméra se déplace pour se centrer sur le personnage en question.
+
+De plus, en tant que DM, vous pouvez faire un glisser-déposer du personnage comme vous le feriez avec une ressource. Cela téléportera la forme existante du personnage à l'endroit où vous l'avez déposé.
+Si aucune forme n'est actuellement associée au personnage, elle sera créée à cet emplacement avec toutes ses données précédentes.
+
+#### Futur
+
+L'idée est d'offrir plus de fonctionnalités à ce concept à l'avenir.
+En particulier, la notion de feuilles de personnage qui pourraient être configurées via l'interaction des mods est une piste en cours d'exploration.
+
+Une autre idée est de permettre aux joueurs de créer des personnages depuis le tableau de bord principal, puis de les lier à une campagne.
+De cette façon, les joueurs peuvent créer leurs propres personnages à l'avance, avec leur art et leurs statistiques déjà remplis, sans avoir à passer constamment par le DM.
+
+## Diverses corrections
+
+- Export : les campagnes avec des notes pouvaient échouer à l'exportation
+- Exclusion : la vérification empêchant le co-DM d'exclure le DM principal était incorrecte
+- Formes : l'angle des formes en cours de rotation était arrondi à des nombres entiers, ce qui est plutôt gênant avec des radians
+    - En pratique, cela faisait souvent qu'une forme pivotée ne pivotait pas du tout pour les autres joueurs ou après un rechargement
