@@ -1,0 +1,38 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+# 用户管理
+
+<Info>本部分内容已严重过时。你可以使用 CLI 查询多种信息，也可以设置一个基本的浏览器界面 来完成某些管理任务。</Info>
+
+截至 v0.22.3，服务器层面还没有用于用户管理的图形界面，因此你必须使用 python 脚本来管理用户。
+
+在运行这些脚本之前，请务必先进入 python shell。只需打开终端并输入 `python` 即可打开 shell，输入 `quit()` 即可退出。
+
+PlanarAlly 使用 peewee 作为其数据库 ORM 工具。
+
+## 列出服务器上的所有用户名
+
+```python
+from src.db.all import User
+[ u.name for u in User.select() ]
+```
+
+## 更改特定用户的密码
+
+```python
+from src.db.all import User
+u = User.get(name="*some-username*")
+u.set_password("*new-passowrd*")
+u.save()
+```
+
+## 以管理员身份创建新用户
+
+```python
+from src.db.all import User
+User.create_new("*some-username*", "*some-password*", "*some-email(optional)")
+```

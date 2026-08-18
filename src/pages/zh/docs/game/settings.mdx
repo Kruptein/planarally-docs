@@ -1,0 +1,145 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# 客户端设置
+
+游戏内设置可从侧边菜单访问（点击浏览器窗口左上角的 <Cog /> 图标以打开菜单）。
+
+#### 设置同步
+
+默认情况下，显示的设置直接来自你的全局默认客户端设置。
+更改某项设置时，其旁边会出现两个额外的按钮，表示该设置正在覆盖默认行为。
+
+你可以通过点击 <TimesCircle /> 图标将设置重置为默认值。
+
+如果你想把你的更改设为新的默认值，可以点击 <SyncAlt />。
+这会影响所有你没有覆盖此设置的其它战役。
+
+## 外观
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="外观设置" />
+
+### 语言
+
+在这里，你可以选择在用户界面中显示的不同语言。
+这会同步到你游玩或主持的所有其它战役，就像在[仪表盘](/zh/docs/dashboard/#localisation)中进行操作一样。
+
+### 工具栏
+
+_2022.3 版本新增_
+
+此设置允许你在工具栏工具中选择图标或文字（例如尺子图标或“ruler”）。
+
+### 网格
+
+颜色设置定义了[网格图层](/zh/docs/dm/layers/#grid)（即网格线）将以什么颜色绘制。
+
+### Ruler
+
+在这里，可以设置 [ruler](/zh/docs/tools/ruler) 的颜色。
+如果公开使用 ruler，所有其它玩家都会以你在这里定义的颜色看到你的 ruler。
+
+### 迷雾
+
+这设置了覆盖你无法看到的一切内容的迷雾的颜色。
+
+## 行为
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="行为设置" />
+
+### 吸附
+
+勾选后，这会反转默认的[吸附行为](/zh/docs/game/snapping/)。
+
+### 鼠标与手势
+
+默认情况下滚动可以放大或缩小，这在触摸设备上可能很烦人，因此可以禁用。
+
+### 选择信息
+
+_2022.3 版本新增_
+
+此设置影响选择信息追踪器修改默认如何被解释。
+
+使用绝对模式时，输入的表达式结果将成为追踪器的新值。
+
+使用相对模式时，结果会加到追踪器的原始值上。
+这让你可以快速修改数值，例如使用 -5 或 +5。
+
+## 显示
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="显示设置" />
+
+HiDPI 设置允许你在支持亚像素渲染的屏幕上提高渲染游戏的分辨率。
+
+<Warning title="更高的性能消耗">
+启用此设置将需要你的电脑提供更多性能。
+
+如果游戏感觉卡顿，请确保不要启用此设置。
+
+</Warning>
+
+### 游戏桌面
+
+如果你在用作实体游戏桌面的屏幕上使用 PlanarAlly，并且使用真实的微缩模型，
+你会想要配置这些设置，以正确设置网格大小来匹配你的微缩模型。
+
+要使此功能正常工作，你需要知道屏幕的 PPI。
+
+请注意，启用此设置时，目前禁用放大/缩小。
+
+### 网格
+
+当*不*使用实体桌面时，你可以在这里配置单个网格单元在屏幕上应该显示多大。
+
+如果你在投影仪之类的东西上玩游戏，你会想要更改此项。
+
+## 先攻
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="先攻设置" />
+
+<Info>
+    下面的两个锁定设置只有在先攻激活时才会生效。先攻只有在通过[快捷开关](/zh/docs/tools/quick-toggles/)开启后才会真正激活。
+</Info>
+
+### 锁定镜头
+
+启用此功能后，每当先攻推进到下一个角色时，
+如果你有权访问该角色，镜头就会自动居中到该角色上。
+
+### 锁定视野
+
+启用此功能后，视野将被限制为仿佛你只能访问当前先攻角色一样（只要你对该形状有访问权限）。
+
+这与使用[视野工具](/zh/docs/tools/vision/)并在每回合手动将其更改为当前先攻参与者的效果相同。
+这只有在你控制多个角色时才相关。
+
+### 效果
+
+此设置允许你配置何时显示先攻效果。
+默认情况下只有当前行动者的效果是展开的，但你可以将其改为始终显示所有行动者的效果。
+
+## 性能
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="性能设置" />
+
+### 渲染
+
+_2022.3 版本新增_
+
+楼层是一种沉浸式体验，但会消耗更多性能。
+此设置允许你将渲染限制在活动楼层。

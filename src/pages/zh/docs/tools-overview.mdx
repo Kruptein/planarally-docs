@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# 工具概览
+
+PlanarAlly 提供了一组用于与游戏和其他玩家互动的工具。
+GM 还额外获得了一些适合他们需求的工具。
+其中大部分（但不是全部）工具可以通过屏幕右下角的工具栏访问。
+
+<Image
+    src={ToolbarExample}
+    alt="一名 GM 在 'Build' 模式下工具栏的示例，其中 Select 工具处于激活状态，模式可以切换为 Play 模式，过滤工具可以使用，但 Vision 工具不可用。"
+/>
+
+## 工具栏与模式
+
+为了避免工具栏被大量选项淹没，工具会根据工具栏模式显示。
+目前有两种模式："Play" 和 "Build"，前者侧重于实际游戏过程中使用的工具，
+后者侧重于 DM 准备工作时主要使用的工具。
+
+要切换模式，你可以点击所需的模式或使用 `Tab` 键。
+
+下面是所有工具及其可用模式的概览。
+请注意，某些工具在不同模式下可能会有不同的行为。
+
+## 工具速查
+
+| 工具                                     | 访问权限 | 模式     | 描述                                         |
+| ---------------------------------------- | -------- | -------- | -------------------------------------------- |
+| [Select](/zh/docs/tools/select/)         | 全部     | 两种[^1] | 选择、移动、旋转或缩放形状。                 |
+| [Pan](/zh/docs/tools/pan/)               | 全部     | 两种     | 平移你的游戏视口。                           |
+| [Draw](/zh/docs/tools/draw/)             | 全部     | Build    | 创建各种基本形状。                           |
+| [Spell](/zh/docs/tools/spell/)           | 全部     | Play     | 测量并施放法术。                             |
+| [Ruler](/zh/docs/tools/ruler/)           | 全部     | 两种     | 测量距离。                                   |
+| [Ping](/zh/docs/tools/ping/)             | 全部     | Play     | 显示一个临时的信标，供所有人查看。           |
+| [Map](/zh/docs/tools/map/)               | DM       | Build    | 帮助调整素材（主要是地图）的大小以匹配网格。 |
+| [Vision](/zh/docs/tools/vision/)         | 全部     | Play[^2] | 限制哪些角色对视野做出贡献。                 |
+| [Zoom](/zh/docs/tools/zoom/)             | 全部     | 两种[^3] | 放大/缩小游戏的某一部分。                    |
+| [Initiative](/zh/docs/tools/initiative/) | 全部     | 两种[^3] | 跟踪先攻顺序和计时效果。                     |
+| [Undo/Redo](/zh/docs/tools/undo/)        | 全部     | 两种[^3] | 撤销和重做某些操作。                         |
+
+[^1]: 功能因模式而异。
+
+[^2]: 仅在实际上可用时才会显示在工具栏中。
+
+[^3]: 不属于工具工具栏的组成部分。

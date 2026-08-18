@@ -1,0 +1,219 @@
+---
+layout: ../../../../../layouts/docs.astro
+---
+
+# **Markdown 教程指南**
+
+指南由 [@veritanuda](https://keybase.io/veritanuda) 贡献
+
+本指南将专门探索 Markdown 格式在 PlanarAlly 中的功能。它用于[笔记](../../../../docs/game/notes)字段以及[聊天](../../../../docs/game/chat)窗口。
+
+本指南中的信息大量来源于这份[语法指南](https://markdown-it.github.io/)
+
+## **文本效果**
+
+以下是可以应用的文本效果示例。
+
+![Text_effect_graphic](./assets/Text_effect_graphic.png)
+
+在其中你可以看到：
+
+- 标题大小
+- 文本格式
+- 文本样式
+
+这是在笔记窗口中的显示效果。
+
+![Text_effect_note_view](./assets/Text_effect_note_view.png)
+
+这是在编辑模式下的显示效果。
+
+![Text_effect_edit_view](./assets/Text_effect_edit_view.png)
+
+`#` 字符可用于设置标题大小。1 个 `#` 会得到最大的尺寸 `Title Size 1`
+
+2 个 `#` 得到下一个尺寸 `Title Size 2`
+
+3 个 `#` 仍然是再下一个尺寸 `Title Size 3`
+
+4 个 `#` 与使用粗体相同，粗体可以通过用 `**` 或 `__` 包围文本实现。`Title Size 4`
+
+下划线需要使用 HTML 写法，这也适用于其他文本效果，如斜体 `<i> </i>` 和粗体 `<b></b>`。
+
+`<u>Underlined</u>`
+
+`*` 是 _斜体_
+
+`**` 是 **粗体**
+
+`***` 是 **_粗斜体_**
+
+`~~` 是 ~~删除线~~
+
+`<sup> </sup>` 是上<sup>标</sup>
+
+`<sub> </sub>` 是下<sub>标</sub>
+
+``is`code`
+
+` ``` ` 是
+
+```
+code
+block
+```
+
+---
+
+## **文本布局**
+
+以下是文本布局的示例
+
+![文本布局](./assets/Text_Layout.png)
+
+### <u>无序列表</u>
+
+无序列表可以用 `*` 或 `-` 来分隔列表项。
+
+```
+Unordered List 1
+* First
+* Second
+* Third
+* Fourth
+```
+
+无序列表 1
+
+- First
+- Second
+- Third
+- Fourth
+
+```
+Unordered List 2
+- First
+- Second
+- Third
+- Fouth
+```
+
+无序列表 2
+
+- First
+- Second
+- Third
+- Fouth
+
+### <u>有序列表</u>
+
+有序列表使用 `<number>.`，数字从你指定的第一个数字开始递增。
+
+```
+Ordered List
+1. First
+2. Second
+3. Third
+4. Fourth
+```
+
+有序列表
+
+1. First
+2. Second
+3. Third
+4. Fourth
+
+### <u>阶梯式/多级列表</u>
+
+阶梯式列表或多级列表可以通过在每一级列表之间加一个双空格来实现。
+
+```
+Stepped List
+- First
+- Second
+- Third
+  - 3 a
+  - 3 b
+- Fourth
+```
+
+阶梯式列表
+
+- First
+- Second
+- Third
+    - 3 a
+    - 3 b
+- Fourth
+
+### <u>表格</u>
+
+表格使用 `|` 分隔列，`-` 和 `:` 用于指定对齐方式（可选，左对齐是默认值）
+
+```
+|Col A|Col B|Col C|
+|--|:--:|--:|
+|Row 1|Row One|R 1|
+|Left|Centre|Right|
+```
+
+| Col A |  Col B  | Col C |
+| ----- | :-----: | ----: |
+| Row 1 | Row One |   R 1 |
+| Left  | Centre  | Right |
+
+---
+
+## <u>图片和链接</u>
+
+下面是内联图片和超链接的示例。
+
+![image_links](./assets/Image_links.png)
+
+对于***大多数***图片 URL，你只需简单地剪切并粘贴图片位置，它就应该能解析出图片。
+
+如果不能，你应该可以插入内联图片，只需在项目前面加上 `!`，在 `[ ]` 中指定标签名称，然后在 `( )` 中放链接。
+
+```
+This is a Goblin below.
+
+![Goblin1](http://www.pngall.com/wp-content/uploads/4/Green-Goblin-Comic-PNG-Pic-180x180.png)
+```
+
+还有另一种方法，可以让代码更干净，叫做引用方法：不是直接链接到图片，而是使用一个引用，引用又链接到图片。
+
+```
+![Goblin][Goblin1]
+
+This is a Goblin above
+
+This is another Goblin
+
+![Goblin2][Goblin2]
+
+[Goblin1]:https://www.imarvintpa.com/Mapping/Tokens/g1/Goblin.png "This is a Goblin"
+[Goblin2]:https://gamepedia.cursecdn.com/crafttheworld_gamepedia/thumb/b/be/Cave_Goblin.png/150px-Cave_Goblin.png "This is a Cave Goblin"
+```
+
+引用还可以提供工具提示，这样当光标悬停在图片上时就可以看到工具提示。这通过在 URL 后面用 `" "` 引住工具提示文本来实现。
+
+![Tooltip](assets/Tooltip-image.png)
+
+**注意：** 选择要插入的图片时，它们在聊天窗口会被缩放，但点击图片时，会在另一个窗口中打开更大的版本。
+
+## <u>**URL 链接**</u>
+
+URL 链接与上面相同，只是没有前面的 `!`
+
+```
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+```
+
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+
+# 结论
+
+在笔记或聊天中使用 markdown 是与玩家互动的一种有用方式，可以让他们访问诸如资料或怪物图片之类的东西，为游戏带来更多深度。从 GM 的角度来看，管理棋子上的笔记（用于数据、特殊能力、一般信息、地点描述等）可以大大减轻你在游戏之外需要存储和参考的信息量。这会让主持游戏更加流畅和轻松。
+
+游戏愉快！
