@@ -11,28 +11,8 @@ import Icons from "unplugin-icons/vite";
 
 // https://astro.build/config
 export default defineConfig({
-    redirects: {
-        "/": "/en/",
-        "/server": "/en/server/setup/",
-        "/server/": "/en/server/setup/",
-        "/en/server": "/en/server/setup/",
-        "/en/server/": "/en/server/setup/",
-        "/it/server": "/it/server/setup/",
-        "/it/server/": "/it/server/setup/",
-        "/es/server": "/es/server/setup/",
-        "/es/server/": "/es/server/setup/",
-        "/fr/server": "/fr/server/setup/",
-        "/fr/server/": "/fr/server/setup/",
-        "/de/server": "/de/server/setup/",
-        "/de/server/": "/de/server/setup/",
-        "/zh/server": "/zh/server/setup/",
-        "/zh/server/": "/zh/server/setup/",
-        "/ja/server": "/ja/server/setup/",
-        "/ja/server/": "/ja/server/setup/",
-        "/ru/server": "/ru/server/setup/",
-        "/ru/server/": "/ru/server/setup/",
-        "/da/server": "/da/server/setup/",
-        "/da/server/": "/da/server/setup/",
+redirects: {
+        "/server": "/server/setup/",
     },
     integrations: [
         vue(),

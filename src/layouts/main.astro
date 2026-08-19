@@ -31,9 +31,11 @@ const availableLocales = Object.keys(languages).filter(l => l !== defaultLang);
                 }
                 
                 let currentUrlLang = defaultLang;
-                for (const l of availableLocales) {
+                let hasLangPrefix = false;
+                for (const l of supportedLangs) {
                     if (path.startsWith('/' + l + '/') || path === '/' + l) {
                         currentUrlLang = l;
+                        hasLangPrefix = true;
                         break;
                     }
                 }
@@ -46,14 +48,12 @@ const availableLocales = Object.keys(languages).filter(l => l !== defaultLang);
                 if (preferredLang !== currentUrlLang) {
                     let newPath = path;
 
-                    if (currentUrlLang !== defaultLang) {
+                    if (hasLangPrefix) {
                         newPath = path.replace(new RegExp('^/' + currentUrlLang + '(/|$)'), '/');
                     }
 
-                    if (preferredLang !== defaultLang) {
-                        newPath = '/' + preferredLang + (newPath.startsWith('/') ? newPath : '/' + newPath);
-                        newPath = newPath.replace('//', '/');
-                    }
+                    newPath = '/' + preferredLang + newPath;
+                    newPath = newPath.replace('//', '/');
 
                     window.location.replace(newPath);
                 }
