@@ -1,0 +1,220 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# セルフホスト
+
+## 一般情報
+
+PlanarAlly を自分でホストするには、既存のサービスを使うだけの場合より少しセットアップが必要ですが、より多くの制御ができ、オフラインでも動作することを期待できます。
+
+PlanarAlly を自分でホストするには、次の 4 つの選択肢があります:
+
+- クライアントを手動でビルドし、サーバーを実行する
+- プリビルド済みクライアントを使用してサーバーを実行する
+- docker コンテナを使用する
+- プリコンパイル済みの実行ファイルを使用する
+
+最初の 2 つは、いくつかのもの(例:python、依存関係など)を手動でインストールする必要があります。\
+docker を使えば手作業をかなり省けますが、コンテナとボリュームの理解が必要です。
+
+最後に、技術にあまり詳しくない人のために .exe も用意されています。用途は十分果たせますが、テストはあまり行われていません。
+
+### バージョン
+
+選択したオプションに応じて、使用する PA のバージョンを決められます。
+
+本番バージョンでは、公式リリースを[こちら](https://github.com/Kruptein/PlanarAlly/releases)で確認できます。\
+開発バージョンでは、任意の git コミット/ブランチをチェックアウトして手動でビルドできます。\
+すべてのリリースと開発ブランチについて、docker イメージは [dockerhub](https://hub.docker.com/r/kruptein/planarally/tags) に自動的に公開されます。
+
+### バックアップとアップグレード
+
+データをバックアップする際、(サーバーフォルダーを基準として)3 つのフォルダーが重要です:
+
+- data
+- static/assets
+- static/mods
+
+設定(`data/config.toml`)に変更を加えた場合は、他のフォルダー/ファイルもバックアップが必要になるかもしれません。
+
+PA をアップグレードすると、保存ファイル(デフォルトの場所は `data/planar.sqlite`)へのマイグレーションが発生することがあります。現在の保存ファイルのバックアップは `save_backups` フォルダーに作成されます。
+
+<Info>
+リリースの zip/tarball を使用して PA をインストールする場合(例:どこかにフォルダーを展開する場合)、通常は新しい場所に展開して、上記の 3 つのデータフォルダーを移動/コピーすることをお勧めします。
+<br />
+既存のインストールに上書き展開する方法は通常は機能しますが、コードベースからファイルが削除された場合、上書きでは削除されないため、微妙なバグにつながることがあります。
+<br />
+git や docker を使用する場合はこれは当てはまりません。
+
+</Info>
+
+### 設定
+
+設定ファイルが見つからないのは正常です。PA は内部に保存されたデフォルト値を使用します。
+これらのオプションの一部を上書きするには、サーバーの `data` フォルダーに `config.toml` ファイルを作成して設定を変更します。
+
+詳細は[設定ドキュメント](/ja/server/management/configuration/)を参照してください。
+
+デフォルトでは PA はポート 8000 で実行されます。選択したホストオプションに関係なくすべてが成功していれば、http://localhost:8000 で PA を確認できるはずです。
+
+<Info>
+    あらかじめ設定された管理者ユーザーは存在しません。ログインページが表示されたら、他のユーザーと同じように登録フローを進める必要があります!
+
+    <br/>
+
+    必要に応じて、サーバー設定を作成/変更することで、作成したユーザーを管理者として設定し、追加の UI を表示することもできます。
+
+</Info>
+
+## 完全手動インストール
+
+PA は 2 つの部分で構成されています:
+
+- python で書かれたサーバー
+- typescript で書かれたフロントエンド
+
+PA を使用するには常にサーバーを実行する必要がありますが、クライアントの再ビルドが必要になるのは、PA のバージョンをダウンロード/変更したときだけです。
+
+### フロントエンド
+
+フロントエンドをビルドするには、`node` と `npm` がインストールされている必要があります。執筆時点では node のバージョン 22 以上が必要です(ただし、node をまだインストールしていない場合はバージョン 24 をお勧めします)。
+
+```bash
+# You need to be in the client folder to get the client working!
+cd client
+# Update dependencies, a new version usually comes with new dependencies
+npm i
+# Build the server
+npm run build
+```
+
+これにより、typescript ファイルがいくつかの minify された javascript ファイルに変換され、サーバーの static フォルダーに配置されます。これでサーバーを実行できます。
+
+これだけです!
+
+### バックエンド
+
+PA を実行するには、最近のバージョンの python が必要です。最低バージョンは 3.11 だと思いますが、公式には 3.13 でテストされています。
+
+python のインストール方法は自由ですが、推奨される方法は [uv](https://docs.astral.sh/uv/getting-started/installation/) を使うことです。
+これにより python のインストールがきれいに分離され、しかも非常に高速です。さらに、PA 自体も依存関係の管理にこれを使用しています。
+
+<Info title="uv なしの場合の依存関係">
+uv を使いたくない、または使えない場合、リポジトリには `requirements.txt` ファイルが存在しないことに注意してください。
+PA は uv(および他のツール)が理解できる最新の `pyproject.toml` ファイルを使用します。
+
+つまり、従来の `pip install -r requirements.txt` は実行できません。インストールする必要がある依存関係の一覧は、前述の `pyproject.toml` ファイルにあります。
+
+</Info>
+
+以下の手順は uv を使用することを前提としています。別の方法を使用する場合は、必要に応じてコマンドを調整してください。
+
+```bash
+# 1. Install python (can be skipped if you already have this)
+uv python install 3.13
+# 2. Move to the server folder!
+# (if you're still in the client folder you need to use `cd ../server`!)
+cd server
+# 3. Create a virtual environment for your python install
+uv venv
+# 4. Install the dependencies
+uv sync
+# 5. Run PA
+uv run planarally.py
+```
+
+今後サーバーを(再)起動するときは、(サーバーフォルダー内で)ステップ 5 を実行するだけで済みます。
+
+## プリビルド済みクライアント
+
+サーバーのインストールは自分で管理したいが、クライアントのビルドは手間がかかると感じる場合は、プリビルド済みのクライアントファイルを使用できます。
+これらはリリース内の `Planarally-bin` ファイルとして現れます。
+
+これらにはサーバーフォルダーしか含まれていません。上記の完全手動インストールと同じ手順に従えますが、フロントエンド/クライアント関連の手順はすべてスキップしてください。
+
+## Docker コンテナ
+
+### バニラ
+
+このコマンドで[公式コンテナ](https://hub.docker.com/r/kruptein/planarally)を入手できます。  
+`docker pull kruptein/planarally`
+
+データを永続化するためにマウントすべきボリュームが 3 つあります:
+
+- data: 通常、設定と保存ファイルが保存される場所
+- assets: ユーザーがアップロードしたアセットが保存される場所
+- mods: 任意のボリュームで、サーバーで mod を許可/使用する場合にのみ必要です。
+
+これらには `docker volume create` で明示的なボリュームを作成することをお勧めします(https://docs.docker.com/storage/volumes/ を参照)。
+
+PA は docker コンテナ内で制限付きユーザーとして実行されるため、作成したボリュームの所有者をこれに合わせて変更する必要があります:
+
+```
+cd /var/lib/docker/volumes
+sudo chown -R 9000:9000 data/
+# repeat for other volumes
+```
+
+ボリュームを設定したら、実際にコンテナを実行する準備ができました。
+
+```
+# PA runs on port 8000, You can drop the mods volume if you don't intend to use it or allow it
+# It's generally recommended to specify a particular tag of the docker image (e.g. v2025.2.2) instead of using the latest
+# New versions can come with database migrations and might require some manual intervention that you want to do when you have some time
+docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ -v mods:/planarally/static/mods --name planarally kruptein/planarally
+```
+
+### compose
+
+現在、公式の docker-compose ファイルはありませんが、コミュニティのメンバーが docker-compose、ssl、nginx の使い方について[このガイド](https://github.com/edmael/selfhosted-planarally)を以前書いてくれています。
+
+また、Traefik リバースプロキシ用に作られたサンプル構成に compose ファイルが含まれており、[こちら](/ja/server/advanced/proxy/#traefik)で確認できます。
+
+## プリコンパイル済み実行ファイル
+
+_このチュートリアルでは、リリースのファイル名に含まれるバージョン番号は省略していることに注意してください。_
+
+Windows で PlanarAlly を実行するには、リリースページから `planarally-windows.zip` をダウンロードし、新しいフォルダーに展開してください。
+
+このフォルダーにはさまざまなファイルが含まれていますが、今重要なのは `planarally.exe` というファイルです。
+このファイルを実行すると、コマンドプロンプト(テキストが表示された黒い画面)が表示されます。
+
+<Warning>
+    インターネット上の無造作な実行ファイルに対して警戒心を持つのは健全なことです。これらの `.exe` ファイルは、隔離された CI 環境で python ソースコードから Nuitka を使って生成されています。
+
+    それでも、さまざまな理由から、どこかのアンチウイルスベンダーが誤検知を引き起こすことがあります。
+
+</Warning>
+
+## 開発
+
+クライアントとサーバーを特別な開発モードで実行するように設定できます。これによりフロントエンドはホットリロードされます(つまり、変更が再ビルドなしですぐに適用されます)。
+
+これには、サーバーを追加の 'dev' 引数付きで実行する必要があります:
+
+```bash
+uv run planarally.py dev
+```
+
+さらに、クライアントのホットリロードを処理する別のプロセスも必要です。
+
+```bash
+# in the client folder
+npm run dev
+```
+
+<Warning>
+    クライアントの出力に特定のポートが表示されますが、これは完全に無視してください。PA の dev
+    サーバーは、通常のセットアップにできるだけ近くなるよう特別な方法で接続されています。
+    <br />
+    つまり、PA には以前と同じ(サーバーの)ポートでアクセスします。
+</Warning>
+
+<Warning>
+    リポジトリがクリーンな状態の場合、dev
+    サーバーを使用する前に、クライアントを一度通常どおりビルドしておく必要があります。そうしないと、サーバー側で生成されるいくつかのファイルが欠落します。
+</Warning>

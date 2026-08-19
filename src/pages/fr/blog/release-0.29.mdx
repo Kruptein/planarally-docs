@@ -1,0 +1,143 @@
+---
+title: Rouler en douceur vers l'automne - Release 0.29.0
+date: 2021-10-28 20:00:00
+excerpt: "Quoi de neuf ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Ça fait un moment, une nouvelle release se faisait vraiment attendre !
+Cette release n'est pas très grosse, mais elle apporte quelques nouveaux outils sympas à utiliser, ainsi que l'habituelle salve de corrections de bugs.
+
+## Dés virtuels
+
+Une première grande nouveauté, le lancer de dés virtuels !
+Un mot de prudence toutefois, la version fournie dans cette release n'est pas encore aboutie.
+J'espère obtenir des retours sur la sensation d'utilisation pour façonner l'avenir du lanceur de dés.
+
+Lancer des dés est disponible en tant qu'outil dédié en mode Play, pour le DM comme pour les joueurs.
+Vous pouvez composer un ensemble de dés (actuellement limité aux dés dX) et les laisser rouler à l'écran.
+Le résultat apparaîtra à l'écran dans une boîte de dialogue et sera également mémorisé dans l'outil dés lui-même.
+
+Vous pouvez éventuellement choisir de partager les résultats des dés avec tous les joueurs, ce qui affichera une petite notification sur leur écran lorsque vous lancerez.
+(c'est-à-dire que les dés ne sont pas visuellement lancés sur les écrans des autres joueurs)
+
+#### Une note sur le comportement
+
+Les dés sont émulés/approximés avec un vrai système physique. Il peut arriver que PA considère que le dé a atterri dans sa position finale et affiche un résultat alors que le dé fera un dernier roulement. Ces défauts seront corrigés à l'avenir ; si vous comptez utiliser intensément cette fonctionnalité dans votre campagne, il peut être sage de décider à l'avance quelle valeur vous considérez comme la valeur réelle.
+
+#### Une note sur le chargement
+
+Les dés utilisent un système de rendu 3D complet (merci à babylonjs et ammojs). Cela introduit beaucoup de code supplémentaire via les dépendances, ce qui augmente considérablement la taille du bundle et donc le temps de chargement de PA.
+
+Pour contourner ce problème, tout le code lié aux dés n'est pas chargé pendant le chargement principal de PA, mais est différé jusqu'au moment où vous cliquez sur l'outil dés pour la première fois. Cela signifie qu'il pourrait y avoir un petit délai la première fois que vous interagissez avec l'outil dés.
+
+## Curseur de l'outil Draw
+
+Il y a quelque temps, la décision a été prise de ne plus afficher le curseur de la souris lors de l'utilisation de l'outil Draw, car il n'est jamais synchronisé à 100 % avec la boucle de dessin de PA, ce qui provoque un léger décalage visuel entre le curseur réel et le curseur supposé dans le jeu.
+
+Sans le curseur désynchronisé, les opérations de dessin semblent plus fluides, mais il est devenu assez facile de perdre le fil de l'endroit où vous vous trouvez sur le canevas. C'est d'autant plus vrai lorsque vous dessinez avec des couleurs transparentes ou des couleurs très proches de l'arrière-plan de la carte.
+
+Cette release réintroduit un curseur de souris, non pas le vrai curseur du système, mais un faux curseur qui n'est qu'un polygone dans PA lui-même, qui, étant une forme de PA, sera toujours en phase avec la boucle de dessin et semblera donc fluide.
+
+## Outils d'édition des polygones
+
+Depuis l'introduction des polygones il y a bien longtemps, c'est facilement la forme que j'utilise le plus, surtout pour tout ce qui touche à l'éclairage et à la vision.
+
+Parfois j'oublie qu'un mur particulier possède une porte secrète et réparer ça en pleine séance est assez compliqué, car il faudrait supprimer le mur entier et le refaire, ce qui selon la longueur du polygone peut être une vraie galère. Ou alors on fait passer le(s) personnage(s) à travers le mur, ce qui est ce que je fais la plupart du temps.
+
+Ce n'est plus nécessaire, car j'ai enfin ajouté des outils pour modifier les polygones existants !
+
+Lorsque vous sélectionnez un polygone en mode Build, une interface supplémentaire apparaît près du polygone et suit votre souris.
+Lorsque vous survolez une arête, vous avez la possibilité d'ajouter un point supplémentaire au polygone ou de diviser le polygone à cet endroit.
+Lorsque vous survolez un point, vous pouvez le supprimer.
+
+## CLI d'administration du serveur
+
+_Cette fonctionnalité a été apportée par CalebKoch_
+
+Le serveur python a gagné quelques utilitaires supplémentaires pour gérer le serveur sans avoir à plonger dans un shell python.
+
+En particulier, il peut désormais :
+
+- lister tous les utilisateurs
+- lister toutes les salles (c'est-à-dire les campagnes)
+- supprimer un utilisateur/salle spécifique
+- réinitialiser le mot de passe d'un utilisateur
+
+## Gestion des murs SVG
+
+Depuis la release 0.26.0, il est possible de rattacher des informations de mur sous la forme d'un fichier svg à pratiquement n'importe quel objet dans PA, même si le cas d'usage principal est évidemment les cartes.
+Il extrayait les informations de chemin du svg et les stockait dans les options de la forme pour un accès rapide.
+
+L'ancienne extraction de chemin ignorait les éventuelles transformations définies sur les éléments (par ex. translate/scale) et pouvait donc obliger parfois à retourner manuellement le svg sur l'axe des y pour obtenir le bon résultat dans PA.
+
+Une nouvelle implémentation de la gestion des svg a été écrite, qui ne conserve plus le chemin entier associé à la ressource, mais seulement une référence au svg réel, qui est ensuite analysé séparément à la volée, ce qui permet d'appliquer toute amélioration future de la gestion des svg également aux ressources existantes.
+
+Une de ces améliorations est la prise en charge des transformations translate et scale.
+
+Comme je ne voulais pas casser les flux svg existants, vous devrez réappliquer le svg si vous souhaitez bénéficier de la nouvelle gestion des svg améliorée.
+
+À un moment donné dans le futur, j'ai l'intention de supprimer l'ancien code de gestion des svg, je recommande donc vivement de réappliquer tous vos masques svg que vous utilisez, sinon ils pourraient cesser de fonctionner à l'avenir (les détails seront communiqués plus tard).
+
+## Améliorations de l'interface
+
+### mode d'outil actif
+
+La dernière release a modifié l'interface liée aux modes d'outil (c'est-à-dire Play et Build).
+La distinction entre les deux a été encore renforcée pour bien montrer quel mode est actuellement actif.
+
+### paramètres de vision
+
+Il n'est plus possible de configurer une portée de vision maximale inférieure à la portée minimale et vice versa.
+
+### interface d'angle
+
+Les auras sont généralement des cercles à 360 degrés complets, mais cela peut être configuré avec un angle de vue pour orienter l'aura dans une direction particulière.
+L'interface de l'angle de vue propose désormais aussi une entrée numérique si vous voulez être plus précis ou si vous n'aimez pas l'élément d'entrée circulaire.
+
+### sélecteur de variantes
+
+Le sélecteur de variantes a été désactivé lors de la grande mise à jour vue3, en partie parce que je le trouvais trop bugué et qu'il n'était pas vraiment utilisé par les autres.
+
+Apparemment, j'avais totalement tort sur ce dernier point, car j'ai reçu de nombreuses questions sur la raison pour laquelle les variantes ne fonctionnaient plus.
+
+Mes excuses à ceux-là, il a été réactivé dans sa fonctionnalité d'origine !
+
+#### Corrections
+
+Deux bugs ont également été corrigés en rapport avec les formes à variantes :
+
+##### Trackers/Auras
+
+La logique partagée des trackers/auras présentait des problèmes de logique entraînant un comportement incohérent.
+
+Ils devraient désormais fonctionner correctement :)
+
+De plus, lors du changement de variante, si la variante précédente avait (plusieurs) auras non partagées, certaines d'entre elles restaient à l'écran sans bouger (c'est-à-dire statiques). Cela a également été résolu.
+
+##### Changement d'emplacement
+
+Lors du déplacement d'une forme à variantes vers un autre emplacement, seule une partie des variantes était déplacée, provoquant de multiples problèmes partout (y compris l'impossibilité de charger l'ancien emplacement).
+
+## Corrections de bugs
+
+- Les formes verrouillées pouvaient changer d'emplacement
+- Les formes verrouillées pouvaient changer d'étage
+- Bug de la portée de vision minimale égale à la portée maximale
+- Les auras inclinées ne tournaient pas avec la rotation générale de la forme
+- De multiples problèmes de style dans firefox
+    - Les annotations ne remplissent plus toute la largeur de l'écran
+    - L'interface des auras beaucoup trop large
+- Synchronisation de la vue
+    - la vue est envoyée immédiatement à la connexion (et n'attend pas le premier pan)
+    - le déplacement de la vue du DM est maintenant limité (throttle) et ne devrait plus sembler saccadé côté client
+- Diverses corrections liées au DPI
+- De multiples bugs du mode de vision expérimental
+    - Correction du démarrage qui ne fonctionnait pas correctement
+    - Correction du déplacement non accroché d'une forme bloquante qui ne mettait pas à jour la triangulation de mouvement
+- Le blocage de mouvement ne se mettait pas à jour directement sans l'accrochage
+- Une certaine perte de performance pour les gros polygones
+- Suppression de l'interface de rotation persistante lors de la suppression d'une forme en mode Build
+- L'outil Select affichait la règle sans sélection
+- Le redimensionnement du texte n'était pas synchronisé en direct avec les autres clients

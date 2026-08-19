@@ -1,0 +1,93 @@
+---
+title: Release 2025.3
+date: 2025-09-08 20:00:00
+excerpt: "Små fejlrettelser og flytning af adminpanelet"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Dette er en meget lille release, der sigter mod at få udsendt nogle diverse fejlrettelser, rydde op i den gamle serverkonfigurationsopsætning og erstatte den gamle separate adminklient med et indbygget adminpanel.
+
+## Flytning af adminpanelet
+
+Indtil denne release var det muligt for serverejeren at have en anden speciel admin-only-webserver ved siden af den primære planarally-server.
+Denne adminserver kunne bruges til nogle meget simple ting som at liste alle brugere, nulstille adgangskoder osv.
+
+Den var ret nichepræget, krævede en del teknisk viden at sætte op og gjorde serveropsætningen en smule mere kompliceret.
+Da den var en separat applikation, blev den også ofte ignoreret af mig, hvilket fik afhængighederne til at være forældede og den modtog generelt bare ikke opdateringer.
+
+Så jeg besluttede at skille mig af med det hele og faktisk bare tilføje det til hovedapplikationen.
+En ny konfigurationsmulighed "admin_user" (se [konfigurationsmanualen](/da/server/management/configuration/#field-admin_user)) er tilføjet, som kan konfigureres til at udpege en bestemt bruger som hovedadministrator.
+
+Denne bruger vil se en ekstra "Admin"-sektion i sit dashboard, der åbner admin-dashboardet. Det er stort set de samme data, som det oprindelige adminpanel havde, men med nogle små tilføjelser.
+
+Målet er at udvide dette i fremtiden med ting som:
+
+- ændring af serverkonfiguration
+- give andre brugere rettigheder til at se/håndtere nogle ting
+- vise de statistikker, der er blevet indsamlet siden 2025.2
+
+Men det er til en fremtidig release ;)
+
+## Forbedringer af zoom-scroll
+
+Når man zoomede ret langt ind, var der store spring i zoomniveauet, hvilket er ret ubehageligt og irriterende.
+
+Zoomoplevelsen burde nu være meget mere jævn.
+
+## Initiativ-rettelser
+
+Rexy lavede en række rettelser af initiativ-adfærden!
+
+- At gå en tur tilbage i tiden formindskede effekt-timere
+- Fjernelse af en initiativpost kunne resultere i nogle tilstandsinconsistent
+
+Når en initiativpost nu fjernes, bliver den næste post på listen den aktive post.
+
+## Rettelser af "Behind"-synstilstanden
+
+I [2024.1](/da/blog/release-2024.1) blev "behind"-synsblokeringstilstanden introduceret.
+
+Den blev oprindeligt implementeret med en slags smart hack. Det blev dog for nylig bragt til min opmærksomhed (af den førnævnte Rexy), at der var nogle tilfælde, hvor dette resulterede i forkerte render-resultater.
+
+![Forkert behind-synsrendering](./2025.3/behind-vision-wrong.png)
+
+På billedet ovenfor er den blå rektangel konfigureret i "behind"-synsblokeringstilstand, men på en eller anden måde er en stor del af den synlig, hvor den ikke burde være.
+
+Detaljerne er ret tekniske, men jeg brugte et par dage på dette, og jeg omskrev fuldstændig logikken for "behind"-synstilstanden, og den burde nu være robust (TM).
+
+## Rettelser af aktivsøgning
+
+En snedig syntaksfejl i serverkoden fik aktiver fra andre spillere til at dukke op, når man søgte i aktivhåndteringen i spillet.
+
+Mens jeg rettede den fejl, bemærkede jeg også, at delte aktiver ikke blev forespurgt, når man søgte efter aktiver.
+Det er en dyrere operation at inkludere dem som standard, så der blev tilføjet en toggle til søgebjælken for valgfrit at tilmelde sig søgning i aktiver, der er delt med dig.
+
+## Fjernelse af den gamle konfigurationsopsætning
+
+I sidste release blev konfigurationsformatet fuldstændig ændret. Det er siden blevet gemt i `data/config.toml` i stedet for den oprindelige `server_config.cfg`.
+
+Da den oprindelige konfiguration var tjekket ind i versionsstyringen, ønskede jeg ikke at overraske folk, når filen pludselig blev fjernet ved opgradering.
+I bakspejlet burde jeg bare have fjernet den (eller tilføjet et stort banner til filen), da der var en del forvirring med de filer, der stadig var til stede, selvom de ikke længere blev brugt.
+
+Lærte man da noget, formoder jeg!
+
+Uanset hvad, så er de gamle konfigurationsfiler blevet fjernet.
+
+## Ugyldig serverkonfiguration
+
+Serveren vil nu ikke længere starte og rapportere fejl, når ukendte/forkerte konfigurationsdata stødes på.
+
+Dette er en ekstra foranstaltning for at forhindre overraskelser for folk, der tror, de har konfigureret noget korrekt, men faktisk ikke har.
+
+## Statistikker
+
+Nogle små ændringer af de interne API'er er blevet foretaget, især er eksporten til hoved-PA-statistikserveren nu gjort i bidder for at forhindre store datapakker, hvis eksporten ikke har fundet sted et stykke tid.
+
+Også netværksproblemer for spillere, der forårsager hurtige forbindelser/afbrydelser, vil ikke længere blive sporet i statistikkerne, da de kunne oversvømme dataene uden nogen reel værdi.
+
+## Diverse fejlrettelser
+
+- Åbn ikke formegenskaberne igen efter en genmarkering
+- Sidste gitterlinje på X- eller Y-aksen blev nogle gange ikke renderet
+- Omdøbning af en etage efter en omrokering kunne omdøbe den forkerte etage

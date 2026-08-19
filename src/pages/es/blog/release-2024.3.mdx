@@ -1,0 +1,152 @@
+---
+title: Release 2024.3
+date: 2024-10-13 19:45:00
+excerpt: "Mejoras en los dados y un chat sencillo"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Ha pasado de nuevo unos meses desde la última versión, así que sin más preámbulos, aquí hay algunas novedades :)
+
+### Repetición del aviso de deprecación
+
+Como se anunció en la versión anterior, el sistema de etiquetas/filtros está en desuso y se eliminará en la próxima versión.
+
+## Sistema de chat sencillo
+
+Esta versión introduce un sistema de chat sencillo que te permite chatear con otros jugadores de la campaña.
+
+![Botón de chat con mensajes esperando](../docs/game/assets/chat.png)
+
+Está diseñado para ser sencillo y directo. Hay disponible algo de formato en forma de markdown, y las URL de imágenes se convierten automáticamente en imágenes.
+
+Es importante señalar que los mensajes enviados no se guardan actualmente en el servidor. Así que cualquier actualización o reconexión a la sesión borrará el historial del chat.
+
+No siempre me resulta fácil saber qué tipo de grupos usan PA, por eso la función de chat es relativamente mínima.
+Si a tu grupo le ayudaría tener un historial de chat persistente u otras funciones de chat, ¡ponte en contacto!
+
+Para más información sobre el chat, consulta la [documentación](../../docs/game/chat); la información sobre markdown se puede encontrar [aquí](../../learn/dm/Markdown_Tutorial/markdown/).
+
+## Mejoras en los dados
+
+Una gran parte de esta versión se dedicó a mejorar varios aspectos del sistema de lanzamiento de dados.
+
+### Interfaz de la herramienta Dados
+
+La interfaz de la herramienta Dados se ha rediseñado por completo.
+
+![Herramienta Dados](./2024.3/dice.png)
+
+#### Modo no 3D
+
+En el pasado, la única forma de lanzar dados era simulándolos con objetos 3D.
+Puede ser divertido, pero no siempre es la mejor opción por varias razones.
+
+A partir de ahora hay una opción para resolver automáticamente los resultados de los dados sin simulación 3D.
+
+#### Mejoras en la entrada
+
+La versión anterior tenía una entrada de texto y una interfaz simple de clic para seleccionar los dados sin escribirlos (por ejemplo, hacer clic 3 veces en 'd6' añadía 3d6 al campo de texto).
+
+Funcionaba, pero era bastante limitado. La interfaz de "clic" se ha ampliado drásticamente.
+
+La gramática del analizador de dados también se ha ampliado y ahora permite expresiones más complejas como "kh2 (conserva los 2 más altos)" y similares.
+
+#### Compartir resultados
+
+Ahora es posible lanzar los dados de forma totalmente privada, sin que siquiera el DM vea los resultados.
+
+Los usuarios que reciben resultados de tiradas de otro jugador ahora pueden hacer clic en el pop-up de notificación para ver los detalles de la tirada.
+
+#### Interfaz de resultados e historial
+
+La interfaz que muestra los resultados de la tirada también ha cambiado ligeramente.
+
+Para reducir el desorden, las tiradas individuales en un grupo (p. ej. 3d6) ya no se muestran, pero se pueden revelar pasando el cursor sobre el grupo.
+
+El historial de tiradas también ha cambiado ligeramente y al hacer clic en una fila del historial se volverá a mostrar la interfaz completa de resultados.
+
+### Actualización de la librería 3D
+
+Para la simulación 3D se utiliza el motor de juego babylonjs. Se ha actualizado de la versión 4 a la 7.
+Este cambio también incluye una modificación en el motor de física utilizado, ya que babylonjs ahora usa el motor havok en lugar de ammo.
+
+La lógica de lanzamiento en 3D también ha cambiado ligeramente, pero en su mayor parte se puede esperar el mismo comportamiento.
+
+### La librería planarally-dice y los sistemas de dados
+
+Actualmente gran parte de la interfaz de dados gira en torno al sistema d20, común en D&D pero también en otros sistemas.
+
+Dicho esto, la propia librería de dados se ha reescrito para poder soportar una gran variedad de sistemas de dados.
+Sin embargo, la interfaz de PA todavía no tiene forma de cambiar entre sistemas, así que actualmente usa el sistema d20 por defecto.
+
+Actualmente estoy pensando en la mejor manera de ofrecer otros sistemas de dados en PA.
+(por ejemplo, tener una configuración de "dice system" en la configuración de campaña del DM, o quizás incluso una configuración general de "rpg system").
+
+Así que es posible que en el futuro lleguen más cambios relacionados con sistemas rpg/dados.
+
+## Maniobrar más fácilmente en las mazmorras
+
+A veces puede ser una molestia mover un grupo de fichas a través de un par de pasillos estrechos con curvas debido a la colisión con las paredes.
+Al principio a menudo las agrupaba manualmente y luego las volvía a separar al llegar a un punto donde la posición volvía a ser importante.
+Más recientemente solía mover 1 sola forma y mover las demás con shift a la ubicación final, simplemente porque era menos trabajo.
+
+Sin embargo, ninguna de las dos soluciones es muy buena, así que esta versión añade una nueva función que combina ambos enfoques de una forma menos manual.
+
+Ahora puedes hacer clic derecho en un grupo de formas y seleccionar "Collapse", lo que moverá todas para centrarlas en la forma desde la que iniciaste la compresión.
+Ahora, mientras mueves esa única forma, las demás la seguirán automáticamente. Una vez alcanzada cierta posición, puedes hacer clic derecho y "Expand",
+que empujará todas las formas a sus posiciones originales con respecto a la forma desde la que iniciaste la compresión.
+
+También hay un atajo de teclado: mientras mantienes pulsada la letra 'c' (de collapse/compresión), tu selección se comprimirá y se expandirá automáticamente al soltar el botón del ratón o al pulsar 'c' de nuevo.
+
+<video autoplay loop muted style="max-width: min(750px, 75vw);">
+    <source src="/blog/release-2024.3/collapse-drag.webm" type="video/webm" />
+    <source src="/blog/release-2024.3/collapse-drag.mp4" type="video/mp4" />
+</video>
+
+<br />
+<br />
+
+## Funciones de campaña
+
+Una adición menor es la capacidad del DM para desactivar ciertas funciones.
+En particular, las herramientas de Chat y Dados se pueden desactivar a partir de esta versión.
+
+Es más una función beta, ya que todavía no estoy seguro de qué me parece esto.
+Estas configuraciones podrían ser más apropiadas como preferencias del usuario.
+
+## Herramientas
+
+### Cambio en la interfaz de la barra de herramientas
+
+Un pequeño cambio en la interfaz de la barra de herramientas: toda la interfaz ampliada de las herramientas ahora está completamente alineada a la derecha en lugar de flotar sobre la herramienta correspondiente.
+Esto también significa que la pequeña flecha que conectaba la interfaz de la herramienta con la barra ha desaparecido.
+
+Mientras trabajaba en los cambios de la herramienta Select (ver más abajo), se hizo evidente que la interfaz de las herramientas más cercanas al centro tenía algunos problemas.
+O la herramienta no podía tener una interfaz grande, o bloqueaba una gran parte del espacio de la pantalla principal.
+
+Al mover todas las interfaces de las herramientas a la derecha, pueden ocupar más espacio sin competir por el espacio central de la pantalla.
+
+### Estado de Select y Ruler
+
+Cuando se selecciona una forma, la interfaz de la herramienta Select ofrecía una opción para añadir una regla al movimiento de la forma.
+
+Es bastante práctico, pero la configuración de esa regla (por ejemplo, si es visible para los otros jugadores) solo se podía configurar en la herramienta Ruler.
+Lo que significaba que a menudo tenías que ir y venir entre ambas herramientas para cambiar o confirmar la configuración de la regla.
+
+Ahora la herramienta Select también muestra la configuración de la regla y te permite cambiarla directamente.
+
+![Configuración de la regla de la herramienta Select](../docs/tools/select-ui.png)
+
+### Hexágonos en la herramienta Spell
+
+La versión anterior hizo una gran mejora en los hexágonos, pero no cubrió todos los lugares donde podrían ser útiles.
+
+Esta versión hace que la herramienta Spell reconozca qué tipo de cuadrícula estás usando y ahora ofrece la opción de crear efectos de hechizo en varios tamaños hexagonales.
+
+![Tamaños hexagonales de la herramienta Spell](../docs/tools/spell-hex.png)
+
+### Correcciones de errores
+
+- Draw: al hacer clic en la etiqueta "bloquea el movimiento" en la configuración de visión de la herramienta Draw, ahora la casilla correspondiente se activa correctamente
+- Ruler: en el modo cuadrícula, la barra espaciadora no sincronizaba correctamente el extremo ajustado con los otros jugadores

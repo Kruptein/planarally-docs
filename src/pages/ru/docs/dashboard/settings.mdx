@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Настройки клиента
+
+<Image src={DashboardSettings} alt="Настройки панели управления" />
+
+Сейчас доступны только настройки аккаунта.
+В этом разделе при желании можно указать адрес электронной почты, а главное — изменить пароль или удалить аккаунт.
+
+<Warning title="Удаление аккаунта">
+    Это операция полного удаления: после удаления PA не хранит о вас никакой информации.
+
+    !!Также будут удалены все кампании, которые в данный момент принадлежат этому пользователю!!
+
+</Warning>

@@ -1,0 +1,199 @@
+---
+title: Release 0.20.0 - ¡Novedades!
+date: 2020-05-10 21:02:34
+excerpt: "¿Qué hay de nuevo en 0.20.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
+
+¡Quiero empezar con un gran agradecimiento! Nuestra pequeña comunidad está empezando a crecer y de verdad me calienta el corazón ver a toda esta gente uniéndose y compartiendo sus experiencias.
+En estos tiempos es importante tener algo que hacer con tus amigos, como Dungeons and Dragons, y por eso espero que PlanarAlly pueda traer alegría a algunos de vosotros.
+
+En esta release tenemos algunas mejoras en la gestión de recursos, una revisión completa de la barra de ubicaciones, una UI/UX mejorada y un montón de correcciones de errores.
+
+Los temas mencionados en esta actualización se enumeran a la izquierda; el changelog completo se puede encontrar en [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.20.0).
+
+_También he creado una [cuenta de patreon](https://www.patreon.com/planarally), no dudes en echarle un vistazo :)_
+
+## Recursos
+
+### Barra de búsqueda en el juego
+
+Cuando tienes un gran número de recursos, organizarlos en carpetas es una forma de recorrer tus archivos en el juego, pero puede llevar tiempo.
+¡Ahora tenemos una barra de búsqueda en la parte superior de la lista de recursos en el juego! Es una implementación de búsqueda muy simple, así que nada de regex elaboradas por ahora, pero ya ha aliviado enormemente mi trabajo de preparación.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/search.webm" type="video/webm" />
+    <source src="/blog/release-0.20/search.mp4" type="video/mp4" />
+</video>
+
+### Información sobre el progreso de subida
+
+La subida de imágenes en el Asset Manager no daba ningún feedback sobre el progreso. Tenías que esperar a que terminara para que apareciera, y además había un error por el que ni siquiera aparecía siempre hasta que no refrescabas.
+
+Esos días se acabaron y ahora tenemos una barra de progreso :)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/progressbar.webm" type="video/webm" />
+    <source src="/blog/release-0.20/progressbar.mp4" type="video/mp4" />
+</video>
+
+### Varia
+
+Al eliminar recursos en el Asset Manager, también se eliminarán del disco si ningún otro usuario está usando el mismo archivo. Si quieres aplicar esto retroactivamente a todos tus archivos existentes que ya no se usan, el propietario del servidor puede usar [este fragmento de código](/public/blog/release-0.20/remove_old_assets.txt)
+
+El menú contextual de clic derecho no se mostraba correctamente si te desplazabas en el navegador de archivos. Esto se ha resuelto, así como el error mencionado anteriormente por el que los archivos no aparecían en el explorador hasta que refrescabas.
+
+## Ubicaciones
+
+¡La barra de ubicaciones ha recibido una revisión masiva y ahora tiene varias funciones nuevas!
+
+### Mover jugadores
+
+Antes de esta release, si el DM hacía clic en una ubicación, el DM y todos los jugadores se movían. Obviamente no es lo ideal y esto se ha rediseñado.
+
+Si haces clic en el nombre de una ubicación, solo tú te moverás a esa ubicación.
+Si quieres mover a tus jugadores, puedes arrastrar todo el grupo de jugadores a otra ubicación o abrir el elemento del jugador y arrastrar a un jugador individual a otra ubicación.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+### Reordenar ubicaciones
+
+Además de la opción de arrastrar jugadores, ahora también puedes arrastrar las propias ubicaciones para reordenarlas en el orden que prefieras.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+### Configuración
+
+Un aspecto a menudo confuso de configurar las ubicaciones es que sus ajustes estaban en parte en la configuración de DM para toda la sesión.
+No había señales claras de qué configuraciones se aplicarían a todas las ubicaciones o cuáles solo a la ubicación activa.
+
+Ahora esto se ha rediseñado y la configuración de DM dicta los valores predeterminados para todas las ubicaciones. Las ubicaciones individuales pueden luego anular este comportamiento en su propia configuración.
+Cualquier valor anulado se resaltará para dejar claro que difiere de la configuración predeterminada.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+Además, ahora también es posible renombrar o incluso eliminar una ubicación.
+
+<Image src={RenameLocation} alt="Renombrar ubicación" />
+
+## Otras mejoras de UI/UX
+
+La mencionada revisión de las ubicaciones es una gran victoria obvia en la mejora de UI/UX, pero también hay otros lugares donde se han hecho avances!
+
+### Propiedad de las formas
+
+En el pasado era un fastidio añadir usuarios como propietarios de formas porque tenías que escribir los nombres manualmente. Además, había casos en los que querías que alguien tuviera acceso de visión pero no acceso general de edición.
+
+¡Ambas cosas ahora son cosa del pasado!
+
+<Image src={Access} alt="Configuración de acceso" />
+
+La parte de acceso del diálogo de propiedades de la forma se ha actualizado. Ahora muestra siempre una línea de permiso predeterminada, que puedes usar para dar inmediatamente acceso de visión y edición a todos los jugadores.
+
+Se puede usar un menú desplegable para añadir permisos para un usuario concreto y los iconos te permiten ajustar los permisos con precisión, como se usa en otros lugares.
+
+El lápiz proporciona acceso de edición; esto implica básicamente todo: mover la forma, editar campos en las propiedades, etc.
+
+La bombilla proporciona acceso de visión; simplemente permite al jugador ver lo que la forma puede ver.
+
+### Herramienta Map
+
+La herramienta Map siempre ha sido útil, pero nunca quedó muy claro cómo funcionaba. Esta release añade información más evidente sobre cómo usarla y también cambia ligeramente el comportamiento.
+
+La herramienta Map solo funciona sobre una forma seleccionada; para dejar esto claro, ahora aparecerá una información sobre herramientas (tooltip) que pedirá seleccionar una forma. Esto también se puede hacer desde la propia herramienta Map, así que ya no necesitas cambiar a la herramienta Select y volver.
+
+En el pasado tenías que introducir por adelantado las dimensiones X/Y deseadas y el redimensionado ocurría en cuanto terminabas de seleccionar. Esto ha cambiado para que puedas seleccionar un área y seguir ajustándola hasta que estés satisfecho antes de finalizar el redimensionado.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+
+Otra pequeña mejora de UX es que la forma ya no podrá saltar fuera de la pantalla después de un redimensionado. Siempre habrá una parte garantizada que permanecerá en el mismo lugar.
+
+### Redimensionado de formas
+
+Redimensionar una forma ya no intentará centrarla según sus limitaciones entre las celdas. En su lugar, solo redimensionará la esquina arrastrada hacia el punto de cuadrícula más cercano, lo que proporciona un efecto más natural.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/resize.webm" type="video/webm" />
+    <source src="/blog/release-0.20/resize.mp4" type="video/mp4" />
+</video>
+
+### Tamaño del pincel de Draw
+
+Para la herramienta de polígono y pincel, el tamaño predeterminado del pincel se ha reducido de 1 unidad de cuadrícula a 1/10 de unidad de cuadrícula.
+En la práctica, estas herramientas se usan sobre todo en el contexto de líneas de visibilidad y en ese caso se prefieren líneas más pequeñas.
+
+### Marcadores de formas
+
+Ahora puedes establecer un marcador en una forma. Esto añadirá una entrada al submenú de marcadores al que se puede acceder en la barra lateral izquierda.
+
+Este menú te permite centrar la pantalla en un marcador seleccionado.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/markers.webm" type="video/webm" />
+    <source src="/blog/release-0.20/markers.mp4" type="video/mp4" />
+</video>
+
+## Nuevos atajos de teclado
+
+### Mantener la proporción de aspecto
+
+Al redimensionar una forma, a veces quieres asegurarte de que se mantenga la proporción de aspecto. A partir de ahora esto es posible manteniendo pulsada la tecla ctrl durante la operación de redimensionado.
+
+La tecla ctrl también se usa para la selección múltiple, pero las dos operaciones no se solapan, así que el doble uso parecía apropiado.
+
+Los modificadores habituales alt y shift también se pueden usar junto con este modificador.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/aspectratio.webm" type="video/webm" />
+    <source src="/blog/release-0.20/aspectratio.mp4" type="video/mp4" />
+</video>
+
+### Centrar la pantalla en la ficha
+
+Junto con el nuevo sistema de marcadores y el atajo de teclado ctrl+0 introducido en 0.19.0, hay otra opción disponible para centrar tu pantalla en fichas importantes.
+
+Al pulsar la barra espaciadora, recorrerás tus fichas y las centrarás en tu pantalla. Esto también te moverá a otras plantas si te encuentras en otro lugar.
+
+### Invertir el comportamiento de alt
+
+A algunas personas no les gusta el comportamiento de ajuste predeterminado y a partir de ahora pueden vivir felices para siempre. Esta release añade un conmutador en la configuración del cliente de la barra lateral para invertir el comportamiento de alt.
+
+Si esta opción está habilitada, las acciones predeterminadas no realizarán ningún ajuste y solo cuando se pulse el modificador alt se intentará ajustar a la cuadrícula o a los puntos cercanos.
+
+## Varia
+
+### Adiciones
+
+- opciones cors origin
+- logo y versión en la parte superior izquierda
+- información sobre herramientas en la mayoría de los iconos
+- configuración del servidor por niveles
+
+### Correcciones de errores
+
+- El ancho del polígono ahora se tiene en cuenta para la detección de impactos
+- La barra Planta/Capa ahora se mueve junto con el menú lateral cuando se abre
+- El menú lateral y el menú de ubicaciones ya no se superponen
+- El redimensionado de la ventana que estropeaba los bordes de iluminación
+- Los valores de prompts anteriores ahora se borran antes de mostrar un nuevo prompt
+- Las capas de cuadrícula de todas las plantas inferiores visibles
+- El DM podía invitarse a sí mismo a la sala como jugador
+- La herramienta Draw ya no retrasa la representación del asistente del pincel tras un cambio de capa/planta
+- La planta activa se recuerda al volver a unirse a la sesión

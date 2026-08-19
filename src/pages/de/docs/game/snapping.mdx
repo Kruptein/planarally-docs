@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Einrasten
+
+Viele Elemente in PlanarAlly besitzen eine Form von Einrast-Verhalten.
+Es gibt zwei Arten des Einrastens: das Einrasten am Raster und das Einrasten an Punkten.
+
+Das Einrasten am Raster ist ziemlich selbsterklärend: Wenn du Formen bewegst, möchtest du oft, dass sie ordentlich auf dem Raster platziert sind.
+Durch die Verwendung des Raster-Einrastens musst du nicht super präzise sein – PlanarAlly übernimmt die Arbeit für dich.
+
+Die zweite Form des Einrastens ist die Möglichkeit, an einem anderen vorhandenen Punkt einzurasten.
+Als Punkt gelten hier Punkte vorhandener Formen, z. B. die Ecken eines Rechtecks oder die Punkte eines Polygons.
+
+Standardmäßig ist das Einrasten aktiviert und wirkt bei den meisten Operationen (z. B. Bewegen/Ändern der Größe/Drehen).
+Du kannst dieses Verhalten für eine bestimmte Operation deaktivieren, indem du während der Aktion die `alt`-Taste gedrückt hältst.
+
+Wenn du es dauerhaft deaktivieren möchtest, kannst du das Verhalten in den [Client-Einstellungen](/de/docs/game/settings/) umkehren, wodurch die `alt`-Taste stattdessen als Modifikator zum Aktivieren des Einrastens fungiert.
+
+## Beispiele
+
+Beim Zeichnen eines Polygons versucht jeder angeklickte Punkt, an einem nahegelegenen Rasterpunkt oder an einem vorhandenen Punkt einzurasten.
+
+Beim Ändern der Größe eines Punkts versucht dieser, an einem Rasterpunkt oder einem vorhandenen Punkt einzurasten.
+
+Beim Drehen einer Form rastet die Drehung auf Vielfachen von 45 Grad ein.

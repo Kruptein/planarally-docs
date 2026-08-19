@@ -1,0 +1,199 @@
+---
+title: Release 0.20.0 - Was ist neu!
+date: 2020-05-10 21:02:34
+excerpt: "Was ist neu in 0.20.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
+
+Ich möchte mit einem großen Dank beginnen! Unsere kleine Community beginnt zu wachsen, und es wärmt mir wirklich das Herz zu sehen, wie all diese Leute beitreten und ihre Erfahrungen teilen.
+In diesen Zeiten ist es wichtig, etwas mit seinen Freunden zu unternehmen, wie Dungeons & Dragons, und ich hoffe daher, dass PlanarAlly einigen von euch da draußen Freude bereiten kann.
+
+In diesem Release gibt es einige Verbesserungen bei der Asset-Verwaltung, einen überarbeiteten Ortsbalken, verbesserte UI/UX und eine ganze Reihe von Bugfixes.
+
+Die in diesem Release genannten Themen sind links aufgelistet, das vollständige Changelog findest du auf [GitHub](https://github.com/Kruptein/PlanarAlly/releases/tag/0.20.0).
+
+_Ich habe auch ein [Patreon-Konto](https://www.patreon.com/planarally) eingerichtet, schau es dir gerne an :)_
+
+## Assets
+
+### Suchleiste im Spiel
+
+Wenn du eine große Anzahl von Assets hast, ist das Organisieren in Ordnern ein Weg, um deine Dateien im Spiel zu durchsuchen, kann aber trotzdem etwas Zeit in Anspruch nehmen.
+Wir haben jetzt eine Suchleiste am oberen Rand der In-Game-Assetliste! Es ist eine sehr einfache Suchimplementierung, also noch keine ausgefallenen Regex, aber sie hat meine Vorbereitungsarbeit bereits enorm erleichtert.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/search.webm" type="video/webm" />
+    <source src="/blog/release-0.20/search.mp4" type="video/mp4" />
+</video>
+
+### Upload-Fortschrittsinformationen
+
+Beim Hochladen von Bildern im Asset-Manager gab es keinerlei Feedback zum Fortschritt. Du musstest warten, bis es abgeschlossen war, damit es angezeigt wurde, und es gab auch einen Bug, bei dem es nicht einmal immer angezeigt wurde, bis man aktualisiert hatte.
+
+Diese Zeiten sind vorbei, und wir haben jetzt einen Fortschrittsbalken :)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/progressbar.webm" type="video/webm" />
+    <source src="/blog/release-0.20/progressbar.mp4" type="video/mp4" />
+</video>
+
+### Varia
+
+Beim Entfernen von Assets im Asset-Manager werden sie auch von der Festplatte entfernt, wenn kein anderer Benutzer dieselbe Datei verwendet. Wenn du dies rückwirkend auf alle deine vorhandenen, nicht mehr verwendeten Dateien anwenden möchtest, kann der Serverbesitzer [diesen Codeausschnitt](/public/blog/release-0.20/remove_old_assets.txt) verwenden.
+
+Das Rechtsklick-Kontextmenü wurde nicht korrekt angezeigt, wenn du im Dateibrowser gescrollt hattest. Dies wurde nun behoben, ebenso wie der zuvor erwähnte Bug, bei dem Dateien im Explorer nicht angezeigt wurden, bis man aktualisiert hatte.
+
+## Orte
+
+Der Ortsbalken wurde umfassend überarbeitet und hat jetzt mehrere neue Funktionen!
+
+### Spieler bewegen
+
+Vor diesem Release bewegten sich der DM und alle Spieler, wenn der DM auf einen Ort klickte. Das ist natürlich nicht ideal und wurde überarbeitet.
+
+Wenn du auf den Namen eines Ortes klickst, bewegst du dich – und nur du – zu diesem Ort.
+Wenn du deine Spieler bewegen möchtest, kannst du entweder die gesamte Spielergruppe zu einem anderen Ort ziehen oder das Spieler-Element öffnen und einen einzelnen Spieler zu einem anderen Ort ziehen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+### Orte neu anordnen
+
+Zusätzlich zur Option, Spieler herumzuziehen, kannst du jetzt auch die Orte selbst herumziehen, um sie in beliebiger Reihenfolge anzuordnen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+### Einstellungen
+
+Ein oft verwirrender Aspekt bei der Konfiguration von Orten war, dass ihre Einstellungen teilweise in den DM-Einstellungen für die gesamte Sitzung lagen.
+Es gab keine klaren Hinweise, welche Einstellungen für alle Orte gelten und welche nur für den aktiven Ort.
+
+Dies wurde nun überarbeitet: Die DM-Einstellungen legen jetzt die Standardwerte für alle Orte fest. Einzelne Orte können dieses Verhalten dann in ihren eigenen Einstellungen überschreiben.
+Jeder überschriebene Wert wird hervorgehoben, um deutlich zu machen, dass er von den Standardeinstellungen abweicht.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+Zusätzlich ist es jetzt auch möglich, einen Ort umzubenennen oder sogar zu entfernen.
+
+<Image src={RenameLocation} alt="Ort umbenennen" />
+
+## Weitere UI/UX-Verbesserungen
+
+Die zuvor erwähnte Orts-Überarbeitung ist ein offensichtlicher großer Gewinn bei den UI/UX-Verbesserungen, aber auch an anderen Stellen wurden Fortschritte gemacht!
+
+### Form-Besitz
+
+Es war in der Vergangenheit mühsam, Benutzer als Besitzer von Formen hinzuzufügen, weil du die Namen manuell eintippen musstest. Zusätzlich gab es Fälle, in denen du jemandem Sicht-Zugriff, aber keinen allgemeinen Bearbeitungszugriff gewähren wolltest.
+
+Beide Dinge gehören der Vergangenheit an!
+
+<Image src={Access} alt="Zugriffseinstellungen" />
+
+Der Zugriffsteil des Dialogfensters für Form-Eigenschaften wurde verbessert. Es wird jetzt immer eine Standard-Berechtigungszeile angezeigt, mit der du allen Spielern sofort Sicht- und Bearbeitungszugriff geben kannst.
+
+Über ein Dropdown kannst du Berechtigungen für einen bestimmten Benutzer hinzufügen, und die Symbole ermöglichen es dir, die Berechtigungen wie an anderen Stellen fein abzustimmen.
+
+Der Stift gewährt Bearbeitungszugriff; das umfasst praktisch alles: Formbewegung, Bearbeiten von Feldern in den Eigenschaften usw.
+
+Die Glühbirne gewährt Sicht-Zugriff; sie erlaubt dem Spieler nur, zu sehen, was die Form sehen kann.
+
+### Map-Werkzeug
+
+Das Map-Werkzeug war schon immer praktisch, aber es war nie sehr klar, wie es funktionierte. Dieses Release fügt offensichtlichere Informationen zur Benutzung hinzu und ändert auch leicht das Verhalten.
+
+Das Map-Werkzeug funktioniert nur auf einer ausgewählten Form; um das klarzustellen, erscheint jetzt ein Tooltip, der dich auffordert, eine Form auszuwählen. Dies kann auch direkt im Map-Werkzeug erfolgen, sodass du nicht mehr zum Select-Werkzeug wechseln und dann zurückwechseln musst.
+
+In der Vergangenheit musstest du deine gewünschten X/Y-Abmessungen im Voraus eingeben, und die Größenänderung erfolgte, sobald du mit der Auswahl fertig warst. Dies wurde geändert: Du kannst jetzt einen Bereich auswählen und ihn weiter anpassen, bis du zufrieden bist, bevor du die Größenänderung abschließt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+
+Eine weitere kleine UX-Verbesserung ist, dass die Form nach einer Größenänderung nicht mehr aus dem Bildschirm springen kann. Es gibt immer einen garantierten Teil davon, der an derselben Stelle bleibt.
+
+### Größenänderung von Formen
+
+Beim Größenändern einer Form wird nicht mehr versucht, die Form angesichts ihrer Beschränkungen zwischen Zellen zu zentrieren. Stattdessen wird einfach die gezogene Ecke auf den nächsten Rasterpunkt skaliert, was einen natürlicheren Effekt erzielt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/resize.webm" type="video/webm" />
+    <source src="/blog/release-0.20/resize.mp4" type="video/mp4" />
+</video>
+
+### Pinselgröße bei Draw
+
+Für das Polygon- und das Pinsel-Werkzeug wurde die Standardgröße des Pinsels von 1 Rastereinheit auf 1/10 einer Rastereinheit reduziert.
+In der Praxis werden diese Werkzeuge meist im Zusammenhang mit Sichtlinien verwendet, und in diesem Fall sind kleinere Linien zu bevorzugen.
+
+### Form-Marker
+
+Du kannst jetzt einen Marker auf einer Form setzen. Dies fügt dem Marker-Untermenü einen Eintrag hinzu, das in der linken Seitenleiste aufgerufen werden kann.
+
+Über dieses Menü kannst du den Bildschirm auf einen ausgewählten Marker zentrieren.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/markers.webm" type="video/webm" />
+    <source src="/blog/release-0.20/markers.mp4" type="video/mp4" />
+</video>
+
+## Neue Tastenkürzel
+
+### Seitenverhältnis beibehalten
+
+Beim Größenändern einer Form möchtest du manchmal sicherstellen, dass das Seitenverhältnis beibehalten wird. Das ist von nun an möglich, indem du während der Größenänderung die Ctrl-Taste gedrückt hältst.
+
+Die Ctrl-Taste wird auch für die Mehrfachauswahl verwendet, aber die beiden Operationen überschneiden sich nicht, sodass die doppelte Verwendung angemessen erschien.
+
+Die üblichen Alt- und Shift-Modifikatoren können ebenfalls zusammen mit diesem Modifikator verwendet werden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/aspectratio.webm" type="video/webm" />
+    <source src="/blog/release-0.20/aspectratio.mp4" type="video/mp4" />
+</video>
+
+### Bildschirm auf Token zentrieren
+
+Zusammen mit dem neuen Marker-System und dem in 0.19.0 eingeführten Ctrl+0-Tastenkürzel gibt es eine weitere Option, um deinen Bildschirm auf wichtige Tokens zu zentrieren.
+
+Durch Drücken der Leertaste wechselst du durch deine Tokens und zentrierst sie auf deinem Bildschirm. Dies bringt dich auch zu anderen Etagen, falls du dich gerade woanders befindest.
+
+### Alt-Verhalten invertieren
+
+Einige Leute mögen das standardmäßige Einrast-Verhalten nicht, und von nun an können sie glücklich bis ans Ende ihrer Tage leben. Dieses Release fügt dem Client-Einstellungen einen Umschalter in der Seitenleiste hinzu, um das Alt-Verhalten zu invertieren.
+
+Wenn diese Option aktiviert ist, führen die Standardaktionen kein Einrasten durch, und nur wenn die Alt-Taste gedrückt wird, wird versucht, am Raster oder an nahegelegenen Punkten einzurasten.
+
+## Varia
+
+### Neuerungen
+
+- CORS-Origin-Optionen
+- Logo, Version oben links
+- Tooltips für die meisten Symbole
+- Gestufte Server-Konfiguration
+
+### Bugfixes
+
+- Die Polygondicke wird jetzt für die Treffererkennung berücksichtigt
+- Die Etagen-/Ebenen-Leiste bewegt sich jetzt beim Öffnen mit dem Seitenmenü mit
+- Seitenmenü und Ortsmenü überlappen nicht mehr
+- Fenstergrößenänderung, die mit den Beleuchtungsgrenzen interferierte
+- Vorherige Prompt-Werte werden jetzt geleert, bevor ein neuer Prompt angezeigt wird
+- Raster-Ebenen aller unteren Etagen waren sichtbar
+- DM konnte sich selbst als Spieler zum Raum einladen
+- Das Draw-Werkzeug verzögert das Rendern des Pinsel-Helfers nach Etagen-/Ebenenwechsel nicht mehr
+- Die aktive Etage wird beim Wiedereintreten in die Sitzung gemerkt

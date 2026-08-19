@@ -1,0 +1,62 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Værktøj Spell
+
+Spell-værktøjet kan tilgås i værktøjslinjen nederst til højre på skærmen af alle spillere, men kun i [Play-tilstand](/da/docs/tools-overview/#toolbar-and-modes).
+
+Det har visse ligheder med Draw-værktøjet, men er specifikt fokuseret på at kaste spells under spillet.
+
+Du kan vælge din spell-form (firkant/cirkel/kegle) og konfigurere dens størrelse, rækkevidde, farve og til sidst, om dine spells skal deles med andre spillere, eller om de kun er for dig selv.
+
+En iøjnefaldende udeladelse i listen over spell-former er linjen, som er et almindeligt mønster ved spellcasting.
+Vi fandt, at det eksisterende ruler-værktøj er tilstrækkeligt her og fandt det unødvendigt at tilføje ekstra overflødige funktioner til spell-værktøjet.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+## Generel betjening
+
+Medmindre rækkevidden er sat til 0, vil din spell følge din mus hele tiden, når du har Spell-værktøjet aktivt.
+
+Standard spell-tilstanden bruges kun til hurtigt at måle ting for fx at se, hvor mange personer du ville kunne ramme.
+Din spell forsvinder, hvis du skifter værktøj.
+
+Hvis du har en spell, der ikke er øjeblikkelig, men vil forblive på slagmarken i længere tid, kan du **venstreklikke** for at gøre spell'en til en rigtig form.
+Du skifter automatisk til Select-værktøjet.
+
+Hvis du har klikket forkert, eller spell-effekten forsvinder, kan du fjerne spell'en som enhver anden form.
+Vær også opmærksom på, at hvis du har slået 'vis offentligt' fra, får spell'en i det øjeblik, du 'kaster' den, egenskaben 'usynlig'!
+Der er intet, der forhindrer dig i at fjerne denne egenskab, når spell'en først er kastet.
+
+Højreklik vil også føre dig tilbage til Select-værktøjet, men vil ikke kaste spell'en.
+Dette fungerer som en 'annuller'-handling.
+
+## Markeringskontekst
+
+Kegleformen og rækkevidde-parameteren er kun tilgængelige, når du har en aktivt valgt form.
+
+Førstnævnte, fordi jeg ikke kunne finde eksempler på kegler, der bruges i praksis, og som ikke er selv-kastede,
+men også fordi jeg havde lidt vanskeligt ved at forestille mig UX-ergonomien vedrørende rotation i det ikke-selv-kastede tilfælde.
+
+Sidstnævnte, fordi der ellers ikke er noget referencepunkt.
+
+## Størrelse
+
+Størrelsesparameteren bestemmer det område, spell'en dækker.
+For en firkant er det længden af 1 side.
+For en cirkel og kegle er det spell'ens radius!
+
+Ligesom auraer er disse tal defineret i forhold til den konfigurerede enhedsstørrelse, som som standard er 5 ft. (se DM-grid-indstillinger)
+
+## Rækkevidde
+
+_Spell'ens rækkevidde, som nævnt ovenfor, kan kun konfigureres, hvis du har en aktivt valgt form._
+
+Hvis rækkevidden er sat til 0, antages det at være en selv-kastet spell, og spell'en centreres automatisk på din aktive form.
+
+Hvis rækkevidden er et hvilket som helst tal >0, vises en sort cirkel med en radius svarende til den konfigurerede rækkevidde.
+Denne

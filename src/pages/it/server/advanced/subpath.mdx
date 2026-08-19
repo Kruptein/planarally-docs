@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Hosting su sottopercorso
+
+PlanarAlly può essere hostato senza alcuno sforzo a livello di radice (ad es. https://www.planarally.io) o su un sottodominio (ad es. https://app.planarally.io).
+Quando invece si hosta su un sottopercorso è necessario del lavoro aggiuntivo (ad es. https://www.planarally.io/dnd/).
+
+Devi segnalare al server e al client che devono essere eseguiti su un sottopercorso.
+Inoltre potresti anche dover apportare alcune modifiche al tuo proxy.
+
+Il resto di questa documentazione farà a volte riferimento alla variabile d'ambiente PA_BASEPATH, che deve corrispondere al sottopercorso desiderato.
+Ad esempio:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Comportamento modificato">
+Dal 2022.1 ci sono state alcune modifiche alla gestione dei sottopercorsi,
+assicurati di rileggere attentamente questa documentazione se l'hai usata in passato!
+
+In particolare, ora il client deve essere sempre compilato manualmente e il container docker usa --build-arg invece di --env.
+
+</Warning>
+
+## Modifiche al client
+
+Quando vuoi usare un sottopercorso, devi [compilare il client da solo](/it/server/setup/self-hosting/#manual-installation).
+Le informazioni sul sottopercorso devono essere incorporate nei file di output della build.
+Questo può essere fatto semplicemente compilando il client mentre la variabile d'ambiente PA_BASEPATH è impostata.
+
+## Modifiche al server
+
+Anche il server deve conoscere il sottopercorso: basta assicurarsi che la variabile d'ambiente PA_BASEPATH sia impostata prima di avviare il server.
+
+## Docker
+
+Quando si usa l'immagine docker, questa variabile d'ambiente deve essere passata al container.
+Aggiungi la seguente parte al tuo comando docker.
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## Proxy
+
+### Nginx
+
+Quando si usa nginx, la configurazione sarà molto simile a quella descritta in [proxy](/it/server/advanced/proxy/), ma tutte le parti `location` inizieranno con `/planarally` se quello è il sottopercorso desiderato.
+
+Inoltre devi apportare una piccola modifica alla regola location specifica per socket.io:
+
+Il proxy_pass (o host\:port pass) deve essere modificato per includere il sottopercorso. (ad es. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+Assicurati di configurare il proxypass e il reverse sul sottopercorso!
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

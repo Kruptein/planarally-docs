@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+# ユーザー管理
+
+<Info>
+    このセクションはかなり古くなっています。CLI
+    で複数の項目を照会できるほか、いくつかの管理タスク用に基本的なブラウザ表示をセットアップすることもできます。
+</Info>
+
+v0.22.3 現在、サーバーレベルでのユーザー管理用のグラフィカルインターフェースは存在しないため、ユーザー管理には python スクリプトを使用する必要があります。
+
+これらのスクリプトを実行する前に、必ず python シェルの中にいることを確認してください。ターミナルを開いて `python` と入力するだけでシェルを開けます。シェルを終了するには `quit()` と入力します。
+
+PlanarAlly はデータベース ORM ツールとして peewee を使用しています。
+
+## サーバー上のすべてのユーザー名を一覧表示する
+
+```python
+from src.db.all import User
+[ u.name for u in User.select() ]
+```
+
+## 特定のユーザーのパスワードを変更する
+
+```python
+from src.db.all import User
+u = User.get(name="*some-username*")
+u.set_password("*new-passowrd*")
+u.save()
+```
+
+## 管理者として新しいユーザーを作成する
+
+```python
+from src.db.all import User
+User.create_new("*some-username*", "*some-password*", "*some-email(optional)")
+```

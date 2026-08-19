@@ -1,0 +1,222 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Autoalojamiento
+
+## Información general
+
+Alojar PlanarAlly tú mismo requiere un poco más de configuración que simplemente usar un servicio existente, pero te da más control y también puedes confiar en que funcionará sin conexión.
+
+Para alojar PlanarAlly tú mismo tienes cuatro opciones:
+
+- Compilar el cliente manualmente y ejecutar el servidor
+- Ejecutar el servidor usando un cliente precompilado
+- Usar un contenedor docker
+- Usar un ejecutable precompilado
+
+Las dos primeras requieren que instales manualmente algunas cosas (p. ej. python, dependencias, ...).\
+Docker te permite omitir gran parte del trabajo manual, pero requiere comprensión de los contenedores y los volúmenes.
+
+Por último, hay un `.exe` disponible para las personas que no son muy técnicas. Debería hacer el trabajo, pero está menos probado.
+
+### Versiones
+
+Dependiendo de la opción elegida puedes decidir qué versión de PA quieres usar.
+
+Para las versiones de producción puedes encontrar los lanzamientos oficiales [aquí](https://github.com/Kruptein/PlanarAlly/releases).\
+Para una versión de desarrollo puedes simplemente revisar cualquier commit/rama de git y compilarla manualmente.\
+Para todos los lanzamientos, así como la rama de desarrollo, las imágenes de docker se publican automáticamente en [dockerhub](https://hub.docker.com/r/kruptein/planarally/tags).
+
+### Copias de seguridad y actualizaciones
+
+Al hacer una copia de seguridad de tus datos, tres carpetas son importantes (relativas a la carpeta del servidor):
+
+- data
+- static/assets
+- static/mods
+
+Si hiciste cambios en la configuración (`data/config.toml`), es posible que también debas hacer copias de seguridad de otras carpetas/archivos.
+
+Al actualizar PA, puede ocurrir una migración del archivo de guardado (ubicación predeterminada `data/planar.sqlite`). Se hará una copia de seguridad del archivo de guardado actual en la carpeta `save_backups`.
+
+<Info>
+Si instalas PA usando uno de los zips/tarballs de lanzamiento (p. ej. extraes una carpeta en algún lugar), generalmente se recomienda extraerlos en una nueva ubicación y mover/copiar las 3 carpetas de datos anteriores.
+<br />
+Extraer sobre la instalación existente normalmente funcionará, pero a veces puede conducir a errores sutiles donde un archivo fue eliminado del código base, pero no será eliminado al sobrescribir.
+<br />
+Cuando se usa git/docker esto no aplica.
+
+</Info>
+
+### Configuración
+
+Es normal que no encuentres un archivo de configuración. PA usa valores predeterminados que se almacenan internamente.
+Para anular algunas de estas opciones puedes crear un archivo `config.toml` en la carpeta `data` del servidor para cambiar la configuración.
+
+Consulta la [documentación de configuración](/es/server/management/configuration/) para los detalles.
+
+Por defecto PA se ejecutará en el puerto 8000, así que si todo salió correctamente independientemente de la opción de alojamiento elegida, deberías poder ver PA en http://localhost:8000
+
+<Info>
+    No hay un usuario administrador preconfigurado, así que cuando veas la página de inicio de sesión tendrás que pasar por el flujo de registro
+    como cualquier otro usuario.
+
+    <br/>
+
+    Si lo deseas, puedes configurar tu usuario creado como administrador para ver algo de UI adicional creando/modificando la configuración del servidor.
+
+</Info>
+
+## Instalación totalmente manual
+
+PA consta de dos partes:
+
+- un servidor escrito en python
+- un frontend escrito en typescript
+
+Si bien siempre necesitarás ejecutar el servidor para usar PA, solo necesitas recompilar el cliente si descargas/cambias la versión de PA.
+
+### Frontend
+
+Para compilar el frontend necesitas tener instalados `node` y `npm`. Al momento de escribir esto se requiere al menos la versión 22 de node. (Aunque recomendaría la versión 24 si aún no tienes node instalado)
+
+```bash
+# You need to be in the client folder to get the client working!
+cd client
+# Update dependencies, a new version usually comes with new dependencies
+npm i
+# Build the server
+npm run build
+```
+
+Esto convertirá los archivos typescript en un par de archivos javascript minificados y los colocará en la carpeta static del servidor, para que el servidor pueda ejecutarse.
+
+¡Eso es todo!
+
+### Backend
+
+Necesitas una versión reciente de python instalada para ejecutar PA. Creo que 3.11 es la versión mínima, pero está probada oficialmente contra 3.13.
+
+Puedes usar cualquier método para instalar python, pero la ruta recomendada es usando [uv](https://docs.astral.sh/uv/getting-started/installation/).
+Esto separa limpiamente las instalaciones de python y además es increíblemente rápido. Adicionalmente, PA lo usa para la gestión de dependencias.
+
+<Info title="Dependencias sin uv">
+Si no quieres o no puedes usar uv, cabe señalar que no hay un archivo `requirements.txt` en el repositorio.
+PA usa el archivo moderno `pyproject.toml` que uv (así como otras herramientas) entiende.
+
+Esto significa sin embargo que no puedes hacer un tradicional `pip install -r requirements.txt`. Puedes encontrar la lista de dependencias que necesitas instalar en el mencionado archivo `pyproject.toml`
+
+</Info>
+
+Las siguientes instrucciones asumen que usas uv, adapta los comandos según tu necesidad si usas otro enfoque.
+
+```bash
+# 1. Install python (can be skipped if you already have this)
+uv python install 3.13
+# 2. Move to the server folder!
+# (if you're still in the client folder you need to use `cd ../server`!)
+cd server
+# 3. Create a virtual environment for your python install
+uv venv
+# 4. Install the dependencies
+uv sync
+# 5. Run PA
+uv run planarally.py
+```
+
+Cuando quieras (re)iniciar tu servidor en el futuro solo necesitas ejecutar el paso 5 (en la carpeta del servidor).
+
+## Cliente precompilado
+
+Si quieres gestionar la instalación del servidor, pero no quieres molestarte en compilar el cliente, puedes usar los archivos del cliente precompilado.
+Estos aparecen como los archivos `Planarally-bin` en los lanzamientos.
+
+Estos solo tienen una carpeta de servidor, puedes seguir los mismos pasos que la instalación totalmente manual anterior, pero omitir todos los pasos relacionados con el frontend/cliente.
+
+## Contenedor Docker
+
+### Vanilla
+
+Puedes obtener el [Contenedor Oficial](https://hub.docker.com/r/kruptein/planarally) con este comando.  
+`docker pull kruptein/planarally`
+
+Hay 3 volúmenes que deberían montarse para tener persistencia de datos:
+
+- data: Aquí es donde generalmente se almacenan la configuración y el archivo de guardado
+- assets: Aquí es donde se almacenan los activos subidos por los usuarios
+- mods: Este es un volumen opcional, solo requerido si permites/usas mods en el servidor.
+
+Se recomienda hacer volúmenes explícitos para estos con `docker volume create` (Ver https://docs.docker.com/storage/volumes/)
+
+PA se ejecuta como un usuario limitado en el contenedor de docker, necesitas cambiar la propiedad de los volúmenes creados para que coincida con esto:
+
+```
+cd /var/lib/docker/volumes
+sudo chown -R 9000:9000 data/
+# repeat for other volumes
+```
+
+Con los volúmenes configurados, estás listo para ejecutar realmente el contenedor.
+
+```
+# PA runs on port 8000, You can drop the mods volume if you don't intend to use it or allow it
+# It's generally recommended to specify a particular tag of the docker image (e.g. v2025.2.2) instead of using the latest
+# New versions can come with database migrations and might require some manual intervention that you want to do when you have some time
+docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ -v mods:/planarally/static/mods --name planarally kruptein/planarally
+```
+
+### compose
+
+Actualmente no hay un archivo oficial de docker-compose, pero un miembro de la comunidad escribió una vez [esta guía](https://github.com/edmael/selfhosted-planarally) sobre el uso de docker-compose, ssl y nginx.
+
+También hay un archivo de compose incluido en una configuración de ejemplo hecha para el proxy inverso Traefik, que se puede encontrar [aquí](/es/server/advanced/proxy/#traefik).
+
+## Ejecutable precompilado
+
+_Ten en cuenta que los números de versión que forman parte de los nombres de archivo de los lanzamientos se omiten en este tutorial._
+
+Para ejecutar PlanarAlly en Windows, descarga el `planarally-windows.zip` desde la página de lanzamientos y extráelo en algún lugar en una carpeta nueva.
+
+Esta carpeta contiene muchos archivos diferentes, pero el importante para ti ahora mismo es el titulado `planarally.exe`.
+Cuando ejecutes este archivo, aparecerá un símbolo del sistema (una pantalla negra con algo de texto).
+
+<Warning>
+    Es sano desconfiar de ejecutables aleatorios en internet. Estos archivos `.exe` se generan usando Nuitka a partir del
+    código fuente de python en un entorno CI aislado.
+
+    No obstante, puede ocurrir que se active un falso positivo por algún proveedor antivirus por varias razones.
+
+</Warning>
+
+## Desarrollo
+
+Puedes configurar el cliente y el servidor para que se ejecuten en un modo de desarrollo especial. De esta manera el frontend se recarga en caliente (es decir, los cambios realizados se aplican inmediatamente sin necesidad de recompilar).
+
+Esto requiere que el servidor se ejecute con el argumento adicional 'dev':
+
+```bash
+uv run planarally.py dev
+```
+
+Adicionalmente esto también requiere un proceso separado que maneje la recarga en caliente del cliente
+
+```bash
+# in the client folder
+npm run dev
+```
+
+<Warning>
+    La salida del cliente mencionará un puerto específico, debes ignorarlo por completo ya que el servidor de desarrollo
+    de PA está conectado de una manera especial para ser lo más parecido posible a la configuración habitual.
+    <br />
+    Así que aún accedes a PA usando el mismo puerto (del servidor) que antes.
+</Warning>
+
+<Warning>
+    Si esta es una versión limpia del repositorio, el cliente debe haberse compilado normalmente una vez antes de poder
+    usar el servidor de desarrollo. De lo contrario, faltarán algunos archivos que se generan en el servidor.
+</Warning>

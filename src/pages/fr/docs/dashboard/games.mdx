@@ -1,0 +1,43 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Parties
+
+<Image src={Dashboard} alt="Tableau de bord" />
+
+La section _Jeux_ est l'endroit où vous pouvez créer des campagnes ou lancer une campagne existante.
+
+L'écran est divisé en deux sections : une section DM et une section joueur.
+Toutes deux répertorient les campagnes pertinentes où vous êtes soit DM, soit joueur.
+
+En cliquant sur une campagne, elle se déplie et propose quelques options.
+
+<Image src={DashboardDmCampaign} alt="Campagne DM du tableau de bord" />
+<Image src={DashboardPlayerCampaign} alt="Campagne joueur du tableau de bord" />
+
+En tant que DM, vous pouvez modifier le logo ou le nom de la campagne en cliquant sur les icônes de crayon (<PencilAlt />).
+
+<Warning title="Supprimer une campagne">
+    Cela supprimera irrévocablement la campagne pour vous et *tous* les joueurs.
+</Warning>
+
+## Créer
+
+Créer une campagne est simple : saisissez un nom et cliquez sur `Go`.
+Vous pouvez également choisir un logo pour la campagne en cliquant sur le logo par défaut affiché à côté du champ du nom.
+
+<Info title="Téléversement du logo">Le logo doit être téléversé comme [ressource](/fr/docs/dm/assets/).</Info>
+
+## Rejoindre
+
+Pour rejoindre un jeu, vous avez besoin de l'URL d'invitation. C'est quelque chose que le DM peut créer en jeu via les paramètres DM.

@@ -1,0 +1,38 @@
+import da from "./locales/da.json";
+import de from "./locales/de.json";
+import en from "./locales/en.json";
+import es from "./locales/es.json";
+import fr from "./locales/fr.json";
+import it from "./locales/it.json";
+import ja from "./locales/ja.json";
+import ru from "./locales/ru.json";
+import zh from "./locales/zh.json";
+
+export const languages = {
+    en: "English",
+    de: "Deutsch",
+    da: "Dansk",
+    it: "Italiano",
+    es: "Español",
+    fr: "Français",
+    zh: "中文",
+    ja: "日本語",
+    ru: "Русский",
+} as const;
+
+export const defaultLang = "en";
+
+export const ui = {
+    en,
+    de,
+    da,
+    it,
+    es,
+    fr,
+    zh,
+    ja,
+    ru,
+} as const;
+
+export type SupportedLanguage = keyof typeof ui;
+export type TranslationKey = keyof typeof en;

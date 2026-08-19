@@ -1,0 +1,143 @@
+---
+title: Rulning blidt ind i efteråret – Release 0.29.0
+date: 2021-10-28 20:00:00
+excerpt: "Hvad er nyt?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Det er længe siden, vi har været længe forsinket med en ny udgivelse!
+Udgivelsen er ikke super stor, men har dog nogle sjove nye værktøjer at lege med samt den sædvanlige række af fejlrettelser.
+
+## Virtuelle terninger
+
+En første stor ting er virtuel terningekastning!
+En advarsel dog: versionen, der følger med i denne udgivelse, er endnu ikke poleret.
+Jeg håber på at få noget feedback på, hvordan tingene føles, for yderligere at forme fremtiden for terningekasteren.
+
+At kaste terninger er tilgængeligt som et dedikeret værktøj i Play-tilstand, og det er tilfældet for både DM og spillere.
+Du kan sammensætte et sæt terninger (i øjeblikket begrænset til dX-terninger) og lade dem rulle på skærmen.
+Resultatet vises på skærmen i en dialog og huskes også i selve terningeværktøjet.
+
+Du kan valgfrit vælge at dele terningeresultater med alle spillere, hvilket viser en lille notifikation på deres skærm, når du kaster.
+(dvs. terningerne rulles ikke visuelt på andre spilleres skærme)
+
+#### En bemærkning om adfærd
+
+Terningerne emuleres/approksimeres med et ordentligt fysiksystem. Det kan ske, at PA antager, at terningen er landet på sin endelige position og viser et resultat, og alligevel ruller terningen en sidste gang. Disse skønhedsfejl vil blive glattet ud i fremtiden. Hvis du agter at bruge dette intensivt i din kampagne, kan det være klogt på forhånd at beslutte, hvilken værdi du behandler som den rigtige værdi.
+
+#### En bemærkning om indlæsning
+
+Terningerne bruger et fuldt 3D-rendersystem (shoutout til babylonjs og ammojs). Dette bringer en masse ekstra kode gennem afhængighederne med sig, hvilket forøger bundtstørrelsen enormt og dermed indlæsningstiden for PA.
+
+For at omgå dette indlæses al terningerelateret kode ikke under den primære PA-indlæsning, men udskydes i stedet, indtil du klikker på terningeværktøjet første gang. Det betyder, at der kan være en lille forsinkelse første gang, du interagerer med terningeværktøjet.
+
+## Draw-værktøjets markør
+
+For et stykke tid siden blev beslutningen truffet om ikke længere at vise musemarkøren, når man bruger Draw-værktøjet, da den aldrig er 100% i sync med PA's tegnesløjfe, hvilket forårsager noget visuel lag mellem den rigtige markør og den antagne markør i spillet.
+
+Uden den ude-af-sync markør føles tegneprocesser mere glidende, men det blev ret nemt at miste overblikket over, hvor på canvasen du faktisk er. Det gælder endda endnu mere, når du tegner i transparente farver eller farver, der er meget tæt på kortets baggrund.
+
+Denne udgivelse tilføjer igen en musemarkør, ikke den rigtige OS-musemarkør, men en falsk musemarkør, der blot er en polygon i PA selv, som, eftersom den er en PA-form, altid vil være i sync med tegnesløjfen og derfor føles glidende.
+
+## Polygon-redigeringsværktøjer
+
+Siden introduktionen af polygoner for lang tid siden har det nemt været min mest brugte form, især til alt belysning/syn-relateret.
+
+Nogle gange glemmer jeg, at en bestemt væg havde en hemmelig dør, og at rette det i sessionen er ret svært, da du skulle fjerne hele væggen og lave den om, hvilket afhængigt af hvor lang polygonen er, kan være en stor smerte. Eller du flytter bare karakteren/karaktererne gennem væggen, hvilket er, hvad jeg for det meste falder tilbage på.
+
+Det behøver ikke længere at være tilfældet, da jeg endelig har tilføjet værktøjer til at ændre eksisterende polygoner!
+
+Når du vælger en polygon i Build-tilstand, vises ekstra UI i nærheden af polygonen og følger din mus.
+Når du holder musen over en kant, har du mulighed for enten at tilføje et ekstra punkt til polygonen eller splitte polygonen på det punkt.
+Når du holder musen over et punkt, kan du fjerne punktet.
+
+## Server-admin CLI
+
+_Dette blev bidraget af CalebKoch_
+
+Python-serveren har fået nogle ekstra hjælpeværktøjer til at administrere serveren uden at skulle dykke ned i en python-shell.
+
+Især kan den nu:
+
+- liste alle brugere
+- liste alle rum (dvs. kampagner)
+- fjerne en bestemt bruger/rum
+- nulstille en brugers adgangskode
+
+## SVG-væghåndtering
+
+Siden release 0.26.0 har det været muligt at knytte væginformation i form af en svg-fil til stort set ethvert objekt i PA, selvom den primære use case naturligvis er kort.
+Den udtrak stiinformationen fra svg'en og gemte den i formens indstillinger for hurtig adgang.
+
+Den gamle stiudtrækning ignorerede eventuelle transforms sat på elementerne (f.eks. translate/scale) og kunne således resultere i, at man nogle gange manuelt skulle flippe svg'en over y-aksen for at få det rigtige resultat i PA.
+
+En ny implementering af svg-håndteringen er blevet skrevet, som ikke længere beholder hele stien knyttet til aktivet, men kun en reference til selve svg'en, som så parses separat on the fly, hvilket gør det muligt for fremtidige forbedringer af svg-håndteringen også at blive anvendt på eksisterende aktiver.
+
+En sådan forbedring er understøttelsen af translate- og scale-transforms.
+
+Fordi jeg ikke ville bryde eksisterende svg-flow, skal du genanvende svg'en, hvis du ønsker at drage fordel af den nye og forbedrede svg-håndtering.
+
+På et tidspunkt i fremtiden agter jeg at fjerne den gamle svg-håndteringskode, så jeg vil kraftigt anbefale at genanvende alle dine svg-masker, du bruger, ellers kan de holde op med at virke i fremtiden (specifikationerne vil blive kommunikeret senere).
+
+## UI-forbedringer
+
+### aktiv værktøjstilstand
+
+Den sidste udgivelse ændrede UI'en relateret til værktøjstilstandene (dvs. Play og Build).
+Sondringen mellem de to er blevet øget yderligere for at gøre det klart, hvilken tilstand der i øjeblikket er aktiv.
+
+### synsindstillinger
+
+Det er ikke længere muligt at konfigurere en maksimal synsradius, der er mindre end den minimale synsradius, og omvendt.
+
+### vinkel-UI
+
+Auras er normalt fulde 360-graders cirkler, men dette kan dog konfigureres sammen med en synsvinkel for at orientere auraen i en bestemt retning.
+UI'en for synsvinklen tilbyder nu også et talinput, hvis du vil være mere præcis eller ikke kan lide cirkelinput-elementet.
+
+### variantskifter
+
+Variantskifteren blev deaktiveret med den store vue3-opdatering, delvist fordi jeg følte, at den var for fejlbehæftet og ikke rigtig blev brugt af andre.
+
+Jeg tog åbenbart meget fejl i den sidste vurdering, da jeg fik flere spørgsmål om, hvorfor varianterne ikke længere virkede.
+
+Mine undskyldninger til dem, den er blevet genaktiveret i sin oprindelige funktionalitet!
+
+#### Rettelser
+
+To fejl relateret til former med varianter blev også rettet:
+
+##### Trackers/Auras
+
+Den delte tracker/aura-logik havde nogle logikproblemer med inkonsistent adfærd som resultat.
+
+De burde nu fungere ordentligt :)
+
+Derudover, når man ændrede varianter, og den tidligere variant havde (flere) ikke-delte auras, ville nogle af disse forblive på skærmen, men ikke bevæge sig med (dvs. være statiske). Dette blev også løst.
+
+##### Lokationsskift
+
+Når man flyttede en form med varianter til en anden lokation, blev kun en del af varianterne flyttet, hvilket forårsagede flere problemer alle steder (inklusive at den gamle lokation ikke længere kunne indlæses).
+
+## Fejlrettelser
+
+- Låste former kunne flytte lokationer.
+- Låste former kunne skifte etager.
+- Synsfejl: min-radius lig med maks-radius.
+- Vinklede auras roterede ikke med den generelle formrotation.
+- Flere stylingproblemer i firefox.
+    - Annotationer fyldte ikke længere hele skærmbredden.
+    - Aura-UI var alt for bred.
+- Viewport-sync.
+    - viewport sendes straks ved forbindelse (og venter ikke på det første pan).
+    - DM's viewport-bevægelse er nu throttlet og burde ikke længere virke laggy på klienten.
+- Forskellige DPI-relaterede rettelser.
+- Flere fejl i eksperimentel synstilstand.
+    - Ret opstart, der ikke virkede korrekt.
+    - Ret usnappet flytning af blokerende form, der ikke opdaterede bevægelsestrianguleringen.
+- Bevægelsesblokering blev ikke opdateret direkte, når man ikke brugte snapping.
+- Noget ydelsesnedgang for store polygoner.
+- Fjern hængende rotations-UI, når man fjerner en form i Build-tilstand.
+- Select-værktøjet viste ruler uden markering.
+- Tekstresize blev ikke synkroniseret live til andre klienter.

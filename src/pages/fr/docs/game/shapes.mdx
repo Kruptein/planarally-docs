@@ -1,0 +1,397 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ArrowsAlt from "~icons/fa-solid/arrows-alt";
+import Eye from "~icons/fa-solid/eye";
+import Lightbulb from "~icons/fa-solid/lightbulb";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+import { Image } from "astro:assets";
+import AssetListPicture from "./assets/asset-list.png";
+import EditAssetPropertiesPicture from "./assets/edit-asset-properties.png";
+import EditAssetDefeatedPicture from "./assets/defeated.png";
+import EditAssetTrackersPicture from "./assets/edit-asset-trackers.png";
+import EditAssetLogicPicture from "./assets/edit-asset-logic.png";
+import EditAssetExtraPicture from "./assets/edit-asset-extra.png";
+import EditAssetAccessPicture from "./assets/edit-asset-access.png";
+import EditAssetAnnotationsPicture from "./assets/edit-asset-annotations.png";
+import ShapeBadgePicture from "./assets/shape-badge.png";
+import LabelManagerPicture from "./assets/label-manager.png";
+
+# Formes
+
+_Pour placer des ressources sur la carte, vous devez être DM, consultez la [doc DM sur les ressources](/fr/docs/dm/assets/)._
+
+## Manipuler les objets
+
+La sélection/l'interaction avec les objets se fait principalement via l'[outil Select](/fr/docs/tools/select/).
+
+Lorsque la forme est sélectionnée, vous pouvez également utiliser les flèches de votre clavier pour la déplacer.
+
+<Tip title="Astuces de DM">
+    En tant que DM, maintenir la touche shift enfoncée vous permet de déplacer des formes à travers les terrains
+    bloquant le mouvement.
+</Tip>
+
+### Menu contextuel
+
+Un clic droit sur une forme vous donne une liste d'options.
+Les options présentées diffèrent selon que vous êtes DM ou non,
+mais aussi selon l'état du pion (par exemple Ajouter vs Afficher l'initiative).
+
+<Image src={AssetListPicture} width={500} aspectRatio={532 / 520} alt="Menu contextuel" />
+
+La liste présentée ci-dessus est la vue DM.
+
+#### (DM) Floor/Layer/Location
+
+Survoler les options Floor/Layer/Location ouvrira un sous-menu vous permettant de déplacer la forme sélectionnée vers l'option choisie.
+
+Déplacer la forme vers un autre étage ou calque la conservera aux mêmes coordonnées.
+En revanche, lorsque vous déplacez la forme vers un autre emplacement, vous devez choisir le point d'apparition souhaité où la forme doit apparaître.
+
+Pour plus d'informations, consultez les documents [étages](/fr/docs/dm/floors/), [calques](/fr/docs/dm/layers/) ou [emplacements](/fr/docs/dm/locations/).
+
+#### Déplacer à l'avant et déplacer à l'arrière
+
+Ces options placent votre forme à l'avant ou à l'arrière de la pile du calque actif.
+Cela vous permet de placer plusieurs objets sur le même calque tout en les faisant se chevaucher de manière spécifique.
+
+#### Ajouter l'initiative ou afficher l'initiative
+
+Cette option place les pions dans le menu d'initiative.
+S'ils sont déjà dans le menu d'initiative, l'option apparaîtra comme « show initiative ».
+Pour plus d'informations, consultez le document [initiative](/fr/docs/tools/initiative/).
+
+#### Supprimer les formes
+
+Cette option supprime la ou les formes sélectionnées.
+Vous pouvez également appuyer sur `Del` ou `Backspace` pour ce faire.
+
+<Tip title="Undo/Redo">
+    Si vous supprimez une forme par accident, vous pouvez l'annuler en utilisant le raccourci clavier ctrl+z. Cela
+    fonctionne également pour certaines autres opérations comme le mouvement.
+</Tip>
+
+#### Définir un marqueur
+
+Cette option définit la forme comme marqueur.
+Consultez [marqueurs](/fr/docs/game/markers/) pour plus d'informations.
+
+#### (DM) Enregistrer comme modèle
+
+Lorsque vous enregistrez une forme comme modèle, vous stockez sur le serveur les informations actuelles de cette forme (par exemple taille, trackers, ...).
+
+Lorsque vous faites glisser une ressource sur la table de jeu et que des modèles existent, vous pourrez sélectionner vos informations stockées pour la pré-remplir.
+
+Pour plus d'informations, consultez [Modèles de ressources](/fr/docs/dm/assets/#templates)
+
+#### Afficher les propriétés
+
+Cette option ouvre la boîte de dialogue « Edit asset », décrite ci-dessous.
+
+## Propriétés des formes
+
+En faisant un clic droit et en sélectionnant l'option « Show properties », vous ouvrez la boîte de dialogue « Edit asset »,
+qui vous permet de modifier divers paramètres liés à la forme sélectionnée.
+
+<Tip title="Ouvrir les propriétés de la forme plus rapidement">
+    Vous pouvez également appuyer sur **entrée** pour ouvrir immédiatement cette boîte de dialogue !
+</Tip>
+
+### Propriétés
+
+<Image
+    src={EditAssetPropertiesPicture}
+    width={800}
+    aspectRatio={784 / 698}
+    alt="Boîte de dialogue des propriétés de ressource"
+/>
+
+La première section regroupe les propriétés courantes liées à la forme sélectionnée.
+
+#### Nom
+
+Le nom de la forme ; c'est un champ facultatif dont la valeur par défaut est « Unknown shape ».
+Ce nom apparaîtra à certains autres endroits comme les informations rapides de sélection et la liste d'[initiative](/fr/docs/tools/initiative/).
+
+Le symbole <Eye/> permet d'activer ou non la possibilité pour les autres joueurs sans accès en édition de voir ce nom.
+Si ce n'est pas autorisé, les autres joueurs verront « Unknown shape » que le nom ait été défini ou non.
+
+#### Est invisible
+
+La sélection de cette option rend la forme invisible pour tous les joueurs sans accès vision ou édition sur la forme _(\*)_.
+
+Exemples d'utilisation : des invocations invisibles contrôlées par un joueur.
+
+Il n'existe actuellement aucun indicateur visuel sur la table de jeu pour rappeler qu'une forme est actuellement invisible.
+
+_(\*) Le DM verra également les formes invisibles car il a implicitement un accès en édition sur toutes les formes_
+
+#### Est vaincu
+
+Lorsque cette case est cochée, un simple `x` rouge s'affiche sur la forme pour indiquer qu'elle est vaincue.
+Cette propriété peut également être activée/désactivée en appuyant sur `x`.
+
+<Image src={EditAssetDefeatedPicture} width={200} aspectRatio={194 / 146} alt="Ressource vaincue" />
+
+#### Couleur de bordure et couleur de remplissage
+
+Comme leur nom l'indique, ces options affectent les couleurs de la forme.
+
+_Notez que pour certains types de formes spécifiques, une seule des deux couleurs est utilisée._
+
+#### Bloque la vision/la lumière
+
+La sélection de cette option empêche la vision et la lumière de traverser la forme.
+Plus d'informations sur l'éclairage sont disponibles dans le document [éclairage et vision](/fr/docs/dm/lighting-vision/).
+
+Exemples d'utilisation : murs/portes/...
+
+Pour des raisons de performance, vous ne voudrez généralement pas attribuer cette propriété à des formes qui se déplacent régulièrement.
+
+#### Bloque le mouvement
+
+La sélection de cette option empêche les autres formes de le traverser.
+
+C'est généralement combiné avec le blocage de la vision pour les murs, mais cela peut aussi être utilisé seul pour des éléments comme les fenêtres.
+
+<Tip title="Astuces de DM">
+    En tant que DM, vous pouvez contourner cette contrainte en utilisant la touche modificatrice **shift** lorsque vous
+    déplacez des formes.
+</Tip>
+
+Pour des raisons de performance, vous ne voudrez généralement pas attribuer cette propriété à des formes qui se déplacent régulièrement.
+
+#### Est verrouillé
+
+La sélection de cette option verrouille la forme en place.
+Cela peut être utile pour les formes statiques que vous ne voulez pas déplacer accidentellement pendant le jeu.
+Particulièrement utile pour vos cartes, qui pourraient sinon demander un certain temps pour réaligner la grille.
+
+Appuyez sur `Ctrl + L` pour ce faire sans ouvrir le menu Edit asset.
+
+#### Afficher un badge
+
+La sélection de cette option affiche un badge en bas à droite de la forme.
+Par défaut, le numéro du badge est 1.
+À chaque copie/colle de cette forme, le numéro du badge augmentera progressivement.
+
+<Image src={ShapeBadgePicture} width={150} aspectRatio={177 / 150} alt="Exemple de badge de forme" />
+
+Cette option est essentielle dans les situations où vous avez de grands groupes de pions similaires.
+Si toutes les créatures ont la même icône, il peut être difficile de les différencier pendant le combat.
+Activer cette option garantit que les joueurs et le DM parlent des mêmes formes.
+
+Vous pouvez configurer les détails de génération des valeurs des badges dans la section [Groupe](#group).
+
+### Trackers et auras
+
+<Image src={EditAssetTrackersPicture} width={800} aspectRatio={1371 / 958} alt="Exemple de tracker de ressource" />
+
+#### Trackers
+
+Les trackers peuvent être utilisés pour suivre divers états.
+Les usages courants sont par exemple les PV, l'attitude d'un PNJ ou la consommation de flèches/munitions.
+
+Un tracker se compose d'une valeur et, facultativement, d'un nom et d'une valeur secondaire.
+La seconde valeur peut servir à indiquer un maximum (par exemple PV 20/40).
+
+Les trackers se créent en cliquant sur `New Tracker` et en saisissant une valeur.
+
+Un tracker défini comme `public` sera affiché pour tous ceux qui sélectionnent la forme.
+Sinon, seuls les joueurs ayant un accès `edit` sur le pion pourront le voir.
+
+Activer `display on token` affichera une barre horizontale au-dessus du pion.
+Elle peut être configurée avec deux couleurs : la couleur principale affiche la première valeur à gauche de la barre, la couleur secondaire affiche la seconde valeur à droite de la barre.
+La barre suit le paramètre `public` pour déterminer sa visibilité.
+
+Un clic sur la barre de titre du tracker réduira le tracker pour réduire l'encombrement.
+Un tracker sera supprimé en cliquant sur l'icône corbeille <TrashAlt/> à droite de la barre de titre.
+
+#### Auras
+
+Les auras sont similaires aux trackers, mais ont un impact visuel sur la table de jeu.
+
+##### Portée
+
+Pour dessiner une aura sur la table de jeu, vous devez spécifier sa portée.
+Ce concept se compose de deux valeurs : la partie « normale » et la partie « faible ».
+
+La valeur normale servira à dessiner un cercle avec le rayon fourni à pleine opacité,
+tandis que la partie faible servira à dessiner un rayon supplémentaire dont l'opacité diminuera vers le bord.
+
+Par exemple, dans D&D 5e, une torche est définie comme 20 pieds de lumière vive et 20 pieds de lumière faible ; ici, on saisirait donc 20/20 également.
+
+Les nombres saisis sont directement liés à la façon dont le DM a configuré la grille. Par défaut, 5 pieds = 1 cellule, donc une valeur de 20 correspondrait à une aura couvrant 4 cases (en rayon).
+
+##### Angle
+
+C'est une fonctionnalité de niche utilisable lorsque vous ne voulez pas que l'aura couvre un cercle complet, mais plutôt un cône.
+
+La première valeur détermine la largeur de l'angle du cône et vaut 360 par défaut (c'est-à-dire un cercle complet).
+La seconde valeur, définie en faisant glisser le curseur sur le cercle ou en modifiant le champ de texte,
+détermine la direction vers laquelle le cône doit pointer. Pour un cercle complet, cette valeur est ignorée pour des raisons évidentes.
+
+La direction est relative à la rotation de la forme. Donc si vous faites pivoter votre forme, le cône pivote avec elle !
+
+##### Couleur et bordure
+
+Chaque aura peut avoir deux couleurs distinctes (y compris des réglages de transparence).
+Elles seront dessinées sur la table de jeu si l'aura est active.
+La couleur définie pour `aura` affectera la zone couverte par l'aura.
+Indépendamment, une couleur peut être définie pour la bordure de l'aura.
+
+<Tip title="Lumières et sorts">
+    Utilisez les angles et les couleurs pour indiquer les lumières portées par le personnage et les bordures pour
+    indiquer la portée des sorts centrés sur vous, par exemple _detect magic_ ou _invisibility purge_. Vous pouvez aussi
+    utiliser cela pour vous rappeler la portée spéciale d'attaques, etc.
+</Tip>
+
+##### Public
+
+Par défaut, toute forme ou aura n'est visible que par le DM et par tout joueur ayant un accès en édition sur la forme.
+
+Parfois, cependant, vous voulez montrer des auras à tous les joueurs ; c'est là qu'on rend l'aura publique.
+
+Vous activeriez ce paramètre pour une torche, mais le désactiveriez pour la vision dans le noir, par exemple.
+
+##### Source de lumière
+
+Ce petit bouton a beaucoup d'impact sur l'aura et contribue à rendre le système de vision de PA si agréable !
+
+Par défaut, les auras sont simplement rendues sur la table de jeu, qu'il y ait des murs ou d'autres obstacles, et ne vous donnent pas de vision.
+C'est parfait pour des choses comme les auras de paladin et assimilées.
+
+En activant l'option « light source », vous signalez à PA que ce n'est pas une aura normale, mais une véritable source de lumière/vision.
+S'il y a des murs sur le chemin, l'aura s'arrêtera aux bordures et ne révélera rien derrière. De plus, elle révélera réellement tout ce qui se trouve dans l'aura au joueur (et à tous les autres joueurs s'il s'agit d'une source de lumière publique).
+
+Les usages courants sont la vision dans le noir, qui est une source de lumière privée, et une torche, qui est une source de lumière publique.
+
+_Note : la vision et l'éclairage ne sont généralement pertinents que lorsque vous utilisez le système de vision par ligne de vue_
+
+### Logique
+
+<Image src={EditAssetLogicPicture} width={500} aspectRatio={580 / 449} alt="Extras de ressource" />
+
+Cette section vous permet d'ajouter une logique supplémentaire à la forme.
+Il existe actuellement deux types de logique : « portes » et « zones de téléportation ».
+
+#### Portes
+
+Une forme avec une logique de porte affichera une icône <Lock /> ou <Unlock /> lorsque vous la survolerez en mode Play.
+Cliquer lorsque cette icône est affichée ouvrira ou fermera alors la porte.
+
+Par défaut, les propriétés de vision et de mouvement seront toutes deux activées/désactivées pour imiter une porte,
+mais vous pouvez modifier cela pour, par exemple, n'activer/désactiver que la vision afin d'imiter une fenêtre.
+
+Vous pouvez modifier qui peut ouvrir/fermer la « porte » dans la section des permissions.
+
+#### Zones de téléportation
+
+Une forme marquée comme zone de téléportation peut téléporter les formes qui y entrent vers un autre endroit.
+La cible d'une zone de téléportation est toujours un point d'apparition et peut se trouver sur un autre étage, voire un autre emplacement.
+
+Les zones de téléportation existent en deux variantes contrôlables via le paramètre « immediate mode ».
+En mode immédiat, la zone de téléportation se déclenchera automatiquement lorsqu'une forme termine son mouvement sur la zone. (par exemple un piège qui se déclenche)
+Sinon, une notification s'affichera vous permettant de déclencher la zone si vous le souhaitez. (par exemple l'atterrissage d'un escalier)
+
+### Accès
+
+<Image src={EditAssetAccessPicture} width={400} aspectRatio={424 / 216} alt="Exemple d'accès de ressource" />
+
+L'accès des joueurs à la forme peut être configuré dans cette section.
+Par défaut, le créateur de la forme a un accès complet à la forme, tout comme le DM.
+
+Vous pouvez modifier l'accès par défaut ou définir des droits d'accès spécifiques pour un joueur à l'aide du menu déroulant.
+
+Il existe 3 niveaux d'accès différents, qui peuvent être activés/désactivés individuellement.
+
+#### <PencilAlt /> Accès en édition
+
+Lorsqu'il est accordé, cela permet à l'utilisateur de modifier les propriétés de la forme.
+Cela inclut tous les autres paramètres comme les trackers et l'accès lui-même.
+
+#### <ArrowsAlt /> Accès au mouvement
+
+Permet à l'utilisateur de déplacer la forme sur la carte.
+
+Il est important de comprendre que lorsque ce droit d'accès est accordé sans droits de vision,
+il est possible pour le joueur de déplacer sa forme dans le brouillard et de la perdre.
+
+#### <Lightbulb /> Accès à la vision
+
+Lorsqu'il est accordé, fournit à l'utilisateur un accès à la vision des auras privées de la forme.
+
+C'est un paramètre important pour la vision basée sur la ligne de vue.
+
+#### Quelques combinaisons d'accès
+
+Lorsque tous les droits d'accès sont accordés, vous avez simplement la pleine propriété de la forme. C'est couramment utilisé pour les personnages joueurs.
+
+Comme mentionné pour l'accès au mouvement, il est possible d'avoir un accès au mouvement sans accès à la vision.
+Un exemple de raison pour laquelle vous pourriez le vouloir sont les invocations/familiers/compagnons.\
+En gros, toute forme que vous possédez dans une certaine mesure, mais sur laquelle vous n'avez pas réellement de pleins droits de vision.
+(p. ex. en général, vous ne voyez pas ce qui se passe si vous les envoyez derrière le coin, bien que des sorts ou des capacités spéciales puissent changer cela)
+
+Une autre classe de formes sur lesquelles vous ne devriez pas vraiment avoir d'accès à la vision sont les formes créées avec l'outil Draw.
+Elles représentent généralement des objets comme des murs, etc.
+Lorsqu'elles sont dessinées, elles ne vous accordent explicitement pas le droit d'accès à la vision par défaut, même si vous pouvez bien sûr l'activer lorsque c'est pertinent.
+
+### Groupe
+
+Les groupes sont un moyen d'organiser les formes avec un badge facultatif pour les différencier (par exemple ogre 5).
+Au sein d'un groupe, chaque forme a une valeur unique\*, son badge.
+
+_\* lors de la fusion de groupes, vous avez la possibilité de conserver les valeurs de badge d'origine, ce qui peut entraîner des badges en double_
+
+Les options de groupe sont configurées dans ce menu d'interface. Il affiche les règles en place, les membres existants dans l'emplacement actif et vous permet d'activer/désactiver ou de retirer des membres individuels, ou d'activer/désactiver tout le groupe d'un coup.
+
+En dehors de cette boîte de dialogue, il existe également un menu contextuel lors d'un clic droit avec une sélection contenant plusieurs éléments.
+Ce menu contextuel propose également des options pour créer/fusionner/scinder/supprimer des groupes.
+
+Par défaut, lorsque vous copiez-collez des formes, elles sont placées dans le même groupe.
+
+#### Jeu de caractères
+
+Par défaut, les badges se composent de chiffres, mais d'autres caractères peuvent être préférés ;
+il existe 2 préréglages (chiffres et caractères latins), mais un ensemble personnalisé de caractères peut être fourni sous forme de liste séparée par des `,` (par exemple `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+#### Ordre de création
+
+Par défaut, lorsqu'un nouveau membre est ajouté au groupe, il reçoit un nouveau numéro supérieur de 1 au plus grand numéro précédent du groupe.
+Cela signifie que les numéros supprimés sont ignorés (par exemple, s'il y a 5 orcs et que l'orc 2 meurt, puis qu'un nouvel orc est créé, il recevra le numéro 6 et non 2)
+
+Une autre option disponible consiste à randomiser les numéros.
+Lors de la randomisation, un index de badge sera attribué aléatoirement entre 0 et 2 fois le nombre de membres de l'ensemble (avec un minimum de 10).
+L'espace aléatoire disponible s'étendra donc automatiquement vers le haut sans trop en révéler aux méta-joueurs.
+
+Lors du changement d'ordre de création, toutes les formes existantes seront re-badgées (après une fenêtre de confirmation).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+#### Groupes répartis sur plusieurs emplacements
+
+Oui, c'est possible. Si un groupe de monstres poursuit le groupe de personnages jusqu'à un autre emplacement,
+ils pourraient ne pas tous arriver en même temps, voire ne jamais tous se déplacer vers le nouvel emplacement.
+
+Bien que techniquement possible, le suivi sur plusieurs emplacements est un véritable casse-tête avec beaucoup de cas particuliers.
+Pour cette raison, et du fait que l'impact réel semble minime, PA privilégie la simplicité.
+Lors de l'ajout d'un nouveau membre dans un groupe réparti sur plusieurs emplacements, l'unicité de son badge ne sera garantie que parmi l'ensemble des membres partageant son emplacement.
+Pour un ordre de création aléatoire, la probabilité d'une véritable collision est très faible ; pour un ordre incrémental, cela dépend de l'emplacement qui possède le membre à la valeur la plus élevée.
+Dans tous les cas, l'impact est si faible par rapport à la logique de programmation supplémentaire qu'il faudrait ajouter que cela vaut la peine de faire ce compromis.
+
+### Divers
+
+<Image src={EditAssetExtraPicture} width={400} aspectRatio={484 / 382} alt="Extras de ressource" />
+
+Ce panneau contient certains paramètres qui ne trouvent leur place dans aucun des autres emplacements.

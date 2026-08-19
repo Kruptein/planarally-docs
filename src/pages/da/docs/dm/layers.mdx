@@ -1,0 +1,85 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import LayersPicture from "./assets/layers.png";
+
+# Lag
+
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Layer Info" />
+
+PlanarAlly inddeler sit spillebord i flere lag.
+De tegnes oven på hinanden.
+Disse flere lag producerer det resultat, du ser, når du spiller.
+
+Hvert af disse lag har et dedikeret formål.
+Det er vigtigt, at DM'en forstår formålet med hvert lag.
+For en hurtig reference til hvert lag, tjek dokumentet [quick reference](/da/docs/reference/).
+For mere dybdegående detaljer, fortsæt med at læse!
+
+Bortset fra DM-laget tegnes alle lag også på spillernes spilleborde.
+De kan dog kun interagere med elementer på tokens-laget.
+
+_I øjeblikket er disse lag hårdkodet, men jeg forudser en mulighed for at tilpasse dette efter din egen præference i fremtiden._
+
+## Map
+
+I bunden af tegnestakken er map-laget.
+Dette lag er til at placere kort, bygningslayouts og så videre.
+
+Dette lag tegnes under grid-laget.
+Dette giver dig mulighed for at justere dine gitterlinjer til dine forskellige fangehuller.
+Ellers opfører dette lag sig på samme måde som tokens-laget.
+
+## Grid
+
+Dette lag kan ikke vælges manuelt, men det kan konfigureres ved hjælp af [DM Options Menu](/da/docs/dm/settings/).
+Dette lag tegner gitterlinjer på skærmen.
+
+Disse gitterlinjer er enten firkanter (standard) eller sekskanter.
+Både flad-top og spids-top hex-gitre kan tegnes, men er i øjeblikket kun understøttet eksperimentelt.
+
+<Warning title="Eksperimentelt">
+    Hex-gitre er eksperimentelle, så underlig opførsel kan forekomme regelmæssigt. Et eksempel er grid-snapping, der
+    stadig virker med firkantede grids, på trods af at et hex-gitter vises.
+</Warning>
+
+## Tokens
+
+Kernegameplayet vil foregå på dette lag.
+Det er stedet, hvor spillere og ikke-spillerfigurer bevæger sig rundt.
+Du vil ofte have dette lag aktivt.
+
+## DM
+
+Dette lag er kun tilgængeligt for DM'en.
+Spillere vil ikke se noget på dette lag.
+Det kan bruges til at planlægge møder i forvejen.
+Det kan også bruges til at placere tekstitiketter for at huske vigtige oplysninger.
+
+Du kan også ændre laget for en form.
+Ved at skjule aktiver, som spillerne ikke skal se endnu, på DM-laget kan du sikre, at dine spillere ikke ser oplysninger for tidligt.
+
+## FOW
+
+Dette lag har nogle særlige egenskaber, der hjælper med syn.
+
+Når du tegner dine vægge, vil du have dem til at være statiske.
+Du vil ikke have, at de ændrer sig, da dine spillere måske kan se dele af kortet, som de ikke skal se endnu.
+Ved at tegne vægge på vision-laget sikrer du, at du ikke ved et uheld flytter en væg, når du interagerer med tokens-laget.
+Derfor udfører dette lag to magiske tricks automatisk for dig.
+
+De fleste former, du tegner på dette lag, vil blive brugt til vægge eller døre, så former tegnet på dette lag tegnes automatisk med indstillingerne 'blocks movement' og 'blocks vision' anvendt.
+'Blocks movement' forhindrer spillere i at bevæge sig gennem disse former.
+'Blocks vision' forhindrer spillere i at se gennem disse former.
+Du kan fravælge disse muligheder, hvis du ikke har brug for dem, men vær opmærksom på, at de anvendes som standard på dette lag.
+
+**Alt**, hvad der tegnes på dette lag, er usynligt på andre lag.
+Dette skyldes, at dit kort typisk allerede har vægge tegnet på forhånd.
+Når du tegner en grim sort rektangel for at fortælle belysningssystemet om en væg, vil du ikke have at skulle se den grimme klat, når du er på tokens-laget.
+
+Dette lag er udelukkende for bekvemmelighedens skyld.
+Hvis du ikke kan lide de automatiske indstillinger eller det usynlige aspekt, kan du bruge tokens-laget og tegne dine vægge der med hvilke som helst indstillinger, du ønsker.

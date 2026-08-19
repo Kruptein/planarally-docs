@@ -1,0 +1,166 @@
+---
+title: Release 2022.1
+date: 2022-04-20 20:00:00
+excerpt: "Endelig en ny release"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Det er _meget_ længe siden sidste release — der gik mere end et halvt år, og jeg har masser af grunde til hvorfor og hvordan, men i sidste ende vil jeg bare undskylde og håbe på, at vi får et mere regelmæssigt tempo i den nære fremtid :)
+
+## Ændring af versionsformatet
+
+_Du kan sagtens springe dette over, hvis du bare vil vide, hvad der virkelig er ændret!_
+
+En person, der kender PlanarAlly, ville sikkert også bemærke, at versionsnummeret har ændret sig. Dette er noget, jeg antydede i mit opsamlingsindlæg fra 2021 og besluttede at implementere for den første version af 2022.
+
+Selvom der ikke nødvendigvis var noget galt med det oprindelige versionsskema, var der heller ikke noget dramatisk i horisonten, der efter min mening berettigede et skift til 1.0.0, hvilket i bund og grund gør det første nummer betydningsløst. Det stadigt voksende minornummer føltes heller ikke som en god løsning, så det var tid til noget nyt.
+
+Vi skifter fra et major.minor.patch-versionsskema til et year.minor.patch-skema, hvor hvert år starter forfra med en 1.0.
+Det holder versionsnumrene små nok til, at de er nemme at forholde sig til, og placerer dem i en tydelig tidsramme, hvorimod 0.18.0 kunne være hvornår som helst inden for de sidste 3 år.
+
+## Logiksystemer
+
+Det vigtigste nye i denne release er tilføjelsen af små logikmoduler, der kan tilføjes til former.
+Denne release bringer to typer: Døre og teleporteringszoner.
+
+Der er tilføjet en ny fane i dialogen til redigering af former, hvorfra du kan aktivere, deaktivere og konfigurere adfærden for disse moduler.
+
+#### Rettigheder
+
+Begge moduler kan konfigureres med et rettighedssystem.
+DM'en har altid adgang, og som standard har alle andre spillere ikke.
+Du kan ændre standardadgangen samt konfigurere adgangen for specifikke spillere til enten aktiveret/anmodet/deaktiveret, hvor "anmodet" betyder, at DM'en modtager en notifikation om enten at tillade eller afvise handlingen.
+
+### Døre
+
+Når spillere støder på en form, der blokerer adgangen til et andet område, er der flere måder, hvorpå DM'en kan give spillerne en mulighed for at passere forhindringen. DM'en kunne bare flytte dem over objektet med deres shift-magi-kræfter. De kunne bare slette formen. De kunne gå ind i formens egenskaber og deaktivere egenskaberne "blocks vision" og "blocks movement". Eller de kunne gå ind i Build-tilstand og trække formen på en sådan måde, at spillerne kan passere.
+
+Personligt plejede jeg at bruge den sidste mulighed, men mine døre er også typisk på krigståge-laget, så jeg måtte ændre både lag og tilstande — kort sagt en smule besvær.
+
+Det er her, dørmodulet kommer i spil. Når en form er konfigureret som en dør, kan dens blokeringsegenskaber øjeblikkeligt skiftes ved blot at klikke på formen i Play-tilstand fra ethvert lag. Nemt og enkelt!
+
+For at gøre tingene endnu nemmere vil du nu også kunne anvende dette automatisk på former, du tegner i Draw-værktøjet — mere om det senere!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/doors.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/doors.mp4" type="video/mp4" />
+</video>
+
+I videoen ovenfor er den venstre dør konfigureret til at være aktiveret for alle spillere som standard og kan således skiftes uden problemer af spilleren. Døren foran spilleren er imidlertid konfigureret med anmodningsrettigheden.
+I disse tilfælde vil DM'en modtage en anmodning som følger, hvor de kan vælge at acceptere eller afvise anmodningen samt flytte kameraet til den pågældende dør, hvis de lige nu kigger et andet sted hen.
+
+![Anmodning om logikdør til DM](./2022.1/door-dm-request.png)
+
+### Teleporteringszoner
+
+Det andet modul giver endnu en kvalitetsforbedring.
+Som du kan gætte ud fra navnet, giver det dig mulighed for at opsætte en form, der fungerer som en særlig zone, hvor en form, der træder ind i zonen, teleporteres til en anden lokation.
+
+Potentielle anvendelser for denne funktion er trapper til andre etager, fælder eller ... teleporteringscirkler!
+
+Målet for disse teleporteringszoner er eksisterende spawn-lokationer, så sørg for at oprette disse først!
+Disse spawn-lokationer kan også være på andre lokationer, så interdimensionale rejser er heller ikke noget problem.
+
+Som standard vil en teleporteringszone ikke aktiveres med det samme,
+men i stedet vises der en notifikation for spillerne, mens de er i zonen, så de selv kan aktivere den, når de vil (fx kan en spiller godt stå på en trappe uden at have til hensigt at gå op).
+Det er dog også muligt at konfigurere den til at virke med det samme (fx er en faldgrube normalt ikke valgfri!)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/tp.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/tp.mp4" type="video/mp4" />
+</video>
+
+## UI
+
+Der er foretaget to små ændringer af værktøjernes UI.
+
+### Omstrukturering af Draw-værktøjet
+
+Draw-værktøjets popout begyndte at blive overfyldt, hvilket forhindrede nye ting i at blive tilføjet.
+Denne release tænker popout'ens udseende om og bruger nu en struktur med 3 separate faner.
+
+Den grundlæggende fane indeholder den konfiguration, du interagerer med de fleste gange, og som relaterer sig til det faktiske udseende af det objekt, du er ved at tegne.
+
+Den anden fane er fokuseret på krigståge-adfærd. DM'en kan vælge tegnetilstanden her. Derudover kan blokeringsegenskaberne for den tegnede form nu også ændres direkte i Draw-værktøjet.
+Disse indstillinger aktiveres stadig automatisk, når du vælger krigståge-laget, og deaktiveres igen, når du vælger et andet lag. Du har dog nu muligheden for at konfigurere dette for alle former, du er ved at tegne, uden at skulle ændre dem én for én bagefter.
+
+Den sidste fane er til de nye logiksystemer og tilbyder i øjeblikket kun en mulighed for automatisk at konfigurere dørmodulet for alle tegnede former. Når du arbejder med kort, anbefaler jeg først at lave alle vægge og derefter lave en omgang for dørene med denne indstilling aktiveret. (Og endnu en omgang for vinduerne med kun "blocks movement" aktiveret!)
+
+### Polygon-redigerings-UI
+
+En lille kvalitetsforbedring af polygon-redigerings-UI'et skjuler nu UI'et, mens du trækker, da det blot var visuel støj, der nogle gange kunne forstyrre din trækoperation.
+
+## Aktivhåndtering
+
+### Understøttelse af mappe-slip
+
+Det burde nu være muligt i de fleste browsere at slippe mapper i aktivhåndteringen!
+
+Denne simple ting blev ofte efterspurgt — forståeligt nok — men browserunderstøttelsen for nogle af de anvendte funktioner var endnu ikke standardiseret, hvilket nu skulle være tilfældet.
+
+### Dimensionsoplysninger
+
+Hvis et aktiv har dimensionsoplysninger i sit navn, vil det automatisk fylde det forventede antal gitterceller, når det slippes på spillebordet.
+
+PA leder specifikt efter et mønster, der matcher ?x?, hvor spørgsmålstegnene repræsenterer et eller flere cifre. (fx 20x20 eller 5x12)
+Tallene repræsenterer antallet af gitterceller i X- og Y-retningen.
+
+## Serverhåndtering
+
+For jer, der hoster en PA-server, har vi også nogle sjove ændringer!
+
+### Deaktiver registrering
+
+Det er nu muligt at deaktivere, at folk opretter nye konti, hvilket i praksis gør din server privat. Konfigurér blot indstillingen `allow_signups` i din serverkonfigurationsfil, så er du i gang.
+
+Der er endnu ikke nogen mekanisme, der giver serverejeren (eller en anden) mulighed for at optage bestemte personer.
+Det er dog muligt enten manuelt at tilføje en ny bruger, hvis du er fortrolig med python, eller bare aktivere registrering i et kort vindue.
+
+### Admin-dashboard
+
+Et minimalt admin-dashboard kan nu aktiveres, som kører på den samme port som API-serveren.
+
+Med dette dashboard kan du liste alle registrerede brugere, nulstille deres adgangskode eller slette dem helt. Derudover kan du også liste alle kampagner.
+
+### Docker arm64-understøttelse
+
+En nichefunktion er, at PA nu også bygger arm64-dockerimages til release- og dev-grenene.
+
+### [BRÆKKENDE] Subpath-håndtering
+
+Måden subpath-hosting håndteres på er blevet ændret i denne release.
+Hvis du hoster en PlanarAlly-server, der hostes via en subpath, så sørg for at opdatere din opsætning.
+
+#### Bruger jeg en subpath?
+
+Subpath-hosting refererer her specifikt til en opsætning, hvor du ikke hoster PA på roden af dit domæne (fx `http://somedomain.org/`, `http://somedomain.org:2345/` eller `http://subdomain.somedomain.org/`), men derimod på en subpath (fx `http://somedomain.org/planarally/`)
+
+Det forventes nu, at klienten specifikt bygges med subpath-oplysninger. Det betyder, at miljøvariablen PA_BASEPATH skal sættes under byggetiden.
+
+Derudover skal stien nu eksplicit slutte med en skråstreg.
+
+Hvis du brugte docker, skal du nu selv bygge imaget, da du skal angive disse ekstra oplysninger til klientens byggetrin ved hjælp af flaget `--build-arg PA_BASEPATH='/subpath/'` i stedet for den gamle opsætning med `--env PA_BASEPATH`
+
+## Fejlrettelser
+
+Der blev rettet en masse fejl i denne release!
+
+- Etage bliver ikke husket ved genindlæsning efter handlingen "Bring Players"
+- Form-indsættelse øger ikke badge-tællerne korrekt
+- Standard-synsformer fungerer altid som tokens (uanset isToken)
+- Map-værktøjets aspektforholdslås virker ikke længere
+- Modaler vil nu ændre placering, hvis ændring af vinduesstørrelse ville placere dem uden for det synlige skærmområde
+- Rettet: Scrollbarer er synlige, fordi terninge-lærredet ikke er størrelsesbestemt stramt
+- Rettet: Bevægelsesblokkere skærer med sig selv, når de flyttes på token-laget
+- Rettet: Aktiver bliver usynlige ved brug af en subpath-opsætning (gælder kun nye aktiver)
+- Rettet: Farvevælgeren tillader ikke manuelt at ændre rgba/hsla/hex-værdierne
+- Kontofjernelse omdirigerer ikke korrekt til login
+- Valg af en form, der er tegnet i reveal-tilstand, fjerner ikke længere skygge under markeringen
+- Fjernelse af et aktiv fjernede enhver kampagne, der brugte det som logo
+- Aura-retningens talinput synkroniserede ændringen ikke til serveren
+- Nogle hukommelseslækager ved skift mellem lokationer
+- Etagebelysnings-adfærd for sent indlæste billeder
+- DDraft-uploads skrider ikke frem i aktivhåndteringen
+- DDraft-lys blev ikke konfigureret korrekt
+- [asset-manager] Aktivhåndteringen tjekkede ikke for forældede filer ved fjernelse af en mappe

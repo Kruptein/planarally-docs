@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Paramètres
+
+<Image src={DashboardSettings} alt="Paramètres du tableau de bord" />
+
+Actuellement, seuls les paramètres du compte sont disponibles.
+Cette section vous permet de définir une adresse e-mail si vous le souhaitez et, surtout, de modifier votre mot de passe ou de supprimer votre compte.
+
+<Warning title="Supprimer un compte">
+    Il s'agit d'une suppression définitive : PA ne conserve aucune information vous concernant une fois le compte supprimé.
+
+    !!Cela supprime également toute campagne actuellement possédée par cet utilisateur !!
+
+</Warning>

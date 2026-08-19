@@ -1,0 +1,38 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Strumento Map
+
+Lo strumento Map è accessibile tramite la barra degli strumenti in basso a destra del Tavolo di gioco, ma solo in [modalità Build](/it/docs/tools-overview/#toolbar-and-modes) e solo dal GM.
+Offre un metodo semplice per adattare una forma personalizzata alla griglia.
+Può essere usato per ridimensionare forme arbitrarie, ma il suo uso principale è focalizzato sulle mappe.
+
+Per usare lo strumento Map, è necessario prima selezionare una forma.
+Se non è questo il caso, lo strumento Map te lo farà notare e potrai selezionare una forma direttamente dall'interno dello strumento Map, senza passare allo strumento Select.
+
+Se una forma è selezionata, potrai scegliere un'area di questa forma da usare come riferimento, oppure ridimensionare l'intera immagine.
+Nota che in entrambi i casi l'intera immagine viene ridimensionata.
+Ridimensionare 'l'intera immagine' usa semplicemente l'intera immagine come riferimento, senza selezionarne solo una parte.
+
+## Seleziona Area
+
+La selezione di un'area si effettua trascinando un riquadro attorno ad essa.
+Ad esempio, puoi selezionare un'area che dovrebbe rappresentare un'area di 3 per 3 sulla griglia.
+Puoi ridimensionare e perfezionare ulteriormente questa selezione dopo la selezione iniziale, per assicurarti che copra esattamente ciò che desideri.
+
+Se la selezione è adeguata, puoi inserire le dimensioni X e Y che l'area selezionata dovrebbe occupare e premere Applica.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+L'esempio sopra mostra l'uso dello strumento Map per riadattare l'asset della mappa importata alla griglia. Abbiamo
+selezionato un'area, apportato alcune lievi modifiche e poi comunicato allo strumento le dimensioni desiderate.
+
+## Ridimensiona Intera Immagine
+
+Ridimensionare 'l'intera immagine' usa l'intera immagine come riferimento per il ridimensionamento.
+Questo può essere fatto impostando le celle della griglia target o i pixel target.
+Selezionando le celle della griglia target, l'immagine coprirà il numero indicato di celle della griglia, mentre selezionando i pixel target l'immagine verrà ridimensionata in base all'input.
+In entrambe le alternative è possibile mantenere le proporzioni dell'immagine collegando il simbolo dei 'link' a destra degli input.

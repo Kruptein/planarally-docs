@@ -1,0 +1,248 @@
+---
+title: Release 2025.1
+date: 2025-01-31 19:32:00
+excerpt: "Améliorations des dés et une simple boîte de chat"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Une nouvelle année, et nous avons de belles nouveautés en réserve pour vous !
+
+<Warning title="Mise à niveau du serveur">
+    Si vous êtes propriétaire d'un serveur, consultez les changements liés aux ressources pour 3 modifications côté
+    serveur.
+</Warning>
+
+## SUPPRESSIONS
+
+Cette release s'accompagne d'un peu de nettoyage avec 2 fonctionnalités supprimées :
+
+### Étiquettes/Filtres
+
+Comme annoncé dans les 2 dernières notes de release, cet ensemble de fonctionnalités est désormais officiellement supprimé.
+
+Les étiquettes étaient des tags que vous pouviez placer sur les formes et l'outil de filtre vous permettait de masquer/afficher les formes à l'écran en filtrant sur ces tags.
+Je vois encore quelques cas d'usage pour cela, mais l'implémentation actuelle n'était pas terrible, semblait très datée et n'était tout simplement pas utilisée pour autant que je sache.
+Le fait que personne ne nous ait contactés à leur sujet depuis la mise en place de l'avis de dépréciation est un signe que leur suppression ne fera de mal à personne.
+
+### Fichiers .paa
+
+Dans une version plus ancienne de PA, le gestionnaire de ressources avait l'option d'exporter toutes vos ressources dans un fichier `.paa`, que vous pouviez ensuite importer sur une autre installation de PA.
+
+Depuis, le gestionnaire de ressources a été retravaillé et n'offre plus cette fonctionnalité dans son interface.
+Mon intention était au départ de rétablir cette fonctionnalité, mais entre-temps, la possibilité d'exporter les campagnes a été ajoutée à la place, ce qui exporte automatiquement toutes les ressources associées.
+
+Cela couvrait la plupart des cas d'usage de la configuration originale des fichiers paa. Tout comme pour l'autre suppression, personne ne m'a demandé pourquoi cette fonctionnalité n'était plus disponible dans l'interface,
+c'était donc le bon moment pour faire du ménage, d'autant qu'une partie de la logique interne des ressources a été réécrite pour certains changements plus loin dans ces notes de release.
+
+## Dés
+
+### Interface de l'outil
+
+_contribution de rexy712_
+
+Dans la 2024.3, l'outil de dés a reçu une toute nouvelle interface, déjà un cran au-dessus de l'interface d'origine, mais rexy a décidé de l'améliorer encore davantage.
+
+L'interface a gagné des transitions fluides et intègre les résultats d'un lancer directement dans l'interface au lieu d'ouvrir une fenêtre modale séparée, rendant l'expérience moins distrayante.
+De plus, l'historique des dés est mieux intégré et un bouton permettant de refaire rapidement le dernier lancer a été ajouté.
+
+![Nouvelle interface de l'outil de dés](./2025.1/dice-basic.png)
+
+Les dés 3D peuvent désormais aussi être lancés selon 2 modes distincts : par défaut et boîte. Le mode par défaut correspond au comportement d'origine où ils sont lancés sur tout l'écran,
+le mode boîte ouvrira une petite section en haut, un peu comme un plateau à dés.
+
+![Nouvelle interface de l'outil de dés](./2025.1/dice-box.png)
+
+## Ajustements de la simulation des dés 3D
+
+_contribution de rexy712_
+
+Des modifications ont été apportées aux propriétés physiques des dés 3D, ce qui devrait se traduire par un meilleur comportement,
+en particulier les dés devraient désormais arrêter de glisser beaucoup plus rapidement.
+
+## Gestion des D100
+
+La gestion des lancers de D100 était très différente entre le mode 2D et le mode 3D, le mode 2D couvrant toutes les valeurs entre 1 et 100,
+tandis que le mode 3D ne couvrait que les dizaines (par ex. 10/20/30/...) et nécessitait le lancer d'un d10 supplémentaire pour couvrir les unités,
+mais aucune logique n'était présente pour gérer ce qui devait se produire si, par exemple, un 00 et un 0 étaient lancés.
+
+Cette release améliore tout ce qui précède. En mode 3D, lorsque vous lancez un d100, un d10 sera lancé automatiquement en même temps,
+donc vous n'avez pas besoin de le spécifier vous-même. De plus, une logique intégrée est présente pour définir le comportement du cas 00/0.
+
+La bibliothèque de dés sous-jacente `@planarally/dice` peut être configurée pour être en mode 0-99 ou 1-100.
+L'interface actuelle de PlanarAlly n'offre toutefois aucun moyen de la configurer, donc pour l'instant, le mode 1-100 est toujours sélectionné.
+
+## Ressources
+
+Un autre ensemble de changements importants concerne les ressources. Des modifications techniques ont été apportées au serveur, ainsi que des mises à jour visuelles côté client !
+
+### Interface DM en jeu
+
+Le gestionnaire de ressources est un bon moyen d'organiser vos ressources hors du jeu, pour préparer une session.
+
+En jeu, le DM a toutefois une vision complètement différente de ses ressources.
+Il existe une barre latérale avec une structure arborescente, mais aucune vraie interaction n'est possible, hormis faire glisser une ressource spécifique sur la carte.
+
+Cette release change cela et supprime la barre latérale, la remplaçant par une grande fenêtre modale assez semblable à la nouvelle interface des notes,
+mais avec un aspect et une sensation proches de ceux du gestionnaire de ressources hors jeu.
+En fait, les gestionnaires de ressources hors jeu et en jeu partagent désormais une grande partie de leur code d'interface.
+
+Tout comme l'interface des notes retravaillée l'année dernière, l'interface des ressources peut être ouverte depuis la barre latérale, mais aussi en appuyant sur le raccourci <kbd>a</kbd>.
+
+![Nouvelle interface des ressources](./2025.1/asset-ui.png)
+
+#### Recherche
+
+La barre latérale a toujours eu une barre de recherche, qui est toujours disponible dans la nouvelle interface et est implémentée de manière beaucoup plus efficace,
+ne nécessitant plus de charger toutes les informations des ressources au préalable lors de la connexion au jeu.
+
+Son comportement est légèrement différent de celui de la recherche de la barre latérale, étant donné que la représentation est complètement différente.
+Elle affichera directement toutes les ressources correspondant à la recherche. La barre latérale, elle, gardait visibles toutes les dossiers contenant une ressource correspondante quelque part à l'intérieur.
+
+#### Raccourcis
+
+Une autre nouvelle fonctionnalité est la possibilité de marquer un dossier comme raccourci. Les raccourcis apparaîtront sur le côté gauche, sous le raccourci permanent « All assets ».
+Ils vous permettent d'accéder rapidement à un dossier particulier dont vous pourriez avoir fréquemment besoin (par ex. le dossier principal de la campagne, les pions dnd courants, ...).
+
+Les raccourcis sont enregistrés par campagne.
+
+#### Glisser-déposer
+
+Vous vous demandez peut-être comment déposer désormais une ressource sur la carte, étant donné que la nouvelle interface occupe une bonne partie du centre de l'écran.
+
+Lorsque vous commencez à faire glisser une ressource, vous pouvez la déposer sur un dossier pour la déplacer dans ce dossier, comme dans le gestionnaire de ressources.
+Si vous faites en revanche glisser la ressource hors de l'interface, celle-ci disparaîtra complètement, vous permettant de la placer réellement sur la carte.
+
+Pour garantir la clarté, un message est toujours visible en bas de l'interface lors du glisser-déposer pour vous informer de ce comportement.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2025.1/asset-drop.webm" type="video/webm" />
+    <source src="/blog/release-2025.1/asset-drop.mp4" type="video/mp4" />
+</video>
+
+### Changements mineurs du gestionnaire de ressources
+
+#### Interface de renommage
+
+_contribution de rexy712_
+
+Renommer une ressource ouvrait un popup dans lequel vous deviez saisir le nouveau nom.
+Cela a été rendu moins intrusif en vous permettant à la place de modifier le nom sur place, comme vous pourriez en avoir l'habitude dans l'explorateur de fichiers de votre système d'exploitation.
+
+#### Sélection via le menu contextuel
+
+Un clic droit sur une ressource dans le gestionnaire de ressources fait apparaître un menu contextuel.
+Jusqu'à présent, cela réinitialisait toujours la sélection à la seule ressource sur laquelle vous aviez cliqué.
+
+Ce n'est plus le cas, ce qui vous permet de sélectionner correctement un ensemble de fichiers et de les supprimer à l'aide du menu contextuel.
+Des actions comme « renommer » ne sont pas affichées lorsque plusieurs ressources sont sélectionnées.
+
+La sélection sera réinitialisée à la seule ressource cliquée si elle ne faisait pas déjà partie de la sélection actuelle.
+
+### Vignettes
+
+Les ressources peuvent être importées dans une grande variété de qualités et, lorsqu'elles sont affichées sur la carte, nous voulons qu'elles le soient dans la même qualité.
+
+Il existe toutefois d'autres endroits où nous interagissons avec les ressources où la qualité supérieure n'est pas nécessaire et ne fait que rendre les choses plus lourdes.
+Le gestionnaire de ressources étant le principal candidat, puisque nous y chargeons potentiellement beaucoup d'images à la fois.
+
+À partir de cette release, le serveur tentera de générer des vignettes pour toutes les ressources importées et préférera les utiliser lorsqu'il affiche les ressources, par exemple dans le gestionnaire de ressources.
+Cela rendra le gestionnaire de ressources beaucoup plus réactif, car il n'aura pas à charger une multitude d'images de qualité supérieure.
+
+<Warning title="Mise à niveau du serveur">
+    Au démarrage du serveur, un processus en arrière-plan sera lancé pour générer des vignettes pour toutes les ressources existantes. Il enregistrera
+    une avancée de temps en temps, mais n'est par ailleurs pas bloquant pour le comportement principal du serveur.
+
+    Un comportement de repli est également prévu au cas où les vignettes n'existent pas, ce processus est donc moins critique.
+
+</Warning>
+
+### Limites d'importation et de stockage
+
+Le propriétaire du serveur peut désormais configurer des limites globales pour les ressources dans la configuration du serveur.
+Deux nouveaux réglages sont disponibles : l'un pour limiter la taille maximale d'une ressource individuelle et l'autre pour limiter la taille totale de toutes les ressources d'un utilisateur donné sur le serveur.
+
+Ces deux réglages n'ont par défaut aucune limite, assurez-vous donc de les modifier selon ce que vous souhaitez faire.
+
+Il est important de noter que les modifications de limites ne s'appliquent qu'aux ressources nouvellement importées.
+Si un utilisateur utilise plus d'espace avant l'ajout du réglage, aucune de ses ressources existantes ne sera supprimée, mais il ne pourra plus importer de ressources.
+
+<Warning title="Mise à niveau du serveur">
+    Cela ajoute de nouvelles entrées au fichier de configuration ; assurez-vous de les ajouter à votre configuration,
+    sinon le serveur ne démarrera pas.
+</Warning>
+
+### Emplacement de sauvegarde
+
+_il s'agit d'un changement technique côté serveur, vous pouvez passer à la suite si vous êtes joueur_
+
+Les fichiers physiques associés aux ressources importées sont stockés sur le disque dans un dossier particulier, tous leurs noms étant égaux au hash de la ressource.
+Ils étaient jusqu'à présent stockés dans un seul dossier plat, mais pour des raisons de performances, cette release les stockera dans une structure de sous-dossiers basée sur le hash.
+Cela réduira certains temps d'opérations d'E/S, car elles n'auront plus à opérer dans un gros dossier.
+
+<Warning title="Mise à niveau du serveur">
+    Une migration ponctuelle sera effectuée au démarrage pour déplacer tous les fichiers existants vers leur nouvel emplacement.
+    Selon le nombre de ressources présentes sur votre serveur, cela peut prendre un certain temps.
+
+    Il est essentiel que ce processus ne soit pas interrompu, car les fichiers physiques ainsi que les données de la base de données qui relient le tout sont déplacés.
+
+</Warning>
+
+## Notes
+
+Un dernier ensemble de changements concerne les notes. La plupart d'entre eux sont toutefois des changements mineurs et des corrections de bugs.
+
+### Popout complet
+
+Avec l'introduction de la nouvelle interface des notes, une note peut être détachée du gestionnaire de notes, ce qui donne une fenêtre modale flottante que vous pouvez faire glisser dans l'écran de PA.
+
+Cette release rend possible de détacher complètement cette fenêtre modale de la page, vous permettant de faire glisser la note sur un autre écran et de continuer à interagir avec elle.
+Cette fenêtre flottante reste liée à la page PA ouverte, mais n'est pas liée à un emplacement d'écran particulier. Fermer l'onglet de PA entraînera également la fermeture de la fenêtre flottante.
+
+### Accès global aux notes
+
+L'accès par défaut aux notes globales a été supprimé.
+Cela permettait aux utilisateurs de définir une note comme visible (ou même modifiable) globalement parmi tous les utilisateurs, ce qui n'est tout simplement pas ce que nous voulons.
+
+### Petites améliorations d'interface
+
+- Vous pouvez désormais vider la barre de recherche des notes avec un bouton.
+- L'interrupteur local/global est désormais un menu déroulant avec l'option de filtrer toutes les notes
+- Le bouton des notes dans la barre latérale est désormais aussi visible pour les joueurs
+- Les popouts de notes pour les notes sans accès en écriture affichent désormais « Voir la source » au lieu de « Modifier »
+
+### Corrections
+
+- Divers bugs d'interface liés à l'interaction avec un accès en lecture seule sont résolus
+- La pagination des notes n'était pas réinitialisée lors de la modification des recherches/filtres
+- L'accès en modification par défaut aux notes ne fonctionnait pas correctement
+- La barre de recherche pouvait chevaucher d'autres interfaces
+- Il était possible de modifier localement une note en lecture seule (ces modifications étaient toujours rejetées par le serveur)
+
+## Couleurs par défaut de l'outil Draw
+
+Lorsque je dessine sur le calque du brouillard de guerre, j'ai tendance à alterner souvent entre murs, fenêtres, portes, etc.
+Pour chacun d'eux, j'ai tendance à utiliser une couleur particulière afin qu'ils ressortent visuellement immédiatement lorsque j'ouvre le calque du brouillard de guerre.
+
+Jusqu'à présent, c'était un peu une corvée, car il fallait toujours changer les couleurs en passant d'un type à l'autre et, même si l'outil de couleur garde en mémoire les couleurs récemment utilisées,
+c'était quand même pénible.
+
+Cela change désormais avec l'ajout des couleurs par défaut : dans vos paramètres du client, vous pouvez maintenant configurer des couleurs par défaut pour les murs/fenêtres et les portes.
+Elles seront appliquées par défaut lorsque c'est pertinent dans l'outil Draw.
+
+Pour communiquer cela clairement, les sélecteurs de couleur sont désactivés dans l'outil Draw lorsqu'une couleur par défaut serait utilisée.
+Vous pouvez toutefois désactiver ce comportement et choisir des couleurs spécifiques pour un objet particulier en décochant la case « utiliser les couleurs par défaut » dans les réglages de vision de l'outil Draw (2e onglet).
+
+C'est un petit ajout, mais il m'a déjà fait gagner beaucoup de temps !
+
+## Varia
+
+- SuikaXhq s'est donné du mal pour mettre à jour une grande partie des étiquettes anglaises codées en dur dans l'interface afin d'utiliser des étiquettes de traduction
+- Les couleurs des bordures du bouton de nouvelle partie de la dashboard ont été mises à jour
+- Corrigé un comportement étrange lors des modifications lorsque la sélection changeait (par ex. changer le nom d'une forme et cliquer sur une autre forme avant de quitter le champ de saisie du nom)
+- Faire glisser une fenêtre modale la met désormais aussi au premier plan
+- La téléportation de formes composites pouvait entraîner certaines erreurs côté client
+- L'accrochage de l'outil Select se comporte désormais comme celui de l'outil Draw (c'est-à-dire qu'une fois accroché à un point, il ne s'accroche plus à la grille au relâchement de la souris)
+- Cliquer sur une session partageant un nom avec une autre session les déployait toutes les deux

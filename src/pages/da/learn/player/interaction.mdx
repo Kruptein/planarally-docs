@@ -1,0 +1,173 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import PenSquare from "~icons/fa-solid/pen-square";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Interaktion
+
+Det er tid til rent faktisk at bruge PA!
+
+## Flyt kortet rundt
+
+Lad os starte med det nemmeste: at flytte kortet.
+
+En væsentlig del af at bruge et hvilket som helst VTT er at vide, hvordan man flytter kameraet rundt.
+
+### Zoom
+
+Zoom ind/ud er ret ligetil, da det bare er at rulle med musehjulet.
+Som set i forrige kapitel er der også en dedikeret zoom-slider øverst til højre, som du også kan bruge.
+
+Den vigtigste forskel er, at slideren altid zoomer i forhold til midten af skærmen,
+mens musezoom zoomer i forhold til den aktuelle museplacering.
+
+### Pan
+
+For at flytte kortet rundt kan du holde enten musens midterste eller højre knap nede og bevæge musen rundt.
+
+<Tip>
+    Du kan deaktivere den knap, du ikke har tænkt dig at bruge, i dine Klientindstillinger for at undgå utilsigtet
+    panning
+</Tip>
+
+Du kan også bevæge dig rundt med tastaturet: Hvis du trykker på en af piletasterne, paneres skærmen i den angivne retning.
+For hvert tryk flyttes skærmen 1 gitterfelt.
+
+<Tip>Se [tastebindingerne](/da/docs/reference/#keybindings), hvis du vil opdage flere måder!</Tip>
+
+## Se på værktøjerne
+
+Lad os tage et nærmere kig på værktøjslinjen nederst til højre.
+Den kan have to former afhængigt af **tilstanden**, men som spiller bruger du næsten udelukkende Play-tilstand:
+
+![Play-værktøjer](./assets/tools-play.png)
+
+<Tip>
+    1: Hvis du ikke kan lide de abstrakte ikoner, kan du ændre brugergrænsefladen til at vise tekstetiketter i stedet i
+    dine Klientindstillinger.
+    <br />
+    2: Du kan hurtigt skifte mellem tilstandene ved at trykke på <kbd>tab</kbd>
+</Tip>
+
+De fleste interaktioner i PA afhænger af, hvilket værktøj der i øjeblikket er aktivt, hvilket i eksemplet ovenfor er Select-værktøjet.
+
+Vi gennemgår hurtigt alle værktøjerne her, men begrænser forklaringen til det essentielle, som du ofte vil bruge.
+For mere dybdegående information, se [værktøjsdokumentationen](/da/docs/tools/select/).
+
+### Select
+
+Dette er det klart mest almindelige værktøj, du vil bruge. Dens hovedanvendelse er ... at vælge ting!
+
+Et venstreklik på en form vælger den og tilføjer en rød kant omkring formen.
+Hvis du nu venstreklikker og holder nede, mens du bevæger musen, kan du flytte formen rundt.
+
+Hvis du vælger flere former, kan du flytte dem alle rundt på én gang!
+
+Chokerende viden, jeg ved det.
+
+Select-værktøjet har dog mere at byde på. Når du har et aktivt valg,
+dukker et særligt brugergrænseflade-element op øverst til højre med hurtig information om den valgte form, og
+ekstra konfigurationsmuligheder for Select-værktøjet er tilgængelige nederst til højre.
+
+<Info title="Ændring af størrelse / Rotation">
+    Select-værktøjet har også mulighed for at ændre størrelsen på eller rotere en form.
+    <br />
+    Da dette normalt ikke er noget, du gør regelmæssigt, er denne funktionalitet kun synlig, når du er i Build-tilstand.
+    Dette forhindrer utilsigtet størrelsesændring, når du bare vil trække din form og tilfældigvis klikker lidt for tæt
+    på hjørnet.
+</Info>
+
+### Pan
+
+Det næste værktøj er sandsynligvis det mindst brugte, da det giver dig mulighed for at flytte/panne skærmen med dit venstre museklik.
+
+Da du altid kan panne fra ethvert værktøj med midterste eller højre museknap,
+vil du kun bruge dette værktøj aktivt på en enhed uden mus.
+
+### Spell
+
+Hvis du nogensinde har brug for midlertidigt at tilføje en formel-effekt til spillebordet, er dette værktøj din redning.
+
+Det giver dig mulighed for at vælge nogle almindelige formel-former, konfigurere dimensionerne og placere dem på kortet.
+
+Hvis du har en form valgt, spores en ruler automatisk mellem formen og formel-effekten,
+så du er opmærksom på afstanden, du kaster på.
+
+### Ruler
+
+Din ven, hvis du har brug for at måle afstande.
+
+Et meget ligetil værktøj: Du klikker og trækker en linje for at måle afstanden enten i antal gitterfelter eller i verden-afstand (f.eks. ft eller m).
+
+<Tip>
+    Hvis du rammer mellemrumstasten, mens du trækker musen, oprettes et nyt ankerpunkt, så du kan måle rundt om hjørner!
+</Tip>
+
+### Ping
+
+Et andet lille, men praktisk værktøj er ping-værktøjet, som blot giver dig mulighed for at gøre opmærksom på et bestemt område på kortet.
+
+### Vision
+
+Dette er et specialiseret værktøj, der kun vises, hvis du styrer flere figurer.
+
+Det begrænser dit syn til de valgte figurer i dette værktøj.
+
+### Dice
+
+Et værktøj, du enten bruger ofte eller slet ikke, er terningværktøjet.
+
+Det giver dig mulighed for at afvikle terningekast enten i rent tekstform eller ved faktisk at simulere virtuelle 3D-terninger.
+
+### Draw
+
+Dette værktøj er kun synligt, når du er i Build-tilstand!
+
+Med dette værktøj kan du tegne en række former på kortet.
+
+## Redigering af din figur
+
+Noget, der endnu ikke er dækket, er, hvordan du redigerer din figur, hvilket selvfølgelig også er en vigtig del af at spille.
+
+Når du har din figur valgt, er der flere måder at åbne Edit-brugergrænsefladen.
+
+- Tryk på <PenSquare />-ikonet i hurtiginformationen (øverst til højre)
+- Højreklik på din figur og klik på "show properties"
+- Tryk på <kbd>Enter</kbd>
+
+Uanset hvad du ender med at vælge, bør et større brugergrænseflade-element dukke op, der giver dig mulighed for at redigere flere aspekter af din figur.
+Der kan konfigureres meget, men bare rolig — som spiller er de vigtigste faner Egenskaber og Trackere.
+
+### Egenskaber
+
+Her kan du redigere nogle essentielle ting som din figurs navn og asset.
+
+### Trackere
+
+Her kan du konfigurere trackere og auraer.
+
+Trackere er numeriske data, du måske vil beholde og ændre gennem spil (f.eks. HP).
+De kan også valgfrit vises oven på din figur på kortet, enten privat eller synligt for alle andre spillere.
+
+Auraer er derimod altid visuelle; de repræsenterer ting som områdeeffekter og lys.
+Hvis auraen er beregnet til at give dig syn (f.eks. en fakkel eller darkvision), skal du sørge for at skifte "Light source" til.
+
+Auraer har 2 værdier til deres rækkevidde-input: Den første værdi er, hvor mange ft. klart lys der skal være,
+mens den anden er, hvor mange ft. svagt lys. Så en 5e-fakkel bør være 20 / 20 (og ikke 20 / 40!).
+
+## Yderligere læsning
+
+Dette var et meget kort overblik over de værktøjer, der giver dig mulighed for at interagere med PlanarAlly.
+
+Nogle ting, der ikke er nævnt, som du måske vil undersøge:
+
+- Noter: Hold styr på information, du har samlet om bestemte NPC'er eller historieelementer
+- Chat: En simpel tekstbaseret, flygtig chat
+- Initiativ: En grundlæggende initiativtracker
+
+Og hvis du er interesseret i faktisk at hoste et spil selv, kan du tjekke [DM-guiden](/da/learn/dm/intro/) og finde ud af, hvad det handler om.

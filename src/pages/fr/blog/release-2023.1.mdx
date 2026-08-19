@@ -1,0 +1,176 @@
+---
+title: Release 2023.1
+date: 2023-02-14 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+La première version de 2023 contient surtout une collection de corrections de bugs, accompagnée de quelques améliorations mineures par-ci par-là.
+
+## Changer la ressource d'une forme
+
+Une fois que vous avez déposé une ressource sur la carte, elle devient une forme et lorsque vous aviez besoin d'une autre ressource, vous aviez deux options :
+
+- déposer la nouvelle ressource sur la carte et copier toutes les propriétés de l'ancienne forme, puis supprimer l'ancienne forme
+- ajouter la nouvelle ressource comme variante
+
+La première option est clairement assez lourde et sujette aux erreurs, et la seconde consiste fondamentalement à détourner une fonctionnalité pour autre chose.
+
+C'est pourquoi cette version ajoute l'option, attendue depuis longtemps, de simplement échanger la ressource utilisée par une forme particulière.
+Un simple bouton est ajouté à la vue des propriétés de la forme.
+
+## Empilement et fermeture des modales
+
+Lorsque plusieurs modales/boîtes de dialogue sont ouvertes, il peut parfois s'agir d'un jeu de les déplacer pour pouvoir interagir avec l'une d'elles en particulier.
+C'est parce que les modales avaient un ordre fixe.
+
+Nouveau dans cette version : la modale la plus récemment focalisée passe désormais au premier plan, comme vous en avez probablement l'habitude dans d'autres programmes.
+
+De plus, vous pouvez désormais fermer la modale la plus haute avec la touche échap.
+
+_Notez que tout ce qui précède ne s'applique principalement qu'aux modales qui peuvent être ouvertes pendant de longues durées (par ex. les paramètres de forme, les paramètres DM...) et
+pas aux modales qui nécessitent une interaction immédiate (par ex. les invites d'action)_
+
+## Changements et corrections de l'outil Spell
+
+L'outil Spell a eu des problèmes durant toute son existence.
+L'un de ces problèmes était la confusion potentielle entre `size` et `range`.
+La première désigne la taille réelle du sort lui-même, tandis que la seconde servait à montrer à quelle distance un sort donné pouvait être lancé.
+La portée n'était configurable que lorsque vous aviez sélectionné une forme avant de démarrer l'outil Spell, afin qu'un cercle de portée puisse être dessiné pour cette forme spécifique.
+De plus, la portée était par défaut de 0 dans ce cas, ce qui était censé être une option d'auto-incantation.
+
+En pratique, cela s'est avéré déroutant : parfois les joueurs voulaient simplement lancer un sort au hasard à un endroit précis, mais parce qu'ils avaient leur personnage sélectionné,
+il était verrouillé sur eux-mêmes sans grande clarté sur la raison, et il fallait soit vous désélectionner, soit changer la taille à une valeur non nulle pour réellement pouvoir faire ce que vous vouliez.
+
+C'est pourquoi cette version supprime le champ de saisie de la portée et, à la place, si une forme est sélectionnée, une règle sera automatiquement tracée entre le curseur et la forme sélectionnée.
+Cela transmet la même information sans avoir à saisir quoi que ce soit et sans la confusion du verrouillage auto-incantation de la forme.
+
+De plus, un tas de bugs liés à l'outil Spell ont été corrigés :
+
+- L'utilisation de l'outil Spell avec une sélection était en fait cassée dans les dernières versions
+- La couleur de remplissage faisait des choses bizarres si la couleur du contour avait une opacité < 1
+- Un clic droit pour dessiner la forme ouvrait le menu contextuel
+- Une fois utilisé, l'outil Select n'était pas correctement activé
+- Le libellé « is public » dans l'interface de l'outil Spell était incorrectement rattaché au champ de saisie de la portée
+
+## État de l'initiative
+
+L'initiative n'a jamais eu de véritable concept d'« active ». Vous pouviez avoir l'interface d'initiative ouverte ou fermée, que quelque chose se passe réellement ou non avec l'initiative.
+
+Cela entrave certaines choses, par exemple le paramètre d'initiative « lock vision » est dans un état semi-cassé à cause de cela, car il n'y a ni début ni fin officiels de l'initiative,
+ce qui rend cette fonctionnalité toujours active lorsqu'elle est activée, nécessitant des actions manuelles pour corriger certaines choses lorsque l'initiative est terminée.
+
+Cette version ajoute une première ébauche d'un nouvel état « initiative active ». Il est entièrement optionnel,
+mais les paramètres du client « lock camera » et « lock vision » ne fonctionneront que lorsque ce système sera utilisé.
+Cela permet à la vision de réellement revenir correctement lorsque l'initiative est terminée, sans que l'utilisateur n'ait à faire quoi que ce soit.
+
+Le DM pourra démarrer et terminer l'initiative (voir les Quick Toggles ci-dessous pour plus d'informations).
+Par défaut, l'interface d'initiative s'ouvrira sur l'écran de tous les joueurs lorsque l'initiative est démarrée. Cela peut être désactivé dans vos paramètres du client si vous n'aimez pas cela.
+
+Il reste encore quelques accrocs/bizarreries à régler, mais je veux voir comment les gens apprécient cette nouveauté et m'en faire une idée moi-même.
+
+## Varia
+
+- La boîte de dialogue d'édition de forme dit désormais correctement « Edit Shape » au lieu de « Edit Asset »
+- Une hauteur minimale a été ajoutée à l'interface de l'outil de dés afin qu'il n'y ait pas de saut gênant lorsque vous cliquez sur un dé pour le lancer.
+
+## [DM] Quick Toggles
+
+Un nouvel ajout à l'interface pour les DM est l'ajout de deux interrupteurs sous la barre d'outils.
+Ils sont destinés à activer/désactiver rapidement certaines fonctionnalités qui sont autrement cachées derrière des couches de fenêtres de paramètres.
+
+Le premier est un interrupteur pour activer/désactiver le mode vision « Fake Player ».
+Jusqu'à présent, ce paramètre était caché dans les paramètres DM, ce qui le rendait très difficile à utiliser réellement.
+
+Le deuxième est un interrupteur pour démarrer/terminer le nouvel état d'initiative active mentionné ci-dessus.
+Un clic dessus démarrera l'initiative et ouvrira l'interface d'initiative.
+Un nouveau clic arrêtera l'initiative et fermera l'interface.
+
+C'est quelque chose de nouveau que j'essaie, alors dites-moi ce que vous en pensez.
+Actuellement, il n'utilise que quelques lettres pour signifier son action (c.-à-d. FP=Fake Player, INI=Initiative),
+ce qui me laisse un peu partagé. Une alternative à explorer serait les icônes, ou les mots complets, mais cela peut être développé plus tard.
+
+S'il y a d'autres suggestions de paramètres que vous avez tendance à activer/désactiver, dites-le-moi et je pourrais envisager de les ajouter ici si la fonctionnalité est bien accueillie.
+
+## Corrections
+
+### [DM] Fake Player
+
+En plus d'une nouvelle façon d'activer rapidement cette fonctionnalité, le mode Fake Player a également été corrigé pour ne plus afficher le calque DM lorsqu'il est activé.
+Le calque DM n'est pas visible par les autres joueurs, donc l'afficher en mode Fake Player pouvait donner un message contradictoire sur ce que les joueurs voient réellement.
+
+### Formes
+
+Une variété de corrections pour les formes en général a été effectuée.
+
+- Depuis une version récente, les badges commençaient à devenir transparents par défaut, ce qui était un changement non intentionnel.
+- L'affichage d'une valeur de tracker au-dessus d'une forme ne fonctionnait pas si le tracker faisait partie d'une configuration de variantes et était partagé avec toutes les variantes.
+
+Plusieurs cas où les clients pouvaient modifier les propriétés d'une forme à laquelle ils n'ont pas accès localement ont été corrigés.
+Dans tous ces cas, le changement n'était reflété que localement dans le client et n'était jamais envoyé aux autres clients, car le serveur rejetait les changements.
+
+- La plupart des propriétés de trackers/auras étaient modifiables localement
+- Les propriétés « is defeated » et « is locked » étaient modifiables en utilisant les raccourcis clavier correspondants pour activer/désactiver ces propriétés
+
+### UI
+
+#### Invites
+
+Dans PA, vous rencontrez occasionnellement une modale d'invite, un élément d'interface qui nécessite une certaine saisie pour continuer.
+Parfois, seules certaines valeurs sont autorisées (par ex. uniquement des chiffres) et le code peut passer une fonction de validation pour vérifier si la saisie est valide.
+Ces vérifications de validation n'étaient pas toujours correctement effacées, ce qui faisait que certaines invites rejetaient une saisie pourtant valide.
+
+#### Directions des pions
+
+L'interface pour afficher la direction des pions hors écran se déclenchait toujours, même si elle était cachée derrière un autre élément d'interface (par ex. le menu de la barre latérale)
+
+#### Étages
+
+L'interface des étages qui apparaît lors d'un clic sur l'icône d'étage en bas à gauche ne se déplaçait pas lorsque le menu de la barre latérale était ouvert.
+
+### Outil Select
+
+#### Redimensionnement
+
+Lorsqu'une forme est pivotée et que vous tentez de redimensionner spécifiquement le coin inférieur droit, toute la forme subissait d'étranges changements de taille.
+Un bug dans le calcul du centre de la forme pendant cette opération était à l'origine de ce comportement défectueux.
+
+#### Déverrouillage
+
+Le déverrouillage d'une forme la faisait souvent s'accrocher à la souris comme si vous la faisiez glisser.
+
+### Gestionnaire de ressources
+
+Deux bugs liés au menu contextuel du clic droit ont été résolus, tous deux liés au défilement.
+
+Lors du défilement dans le gestionnaire de ressources, tout menu contextuel ouvert n'était plus aligné.
+Le menu contextuel se fermera désormais automatiquement lorsque vous initiez une action de défilement.
+
+Lors de l'ouverture du menu contextuel après un défilement, il apparaissait à une mauvaise valeur y (là où l'élément aurait été si vous n'aviez pas défilé).
+Cela faisait que vous ne pouviez pas interagir avec certaines formes, car leur menu contextuel serait hors écran.
+
+### Paramètres DM
+
+#### Virer le DM
+
+En tant que DM, vous pouvez virer n'importe qui, y compris vous-même.
+Il était possible de se virer soi-même si vous étiez le seul DM de la campagne.
+Cela laissait la campagne dans un état ingérable. Ce n'est plus possible.
+
+#### URL d'invitation en sous-chemin
+
+Lorsque le serveur est hébergé en utilisant un sous-chemin (ce n'est pas le cas par défaut), le sous-chemin n'était pas inclus dans les URL d'invitation des joueurs.
+
+Vous pouviez contourner ce bug particulier en l'incluant dans la configuration `publicName` du serveur, mais ce n'est pas prévu ainsi.
+Si vous avez fait cela, vous devriez retirer à nouveau le sous-chemin de la configuration, car il sera désormais automatiquement inclus dans l'URL d'invitation.
+
+### Autres corrections
+
+- Les templates n'utilisaient que le premier caractère du nom de template fourni
+- Groupes : l'ajout de plusieurs formes à un groupe demandait toujours la question de groupe même si aucun groupe n'était présent

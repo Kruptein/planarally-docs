@@ -1,0 +1,93 @@
+---
+title: Release 2025.3
+date: 2025-09-08 20:00:00
+excerpt: "Pequeñas correcciones de errores y traslado del panel de administración"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Esta es una versión muy pequeña destinada a publicar algunas correcciones de errores varias, limpiar la antigua configuración del servidor y reemplazar el antiguo cliente de administración separado por un panel de administración integrado.
+
+## Traslado del panel de administración
+
+Hasta esta versión, el propietario del servidor podía tener un segundo servidor web especial solo de administración junto al servidor planarally principal.
+Este servidor de administración podía usarse para cosas muy simples como listar todos los usuarios, restablecer contraseñas, etc.
+
+Era bastante de nicho, requería cierto conocimiento técnico para configurarlo y hacía que la configuración del servidor fuera un poco más complicada.
+Al ser una aplicación separada, a menudo también era ignorada por mí, lo que hacía que las dependencias quedaran desactualizadas y que, en general, no recibiera actualizaciones.
+
+Así que decidí deshacerme de todo ello y simplemente añadirlo a la aplicación principal.
+Se ha añadido una nueva opción de configuración "admin_user" (consulta [el manual de configuración](/es/server/management/configuration/#field-admin_user)) que se puede configurar para designar a un usuario específico como administrador principal.
+
+Este usuario verá una sección adicional "Admin" en su panel de control, que abre el panel de administración. Son principalmente los mismos datos que tenía el panel de administración original, pero con algunas pequeñas adiciones.
+
+El objetivo es ampliarlo en el futuro con cosas como:
+
+- modificación de la configuración del servidor
+- dar a otros usuarios permisos para ver/gestionar algunas cosas
+- mostrar las estadísticas que se recopilan desde 2025.2
+
+Pero esto es para una versión futura ;)
+
+## Mejoras del scroll del zoom
+
+Cuando se hacía mucho zoom, había grandes saltos en el nivel de zoom, lo cual es bastante discordante y molesto.
+
+La experiencia de zoom ahora debería ser mucho más fluida.
+
+## Correcciones de iniciativa
+
+Rexy hizo una variedad de correcciones al comportamiento de la iniciativa.
+
+- Retroceder un turno disminuía los temporizadores de los efectos
+- Eliminar una entrada de iniciativa podía provocar algunas inconsistencias de estado
+
+Ahora, al eliminar una entrada de iniciativa, la siguiente entrada de la lista se convertirá en la entrada activa.
+
+## Correcciones de la modalidad de visión "Detrás"
+
+En [2024.1](/es/blog/release-2024.1) se introdujo la modalidad de bloqueo de visión "detrás".
+
+Originalmente se implementó con una especie de truco ingenioso. Sin embargo, recientemente se me llamó la atención (por el mencionado Rexy) sobre algunos casos en los que esto provocaba resultados de renderizado incorrectos.
+
+![Renderizado incorrecto de la visión "detrás"](./2025.3/behind-vision-wrong.png)
+
+En la imagen de arriba, el rectángulo azul está configurado en la modalidad de bloqueo de visión "detrás", pero de algún modo una gran parte de él es visible donde no debería.
+
+Los detalles son bastante técnicos, pero pasé un par de días trabajando en ello y reescribí por completo la lógica de la modalidad de visión "detrás", que ahora debería ser robusta (TM).
+
+## Correcciones de búsqueda de recursos
+
+Un error de sintaxis oculto en el código del servidor hacía que aparecieran recursos de otros jugadores al buscar en el gestor de recursos del juego.
+
+Mientras corregía ese error también noté que los recursos compartidos no se consultaban al buscar recursos.
+Es una operación más costosa incluirlos por defecto, así que se ha añadido un toggle a la barra de búsqueda para poder activar opcionalmente la búsqueda de los recursos compartidos contigo.
+
+## Eliminación de la antigua configuración
+
+En la última versión el formato de configuración cambió por completo. Desde entonces se almacena en `data/config.toml` en lugar del archivo original `server_config.cfg`.
+
+Como la configuración original estaba bajo control de versiones, no quería sorprender a la gente cuando este archivo se eliminara de repente al actualizar.
+En retrospectiva, debería haberlo eliminado directamente (o haber añadido un gran banner al archivo), ya que hubo cierta confusión con esos archivos que seguían presentes aunque ya no se usaban.
+
+Lecciones aprendidas, supongo.
+
+En cualquier caso, los antiguos archivos de configuración se han eliminado.
+
+## Configuración del servidor no válida
+
+El servidor ya no se iniciará y reportará errores cuando se encuentren datos de configuración desconocidos o incorrectos.
+
+Esta es una medida extra para evitar sorpresas a quienes creen que han configurado algo correctamente, cuando en realidad no lo han hecho.
+
+## Estadísticas
+
+Se han hecho algunos pequeños cambios en las APIs internas, en particular la exportación al servidor principal de estadísticas de PA ahora se hace por lotes para evitar paquetes de datos grandes si la exportación no se ha realizado en un tiempo.
+
+Además, los problemas de red de los jugadores que causan conexiones/reconexiones rápidas ya no se registrarán en las estadísticas, ya que podrían inundar los datos sin ningún valor real.
+
+## Correcciones de errores
+
+- No volver a abrir las propiedades de la forma tras una nueva selección
+- La última línea de la cuadrícula en el eje X o Y a veces no se renderizaba
+- Renombrar una planta tras un reordenamiento renombraba la planta equivocada

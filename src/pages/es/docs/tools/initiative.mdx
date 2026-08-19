@@ -1,0 +1,150 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import InitiativeOverviewPicture from "../../blog/2026.1/initiative.png";
+
+# Herramienta Iniciativa
+
+La herramienta Iniciativa es una ventana emergente móvil que te permite hacer un seguimiento del orden de iniciativa de varios objetos (normalmente fichas).
+
+<Image
+    src={InitiativeOverviewPicture}
+    width={462}
+    aspectRatio={462 / 492}
+    alt="Vista general de la herramienta de iniciativa"
+/>
+
+## Acceso
+
+La herramienta Iniciativa no es accesible a través de la barra de herramientas en la parte inferior derecha de la interfaz de usuario.
+En su lugar, se accede a ella mediante los menús contextuales.
+Al hacer clic con el botón derecho en cualquier parte del mapa, siempre puedes elegir `Show Initiative` en el menú contextual, lo que activa la herramienta.
+Además, el menú contextual de los objetos (formas, recursos o fichas) muestra la opción `Show Initiative`, si el objeto ya está ingresado en la lista de iniciativa.
+Si el objeto en cuestión aún no está en la lista de iniciativa, el menú contextual mostrará `Add Initiative` (`Add all to Initiative`, si hay varios objetos seleccionados), abriendo la herramienta Iniciativa e ingresando el objeto en la lista al mismo tiempo.
+
+La herramienta Iniciativa abre una ventana emergente móvil que se puede cerrar haciendo clic en el <WindowClose /> en la esquina superior derecha.
+
+Contiene la lista de iniciativa, que puede tener varias entradas individuales y, debajo, una barra con varias funciones.
+
+## Lista de iniciativa
+
+La lista de iniciativa es, en esencia, una tabla con seis columnas y una fila por cada objeto que se añade a la lista de iniciativa.
+La fila/entrada _activa_ se resalta con un fondo verde, indicando que es el turno de ese objeto.
+
+Al pasar el mouse sobre una entrada se mostrará el nombre de la forma ingresada y también se resaltará el objeto asociado en el mapa con un rectángulo rojo a su alrededor.
+Esto es particularmente útil si hay varios objetos en el mapa ilustrados con el mismo recurso (es decir, monstruos similares, etc.).
+
+### Designador
+
+En la parte más a la izquierda de cada fila, está el designador de la forma añadida a la iniciativa.
+Si el objeto es un recurso, el designador será una versión en miniatura del recurso.
+Si el objeto es una Ficha Básica, el designador será el texto que se muestra en la ficha.
+Si el objeto es otra forma, el designador será el nombre de la forma tal como se ingresó en las propiedades cuando el objeto se añadió a la iniciativa.
+
+### Valor de iniciativa y ordenamiento
+
+El designador va seguido del valor de iniciativa, que puede ser cualquier número.
+Los jugadores solo pueden modificar el valor de iniciativa de los objetos a los que tienen acceso.
+El DM puede modificar el valor de iniciativa de todos los objetos de la lista.
+
+Las entradas se ordenarán automáticamente por este valor, colocando los valores más altos en la parte superior y los más bajos en la parte inferior de la lista.
+Al pasar el mouse sobre una entrada, se resaltará con un borde que muestra una muesca en la esquina inferior derecha.
+Cualquier elemento se puede arrastrar haciendo clic y manteniendo presionado sobre esta muesca, superando el ordenamiento automático.
+
+### Efectos con duración
+
+La siguiente columna muestra un <Stopwatch />, seguido de un número (por defecto 0).
+Esta columna muestra cuántos Efectos con duración (ver más abajo) están asignados al objeto.
+Esta función se puede usar para rastrear fácilmente mejoras y/o efectos (por ejemplo, hechizos) que infligen daño a lo largo del tiempo.
+
+Los Efectos con duración son entradas de formato libre que se asignan a una entrada de la lista de iniciativa y que solo son válidos durante un tiempo limitado, es decir, rondas.
+Hacer clic con el botón izquierdo en el icono <Stopwatch /> añadirá un nuevo Efecto con duración asociado a la entrada correspondiente.
+Al pasar el mouse sobre una entrada, se expandirá la lista de Efectos con duración debajo, conectada al borde de resaltado.
+La lista de Efectos con duración de la entrada activa siempre está expandida.
+
+Los Efectos con duración se pueden añadir en cualquier momento.
+El DM puede añadir efectos a cualquier entrada; los jugadores solo a las entradas a las que se les ha concedido acceso.
+
+Cada Efecto con duración tiene dos valores: el descriptor y la duración.
+El descriptor se muestra a la izquierda (por defecto al crearlo: `New Effect`) y puede ser cualquier texto.
+La duración se muestra a la derecha (por defecto: `10`) y debe ser un número; describe la duración del efecto en las rondas siguientes.
+Cada vez que una entrada se vuelve _activa_, la duración disminuye en uno, hasta llegar a `0`.
+
+Después de que la duración haya llegado a `0`, la próxima vez que la entrada se vuelva activa, en lugar de cambiar de `0` a `-1`, el Efecto con duración desaparece.
+Se puede eliminar haciendo clic en el botón de la papelera <TrashAlt /> que está a su lado.
+
+### Visibilidad
+
+La siguiente columna muestra un <Eye /> que alterna la visibilidad de la entrada.
+Si el <Eye /> aparece gris, un objeto es invisible, es decir, solo el DM puede ver la fila correspondiente.
+Un objeto añadido por un jugador será visible por defecto, mientras que los objetos añadidos a la iniciativa por el DM son invisibles por defecto.
+
+### Iniciativa de grupo
+
+La segunda columna desde la derecha muestra un icono <Users />.
+Hacer clic en el icono alterna entre iniciativa individual/grupal.
+
+Cuando una entrada está marcada como _iniciativa de grupo_, no se puede eliminar (ver más abajo), ni haciendo clic en el símbolo de la papelera <TrashAlt /> ni eliminando el objeto asociado.
+Aún así resaltará la ficha asociada al pasar el mouse; por el momento, no hay funcionalidad para resaltar varios objetos a la vez.
+
+### Eliminar
+
+La columna más a la derecha, que representa un <TrashAlt />, sirve para eliminar la entrada de la lista.
+El DM puede eliminar cualquier entrada de la lista de iniciativa.
+Los jugadores solo pueden eliminar las entradas a las que se les ha concedido acceso.
+
+Eliminar una ficha que está añadida a la iniciativa, o moverla a otra ubicación, también eliminará la entrada asociada en la herramienta Iniciativa.
+
+Las entradas que se añaden a la Iniciativa de grupo (ver más arriba) no se pueden eliminar.
+
+## Barra de funciones
+
+La barra de funciones es una sola fila que contiene el indicador `Round` que muestra la ronda actual de acción/combate a la izquierda, y cuatro botones a la derecha de este indicador.
+
+### Bloqueo de visión automático
+
+<Eye /> alterna el bloqueo de visión automático. Esta función es útil para los jugadores que poseen más de una ficha. Si
+está activo, cada vez que se asigna la acción a otro objeto (ver [siguiente turno](/es/docs/tools/initiative/#next-turn)
+más abajo), solo se mostrará la visión de este objeto. Cada jugador puede activar o desactivar esta opción
+individualmente. El bloqueo de visión automático solo mostrará la visión de los objetos a los que los jugadores tienen
+acceso adecuado.
+
+<Info title="Herramienta de visión">
+    El bloqueo de visión automático hace que la [herramienta Vision](/es/docs/tools/vision/) se reconfigure. Usa esa
+    herramienta para configurar qué líneas de visión quieres ver, fuera de la iniciativa.
+</Info>
+
+El botón no tiene función para los DM, ya que ellos siempre ven todo.
+
+### Bloqueo de cámara automático
+
+El <Video /> alterna el bloqueo de cámara automático.
+Cuando el bloqueo de cámara automático está activo, cada vez que se asigna la acción a otro objeto (ver más abajo), la vista se centra en el objeto ahora activo.
+Cada jugador puede activar o desactivar esta opción individualmente.
+El bloqueo de cámara automático solo centrará la vista en los objetos que los jugadores pueden controlar.
+Por lo tanto, para el DM, el centro de la vista cambiará virtualmente con cada clic en _Next_.
+La vista de los jugadores solo cambiará cuando una ficha que controlan esté ahora activa según el rastreador de iniciativa.
+
+### Restablecer
+
+El botón <SyncAlt /> restablece las rondas y los turnos.
+Las rondas se restablecerán a la Ronda 0, y la acción se asignará al objeto en la parte superior de la lista.
+Ten en cuenta que ni los valores de iniciativa ni los Efectos con duración se restablecen.
+Esta función solo está disponible para los DM.
+
+### Siguiente turno
+
+El botón <ChevronRight /> (_Next_) asigna al siguiente jugador en el orden de iniciativa como _activo_ (ver más arriba).
+Esta función solo está disponible para los DM.

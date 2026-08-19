@@ -1,0 +1,38 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Outil Map
+
+L'outil Map est accessible dans la barre d'outils en bas à droite de la table de jeu, mais uniquement en [mode Build](/fr/docs/tools-overview/#toolbar-and-modes) et uniquement par le GM.
+Il offre une méthode simple pour ajuster une forme personnalisée à la grille.
+Il peut être utilisé pour redimensionner des formes arbitraires, mais son usage principal est axé sur les cartes.
+
+Pour utiliser l'outil Map, une forme doit d'abord être sélectionnée.
+Si ce n'est pas le cas, l'outil Map vous en informera et vous pourrez sélectionner une forme depuis l'outil Map lui-même, sans passer par l'outil Select.
+
+Si une forme est sélectionnée, vous pourrez sélectionner une zone dans cette forme à utiliser comme référence, ou redimensionner toute l'image.
+Notez que dans les deux cas, toute l'image est redimensionnée.
+Redimensionner « toute l'image » prend simplement toute l'image comme référence, sans sélectionner qu'une partie comme référence.
+
+## Sélection d'une zone
+
+La sélection d'une zone se fait en faisant glisser un cadre autour d'elle.
+Par exemple, vous pouvez sélectionner une zone qui devrait représenter une zone de 3 par 3 sur la grille.
+Vous pouvez redimensionner et ajuster cette sélection après votre sélection initiale pour vous assurer qu'elle couvre exactement ce que vous désirez.
+
+Si la sélection est adéquate, vous pouvez saisir les dimensions X et Y que la zone sélectionnée doit occuper et appuyer sur appliquer.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+Ci-dessus, un exemple d'utilisation de l'outil Map pour réajuster la ressource carte importée à la grille. Nous avons
+sélectionné une zone, effectué quelques légères modifications, puis indiqué à l'outil les dimensions souhaitées.
+
+## Redimensionner toute l'image
+
+Redimensionner « toute l'image » prend toute l'image comme référence pour le redimensionnement.
+Cela peut se faire soit en définissant des cellules de grille cibles, soit des pixels cibles.
+Cibler des cellules de grille fera couvrir à l'image le nombre de cellules de grille donné, tandis que cibler des pixels redimensionnera l'image selon la saisie.
+Pour les deux options, il est possible de conserver le rapport hauteur/largeur de l'image en reliant le symbole des « liens » juste à côté des champs de saisie.

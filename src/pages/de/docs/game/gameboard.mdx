@@ -1,0 +1,79 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Spieltisch
+
+Das ist das Herz von PlanarAlly.
+Beim Spielen wirst du dich hauptsächlich mit dem Spieltisch beschäftigen, indem du Tokens über eine Karte bewegst, die die Umgebung deines Charakters sowie die SC- und NSC-Charaktere um sie herum zeigt (oder auch nicht).
+
+<Warning title="Der große rote Rahmen">
+    Die meisten Aktionen, die du ausführst, müssen mit dem Server synchronisiert werden. Sollte diese Verbindung aus
+    irgendeinem Grund abreißen, warnt dich ein dicker roter Rahmen um den Bildschirm. Alle Änderungen, die du während
+    einer Trennung vornimmst, könnten verloren gehen.
+</Warning>
+
+## Überblick
+
+Dieses Dokument gibt eine kurze technische Einführung in die Konzepte Orte, Etagen und Ebenen.
+Für Spieler ist diese Lektüre nicht zwingend erforderlich, bietet aber mehr Einblicke in das Verhalten bestimmter Systeme.
+Als DM findest du für jedes dieser Konzepte ausführlichere Informationen im DM-Bereich.
+
+PlanarAlly organisiert Kampagnen mithilfe von drei Konzepten. Eine Kampagne hat einen oder mehrere **Orte**, die jeweils aus einer oder mehreren **Etagen** bestehen, die wiederum aus einem festen Satz von **Ebenen** bestehen.
+All diese Elemente zusammen ergeben ein Szenario, das auf dem Bildschirm gezeichnet wird und mit dem du interagierst.
+
+Als Spieler kannst du den aktiven Ort, die aktive Etage oder die aktive Ebene in der Regel nicht ändern,
+du interagierst aber dennoch jedes Mal mit diesen Konzepten, wenn du eine Form bewegst.
+
+## Orte
+
+An der Spitze der Organisation steht das Konzept der Orte.
+Eine Kampagne hat mindestens einen Ort, kann aber auch mehrere besitzen.
+
+Ein Ort kann als eine konkrete Instanz deiner Spielwelt betrachtet werden.
+Es kann sich um ein ganz bestimmtes Gebäude handeln, das die Gruppe erkundet, um eine übergeordnete Ansicht eines Dorfes oder sogar um die Weltkarte.
+
+Ein Spieler interagiert zu jedem Zeitpunkt mit genau einem Ort, aber der DM kann die Spieler verschieben, während sie sich durch die Welt bewegen.
+
+Weitere Informationen findest du in der [DM-Dokumentation zu Orten](/de/docs/dm/locations/).
+
+## Ebenen
+
+Wenn ein Ort geladen wird, müssen Dinge auf deinem Bildschirm gezeichnet werden.
+Du erwartest eine Karte, deine Charakter-Tokens und vielleicht etwas Licht oder Schatten.
+
+Obwohl all diese Dinge auf derselben 2D-Ebene zu liegen scheinen, stapelt PlanarAlly tatsächlich mehrere **Ebenen** übereinander.
+
+Als Spieler kannst du nur mit der _Tokens_-Ebene interagieren.
+Das ist die Hauptebene, auf der du deine Tokens und die Formen bewegst, die du gezeichnet hast.
+
+Es gibt einige andere Ebenen, die ein Spieler sehen, aber nicht verändern kann: die Map-Ebene und die Rasterebene sind die offensichtlichsten Beispiele.
+Beide werden unterhalb der Tokens-Ebene gerendert.
+
+Manche Ebenen sind für Spieler völlig unsichtbar.
+Die DM-Ebene zum Beispiel ist nur für den DM sichtbar und kann genutzt werden, um Geheimnisse zu verbergen, bis sie relevant werden.
+
+Für eine ausführlichere Erklärung der verschiedenen Ebenen wirf einen Blick in die [DM-Dokumentation](/de/docs/dm/layers/)!
+
+## Etagen
+
+Mit Orten und Ebenen allein wären wir bereit zum Spielen.
+PlanarAlly hat aber noch einen zusätzlichen Trumpf im Ärmel.
+
+Eine Sammlung von Ebenen wird als **Etage** bezeichnet.
+Ein Ort hat immer mindestens eine Etage, kann aber auf mehrere Etagen erweitert werden.
+
+Wenn du ein unheimliches Herrenhaus erkundest, musst du zwangsläufig einige Treppen hinauf- oder hinuntersteigen.
+Wenn du eine Treppe hinaufgehst, möchtest du idealerweise nicht, dass der DM zu viel Arbeit hat, um dein Token auf die Karte dieser Etage zu bewegen.
+Vielleicht könnte ein anderer PA-Ort oder ein anderer Bereich im aktiven Ort verwendet werden, aber das ist einfach umständlich.
+
+PA-Etagen sind ein Werkzeug, das es dem DM ermöglicht, solche Dinge flüssiger zu organisieren.
+Genau wie bei einem echten Gebäude werden die PA-Etagen übereinander gerendert, sodass du möglicherweise die Etagen unter der Etage sehen kannst, auf der du dich befindest.
+
+Ein gängiges Beispiel hierfür wäre ein Fenster, ein Balkon oder sogar ein Loch im Boden.
+Wenn also nichts deine Sicht behindert, kannst du trotzdem sehen, was auf den Etagen darunter passiert (z. B. wenn du aus einem Fenster schaust).
+
+Wenn der DM dir erlaubt, die Etagen manuell zu wechseln, kannst du über das Menü unten links auf deinem Bildschirm darauf zugreifen oder eines der Tastenkürzel verwenden.
+Beachte, dass du möglicherweise nicht alles auf einer anderen Etage sehen kannst, abhängig von der [Beleuchtung](/de/docs/dm/lighting-vision) und davon, ob du ausreichend Zugriff auf die Tokens dieser Etage hast.

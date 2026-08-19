@@ -1,0 +1,219 @@
+---
+layout: ../../../../../layouts/docs.astro
+---
+
+# **Markdown チュートリアルガイド。**
+
+[@veritanuda](https://keybase.io/veritanuda) による寄稿ガイド
+
+このガイドでは、PlanarAlly 全体での Markdown 書式の機能を具体的に探ります。これは[ノート](../../../../docs/game/notes)フィールドと[チャット](../../../../docs/game/chat)ウィンドウの両方で使用されます。
+
+このガイドの情報は、この[構文ガイド](https://markdown-it.github.io/)から多くを引用しています。
+
+## **テキスト効果**
+
+以下は、適用できるテキスト効果の例です。
+
+![Text_effect_graphic](./assets/Text_effect_graphic.png)
+
+ここでは次のことがわかります:
+
+- タイトルのサイズ
+- テキストの書式
+- テキストのスタイル
+
+ノートウィンドウでは、このように表示されます。
+
+![Text_effect_note_view](./assets/Text_effect_note_view.png)
+
+そして、編集モードではこのように表示されます。
+
+![Text_effect_edit_view](./assets/Text_effect_edit_view.png)
+
+`#` 文字を使用してタイトルのサイズを設定できます。1 が最大サイズになります `Title Size 1`
+
+2 つの `#` で次のサイズになります `Title Size 2`
+
+3 つの `#` でさらに次のサイズになります `Title Size 3`
+
+4 つの `#` は太字と同じで、テキストを `**` または `__` で囲むことで実現できます。 `Title Size 4`
+
+下線には HTML 表記が必要で、これらはイタリック `<i> </i>` や太字 `<b></b>` など他のテキスト効果にも機能します。
+
+`<u>Underlined</u>`
+
+`*` は _イタリック_
+
+`**` は **太字**
+
+`***` は **_太字イタリック_**
+
+`~~` は ~~取り消し線~~
+
+`<sup> </sup>` は上付き<sup>文字</sup>
+
+`<sub> </sub>` は下付き<sub>文字</sub>
+
+`` ` `` は `コード`
+
+` ``` ` は
+
+```
+コード
+ブロック
+```
+
+---
+
+## **テキストレイアウト**
+
+以下はテキストレイアウトの例です
+
+![Text Layout](./assets/Text_Layout.png)
+
+### <u>順序なしリスト</u>
+
+順序なしリストでは、`*` または `-` を使用してリストの項目を区切ることができます。
+
+```
+Unordered List 1
+* First
+* Second
+* Third
+* Fourth
+```
+
+順序なしリスト 1
+
+- First
+- Second
+- Third
+- Fourth
+
+```
+Unordered List 2
+- First
+- Second
+- Third
+- Fouth
+```
+
+順序なしリスト 2
+
+- First
+- Second
+- Third
+- Fouth
+
+### <u>順序付きリスト</u>
+
+順序付きリストでは `<数値>.` を使用し、指定した最初の数値から番号が増加します。
+
+```
+Ordered List
+1. First
+2. Second
+3. Third
+4. Fourth
+```
+
+順序付きリスト
+
+1. First
+2. Second
+3. Third
+4. Fourth
+
+### <u>段階的/多レベルリスト</u>
+
+段階的リスト、または多レベルリストは、各リストレベル間に 2 つのスペースを追加することで実現できます。
+
+```
+Stepped List
+- First
+- Second
+- Third
+  - 3 a
+  - 3 b
+- Fourth
+```
+
+段階的リスト
+
+- First
+- Second
+- Third
+    - 3 a
+    - 3 b
+- Fourth
+
+### <u>テーブル</u>
+
+テーブルでは `|` を使用して列を区切り、`-` と `:` を使用して配置を指定します (左揃えがデフォルトなので省略可能です)
+
+```
+|Col A|Col B|Col C|
+|--|:--:|--:|
+|Row 1|Row One|R 1|
+|Left|Centre|Right|
+```
+
+| Col A |  Col B  | Col C |
+| ----- | :-----: | ----: |
+| Row 1 | Row One |   R 1 |
+| Left  | Centre  | Right |
+
+---
+
+## <u>画像とリンク</u>
+
+以下は、インライン画像とハイパーリンクの例です。
+
+![image_links](./assets/Image_links.png)
+
+**_ほとんどの_** 画像 URL では、画像の場所を単純にコピーして貼り付けるだけで、画像を解決できます。
+
+解決できない場合は、項目の前に `!` を付け、`[ ]` でタグ名を指定し、`( )` でリンクを指定すると、インライン画像を挿入できます。
+
+```
+This is a Goblin below.
+
+![Goblin1](http://www.pngall.com/wp-content/uploads/4/Green-Goblin-Comic-PNG-Pic-180x180.png)
+```
+
+コードをよりきれいにする別の方法があります。参照方式と呼ばれ、画像へのリンクの代わりに参照を使用でき、その参照が画像にリンクします。
+
+```
+![Goblin][Goblin1]
+
+This is a Goblin above
+
+This is another Goblin
+
+![Goblin2][Goblin2]
+
+[Goblin1]:https://www.imarvintpa.com/Mapping/Tokens/g1/Goblin.png "This is a Goblin"
+[Goblin2]:https://gamepedia.cursecdn.com/crafttheworld_gamepedia/thumb/b/be/Cave_Goblin.png/150px-Cave_Goblin.png "This is a Cave Goblin"
+```
+
+参照はツールチップも提供でき、カーソルを画像の上に置くとツールチップが表示されます。これは、URL の後に `" "` でツールチップのテキストを引用することで作成されます
+
+![Tooltip](assets/Tooltip-image.png)
+
+**注意:** 挿入する画像はチャットウィンドウで縮小されますが、画像をクリックすると別のウィンドウで拡大版が開きます。
+
+## <u>**URL リンク**</u>
+
+URL リンクは上記と同じですが、先頭の `!` がありません
+
+```
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+```
+
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+
+# 結論
+
+ノートやチャットで markdown を使用することは、プレイヤーと交流し、ハンドアウトやモンスター画像などのアクセスを提供して、ゲームにより深みをもたらす便利な方法です。GM の観点からは、トークン上の統計、特殊能力、一般情報、ロケーションの説明などのノートを管理することで、ゲーム外で保存・参照する必要のある情報量を大幅に減らせます。これにより、ゲームの進行がより流動的でシームレスになります。
+
+楽しいゲームを!

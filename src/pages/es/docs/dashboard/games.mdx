@@ -1,0 +1,43 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Partidas
+
+<Image src={Dashboard} alt="Panel" />
+
+La sección _Games_ es donde puedes crear campañas o lanzar una campaña existente.
+
+La pantalla está dividida en dos secciones, una de DM y una de jugador.
+Ambas enumeran todas las campañas relevantes en las que eres DM o jugador.
+
+Al hacer clic en una campaña, esta se expande ofreciendo algunas opciones.
+
+<Image src={DashboardDmCampaign} alt="Campaña DM del panel" />
+<Image src={DashboardPlayerCampaign} alt="Campaña de jugador del panel" />
+
+Como DM puedes editar el logotipo o el nombre de la campaña haciendo clic en los iconos de lápiz (<PencilAlt />).
+
+<Warning title="Eliminar una campaña">
+    Esto eliminará irreversiblemente la campaña para ti y *todos* los jugadores.
+</Warning>
+
+## Create
+
+Crear una campaña es fácil: escribe un nombre y haz clic en `Go`.
+También puedes elegir un logotipo para la campaña haciendo clic en el logotipo predeterminado que se muestra junto al campo de nombre.
+
+<Info title="Subida del logotipo">El logotipo debe subirse como [recurso](/es/docs/dm/assets/).</Info>
+
+## Join
+
+Para unirte a un juego necesitas la URL de invitación. Esto es algo que el DM puede crear en el juego a través de la configuración del DM.

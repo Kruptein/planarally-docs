@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Alojamiento en subruta
+
+PlanarAlly puede alojarse sin esfuerzo a nivel raíz (p. ej. https://www.planarally.io) o en un subdominio (p. ej. https://app.planarally.io).
+Sin embargo, al alojar en una subruta se necesita hacer algo de trabajo adicional (p. ej. https://www.planarally.io/dnd/).
+
+Necesitas indicar al servidor y al cliente que se supone que deben ejecutarse en una subruta.
+Además, puede que también necesites hacer algunos cambios en tu proxy.
+
+El resto de estos documentos a veces se referirá a la variable de entorno PA_BASEPATH, esta debería coincidir con la subruta deseada.
+Por ejemplo:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Comportamiento cambiado">
+Desde 2022.1 ha habido algunos cambios en el manejo de subrutas,
+¡asegúrate de releer correctamente estos documentos si los has usado en el pasado!
+
+En particular, el cliente ahora siempre tiene que compilarse manualmente y el contenedor de docker usa `--build-arg` en lugar de `--env`.
+
+</Warning>
+
+## Cambios en el cliente
+
+Cuando quieras usar una subruta, tienes que [compilar el cliente tú mismo](/es/server/setup/self-hosting/#manual-installation).
+La información de la subruta debe integrarse en los archivos de salida de la compilación.
+Esto se puede hacer simplemente compilando el cliente mientras la variable de entorno PA_BASEPATH esté establecida.
+
+## Cambios en el servidor
+
+El servidor también necesita saber sobre la subruta, simplemente asegúrate de que la variable de entorno PA_BASEPATH esté establecida antes de ejecutar el servidor.
+
+## Docker
+
+Cuando usas la imagen de docker, esta variable de entorno necesita pasarse al contenedor.
+Añade la siguiente parte a tu comando de docker.
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## Proxy
+
+### Nginx
+
+Cuando usas nginx, tendrás una configuración muy similar a la descrita en [proxy](/es/server/advanced/proxy/), pero todas las partes de `location` comenzarán con `/planarally` si esa es tu subruta deseada.
+
+Adicionalmente necesitas hacer una pequeña modificación a la regla de ubicación específica de socket.io:
+
+El proxy_pass (o host\:port pass) necesita cambiarse para incluir la subruta. (p. ej. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+¡Asegúrate de configurar el proxypass y el reverse en la subruta!
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

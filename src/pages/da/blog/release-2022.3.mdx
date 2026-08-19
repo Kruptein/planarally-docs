@@ -1,0 +1,256 @@
+---
+title: Release 2022.3
+date: 2022-12-12 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Jeg lovede mere regelmæssige opdateringer, og det fejlede jeg gevaldigt i, men hey, her er en ny release!
+
+_Serverejere: Der er foretaget ændringer i serverens opstart, se [Server](#server)_
+
+## UI-ændringer
+
+### Dashboard-redesign
+
+Vi fik et dashboard-redesign i 0.26 (marts 2021), men her er vi så igen \:D
+
+Sektionen med spil er blevet reduceret fra 3 navigationsposter (run/play/create) til blot én sektion.
+Derudover fyldte "details"-sidepanelet, som vi tidligere havde, en del plads på enheder med mindre skærmplads.
+Denne sektion er nu omarbejdet, så de fleste af disse muligheder er tilgængelige, når du klikker på et spil i listen.
+
+![Dashboard](../docs/dashboard/assets/dashboard.png)
+
+Det er også værd at nævne, at aktivhåndteringen denne gang faktisk er inkluderet i redesignet.
+Det gør forhåbentlig nogle glade, da den forrige udgave var noget helt andet \:D
+
+![Dashboard-aktiver](../docs/dashboard/assets/dashboard-assets.png)
+
+### Værktøjslinje-ikoner
+
+En anden visuel ændring er, at værktøjslinjen nu kommer med ikoner i stedet for etiketter.
+
+Der er en brugerindstilling til at ændre dette tilbage til etiketter, hvis du ikke kan lide det.
+
+![Eksempel på værktøjslinjen for en GM i 'Build-tilstand' med Select-værktøjet aktivt og tilstanden klar til at blive skiftet til Play-tilstand, mens filterværktøjet kan bruges, men ikke synsværktøjet.](../docs/assets/toolbar-example.png)
+
+## Hop rundt på lærredet
+
+Sommetider mister vi overblikket over, hvor vi er på spillebordet, eller vil ændre vores visning til et andet tegns.
+
+Den erfarne PA-bruger vil vide, at man normalt kan bruge mellemrumstasten til at opnå dette.
+I denne release har jeg dog tilføjet 2 ekstra visuelle ting for at forbedre denne oplevelse.
+
+### Tilbage til indhold
+
+Den første funktion er specifikt til, når du er faret vild på det uendelige lærred og kun ser en skærm fyldt med krigståge.
+
+Hvis dette sker, dukker et nyt UI-element op i bunden af skærmen.
+Når du klikker på dette element, centreres din visning på det element, du kan se, som er nærmest.
+
+Dette tager kampagnens synstilstand i betragtning (krigståge- og synslinjeindstillinger).
+
+### Token-retninger
+
+En anden tilføjelse er, at tokens (du har adgang til), der er uden for skærmen, nu vises rundt om kanten af skærmen med en pil, der peger i deres retning.
+Når du klikker på denne pil, centreres din visning på den tilhørende form.
+
+![Eksempel på token-retninger](./2022.3/token-directions.png)
+
+De har samme farve som din konfigurerede linealfarve.
+Funktionen kan også deaktiveres via en ny klientindstilling.
+
+## QoL
+
+En række livskvalitetsændringer (quality of life) blev tilføjet.
+
+### Panorering
+
+Det var allerede muligt at panorere med mellemmusen; nu vil højreklik også starte panorerings-tilstand, mens du trækker.
+
+Det er mest for at forbedre oplevelsen for folk, der bruger en touchpad, hvor mellemmuseklik er mindre trivielt.
+
+### Adfærds-påmindelser
+
+Tegneværktøjet og synsværktøjet vil nu have en orange baggrundsfarve, når de har ændret adfærd.
+Det bør fange din opmærksomhed, når du har ændret noget og senere glemmer det.
+
+For synsværktøjet fremhæves det, når du ikke har alle tokens aktive.
+
+For tegneværktøjet fremhæves logik- og/eller syns-fanerne, når noget der er aktivt.
+
+### Understøttelse af komplekse tracker-udtryk
+
+Når du bruger trackere, er et livreddende trick at bruge hurtigudvælgelsesinfoen til hurtigt at ændre trackere under spillet.
+Indtil nu var du dog begrænset til et enkelt tal og kunne tilføje et `+` eller `-` i starten for at gøre det relativt til den oprindelige værdi.
+
+Fra og med denne release er den grænseflade ændret til at understøtte mere komplekse udtryk.
+Stort set alle matematiske udtryk (backed af math.js) skulle nu være understøttet.
+
+Den har nu også 2 tilstande: absolut og relativ tilstand. Sidstnævnte lægger resultatet af udtrykket til den oprindelige værdi.
+
+Der er også en ny klientindstilling til at vælge, hvilken tilstand der er valgt som standard, når du starter et spil.
+
+Nogle eksempler:
+
+Hvis din tracker har en værdi på 50, og du kører følgende udtryk:
+
+`-(10 + 20 + 5 * 2) + sqrt(4)`
+
+I absolut tilstand vil trackeren nu være `-38`, i relativ tilstand vil den nu være `12` (`50-38`)
+
+Tilsvarende, igen startende fra 50:
+
+`12`
+
+I absolut tilstand bliver det `12` og i relativ tilstand `62` (`50+12`)
+
+### Synsværktøj – private auraer
+
+Når du fravælger en form i synsværktøjet, vil deres private auraer ikke længere være synlige.
+
+### Import/eksport
+
+Der er foretaget nogle justeringer af import- og eksportkoden.
+
+DM'er kan eksportere deres kampagne fra spil-listen i dashboardet.
+Import kan foretages ved at gå til "new game" (nyt spil).
+
+Både import og eksport viser nu en separat side, hvor statusoplysninger kan ses.
+Det bør forbedre klarheden omkring, hvorvidt import/eksporten virker, eller om den fejlede et sted.
+
+### Terninger
+
+Individuelle terningeresultater vises nu også sammen med delsummerne og den samlede total for et kast.
+
+Det er for at imødekomme systemer, hvor individuelle terningeresultater kan påvirke resultaterne.
+
+## DM: Spillere
+
+### Klient-rektangler
+
+DM'en har en mulighed i DM-indstillingerne for at se viewporten for bestemte spillere.
+Denne indstilling fungerer fint, når dine spillere kun er logget ind én gang (dvs. har 1 klient).
+
+Når en spiller er logget ind i flere browsere (dvs. >1 klient), fulgte viewporten, der blev vist til DM'en, altid den klient, der senest bevægede sig.
+Det er forvirrende og ikke det, man forventer. Nu vil der blive vist et separat rektangel for hver klient, der er forbundet.
+
+Det er vigtigt at vide, at bevægelse af én klient stadig vil gælde for den anden klient.
+
+### Aktive spillere
+
+Sidepanelet til venstre vil nu også have en Players-sektion for DM'en, der viser alle forbundne spillere.
+Klik på et navn i denne liste for at centrere din visning på deres nuværende viewport.
+
+Dette er et midlertidigt setup, da jeg har til hensigt at undersøge spiller-konceptet mere,
+men jeg har endnu ikke fundet tiden, siden jeg startede på denne grove prototype.
+
+## Ydelse
+
+Der blev tilføjet nogle ydelsesforbedringer.
+
+### Begræns etage-rendering
+
+Der er nu en brugerindstilling til kun at begrænse rendering til den aktive etage.
+
+Det er nyttigt, når du har en eller flere spillere, der oplever mindre ønskværdig ydelse, når de bruger et kort med mange etager.
+
+### Form-centrumsberegning
+
+Centret af en form bruges mange steder og blev beregnet on the fly hver gang, det var nødvendigt.
+
+Nu beregnes centret én gang og huskes, indtil en handling ville få centret til at ændre sig (f.eks. formen flyttede), hvorpå det ville blive beregnet igen.
+
+De fleste former ændrer ikke ofte deres position (f.eks. vægge), så dette _burde_ i teorien forbedre ydelsen.
+
+### Sektorer
+
+Når scenen renderes, tages der kun højde for former, der er synlige på skærmen, for hvert lag.
+Indtil nu blev dette gjort ved at iterere gennem formerne og udføre en visibleInCanvas-tjek.
+
+Nyt i denne release er, at former sorteres i sektorer (eller chunks), og kun de sektorer, der er i visning, tjekkes.
+
+Dette kan være noget, der kræver yderligere finjustering.
+
+## Server
+
+### Alternativ placering for aktivfiler
+
+Det er nu muligt at ændre placeringen af mappen med aktivfiler, hvorfra alle aktiver udleveres.
+
+### Serveropstart
+
+For at gøre serveren lidt nemmere at administrere er filerne blevet reorganiseret.
+Det påvirker serverens opstart; du bør nu kalde `planarally.py`-filen i stedet for `planarserver.py`-filen.
+
+Den accepterer de samme parametre osv., som det oprindelige script accepterede.
+
+Docker-imaget er blevet ændret, så hvis du bruger det, behøver du ikke ændre noget.
+
+### Import/eksport
+
+Import og eksport bør nu være mere stabile og er blevet genaktiveret som standard i server_config.
+
+## Last-Gameboard
+
+Denne release inkluderer også integrationskode med last gameboard-platformen.
+
+## Fejl
+
+### Form-logikrettelser
+
+- Teleportzone udløses ikke korrekt, når den initieres som spiller
+- Teleportzone lander ikke korrekt i centret af målet
+- Spiller-dørskift synkroniseres ikke til serveren/persisteres ikke
+- Dør-/TP-område-forhåndsvisning skifter ikke etage
+
+### Trackere/auraer
+
+- Delte trackere/auraer vises ikke i udvælgelsesinfoen
+- Fjernelse af delte trackere/auraer vises ikke i klienten, før der opdateres
+
+### Initiativ
+
+Siden en teknisk ændring i 2022.1 har initiativsystemet opført sig dårligt, når der var ukendte former til stede for klienten.
+Ukendte former kan skyldes et hvilket som helst antal grunde (f.eks. er formen flyttet til en anden lokation, formen er på DM-laget og derfor ukendt for en spiller, ...).
+
+Nogle af posterne nedenfor er relateret til det ovenfor beskrevne problem, som nu er løst, men nogle poster er et helt separat problem.
+
+- Serveren bør bedre opdage klientfejl i initiativ-lister og afvise forkerte data
+- Ændring af initiativet bør fastholde den nuværende aktive aktør under flere omstændigheder
+- Fjernelse af former forårsagede nogle initiativ-inkonsistenser
+- Skift mellem DM-laget og det spillervisbare lag ville nogle gange forvirre initiativet
+- Initiativ-kamera-lås skifter ikke etage
+
+### Aktiver
+
+- [DM] Aktiver kunne ikke flyttes op til den overordnede mappe
+- [DM] Aktiver kunne ikke fjernes, hvis der findes en form med et link til aktivet
+- [DM|server] Aktivhåndteringen kunne ikke længere bruges ved subpath-setup
+
+### Diverse
+
+- Fejl i prompt-modaler var ikke synlige
+- Annotation-synlig-info synkroniserede ikke til andre klienter, før der blev opdateret (kun UI)
+- Spillerstatus ryddes ved lokationsændring
+- Zoom-følsomhed på touchpad
+- Stavefejl i lokationsmenuen
+- UI-rettelser for in-game AssetPicker-modal
+- Prompt-modal ryddede ikke fejlmeddelelsen korrekt
+- Værktøjsdetaljer var ikke altid på den korrekte lokation (f.eks. ved tilstandsskift)
+- Trim støjende mellemrum i udvælgelsesinfoen
+- Hop til markør skifter ikke etage
+- Flytning af sammensat/variant-form til en anden etage og følgning viste ekstra udvælgelsesbokse
+- Tegnelaget renderes under krigstågen (f.eks. lineal/ping osv.)
+- Syn blev ikke korrekt genberegnet, når blokerende former blev fjernet i multifloor-setups
+- AssetPicker-UI viste for lavt
+- Polygon-redigerings-UI blev efterladt ved panorering
+- Flytning af polygonpunkt, når polygonen er roteret
+- Normale former blev nogle gange forkert identificeret som spawn-lokationer
+- Terninger gik sommetider uden for skærmen
+- Tastaturbevægelse flyttede ikke select-værktøjets rotationshjælper
+- [DM] Annotationer var stadig synlige, indtil opdatering efter fjernelse af spilleradgang
+- [DM] Nulstilling af lokationsspecifikke indstillinger blev ikke straks synkroniseret til klienter, før der blev opdateret
+- [DM] Aktivering af fake-player-tilstand skjulte DM-posterne i sidepanelet til venstre
+- [server] Terningkaster virkede ikke på subpath-server

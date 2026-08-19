@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Hurtige kontakter
+
+DM-værktøjslinjen har nogle ekstra ikoner nedenunder. Disse er hurtige kontakter, der er nyttige til en række forskellige ting.
+
+<Image src={QuickTogglesImage} width={150} alt="Oversigt over initiativ-værktøjet" />
+
+## Fake Player
+
+Når dette er aktiveret, gengives DM'ens skærm, som om de er i fake player-tilstand (Se [Fake Player](/da/docs/dm/settings/#fake-player))
+
+## Line of Sight
+
+Denne hurtige kontakt vises kun, hvis du har [Line of Sight](/da/docs/dm/settings/#only-los) aktiveret.
+
+Den giver dig mulighed for at deaktivere LoS **kun** på din egen skærm. Ligesom Fake Player-kontakten hjælper dette med at verificere lys- og synsopsætninger under forberedelsesarbejde.
+Den vises grøn, når LOS er aktiveret, og rød, når den er (midlertidigt) deaktiveret.
+
+Især når du arbejder på en ny lokation, hvor du sandsynligvis ikke har forme med synsadgang klar, kan du bruge dette til at verificere det lys, du har opsat, uden at skulle oprette midlertidige forme.
+
+## Initiative
+
+Den hurtige kontakt for initiative er i forhold til de andre kontakter mere end blot en bekvemmelighed.
+Når den er aktiveret, bliver den grøn (indtil der klikkes igen) og indikerer, at [initiative](/da/docs/tools/initiative/) er aktivt.
+
+Den åbner automatisk initiative-brugergrænsefladen for alle spillere og aktiverer nogle af [initiative-indstillingerne](/da/docs/game/settings/#initiative).
+Disse indstillinger er kun aktive, når initiative eksplicit er aktiveret via denne kontakt!

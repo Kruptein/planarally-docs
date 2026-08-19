@@ -2,11 +2,19 @@
 import HamburgerMenu from "../components/HamburgerMenu.vue";
 import { getDocsNav } from "../doc-structure";
 import Main from "./main.astro";
+import { getLangFromUrl } from "../i18n/utils";
 
 const currentUrl = Astro.url.pathname;
-const currentUrlRoot = currentUrl.split("/")[1];
+const lang = getLangFromUrl(Astro.url);
 
-const docs = getDocsNav(currentUrlRoot, currentUrl);
+const pathSegments = currentUrl.split("/").filter(Boolean);
+
+const currentUrlRoot = pathSegments[0] === lang && pathSegments.length > 1 
+    ? pathSegments[1] 
+    : pathSegments[0];
+
+const docs = getDocsNav(currentUrlRoot, currentUrl, lang);
+
 let { headings } = Astro.props;
 if (headings === undefined) headings = Astro.props.content.astro.headings;
 ---

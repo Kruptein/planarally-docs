@@ -1,0 +1,214 @@
+---
+title: Release 0.21.0 - Cosa c'è di nuovo!
+date: 2020-06-13 21:02:34
+excerpt: "Cosa c'è di nuovo in 0.21.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+In questa release abbiamo nuove proprietà delle forme, un sistema di posizioni di spawn, traduzioni, un mucchio di miglioramenti alla qualità della vita e vari bugfix, come al solito.
+
+## Forme
+
+Sono state aggiunte alcune nuove chicche alle proprietà delle forme e c'è anche un miglioramento al rilevamento delle collisioni durante il movimento.
+
+### Interruttore di invisibilità
+
+Ora è possibile contrassegnare una forma come invisibile. Questo la renderà invisibile per tutti i giocatori che non hanno accesso alla visione della forma. I giocatori con accesso alla visione vedranno la forma normalmente.
+
+È particolarmente utile per cose come i famigli invisibili, ma anche per vari oggetti che emettono luce. Questi ultimi sono interessanti perché l'interruttore di invisibilità non si applica alle aure di queste forme invisibili. È ideale se vuoi aggiungere una lampada a una scena senza che i tuoi giocatori vedano un brutto cerchio da cui si irradia la luce.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/invisible.webm" type="video/webm" />
+    <source src="/blog/release-0.21/invisible.mp4" type="video/mp4" />
+</video>
+
+### Interruttore di blocco
+
+Un altro nuovo interruttore è quello di blocco, che se attivato impedisce lo spostamento e/o il ridimensionamento del segnalino. È utile soprattutto al DM che vuole assicurarsi di non spostare accidentalmente la mappa o i confini dell'illuminazione.
+
+C'è anche una scorciatoia da tastiera (ctrl + L) che funziona anche su selezioni più ampie, così non devi aprire le proprietà di ogni forma singolarmente.
+
+È importante notare che le forme bloccate non verranno incluse nelle selezioni a meno che nella regione selezionata ci siano solo forme bloccate.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/locked.webm" type="video/webm" />
+    <source src="/blog/release-0.21/locked.mp4" type="video/mp4" />
+</video>
+
+### Accesso al movimento
+
+Nella scorsa release la sezione di accesso è stata ampliata aggiungendo un permesso di accesso solo visione per gli altri giocatori che non dovrebbero poter modificare una forma ma possono vedere la loro visione privata.
+
+Questa release aggiunge un permesso di accesso extra che consente a un altro utente di spostare la forma.
+
+### Miglioramenti alle collisioni
+
+Il test delle collisioni dell'hitbox con le pareti è sempre stato molto severo e a volte troppo severo (a causa di piccoli errori di arrotondamento). Questo offre un'esperienza spiacevole durante il gioco quando si cerca di attraversare un piccolo corridoio o una porta.
+
+A partire da questa release l'hitbox usata per testare le collisioni è molto più piccola durante il movimento, risultando in un gameplay più fluido.
+
+## Posizioni di spawn
+
+Un nuovo concetto di questa release è la nozione di posizioni di spawn. È una funzionalità del DM che determina dove appariranno i segnalini se cambiano luogo.
+
+Una forma speciale dovrebbe ora apparire sempre sul livello DM e può essere spostata liberamente dal DM (anche tra i piani). Quando il DM sposta un segnalino in un luogo diverso, apparirà centrato sulla suddetta forma di spawn.
+
+Attualmente questo è limitato a un solo spawn per luogo, ma il supporto per più spawn arriverà in futuro.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.21/spawn.mp4" type="video/mp4" />
+</video>
+
+Nel video qui sopra i segnalini vengono spostati nel luogo attivo per ragioni di presentazione, ma lo stesso concetto si applica allo spostamento delle forme in altri luoghi.
+
+## i18n
+
+L'internazionalizzazione (i18n) è stata aggiunta al codebase, il che significa che ora si può lavorare sulle traduzioni. Al momento della scrittura ci sono già traduzioni per cinese e tedesco.
+
+C'è un elemento di selezione della lingua nella schermata di accesso per passare da una lingua all'altra tra quelle attualmente supportate.
+
+![Selezione della lingua](./0.21/language.png)
+
+## Qualità della vita
+
+In questa release sono stati lavorati diversi piccoli miglioramenti alla qualità della vita.
+
+### Build/Play mode
+
+Uno dei cambi più notevoli sono le nuove 'modalità strumenti'. La barra degli strumenti diventava sempre più grande a ogni release. Inoltre alcuni strumenti non sono rilevanti durante la maggior parte delle sessioni, ma solo durante la preparazione del DM.
+
+Ecco perché la barra degli strumenti ora è divisa in 2 modalità: build e play mode. Si può passare da una modalità all'altra cliccando sulla lettera alla fine della barra degli strumenti o premendo TAB.
+
+Alcuni strumenti ora compaiono solo in una delle due modalità (ad es. Draw in build mode e Ping in play mode).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/toolmode.webm" type="video/webm" />
+    <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4" />
+</video>
+
+#### Ridimensionamento delle forme
+
+Alcuni strumenti possono ora avere anche un comportamento diverso a seconda della modalità attiva.
+
+A partire da 0.21.0 lo strumento Select può ridimensionare le forme solo in build mode. Tutte le altre funzionalità dello strumento Select rimarranno utilizzabili in play mode.
+
+Questo cambiamento è stato introdotto perché le persone spesso ridimensionavano accidentalmente le forme quando cercavano di spostarle, e ridimensionare una forma è qualcosa che non accade spesso durante il gioco.
+
+### Changelog
+
+Un altro cambiamento evidente è che ora ci sarà un popup del changelog per informare i giocatori che il server è stato aggiornato.
+
+![Changelog mostrato](./0.21/changelog.png)
+
+### Interruttore righello pubblico
+
+Lo strumento Ruler ora ha un piccolo popup di opzioni come gli strumenti Draw e Map. Ha un'unica impostazione, un interruttore per decidere se il tuo righello deve essere privato o pubblico.
+
+### Iniziativa
+
+Quando inserivi la tua iniziativa mentre tutti gli altri giocatori facevano lo stesso, spesso dovevi riprovare perché qualcun altro era più veloce, causando un riordino della lista dell'iniziativa e facendoti perdere il focus sull'input.
+
+D'ora in poi, finché avrai un campo di input focalizzato nel dialogo dell'iniziativa, la UI aspetterà ad aggiornarsi finché non esci dall'elemento di input.
+
+### Limitare la UI del giocatore
+
+C'erano alcuni punti in cui i giocatori avevano accesso a opzioni che dovrebbero essere disponibili solo al DM.
+
+A partire da questa release i giocatori non possono più rimuovere o aggiungere piani e non possono più spostare le loro forme su altri livelli/piani/luoghi.
+
+## Varie
+
+- La creazione di un nuovo piano non sposterà più automaticamente tutti su quel piano
+- La versione mostrata nell'area in alto a sinistra in gioco sarà ora limitata alla versione dell'ultima release
+- I segnalini di base ora avranno il nome predefinito impostato sulla loro etichetta invece di 'Unknown shape'
+- Gli utenti di dispositivi mobili non possono più attivare il refresh da overscroll semplicemente muovendosi
+- Passare il mouse su un'immagine nella lista dell'iniziativa mostrerà ora il nome della forma
+- Lo strumento Polygon ora si comporta come le altre forme per quanto riguarda l'aggancio. Ogni punto si aggancerà a una linea della griglia a meno che non disattivi l'aggancio.
+
+## Bugfix
+
+- La creazione di un polygon sul server con una lista di vertici iniziali rompe la sessione
+- Il luogo del piano del giocatore non veniva ricordato
+- Il righello non mostrava i punti decimali
+- Impostazioni DM/dimensione unità griglia mostravano input non valido su firefox per i numeri in virgola mobile
+- Il server mostrava errori di decodifica JSON
+- I giocatori non potevano aggiornare gli effetti dell'iniziativa
+- Il livello attivo a volte si resettava al ricaricamento
+- I DM potevano espellere se stessi
+- Alcuni componenti della UI non si aggiornavano correttamente al reset della forma
+- L'area a destra del selettore di livello impediva draw/select
+- Il centro da tastiera generava un errore quando non erano definiti segnalini
+- Diversi bug con la sincronizzazione dell'iniziativa
+- Tre bug con le opzioni specifiche del luogo che non venivano caricate/salvate correttamente
+- Barra di scorrimento in fondo alla pagina su firefox quando la barra dei luoghi non entra nello schermo
+- Bug per cui una fonte di luce con raggi 0/0 bloccava tutte le luci di quella forma
+
+## In arrivo
+
+Le persone mi chiedono spesso cosa c'è nella roadmap, quindi volevo condividere alcuni degli argomenti che vorrei affrontare nelle prossime release. Questa lista non è esaustiva né definitiva e non sarà tutta nella prossima release, è una vetrina di possibili cose in arrivo.
+
+##### Lavoro preparatorio su metadata/export/import
+
+Ci sono state alcune discussioni sul server discord sull'aggiunta di metadata agli asset e sulla possibilità di importarli/esportarli su altri server. Bisogna fare alcuni passi preparatori prima di poter affrontare il problema principale.
+
+##### Rotazione
+
+La rotazione è qualcosa che manca da un po' in PA e dovrebbe finalmente essere sistemata.
+
+##### Rifare la sequenza di avvio
+
+La sequenza di avvio attuale (l'ordine degli eventi che arrivano al caricamento del gioco) dovrebbe essere rifatta. C'è qualche prestazione da guadagnare riordinando le cose qui e alcune cose vengono inviate inutilmente.
+
+##### Passare a fontawesome-vue
+
+Le icone in PA sono fornite da fontawesome, attualmente fatto caricando lateralmente la libreria fontawesome.js. È un file grande che richiede tempo di caricamento, cosa che può essere risolta usando una libreria specifica per vue che includa solo le icone effettivamente usate.
+
+##### Lista di asset asincrona in gioco
+
+All'avvio il DM riceve l'intera lista degli asset così che possa essere mostrata nella barra laterale. È uno sforzo sprecato, l'asset manager in gioco, proprio come l'asset manager completo, dovrebbe richiedere i dati al server quando ne ha bisogno.
+
+##### Miglioramenti a Polygon
+
+I polygon sono fantastici, ma possono ancora usare alcune funzionalità extra come aggiungere e rimuovere punti sui polygon esistenti.
+
+##### Miglioramenti allo strumento Floor
+
+Dovrebbe essere possibile riordinare e rinominare i piani, oltre a opzioni per nascondere i piani ai giocatori.
+
+##### Estendere le opzioni delle aure
+
+Le aure potrebbero usare alcune nuove funzionalità come i colori dei bordi e altre forme come le aure a cono.
+
+##### Visibilità pubblica dei piani
+
+Le informazioni sui piani sono attualmente pubbliche per tutti i giocatori, probabilmente dovrebbero ricevere un trattamento di pubblico/visibilità come molte altre cose in PA.
+
+##### Migliorare il cursore nello strumento Draw
+
+Nello strumento Draw viene usato un cursore del mouse personalizzato per garantire un'esperienza di disegno più fluida. Tuttavia, non è sempre chiaramente visibile, il che è molto fastidioso.
+
+##### Griglia esagonale
+
+Il supporto per le griglie esagonali è stato richiesto un paio di volte in passato, quindi prima o poi dovrei aggiungere un po' di supporto per questo tipo di griglia.
+
+Alcune logiche esistenti sono basate su griglie rettangolari, quindi forse una versione iniziale avrà solo il supporto di rendering per gli esagoni ma nessuna capacità di aggancio. Da investigare.
+
+##### Caricamento rapido del piano corrente
+
+Attualmente quando si carica un luogo il gioco attende che tutti i piani siano caricati. Si può migliorare caricando prima il piano attivo e poi gli altri piani.
+
+##### Blurhash
+
+Alcune immagini, soprattutto le mappe, possono richiedere più tempo per caricarsi. Vorrei fornire un blurhash rapido come segnale visivo che un'immagine si sta caricando finché l'immagine completa non è disponibile.
+
+##### Più posizioni di spawn
+
+Come indicato nelle note di release, il nuovo sistema di posizioni di spawn non supporta più spawn in un unico luogo. Estenderlo è possibile ed è soprattutto un problema di UI che dovrebbe essere relativamente semplice.
+
+##### Più opzioni di raggruppamento
+
+C'è una certa logica di raggruppamento quando copi-incolli le forme, ma non ci sono altre capacità. Cose come aggiungere un segnalino a un gruppo, unire gruppi, dividere gruppi ecc. sono interessanti per vari motivi.
+
+Applicare automaticamente l'interruttore di iniziativa di gruppo per i gruppi è un altro cambiamento QoL che intendo aggiungere.

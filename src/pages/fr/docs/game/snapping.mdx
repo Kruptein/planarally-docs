@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Accrochage
+
+De nombreux éléments de PlanarAlly ont une forme de comportement d'accrochage.
+Il existe deux types d'accrochage : l'accrochage à la grille et l'accrochage aux points.
+
+L'accrochage à la grille est assez explicite : lorsque vous déplacez des formes, vous voulez souvent qu'elles soient correctement placées sur la grille.
+En utilisant l'accrochage à la grille, vous n'avez pas besoin d'être extrêmement précis et PlanarAlly fera le travail à votre place.
+
+La seconde forme d'accrochage est la possibilité de s'accrocher à un autre point existant.
+Point étant défini ici comme les points des formes existantes, par exemple les coins d'un rectangle ou les sommets d'un polygone.
+
+Par défaut, l'accrochage est activé et agit sur la plupart des opérations (par exemple déplacer/redimensionner/pivoter).
+Vous pouvez désactiver ce comportement pour une opération spécifique en maintenant la touche modificatrice `alt` pendant l'action.
+
+Si vous souhaitez le désactiver définitivement, vous pouvez inverser le comportement dans les [paramètres du client](/fr/docs/game/settings/), ce qui fera de la touche `alt` un modificateur permettant d'activer l'accrochage à la place.
+
+## Exemples
+
+Lors du dessin d'un polygone, chaque point cliqué tentera de s'accrocher à un point de grille proche ou à un point existant.
+
+Lors du redimensionnement d'un point, il tentera de s'accrocher à un point de grille ou à un point existant.
+
+Lors de la rotation d'une forme, la rotation s'accrochera à des multiples de 45 degrés.

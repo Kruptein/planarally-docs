@@ -1,0 +1,154 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
+
+import { Image } from "astro:assets";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
+
+# Configuración de campaña
+
+Como DM, tendrás una ventana especial de opciones.
+Estas te permiten configurar los ajustes de la campaña activa.
+
+La configuración de DM es accesible desde el menú lateral (haz clic en el icono <Cog /> en la parte superior izquierda de la pantalla de tu navegador para abrir el menú).
+
+## Admin
+
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="Configuración de DM" />
+
+La sección de administración proporciona opciones administrativas.
+
+### Jugadores
+
+En la sección de jugadores, puedes ver una lista de los jugadores actuales.
+Junto al nombre de cada jugador, puedes establecer su rol dentro de la campaña.
+
+<Warning title="¡Precaución!">
+    ¡Establecer a cualquier jugador como DM les otorga acceso **sin restricciones** a **toda** la campaña!
+</Warning>
+
+Cuando el icono <Eye /> está habilitado, verás la vista del jugador en la capa DM.
+Esto te permite hacer un seguimiento de dónde miran los jugadores, así como cambiar dónde están mirando.
+
+Haz clic en "kick" para eliminar jugadores específicos de tu campaña.
+
+### URL de invitación
+
+La URL de invitación te permite invitar jugadores a tu campaña.
+A la derecha de la URL hay un botón que copia la URL a tu portapapeles.
+Pulsa "Refresh invitation code" para actualizar la URL.
+
+### Bloquear sesión
+
+El botón Lock this Session bloquea o desbloquea la campaña.
+Cuando está bloqueada, solo el DM puede acceder a la campaña.
+Esta función es útil si quieres editar tus mapas y asegurarte de que ninguno de tus jugadores empiece a husmear durante tu trabajo.
+
+### Eliminar sesión
+
+Remove Session elimina la campaña **PERMANENTEMENTE** del servidor de PlanarAlly. Todos los datos serán irrecuperables. ¡**USAR CON PRECAUCIÓN!**
+
+## Grid
+
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Configuración de cuadrícula" />
+
+La configuración de cuadrícula te ofrece la posibilidad de ajustar la configuración de la cuadrícula o incluso deshabilitar la cuadrícula por completo.
+Estas configuraciones son los valores predeterminados de la campaña y se pueden anular en la [configuración de ubicación individual](/es/docs/dm/locations/#grid).
+
+### Usar cuadrícula
+
+Habilita o deshabilita la cuadrícula. Esto se aplica también a todos los jugadores.
+
+### Tipo de cuadrícula
+
+PA ofrece soporte completo para cuadrículas cuadradas y soporte mínimo para cuadrículas hexagonales.
+
+Las cuadrículas hexagonales se ofrecen en las dos variantes (puntiaguda y plana), pero no tienen el conjunto completo de funciones que tienen las cuadrículas cuadradas.
+Lo más importante es que el [comportamiento de ajuste](/es/docs/game/snapping) no se ha actualizado con soporte para hexágonos.
+
+### Unidad de medida
+
+La unidad de medida te permite cambiar la representación predeterminada de las unidades en pies (la norma de D&D) a otra cosa.
+Esto podría usarse para cambiar todo a metros (incluidas las fracciones, p. ej. para el estándar de D&D de 1,5&nbsp;m equivalentes a 5&nbsp;pies), pero también podría usarse para tener una ubicación con un mapa del mundo escalado en kilómetros o millas.
+
+### Tamaño de unidad
+
+El tamaño de unidad es la distancia que una celda de la cuadrícula representa en tu sistema de juego. Cuando usas la herramienta Ruler para medir distancias, esta información se usará para hacer la conversión.
+
+## Vision
+
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Configuración de visión" />
+
+La visión es una de las configuraciones más importantes para el DM.
+Estas configuraciones te permiten cambiar lo que los jugadores ven y cómo lo ven.
+También se hace referencia a ellas en la sección de DM sobre [iluminación y visión](/es/docs/dm/lighting-vision/).
+
+Las configuraciones definidas en este diálogo son los valores predeterminados de la campaña que se pueden anular en la [configuración de ubicación individual](/es/docs/dm/locations/#vision).
+
+### Jugador falso
+
+Cuando esto está habilitado, la pantalla se renderizará sin tus privilegios de DM.
+En su lugar, se renderizará usando la visión de todos los jugadores que hayas seleccionado en [la herramienta Vision](/es/docs/tools/vision/).
+Esto puede ayudar a verificar durante la preparación o incluso durante el juego que tu configuración de visión sea correcta.
+
+Puedes alternar esto rápidamente usando [Quick Toggles](/es/docs/tools/quick-toggles/#fake-player)
+
+### Llenar todo el lienzo con niebla
+
+_Niebla se refiere a la niebla de guerra_
+
+Con esta opción habilitada, todo lo que hay en pantalla está oculto para los jugadores por defecto.
+Se deben agregar luces para otorgar visión en las áreas.
+
+Con esta opción deshabilitada, todo lo que hay en pantalla se muestra a los jugadores por defecto.
+Se debe agregar niebla para eliminar la visión en las áreas.
+
+### Solo LoS
+
+_LoS significa línea de visión_
+
+Esta opción alterna un modo avanzado de iluminación.
+
+Cuando está deshabilitado, cada ubicación en pantalla con una fuente de luz será visible.
+No importa si hay un jugador en esa ubicación o no.
+
+Cuando está habilitado, solo las cosas en la línea de visión de las fichas de los jugadores serán visibles en pantalla.
+Un jugador necesita ver la luz para que aparezca en la pantalla.
+
+Consulta la [documentación de iluminación](/es/docs/dm/lighting-vision/) para obtener más información sobre este tema.
+
+### Opacidad de la niebla
+
+Esta configuración permite al DM elegir cuál es la opacidad de las áreas ocultas para el DM.
+Los jugadores siempre tendrán esta configuración en 1.0 para sí mismos y no pueden editarla.
+
+En el modo de jugador falso, también estarás fijado en 1.0.
+
+### Modo de visión
+
+<Warning>Esta es una configuración técnica que solo debes tocar si sabes lo que estás haciendo.</Warning>
+
+El modo de visión experimental calcula la iluminación/visión de manera diferente en comparación con la versión predeterminada.
+
+En la versión experimental, los cambios en la luz/visión se realizan de forma incremental en lugar de un recálculo completo en cada cambio. Los beneficios son muy obvios; las consecuencias son que está menos probado y, en caso de errores, podría quedarse completamente atascado.
+
+Podrías considerar usar esta opción si tienes muchos objetos relacionados con la luz/visión en tu mapa y experimentas actualizaciones lentas de la pantalla al mover cosas.
+
+### Visión mínima/máxima
+
+Estas configuraciones son factores de ajuste del [sistema de visión](/es/docs/dm/lighting-vision/).
+Determinan los límites de la visión de todas las fichas.
+
+Supongamos que hay un campo gigante y abierto que se extiende por 5000 pies y está completamente iluminado.
+Se podría esperar que toda el área sea visible para tu ficha de pie en el centro de este campo.
+Sin embargo, hay limitaciones en el ojo humano y no humano, de ahí la introducción de estas configuraciones.
+
+Todo hasta el alcance de visión mínima se puede ver como de costumbre.
+Todo lo que esté más allá del alcance máximo no se puede ver y es niebla de guerra.  
+Todo lo que está en el medio se muestra con una opacidad creciente a medida que te acercas al borde de la visión.

@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# Ubicaciones
+
+La herramienta de ubicaciones proporciona múltiples instancias de un conjunto de [capas](/es/docs/dm/layers/) con sus propias configuraciones, y a cada instancia se la denominará en lo sucesivo _Ubicación_.
+
+## La barra de ubicaciones
+
+Solo el DM puede acceder y manipular las ubicaciones de forma activa.
+Esto se hace haciendo clic en el símbolo <Compass /> en la esquina superior izquierda de la pantalla.
+Como es una función 'solo para DM', los jugadores no pueden ver este botón.
+Los jugadores solo interactúan con un lienzo a la vez; para ellos, cada nueva ubicación parece un mapa diferente (es decir, un conjunto diferente de [capas](/es/docs/dm/layers/) apiladas).
+
+Una vez abierta, en su primera línea, la barra de ubicaciones muestra un botón para crear nuevas ubicaciones a la izquierda, seguido de los elementos de cada una de las ubicaciones de la campaña.
+La ubicación actual se resalta con texto blanco y <Cog />, mientras que el texto y los botones de las demás ubicaciones son blancos con un tono rojizo.
+Cada elemento de la lista consiste en un asa para arrastrar ubicaciones, una visualización del nombre de la ubicación y un botón <Cog /> para acceder a la configuración individual de la ubicación.
+
+Cada ubicación con jugadores presentes también muestra una pestaña que dice "Players" que se puede expandir para mostrar una lista de los jugadores individuales presentes en dicha ubicación.
+
+En su segunda línea, la barra de ubicaciones muestra un botón para acceder a las ubicaciones archivadas.
+Si no hay ubicaciones archivadas, el botón aparecerá ligeramente transparente, volviéndose completamente opaco si hay al menos una ubicación archivada.
+
+Hacer clic nuevamente en el símbolo <Compass /> cerrará la barra de ubicaciones.
+
+## Crear y reordenar ubicaciones
+
+Al hacer clic en el botón "+" a la izquierda de la barra de ubicaciones se abrirá un diálogo que te pedirá un nombre para esa ubicación.
+Este nombre se puede editar más tarde.
+
+Al hacer clic y mantener presionado el símbolo de 'nueve puntos' puedes reordenar las ubicaciones libremente en la barra, como se muestra en el video:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## Configuración de ubicación
+
+Una ubicación recién creada hereda la configuración predeterminada de la campaña definida en la [configuración](/es/docs/dm/settings/).
+Algunas de las configuraciones definidas allí se pueden anular para cada sesión, de forma individual.
+
+Se puede acceder a la configuración de ubicación mediante el símbolo <Cog /> en el elemento de la ubicación correspondiente en la barra de ubicaciones.
+La configuración de ubicación abrirá un diálogo con tres pestañas: Admin, Grid y Vision.
+
+Cada configuración que se haya establecido para anular los valores predeterminados de la campaña permanecerá así hasta que se restablezca.
+Definir manualmente una configuración para que coincida con el valor también establecido en los valores predeterminados de la campaña no restablecerá el vínculo con los valores predeterminados, sino que conservará ese valor a pesar de cualquier cambio posterior en los valores predeterminados de la campaña.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+La pestaña _Admin_ en la configuración de ubicación te permite renombrar, archivar o eliminar la ubicación.
+
+Las ubicaciones archivadas desaparecerán de la barra de ubicaciones.
+Para restaurar una ubicación archivada a la barra de ubicaciones, accede al archivo mediante el botón `Show archived locations` en la barra de ubicaciones.
+Esto abrirá una lista de todas las ubicaciones archivadas.
+Se restauran haciendo clic en `select`.
+
+<Image src={RenameLocation} alt="Menú de renombrar ubicación" />
+
+Solo puedes archivar o eliminar ubicaciones donde no haya nadie presente, ni jugadores ni el DM.
+
+### Grid
+
+Consulta ['Grid' en la configuración de campaña](/es/docs/dm/settings/#grid).
+
+### Vision
+
+Consulta ['Vision' en la configuración de campaña](/es/docs/dm/settings/#vision).
+
+## Cambiar de ubicación
+
+Con la barra de ubicaciones abierta, el DM puede cambiar de ubicación tan fácil como hacer clic en el bloque que muestra el nombre de la ubicación deseada.
+
+Los jugadores no pueden cambiar de ubicación por su cuenta.
+Al ser invitados, los jugadores se unirán a una ubicación existente ocupada por un jugador (haya iniciado sesión o no en ese momento).
+Si no hay otros jugadores registrados en la campaña, el primer jugador que siga una invitación se unirá a la ubicación en la que el DM esté activo.
+Los jugadores permanecerán en su ubicación activa hasta que el DM los arrastre a otra ubicación.
+
+Los jugadores se pueden arrastrar como grupo o individualmente, como se muestra aquí.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+Los jugadores que son enviados a otra ubicación _no_ se llevan consigo ninguna de las formas que controlan.
+En cambio, esas formas deben ser enviadas a esa ubicación por el DM.
+
+## Mover formas a otra ubicación
+
+Si una ubicación tiene uno o varios puntos de aparición, las formas se pueden mover a esta ubicación individualmente o como grupo a través de su menú contextual de clic derecho.
+
+Como DM puedes crear uno o varios puntos de aparición haciendo clic derecho en el área donde quieres que esté el punto de aparición y seleccionando la acción 'create spawntoken'.
+
+Cuando se envían a otra ubicación, las formas aparecerán centradas en el punto de aparición elegido, que es una forma especial que aparece en la [capa](/es/docs/dm/layers/#dm) _dm_.
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="Símbolo de punto de aparición" />
+
+El designador de punto de aparición se puede mover libremente en la capa _dm_.
+Desde la versión 0.23 puedes eliminar y crear tantos puntos de aparición como desees.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

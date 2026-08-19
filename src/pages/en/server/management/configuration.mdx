@@ -1,0 +1,484 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Server Configuration
+
+<Warning title="Recent changes">
+    The server configuration was completely changed in release 2025.2. The config described in this document refers to
+    the new format.
+</Warning>
+
+By default **NO** config file is present. Instead PA uses default values for all the settings. The default config values can be seen [here](#default-config)
+
+To change the behaviour, create a `config.toml` file in the server's `data` folder.
+
+When a partial config file is provided, missing fields/sections will be replaced with default values were relevant.
+
+# Format
+
+As the extension of the config implies, the config is formatted using [TOML](https://toml.io/en/).
+
+The config is split up in smaller sections which have a `[section]` heading, with subsections being denoted by `[section.some.subsection]`.
+Each (sub)section is then followed by separate lines to configure particular values.
+
+Detailed information on how the TOML format works is out of scope of this document, but after checking the default config you should have a good grasp of how it works.
+
+# Default config
+
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
+```
+
+<Info title="File paths">
+    When specifying paths to files or folders, you can use absolute paths (e.g. `/home/user/example.txt`) or relative
+    paths (e.g. `data/planar.sqlite`). When a relative path is used, it will be relative to the main server folder and
+    NOT the folder where the config is in.
+</Info>
+
+# Important settings
+
+Some settings you probably want to checkout for certain are:
+
+- [Save file config](#field-save_file)
+- [Admin user](#field-admin_user)
+- [The entire webserver.connection subsection](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+The [client URL](#field-client_url) is one you usually also want to configure, but is not critical.
+
+# Sections
+
+Here all the possible options will be listed along with their default values.
+If at any point this info would become out of date and causes errors, the source of truth can be [found on github](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py) in code form.
+
+## General
+
+Section name: `general`
+
+### Field: `save_file`
+
+Default: `"data/planar.sqlite"`\
+Type: `string`
+
+Path to the save file. This is a crucial setting that when modified will have a big impact. The save file should be backed up appropriately[^1].
+
+If the server starts and the chosen path does not exist, the server will create a new save file.
+
+<Info title="Savefile format">
+    Note that, at this moment, PlanarAlly only supports storing the saves in sqlite format.
+</Info>
+
+<Warning>
+    While the server is running, extra database files might be created (e.g. `planar.sqlite-shm` and `planar.sqlite-wal`).
+    The `planar.sqlite-wal` (or write-ahead-log) file is essential for the save database, and data will be lost if it is not saved.
+    The `planar.sqlite-shm` (or shared memory) file is not critical and does not need to be backed up.
+
+    If the server shuts down gracefully these files will be gone. They can however stick around if the server wasn't able to cleanly stop.
+    When copying a save file, make sure to copy these files as well if they exist or your save might be corrupt or out of date.
+
+</Warning>
+
+### Field: `admin_user`
+
+Default: N/A - optional field\
+Type: `string`
+
+When a username is specified here, this user will be regarded as the main admin user.
+It will have access to extra features in the dashboard to manage things like users and campaigns on the server.
+
+### Field: `client_url`
+
+Default: N/A - optional field\
+Type: `string`\
+_It's generally recommended to configure this field, but it's not required for a minimal setup._
+
+When set this should be the full base URL of the frontend application. (e.g. "https://app.planarally.io").
+
+This is used in the invite URL and forgot password mails. When missing the invite URL will look at the current URL in the browser when generated. Email URLs will however **not** contain the root URL info as the server cannot predict this.
+
+### Field: `allow_signups`
+
+Default: `true`\
+Type: `boolean`
+
+This setting dictates whether users can register a new account using the frontend. When disabled account creation is only available through database manipulation.
+
+### Field: `enable_export`
+
+Default: `true`\
+Type: `boolean`
+
+When this setting is enabled account export **and** import is available for users.
+
+This is generally recommended as this allows users to move their data to/from a different server as well as provide me with data for debugging.
+
+## Webserver
+
+Section name: `webserver`
+
+One of the most important sections to configure is the webserver.
+It comprises the important `connection` subsection, which you'll want to configure to decide how the PA server is bound to the outside world.
+
+<div id="subsection">
+
+### Subsection: `connection`
+
+_This is a subsection (see the [Default Config](#default-config) for an example on how to configure this)._
+
+This configures how the server is connected to the network stack. It has to be either a HostPort configuration or a socket configuration.
+By default a HostPort combination is used.
+
+#### field: `type`
+
+Default: `"hostport"`\
+Type: `"hostport" or "socket"
+
+The type field is what ultimately determines which connection type is used.
+
+```toml
+# Either a hostport connection is configured
+[webserver.connection]
+type = "hostport"
+...
+
+# Or a socket connection
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### HostPort fields
+
+#### field: `host`
+
+Default: `"0.0.0.0"`\
+Type: `string`
+
+The IP on which the server will attempt to bind.
+
+#### field: `port`
+
+Default: `8000`\
+Type: `integer`
+
+The port on which the server will attempt to bind.
+
+Be sure that the port you use is not used by any other application.
+Also, make sure the port you use is also accessible from outside of the machine.
+Especially when running from within a private network (e.g. at home) you might need to enable _port forwarding_ in your router's configuration.
+
+#### Example HostPort config
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Socket fields
+
+#### field: `socket`
+
+Default: N/A\
+Type: `string`
+
+The path to the socket that will be used to bind.
+
+#### Example Socket config
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+</div>
+
+<div id="subsection">
+
+### Subsection: ssl
+
+This is an optional subsection, when omitted no SSL config is applied to the PA server itself.
+This does not prevent you from setting up SSL higher up in the chain (e.g. in your reverse proxy).
+
+It is strongly recommended to ensure that SSL is set up somewhere in the chain!
+
+#### Field: `enabled`
+
+Default: `false`\
+Type: `boolean`
+
+Allows you to enable/disable the ssl config without having to completely remove the SSL section or comment it.
+Only when this value is set to `true` will the SSL config actually be applied.
+
+#### Field: `fullchain`
+
+Default: N/A\
+Type: `string`
+
+Path to the full chain certificate.
+
+#### Field: `privkey`
+
+Default: N/A\
+Type: `string`
+
+Path to the private key certificate.
+
+#### Example SSL config
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+</div>
+
+### Field: `cors_allowed_origins`
+
+Default: N/A (optional field)\
+Type: `string / List of strings`
+
+CORS configuration for the websocket server.
+
+This value is passed to the socketio server, more info can be found in the [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) docs.
+A value of `'*'` can be set to allow all origins, this is useful for testing purposes, but not secure.
+
+This often has to be configured to either the wildcard value (\*) or the correct specific domain in order to work!
+The server console should log when the connection was rejected due to cors.
+
+### Field: `max_upload_size_in_bytes`
+
+Default: `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
+Type: `integer`
+
+The maximum size a single upload of data from the client can be.
+
+It should be noted that this will mostly act as a chunking strategy.
+Asset uploads and campaigns transfers will be chunked according to this maximum, but the total size of these can thus exceed the limit!
+See the assets section of the config for info on how to limit user's asset sizes.
+
+## Mail
+
+Section name: `mail`
+
+This is an optional section and is by default not enabled.
+
+It's currently only used to send mails as part of the forgot-password flow.
+
+### Field: `enabled`
+
+Default: `false`\
+Type: `boolean`
+
+Allows you to enable/disable the mail config without having to completely remove the section or comment it.
+Only when this value is set to `true` will the mail config actually be applied.
+
+### Field: `host`
+
+Default: N/A\
+Type: `string`
+
+The host of the SMTP mailserver, this must be filled in.
+
+### Field: `port`
+
+Default: N/A\
+Type: `integer`
+
+The port of the SMTP mailserver, this must be filled in.
+
+### Field: `username`
+
+Default: N/A (optional)\
+Type: `string`
+
+If applicable, the username can be specified to authenticate with.
+
+### Field: `password`
+
+Default: N/A (optional)\
+Type: `string`
+
+If applicable, the password can be specified to authenticate with.
+
+### Field: `default_from_address`
+
+Default: N/A\
+Type: `email-string`
+
+The default email address to use when sending mails.
+
+### Field: `ssl_mode`
+
+Default: `"starttls"`\
+Type: `Literal["ssl", "tls", "starttls", "lmtp"]`\
+Added: v2025.2.1
+
+This configures the client connection mode used.
+By default the starttls method is used which should cover a wide range.
+
+This can sometimes not work correctly, in which case you can try the `"ssl"` mode or any of the other modes instead.
+
+## Stats
+
+Section name: `stats`
+
+This is an optional section that when not specified will use a default set of values.
+It controls the collection and transmission of anonymous usage statistics.
+
+See [this github PR](https://github.com/Kruptein/PlanarAlly/pull/1608) for some information on what and why.
+
+### Field: `enabled`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to enable/disable the mail config without having to completely remove the section or comment it.
+When set to `false` no stats collection will happen at all.
+
+### Field: `enable_export`
+
+Default: `true`\
+Type: `boolean`
+
+Allows you to disable the export of statistics to the PA stats server.
+Local collection will still be done.
+
+### Field: `export_frequency_in_seconds`
+
+Default: `24 * 60 * 60` (1 day)\
+Type: `int`
+
+This determines how frequent the stats are sent to the PA stats server.
+
+It's not recommended to put this any lower than 1 day.
+Recommended rates are 1 day, 1 week or 1 month.
+
+### Field: `stats_url`
+
+Default: `https://stats.planarally.io`
+Type: `string`
+
+The receiving URL of the stats data.
+
+## Logging
+
+Section name `logging`
+
+This is an optional section and its default configuration is to log to standard out at "INFO" level.
+
+<Info title="Multiple Entries">
+    The Logging section can be specified multiple times to setup multiple output files. As such you must have the
+    section header entered as `[[logging]]`
+</Info>
+
+### Field `level`
+
+Default: `INFO`\
+type: `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+The level this logger will output at. Levels above are also logged to this level. For example if you set to ERROR both ERROR and CRITICAL will be logged to this output
+
+### Field `mode`
+
+Type: `Literal["stdout", "file"]`
+
+If you specify stdout the only other field available is level.
+
+Here is a logging example that sets the standard output to critical
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### Field `file_path`
+
+Default: `data/planarally.log`\
+Type: `string`
+
+Sets the output path for a file based log. If using docker it is recommended to use the data folder so its available outside the container.
+
+### Field `max_log_size_in_bytes`
+
+Default: `200_000`\
+Type: `int`
+
+The maximum size a log file will be before it is rotated to the next file.
+
+### Field `max_log_backups`
+
+Default: `5`\
+Type: `int`
+
+The number of backup files to keep, older files will be automatically deleted.
+
+Here is an example of how to configure a file logger that has only 2 backup files. This can be combined with the standard output example to output to both standard out and a file.
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
+
+## Assets
+
+Section name `assets`
+
+This is an optional section.
+
+### Field `max_single_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a newly uploaded asset can have.
+When this field is `<= 0` it is regarded as "no limit".
+
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
+
+### Field `max_total_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a user is allowed to have uploaded.
+When this field is `<= 0` it is regarded as "no limit".
+
+An asset will be rejected if its size would cause the total allowed for the user to exceed this value.
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
+
+[^1]: The SQLite documentation documents the importance of the [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) and [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files) files.

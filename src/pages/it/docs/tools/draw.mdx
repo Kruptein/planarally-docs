@@ -1,0 +1,91 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Strumento Draw
+
+Lo strumento Draw è accessibile tramite la barra degli strumenti in basso a destra dello schermo da tutti i giocatori, ma solo in [modalità Build](/it/docs/tools-overview/#toolbar-and-modes).
+
+Consente di disegnare forme sul tavolo ed è organizzato in tre sezioni: forma, visione e logica.
+
+## Impostazioni Forma
+
+Nelle impostazioni della forma è possibile scegliere la forma desiderata oltre ad alcune proprietà di base comuni alla forma.
+
+La maggior parte delle forme offre un'impostazione per il colore di riempimento e/o del bordo.
+
+### Rettangolo
+
+Una delle forme più semplici, il _rettangolo_. Mentre il pulsante del mouse è premuto viene mostrata un'anteprima di come apparirà il rettangolo se lo rilasci.
+
+### Cerchio
+
+Proprio come il rettangolo, il _cerchio_ è molto semplice. Il cerchio disegnato sarà centrato nel punto in cui hai premuto il mouse e avrà un raggio basato sul punto in cui lo hai rilasciato.
+
+### Poligono / Linea
+
+_Poligono / Linea_ è probabilmente la forma più complessa, ma offre la massima flessibilità.
+
+A differenza di tutte le altre forme, non devi tenere premuto il pulsante del mouse mentre disegni. Ogni volta che clicchi in un punto qualsiasi del tavolo, comparirà invece un nuovo punto con una linea che lo collega al punto precedente. Sei libero di incrociare o riutilizzare punti già esistenti.
+
+Per segnalare che la forma è completa, al momento si usa il pulsante destro del mouse. Per annullare il disegno puoi premere Escape.
+
+Se selezioni la casella di controllo "poligono chiuso", l'ultimo e il primo punto verranno collegati automaticamente al termine della forma e il poligono verrà riempito con il colore di riempimento.
+
+### Pennello
+
+Un'altra modalità di disegno è il _pennello_, un'opzione a mano libera che ti offre la possibilità di disegnare qualsiasi cosa.
+
+<Warning title="Prestazioni">
+    Tieni presente che disegnare con il _pennello_ richiede l'uso di molti punti per rappresentare una forma. Questo è
+    generalmente consigliato solo per elementi piccoli, poiché le prestazioni ne risentono parecchio.
+</Warning>
+
+### Testo
+
+L'ultima modalità di disegno disponibile è il _testo_.
+Imposta una dimensione del carattere prima di disegnare, poiché in seguito non potrai modificare la dimensione stessa.
+Potrai comunque ridimensionare liberamente l'oggetto testo.
+
+A differenza del trascinamento, come nelle altre modalità di disegno, per disegnare del testo è sufficiente un singolo clic.
+Questo aprirà un popup in cui viene richiesto il testo da visualizzare.
+
+Il testo inserito verrà renderizzato con il carattere serif usato per i segnalini semplici, _centrato sul punto cliccato_ nel primo passaggio.
+Può essere trascinato e ridimensionato ecc. come qualsiasi altra forma.
+
+<Tip title="Modifica">Puoi modificare il testo in seguito tramite la finestra delle proprietà della forma!</Tip>
+
+## Impostazioni Visione
+
+Le impostazioni di visione ti consentono di preconfigurare le impostazioni di illuminazione e visione della forma disegnata.
+
+Le impostazioni di blocco vengono attivate automaticamente quando si passa al livello della nebbia di guerra e viceversa,
+ma sei libero di modificarle secondo le tue esigenze.
+
+Quando è attiva almeno un'impostazione di blocco, l'icona <Eye /> dello strumento verrà mostrata con uno sfondo arancione come promemoria visivo.
+
+### Modalità Solo per DM
+
+I DM possono anche selezionare ulteriori modalità di disegno della visione in questa sezione.
+
+La modalità _Normale_ è, come previsto, il comportamento predefinito.
+
+_Reveal_ e _Hide_ disegnano rispettivamente 'luce magica' o 'oscurità'.
+Per maggiori informazioni, consulta [la documentazione su luce magica e oscurità](/it/docs/dm/lighting-vision/#magical-lights-and-darkness).
+
+_Erase_ crea una forma che funziona come un 'buco' (portatile), che attraversa tutti gli oggetti _sotto_ di sé nella pila di disegno, inclusi i [piani](/it/docs/dm/floors/)!
+Una forma _erasata_ verrà automaticamente rilasciata sul [livello mappa](/it/docs/game/gameboard/#map), ma può essere spostata su qualsiasi livello.
+
+Consulta le [note di rilascio della 0.26](/it/blog/release-0.26#erase-floor-mode-dm) per maggiori informazioni sulla modalità gomma.
+
+## Impostazioni Logica
+
+Questo ti consente di preconfigurare la logica delle porte per la forma.
+
+Questo può farti risparmiare molto tempo quando stai mappando le tue pareti e porte!
+
+Consulta la [logica delle forme](/it/docs/game/shapes/#logic) per maggiori informazioni.

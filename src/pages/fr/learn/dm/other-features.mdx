@@ -1,0 +1,119 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Autres fonctionnalités notables
+
+Cette section sera plus courte et renverra surtout vers quelques fonctionnalités que vous voudrez peut-être explorer en tant que DM lors de votre préparation ou pendant vos parties.
+
+<Warning>
+    Certaines des pages de référence liées pourraient être obsolètes. Ces nouveaux docs d'introduction sont un premier
+    pas dans un effort pour mettre à jour la documentation !
+</Warning>
+
+## Initiative
+
+_référence complète : [les docs de l'initiative](/fr/docs/tools/initiative/)_
+
+Un aspect courant des JdR est une certaine forme de combat. PA propose un outil d'initiative simple pour suivre les tours.
+
+L'essentiel est que vous pouvez ouvrir l'interface d'initiative en faisant un clic droit sur la table de jeu.
+Si vous cliquez par hasard sur une forme, vous pourrez à la place ajouter la forme spécifique à l'initiative, ce qui lui donne une entrée dans l'interface.
+
+Les entrées peuvent être cachées aux joueurs jusqu'à ce que ce soit pertinent, des minuteurs peuvent être ajoutés pour suivre des effets durant X tours, etc.
+
+## Emplacements
+
+_référence complète : [les docs des emplacements](/fr/docs/dm/locations/)_
+
+Nous avons maintenant créé notre première carte, mais qu'en est-il d'une deuxième carte ?
+
+Nous pourrions simplement dédier une autre zone de la table de jeu à une nouvelle carte,
+mais cela pose plusieurs problèmes :
+
+- la navigation peut rapidement devenir difficile, en essayant de se souvenir où se trouvait chaque partie, et
+- il y a de plus en plus de données, ce qui ralentit PA
+- vous voudrez peut-être avoir d'autres paramètres pour des cartes spécifiques (par ex. une disposition de grille différente, une configuration d'éclairage différente)
+
+Au lieu de cela, il est plus facile de séparer vos cartes dans ce que PA appelle un « Emplacement ».
+
+![Barre d'emplacements](./assets/location-bar.png)
+
+La barre d'emplacements est accessible en tant que DM via la deuxième poignée de l'élément d'interface en haut à gauche.
+Elle affichera une liste de tous vos emplacements actifs (vous pouvez archiver/réactiver des emplacements) et où se trouvent actuellement certains joueurs.
+
+Chaque emplacement peut être configuré individuellement pour remplacer les paramètres DM vus dans les parties précédentes. En tant que DM, vous pouvez charger rapidement un emplacement pour vous-même en cliquant sur une entrée.
+
+### Déplacer les joueurs
+
+Pour déplacer des joueurs d'un emplacement à un autre, il y a 2 options.
+
+L'option 1 consiste à faire glisser la case du joueur d'un emplacement à un autre,
+l'option 2 consiste à créer ce qu'on appelle un point d'apparition dans l'emplacement cible et à faire un clic droit sur une forme (ou plusieurs formes) et à les déplacer vers un autre emplacement.
+
+Cette dernière peut sembler être beaucoup plus de travail, mais la première ne déplace que la caméra des joueurs, pour ainsi dire. Alors qu'avec les points d'apparition, vous déplacez réellement leurs pions vers un nouvel endroit spécifique dans l'emplacement cible.
+
+L'option 1 est donc mieux adaptée aux emplacements où il n'y a pas besoin de pions de personnages, peut-être une carte du monde ou un emplacement où vous avez préparé diverses images libres pour du roleplay.
+
+L'option 2 est presque toujours la manière la plus propre de faire la transition entre les emplacements pour les joueurs. Nous verrons quelques utilitaires supplémentaires plus tard dans la section Logique pour vous aider un peu plus.
+
+## Étages
+
+_référence complète : [les docs des étages](/fr/docs/dm/floors/)_
+
+Le système d'emplacements est excellent pour gérer une grande variété de lieux que vos joueurs pourraient explorer.
+Parfois, cependant, nous avons affaire à des lieux où il y a de la verticalité.
+Une maison à plusieurs étages est un exemple simple de cela.
+
+Utiliser un emplacement différent par étage est assez lourd, car chaque emplacement est un peu comme un niveau différent dans un jeu vidéo, où certains éléments internes sont entièrement réinitialisés et où vous obtenez un petit écran de chargement.
+D'autres choses comme l'initiative sont aussi suivies par emplacement, ce qui devient rapidement problématique lorsqu'on traite avec des personnages éparpillés un peu partout.
+
+Une solution simple est de placer les autres étages sur une autre zone de votre emplacement « maison ». Vous pouvez toujours utiliser des points d'apparition dans le même emplacement, donc se déplacer entre les étages peut rester assez simple.
+
+PA a cependant une fonctionnalité spéciale supplémentaire, judicieusement nommée « étages ». Elle vous permet d'ajouter un tout nouvel ensemble de calques au-dessus de l'ensemble actuel.
+En combinant cela avec la transparence, cela signifie qu'une forme à l'étage supérieur peut réellement regarder en bas des escaliers et voir un personnage à un étage inférieur !
+Quelque chose que vous ne pourriez pas reproduire sans utiliser cette fonctionnalité.
+
+Honnêtement, cela améliore beaucoup l'immersion et les transitions entre les étages sont beaucoup plus fluides car la caméra n'a pas à sauter partout.
+
+## Logique
+
+_référence complète : pas encore créée :(_
+
+PA possède actuellement deux systèmes « logiques » différents qui peuvent être considérés comme des éléments d'interaction pour le DM ou les joueurs pendant le jeu.
+
+### Portes
+
+Une forme peut être marquée comme une porte, ce qui permet à la forme de basculer entre un état ouvert et un état fermé.
+Lorsqu'elle est ouverte, la forme ne bloque pas la vision/le mouvement, et lorsqu'elle est fermée, elle les bloque !
+
+C'est une simple fonctionnalité de confort d'utilisation, surtout pour les DM, car ils peuvent simplement cliquer sur les portes pendant que les joueurs explorent, mais vous pouvez éventuellement configurer vos portes pour qu'elles deviennent aussi interactives pour vos joueurs.
+
+<Info>
+    L'interaction avec les portes n'est possible qu'en mode Play ; en mode build, elle est désactivée pour éviter la
+    frustration lors, par exemple, du redimensionnement d'une porte.
+</Info>
+
+Bien que la fonctionnalité soit appelée « porte(s) », vous pouvez en réalité modifier quel bloqueur doit être basculé par l'interaction. Cela signifie que vous pouvez ne basculer que le bloqueur de vision et obtenir une fenêtre !
+Si vous ne bloquez que le mouvement, vous avez quelque chose comme une porte cachée dans un mur lisse.
+
+### Zones de téléportation
+
+L'autre élément logique est la zone de téléportation. Une zone peut être désignée comme zone de téléportation, ce qui signifie que les formes qui y entrent peuvent se téléporter vers un autre endroit (c'est-à-dire un point d'apparition).
+
+Les zones de téléportation peuvent être configurées pour se déclencher automatiquement (par ex. un piège de téléportation) ou pour afficher une action vous demandant si vous voulez vous téléporter.
+
+Des exemples d'utilisation des zones de téléportation sont les paliers d'escalier entre les étages, ce qui rend beaucoup plus facile de traverser rapidement entre les étages.
+
+## Ressources
+
+_référence complète : [les docs des ressources](/fr/docs/dashboard/assets/)_
+
+Plus tôt dans l'introduction, nous avons mentionné le gestionnaire de ressources, mais au lieu de l'utiliser, nous avons simplement fait glisser des ressources directement sur la carte.
+
+Le gestionnaire de ressources est une fonctionnalité qui vous permet d'organiser vos diverses ressources. Il est disponible en dehors du jeu dans le tableau de bord principal, mais il peut aussi être accessible en jeu.
+
+Vous pourriez par exemple avoir un dossier spécifique pour tous vos pions D&D, mais aussi avoir un dossier spécifique pour chaque campagne.

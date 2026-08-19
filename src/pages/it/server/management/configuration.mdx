@@ -1,0 +1,484 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Configurazione del server
+
+<Warning title="Modifiche recenti">
+    La configurazione del server è stata completamente modificata nella release 2025.2. La config descritta in questo
+    documento fa riferimento al nuovo formato.
+</Warning>
+
+Per impostazione predefinita **NON** è presente alcun file di configurazione. PA usa invece i valori predefiniti per tutte le impostazioni. I valori predefiniti della config possono essere consultati [qui](#default-config)
+
+Per cambiare il comportamento, crea un file `config.toml` nella cartella `data` del server.
+
+Quando viene fornito un file di configurazione parziale, i campi/sezioni mancanti saranno sostituiti con i valori predefiniti dove pertinente.
+
+# Formato
+
+Come suggerisce l'estensione della config, la config è formattata usando [TOML](https://toml.io/en/).
+
+La config è suddivisa in sezioni più piccole che hanno un'intestazione `[section]`, con le sottosezioni indicate da `[section.some.subsection]`.
+Ogni (sotto)sezione è poi seguita da righe separate per configurare valori specifici.
+
+Le informazioni dettagliate su come funziona il formato TOML esulano dallo scopo di questo documento, ma dopo aver consultato la config predefinita dovresti avere un'idea chiara di come funziona.
+
+# Config predefinita
+
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
+```
+
+<Info title="Percorsi dei file">
+    Quando specifichi percorsi di file o cartelle, puoi usare percorsi assoluti (ad es. `/home/user/example.txt`) o
+    percorsi relativi (ad es. `data/planar.sqlite`). Quando viene usato un percorso relativo, questo sarà relativo alla
+    cartella principale del server e NON alla cartella in cui si trova la config.
+</Info>
+
+# Impostazioni importanti
+
+Alcune impostazioni che probabilmente vorrai assolutamente controllare sono:
+
+- [Config del file di salvataggio](#field-save_file)
+- [Utente admin](#field-admin_user)
+- [L'intera sottosezione webserver.connection](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+La [URL del client](#field-client_url) è una che di solito si vuole configurare, ma non è critica.
+
+# Sezioni
+
+Qui verranno elencate tutte le opzioni possibili insieme ai loro valori predefiniti.
+Se in qualsiasi momento queste informazioni dovessero diventare obsolete e causare errori, la fonte di verità può essere [trovata su github](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py) in forma di codice.
+
+## Generale
+
+Nome sezione: `general`
+
+### Field: `save_file`
+
+Predefinito: `"data/planar.sqlite"`\
+Tipo: `string`
+
+Percorso del file di salvataggio. È un'impostazione cruciale che, se modificata, avrà un grande impatto. Il file di salvataggio dovrebbe essere sottoposto a backup adeguato[^1].
+
+Se il server si avvia e il percorso scelto non esiste, il server creerà un nuovo file di salvataggio.
+
+<Info title="Formato del file di salvataggio">
+    Nota che, al momento, PlanarAlly supporta il salvataggio solo in formato sqlite.
+</Info>
+
+<Warning>
+    Mentre il server è in esecuzione, potrebbero essere creati file di database aggiuntivi (ad es. `planar.sqlite-shm` e `planar.sqlite-wal`).
+    Il file `planar.sqlite-wal` (o write-ahead-log) è essenziale per il database di salvataggio e i dati andranno persi se non viene salvato.
+    Il file `planar.sqlite-shm` (o shared memory) non è critico e non deve essere sottoposto a backup.
+
+    Se il server si spegne in modo pulito, questi file spariranno. Possono però rimanere se il server non è riuscito a fermarsi correttamente.
+    Quando copi un file di salvataggio, assicurati di copiare anche questi file se esistono, altrimenti il salvataggio potrebbe essere corrotto o obsoleto.
+
+</Warning>
+
+### Field: `admin_user`
+
+Predefinito: N/A - campo opzionale\
+Tipo: `string`
+
+Quando qui viene specificato un nome utente, questo utente sarà considerato l'utente admin principale.
+Avrà accesso a funzionalità extra nella dashboard per gestire cose come utenti e campagne sul server.
+
+### Field: `client_url`
+
+Predefinito: N/A - campo opzionale\
+Tipo: `string`\
+_In generale è consigliato configurare questo campo, ma non è necessario per un'installazione minima._
+
+Se impostato, dovrebbe essere l'URL di base completo dell'applicazione frontend (ad es. "https://app.planarally.io").
+
+Viene usato nell'URL di invito e nelle email di password dimenticata. Se manca, l'URL di invito farà riferimento all'URL corrente nel browser al momento della generazione. Le URL delle email però **non** conterranno le informazioni sull'URL di root, poiché il server non può prevederle.
+
+### Field: `allow_signups`
+
+Predefinito: `true`\
+Tipo: `boolean`
+
+Questa impostazione determina se gli utenti possono registrare un nuovo account usando il frontend. Quando è disabilitata, la creazione di account è disponibile solo tramite manipolazione del database.
+
+### Field: `enable_export`
+
+Predefinito: `true`\
+Tipo: `boolean`
+
+Quando questa impostazione è abilitata, per gli utenti è disponibile l'esportazione **e** l'importazione dell'account.
+
+In generale è consigliato, poiché permette agli utenti di spostare i propri dati da/verso un server diverso e allo stesso tempo di fornirmi dati per il debugging.
+
+## Webserver
+
+Nome sezione: `webserver`
+
+Una delle sezioni più importanti da configurare è il webserver.
+Comprende l'importante sottosezione `connection`, che vorrai configurare per decidere come il server PA è legato al mondo esterno.
+
+<div id="subsection">
+
+### Subsection: `connection`
+
+_Questa è una sottosezione (vedi la [Config predefinita](#default-config) per un esempio su come configurarla)._
+
+Configura come il server è connesso allo stack di rete. Deve essere una configurazione HostPort o una configurazione socket.
+Per impostazione predefinita viene usata una combinazione HostPort.
+
+#### field: `type`
+
+Predefinito: `"hostport"`\
+Tipo: `"hostport" or "socket"
+
+Il campo type è ciò che determina in ultima analisi quale tipo di connessione viene usato.
+
+```toml
+# Either a hostport connection is configured
+[webserver.connection]
+type = "hostport"
+...
+
+# Or a socket connection
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### Campi HostPort
+
+#### field: `host`
+
+Predefinito: `"0.0.0.0"`\
+Tipo: `string`
+
+L'IP su cui il server tenterà di effettuare il bind.
+
+#### field: `port`
+
+Predefinito: `8000`\
+Tipo: `integer`
+
+La porta su cui il server tenterà di effettuare il bind.
+
+Assicurati che la porta che usi non sia utilizzata da nessun'altra applicazione.
+Assicurati inoltre che la porta usata sia accessibile anche dall'esterno della macchina.
+Soprattutto quando si è in esecuzione all'interno di una rete privata (ad es. a casa), potresti dover abilitare il _port forwarding_ nella configurazione del tuo router.
+
+#### Esempio di config HostPort
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Campi Socket
+
+#### field: `socket`
+
+Predefinito: N/A\
+Tipo: `string`
+
+Il percorso del socket che verrà usato per effettuare il bind.
+
+#### Esempio di config Socket
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+</div>
+
+<div id="subsection">
+
+### Subsection: ssl
+
+Questa è una sottosezione opzionale; se omessa, nessuna config SSL viene applicata al server PA stesso.
+Questo non ti impedisce di configurare SSL più in alto nella catena (ad es. nel tuo reverse proxy).
+
+È fortemente consigliato assicurarsi che SSL sia configurato da qualche parte nella catena!
+
+#### Field: `enabled`
+
+Predefinito: `false`\
+Tipo: `boolean`
+
+Ti permette di abilitare/disabilitare la config ssl senza dover rimuovere completamente la sezione SSL o commentarla.
+Solo quando questo valore è impostato su `true` la config SSL verrà effettivamente applicata.
+
+#### Field: `fullchain`
+
+Predefinito: N/A\
+Tipo: `string`
+
+Percorso del certificato full chain.
+
+#### Field: `privkey`
+
+Predefinito: N/A\
+Tipo: `string`
+
+Percorso del certificato della chiave privata.
+
+#### Esempio di config SSL
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+</div>
+
+### Field: `cors_allowed_origins`
+
+Predefinito: N/A (campo opzionale)\
+Tipo: `string / List of strings`
+
+Configurazione CORS per il server websocket.
+
+Questo valore viene passato al server socketio; maggiori informazioni possono essere trovate nella documentazione di [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class).
+Può essere impostato un valore `'*'` per consentire tutte le origini; è utile a scopo di test, ma non è sicuro.
+
+Spesso deve essere configurato con il valore wildcard (\*) o con il dominio specifico corretto per funzionare!
+La console del server dovrebbe registrare quando la connessione è stata rifiutata a causa del cors.
+
+### Field: `max_upload_size_in_bytes`
+
+Predefinito: `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
+Tipo: `integer`
+
+La dimensione massima che un singolo caricamento di dati dal client può avere.
+
+Va notato che questo agirà principalmente come strategia di chunking.
+I caricamenti di asset e i trasferimenti di campagne verranno suddivisi in chunk secondo questo massimo, ma la dimensione totale può quindi superare il limite!
+Vedi la sezione assets della config per informazioni su come limitare le dimensioni degli asset degli utenti.
+
+## Mail
+
+Nome sezione: `mail`
+
+Questa è una sezione opzionale e per impostazione predefinita non è abilitata.
+
+Al momento viene usata solo per inviare email come parte del flusso di password dimenticata.
+
+### Field: `enabled`
+
+Predefinito: `false`\
+Tipo: `boolean`
+
+Ti permette di abilitare/disabilitare la config mail senza dover rimuovere completamente la sezione o commentarla.
+Solo quando questo valore è impostato su `true` la config mail verrà effettivamente applicata.
+
+### Field: `host`
+
+Predefinito: N/A\
+Tipo: `string`
+
+L'host del server di posta SMTP, deve essere compilato.
+
+### Field: `port`
+
+Predefinito: N/A\
+Tipo: `integer`
+
+La porta del server di posta SMTP, deve essere compilata.
+
+### Field: `username`
+
+Predefinito: N/A (opzionale)\
+Tipo: `string`
+
+Se applicabile, può essere specificato il nome utente con cui autenticarsi.
+
+### Field: `password`
+
+Predefinito: N/A (opzionale)\
+Tipo: `string`
+
+Se applicabile, può essere specificata la password con cui autenticarsi.
+
+### Field: `default_from_address`
+
+Predefinito: N/A\
+Tipo: `email-string`
+
+L'indirizzo email predefinito da usare quando si inviano email.
+
+### Field: `ssl_mode`
+
+Predefinito: `"starttls"`\
+Tipo: `Literal["ssl", "tls", "starttls", "lmtp"]`\
+Aggiunto: v2025.2.1
+
+Configura la modalità di connessione client usata.
+Per impostazione predefinita viene usato il metodo starttls, che dovrebbe coprire un'ampia gamma di casi.
+
+A volte questo potrebbe non funzionare correttamente; in tal caso puoi provare la modalità `"ssl"` o una qualsiasi delle altre modalità.
+
+## Stats
+
+Nome sezione: `stats`
+
+Questa è una sezione opzionale che, se non specificata, userà un insieme di valori predefiniti.
+Controlla la raccolta e la trasmissione di statistiche d'uso anonime.
+
+Vedi [questa PR su github](https://github.com/Kruptein/PlanarAlly/pull/1608) per alcune informazioni sul cosa e sul perché.
+
+### Field: `enabled`
+
+Predefinito: `true`\
+Tipo: `boolean`
+
+Ti permette di abilitare/disabilitare la config mail senza dover rimuovere completamente la sezione o commentarla.
+Quando è impostato su `false`, non verrà effettuata alcuna raccolta di statistiche.
+
+### Field: `enable_export`
+
+Predefinito: `true`\
+Tipo: `boolean`
+
+Ti permette di disabilitare l'esportazione delle statistiche verso il server stats di PA.
+La raccolta locale verrà comunque effettuata.
+
+### Field: `export_frequency_in_seconds`
+
+Predefinito: `24 * 60 * 60` (1 giorno)\
+Tipo: `int`
+
+Determina con quale frequenza le statistiche vengono inviate al server stats di PA.
+
+Non è consigliato impostare un valore inferiore a 1 giorno.
+Le frequenze consigliate sono 1 giorno, 1 settimana o 1 mese.
+
+### Field: `stats_url`
+
+Predefinito: `https://stats.planarally.io`
+Tipo: `string`
+
+L'URL di ricezione dei dati delle statistiche.
+
+## Logging
+
+Nome sezione `logging`
+
+Questa è una sezione opzionale e la sua configurazione predefinita è quella di registrare i log sullo standard output a livello "INFO".
+
+<Info title="Voci multiple">
+    La sezione Logging può essere specificata più volte per configurare più file di output. Per questo motivo
+    l'intestazione della sezione deve essere inserita come `[[logging]]`
+</Info>
+
+### Field `level`
+
+Predefinito: `INFO`\
+tipo: `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+Il livello a cui questo logger registrerà l'output. Anche i livelli superiori vengono registrati a questo livello. Ad esempio, se imposti ERROR, sia ERROR che CRITICAL verranno registrati su questo output
+
+### Field `mode`
+
+Tipo: `Literal["stdout", "file"]`
+
+Se specifichi stdout, l'unico altro campo disponibile è level.
+
+Ecco un esempio di logging che imposta lo standard output a critical
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### Field `file_path`
+
+Predefinito: `data/planarally.log`\
+Tipo: `string`
+
+Imposta il percorso di output per un log basato su file. Se usi docker, è consigliato usare la cartella data in modo che sia disponibile fuori dal container.
+
+### Field `max_log_size_in_bytes`
+
+Predefinito: `200_000`\
+Tipo: `int`
+
+La dimensione massima che un file di log può raggiungere prima che venga ruotato al file successivo.
+
+### Field `max_log_backups`
+
+Predefinito: `5`\
+Tipo: `int`
+
+Il numero di file di backup da conservare; i file più vecchi verranno eliminati automaticamente.
+
+Ecco un esempio di come configurare un logger su file che ha solo 2 file di backup. Questo può essere combinato con l'esempio dello standard output per produrre output sia sullo standard output che su un file.
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
+
+## Assets
+
+Nome sezione `assets`
+
+Questa è una sezione opzionale.
+
+### Field `max_single_asset_size_in_bytes`
+
+Predefinito: `0`\
+tipo: `int`
+
+La dimensione massima in byte che un asset appena caricato può avere.
+Quando questo campo è `<= 0` viene considerato come "nessun limite".
+
+Va notato che questo influisce solo sui nuovi caricamenti di asset. Modificare il valore non avrà alcun impatto sugli asset esistenti.
+
+### Field `max_total_asset_size_in_bytes`
+
+Predefinito: `0`\
+tipo: `int`
+
+La dimensione massima in byte che un utente è autorizzato ad aver caricato.
+Quando questo campo è `<= 0` viene considerato come "nessun limite".
+
+Un asset verrà rifiutato se la sua dimensione farebbe superare questo valore al totale consentito per l'utente.
+Va notato che questo influisce solo sui nuovi caricamenti di asset. Modificare il valore non avrà alcun impatto sugli asset esistenti.
+
+[^1]: La documentazione di SQLite documenta l'importanza dei file [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) e [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files).

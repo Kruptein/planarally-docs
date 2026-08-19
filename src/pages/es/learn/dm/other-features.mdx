@@ -1,0 +1,119 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Otras funciones destacables
+
+Esta sección será más corta y en su mayoría enlazará a algunas funciones que quizá quieras explorar como DM en tu preparación o durante tus partidas.
+
+<Warning>
+    Algunas de las páginas de referencia enlazadas podrían estar desactualizadas. Estos nuevos documentos introductorios
+    son un primer paso en un esfuerzo por poner la documentación al día.
+</Warning>
+
+## Iniciativa
+
+_referencia completa: [la documentación de iniciativa](/es/docs/tools/initiative/)_
+
+Un aspecto común de los juegos de rol es alguna forma de combate. PA ofrece un rastreador de iniciativa simple para seguir las rondas.
+
+La esencia es que puedes abrir la interfaz de iniciativa haciendo clic derecho en el tablero.
+Si resulta que haces clic en una forma, podrás en su lugar añadir esa forma concreta a la iniciativa, dándole una entrada en la interfaz.
+
+Las entradas se pueden ocultar de los jugadores hasta que sean relevantes; se pueden añadir temporizadores para seguir efectos que duran X turnos, etc.
+
+## Ubicaciones
+
+_referencia completa: [la documentación de ubicaciones](/es/docs/dm/locations/)_
+
+Ya hemos hecho nuestro primer mapa, pero ¿qué hay de un segundo mapa?
+
+Podríamos simplemente dedicar otra área del tablero a un mapa nuevo,
+pero esto tiene varios problemas:
+
+- la navegación puede volverse rápidamente difícil, intentando recordar dónde estaba ubicada cada parte, y
+- cada vez hay más datos, lo que hace PA más lento
+- quizá quieras tener otros ajustes para mapas específicos (p. ej. una distribución de cuadrícula diferente, una configuración de luces diferente)
+
+En su lugar, es más fácil separar tus mapas en algo que PA llama una «Ubicación».
+
+![Barra de ubicaciones](./assets/location-bar.png)
+
+Como DM puedes acceder a la barra de ubicaciones usando el segundo asa del elemento de la interfaz de arriba a la izquierda.
+Mostrará una lista de todas tus ubicaciones activas (puedes archivar/ reactivar ubicaciones) y dónde están actualmente ciertos jugadores.
+
+Cada ubicación se puede configurar individualmente para sobrescribir la configuración del DM que vimos en partes anteriores. Como DM, puedes cargar rápidamente una ubicación para ti haciendo clic en una entrada.
+
+### Mover jugadores
+
+Para mover jugadores de una ubicación a otra hay 2 opciones.
+
+La opción 1 es arrastrar la caja de jugadores de una ubicación a otra;
+la opción 2 es crear algo llamado punto de aparición en la ubicación de destino y hacer clic derecho en una forma (o varias formas) y moverlas a otra ubicación.
+
+La segunda puede sonar a mucho más trabajo, pero la primera solo mueve la cámara de los jugadores, por así decirlo. Mientras que al usar los puntos de aparición, en realidad estás moviendo sus fichas a un lugar nuevo específico en la ubicación de destino.
+
+La opción 1 es, por tanto, más adecuada para ubicaciones donde no hacen falta fichas de personaje, quizá un mapa del mundo o alguna ubicación donde preparaste varias imágenes sueltas para hacer roleplay.
+
+La opción 2 es casi siempre la forma más limpia de transición entre ubicaciones para los jugadores. Veremos algunas utilidades adicionales más adelante en la sección de lógica para ayudarte un poco más.
+
+## Plantas
+
+_referencia completa: [la documentación de plantas](/es/docs/dm/floors/)_
+
+El sistema de ubicaciones es genial para manejar una gran variedad de lugares que tus jugadores podrían explorar.
+A veces, sin embargo, tratamos con lugares donde hay verticalidad.
+Una casa con varias plantas es un ejemplo simple de esto.
+
+Usar una ubicación diferente por planta es bastante engorroso, ya que cada ubicación es un poco como un nivel diferente en un videojuego, donde algunos elementos internos se reinician por completo y obtienes una pequeña pantalla de carga.
+Otras cosas como la iniciativa también se rastrean por ubicación, así que eso se vuelve rápidamente problemático cuando tratas con personajes repartidos por todas partes.
+
+Una solución simple es poner las otras plantas en otra área de tu ubicación «casa». Todavía puedes usar puntos de aparición dentro de la misma ubicación, así que moverse entre plantas puede seguir siendo bastante sencillo.
+
+PA, sin embargo, tiene una función especial extra llamada acertadamente «plantas». Te permite añadir un conjunto completamente nuevo de capas encima del conjunto actual.
+Combinando esto con la transparencia, significa que una forma en la planta superior puede mirar realmente escaleras abajo y ver a un personaje en una planta inferior.
+Algo que no podrías replicar sin usar esta función.
+
+Sinceramente, esto mejora enormemente la inmersión, y las transiciones entre plantas son mucho más fluidas porque la cámara no tiene que saltar de un lado a otro.
+
+## Lógica
+
+_referencia completa: aún no creada :(_
+
+PA tiene actualmente dos sistemas de «lógica» diferentes que pueden considerarse como elementos de interacción para el DM o los jugadores durante el juego.
+
+### Puertas
+
+Una forma puede marcarse como puerta, lo que permite que la forma pueda alternar entre un estado abierto y uno cerrado.
+Mientras está abierta, la forma no bloquea visión/movimiento, ¡y mientras está cerrada, sí!
+
+Esta es una función simple de calidad de vida sobre todo para los DM, ya que pueden simplemente hacer clic en las puertas mientras los jugadores exploran, pero puedes configurar opcionalmente tus puertas para que también sean interactivas para tus jugadores.
+
+<Info>
+    La interacción con las puertas solo es posible en el modo Play; en el modo Build está deshabilitada para evitar
+    frustraciones, por ejemplo al redimensionar una puerta.
+</Info>
+
+Aunque la función se llama «puerta(s)», en realidad puedes modificar qué bloqueador debe alternar la interacción. Esto significa que puedes alternar solo el bloqueador de visión y ¡obtienes una ventana!
+Si en cambio solo bloqueas el movimiento, tienes algo como una puerta oculta en una pared lisa.
+
+### Zonas de teletransporte
+
+El otro elemento lógico es la zona de teletransporte. Un área puede designarse como zona de teletransporte, lo que significa que las formas que entran en ella pueden teletransportarse a otro lugar (es decir, un punto de aparición).
+
+Las zonas de teletransporte se pueden configurar para que se activen automáticamente (p. ej. una trampa de teletransporte) o para mostrar una acción que pregunte si quieres teletransportarte.
+
+Ejemplos de uso de las zonas de teletransporte son los rellanos de escalera entre plantas, lo que hace mucho más fácil recorrer rápidamente entre plantas.
+
+## Recursos
+
+_referencia completa: [la documentación de recursos](/es/docs/dashboard/assets/)_
+
+Antes, en la introducción, mencionamos el gestor de recursos, pero en lugar de usarlo, simplemente arrastramos los recursos directamente al mapa.
+
+El gestor de recursos es una función que te permite organizar tus distintos recursos. Está disponible fuera de la partida en el panel principal, pero también se puede acceder a él dentro del juego.
+
+Podrías tener, por ejemplo, una carpeta específica para todas tus fichas de D&D, pero también una carpeta específica para cada campaña.

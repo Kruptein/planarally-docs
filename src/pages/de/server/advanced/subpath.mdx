@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Unterpfad-Hosting
+
+PlanarAlly kann ohne Aufwand auf der Root-Ebene (z. B. https://www.planarally.io) oder auf einer Subdomain (z. B. https://app.planarally.io) gehostet werden.
+Beim Hosten unter einem Unterpfad ist jedoch etwas zusätzliche Arbeit erforderlich (z. B. https://www.planarally.io/dnd/).
+
+Du musst dem Server und dem Client signalisieren, dass sie unter einem Unterpfad laufen sollen.
+Zusätzlich musst du möglicherweise auch einige Änderungen an deinem Proxy vornehmen.
+
+Der Rest dieser Dokumentation bezieht sich manchmal auf die Umgebungsvariable PA_BASEPATH, die dem gewünschten Unterpfad entsprechen sollte.
+Zum Beispiel:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Geändertes Verhalten">
+Seit 2022.1 gibt es einige Änderungen an der Unterpfad-Verwaltung.
+Stelle sicher, dass du diese Dokumentation erneut gründlich liest, wenn du sie in der Vergangenheit verwendet hast!
+
+Insbesondere muss der Client jetzt immer manuell gebaut werden und der Docker-Container verwendet --build-arg anstelle von --env.
+
+</Warning>
+
+## Client-Änderungen
+
+Wenn du einen Unterpfad verwenden möchtest, musst du [den Client selbst bauen](/de/server/setup/self-hosting/#manual-installation).
+Die Unterpfad-Informationen müssen in die Build-Ausgabedateien eingebettet werden.
+Das kannst du einfach tun, indem du den Client baust, während die Umgebungsvariable PA_BASEPATH gesetzt ist.
+
+## Server-Änderungen
+
+Der Server muss ebenfalls von dem Unterpfad wissen. Stelle einfach sicher, dass die Umgebungsvariable PA_BASEPATH vor dem Start des Servers gesetzt ist.
+
+## Docker
+
+Bei Verwendung des Docker-Images muss diese Umgebungsvariable an den Container übergeben werden.
+Füge den folgenden Teil zu deinem Docker-Befehl hinzu.
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## Proxy
+
+### Nginx
+
+Bei der Verwendung von nginx hast du ein sehr ähnliches Setup wie das in [proxy](/de/server/advanced/proxy/) beschriebene, aber alle `location`-Teile beginnen mit `/planarally`, wenn dies dein gewünschter Unterpfad ist.
+
+Zusätzlich musst du eine kleine Änderung an der socket.io-spezifischen location-Regel vornehmen:
+
+Der proxy_pass (oder host\:port-pass) muss geändert werden, um den Unterpfad einzuschließen. (z. B. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+Stelle sicher, dass du den proxypass und reverse auf dem Unterpfad einrichtest!
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

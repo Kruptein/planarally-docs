@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+# Gestión básica de usuarios del servidor
+
+<Info>
+    Esta sección está muy desactualizada. Puedes consultar varias cosas con la CLI, así como configurar una vista básica
+    de navegador para algunas tareas administrativas.
+</Info>
+
+Actualmente, a partir de la v0.22.3 no hay una interfaz gráfica para la gestión de usuarios a nivel del servidor, por lo tanto tienes que usar scripts de python para la gestión de usuarios.
+
+asegúrate siempre de estar en una shell de python primero antes de ejecutar cualquiera de estos scripts. Simplemente abre una terminal y escribe `python` para abrir una shell, puedes salir de la shell con solo `quit()`
+
+PlanarAlly usa peewee como su herramienta orm de base de datos.
+
+## Listar todos los nombres de usuario en el servidor
+
+```python
+from src.db.all import User
+[ u.name for u in User.select() ]
+```
+
+## Cambiar la contraseña de un usuario específico
+
+```python
+from src.db.all import User
+u = User.get(name="*some-username*")
+u.set_password("*new-passowrd*")
+u.save()
+```
+
+## Crear un nuevo usuario como administrador
+
+```python
+from src.db.all import User
+User.create_new("*some-username*", "*some-password*", "*some-email(optional)")
+```

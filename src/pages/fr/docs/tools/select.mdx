@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Outil Select
+
+L'un des outils les plus utilisés est l'outil Select.
+Son but est, comme son nom l'indique, de sélectionner une ou plusieurs formes sur la table de jeu, mais aussi de les déplacer.
+Il est accessible dans la barre d'outils en bas à droite de l'écran par tous les joueurs, mais se comporte différemment selon le [mode](/fr/docs/tools-overview/#toolbar-and-modes) actif.
+
+De plus, en mode Build, il vous permet aussi de faire pivoter et de redimensionner les formes.
+
+## Bases de la sélection
+
+Vous pouvez cliquer sur une forme unique, ou faire glisser un cadre autour d'un groupe afin de tous les déplacer ensemble.
+
+Pour ajouter des formes à une sélection existante, maintenez `Ctrl` enfoncé et sélectionnez de nouvelles formes.
+
+Pour désélectionner les formes, cliquez simplement dans un endroit vide de la table de jeu ou utilisez le raccourci clavier `d`.
+
+_Lors d'une sélection de groupe, seules les formes que vous possédez réellement seront sélectionnées. Cela contraste avec le comportement de clic normal qui peut également sélectionner des formes que vous ne possédez pas._
+
+## Déplacement
+
+Vous pouvez déplacer votre sélection en la faisant simplement glisser sur la carte.
+
+Le DM peut avoir défini des objets comme infranchissables (par exemple un mur).
+Ceux-ci stopperont le déplacement.
+Le DM et tous les Co-DMs ont la possibilité d'ignorer les contraintes de mouvement en maintenant la touche `shift`.
+
+En activant la bascule `show ruler` au-dessus du bouton de l'outil Select dans la barre d'outils, faire glisser un objet affichera également une règle mesurant la distance parcourue.
+Cette règle fonctionne comme l'[outil Ruler indépendant](/fr/docs/tools/ruler/) et partagera également ses réglages.
+
+## Redimensionnement
+
+_Pour redimensionner une forme, vous devez être en mode « Build »_
+
+Le redimensionnement s'effectue en attrapant simplement l'un des coins de la forme et en le faisant glisser vers un autre endroit.
+La plupart des opérations de redimensionnement n'affectent que le coin déplacé, laissant tous les autres coins en place.
+
+La seule exception actuelle concerne les cercles, qui augmentent/diminuent le rayon lors du redimensionnement.
+Ce comportement pourrait changer à l'avenir.
+
+## Rotation
+
+_Pour faire pivoter une forme, vous devez être en mode « Build »_
+
+Une interface de rotation spéciale est visible en mode Build et affiche un point d'ancrage et un cadre.
+
+Lorsque vous déplacez le point d'ancrage, vous faites pivoter tout le cadre autour de son centre.
+
+La rotation n'est pas limitée aux formes uniques, mais peut aussi être appliquée à tout un groupe.
+N'oubliez pas que le centre du cadre sera utilisé comme point de rotation.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+La rotation dispose également d'un [comportement d'accrochage](/fr/docs/game/snapping/) aux angles courants (multiples de 45 degrés).
+
+## Ordre de sélection
+
+Les formes sur la table de jeu sont dessinées dans un certain ordre qui détermine quelle forme doit être sélectionnée en cas de chevauchement.
+
+Vous pouvez modifier l'ordre en cliquant avec le bouton droit sur une forme et en la déplaçant à l'arrière ou à l'avant de la pile.

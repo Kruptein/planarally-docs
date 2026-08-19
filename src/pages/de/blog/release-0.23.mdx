@@ -1,0 +1,120 @@
+---
+title: Release 0.23.0 - Was gibt's Neues!
+date: 2020-10-18 16:30:00
+excerpt: "Was gibt es Neues in 0.23.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
+Zeit für ein neues Release! Wie bei anderen Releases gibt es auch hier eine Reihe von Fehlerbehebungen, aber es gibt auch andere spannende Dinge.
+Eine Überarbeitung einiger UI-Elemente, Verbesserungen bei den Spawn-Orten, ein Templating-System und mehr!
+
+**Wichtig für Server-Betreiber** Dieses Release fügt der server_config einen neuen Abschnitt hinzu. Stelle sicher, dass du deine server_configs aktualisierst, indem du entweder die neue Konfiguration mit deinen eigenen Änderungen überschreibst oder den neuen Abschnitt zu deiner bestehenden Konfiguration hinzufügst.
+
+## Änderungen an Spawn-Orten
+
+Dieses Release bringt zwei Änderungen am Spawn-Ort-System: die Unterstützung mehrerer Spawn-Orte und eine Änderung am System des anfänglichen Spawn-Orts.
+
+### Entfernung der automatischen Spawn-Erstellung
+
+Die erste Version der Spawn-Orte hat den Spawn-Ort automatisch für dich erstellt.
+In der Praxis hat sich das nicht toll angefühlt. Der Spawn wurde nicht immer beim ersten Mal erstellt,
+manchmal tauchte er doppelt auf, und manchmal war er einfach nicht dort, wo du ihn erwartet hast.
+Hinzu kommt, dass nicht alle Orte tatsächlich einen Spawn benötigen.
+
+Deshalb wurde die Entscheidung getroffen, diese automatische Erstellung nicht mehr durchzuführen.
+Du kannst nun Spawn-Orte manuell dort erstellen, wo du sie haben möchtest.
+
+### Mehrere Spawns
+
+Zusammen mit der obigen Änderung ist auch die Beschränkung auf 1 Spawn-Ort aufgehoben.
+Beim Erstellen eines Spawn-Orts wirst du nach einem Namen gefragt.
+
+Beim Verschieben von Formen an einen anderen Ort wird ein Prompt angezeigt, in dem du zwischen den für diesen Ort definierten Spawns wählen kannst.
+Wenn nur 1 Spawn existiert, wird der Prompt übersprungen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>
+
+## Templating
+
+Die vielleicht aufregendste Änderung ist die Möglichkeit, Vorlagen von Assets für die spätere Wiederverwendung zu speichern.
+Du kannst den Zustand eines Assets jederzeit über das Rechtsklick-Kontextmenü speichern.
+
+Dieser Zustand umfasst Standardeigenschaften, aber auch Tracker, Auren und Abmessungen (Breite und Höhe).
+
+Wenn du ein Asset auf dem Spieltisch ablegst, das zugehörige Vorlagen hat, wirst du aufgefordert, eine Vorlage anstelle der leeren Basispreset zu wählen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Das kann sehr praktisch sein, um einige Tokens, die du häufig verwendest, wiederzuverwenden und Dinge wie HP und Lichtquellen vorzubefüllen.
+Das wird auch der Schlüssel zum Teilen von Sets mit anderen Spielern sein.
+
+## UI-Überarbeitungen
+
+### Login-Seite
+
+Die Login-Seite wurde überarbeitet und hat jetzt etwas mehr Flair :)
+Außerdem ist der Registrierungsablauf expliziter, da das alte Verhalten nicht für alle klar war.
+
+### Bearbeiten-Dialog
+
+Der Form-Bearbeiten-Dialog wurde mit jedem Release ein Stück größer, da immer etwas zum Dialog hinzugefügt wurde.
+Dieses Release fügt dem Bearbeiten-Dialog daher einige Unterabschnitte hinzu, um die Dinge besser zu organisieren, ohne den gesamten Bildschirm zu füllen.
+
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Asset bearbeiten" />
+
+## Systembenachrichtigungen
+
+Eine neue Funktion für Server-Betreiber ist die Option, Servermeldungen zu erstellen.
+Diese Meldungen werden an alle aktuellen Spieler und zukünftigen Besucher übertragen.
+Die Meldungen bleiben sichtbar, bis sie entweder vom Spieler geschlossen oder vom Server-Betreiber wieder entfernt werden.
+
+Der Hauptzweck dieser Meldungen ist es, Benutzer über Dinge wie erwartete Ausfallzeiten zu informieren.
+
+Zum Veröffentlichen dieser Meldungen steht ein separater API-Endpunkt mit einfacher REST-Semantik zur Verfügung.
+Es gibt einen neuen Abschnitt in der server_config (ApiServer), der für die Konfiguration dieses Webservers vorgesehen ist.
+Er wird auf dieselbe Weise konfiguriert wie der Hauptwebserver, verwendet aber standardmäßig `localhost` anstelle von `0.0.0.0`
+und nutzt 8001 als Standardport.
+
+Weitere Informationen dazu, welche Endpunkte verfügbar sind, findest du in der [API-Dokumentation](/de/docs/server/api/).
+
+## Lebensqualität
+
+### Einrasten beim Ruler
+
+Der Ruler hat nun ebenfalls ein [Einrastverhalten](/de/docs/game/snapping/) und versucht, an einem von 9 Punkten einer bestimmten Rasterzelle einzurasten.
+Die 4 Ecken einer Rasterzelle, ihre Mittelpunkte und der absolute Mittelpunkt sind allesamt Einrastpunkte.
+
+### Annotation-Markdown
+
+Das Annotationsfeld im Form-Bearbeiten-Dialog unterstützt nun Markdown.
+Die UI der angezeigten Annotationen wurde ebenfalls leicht aktualisiert.
+
+![Markdown-Annotationen](./0.23/annotations.png)
+
+### Server-Backups
+
+Server-Speicherstände werden nun in einem eigenen Unterordner gespeichert.
+Vor diesem Release wurden sie im Hauptordner des Servers abgelegt,
+was die Dinge ziemlich unübersichtlich machen konnte.
+
+Ältere Speicherstände werden nicht angetastet, aber du kannst sie gerne in diesen neuen Unterordner verschieben.
+
+## Varia-Fehlerbehebungen
+
+- Docker-Container als Nicht-Root-Benutzer ausführen
+- Das Entsperren einer Form über das Schnellmenü versetzt die Form nicht mehr in den Drag-Modus
+- Karte erlaubte einige ungültige Eingaben (negative Zahlen, 0, alles, was keine Zahl ist)
+- Notiz- und Annotations-Textflächen hatten anfangs nicht die richtige Höhe
+- Konsolenfehler beim Versuch, Etagen zu bewegen, auf die du keinen Zugriff hast
+- Private Formnamen erschienen für Benutzer mit Zugriff als ?
+- [tech] Fehlermeldungen basierend auf dem Antworttext anzeigen

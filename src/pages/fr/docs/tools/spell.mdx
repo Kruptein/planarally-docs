@@ -1,0 +1,62 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Outil Spell
+
+L'outil Spell est accessible dans la barre d'outils en bas à droite de l'écran par tous les joueurs, mais uniquement en [mode Play](/fr/docs/tools-overview/#toolbar-and-modes).
+
+Il présente quelques similitudes avec l'outil Draw, mais est spécifiquement axé sur le lancement de sorts pendant le jeu.
+
+Vous pouvez sélectionner la forme de votre sort (carré/cercle/cône) et configurer sa taille, sa portée, sa couleur et, enfin, si vos sorts seront partagés avec les autres joueurs ou s'ils sont réservés à vous-même.
+
+La ligne est notablement absente de la liste des formes de sort, alors qu'il s'agit d'un schéma courant lors du lancement de sorts.
+Nous avons estimé que l'outil Ruler existant suffisait ici et qu'il n'était pas nécessaire d'alourdir inutilement l'outil Spell.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+## Fonctionnement général
+
+Sauf si la portée est réglée sur 0, votre sort suivra votre souris à tout moment lorsque l'outil Spell est actif.
+
+Le mode de sort par défaut n'est utilisé que pour mesurer rapidement des choses, par exemple pour voir combien de personnes vous pourriez cibler.
+Votre sort disparaîtra si vous changez d'outil.
+
+Si vous lancez un sort qui n'est pas instantané, mais qui restera plus longtemps sur le champ de bataille, vous pouvez alors **cliquer avec le bouton gauche** pour faire du sort une véritable forme.
+Vous passerez automatiquement à l'outil Select.
+
+Si vous avez mal cliqué ou si l'effet du sort s'est dissipé, vous pouvez supprimer le sort comme n'importe quelle autre forme.
+Sachez également que si vous avez désactivé « show public », au moment où vous « lancez » le sort, il recevra la propriété « invisible » !
+Rien ne vous empêche de retirer cette propriété une fois le sort lancé.
+
+Un clic droit vous ramènera également à l'outil Select, mais ne lancera pas le sort.
+Il s'agit d'une opération d'« annulation ».
+
+## Contexte de sélection
+
+La forme cône et le paramètre de portée ne sont disponibles que lorsque vous avez une forme activement sélectionnée.
+
+La première car je n'ai pas trouvé d'exemples de cônes utilisés en conditions réelles qui ne soient pas auto-lancés,
+mais aussi parce que j'avais des difficultés à imaginer l'ergonomie de l'interface concernant la rotation dans le cas d'un lancement non auto-centré.
+
+Le second car il n'y a pas de point de référence autrement.
+
+## Taille
+
+Le paramètre de taille détermine la zone couverte par le sort.
+Pour un carré, il s'agit de la longueur d'un côté.
+Pour un cercle et un cône, il s'agit du rayon du sort !
+
+Tout comme les auras, ces nombres sont définis en fonction de la taille d'unité configurée, qui par défaut est de 5 ft (voir les réglages de grille du DM).
+
+## Portée
+
+_La portée du sort, comme mentionné ci-dessus, ne peut être configurée que si vous avez une forme active sélectionnée._
+
+Si la portée est réglée sur 0, il est considéré comme un sort auto-lancé et centrera automatiquement le sort sur votre forme active.
+
+Si la portée est un nombre supérieur à 0, un cercle noir sera affiché avec un rayon égal à la portée configurée.
+Ce

@@ -1,0 +1,222 @@
+---
+title: Release 2024.1
+date: 2024-01-27 12:00:00
+excerpt: "Améliorer les notes et la vision"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Une nouvelle année, une nouvelle release !
+
+Comme d'habitude, quelques bugs ont été corrigés, mais les deux grandes vedettes de cette release sont une refonte du système de notes et
+l'introduction d'un nouveau mode de blocage de la vision qui améliorera l'immersion.
+
+## Un nouveau mode de blocage de la vision
+
+### Pourquoi avons-nous besoin d'un mode supplémentaire ?
+
+Jusqu'à présent, le blocage de la vision était une chose binaire : soit vous pouvez voir à travers/au-delà de l'objet, soit il bloque complètement la vision.
+C'est acceptable dans de nombreux cas, mais lorsqu'on a affaire à des objets plus petits (par ex. un tronc d'arbre, un pilier, un rocher),
+cela conduit souvent à un choix que vous devez faire en tant que DM.
+
+- Soit vous obscurcissez complètement l'objet, lui donnant un comportement de blocage de la vision correct,
+  mais vous perdez au final en immersion, car les joueurs ne comprennent pas ce qu'est ce cercle aléatoire qui bloque la vision
+- Soit vous rendez la forme de blocage de la vision légèrement plus petite, pour montrer une partie de l'objet, mais vous perdez de la justesse en conséquence
+
+### Le nouveau mode
+
+Dans cette release, un nouveau mode de blocage de la vision est introduit, appelé `behind`.
+Il accompagnera le mode de vision existant qui sera renommé `complete`.
+
+Lorsque le nouveau mode est actif, la forme marquée comme bloquant la vision sera rendue comme si ce n'était pas une forme de blocage de la vision,
+mais tout ce qui se trouve derrière sera entièrement obscurci.
+Cela vous permettra par exemple d'avoir un tronc d'arbre qui bloque la vision,
+tout en montrant aux joueurs ce qu'ils regardent (c'est-à-dire un tronc d'arbre).
+
+Un autre bon cas d'usage pour ce nouveau mode concerne les portes.
+En la configurant en blocage arrière (blocking behind), vous offrez une vision correcte de l'objet porte dans son intégralité,
+ce qui permet aux joueurs de mieux comprendre ce qu'ils regardent.
+
+**Blocage complet :**
+
+![Blocage complet de la vision](./2024.1/vision-complete.png)
+
+**Blocage arrière :**
+
+![Blocage de la vision en arrière](./2024.1/vision-behind.png)
+
+#### Limitations
+
+Ce mode spécial ne fonctionne que pour les formes fermées.
+En pratique, cela signifie qu'il fonctionne pour la plupart des formes régulières (par ex. rectangle/cercle),
+mais pas pour les formes spéciales comme l'outil Brush ou les formes de texte.
+
+Les polygones peuvent être ouverts ou fermés !
+Donc si vous voulez l'utiliser pour afficher une forme irrégulière à l'aide de l'outil Polygon,
+assurez-vous d'avoir marqué le polygone comme fermé.
+(c'est une option de l'outil Draw)
+
+Un autre cas particulier est que les lumières placées à l'intérieur d'objets avec ce mode activé
+peuvent s'afficher alors que votre aura n'atteint pas la forme.
+C'est un cas limite de l'implémentation, mais cela ne devrait pas être trop problématique en pratique,
+car il n'y a pas beaucoup de raisons de placer des lumières à l'intérieur de formes de blocage de la vision.
+
+## Notes et annotations
+
+L'autre grand changement de cette release est une refonte du système de notes.
+
+PlanarAlly a jusqu'à présent eu 2 concepts de notes :
+
+- notes de campagne libres
+    - Elles ont un titre et du texte libre
+    - Elles sont toujours privées
+    - Elles peuvent être laissées ouvertes / déplacées
+- notes de formes (connues sous le nom d'annotations)
+    - Elles contiennent du texte libre compatible markdown
+    - Elles peuvent être publiques ou privées
+    - Limitées à 1 par forme
+    - Le markdown rendu est affiché en haut de l'écran lorsque la forme correspondante est survolée
+
+### Un ensemble de problèmes
+
+Ces deux concepts ont chacun leurs problèmes et sont incohérents entre eux :
+
+- pour les notes libres
+    - il n'y a aucun moyen de rechercher
+    - il n'y a aucun moyen de filtrer (par ex. seulement les notes pertinentes pour l'emplacement actuel)
+    - il n'y a aucun moyen de les partager avec d'autres utilisateurs
+    - une seule note peut être ouverte à la fois
+    - aucun rendu markdown n'est disponible
+- pour les notes de formes
+    - il n'y a aucun moyen d'avoir à la fois des informations privées et publiques
+    - il n'y a aucun moyen de les détacher ou d'y accéder sans avoir la forme sélectionnée
+    - si vous avez besoin des informations que vous avez écrites pour une forme, vous devez trouver la forme en question, où qu'elle soit
+    - à moins qu'il ne s'agisse d'un personnage, les notes sont perdues lorsque la forme est supprimée
+
+### Une solution unifiée
+
+Pour résoudre ces problèmes, un système de notes unifié a été créé.
+
+Dans ce nouveau système, il n'y a plus de différence entre les notes de formes et les notes de campagne.
+Les notes sont désormais un concept unique, peuvent être attachées à des formes et être gérées via un nouvel élément d'interface appelé Note Manager.
+
+![Liste du Note Manager](../docs/game/assets/note-manager-list.png)
+
+### Changements notables
+
+Pour une vue d'ensemble complète du nouveau système de notes, consultez la [documentation sur les notes](/fr/docs/game/notes/).
+Elle a été mise à jour pour refléter le nouveau système et contient plusieurs images ainsi qu'une explication plus approfondie.
+
+#### Changements d'interface
+
+Le Note Manager est un nouvel élément d'interface qui peut être ouvert via le raccourci clavier <kbd>n</kbd> ou en cliquant sur la section notes du menu de gauche.
+C'est le cœur du nouveau système de notes et il vous permet de gérer toutes vos notes.
+
+Le Note Manager dispose d'une barre de recherche qui vous permet de rechercher dans toutes vos notes.
+Les notes peuvent désormais aussi avoir des tags arbitraires, utilisables à la fois pour la recherche et pour apporter plus de contexte.
+
+Vous pouvez toutefois aussi détacher des notes depuis le Note Manager (et d'autres emplacements) pour les garder ouvertes pendant que vous faites autre chose.
+Plusieurs de ces notes peuvent être détachées en même temps et elles peuvent être déplacées individuellement.
+
+De plus, les notes détachées peuvent aussi être réduites afin de ne plus afficher que leur titre.
+Cela peut être utile pour les notes auxquelles vous avez besoin d'accéder fréquemment sur une courte période, sans encombrer votre écran.
+
+![Note détachée en modification](../docs/game/assets/note-manager-edit-popout.png)
+
+#### Accès
+
+Il est désormais possible de partager des notes avec d'autres utilisateurs et de définir des droits d'accès granulaires pour elles.
+
+Cela signifie que vous pouvez donner un accès en lecture à tous les joueurs lorsqu'une certaine note est récupérée, ou donner à un joueur particulier une note privée que lui seul peut voir et modifier.
+
+Les notes créées par les joueurs sont l'une des rares choses de PA qui ne sont pas visibles par le DM ! Elles sont donc vraiment privées, sauf partage explicite.
+
+#### Formes
+
+Les notes peuvent éventuellement être attachées à des formes.
+Une seule note peut être attachée à plusieurs formes et une seule forme peut avoir plusieurs notes attachées !
+
+Cela vous permet d'avoir à la fois des informations publiques et privées attachées à une forme.
+
+De plus, il existe aussi un nouveau réglage de note qui vous permet de configurer une icône de note à afficher sur la forme.
+C'est utile pour se souvenir de la présence d'une note importante.
+C'est également devenu un réglage permettant de décider si la note doit apparaître en haut de l'écran lorsqu'une forme associée est survolée.
+C'est désormais désactivé par défaut !
+
+![Déclencheurs du Note Manager](../docs/game/assets/note-manager-edit-triggers.png)
+
+La section d'informations rapides sur le côté droit de l'écran, lorsque vous avez une forme sélectionnée, contient désormais aussi des informations sur toutes les notes attachées à la forme.
+Vous pouvez rapidement survoler les notes pour voir leur contenu, mais vous pouvez aussi les détacher depuis là.
+
+Pour voir un aperçu de toutes les notes d'une forme particulière, vous pouvez cliquer sur l'icône de note dans la section d'informations rapides ou utiliser le menu contextuel de la forme sélectionnée.
+
+#### Global vs Local
+
+Lors de la création d'une nouvelle note, vous choisissez s'il s'agit d'une note globale ou locale.
+
+Cela signifie qu'une note globale est indépendante de la campagne et sera visible dans toutes les campagnes.
+Alors qu'une note locale est liée à la campagne actuelle et même à l'emplacement spécifique où elle a été créée.
+
+Comme les notes globales sont disponibles dans chaque campagne,
+il faut veiller à ne pas en créer trop, car la plupart des notes ne sont généralement pas pertinentes pour toutes les campagnes.
+
+Un bon cas d'usage pour les notes globales reste les blocs de statistiques (stat block). Vous ne voulez pas redéfinir le stat block d'un monstre spécifique dans chaque campagne.
+Combiné à l'utilisation de [modèles de ressources](/fr/docs/dm/assets/#templates), vous pouvez déposer un gobelin sur la table de jeu et il aura automatiquement le stat block attaché.
+
+## Rapport de dépose des ressources
+
+C'est une nouvelle fonctionnalité qui est en même temps une correction de bug.
+Elle ajoute un nouveau réglage aux réglages de grille de l'emplacement.
+
+PA a une option pour redimensionner automatiquement les ressources lors de leur dépose si elles ont un format spécifique dans leur nom.
+Par exemple, goblin_1x1 devrait dans des circonstances normales tenir exactement dans 1 cellule de la grille, dragon_3x3 devrait être redimensionné en 3 par 3 cellules de la grille.
+
+L'implémentation existante utilisait par erreur une méthode basée sur le système 5ft
+pour ajuster automatiquement cela lorsqu'un emplacement avait une taille plus grande (par ex. les cartes 10ft faisaient automatiquement tenir quelque chose comme something_2x2 dans 1 cellule)
+
+Cela casse cependant complètement tout ce qui n'utilise pas le système 5ft, que ce soit parce que vous utilisez les unités SI, parce que votre système utilise quelque chose de personnalisé ou parce que vous aimez définir vos tailles en pizzas.
+
+La solution simple consiste à désactiver ce système, mais alors déposer des ressources sur des cartes ayant une échelle différente ne fonctionne plus correctement.
+Pour y remédier aussi, un nouveau réglage, le Rapport de dépose des ressources (Asset Drop Ratio), est ajouté pour définir comment ces ressources doivent être mises à l'échelle lors de leur dépose sur la carte.
+
+Un rapport de dépose de 1 est la valeur par défaut, cela signifie que la ressource sera redimensionnée uniquement selon ses dimensions spécifiées (c'est-à-dire que goblin_1x1 occupera 1 cellule de la grille même s'il représente 10ft).
+Un rapport de dépose de 0.5 redimensionnerait un something_2x2 en 1x1.
+
+## Historique des dés
+
+_Contribution de SuikaXhq_
+
+J'ai de plus grands projets pour retravailler l'interface et le comportement des dés, mais pendant que j'avance lentement dessus,
+SuikaXhq a contribué une belle amélioration de l'historique des dés existant.
+
+L'historique des dés affichera désormais de manière plus visible qui a lancé les dés (auparavant, cela n'était montré qu'au survol) et
+contient plus de détails sur le lancer spécifique au lieu de n'afficher que le résultat final.
+
+![Blocage complet de la vision](./2024.1/dice-history.png)
+
+## Améliorations des informations de sélection
+
+_Contribution de SuikaXhq_
+
+Comme indiqué plus tôt, la section des informations de sélection sur le côté droit de l'écran inclut désormais des informations sur les notes attachées à la forme sélectionnée.
+
+Ce n'était pas le seul changement apporté aux informations de sélection !
+
+Les trackers et les auras affichent des informations sur leurs valeurs actuelles et proposent une modification rapide de ces valeurs.
+Pour les auras, ce n'est toutefois pas très utile : dans la plupart des cas, ce n'est pas quelque chose qu'on veut changer souvent.
+
+Cette release modifie la section des auras pour offrir plutôt un interrupteur permettant d'activer/désactiver l'aura sans avoir à ouvrir les réglages détaillés du tracker.
+De plus, si l'aura est limitée en angle (c'est-à-dire pas 360 degrés), un curseur de rotation est aussi affiché, pour vous permettre de changer rapidement la rotation de l'aura.
+
+![Mises à jour des informations rapides](../docs/game/assets/note-manager-selection-notes.png)
+
+## Corrections de bugs
+
+- Interface d'édition des polygones : ne prenait pas en compte la rotation de la forme
+- Téléportation : les formes téléportées sans être suivies semblaient ne pas bouger car la synchronisation locale n'était pas mise à jour
+- Outil Dice : ignorer le bouton GO si rien n'est saisi
+- Personnage : un ensemble de bugs liés aux variantes ont été corrigés
+- Trackers : ajouter max-height et le défilement pour corriger l'interface lorsqu'il y a beaucoup de trackers
+- RotationSlider : correction des problèmes de synchronisation
+- RotationSlider : correction de l'ancre du curseur qui ne restait pas sur le rail sous certains angles
+- \[server\] spam de logs « unknown » lors du déplacement de formes temporaires

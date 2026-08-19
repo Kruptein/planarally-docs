@@ -1,0 +1,154 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
+
+import { Image } from "astro:assets";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
+
+# Impostazioni campagna
+
+Come DM, avrai una finestra speciale di opzioni.
+Queste ti permettono di configurare le impostazioni della campagna attiva.
+
+Le impostazioni del DM sono accessibili dal menu laterale (clicca l'icona <Cog /> in alto a sinistra dello schermo della tua finestra del browser per aprire il menu).
+
+## Admin
+
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="Impostazioni DM" />
+
+La sezione admin fornisce opzioni amministrative.
+
+### Giocatori
+
+Nella sezione giocatori, puoi vedere un elenco dei giocatori attuali.
+Accanto al nome di ogni singolo giocatore, puoi impostare il suo ruolo all'interno della campagna.
+
+<Warning title="Attenzione!">
+    Impostare un qualsiasi giocatore come DM gli concede accesso **senza restrizioni** all'**intera** campagna!
+</Warning>
+
+Quando l'icona <Eye /> è attivata, vedrai il viewport del giocatore sul livello DM.
+Questo ti permette di tenere traccia di dove stanno guardando i giocatori e di cambiare dove stanno guardando.
+
+Clicca "espelli" per rimuovere giocatori specifici dalla tua campagna.
+
+### URL di invito
+
+L'URL di invito ti permette di invitare giocatori nella tua campagna.
+A destra dell'URL c'è un pulsante che copia l'URL negli appunti.
+Premi "Aggiorna codice di invito" per aggiornare l'URL.
+
+### Blocca la sessione
+
+Il pulsante Blocca questa sessione blocca o sblocca la campagna.
+Quando è bloccata, solo il DM può accedere alla campagna.
+Questa funzione è utile se vuoi modificare le tue mappe e assicurarti che nessuno dei tuoi giocatori inizi a curiosare durante il tuo lavoro.
+
+### Rimuovi la sessione
+
+Rimuovi la sessione rimuove **PERMANENTEMENTE** la campagna dal server di PlanarAlly. Tutti i dati saranno irrecuperabili. **USA CON CAUTELA!**
+
+## Griglia
+
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Impostazioni griglia" />
+
+Le impostazioni della griglia ti offrono la possibilità di modificare le impostazioni della griglia o addirittura disattivarla del tutto.
+Queste impostazioni sono i valori predefiniti della campagna e possono essere sovrascritti nelle [impostazioni individuali dei luoghi](/it/docs/dm/locations/#grid).
+
+### Usa la griglia
+
+Attiva o disattiva la griglia. Questo vale anche per tutti i giocatori.
+
+### Tipo di griglia
+
+PA offre pieno supporto per le griglie quadrate e un supporto minimale per le griglie esagonali.
+
+Le griglie esagonali sono offerte in due varianti (pointy & flat), ma non hanno la stessa gamma completa di funzionalità delle griglie quadrate.
+Soprattutto il [comportamento di aggancio](/it/docs/game/snapping) non è stato aggiornato con il supporto esagonale.
+
+### Unità di misura
+
+L'unità di misura ti permette di cambiare la rappresentazione predefinita delle unità in ft (la norma dnd) con qualcos'altro.
+Potrebbe essere usata per cambiare tutto in metri (incluse le frazioni, es. per lo standard dnd di 1.5&nbsp;m pari a 5&nbsp;ft), ma anche per avere un luogo con una mappa del mondo scalata in chilometri o miglia.
+
+### Dimensione dell'unità
+
+La dimensione dell'unità è la distanza che una cella della griglia rappresenta nel tuo sistema di gioco. Quando usi lo strumento righello per misurare le distanze, queste informazioni verranno usate per fare la conversione.
+
+## Visione
+
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Impostazioni visione" />
+
+La visione è una delle impostazioni più importanti per il DM.
+Queste impostazioni ti permettono di cambiare ciò che i giocatori vedono e come lo vedono.
+Vengono anche menzionate nella sezione DM su [illuminazione e visione](/it/docs/dm/lighting-vision/).
+
+Le impostazioni definite in questa finestra sono i valori predefiniti della campagna che possono essere sovrascritti nelle [impostazioni individuali dei luoghi](/it/docs/dm/locations/#vision).
+
+### Giocatore fittizio
+
+Quando questa opzione è attivata, lo schermo verrà renderizzato senza i tuoi privilegi da DM.
+Verrà invece renderizzato usando la visione di tutti i giocatori che hai selezionato [nello strumento di visione](/it/docs/tools/vision/).
+Questo può aiutarti a verificare durante la preparazione o addirittura in gioco che la tua configurazione di visione sia corretta.
+
+Puoi attivarla o disattivarla rapidamente usando [le attivazioni rapide](/it/docs/tools/quick-toggles/#fake-player)
+
+### Riempi l'intero canvas con FoW
+
+_FoW sta per Fog of War (nebbia di guerra)_
+
+Con questa opzione attivata, tutto ciò che è sullo schermo è nascosto ai giocatori per impostazione predefinita.
+Le luci devono essere aggiunte per concedere visione nelle aree.
+
+Con questa opzione disattivata, tutto ciò che è sullo schermo è mostrato ai giocatori per impostazione predefinita.
+La FoW deve essere aggiunta per rimuovere la visione nelle aree.
+
+### Solo LoS
+
+_LoS sta per Line of Sight (linea di vista)_
+
+Questa opzione attiva/disattiva una modalità avanzata di illuminazione.
+
+Quando è disattivata, ogni luogo sullo schermo con una sorgente luminosa sarà visibile.
+Non importa se un giocatore si trova in quel luogo o meno.
+
+Quando è attivata, solo le cose nella linea di vista dei segnalini dei giocatori saranno visibili sullo schermo.
+Un giocatore deve vedere la luce perché questa appaia sullo schermo.
+
+Consulta la [documentazione sull'illuminazione](/it/docs/dm/lighting-vision/) per maggiori informazioni su questo argomento.
+
+### Opacità della FoW
+
+Questa impostazione permette al DM di scegliere quale sia l'opacità delle aree nascoste per il DM.
+I giocatori avranno sempre questa impostazione a 1.0 per se stessi e non possono modificarla.
+
+In modalità giocatore fittizio, sarai anche tu bloccato su 1.0.
+
+### Modalità di visione
+
+<Warning>Questa è un'impostazione tecnica che dovresti toccare solo se sai cosa stai facendo.</Warning>
+
+La modalità di visione sperimentale calcola l'illuminazione/visione in modo diverso rispetto alla versione predefinita.
+
+Nella versione sperimentale, le modifiche alla luce/visione vengono fatte in modo incrementale invece di una ricalcolazione completa a ogni modifica. I benefici sono molto evidenti, le conseguenze sono che è meno testata e in caso di errori potrebbe bloccarsi completamente.
+
+Potresti prendere in considerazione questa opzione se hai molti oggetti legati alla luce/visione sulla tua mappa e riscontri aggiornamenti lenti dello schermo quando sposti le cose.
+
+### Visione minima/massima
+
+Queste impostazioni sono fattori di regolazione per il [sistema di visione](/it/docs/dm/lighting-vision/).
+Determinano i limiti della visione di tutti i segnalini.
+
+Supponiamo che ci sia un campo gigante e aperto che si estende per 5000 ft. ed è completamente illuminato.
+Ci si potrebbe aspettare che l'intera area sia visibile al tuo segnalino che si trova in mezzo a questo campo.
+Ci sono, tuttavia, dei limiti dell'occhio umano e non umano, da qui l'introduzione di queste impostazioni.
+
+Tutto ciò che rientra nella distanza della visione minima può essere visto come al solito.
+Tutto ciò che supera la distanza massima non può essere visto ed è nebbia di guerra.  
+Tutto ciò che sta in mezzo viene mostrato con un'opacità crescente man mano che ti avvicini al bordo della visione.

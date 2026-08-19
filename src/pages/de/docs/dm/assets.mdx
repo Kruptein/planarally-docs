@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# Assets
+
+Das Asset-Menü wird verwendet, um Assets in dein Spiel einzufügen.
+Das können Karten, Tokens, Objekte oder alles andere sein, was du einfügen möchtest.
+Um dieses Menü zu öffnen, klicke auf das <Cog />-Symbol und wähle im Dropdown-Menü „Assets" aus.
+
+## Assets platzieren
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Beispiel für die Verwendung eines Assets" />
+
+Um deine Assets zu verwenden, öffne zuerst den Asset-Tab.
+Öffne danach den Ordner, in dem du deine Dateien gespeichert hast.
+Ziehe schließlich das Asset auf den Spieltisch.
+Dein Asset kann danach manipuliert werden.
+
+Alternativ kannst du auch mit der Suchleiste nach einem Asset suchen.
+Dadurch werden Ordner und Unterordner herausgefiltert, die keine passenden Elemente zu deiner Suchanfrage enthalten.
+
+<Tip title="Asset-Maße">
+    Wenn der Asset-Name Größenangaben enthält, skaliert PA das Asset automatisch korrekt.
+
+    z. B. goblin_5x5
+
+</Tip>
+
+### Vorlagen
+
+Du kannst den Zustand eines Assets jederzeit über das Kontextmenü (rechte Maustaste) speichern.
+
+Dieser Zustand umfasst neben den Standardeigenschaften auch Tracker, Auren und Maße (Breite und Höhe).
+
+Wenn du ein Asset auf den Spieltisch ziehst, dem Vorlagen zugeordnet sind, wirst du aufgefordert, eine Vorlage zu wählen, statt der leeren Standardvorlage.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Das kann sehr praktisch sein, um Tokens wiederzuverwenden, die du häufig benötigst, und damit Dinge wie HP und Lichtquellen vorzubelegen.
+
+### Varianten
+
+<Warning title="Experimentell!">
+    Diese Funktion ist experimentell! Es können einige Randfälle auftreten, daher melde bitte eventuelle Fehler an den
+    [Issue-Tracker auf GitHub](https://github.com/Kruptein/PlanarAlly/issues)!
+</Warning>
+
+Du kannst Objekten _Varianten_ hinzufügen, um ihnen ein anderes Aussehen zu geben, ohne ein neues Token erstellen und das vorherige entfernen zu müssen.
+Typische Anwendungsfälle sind die Wildform eines Druiden, alternative Artworks für Charaktere, Bosse mit mehreren Phasen, Überraschungs-Enthüllungen usw.
+
+Um eine Variante hinzuzufügen, verwende den `+`-Button unten im Bearbeitungsfenster des Basisobjekts.
+Mit einem Klick auf den Stift <PencilAlt/> kannst du den Namen der aktiven Variante bearbeiten.
+Beachte, dass der Name einer Variante nicht mit dem Namen des Objekts verbunden ist!
+
+Während das Basisobjekt jede beliebige Form haben kann (Form, Token oder Asset), können nur _Assets_ als Varianten hinzugefügt werden.
+Zu jedem Zeitpunkt ist nur eine Variante eines Objekts sichtbar und kann gegen eine andere ausgetauscht werden.
+
+Jede Variante behält ihre eigene Größe, Eigenschaften, Tracker und Auren.
+Tracker und Auren können so konfiguriert werden, dass sie von allen Varianten geteilt werden.
+Eine neu erstellte Variante hat keine der Einstellungen der Basisvariante.
+Das umfasst Zugriffsrechte, allgemeine Form-Eigenschaften (z. B. den Namen) oder Anmerkungen!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Du kannst eine Variante mit dem Papierkorb-Button <TrashAlt /> löschen.

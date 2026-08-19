@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# 子路径
+
+PlanarAlly 可以轻松托管在根路径（例如 https://www.planarally.io）或子域名（例如 https://app.planarally.io）。
+但在子路径下托管则需要做一些额外的工作（例如 https://www.planarally.io/dnd/）。
+
+你需要让服务器和客户端知道它们运行在子路径下。
+此外，你可能还需要对代理进行一些修改。
+
+本文档的其余部分有时会提到 PA_BASEPATH 环境变量，它应当与所需的子路径一致。
+例如：
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="行为已更改">
+自 2022.1 起，子路径的处理方式发生了一些变化，
+如果你过去使用过这些文档，请务必重新仔细阅读！
+
+特别是，客户端现在必须始终手动构建，而 docker 容器使用 --build-arg 而不是 --env。
+
+</Warning>
+
+## 客户端修改
+
+当你想使用子路径时，你必须[自行构建客户端](/zh/server/setup/self-hosting/#manual-installation)。
+子路径信息需要内置于构建输出文件中。
+只需在设置 PA_BASEPATH 环境变量的情况下构建客户端即可。
+
+## 服务器修改
+
+服务器也需要知道子路径，只需确保在运行服务器之前设置 PA_BASEPATH 环境变量即可。
+
+## Docker
+
+使用 docker 镜像时，需要将这个环境变量传递给容器。
+在你的 docker 命令中添加以下部分。
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## 代理
+
+### Nginx
+
+使用 nginx 时，你的配置将与[代理](/zh/server/advanced/proxy/)中描述的非常相似，但如果你希望的子路径是 `/planarally`，那么所有 `location` 部分都将以 `/planarally` 开头。
+
+此外，你还需要对 socket.io 专用的 location 规则做一处小修改：
+
+proxy_pass（或 host\:port pass）需要改为包含子路径。（例如 `proxy_pass http://subaiohttp/subpath/socket.io/;`）
+
+### Apache
+
+请确保在子路径上配置 proxypass 和 reverse！
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

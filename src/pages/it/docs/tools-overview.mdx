@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# Panoramica strumenti
+
+PlanarAlly fornisce un insieme di strumenti per interagire con il gioco e con gli altri giocatori.
+Ai DM vengono forniti alcuni strumenti aggiuntivi adatti alle loro esigenze.
+Molti di questi strumenti, ma non tutti, sono accessibili tramite una barra degli strumenti nell'angolo in basso a destra dello schermo.
+
+<Image
+    src={ToolbarExample}
+    alt="Esempio della barra degli strumenti di un DM in modalità 'Build' con lo strumento Seleziona attivo e la modalità pronta per essere cambiata in Play, mentre lo strumento filtro può essere usato, ma non lo strumento visione."
+/>
+
+## Barra degli strumenti e modalità
+
+Per evitare che la barra degli strumenti sia inondata di opzioni, gli strumenti vengono mostrati in base a una modalità della barra.
+Attualmente ci sono 2 modalità, "Play" e "Build": la prima si concentra sugli strumenti effettivamente usati durante il gioco
+e la seconda sugli strumenti usati soprattutto durante la preparazione del DM.
+
+Per cambiare modalità puoi cliccare sulla modalità desiderata o usare il tasto `Tab`.
+
+Di seguito una panoramica di tutti gli strumenti e della modalità in cui sono disponibili.
+Nota che alcuni strumenti potrebbero avere un comportamento diverso a seconda della modalità.
+
+## Riferimento rapido degli strumenti
+
+| Strumento                                | Accesso | Modalità     | Descrizione                                                                         |
+| ---------------------------------------- | ------- | ------------ | ----------------------------------------------------------------------------------- |
+| [Select](/it/docs/tools/select/)         | Tutti   | Entrambe[^1] | Seleziona, sposta, ruota o ridimensiona le forme.                                   |
+| [Pan](/it/docs/tools/pan/)               | Tutti   | Entrambe     | Sposta il riquadro di visualizzazione del gioco.                                    |
+| [Draw](/it/docs/tools/draw/)             | Tutti   | Build        | Crea forme di vari tipi di base.                                                    |
+| [Spell](/it/docs/tools/spell/)           | Tutti   | Play         | Misura e lancia incantesimi.                                                        |
+| [Ruler](/it/docs/tools/ruler/)           | Tutti   | Entrambe     | Misura le distanze.                                                                 |
+| [Ping](/it/docs/tools/ping/)             | Tutti   | Play         | Mostra un segnale temporaneo visibile a tutti.                                      |
+| [Map](/it/docs/tools/map/)               | DM      | Build        | Aiuta a ridimensionare gli asset (soprattutto le mappe) per adattarli alla griglia. |
+| [Vision](/it/docs/tools/vision/)         | Tutti   | Play[^2]     | Limita quali personaggi contribuiscono alla visione.                                |
+| [Zoom](/it/docs/tools/zoom/)             | Tutti   | Entrambe[^3] | Ingrandisci/riduci una porzione del gioco.                                          |
+| [Initiative](/it/docs/tools/initiative/) | Tutti   | Entrambe[^3] | Traccia l'ordine di iniziativa e gli effetti temporizzati.                          |
+| [Undo/Redo](/it/docs/tools/undo/)        | Tutti   | Entrambe[^3] | Annulla e ripeti determinate azioni.                                                |
+
+[^1]: La funzionalità differisce a seconda della modalità.
+
+[^2]: Visibile nella barra degli strumenti solo quando effettivamente utilizzabile.
+
+[^3]: Non fa parte della barra degli strumenti.

@@ -1,0 +1,119 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Andre funktioner
+
+Dette afsnit bliver kortere og linker mest til nogle funktioner, du måske vil udforske som DM i din forberedelse eller under dine spil.
+
+<Warning>
+    Nogle af de linkede reference-sider kan være forældede. Disse nye intro-docs er et første skridt i en indsats for at
+    få docs'ene opdateret!
+</Warning>
+
+## Initiativ
+
+_fuld reference: [initiativ-docs](/da/docs/tools/initiative/)_
+
+Et almindeligt aspekt ved rollespil er en eller anden form for kamp. PA tilbyder en simpel initiativ-tracker til at holde styr på runder.
+
+Essensen er, at du kan åbne initiativ-brugergrænsefladen ved at højreklikke på spillebordet.
+Hvis du tilfældigvis klikker på en form, kan du i stedet tilføje den specifikke form til initiativet og dermed give dem en post i brugergrænsefladen.
+
+Poster kan skjules for spillerne, indtil det er relevant, timere kan tilføjes for at holde styr på effekter, der varer X omgange osv.
+
+## Lokationer
+
+_fuld reference: [lokations-docs](/da/docs/dm/locations/)_
+
+Vi har nu lavet vores første kort, men hvad med et andet kort?
+
+Vi kunne simpelthen afsætte et andet område af spillebordet til et nyt kort,
+men dette har flere problemer:
+
+- navigationen kan hurtigt blive besværlig, når man skal huske, hvor hvilken del befandt sig, og
+- der er bare mere og mere data, hvilket gør PA langsommere
+- du vil måske have andre indstillinger for specifikke kort (f.eks. forskelligt grid-opsætning, forskelligt lysopsætning)
+
+I stedet er det nemmere at adskille dine kort i noget, som PA kalder en "Location".
+
+![Lokationslinje](./assets/location-bar.png)
+
+Lokationslinjen kan tilgås som DM ved hjælp af det andet håndtag i brugergrænsefladeelementet øverst til venstre.
+Den viser en liste over alle dine aktive lokationer (du kan arkivere/genaktivere lokationer) og hvor bestemte spillere i øjeblikket befinder sig.
+
+Hver lokation kan konfigureres individuelt til at tilsidesætte de DM-indstillinger, vi så i tidligere dele. Som DM kan du hurtigt indlæse en lokation for dig selv ved at klikke på en post.
+
+### Flytte spillere
+
+For at flytte spillere fra en lokation til en anden er der 2 muligheder.
+
+Mulighed 1 er at trække spillerboksen fra en lokation til en anden,
+mulighed 2 er at oprette noget, der kaldes en spawn-lokation i destinationslokationen og derefter højreklikke på en form (eller flere former) og flytte dem til en anden lokation.
+
+Sidstnævnte lyder måske som meget mere arbejde, men førstnævnte flytter så at sige kun spillernes kamera. Mens du med spawn-lokationerne faktisk flytter deres tokens til et specifikt nyt sted i destinationslokationen.
+
+Mulighed 1 er derfor bedre egnet til lokationer, hvor der ikke er behov for karakter-tokens, måske et verdenskort eller en lokation, hvor du har forberedt forskellige løse billeder til at rollespille omkring.
+
+Mulighed 2 er næsten altid den reneste måde at overgå mellem lokationer for spillerne. Vi vil se nogle ekstra værktøjer senere i logik-afsnittet, der kan hjælpe dig lidt mere.
+
+## Etager
+
+_fuld reference: [etage-docs](/da/docs/dm/floors/)_
+
+Lokationssystemet er fantastisk til at håndtere en bred vifte af steder, dine spillere måske udforsker.
+Nogle gange har vi dog at gøre med steder, hvor der er vertikalitet.
+Et hus med flere etager er et simpelt eksempel på dette.
+
+At bruge en anden lokation pr. etage er ret besværligt, da hver lokation er lidt som et andet niveau i et videospil, hvor nogle interne dele nulstilles fuldstændigt, og du får en lille indlæsningsskærm.
+Andre ting som initiativ spores også pr. lokation, så det bliver hurtigt problematisk, når man har med karakterer over det hele at gøre.
+
+En simpel løsning er bare at placere de andre etager et andet sted i din "hus"-lokation. Du kan stadig bruge spawn-lokationer inden for den samme lokation, så det at bevæge sig mellem etager kan stadig være ret ligetil.
+
+PA har dog en særlig ekstrafunktion, der passende hedder 'floors'. Den giver dig mulighed for at tilføje et helt nyt sæt lag oven på det nuværende sæt.
+Ved at kombinere dette med gennemsigtighed betyder det, at en form på øverste etage faktisk kan kigge ned ad trappen og se en karakter på en lavere etage!
+Noget, du ikke ville kunne kopiere uden at bruge denne funktion.
+
+Dette forbedrer ærligt talt fordybelsen betydeligt, og overgange mellem etager er meget jævnere, da kameraet ikke skal hoppe rundt.
+
+## Logik
+
+_fuld reference: endnu ikke oprettet :(_
+
+PA har i øjeblikket to forskellige "logik"-systemer, som kan tænkes som interaktionselementer for DM'en eller spillerne under gameplay.
+
+### Døre
+
+En form kan markeres som en dør, hvilket får formen til at kunne skifte mellem en åben og en lukket tilstand.
+Mens den er åben, blokerer formen ikke syn/bevægelse, og mens den er lukket, gør den det!
+
+Dette er en simpel bekvemmelighedsfunktion mest for DMs, da de bare kan klikke på døre, mens spillere udforsker, men du kan eventuelt konfigurere dine døre til også at blive interaktive for dine spillere.
+
+<Info>
+    Dørinteraktion er kun mulig i Play-tilstand. I build mode er dette deaktiveret for at forhindre frustration, når man
+    f.eks. ændrer størrelsen på en dør.
+</Info>
+
+Selvom funktionen kaldes "door(s)", kan du faktisk ændre, hvilken blocker der skal skiftes af interaktionen. Det betyder, at du kun kan skifte synsblockeren, og du får et vindue!
+Hvis du i stedet kun blokerer bevægelse, har du noget i retning af en skjult dør i en glat væg.
+
+### Teleportzoner
+
+Det andet logikelement er teleportzonen. Et område kan udpeges som en teleportzone, hvilket betyder, at former, der træder ind i den, kan teleportere til et andet sted (dvs. en spawn-lokation).
+
+Teleportzoner kan konfigureres til automatisk at udløses (f.eks. en teleportfælde) eller til at vise en handling, der spørger, om du vil teleportere.
+
+Eksempler på brug af teleportzoner er trappeafsatser mellem etager, hvilket gør det meget nemmere at færdes hurtigt mellem etager.
+
+## Aktiver
+
+_fuld reference: [aktiv-docs](/da/docs/dashboard/assets/)_
+
+Tidligere i introduktionen nævnte vi aktivadministratoren, men i stedet for at bruge den trak vi bare aktiver direkte hen på kortet.
+
+Aktivadministratoren er en funktion, der giver dig mulighed for at organisere dine forskellige aktiver. Den er tilgængelig uden for spillet i hoveddashboardet, men den kan også tilgås i spillet.
+
+Du kan for eksempel have en specifik mappe til alle dine D&D-tokens, men også have en specifik mappe for hver kampagne.

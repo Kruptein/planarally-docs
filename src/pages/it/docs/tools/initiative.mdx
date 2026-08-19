@@ -1,0 +1,150 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import InitiativeOverviewPicture from "../../blog/2026.1/initiative.png";
+
+# Strumento Iniziativa
+
+Lo strumento Iniziativa è una finestra popup mobile che ti consente di tenere traccia dell'ordine di iniziativa di vari oggetti (di solito segnalini).
+
+<Image
+    src={InitiativeOverviewPicture}
+    width={462}
+    aspectRatio={462 / 492}
+    alt="Panoramica dello strumento Iniziativa"
+/>
+
+## Accesso
+
+Lo strumento Iniziativa non è accessibile tramite la barra degli strumenti in basso a destra dell'interfaccia utente.
+Viene invece accesso tramite i menu contestuali.
+Facendo clic con il pulsante destro in un punto qualsiasi della mappa, puoi sempre scegliere `Show Initiative` nel menu contestuale per attivare lo strumento.
+Inoltre, il menu contestuale degli oggetti (forme, asset o segnalini) mostra l'opzione `Show Initiative`, se l'oggetto è già stato inserito nella lista dell'iniziativa.
+Se l'oggetto in questione non è (ancora) elencato nella lista dell'iniziativa, il menu contestuale mostrerà `Add Initiative` (`Add all to Initiative`, se sono selezionati più oggetti), aprendo lo strumento Iniziativa e inserendo contemporaneamente l'oggetto nella lista.
+
+Lo strumento Iniziativa apre una finestra popup mobile che può essere chiusa facendo clic sul <WindowClose /> nell'angolo in alto a destra.
+
+Contiene la lista dell'iniziativa che può includere diverse voci individuali e, in basso, una barra con diverse funzioni.
+
+## Lista Iniziativa
+
+La lista Iniziativa è, in sostanza, una tabella con sei colonne e una riga per ogni oggetto aggiunto alla lista.
+La riga/voced _attiva_ è evidenziata con uno sfondo verde, a indicare che è il turno di questo oggetto.
+
+Passando il mouse su una voce verrà mostrato il nome della forma inserita e verrà anche evidenziato l'oggetto associato sulla mappa con un rettangolo rosso attorno ad esso.
+Questo è particolarmente utile se sulla mappa ci sono più oggetti illustrati con lo stesso asset (ad es. mostri simili, ecc.).
+
+### Designatore
+
+All'estrema sinistra di ogni riga c'è il designatore della forma aggiunta all'iniziativa.
+Se l'oggetto è un asset, il designatore sarà una versione miniaturizzata dell'asset.
+Se l'oggetto è un Segnalino Base, il designatore sarà il testo mostrato sul segnalino.
+Se l'oggetto è un'altra forma, il designatore sarà il nome della forma inserito nelle proprietà quando l'oggetto viene aggiunto all'iniziativa.
+
+### Valore dell'iniziativa e Ordinamento
+
+Al designatore segue il valore dell'iniziativa, che può essere qualsiasi numero.
+I giocatori possono modificare solo il valore dell'iniziativa degli oggetti a cui hanno accesso.
+Il DM può modificare il valore dell'iniziativa di tutti gli oggetti nella lista.
+
+Le voci verranno ordinate automaticamente in base a questo valore, con i valori più alti in cima e quelli più bassi in fondo alla lista.
+Passando il mouse su una voce, questa verrà evidenziata con un bordo che mostra una tacca nell'angolo in basso a destra.
+Qualsiasi elemento può essere trascinato cliccando e tenendo premuto su questa tacca, sostituendo l'ordinamento automatico.
+
+### Effetti Temporizzati
+
+La colonna successiva mostra un <Stopwatch />, seguito da un numero (di default 0).
+Questa colonna mostra quanti Effetti Temporizzati (vedi sotto) sono assegnati all'oggetto.
+Questa funzione può essere usata per tenere traccia facilmente di buff e/o effetti (ad es. incantesimi) che infliggono danni nel tempo.
+
+Gli Effetti Temporizzati sono voci a forma libera assegnate a una voce della lista Iniziativa, valide solo per un periodo di tempo limitato, cioè per i round.
+Facendo clic con il tasto sinistro sull'icona <Stopwatch /> verrà aggiunto un nuovo Effetto Temporizzato associato alla voce corrispondente.
+Passando il mouse su una voce, la lista degli Effetti Temporizzati si espanderà di seguito, collegata al bordo di evidenziazione.
+La lista degli Effetti Temporizzati della voce attiva è sempre espansa.
+
+Gli Effetti Temporizzati possono essere aggiunti in qualsiasi momento.
+Il DM può aggiungere Effetti a qualsiasi voce, i Giocatori solo alle voci a cui hanno accesso.
+
+Ogni Effetto Temporizzato ha due valori: il descrittore e la durata.
+Il descrittore è mostrato a sinistra (di default alla creazione: `New Effect`) e può essere qualsiasi testo.
+La durata è mostrata a destra (di default: `10`) e dovrebbe essere un numero; descrive la durata dell'effetto nei round successivi.
+Ogni volta che una voce diventa _attiva_, la durata diminuisce di uno, finché non raggiunge `0`.
+
+Dopo che la durata ha raggiunto `0`, la volta successiva in cui la voce diventa attiva, invece di passare da `0` a `-1`, l'Effetto Temporizzato scompare.
+Può essere eliminato facendo clic sul pulsante del cestino <TrashAlt /> accanto ad esso.
+
+### Visibilità
+
+La colonna successiva mostra un <Eye /> che attiva/disattiva la visibilità della voce.
+Se l'<Eye /> appare grigio, un oggetto è invisibile, cioè solo il DM può vedere la rispettiva riga.
+Un oggetto aggiunto da un Giocatore sarà visibile per impostazione predefinita, mentre gli oggetti aggiunti all'iniziativa dal DM sono invisibili per impostazione predefinita.
+
+### Iniziativa di Gruppo
+
+La seconda colonna da destra mostra un'icona <Users />.
+Facendo clic sull'icona si alterna l'iniziativa individuale/di gruppo.
+
+Quando una voce è contrassegnata come _iniziativa di gruppo_, non può essere eliminata (vedi sotto), né facendo clic sul simbolo del cestino <TrashAlt /> né rimuovendo l'oggetto associato.
+Evidenzierà comunque il segnalino associato al passaggio del mouse; al momento non esiste una funzionalità per evidenziare più oggetti contemporaneamente.
+
+### Eliminazione
+
+La colonna più a destra, che raffigura un <TrashAlt />, serve per eliminare la voce dalla lista.
+Il DM può eliminare qualsiasi voce dalla lista dell'iniziativa.
+I giocatori possono eliminare solo le voci a cui hanno accesso.
+
+L'eliminazione di un segnalino aggiunto all'iniziativa, o il suo spostamento in un'altra posizione, eliminerà anche la voce associata nello strumento Iniziativa.
+
+Le voci aggiunte all'Iniziativa di Gruppo (vedi sopra) non possono essere eliminate.
+
+## Barra delle funzioni
+
+La barra delle funzioni è una singola riga che contiene l'indicatore `Round`, che mostra il round corrente dell'azione/combattimento a sinistra, e quattro pulsanti a destra di questo indicatore.
+
+### Blocco Automatico della Visione
+
+<Eye /> attiva/disattiva il blocco automatico della visione. Questa funzione è utile per i giocatori che possiedono più
+di un segnalino. Se attivo, ogni volta che l'azione viene assegnata a un altro oggetto (vedi [turno
+successivo](/it/docs/tools/initiative/#next-turn) di seguito), verrà mostrata solo la visione di questo oggetto. Può
+essere attivato/disattivato individualmente da ogni giocatore. Il blocco automatico della visione mostrerà solo la
+visione degli oggetti a cui i giocatori hanno il giusto accesso.
+
+<Info title="Strumento Vision">
+    Il blocco automatico della visione attiva la riconfigurazione dello [strumento Vision](/it/docs/tools/vision/). Usa
+    quello strumento per configurare quali linee di vista vuoi vedere, al di fuori dell'iniziativa.
+</Info>
+
+Il pulsante non ha alcuna funzione per i DM, poiché vedono sempre tutto.
+
+### Blocco Automatico della Fotocamera
+
+Il <Video /> attiva/disattiva il blocco automatico della fotocamera.
+Quando il blocco automatico della fotocamera è attivo, ogni volta che l'azione viene assegnata a un altro oggetto (vedi sotto), il viewport viene centrato sull'oggetto ora attivo.
+Questo può essere attivato/disattivato individualmente da ogni giocatore.
+Il blocco automatico della fotocamera centrerà il viewport solo sugli oggetti che i giocatori sono in grado di controllare.
+Quindi, per il DM, il centro del viewport cambierà praticamente a ogni clic su _Next_.
+Il viewport dei Giocatori cambierà solo quando un segnalino che controllano diventa attivo secondo il Tracker Iniziativa.
+
+### Reset
+
+Il pulsante <SyncAlt /> reimposta round e turni.
+I round verranno reimpostati al Round 0 e l'azione verrà assegnata all'oggetto in cima alla lista.
+Nota che né i valori dell'iniziativa né gli Effetti Temporizzati vengono reimpostati.
+Questa funzione è disponibile solo per i DM.
+
+### Turno Successivo
+
+Il pulsante <ChevronRight /> (_Next_) assegna il prossimo giocatore nell'ordine di iniziativa come _attivo_ (vedi sopra).
+Questa funzione è disponibile solo per i DM.

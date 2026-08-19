@@ -1,0 +1,141 @@
+---
+title: Rotolando dolcemente nell'autunno - Release 0.29.0
+date: 2021-10-28 20:00:00
+excerpt: "Cosa c'è di nuovo?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+È passato un po' di tempo, eravamo in ritardo su una nuova release! Non è una release grandissima, ma include alcuni nuovi strumenti divertenti con cui giocare, oltre alla solita serie di correzioni di bug.
+
+## Dadi virtuali
+
+La prima grande novità è il lancio di dadi virtuali! Una parola di cautela però: la versione inclusa in questa release non è ancora rifinita.
+Spero di ricevere qualche feedback su come ci si sente per dare forma al futuro del lanciatore di dadi.
+
+Il lancio dei dadi è disponibile come strumento dedicato in modalità Play, sia per il DM che per i giocatori.
+Puoi costruire un set di dadi (attualmente limitato ai dadi dX) e lanciarli sullo schermo.
+Il risultato apparirà sullo schermo in una finestra e verrà anche ricordato all'interno dello strumento Dadi.
+
+Puoi opzionalmente scegliere di condividere i risultati dei dadi con tutti i giocatori, che mostrerà una piccola notifica sul loro schermo quando lanci.
+(cioè i dadi non vengono lanciati visivamente sugli schermi degli altri giocatori)
+
+#### Una nota sul comportamento
+
+I dadi sono emulati/approssimati con un vero sistema fisico. Può capitare che PA assuma che il dado si sia fermato nella posizione finale e mostri un risultato, eppure il dado rotoli un'ultima volta. Questi intoppi verranno sistemati in futuro; se intendi usare molto questa funzione nella tua campagna, potrebbe essere saggio decidere in anticipo quale valore considerare come quello reale
+
+#### Una nota sul caricamento
+
+I dadi usano un sistema di rendering 3D completo (un ringraziamento a babylonjs e ammojs). Questo porta con sé molto codice extra attraverso le dipendenze, che aumenta notevolmente le dimensioni del bundle e quindi il tempo di caricamento di PA.
+
+Per ovviare a questo, tutto il codice relativo ai dadi non viene caricato durante il caricamento principale di PA, ma viene rimandato fino al primo clic sullo strumento Dadi. Questo significa che potrebbe esserci un piccolo ritardo la prima volta che interagisci con lo strumento Dadi.
+
+## Cursore dello strumento Draw
+
+Qualche tempo fa è stata presa la decisione di non mostrare più il puntatore del mouse quando si usa lo strumento Draw, poiché non è mai sincronizzato al 100% con il loop di disegno di PA, causando un certo ritardo visivo tra il cursore reale e quello presunto in gioco.
+
+Senza il cursore desincronizzato, le operazioni di disegno risultano più fluide, ma è diventato piuttosto facile perdere il conto di dove ti trovi effettivamente sulla tela. Questo è ancora più vero quando disegni con colori trasparenti o molto simili allo sfondo della mappa.
+
+Questa release reintroduce un cursore del mouse, non il vero cursore del sistema operativo, ma un cursore fittizio che è solo un poligono di PA stesso, che essendo una forma di PA sarà sempre in sincronia con il loop di disegno e quindi apparirà fluido.
+
+## Strumenti di modifica dei poligoni
+
+Da quando i poligoni sono stati introdotti parecchio tempo fa, sono facilmente la forma che uso di più, soprattutto per tutto ciò che riguarda illuminazione/visione.
+
+A volte mi dimentico che un certo muro aveva una porta segreta e sistemarlo durante la sessione è piuttosto difficile, perché dovresti rimuovere l'intero muro e rifarlo, il che a seconda della lunghezza del poligono può essere un bel problema. Oppure sposti semplicemente i personaggi attraverso il muro con shift, che è quello a cui ricorro di solito.
+
+Questo non deve più essere così, dato che ho finalmente aggiunto strumenti per modificare i poligoni esistenti!
+
+Quando selezioni un poligono in modalità Build, apparirà un'interfaccia extra vicino al poligono che seguirà il tuo mouse.
+Passando il mouse sopra un bordo, avrai l'opzione di aggiungere un punto extra al poligono o di dividere il poligono in quel punto.
+Passando il mouse sopra un punto, potrai rimuoverlo.
+
+## CLI di amministrazione del server
+
+_Contributo di CalebKoch_
+
+Il server python ha guadagnato alcune utilità extra per gestire il server senza dover entrare in una shell python.
+
+In particolare ora può:
+
+- elencare tutti gli utenti
+- elencare tutte le room (cioè le campagne)
+- rimuovere uno specifico utente/room
+- reimpostare la password di un utente
+
+## Gestione dei muri SVG
+
+Dalla release 0.26.0 è possibile allegare informazioni sui muri sotto forma di file svg a praticamente qualsiasi oggetto in PA, anche se il caso d'uso principale è ovviamente per le mappe.
+Il sistema estraeva le informazioni sui path dall'svg e le salvava nelle opzioni della forma per un accesso rapido.
+
+La vecchia estrazione dei path ignorava qualsiasi transform impostata sugli elementi (ad es. translate/scale) e poteva quindi portare a dover ribaltare manualmente l'svg lungo l'asse y per ottenere il risultato corretto in PA.
+
+È stata scritta una nuova implementazione della gestione degli svg, che non mantiene più l'intero path associato all'asset, ma solo un riferimento all'svg vero e proprio, che viene poi analizzato separatamente al volo, permettendo che eventuali miglioramenti futuri alla gestione degli svg vengano applicati anche agli asset esistenti.
+
+Uno di questi miglioramenti è il supporto per le transform di translate e scale.
+
+Poiché non volevo rompere i flussi svg esistenti, dovrai riapplicare l'svg se vuoi beneficiare della nuova e migliorata gestione degli svg.
+
+In futuro intendo rimuovere il vecchio codice di gestione degli svg, quindi ti consiglio vivamente di riapplicare tutte le maschere svg che usi, altrimenti potrebbero smettere di funzionare (i dettagli verranno comunicati in seguito).
+
+## Miglioramenti all'interfaccia
+
+### Modalità strumento attiva
+
+La scorsa release ha modificato l'interfaccia relativa alle modalità strumento (cioè Play e Build).
+La distinzione tra le due è stata ulteriormente accentuata per rendere chiaro quale modalità è attualmente attiva.
+
+### Impostazioni di visione
+
+Non è più possibile configurare una portata massima di visione minore della portata minima e viceversa.
+
+### Interfaccia dell'angolo
+
+Le aure sono di solito cerchi completi di 360 gradi, ma questo può essere configurato insieme a un angolo di visuale per orientare l'aura in una direzione particolare.
+L'interfaccia per l'angolo di visuale ora offre anche un input numerico se vuoi essere più preciso o se non ti piace l'elemento circolare.
+
+### Selettore di varianti
+
+Il selettore di varianti è stato disattivato con il grande aggiornamento a vue3, in parte perché ritenevo che fosse troppo pieno di bug e poco usato dagli altri.
+
+A quanto pare mi sbagliavo parecchio su quest'ultima valutazione, dato che ho ricevuto molte domande sul perché le varianti non funzionassero più.
+
+Mi scuso con tutti voi: è stato riattivato con le sue funzionalità originali!
+
+#### Correzioni
+
+Sono stati corretti anche due bug relativi alle forme con varianti:
+
+##### Tracker/Aura
+
+La logica condivisa di tracker/aura aveva alcuni problemi che si traducevano in un comportamento incoerente.
+
+Ora dovrebbero funzionare correttamente :)
+
+Inoltre, quando si cambiava variante e la variante precedente aveva (più) aura non condivise, alcune di queste rimanevano sullo schermo senza muoversi insieme (cioè statiche). Anche questo è stato risolto.
+
+##### Cambio di luogo
+
+Quando si spostava una forma con varianti in un altro luogo, veniva spostata solo una parte delle varianti, causando diversi problemi (incluso il vecchio luogo che non poteva più essere caricato).
+
+## Correzioni di bug
+
+- Forme bloccate che potevano spostarsi tra i luoghi
+- Forme bloccate che potevano cambiare piano
+- Bug della portata minima di visione uguale a quella massima
+- Aura inclinate che non ruotavano con la rotazione generale della forma
+- Diversi problemi di stile in firefox
+    - Le annotazioni non riempiono più l'intera larghezza dello schermo
+    - Interfaccia dell'aura troppo larga
+- Sincronizzazione della viewport
+    - la viewport viene inviata immediatamente alla connessione (e non attende la prima panoramica)
+    - lo spostamento della viewport del DM ora è limitato e non dovrebbe più apparire lento sul client
+- Diverse correzioni relative al DPI
+- Diversi bug della modalità visione sperimentale
+    - Corretto l'avvio che non funzionava correttamente
+    - Corretto lo spostamento senza aggancio di una forma che blocca che non aggiornava la triangolazione del movimento
+- Blocco del movimento che non si aggiornava direttamente quando non si usa l'aggancio
+- Un certo calo di prestazioni per i poligoni grandi
+- Rimossa l'interfaccia di rotazione residua quando si rimuove una forma in modalità Build
+- Lo strumento Select mostrava il righello senza selezione
+- Il ridimensionamento del testo non veniva sincronizzato in tempo reale con gli altri client

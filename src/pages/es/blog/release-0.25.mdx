@@ -1,0 +1,134 @@
+---
+title: Lanza hechizos y deshaz tus acciones pasadas - Release 0.25.0
+date: 2021-02-07 13:30:00
+excerpt: "Una descripción general de las nuevas novedades"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
+Para la segunda release del año, he conseguido una release quizás un poco más pequeña de lo habitual, pero tiene bastante fuerza.
+
+Esta release contiene un par de funciones que los jugadores también disfrutarán mucho!
+
+## Revisión de las auras
+
+En primer lugar, una de mis funciones favoritas de esta release es una revisión de las auras!
+
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Ejemplo de rastreador de recurso" />
+
+La mayoría notará inmediatamente el dramático cambio de UI que ha sufrido la sección de auras, pero el ojo entrenado también notará 3 nuevas funciones añadidas.
+
+### Cambios en la UI
+
+La UI se ha cambiado para que solo la información básica sea visible por defecto (nombre + habilitada/deshabilitada) y cuando se abre un aura se pueden ver todos los detalles.
+Otro gran cambio es que las crípticas iconos de las auras ahora tienen etiquetas de texto dedicadas para evitar cualquier confusión.
+
+### Habilitar/Deshabilitar
+
+En el pasado no había una forma explícita de deshabilitar un aura; podías eliminarla o establecer sus valores de rango a 0.
+
+Ambas acciones son algo molestas, así que ahora finalmente hay un interruptor dedicado visible en todo momento.
+
+### Borde
+
+En el pasado el borde era invisible, pero ahora es posible especificar un color para el borde.
+
+Esto es especialmente útil con auras que no son fuentes de luz, donde podrías querer rastrear algo pero no quieres tener el aura completa rellena de color, ya que podría convertirse en un lío visual si hay muchas auras en juego. Así que ahora puedes hacer el aura transparente pero darle, por ejemplo, un borde negro sólido.
+
+### Conos
+
+El último cambio es la capacidad de cambiar el aura para no cubrir un círculo completo, sino limitarse a un cono.
+
+El parámetro de ángulo contiene 2 herramientas de entrada, la primera un campo numérico regular para elegir la anchura del ángulo,
+la segunda para elegir la dirección real hacia la que debe apuntar el aura.
+
+Esta es una función más de nicho, que no espero que se use mucho, pero la gente puede usarla para reglas de visión duras, fuentes de luz especiales o simplemente cualquier cosa que se te ocurra!
+
+## Deshacer/Rehacer
+
+Una función muy solicitada, por buenas razones, es la capacidad de deshacer acciones.
+
+Esta release añade una primera versión de la funcionalidad de deshacer y rehacer limitada a un conjunto inicial de acciones.
+Estas acciones son:
+
+- movimiento de formas
+- rotación de formas
+- redimensionamiento de formas
+- cambio de planta
+- cambio de capa
+- creación/eliminación de formas
+
+Esto debería cubrir algunas cosas básicas (moverse) y también lo más importante que es molesto: la eliminación accidental de formas.
+Así que cosas como cambios específicos de propiedades y similares aún no se pueden deshacer, pero hay una base con la que trabajar.
+
+ctrl+z se usa para deshacer acciones, ctrl+shift+z se usa para rehacer acciones.
+
+Actualmente hay una memoria de acciones fija de 50 acciones.
+
+_¿Por qué no ctrl+r para rehacer? Sobrescribiría una tecla común de recarga del navegador, lo que prefiero no hacer._
+
+## Lanzamiento de hechizos
+
+Una petición que he tenido un par de veces es proporcionar algo que permita lanzar hechizos o al menos algunas herramientas para ver si ciertos enemigos serían alcanzados por un hechizo concreto.
+
+Ahora verás una nueva herramienta aparecer en la barra de herramientas (en play mode) llamada apropiadamente 'Spell' que te permitirá hacer justamente eso!
+
+Aquí tienes una pequeña vista previa de lo que puedes esperar:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+Como se puede ver, tienes la opción de elegir entre 3 formas base (círculo/cuadrado/cono) y puedes configurar cosas como el tamaño del hechizo y el alcance.
+
+El comportamiento por defecto se centra solo en medir, ver cuál sería el impacto de los hechizos,
+pero cuando haces clic izquierdo en realidad "lanzas" el hechizo y el efecto permanecerá en el campo de batalla!
+
+Para más información sobre cómo funciona la herramienta Spell consulta [la documentación](/es/docs/tools/spell/)
+
+## Archivado de ubicaciones
+
+Cuando una campaña dura mucho tiempo, llega un momento en que tu barra de ubicaciones podría llenarse.
+Puedes vivir con ello y desplazarte a la derecha o arrastrar manualmente las ubicaciones activas a la izquierda.
+
+Con esta release ahora existe la opción de archivar ubicaciones. Esto simplemente las oculta de la barra pero las deja por lo demás intactas.
+El archivado se hace desde la configuración de la ubicación.
+
+Se añade un nuevo botón de UI a la izquierda de la barra de ubicaciones para restaurar las ubicaciones archivadas a la barra.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
+</video>
+
+## Anotaciones públicas
+
+Una función más pequeña es que ahora hay una opción para hacer públicas las anotaciones de las formas.
+
+## Correcciones notables
+
+### Barra de ubicaciones (DM)
+
+La ubicación de los jugadores ahora se actualiza con precisión en vivo cuando se mueven a otra ubicación como parte de un teletransporte a un spawn.
+
+### Auras privadas de la herramienta Vision
+
+La herramienta Vision es una herramienta agradable de tener cuando controlas varios personajes en 1 pantalla.
+Sin embargo, no tenía en cuenta correctamente la configuración pública/privada de las auras y siempre mostraba todas las auras de las fichas que controlas, incluso si habías deshabilitado la visión de una de las fichas.
+
+### Nuevas plantas no funcionaban hasta el refresh
+
+Al crear nuevas plantas, ya no necesitarás refrescar porque no estaban trianguladas correctamente.
+
+### Sincronización de nombres de formas
+
+Al alternar la visibilidad del nombre de las formas había algunos problemas de sincronización que se han resuelto.
+
+### Visión en múltiples plantas
+
+Hubo un bug que se coló recientemente que permitía que las auras en una planta iluminaran también las cosas en las plantas de abajo.

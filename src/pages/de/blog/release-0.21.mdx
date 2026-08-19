@@ -1,0 +1,232 @@
+---
+title: Release 0.21.0 - Was gibt's Neues!
+date: 2020-06-13 21:02:34
+excerpt: "Was gibt es Neues in 0.21.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+In diesem Release gibt es einige neue Formeigenschaften, ein Spawn-Ort-System, Übersetzungen, eine Reihe von Verbesserungen der Lebensqualität und mehrere Fehlerbehebungen wie üblich.
+
+## Form
+
+Zu den Formeigenschaften wurden einige neue Extras hinzugefügt, und auch die Kollisionserkennung während der Bewegung wurde verbessert.
+
+### Unsichtbar-Umschalter
+
+Es ist nun möglich, eine Form als unsichtbar zu markieren. Dadurch ist sie für alle Spieler unsichtbar, die keinen Sichtzugriff auf die Form haben.
+Spieler mit Sichtzugriff sehen die Form wie gewohnt.
+
+Das ist besonders praktisch für Dinge wie unsichtbare Vertraute, aber auch für verschiedene lichtabstrahlende Objekte.
+Letzteres ist interessant, weil sich der Unsichtbar-Umschalter nicht auf die Auren dieser unsichtbaren Formen auswirkt.
+Das ist ideal, wenn du einer Szene eine Lampe hinzufügen möchtest, ohne dass deine Spieler einen hässlichen Kreis sehen, von dem das Licht ausgeht.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/invisible.webm" type="video/webm" />
+    <source src="/blog/release-0.21/invisible.mp4" type="video/mp4" />
+</video>
+
+### Gesperrt-Umschalter
+
+Ein weiterer neuer Umschalter ist der Gesperrt-Umschalter, der verhindert, dass das Token bewegt und/oder in der Größe verändert wird.
+Das ist vor allem für den DM nützlich, der sicherstellen möchte, dass er seine Karte oder die Grenzen der Beleuchtung nicht versehentlich verschiebt.
+
+Es gibt auch ein Tastenkürzel (ctrl + L), das auch bei größeren Auswahlen funktioniert, sodass du die Eigenschaften nicht für jede Form einzeln öffnen musst.
+
+Wichtig zu beachten ist, dass gesperrte Formen nicht in Auswahlen einbezogen werden, es sei denn, es gibt nur gesperrte Formen im ausgewählten Bereich.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/locked.webm" type="video/webm" />
+    <source src="/blog/release-0.21/locked.mp4" type="video/mp4" />
+</video>
+
+### Bewegungszugriff
+
+Im letzten Release wurde der Zugriffsbereich erweitert, indem eine Berechtigung für reine Sicht hinzugefügt wurde, für andere Spieler, die eine Form nicht bearbeiten dürfen, aber deren private Sicht sehen dürfen.
+
+Dieses Release fügt eine zusätzliche Zugriffsberechtigung hinzu, die es einem anderen Benutzer erlaubt, die Form zu bewegen.
+
+### Kollisionsverbesserungen
+
+Der Hitbox-Kollisionstest mit Wänden war schon immer sehr streng und manchmal zu streng (aufgrund kleiner Rundungsfehler).
+Das sorgt während des Spiels für ein unangenehmes Erlebnis, wenn man versucht, durch einen kleinen Korridor oder eine Tür zu gehen.
+
+Ab diesem Release ist die für den Kollisionstest verwendete Hitbox während der Bewegung viel kleiner, was ein flüssigeres Gameplay ermöglicht.
+
+## Spawn-Orte
+
+Ein neues Konzept in diesem Release ist das Konzept der Spawn-Orte.
+Dies ist eine DM-Funktion, die festlegt, wo Tokens erscheinen, wenn sie ihren Ort wechseln.
+
+Auf der DM-Ebene sollte nun immer eine spezielle Form erscheinen, die vom DM frei bewegt werden kann (auch zwischen Etagen).
+Wenn der DM ein Token an einen anderen Ort verschiebt, erscheint es zentriert auf der oben genannten Spawn-Form.
+
+Derzeit ist dies auf einen Spawn pro Ort beschränkt, aber die Unterstützung mehrerer Spawns wird in Zukunft hinzugefügt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.21/spawn.mp4" type="video/mp4" />
+</video>
+
+Im obigen Video werden die Tokens aus Präsentationsgründen zum aktiven Ort bewegt, aber dasselbe Konzept gilt für das Verschieben von Formen an andere Orte.
+
+## i18n
+
+Der Codebasis wurde Internationalisierung (i18n) hinzugefügt, was bedeutet, dass nun an Übersetzungen gearbeitet werden kann. Zum Zeitpunkt der Erstellung dieses Textes gibt es bereits Übersetzungen für Chinesisch und Deutsch.
+
+Im Login-Bildschirm gibt es ein Sprachauswahl-Element, um zwischen den derzeit unterstützten Sprachen zu wechseln.
+
+![Sprachauswahl](./0.21/language.png)
+
+## Lebensqualität
+
+In diesem Release wurde an einer Reihe kleinerer Verbesserungen der Lebensqualität gearbeitet.
+
+### Build-/Play-Modus
+
+Eine der bemerkenswertesten Änderungen sind die neuen „Tool-Modi". Die Toolbar wurde mit jedem Release größer und größer.
+Zusätzlich sind einige Werkzeuge während der meisten Sitzungen nicht relevant, sondern nur während der DM-Vorbereitung.
+
+Deshalb ist die Toolbar nun in 2 Modi aufgeteilt: Build- und Play-Modus.
+Zwischen den beiden Modi kann man umschalten, indem man auf den Buchstaben am Ende der Toolbar klickt oder die TAB-Taste drückt.
+
+Einige Werkzeuge erscheinen nun nur noch in einem der beiden Modi (z. B. Draw im Build-Modus und Ping im Play-Modus).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/toolmode.webm" type="video/webm" />
+    <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4" />
+</video>
+
+#### Größe von Formen ändern
+
+Einige Werkzeuge können nun auch je nach aktivem Modus ein unterschiedliches Verhalten haben.
+
+Ab 0.21.0 kann das Select-Werkzeug die Größe von Formen nur noch im Build-Modus ändern. Alle anderen Funktionen des Select-Werkzeugs bleiben im Play-Modus nutzbar.
+
+Diese Änderung wurde eingeführt, weil Leute beim Verschieben von Formen oft versehentlich deren Größe veränderten und das Ändern der Größe einer Form während des Spiels nicht oft vorkommt.
+
+### Changelog
+
+Eine weitere auffällige Änderung ist, dass es nun ein Changelog-Popup gibt, um Spieler darüber zu informieren, dass der Server aktualisiert wurde.
+
+![Changelog anzeigen](./0.21/changelog.png)
+
+### Öffentlicher Ruler-Umschalter
+
+Das Ruler-Werkzeug hat nun ein kleines Options-Popup wie die Draw- und Map-Werkzeuge.
+Es hat nur eine Einstellung, nämlich einen Umschalter, um zu entscheiden, ob dein Ruler privat oder öffentlich sein soll.
+
+### Initiative
+
+Wenn du deine Initiative eingibst, während alle anderen Spieler dasselbe tun, musstest du oft neu versuchen, weil jemand anderes schneller war, was zu einer Neusortierung der Initiative-Liste führte und du deinen Eingabefokus verlorst.
+
+Von nun an wartet die UI mit dem Aktualisieren, solange du ein Eingabefeld im Initiative-Dialog fokussiert hast, bis du das Eingabeelement verlässt.
+
+### Spieler-UI einschränken
+
+Es gab einige Stellen, an denen Spieler Zugriff auf Optionen hatten, die nur dem DM zur Verfügung stehen sollten.
+
+Ab diesem Release können Spieler keine Etagen mehr entfernen oder hinzufügen und können ihre Formen auch nicht mehr selbst auf andere Ebenen/Etagen/Orte verschieben.
+
+## Varia
+
+- Das Erstellen einer neuen Etage versetzt nicht mehr automatisch alle auf diese Etage
+- Die im Spiel oben links angezeigte Version ist nun auf die neueste Release-Version beschränkt
+- Basistokens haben nun standardmäßig ihren Labelnamen statt „Unbekannte Form"
+- Benutzer mobiler Geräte können keinen Overscroll-Refresh mehr auslösen, indem sie sich einfach bewegen
+- Beim Überfahren eines Bildes in der Initiative-Liste mit der Maus wird nun der Name der Form angezeigt
+- Das Polygon-Werkzeug verhält sich nun auch beim Einrasten wie andere Formen. Jeder Punkt rastet an einer Rasterlinie ein, es sei denn, du deaktivierst das Einrasten.
+
+## Fehlerbehebungen
+
+- Die Servererstellung von Polygonen mit einer initialen Scheitelpunktliste brach die Sitzung
+- Der Etagenort eines Spielers wurde nicht gespeichert
+- Ruler zeigte keine Dezimalstellen an
+- DM-Einstellungen/Raster-Einheitengröße zeigten in Firefox bei Gleitkommazahlen ungültige Eingaben an
+- Server zeigte JSON-Decodierungsfehler an
+- Spieler konnten Initiative-Effekte nicht aktualisieren
+- Die aktive Ebene wurde beim Neuladen manchmal zurückgesetzt
+- DMs konnten sich selbst kicken
+- Einige UI-Komponenten wurden beim Zurücksetzen der Form nicht richtig aktualisiert
+- Bereich rechts vom Ebenen-Selektor verhinderte Draw/Select
+- Tastatur-Zentrieren warf einen Fehler, wenn keine Tokens definiert waren
+- Mehrere Fehler bei der Initiative-Synchronisierung
+- Drei Fehler beim Speichern/Laden ortsspezifischer Optionen
+- Scrollleiste am unteren Seitenrand in Firefox, wenn die Ortleiste nicht auf den Bildschirm passt
+- Fehler, bei dem eine Lichtquelle mit Radien von 0/0 das gesamte Licht dieser Form blockierte
+
+## Als Nächstes
+
+Mich fragen oft Leute, was als Nächstes auf der Roadmap steht, daher wollte ich einige Themen teilen, die ich in den kommenden Releases angehen möchte.
+Diese Liste ist weder vollständig noch verbindlich und wird auch nicht vollständig im nächsten Release erscheinen, sie ist eine Vorschau auf mögliche kommende Dinge.
+
+##### Vorbereitungsarbeiten an Metadaten/Export/Import
+
+Es gab einige Diskussionen auf dem Discord-Server über das Hinzufügen von Metadaten zu Assets und die Möglichkeit, diese in andere Server zu importieren/exportieren.
+Bevor ich mich dem Hauptproblem widmen kann, müssen einige Vorbereitungsschritte erledigt werden.
+
+##### Rotation
+
+Rotation ist etwas, das in PA schon länger fehlt und endlich in Angriff genommen werden sollte.
+
+##### Neustrukturierung der Startsequenz
+
+Die derzeitige Startsequenz (Reihenfolge der Ereignisse beim Laden des Spiels) sollte überarbeitet werden. Es gibt einige Leistung zu gewinnen, indem man hier Dinge umsortiert,
+und einige Dinge werden unnötigerweise gesendet.
+
+##### Wechsel zu fontawesome-vue
+
+Die Symbole in PA werden von fontawesome bereitgestellt, derzeit durch das Sideloading der fontawesome.js-Bibliothek. Dies ist eine große Datei und kostet Ladezeit, was behoben werden kann,
+indem eine vue-spezifische Bibliothek verwendet wird, die nur die tatsächlich verwendeten Symbole enthält.
+
+##### Asynchrone Asset-Liste im Spiel
+
+Beim Start erhält der DM die gesamte Asset-Liste, damit sie in der Sidebar angezeigt werden kann.
+Das ist verschwendete Mühe, der Asset-Manager im Spiel sollte – genau wie der vollständige Asset-Manager – die Daten vom Server anfordern, wenn er sie benötigt.
+
+##### Polygon-Verbesserungen
+
+Polygone sind großartig, können aber noch einige zusätzliche Funktionen gebrauchen, wie das Hinzufügen und Entfernen von Punkten bei bestehenden Polygonen.
+
+##### Verbesserungen des Etagen-Werkzeugs
+
+Es sollte möglich sein, Etagen neu zu sortieren und umzubenennen sowie Optionen, um Etagen vor Spielern zu verbergen.
+
+##### Auren-Optionen erweitern
+
+Auren könnten einige neue Funktionen gebrauchen, wie Rahmenfarben und andere Formen wie Kegel-Auren.
+
+##### Öffentliche Sichtbarkeit von Etagen
+
+Etageninformationen sind derzeit für alle Spieler öffentlich, das sollte wahrscheinlich eine Behandlung für Öffentlichkeit/Sichtbarkeit bekommen, wie viele andere Dinge in PA.
+
+##### Cursor im Draw-Werkzeug verbessern
+
+Im Draw-Werkzeug wird ein benutzerdefinierter Mauscursor verwendet, um ein flüssigeres Zeichenerlebnis zu ermöglichen. Er ist jedoch nicht immer klar sichtbar, was sehr nervig ist.
+
+##### Hexagonales Raster
+
+Die Unterstützung für hexagonale Raster wurde in der Vergangenheit schon einige Male angefragt, also sollte ich früher oder später eine gewisse Unterstützung für diesen Rastertyp hinzufügen.
+
+Einige vorhandene Logik basiert auf rechteckigen Rastern, daher wird eine erste Version vielleicht nur die Darstellung von Hexen unterstützen, aber keine Einrastfunktionen. Noch zu untersuchen.
+
+##### Schnelles Laden der aktuellen Etage
+
+Derzeit wartet das Spiel beim Laden eines Ortes, bis alle Etagen geladen sind.
+Das kann verbessert werden, indem zuerst die aktive Etage geladen wird und dann die anderen Etagen.
+
+##### Blurhash
+
+Einige Bilder, insbesondere Karten, können länger zum Laden brauchen. Ich möchte gerne ein schnelles Blurhash als visuellen Hinweis bereitstellen, dass ein Bild lädt, bis das vollständige Bild verfügbar ist.
+
+##### Mehrere Spawn-Orte
+
+Wie in den Release-Notizen erwähnt, unterstützt das neue Spawn-Ort-System keine mehreren Spawns an einem Ort.
+Dies zu erweitern ist möglich und ist meist ein UI-Problem, das relativ einfach sein sollte.
+
+##### Weitere Gruppierungsoptionen
+
+Es gibt einige Gruppierungslogik, wenn du Formen kopierst und einfügst, aber es gibt keine weiteren Funktionen.
+Dinge wie das Hinzufügen eines Tokens zu einer Gruppe, das Zusammenführen von Gruppen, das Aufteilen von Gruppen usw. sind aus verschiedenen Gründen interessant.
+
+Das automatische Anwenden des Gruppen-Initiative-Umschalters für Gruppen ist eine weitere QoL-Änderung, die ich hinzufügen möchte.

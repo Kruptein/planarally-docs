@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Strumento Select
+
+Uno degli strumenti più usati è lo strumento Select.
+Il suo scopo, come suggerisce il nome, è selezionare una o più forme sul tavolo, ma anche spostarle.
+È accessibile tramite la barra degli strumenti in basso a destra dello schermo da tutti i giocatori, ma si comporta in modo diverso a seconda della [modalità](/it/docs/tools-overview/#toolbar-and-modes) attiva.
+
+Inoltre, in modalità Build, consente anche di ruotare e ridimensionare le forme.
+
+## Nozioni di base sulla selezione
+
+Puoi cliccare su una singola forma, oppure trascinare un riquadro attorno a un gruppo per spostarle tutte insieme.
+
+Per aggiungere forme a una selezione esistente, tieni premuto `Ctrl` e seleziona le nuove forme.
+
+Per deselezionare le forme puoi semplicemente cliccare su un punto vuoto del tavolo oppure usare la scorciatoia da tastiera `d`.
+
+_Quando fai una selezione di gruppo, verranno selezionate solo le forme che possiedi realmente. Questo in contrasto con il normale comportamento del clic, che può selezionare anche forme non possedute._
+
+## Spostamento
+
+Puoi spostare la selezione semplicemente trascinandola sulla mappa.
+
+Il DM può aver definito oggetti invalicabili (ad es. un muro).
+Questi fermeranno il movimento.
+Il DM e tutti i Co-DM hanno la possibilità di ignorare i vincoli di movimento mentre premono il tasto `shift`.
+
+Attivando l'interruttore `show ruler` sopra il pulsante `select` nella barra degli strumenti, trascinare un oggetto mostrerà anche un righello che misura la distanza percorsa.
+Questo righello funziona come lo [strumento Ruler indipendente](/it/docs/tools/ruler/) e condividerà anche le sue impostazioni.
+
+## Ridimensionamento
+
+_Per ridimensionare una forma devi essere in modalità 'build'_
+
+Il ridimensionamento si effettua semplicemente afferrando uno degli angoli della forma e trascinandolo in un altro punto.
+La maggior parte delle operazioni di ridimensionamento interessa solo l'angolo trascinato, lasciando in posizione tutti gli altri angoli.
+
+L'unica eccezione attuale sono i cerchi, che al contrario aumentano/diminuiscono il raggio quando vengono ridimensionati.
+Questo comportamento potrebbe cambiare in futuro.
+
+## Rotazione
+
+_Per ruotare una forma devi essere in modalità 'build'_
+
+In modalità Build è visibile un'interfaccia di rotazione speciale che mostra un punto di ancoraggio e un riquadro.
+
+Quando muovi l'ancora, ruoti l'intero riquadro attorno al suo punto centrale.
+
+La rotazione delle forme non è limitata a singole forme, ma può essere applicata anche a un intero gruppo.
+Ricorda che il centro del riquadro verrà usato come punto di rotazione.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+La rotazione ha anche un [comportamento di aggancio](/it/docs/game/snapping/) agli angoli comuni (multipli di 45 gradi).
+
+## Ordine di selezione
+
+Le forme sul tavolo vengono disegnate in un certo ordine che determina quale forma deve essere selezionata in caso di sovrapposizione.
+
+Puoi modificare l'ordine facendo clic con il pulsante destro su una forma e spostandola in fondo o in cima alla pila.

@@ -1,0 +1,289 @@
+---
+title: Tilbageblik på 2021 og blikket fremad!
+date: 2022-01-12 20:00:00
+excerpt: "En opdatering om PA's fremgang og planer for fremtiden"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+## Introduktion
+
+Hey allesammen, Darragh her til at tjekke ind og give nogle tilfældige tanker, ideer og snakkerier om PA.
+
+Jeg laver ikke ofte sådanne blogindlæg, der ikke bare er release notes, simpelthen fordi jeg ofte ikke ved, hvad jeg skal tale om, og jeg er generelt ikke god til at skrive sammenhængende tanker. De sidste releases har dog været relativt små og langsommere, så jeg ville bruge tiden på at vise, at det ikke er dødt!
+
+## 2021-releases
+
+Tempoet for PA-releases har altid vekslet på grund af forskellige faktorer i mit liv, der påvirker min produktivitet, så set i bakspejlet er det ikke så unormalt at se et langsommere release-skema i de sidste par måneder.
+
+Ser jeg på mine blogindlæg, havde vi 6 releases sidste år, 3 af dem i de første 3 måneder, 2 om sommeren og derefter én mere i oktober. Ser jeg på 2020-releases, er det faktisk en stigning fra 5 til 6!
+
+Rene tal siger dog ikke rigtig så meget, fordi nogle releases indeholder mere indhold end andre, så lad os se, hvad vi faktisk opnåede sidste år!
+
+_Jeg vil kun komme ind på bemærkelsesværdige ting, eller ting som jeg gerne vil sige noget om; vi lavede mere end bare dette!_
+
+### Hexagoner
+
+_Tilføjet i 0.24_
+
+Støtte til hexagoner blev tilføjet i starten af året. Det er en temmelig simpel ændring, og der er ikke sket meget med hexagoner siden, hvilket er en smule ærgerligt fra min side, da de stadig er andenrangsborgere, idet ting som snapping endnu ikke virker for disse grids.
+
+Det er en af de ting, som jeg personligt aldrig bruger, så jeg bliver aldrig generet af det og hører heller ikke rigtig nogen klager over det, så jeg ved ikke, hvor udbredt brugen af hexagoner generelt er. Hvis du er én, der ofte bruger hexagoner og mangler nogle funktioner i den henseende, så sig til!
+
+### Forbedringer af gruppelogik
+
+_Forbedret i 0.24_
+
+Grupper havde allerede i længere tid været et koncept i PA, men 0.24-releasen hævede brugervenligheden en hel del. Det er en funktion, som jeg faktisk selv bruger meget, og som jeg synes er i en temmelig god position lige nu. Så temmelig glad for det!
+
+### Varianter
+
+_Tilføjet i 0.24 og 0.29_
+
+Varianter, eller nogle gange kaldet 'Composite Shapes', blev tilføjet som en eksperimentel funktion og er stadig i høj grad eksperimentelle. De var endda deaktiveret i en kort periode efter en stor migration, da jeg troede, at ingen brugte dem, men det tog jeg fejl i, så undskyld for det!
+
+Denne funktion har et sjovt potentiale; jeg har én spiller, der bruger den til at ændre deres eladrins farvepalet, men den har mange flere anvendelser end bare det.
+
+Den er funktionel, men stadig en smule ujævn i nogle områder, så jeg håber, at jeg finder tid til at rydde lidt op i det.
+
+Denne form tilføjer en masse kompleksitet, da den er en samling af former, der er forbundet med hinanden — noget vi vender tilbage til i et senere afsnit — men det er også grunden til, at jeg ofte er tilbageholdende med at røre ved den, da den er meget fejlbehæftet.
+
+### Initiative
+
+_Ændret i 0.24 og 0.27_
+
+Initiative-værktøjet er et, som jeg bruger meget, af indlysende grunde. Det plejede at være fyldt med nogle synkroniseringsproblemer og andre UI-kneb, så jeg var glad for at se det første hold problemer blive rettet i 0.24.
+
+Det var dog release 0.27, der for alvor forbedrede Initiative-værktøjet, og jeg har ikke haft nogen store problemer med det siden denne release. Det fik også en UI-omskrivning med flere funktioner til at give DM'en flere værktøjer i andre scenarier.
+
+### Import/eksport af aktiver
+
+_Tilføjet i 0.24_
+
+Tidligt på året fik vi også støtte for import/eksport af aktiver tilføjet til aktivmanageren.
+
+Det er en af de funktioner, der også er temmelig basal lige nu. De gør nogenlunde, hvad de skal, men der er meget, der kan forbedres her.
+
+### Forbedringer af trackere og auraer
+
+_Ændret i 0.25 + 0.26_
+
+En anden ændring, som jeg er rigtig glad for, hvordan den blev, er ændringerne af trackere og auraer. UI'et er nu meget renere og forklarer tingene bedre i stedet for bare at være en smule funktionelt.
+
+Jeg har også haft en del sjov med de vinklede auraer, som nu er mulige, selvom de temmelig meget er en gimmick til standard Dungeons & Dragons :D
+
+Senere i 0.26 var Scoodle så venlig at tilføje visuelle bjælker for trackere til at holde styr på ting som HP eller hvad du nu vil. Det er noget, som mine spillere er begyndt at bruge en del, og det ser generelt ud til at blive godt modtaget i mine egne spilcirker.
+
+### Undo/Redo
+
+_Tilføjet i 0.25_
+
+Noget, der længe manglede i PA, var undo-funktionalitet. Hvis man ødelagde noget, var man på herrens mark.
+
+Heldigvis blev en form for undo/redo tilføjet for de store handlinger som at flytte former eller fjerne ting. Det er en af de ting, som jeg ofte glemmer ikke eksisterede før sidste år, men som kan redde nogle små frustrationer fra tid til anden, hvilket er dejligt at have.
+
+Der er langt fra alle handlinger, der kan fortrydes lige nu, og det var en bevidst beslutning for at få det ud så hurtigt som muligt til store operationer. Hvis der er nogle ting, du ønsker var en del af undo/redo-systemet, så lad mig det vide!
+
+### Spell-værktøjet
+
+_Tilføjet i 0.25_
+
+Når man kaster spells i spil som D&D, kan vi ofte have gavn af en visuel hjælp til at se, hvad der ville ramme, og hvad der ikke ville. I teorien kunne vi allerede opnå dette med Draw-værktøjet, men det kræver en indsats og spilder værdifuld tid ved spillebordet, hvilket er grunden til, at Spell-værktøjet blev tilføjet.
+
+Jeg er en smule splittet omkring Spell-værktøjets nuværende tilstand; jeg har spillere, der bruger det hyppigt, men der er nogle små fejl, som stadig ser ud til at være derinde, og som kan tage noget af selve formålet med at spare tid. Så jeg håber at finde tid til at tage hånd om dem i år!
+
+### UI-omskrivninger
+
+_Ændret i 0.26_
+
+En STOR ændring var UI'et for alt, der ikke var selve spillet eller aktivmanageren. Login-skærmen, brugerindstillingerne og spilvalget blev alle omskrevet i en ensartet stil for at slippe af med det gamle og meget simple UI, vi plejede at have. Da jeg skrev dette, kunne jeg næsten ikke huske, hvordan det plejede at se ud!
+
+Det er en ændring, som jeg elsker personligt; på den ene side fordi den var længe ventet, og på den anden side fordi jeg generelt er dårlig til designting, og jeg synes, at jeg gjorde et ok stykke arbejde her.
+
+Det var også en lille, men rar detalje at kunne tilføje et kampagneikon for at berige siderne en smule, mens man klikker rundt.
+
+Desværre håbede jeg også på at få fat i aktivmanageren og endda integrere den i hovedvisningen, men jeg fandt aldrig tid til det.
+
+En anden UI-ændring var klientindstillingerne, som nu også bruger den klassiske panel-modal-visning, som du kender fra redigering af former osv.
+
+### Ekstern væginformation
+
+_Tilføjet i 0.26 og 0.29_
+
+Manuelt at tegne alle vægge er noget, som ikke alle kan lide, hvilket er grunden til, at 0.26 tilføjede støtte for svg-filer og dungeondraft-filer til at give information om, hvor væggene er.
+
+Det er noget, som jeg personligt ikke bruger; jeg er temmelig vant til at tegne vægge ved bare at gøre det meget, og der er nogle ulemper ved at bruge svg-filer, som jeg ikke personligt kan lide.
+
+Det sagt, giver det mere magt til folk til at bruge tid på andre ting, hvilket altid er godt.
+
+### Den store røde kant
+
+En tilfældig ting at nævne måske, men den røde kant, der viser, at forbindelsen til serveren er mistet, er noget, som jeg sætter stor pris på, men det kan bare være, fordi jeg nogle gange ødelægger ting i mit lokale setup, og et visuelt hint hjælper meget så :D
+
+En anden grund til, at jeg ville fremhæve dette, er, at jeg gerne vil forbedre det en smule for at sikre, at hvis det forbliver frakoblet i X tid, så skal en større besked/modal/noget dukke op i midten af skærmen for at sikre, at den nuværende bruger lægger mærke til, at noget er galt. Jeg har hørt om folk, der mister noget arbejde, fordi de ikke lagde mærke til den røde kant, så det diskrete design er ikke for alle.
+
+### Indlæsningsanimation
+
+En god ven af mig og en af mine spillere lavede den dejlige nye indlæsningsanimation, der går igennem de forskellige dX-terninger, og jeg elsker den bare :)
+
+### Aktivsynkronisering
+
+En anden mindre forbedring, som jeg sætter pris på, er, at aktivlisten i sidepanelet (i spillet) nu aktivt opdateres, hvis du ændrer ting i aktivmanageren. Førhen måtte jeg ofte opdatere siden for noget småt, hvilket bare ikke er sjovt.
+
+### Forbedringer af Draw-værktøjet
+
+_Ændret i 0.28 og 0.29_
+
+Draw-værktøjet skjuler OS-markøren for at glatte tingene ud visuelt. Dette gjorde det dog svært at finde PA-markøren nogle gange, da den var i en enkelt farve og således kunne blande sig med baggrunden i nogle tilfælde.
+
+En første forbedring kom i 0.28, som tilføjede en kantfarve til PA-markøren for at adskille den fra indholdet.
+
+Det var ikke før 0.29, at jeg faktisk tror, at de grundlæggende problemer, folk havde, var væk. Denne release tilføjede et muselignende objekt, der følger PA-markøren, som efterligner en OS-markør, men bevarer glatheden ved at koble det til den samme tegne-loop som resten af spillet.
+
+### Terninger
+
+_Tilføjet i 0.29_
+
+En stor funktion var at tilføje terningekast til PA. Dette landede til sidst i 0.29 og gjorde det muligt for folk at kaste virtuelle terninger med det klassiske dX-setup.
+
+Terningerne landede i en upoleret version og er ikke blevet ryddet op i siden, så dette er et stort område, der helt sikkert kan bruge forbedringer af forskellige grunde.
+
+Det vigtigste, jeg gerne vil rydde op i, er UI'et for selve terningeværktøjet. Derudover kan kasteadfærden også have gavn af nogle forbedringer, ligesom støtte for andre terningformater derude til andre RPG'er.
+
+Et andet aspekt, som jeg ikke har dækket endnu, er ikke-visuelle terninger. Nogle gange vil folk bare hurtigt have et resultat for 20d20 + 5d4 + 2 uden at skulle vente på, at nogle fancy terninger bliver kastet rundt.
+
+Et andet sted, hvor jeg gerne vil introducere terningekoncepter, er i skabelonerne, så du kan lave en goblin-skabelon med i stedet for en fast HP-pulje en formel (2d6), som automatisk bliver løst, når man slutter sig til slagmarken.
+
+Så forhåbentlig finder jeg tid til at dække terningeforbedringer som et stort emne i det kommende år!
+
+### Polygon-redigering
+
+_Tilføjet i 0.29_
+
+En anden funktion, som jeg endelig fik taget hånd om, var ændring af polygoner. Jeg bruger polygoner så meget, at jeg ikke ved, hvorfor jeg ikke tog fat på det tidligere.
+
+Tilføjelse eller fjernelse af punkter, opdeling eller sammenføjning af polygoner — det er alt sammen muligt nu!
+
+## Snakkerier om forskellige emner
+
+Efter tilbageblikket på 2021 ville jeg tage mig tid til at diskutere nogle tilfældige ting.
+
+Nogle af disse emner er tekniske, nogle er meget spekulative og på ingen måde faste planer.
+
+Nogle af disse emner er jeg endnu ikke sikker på, hvordan jeg skal fortsætte med eller begynde, og jeg vil meget gerne høre input fra dig, mit fællesskab, om nogle af disse emner!
+
+### Releases
+
+#### Release-kadence
+
+En ting, som jeg gerne vil have dit input til, er release-kadencen.
+
+Indtil videre vil jeg sige, at jeg nogenlunde forsøger at udgive, når jeg føler, at releasen har nok indhold. Nogle gange kan det betyde en hurtig række af releases, som vi så i de første måneder sidste år, nogle gange kan det betyde, at en release venter et par måneder.
+
+Er dette noget, du er ok med, eller vil du foretrække, at jeg skifter til en hurtigere kadence, så selvom jeg ikke har meget (f.eks. en lille forbedring/tilføjelse og nogle fejlrettelser), så burde jeg stadig udgive en release f.eks. en gang om måneden.
+
+#### Versionsstyringsskema
+
+Et andet emne, jeg ville diskutere, var releasenumre. PA er en del af [ZeroVer-klubben](https://0ver.org), med den seneste release værende 0.29.0 efter næsten 4 år!
+
+Det er simpelthen fordi jeg ikke rigtig ved, hvad der ville være nødvendigt for at gå til en 1.0 for mig. Det ville skulle være noget væsentligt, da jeg aldrig er gået til 1.0 i fortiden for andre store ændringer, hvilket betyder, at det sandsynligvis ikke vil ske snart af den grund.
+
+Hvilket betyder, at jeg måske bør overveje at skifte versionsstyringsskemaet til noget andet. De to primære muligheder, jeg ville overveje lige nu, er beskrevet nedenfor.
+
+##### Drop det store tal
+
+At gøre noget lignende firefox og bare droppe det første 0. Det efterlader os med et stort tal, der viser iterationer, og et ekstra tal for potentielle patches (f.eks. 29.0 i stedet for 0.29.0).
+
+Denne løsning er temmelig nem og ændrer ikke rigtig noget i praksis.
+
+##### Års-releases
+
+En anden mulighed er at gøre noget som "November 2021" eller "2021.1, 2021.2, ...", hvor 1/2 i sidstnævnte tilfælde enten bare kan være en indikation af iteration eller faktisk relatere til den måned, den blev udgivet i.
+
+Vi ville stadig holde styr på et andet versionsnummer (sandsynligvis det andet forslag ovenfor), men den generelle kommunikation ville blive gjort efter år og iteration.
+
+Den største fordel ved dette efter min mening er, at det gør kommunikationen lettere. Jeg husker hurtigere, om en bestemt ting var en del af 2021-releasecyklussen sammenlignet med at være en del af 0.24.0 og nyere.
+
+I betragtning af at jeg alligevel ikke plejer at udgive mere end én gang om måneden, kunne dette være en mulighed.
+
+### Server
+
+#### Aktivbegrænsninger
+
+En vigtig ting, som jeg aldrig er kommet omkring at implementere, er serverkonfigurationer til at begrænse visse aktiv-relaterede indstillinger.
+
+Der er i øjeblikket ingen grænse for, hvor mange aktiver nogen kan uploade, og der er heller ingen grænse for, hvor store de pågældende filer er.
+
+Det er 2 ting, som jeg hellere vil tage fat på før end siden.
+
+#### E-mail
+
+Et andet aspekt, der endnu ikke er dækket, er alt e-mail-relateret. Der er i øjeblikket ingen mekanisme til at nulstille adgangskoder for spillere ud over at kontakte serveradministratoren. Hovedårsagen er, at der ikke er konfigureret et e-mailsystem.
+
+Det er et emne, som jeg bliver nødt til at undersøge lidt, men jeg forventer, at det resulterer i nogle nye indstillinger, der bliver tilføjet til konfigurationsfilen, så serveradministratoren kan konfigurere e-mailservere.
+
+Sammen med det tekniske aspekt ved at tilføje e-mailstøtte betyder det også at tilføje velkomstmails og e-mails til adgangskodenulstilling sammen med andre ting.
+
+#### Officiel server
+
+Jeg ville elske at kunne hoste en officiel PA-server selv også. Jeg er meget glad og taknemmelig for, at andre mennesker hoster offentlige servere derude, men jeg føler, at en officiel server heller ikke ville skade.
+
+Faktisk har https://app.planarally.io været oppe og køre et stykke tid nu, men det er i øjeblikket en **udviklings**-server og er derfor ikke tilrådelig at faktisk spille på.
+
+### Klient
+
+#### E-mailmigration
+
+En anden ændring, jeg gerne vil lave, er relateret til e-mail-emnet i serverafsnittet, nemlig at ændre loginprocessen fra en brugernavn/adgangskode-kombination til en e-mailadresse/adgangskode-kombination.
+
+En grund til dette er, at det vil gøre mit liv meget lettere at importere gemte filer fra en anden server. Specifikt relateret til brugere, da jeg i øjeblikket ikke har nogen måde at matche et brugernavn fra én server med et fra en anden. Der kan være en 'tom' på begge, men det kan faktisk være to forskellige personer. Hvis jeg gør dette for e-mails, kombineret med en verificeret e-mailadresse, er det en forhindring mindre at overvinde.
+
+Dette ville gøre e-mailadresser obligatoriske, hvilket ikke har været tilfældet tidligere, og den primære grund til, at jeg oprindeligt valgte brugernavns-login, var at understøtte offline-spil. Betyder det, at jeg fjerner offline-spil? Nej, slet ikke. Offline-spil er og vil altid være en stor funktion i PA, og dette betyder blot, at e-mailvalidering og andre e-mail-relaterede ting bare ikke vil være relevante. E-mailadressen vil dybest set fungere som et almindeligt brugernavn.
+
+#### Bruger vs. spiller
+
+En anden ændring, jeg gerne vil lave, er at give spillerne mere magt. I øjeblikket håndterer DM'en dybest set alt; de skal uploade karakterkunsten osv.
+
+En første ændring er at bringe en klarere adskillelse til konceptet om en Bruger og en Spiller. En bruger vil blive identificeret ved en e-mail (hvis mine ovenstående planer går igennem) og kan være spiller i flere kampagner, hvor de vil blive identificeret ved et eller flere karakternavne.
+
+Senere burde det være muligt at knytte specifikke aktiver til en karakter, hvilket giver spilleren mere magt til at gøre ting som at uploade deres egen kunst osv.
+
+#### Multiformer
+
+Et helt andet emne og mere et sidespor end noget andet er konceptet om multiformer. Flere grundlæggende former, der er forbundet for at danne én større form.
+
+Den vigtigste grund til, at dette er et emne, som jeg nogle gange leger med, er at imødekomme ting som at flytte kortet og flytte alle vægge, der er forbundet med kortet, med. Eller andre former, der har en forbindelse til en form på et andet lag. Dette er dog et emne, der teknisk set er mere udfordrende, som set med mine eksperimenter med varianterne.
+
+Varianter kan betragtes som en underklasse af multiformer-emnet, hvor flere former er relateret til hinanden, men kun én vises ad gangen. Derudover er formerne for varianter alle placeret på det samme lag, så det er også enklere i den henseende.
+
+Jeg ved ikke rigtig, hvor jeg vil hen med dette afsnit; det er bare noget, jeg har tænkt over :)
+
+### PA i VTT-landskabet
+
+Dette sidste afsnit af snakkerier er relateret til nogle mere overordnede emner omkring PlanarAlly.
+
+#### Konkurrence
+
+PA voksede ud af et ønske om at prøve at skabe en VTT til mine egne kampagner og blev ikke lavet med et oprindeligt ønske om at blive noget stort. Jeg så ingen grund til, hvorfor jeg ikke skulle gøre selve koden offentlig, og den ene ting førte til den anden, og jeg har et lille, men sjovt fællesskab omkring dette projekt!
+
+Noget, som jeg som følge heraf slet ikke er opmærksom på, er "konkurrencen" — og jeg bruger dette ord løst her, da de andre projekter derude nok ikke engang er klar over, at PlanarAlly eksisterer.
+
+Men andre VTT'er findes derude, de store, men også de mindre, som popper op alle vegne i disse dage, ligesom PA gjorde. Så nogle gange føler jeg mig lidt intimideret, som om jeg kæmper en opadgående kamp, som jeg uundgåeligt vil tabe. Men jeg har sluttet fred med at acceptere, at selv hvis et tidspunkt kommer, hvor en anden platform er langt overlegen, og min spillerbase flytter videre, så kan jeg sige, at det var et sjovt eksperiment, og jeg burde ikke være ked af det.
+
+#### Patreon
+
+Noget relateret til det sidste punkt er, at jeg er meget taknemmelig for de mennesker, der faktisk donerer nogle penge på patreon. Jeg poster ikke rigtig ting på patreon eller har tiers eller noget, fordi jeg ikke har nogen idé om, hvad jeg kunne bruge dem til. Fordi fællesskabet er temmelig lille, kan jeg godt lide bare at fortælle alle, hvis noget nyt kommer op.
+
+Måske er der ikke noget behov for at gøre noget med det og bare lade det være, som det er lige nu, men hvis nogen har nogle ideer til at forbedre min involvering på patreon-siden, så lad mig det vide!
+
+#### Last Gameboard
+
+Det sidste, jeg ville nævne, var 'Last Gameboard', et produkt/virksomhed, som jeg har haft at gøre med sidste år. Det er et fedt projekt, som jeg har integreret PA på, og det er også en grund til, at PA selv var en smule langsommere i anden halvdel af sidste år. Produktet burde lancere et sted i år, så vi får se, hvordan det går, og på hvilken måde PA på enheden bliver godt modtaget.
+
+Det sagt, så er det meste af udviklingen, jeg laver til den integration, også fundet vej tilbage til hovedkodebasen, så det er fedt.
+
+## Afsluttende tanker
+
+Det afslutter mine snakkerier; hvis du nåede at læse hele vejen til bunden, tak for din tålmodighed :)
+
+Jeg havde aldrig forventet, at dette projekt skulle udvikle sig til, hvad det er i dag, og jeg kan ikke takke jer nok for det, så lad os se, hvad 2022 bringer os!

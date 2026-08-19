@@ -1,0 +1,134 @@
+---
+title: Kast spells og fortryd dine tidligere handlinger - Release 0.25.0
+date: 2021-02-07 13:30:00
+excerpt: "En oversigt over nye godbidder"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
+For årets anden udgivelse fik jeg en måske mindre end normalt udgivelse, men den har alligevel noget at byde på.
+
+Denne udgivelse indeholder et par funktioner, som spillerne også virkelig vil nyde!
+
+## Aura-gennemgang
+
+Først oppe og en af mine personlige yndlingsfunktioner i denne udgivelse er en gennemgang af auraer!
+
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Eksempel på aktivtrackers" />
+
+De fleste vil straks spotte den dramatiske UI-ændring, aura-sektionen fik, men det trænede øje vil også bemærke 3 nye funktioner, der er blevet tilføjet.
+
+### UI-ændringer
+
+UI'et er blevet ændret, så kun basisinformationen er synlig som standard (navn + aktiveret/deaktiveret), og når man åbner auraen, kan man se alle detaljerne.
+En anden stor ændring er, at de kryptiske aura-ikoner nu har dedikerede tekstlabels for forhåbentlig at forhindre enhver forvirring.
+
+### Aktivér/deaktiver
+
+Tidligere var der ingen eksplicit måde at deaktivere en aura på; du kunne enten fjerne den eller sætte dens afstandsværdier til 0.
+
+Begge disse handlinger er noget irriterende, så nu er der endelig et dedikeret til/fra-ikon, der er synligt hele tiden.
+
+### Kant
+
+Tidligere var kanten usynlig, men det er nu muligt at angive en farve for kanten.
+
+Dette er især rart til brug med auraer, der ikke er lyskilder, hvor man måske vil spore noget, men ikke vil have hele auraen fyldt med farve, da det kan blive et visuelt rod, hvis der er mange auraer i gang. Så nu kan du for eksempel gøre auraen gennemsigtig, men give den en solid sort kant.
+
+### Kegler
+
+Den sidste ændring er muligheden for at ændre auraen, så den ikke dækker en hel cirkel, men begrænser sig til en kegle.
+
+Vinkelparameteren indeholder 2 input-værktøjer; det første er et almindeligt talfelt til at vælge vinklens bredde,
+og det andet til at vælge den faktiske retning, auraen skal pege i.
+
+Dette er en mere niche-funktion, som jeg ikke forventer bliver brugt meget, men folk kan bruge den til nogle hardcore-synsregler, særlige lyskilder eller bare alt, hvad der falder dem ind!
+
+## Fortryd/Gentag
+
+En ofte efterspurgt funktion af gode grunde er muligheden for at fortryde handlinger.
+
+Denne udgivelse tilføjer en første version af fortryd- og gentag-funktionalitet begrænset til et indledende sæt handlinger.
+Disse handlinger er:
+
+- formbevægelse
+- formrotation
+- ændring af formstørrelse
+- etageskift
+- lagsændring
+- oprettelse/fjernelse af forme
+
+Dette bør dække noget grundlæggende (at bevæge sig rundt) og også den vigtigste irriterende ting: utilsigtet fjernelse af forme.
+Så ting som specifikke egenskabsændringer og lignende kan endnu ikke fortrydes, men der er et grundlag at arbejde med.
+
+ctrl+z bruges til at fortryde handlinger, ctrl+shift+z bruges til at gentage handlinger.
+
+I øjeblikket er der en hardcodet handlingshukommelse på 50 handlinger.
+
+_Hvorfor ikke ctrl+r til at gentage? Dette ville overskrive en almindelig browser-genindlæsningstast, hvilket jeg helst ikke gør._
+
+## Spell-kastning
+
+En forespørgsel, jeg har fået et par gange, er at levere noget, der gør det muligt at kaste spells eller i det mindste noget værktøj til at se, om bestemte fjender ville blive ramt af en bestemt spell.
+
+Du vil nu se et nyt værktøj dukke op i værktøjslinjen (i play-tilstand), passende kaldet 'Spell', som giver dig mulighed for netop det!
+
+Her er en lille forhåndsvisning af, hvad du kan forvente:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+Som det kan ses, har du mulighed for at vælge mellem 3 basisformer (cirkel/firkant/kegle) og kan konfigurere ting som spell-størrelse og rækkevidde.
+
+Standardadfærden er fokuseret på blot at måle og se, hvad effekten af spells ville være,
+men når du venstreklikker, "kaster" du faktisk spell'en, og effekten forbliver på slagmarken!
+
+Du kan finde mere info om, hvordan spell-værktøjet fungerer, i [dokumentationen](/da/docs/tools/spell/)
+
+## Arkivering af lokationer
+
+Når en kampagne kører i lang tid, kommer der et tidspunkt, hvor din lokationslinje kan blive fyldt op.
+Du kan bare leve med det og scrolle til højre, eller du kan manuelt trække de aktive lokationer til venstre.
+
+Med denne udgivelse er der nu mulighed for at arkivere lokationer. Dette skjuler dem blot fra linjen, men efterlader dem ellers intakte.
+Arkivering foretages fra lokationsindstillingerne.
+
+Der er tilføjet en ny UI-knap til venstre for lokationslinjen for at gendanne arkiverede lokationer til linjen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
+</video>
+
+## Offentlige annotationer
+
+En mindre funktion er, at der nu er en mulighed for at gøre formannotationer offentlige.
+
+## Bemærkelsesværdige rettelser
+
+### (DM) Lokationslinje
+
+Spillernes lokation opdateres nu nøjagtigt live, når de flyttes til en anden lokation som en del af en teleportering til et spawn.
+
+### Syn-værktøj og private auraer
+
+Syn-værktøjet er et rart værktøj at have, når du kontrollerer flere karakterer på 1 skærm.
+Det tog dog ikke korrekt højde for auraernes offentlige/private indstilling og ville altid vise alle auraer for de tokens, du kontrollerer, selvom du havde deaktiveret et af token'ernes syn.
+
+### Nye etager virkede ikke før opdatering
+
+Når du opretter nye etager, behøver du ikke længere at opdatere, da de ikke blev trianguleret korrekt.
+
+### Synkronisering af formnavne
+
+Ved at slå synligheden af formnavne til/fra var der nogle synkroniseringsproblemer, der nu er blevet løst.
+
+### Syn på flere etager
+
+Der var en fejl, der smuttede med for nylig, som gjorde, at auraer på én etage også kunne oplyse ting på etagerne nedenunder.

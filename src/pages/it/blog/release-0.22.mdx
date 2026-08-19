@@ -1,0 +1,132 @@
+---
+title: Release 0.22.0 - Cosa c'è di nuovo!
+date: 2020-08-26 20:00:00
+excerpt: "Cosa c'è di nuovo nella 0.22.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Sono passati più di 2 mesi dall'ultima release, quindi eravamo in ritardo da un bel po' per un aggiornamento!
+Questa release non porta tantissime nuove funzionalità, ma ne porta una grande: la rotazione!
+Altre cose in questa release sono una serie di miglioramenti delle prestazioni, alcuni cambi di qualità della vita per i piani e una serie di cambiamenti e fix minori.
+
+## Rotazione
+
+Ruotare le forme è una funzionalità spesso richiesta, per ovvi motivi.
+Questo è però un cambiamento più tecnico che ha richiesto qualche ritocco al cuore della logica di disegno,
+ma alla fine tutto ha funzionato.
+
+La rotazione si fa nello strumento select, ma solo in modalità build (proprio come il ridimensionamento).
+Quando entri in modalità build, apparirà un'interfaccia specifica per la rotazione (una linea con una pallina).
+Afferrando la pallina e muovendoti puoi ruotare liberamente una forma attorno al suo centro.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Quando sono selezionate più forme, l'interfaccia di rotazione verrà disegnata attorno all'intero gruppo e permetterà di ruotare tutte le forme in una volta.
+Anche questa rotazione viene eseguita in relazione al centro di questa scatola di rotazione!
+
+Inoltre, quando usi l'aggancio, la rotazione si aggancerà ad angoli netti di 45 gradi.
+
+## Miglioramenti di qualità della vita per i piani
+
+I piani mi sono piaciuti davvero molto, ma c'erano ancora alcuni piccoli punti dolenti che spero di affrontare qui.
+
+### Accessibilità
+
+Il DM ora può attivare o disattivare l'accessibilità dei piani. Nello specifico, questo significa che può impedire ai giocatori di recarsi manualmente su un piano specifico.
+
+**Questo non impedisce la visione di un piano sul campo di gioco vero e proprio** (ad es. un giocatore su un piano più alto che guarda fuori da una finestra su un campo d'erba sotto)
+
+### Rinomina
+
+I piani ora possono essere rinominati, evviva.
+
+### Ordine di visualizzazione
+
+L'ordine in cui i piani vengono mostrati nel menu popup è ora invertito. Ora segue un ordine più logico in cui la voce più in alto è il piano più alto.
+
+### Riordinamento
+
+Ora è anche possibile riordinare i piani trascinandoli. Quindi non devi più assicurarti che tutto sia pianificato in anticipo o spostare manualmente un mucchio di cose!
+
+### Bug della nebbia
+
+C'era una quantità non necessaria di nebbia aggiunta ai piani inferiori, che li rendeva più scuri.
+
+## Miglioramenti delle prestazioni
+
+Sono stati fatti una serie di ritocchi alle prestazioni che dovrebbero avere un grande impatto!
+
+### Tempo di avvio
+
+Alcuni cambiamenti nella gestione del websocket fanno sì che ora il client reagisca molto più velocemente ai dati del server,
+il che a sua volta dovrebbe riflettersi in un caricamento visivo più rapido su tutte le mappe.
+
+Inoltre, i piani ora vengono caricati separatamente all'avvio, con l'ultimo piano visitato caricato per primo.
+Questo dovrebbe migliorare drammaticamente il tempo del primo render sulle mappe con molti piani.
+
+Le icone Fontawesome usate in tutta l'interfaccia ora vengono caricate con una libreria vue. In passato tutte le icone venivano caricate con uno script fontawesome.js, ora carichiamo solo le icone effettivamente usate, risparmiando un sacco di dati!
+
+Il game loop ora viene avviato solo quando arriva il primo piano; è un miglioramento piuttosto piccolo nel grande schema delle cose, ma comunque un bel miglioramento.
+
+### Altro
+
+Un altro grande miglioramento è stato fatto nel movimento delle forme. I movimenti di gruppo vengono gestiti in modo più efficiente e per ogni movimento di forma sono necessari anche meno dati.
+
+Un ultimo miglioramento è che la panoramica ritarderà l'aggiornamento dei piani non visibili fino a quando l'azione di panoramica non sarà terminata, il che avvantaggia ancora una volta le mappe con molti piani.
+
+## Varia
+
+- Ora c'è un'icona di blocco/sblocco nell'interfaccia di selezione
+- La leggibilità della distanza del ruler è migliorata
+- La dimensione in pixel della griglia è ora una funzionalità lato client, che permette al giocatore di scegliere questo valore a seconda del metodo di visualizzazione che usa (ad es. proiettore vs schermo di laptop)
+
+## Bugfix
+
+- L'aura non visualizzata quando il segnalino è fuori dalla tela visibile
+- La scrollbar di Firefox sulle ubicazioni quando il menu a sinistra è aperto
+- Alcuni colli di bottiglia di prestazioni significativi
+- Il server ora esce, facendo riferimento a docs/tutorial, se il client non è stato buildato prima dell'avvio
+- Preferisci i punti agganciati all'aggancio alla griglia
+- Rimozione dell'icona bianca nel menu UI in alto a sinistra
+- Spostare poligoni con la tastiera spostava solo il punto di origine
+- Casi degeneri nella triangolazione
+    - Il codice di triangolazione poteva incontrare un caso degenere quando gestiva piccole differenze numeriche nell'ordine di 1e-15
+    - Ora il codice di triangolazione prenderà in considerazione solo le prime 10 cifre dopo la virgola per prevenire l'instabilità numerica.
+- Gli eventi mouseleave non venivano attivati in alcuni casi (ad es. alt-tab), questo poteva far rimanere sullo schermo alcune forme (ad es. i ruler)
+- Il ridimensionamento dello strumento map non si replica
+- Calcolo del centro per poligoni con punti ripetuti
+- La forma spostata in un luogo ora scompare correttamente sul vecchio luogo
+
+## Riflessione sul "Up next"
+
+Nell'ultima release ho aggiunto una sezione "Up next", per delineare alcune delle cose nella roadmap. Volevo riflettere su qual è lo stato con questa release completata.
+
+##### fatto
+
+- rotazione
+- Rielaborazione della sequenza di avvio
+- Passaggio a fontawesome-vue
+- Visibilità pubblica dei piani
+- Miglioramenti dello strumento piano
+- Caricamento rapido del piano corrente
+
+##### parzialmente fatto
+
+- lavoro preparatorio su metadata/export/import
+
+##### non fatto
+
+- Lista asset asincrona in gioco
+- Miglioramenti dei poligoni
+- Estensione delle opzioni delle aure
+- Miglioramento del cursore nello strumento draw
+- Griglia esagonale
+- Blurhash
+- Più posizioni di spawn
+- Più opzioni di raggruppamento
+
+Anche se questa release ha richiesto un po' più di tempo, sono comunque felice di aver completato 6 su 15. :)

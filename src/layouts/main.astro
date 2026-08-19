@@ -1,15 +1,64 @@
 ---
+// src/layouts/main.astro
 import "../styles/global.scss";
 import Header from "./header.astro";
+import { languages, defaultLang } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+
+const availableLocales = Object.keys(languages).filter(l => l !== defaultLang);
 ---
 
-<html lang="en">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <meta name="color-scheme" content="dark light" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <title>PlanarAlly Documentation</title>
+        
+        <script is:inline define:vars={{ availableLocales, defaultLang }}>
+            (function() {
+                let preferredLang = localStorage.getItem('preferredLang');
+                const path = window.location.pathname;
+                
+                const supportedLangs = [defaultLang, ...availableLocales];
+
+                if (preferredLang && !supportedLangs.includes(preferredLang)) {
+                    localStorage.removeItem('preferredLang');
+                    preferredLang = null;
+                }
+                
+                let currentUrlLang = defaultLang;
+                let hasLangPrefix = false;
+                for (const l of supportedLangs) {
+                    if (path.startsWith('/' + l + '/') || path === '/' + l) {
+                        currentUrlLang = l;
+                        hasLangPrefix = true;
+                        break;
+                    }
+                }
+
+                if (!preferredLang) {
+                    localStorage.setItem('preferredLang', currentUrlLang);
+                    return;
+                }
+
+                if (preferredLang !== currentUrlLang) {
+                    let newPath = path;
+
+                    if (hasLangPrefix) {
+                        newPath = path.replace(new RegExp('^/' + currentUrlLang + '(/|$)'), '/');
+                    }
+
+                    newPath = '/' + preferredLang + newPath;
+                    newPath = newPath.replace('//', '/');
+
+                    window.location.replace(newPath);
+                }
+            })();
+        </script>
         <script defer data-domain="planarally.io" src="https://plausible.io/js/script.js"></script>
 
         <script>

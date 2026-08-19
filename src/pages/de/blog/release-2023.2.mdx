@@ -1,0 +1,178 @@
+---
+title: Release 2023.2
+date: 2023-06-20 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+2023.2 ist ein Release, das sich fast ausschließlich auf Bugfixes konzentriert. Es wird also ziemlich trocken, da nichts besonders Aufregendes in diesem Release steckt, tut mir leid!
+
+Es sind gute 4 Monate seit dem letzten Release vergangen, was ich dieses Mal eigentlich hatte vermeiden wollen.
+Nach 2023.1 habe ich dieses Release mit viel Energie begonnen, da ich offscreencanvas in Webworkern nutzen wollte, um die Performance zu verbessern.
+Ich habe viel Zeit damit verbracht, verschiedene Strategien auszuprobieren, aber am Ende ist nichts Konkretes dabei herausgekommen, mit dem ich zufrieden gewesen wäre,
+was mich ein wenig ausgebrannt zurückgelassen hat.
+
+Ich habe etwas Zeit gehabt, an einigen anderen privaten Projekten zu arbeiten, um meinen Kopf freizubekommen, und hoffe, in naher Zukunft wieder ein paar sinnvollere Updates herausbringen zu können.
+
+## Asset-Manager
+
+### Direktes Ablegen von Assets
+
+Um etwas auf der Karte erscheinen zu lassen, musste der DM das Asset bisher immer zuerst im Asset-Manager hochgeladen haben.
+Auch wenn dies weiterhin der empfohlene Weg ist, da man seine Assets im Asset-Manager ordentlich organisieren kann,
+fügt dieses Release die Option hinzu, etwas direkt auf den Spieltisch zu legen, ohne es vorher im Asset-Manager hochzuladen.
+
+Das ist besonders nützlich, wenn man mitten in der Sitzung etwas hinzufügen muss.
+
+Auf diese Weise hochgeladene Assets werden im Stammordner deines Asset-Managers gespeichert,
+werden aber in einem späteren Release wahrscheinlich in einen bestimmten Ordner verschoben, um das Durcheinander im Stammordner zu verringern.
+
+### Fortschrittsbalken
+
+Der alte Asset-Manager hatte einen Fortschrittsbalken. Seit der Integration mit dem neuen Dashboard wurde diese Funktion nie wieder hinzugefügt.
+
+Er ist wieder da, das war's :)
+
+## Brush Draw
+
+Der Brush-Modus im Draw-Werkzeug ist schon seit _langer_ Zeit ein Dorn im Auge.
+Er existiert, ist aber ein Leistungsfresser, was bedeutet, dass man ihn wahrscheinlich fast immer vermeiden sollte.
+
+Der Grund für dieses Performance-Problem lag darin, wie die Form intern gespeichert wird.
+Im Hintergrund ist es genau die gleiche Art von Struktur wie eine Form, die mit dem Polygon-Werkzeug gezeichnet wurde,
+aber der Unterschied liegt in ihrer Erstellung. Im Polygon-Modus legst du die Punkte per Klick fest, während im Brush-Modus dein Mausziehen das Polygon bestimmt.
+
+Kurz gesagt: Das Mausziehen fügte eine Menge Punkte hinzu.
+Dieses Release implementiert einen Algorithmus, der das Polygon während eines Ziehvorgangs vereinfacht,
+indem versucht wird, Punkte zu entfernen, die nahezu nichts zur eigentlichen Form beitragen.
+
+Es können kleine Veränderungen an der Gesamtform auftreten, aber sie sollten, falls überhaupt, sehr dezent sein.
+
+Als Beispiel sieh dir das folgende Bild an:
+
+{/* <Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" /> */}
+![Punktreduzierung beim Brush-Draw](./2023.2/brush.png)
+
+Die grünen Punkte sind Punkte, die früher ebenfalls gespeichert wurden. Wie du siehst, sind das viele Punkte, die nicht mehr verfolgt werden müssen \:D
+
+## Teleportieren
+
+Am TeleportZone-Feature wurden einige Änderungen und Fixes vorgenommen.
+
+### Anzeige des Anfragebereichs geändert
+
+Wenn eine TP-Zone im Modus „request" konfiguriert ist, erhält der DM eine Benachrichtigung, wenn ein Benutzer eine Teleport-Zone nutzen möchte.
+
+Diese Benachrichtigung enthält einen Button, um die Kamera des DMs zur Teleport-Zone zu bewegen.
+In der Praxis führte dies den DM zum Zielort der Teleport-Zone.
+
+Dieses Release ändert das und bringt den DM zum Auslöseort der Teleport-Zone,
+da sich dort der anfragende Spieler befindet und das meist mehr Kontext darüber gibt, was gerade passiert.
+
+### Fix, dass TPs für Spieler nicht funktionierten
+
+Einige Fälle wurden behoben, in denen ein Spieler einen Teleport auslöste:
+
+Teleport-Zonen, die im nicht-sofortigen Modus konfiguriert waren, funktionierten überhaupt nicht, wenn ein Spieler den Teleport auslöste.
+
+Teleports, die ausgelöst wurden, während der Build-Modus aktiv war, funktionierten für Spieler ebenfalls nicht.
+
+### Spieler-Zoom übernehmen
+
+_Obwohl das nichts mit den Teleport-Zonen selbst zu tun hat, habe ich es hier hinzugefügt, da es immer noch einen Teleport durchführt :V_
+
+Wenn der DM die Aktion „Bring Players" verwendet,
+werden alle Spieler so teleportiert, dass der ausgewählte Bereich auf ihrem Bildschirm zentriert wird.
+
+Zusätzlich wurde auch der Zoomlevel aller Spieler angepasst, sodass er dem des DMs entsprach.
+
+Das ist in diesem Release nicht mehr der Fall.
+Clients können aus einer Vielzahl von Gründen unterschiedliche Zoom-Einstellungen haben, und
+diese sollten niemals überschrieben werden, nur weil wir uns woanders hinbewegen.
+
+## Vorlagen
+
+Vorlagen sind eine Möglichkeit, eine Form mit einigen vorbefüllten Einstellungen für die spätere Wiederverwendung zu speichern.
+Seit der Einführung von Vorlagen
+wurden sie nicht an neue Funktionen angepasst und es fehlen daher einige Daten, von denen man erwarten würde, dass sie gespeichert werden.
+
+Die folgenden Daten werden jetzt ebenfalls gespeichert:
+
+- Öffentliche Sichtbarkeit von Annotationen
+- Tracker:
+    - Anzeige auf Token
+    - Farben für die Anzeige auf Token
+- Auren:
+    - Ob die Aura aktiviert ist
+    - Die Strichfarbe
+    - Der Winkel und die Richtung
+
+Beim erneuten Durchgehen dieser Schlüssel habe ich auch einige Einstellungen entfernt, die nicht mehr gespeichert werden.
+Die Einstellungen, die ich entfernt habe, schienen zu situativ, um als allgemeine Einstellung gespeichert zu werden.
+Ideal wäre es, wenn man beim Speichern einer Vorlage irgendwann die Möglichkeit bekäme, feingranularer auszuwählen, welche Dinge gespeichert werden, sodass man diese für bestimmte Fälle doch noch speichern könnte. Aber leider sind wir noch nicht so weit.
+
+Die folgenden Daten werden nicht mehr gespeichert:
+
+- Unsichtbarer Zustand
+- Besiegter Zustand
+- Gesperrter Zustand
+- 'Badge anzeigen'
+
+## (Mobile) Touch-Scrolling
+
+Eine kleine Änderung ist, dass der Haupt-Spieltisch und die Menüleiste auf mobilen Touch-Geräten kein Overscrolling mehr auslösen sollten.
+
+Es gibt noch weitere Verbesserungen für Mobile/Touch, aber das ist eine erste kleine Sache.
+
+## Gruppen
+
+Die Buttons zum Erstellen und Entfernen von Gruppen waren auf mehrfache Weise defekt. Sie sollten jetzt wieder korrekt funktionieren.
+
+Zusätzlich wurden einige Fixes am Netzwerkcode für Gruppen vorgenommen.
+Für jede Form wurden vollständige Gruppendaten gesendet, was völlig unnötig ist, da wir die Gruppeninformationen nur einmal pro Gruppe benötigen.
+Änderungen an Gruppen auf anderen Clients wurden außerdem nicht synchronisiert, sodass einige Änderungen an Gruppen erst nach einem Refresh sichtbar waren.
+
+## Fake Player
+
+Der Fake-Player-Modus dient dazu, als DM schnell die Sicht der Spieler zu simulieren.
+Er wurde jedoch lange vernachlässigt, und mit dem letzten Release begannen die Bemühungen, ihn wieder aufzupolieren.
+
+Dieses Release hat die Zugriffslogik überarbeitet, wodurch ich eine Reihe von Bugs im Zusammenhang mit dem Fake-Player-Modus beheben konnte.
+
+Formen werden jetzt nur noch dann gerendert, wenn mindestens ein Spieler im Spiel Sichtzugriff auf diese Form hat UND die Form im Sicht-Werkzeug aktiv ist.
+Das bedeutet auch, dass unsichtbare Formen nicht mehr gerendert werden, wenn man die Form nicht aktiv steuert.
+
+Zuletzt werden Auren auf der DM-Ebene jetzt ebenfalls alle ausgeblendet.
+
+## Zugriff
+
+Auch allgemeinere Zugriffsbezogene Dinge wurden behoben.
+
+- Zugriff: Fix, dass Spieler mit bestimmten Zugriffsregeln zu jeder Zeit Bearbeitungszugriff hatten
+- Zugriff: Ändern des Zugriffs aktualisierte die Bearbeitungs-Form-UI nicht live, wenn sie von einem anderen Client geöffnet war
+- Zugriff: Fix, dass der Standardzugriff in der UI nicht aktuell war, wenn die Form bis zum Neuladen keine Zugriffsänderungen hatte
+- Zugriff: Verhindern, dass DMs eine explizite Zugriffsregel haben
+
+## Rendering
+
+- Fix, dass Auren manchmal erst nach einem Refresh oder Heranzoomen an die Aura sichtbar wurden
+- Die Transparenz höherer Ebenen wurde nach einer Fenstergrößenänderung nicht mehr angewendet
+- Einige Fälle, in denen Änderungen am Sichtzugriff nicht sofort neu gerendert wurden
+- Raster, das keine horizontalen Linien rendert, wenn die Breite kleiner als die Höhe des Bildschirms ist
+
+## Diverse Fixes
+
+    - Auth: Ein Logikfehler im Auth-Routing-Code - in einigen Fällen musste man manuell zur Login-Seite gehen
+    - Beschriftungen: Fix, dass das Entfernen nicht funktionierte
+    - Symbolleiste: Fix, dass Sicht- und Filter-Werkzeuge nicht sofort verfügbar waren, wenn sie relevant waren
+    - Logik: Request-Modus funktionierte nicht wie vorgesehen und verhielt sich stattdessen wie der Modus „Enabled"
+    - Token-Richtungen: Fix, dass angezeigte Token gefilterte Token nicht berücksichtigten
+    - Select: Die Rotations-UI sollte beim Zoomen konsistent bleiben
+    - Ort-Leiste: Fix der Breite des Ziehpunkts für mehrzeilige Orte
+    - Eigenschaften: Der Unsichtbar-Schalter wurde für Spieler erst nach einem Refresh angewendet
+    - Initiative: Der Sicht-Lock prüfte aktive Token nicht richtig
+    - Initiative: Das Entfernen des letzten Eintrags, während er aktiv war, konnte die Initiative beschädigen
+    - Sicht: Edgecase, der eine Endlosschleife beim Zeichnen von Sichtlinien verursachen konnte
+    - Annotation: Markdown wird in Firefox nicht mehr als fett gerendert
+    - [server] Subpath: 2 Fälle, in denen ein Setup mit Subpath Bilder nicht korrekt lud (Initiative & Asset ändern)

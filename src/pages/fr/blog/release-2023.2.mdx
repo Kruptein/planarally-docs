@@ -1,0 +1,179 @@
+---
+title: Release 2023.2
+date: 2023-06-20 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+La version 2023.2 est une version presque entièrement consacrée à la correction de bugs. Elle sera donc assez terne car rien de très excitant n'y est ajouté, désolé !
+
+Cela fait un bon 4 mois depuis la dernière version, ce que j'avais espéré éviter cette fois-ci.
+Après la 2023.1, j'avais commencé cette version avec beaucoup d'énergie, car je voulais utiliser offscreencanvas dans les webworkers pour pousser les performances.
+J'ai passé beaucoup de temps à essayer différentes stratégies, mais au final, rien de ce qui me satisfaisait n'a réellement vu le jour,
+ce qui m'a laissé un peu épuisé.
+
+J'ai pris du temps pour travailler sur quelques autres projets personnels afin de me vider l'esprit, et j'espère pouvoir
+publier des mises à jour plus significatives dans un avenir proche.
+
+## Gestionnaire de ressources
+
+### Dépôt direct de ressources
+
+Pour faire apparaître quelque chose sur la carte, il a toujours été nécessaire que le DM téléverse d'abord la ressource dans le gestionnaire de ressources.
+Bien que cela reste la méthode recommandée, car vous pouvez organiser correctement vos ressources dans le gestionnaire de ressources,
+cette version ajoute la possibilité de déposer directement quelque chose sur la table de jeu sans d'abord la téléverser dans le gestionnaire de ressources.
+
+C'est particulièrement utile lorsque vous devez ajouter quelque chose en cours de partie.
+
+Les ressources téléversées de cette manière sont stockées dans le dossier racine de votre gestionnaire de ressources,
+mais seront probablement déplacées vers un dossier spécifique dans une version ultérieure afin de réduire l'encombrement de votre racine.
+
+### Barre de progression
+
+L'ancien gestionnaire de ressources avait une barre de progression. Depuis l'intégration au nouveau tableau de bord, cette fonctionnalité n'avait jamais été réintroduite.
+
+Elle est de retour, c'est tout :)
+
+## Dessin au pinceau
+
+Le mode pinceau de l'outil Draw est une verrue visuelle depuis _très_ longtemps.
+Il existe, mais c'est un gouffre à performances, ce qui signifie que vous devriez probablement l'éviter presque tout le temps.
+
+La raison de ce problème de performances résidait dans la façon dont la forme est stockée en interne.
+En coulisses, il s'agit exactement de la même structure qu'une forme dessinée avec l'outil polygone,
+mais la différence réside dans leur création. En mode polygone, vous dictez les points par des clics, alors qu'en mode pinceau, c'est le glissement de votre souris qui dicte le polygone.
+
+Pour faire court, le glissement de la souris ajoutait beaucoup de points.
+Cette version implémente un algorithme qui, pendant un glissement, simplifie le polygone
+en essayant de supprimer les points qui ne contribuent presque rien à la forme réelle.
+
+De petits changements dans la forme globale peuvent survenir, mais ils devraient être très subtils, si tant est qu'ils existent.
+
+Prenons par exemple l'image ci-dessous :
+
+{/* <Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" /> */}
+![Réduction des points du dessin au pinceau](./2023.2/brush.png)
+
+Les points verts sont des points qui étaient également sauvegardés auparavant. Comme vous pouvez le voir, ce sont beaucoup de points qui ne doivent plus être suivis \:D
+
+## Téléportation
+
+Quelques changements et corrections ont été apportés à la fonctionnalité TeleportZone.
+
+### Changement de l'affichage de la zone de demande
+
+Lorsqu'une zone de TP est configurée en mode « request », le DM reçoit une notification lorsqu'un utilisateur souhaite utiliser une zone de téléportation.
+
+Cette notification contient un bouton pour déplacer la caméra du DM vers la zone de téléportation.
+En pratique, cela emmenait le DM vers l'emplacement cible de la zone de téléportation.
+
+Cette version change cela et emmène le DM vers l'emplacement déclencheur de la zone de téléportation,
+car c'est là que se trouve le joueur demandeur, ce qui donne généralement plus de contexte sur ce qui se passe.
+
+### Correction des téléportations ne fonctionnant pas pour les joueurs
+
+Quelques cas ont été corrigés lorsqu'un joueur initiait une téléportation :
+
+Les zones de téléportation configurées en mode non immédiat ne fonctionnaient pas du tout si un joueur initiait la téléportation.
+
+Les téléportations initiées pendant que le mode Build était actif ne fonctionnaient pas non plus pour les joueurs.
+
+### Conserver le zoom des joueurs
+
+_Bien que cela ne soit pas lié aux zones de téléportation en soi, je l'ajoute ici car il s'agit toujours d'une téléportation :V_
+
+Lorsque le DM utilise l'action « Bring Players »,
+tous les joueurs sont téléportés de telle sorte que la zone sélectionnée devienne centrée sur leur écran.
+
+De plus, le niveau de zoom de tous les joueurs était également modifié pour correspondre à celui du DM.
+
+Ce n'est plus le cas dans cette version.
+Les clients peuvent avoir différents réglages de zoom pour une multitude de raisons, et
+à aucun moment cela ne devrait être écrasé simplement parce que nous nous déplaçons ailleurs.
+
+## Templates
+
+Les templates sont un moyen de sauvegarder une forme avec certains réglages pré-remplis pour une réutilisation ultérieure.
+Depuis l'introduction des templates,
+ils n'ont pas été mis à jour pour correspondre aux nouvelles fonctionnalités et il manque donc certaines données que l'on pourrait s'attendre à voir sauvegardées.
+
+Les données suivantes sont désormais également sauvegardées :
+
+- Visibilité publique des annotations
+- Trackers :
+    - Affichage sur le pion
+    - Couleurs pour l'affichage sur le pion
+- Auras :
+    - Si l'aura est activée
+    - La couleur du contour
+    - L'angle et la direction
+
+En revisitant ces clés, j'ai également supprimé certains réglages qui ne sont plus sauvegardés.
+Les réglages que j'ai supprimés me semblaient trop situationnels pour être sauvegardés comme réglage général.
+Idéalement, à un moment donné lors de la sauvegarde d'un template, vous auriez la possibilité de choisir de manière plus fine ce qui est sauvegardé, ce qui vous permettrait de les sauvegarder malgré tout pour des cas spécifiques. Mais hélas, nous n'y sommes pas encore.
+
+Les données suivantes ne sont plus sauvegardées :
+
+- état invisible
+- état vaincu
+- état verrouillé
+- « afficher le badge »
+
+## Défilement tactile (mobile)
+
+Un petit changement : la table de jeu principale et la barre de menu ne devraient plus déclencher de sur-défilement sur les appareils tactiles mobiles.
+
+Il reste d'autres améliorations mobiles/tactiles à apporter, mais c'est une première petite chose.
+
+## Groupes
+
+Les boutons de création et de suppression de groupes étaient cassés de plusieurs manières. Ils devraient maintenant se comporter correctement.
+
+De plus, quelques corrections ont été apportées au code réseau des groupes.
+Les données complètes du groupe étaient envoyées pour chaque forme, ce qui est totalement inutile puisque nous n'avons besoin des informations du groupe qu'une seule fois par groupe.
+Les changements de groupes sur les autres clients n'étaient pas non plus synchronisés, certains changements de groupes n'étaient donc visibles qu'après un rafraîchissement.
+
+## Fake Player
+
+Le mode Fake Player existe pour imiter rapidement la vision des joueurs en tant que DM.
+Il a cependant été laissé de côté pendant longtemps, et des efforts ont commencé avec la dernière version pour le polir à nouveau.
+
+Cette version retravaille les accès internes, ce qui m'a permis de corriger un tas de bugs liés au mode fake player.
+
+Les formes ne sont désormais rendues que si et seulement si un joueur dans la partie a un accès en vision à cette forme ET que la forme est active dans l'outil Vision.
+Cela signifie également que les formes invisibles ne sont plus rendues si vous ne contrôlez pas activement cette forme.
+
+Enfin, les auras sur le calque DM sont désormais toutes masquées.
+
+## Accès
+
+D'autres problèmes plus généraux liés à l'accès ont également été corrigés.
+
+- Accès : correction du fait que les joueurs avec des règles d'accès spécifiques avaient un accès en édition à tout moment
+- Accès : la modification d'un accès ne mettait pas à jour en direct l'interface d'édition de la forme si elle était ouverte par un autre client
+- Accès : correction de l'accès par défaut dans l'interface qui n'était pas à jour si une forme n'avait aucune modification d'accès jusqu'au rechargement
+- Accès : empêcher les DM d'avoir une règle d'accès explicite
+
+## Rendu
+
+- Correction des auras parfois invisibles jusqu'à un rafraîchissement ou un rapprochement de la vue vers l'aura
+- La transparence des calques supérieurs n'était plus appliquée après un redimensionnement de la fenêtre
+- Certains cas où des changements liés à l'accès en vision ne provoquaient pas un re-rendu immédiat
+- La grille n'affichait pas les lignes horizontales lorsque la largeur est plus petite que la hauteur de l'écran
+
+## Corrections diverses
+
+    - Auth : une erreur de logique dans le code de routage de l'authentification - dans certains cas, vous deviez vous rendre manuellement sur la page de connexion
+    - Labels : correction de la suppression qui ne fonctionnait pas
+    - Toolbar : correction des outils de vision et de filtre qui n'étaient pas immédiatement disponibles lorsque c'était pertinent
+    - Logic : le mode « request » ne fonctionnait pas comme prévu et se comportait comme le mode « Enabled » à la place
+    - Directions des pions : correction des pions affichés qui ne prenaient pas en compte les pions filtrés
+    - Select : l'interface de rotation devrait rester cohérente lors d'un zoom
+    - LocationBar : correction de la largeur de la poignée de glissement pour les emplacements sur plusieurs lignes
+    - Properties : l'interrupteur invisible n'était appliqué qu'après un rafraîchissement pour les joueurs
+    - Initiative : le verrouillage de la vision ne vérifiait pas correctement les pions actifs
+    - Initiative : la suppression de la dernière entrée pendant qu'elle est active pouvait casser l'initiative
+    - Vision : un cas limite pouvant provoquer une boucle infinie lors du tracé des lignes de vision
+    - Annotation : le markdown ne s'affichait plus en gras dans firefox
+    - [server] Sous-chemin : 2 cas où une configuration en sous-chemin ne chargeait pas correctement les images (initiative et changement de ressource)

@@ -1,0 +1,222 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Self-hosting
+
+## General Info
+
+Hosting PlanarAlly yourself requires a bit more setup then simply using an existing service, but it does give you more control and you can rely on it working offline as well.
+
+To host PlanarAlly yourself you have four options:
+
+- Build the client manually and run the server
+- Run the server using a pre-built client
+- Use a docker container
+- Use a precompiled executable
+
+The first 2 require you to manually install some things (e.g. python, dependencies, ...).\
+Docker allows you to skip a bunch of the manual work, but requires understanding of containers and volumes.
+
+Lastly a .exe is available for people who are not super technical. It should get the job done, but it's less tested.
+
+### Versions
+
+Depending on the chosen option you can decide which version of PA you want to use.
+
+For production versions you can find the official releases [here](https://github.com/Kruptein/PlanarAlly/releases).\
+For a development version you can just check-out any git commit/branch and manually build it.\
+For all releases as well as the development branch, docker images are automatically published on [dockerhub](https://hub.docker.com/r/kruptein/planarally/tags).
+
+### Backups and Upgrades
+
+When backing up your data three folders are important (relative to the server folder):
+
+- data
+- static/assets
+- static/mods
+
+If you made changes to the config (`data/config.toml`) some other folders/files might need to be backed up as well.
+
+When upgrading PA, a migration to the save file (default location `data/planar.sqlite`) might occur. A backup of the current save file will be done to the `save_backups` folder.
+
+<Info>
+If you install PA using one of the release zips/tarballs (e.g. you extract a folder somewhere), it's generally recommended to extract these to a new location and move/copy the above 3 data folders.
+<br />
+Extracting over the existing installation will usually work, but it can sometimes lead to some subtle bugs where a file was removed in the codebase, but will not be removed by overwriting.
+<br />
+When using git/docker this does not apply.
+
+</Info>
+
+### Configuration
+
+It's normal that you don't find a config file. PA uses default values that are stored internally.
+To override some of these options you can create a `config.toml` file in the server's `data` folder to change the configuration.
+
+See the [config docs](/en/server/management/configuration/) for the details.
+
+By default PA will run on port 8000, so if everything went successfull regardless of chosen host option, you should be able to see PA at http://localhost:8000
+
+<Info>
+    There is no pre-configured admin user, so when you see the login page you'll have to go through the register flow
+    like any other user!
+
+    <br/>
+
+    If you desire you can configure your created user as an admin to see some extra UI by creating/modifying the server config.
+
+</Info>
+
+## Fully manual installation
+
+PA consists of two parts:
+
+- a server written in python
+- a frontend written in typescript
+
+While you will always need to run the server to use PA, you only need to re-build the client if you download/change the PA version.
+
+### Frontend
+
+To build the frontend you need `node` and `npm` installed. At the moment of writing at least version 22 of node is required. (Though I would recommend version 24 if you don't have node installed yet)
+
+```bash
+# You need to be in the client folder to get the client working!
+cd client
+# Update dependencies, a new version usually comes with new dependencies
+npm i
+# Build the server
+npm run build
+```
+
+This will convert the typescript files to a couple minified javascript files and places them in the server's static folder, so that the server can be ran.
+
+That's all!
+
+### Backend
+
+You need a recent version of python installed to run PA. I believe 3.11 is the minimum version, but it's officially tested against 3.13.
+
+You can use any method to install python, but the recommended route is by using [uv](https://docs.astral.sh/uv/getting-started/installation/).
+This will cleanly seperate python installs and is also incredibly fast. Additionally this is used for dependency management by PA itself.
+
+<Info title="Dependencies without uv">
+If you don't want or can't use uv, it should be noted that there is no `requirements.txt` file in the repository.
+PA uses the modern `pyproject.toml` file which uv (as well as other tools) understand.
+
+This means however that you can't do a traditional `pip install -r requirements.txt`. You can find the list of dependencies you need to install in the aforementioned `pyproject.toml` file
+
+</Info>
+
+The following instructions assume you use uv, adapt the commands to your need if you use another approach.
+
+```bash
+# 1. Install python (can be skipped if you already have this)
+uv python install 3.13
+# 2. Move to the server folder!
+# (if you're still in the client folder you need to use `cd ../server`!)
+cd server
+# 3. Create a virtual environment for your python install
+uv venv
+# 4. Install the dependencies
+uv sync
+# 5. Run PA
+uv run planarally.py
+```
+
+When you want to (re)start your server in the future you only need to run step 5 (in the server folder).
+
+## Pre-built client
+
+If you want to manage the server install, but don't want to bother with building the client you can use the pre-built client files.
+These appear as the `Planarally-bin` files in the releases.
+
+These only have a server folder, you can follow the same steps as the fully manual installation above, but skip all the frontend/client related steps.
+
+## Docker Container
+
+### Vanilla
+
+You can grab the [Official Container](https://hub.docker.com/r/kruptein/planarally) with this command.  
+`docker pull kruptein/planarally`
+
+There are 3 volumes that should be mounted to have data persistency:
+
+- data: This is where the configuration as well as the save file usually is stored
+- assets: This is where user uploaded assets are stored
+- mods: This is an optional volume, only required if you allow/use mods on the server.
+
+It's recommended to make explicit volumes for these with `docker volume create` (See https://docs.docker.com/storage/volumes/)
+
+PA runs as a limited user in the docker container, you need to change the ownership of the created volumes to match this:
+
+```
+cd /var/lib/docker/volumes
+sudo chown -R 9000:9000 data/
+# repeat for other volumes
+```
+
+With volumes set up, you're ready to actually run the container.
+
+```
+# PA runs on port 8000, You can drop the mods volume if you don't intend to use it or allow it
+# It's generally recommended to specify a particular tag of the docker image (e.g. v2025.2.2) instead of using the latest
+# New versions can come with database migrations and might require some manual intervention that you want to do when you have some time
+docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ -v mods:/planarally/static/mods --name planarally kruptein/planarally
+```
+
+### compose
+
+There is currently no official docker-compose file, but a member of the community once wrote [this guide](https://github.com/edmael/selfhosted-planarally) on using docker-compose, ssl and nginx.
+
+There is also a compose file included in an example setup made for the Traefik reverse proxy, which can be found [here](/en/server/advanced/proxy/#traefik).
+
+## Precompiled executable
+
+_Note that the version numbers that are part of the releases' file names, are omitted in this tutorial._
+
+To run PlanarAlly on Windows, download the `planarally-windows.zip` from the release page and extract it somewhere in a new folder.
+
+This folder contains a lot of different files, but the important one for you right now is the one titled `planarally.exe`.
+When you execute this file, a command prompt will appear (a black screen with some text).
+
+<Warning>
+    It's healthy to be wary of random executables on the internet. These `.exe` files are generated using Nuitka from
+    the python source code in an isolated CI environment.
+
+    Nevertheless it can happen that a false-positive is triggered by an antivirus vendor out there for various reasons.
+
+</Warning>
+
+## Development
+
+You can configure the client and server to run in a special development mode. This way the frontend is hot-reloaded (i.e. changes made are immediately applied without needing a rebuild).
+
+This requires the server to be ran with the additional 'dev' argument:
+
+```bash
+uv run planarally.py dev
+```
+
+Additionally this also requires a separate process that handles the client hot-reloading
+
+```bash
+# in the client folder
+npm run dev
+```
+
+<Warning>
+    The client output will mention a specific port, you should completely ignore this as the PA dev server is hooked up
+    in a special manner to be as closely similar to the regular setup.
+    <br />
+    So you still access PA using the same (server) port as you did before.
+</Warning>
+
+<Warning>
+    If this is a clean version of the repository, the client must have been build normally once before you can use the
+    dev server. Otherwise some files that get generated on the server will be missing.
+</Warning>

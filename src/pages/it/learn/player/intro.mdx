@@ -1,0 +1,78 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Introduzione
+
+Congratulazioni, il tuo gruppo sta considerando PlanarAlly per la prossima partita!
+Ma come lo usi davvero?
+
+In questa guida introduttiva daremo un'occhiata a come creare un account, unirti a una partita e
+iniziare a prendere confidenza esaminando i principali elementi dell'interfaccia visibili quando si apre una partita!
+
+## Creazione dell'account
+
+<Info title="Server PA">
+    Non esiste un unico server PlanarAlly; chiunque è libero di ospitare la propria versione e renderla aperta o chiusa
+    agli altri. Di solito qualcuno del tuo gruppo ha organizzato su quale server PA giocherete; altrimenti qualcuno
+    dovrà leggere la [documentazione sui server](/it/server/setup/) e accordarsi su un server comune.
+</Info>
+
+Quando visiti il server scelto, verrai immediatamente accolto da una pagina di accesso.
+PlanarAlly non richiede nulla di speciale quando registri un nuovo account:
+solo un nome utente e una password, opzionalmente con un indirizzo email.
+
+Attualmente l'indirizzo email non viene usato per nulla all'interno di PA stesso,
+ma un amministratore del server potrebbe usarlo per informare gli utenti di prossimi interventi di manutenzione o simili.
+
+## Unirsi a una partita
+
+Dopo l'accesso, sarai accolto dalla dashboard principale; mostrerà le partite a cui partecipi e, se in un secondo momento decidi di ospitare tu stesso una partita, appariranno anche qui.
+
+![Dashboard principale dopo l'accesso](./assets/dashboard.png)
+
+Affinché una partita appaia qui, però, devi prima essere invitato.
+
+Il tuo host ti invierà un URL che, quando visitato, imposterà automaticamente la connessione con il tuo account e ti metterà nella partita.
+In futuro la partita apparirà nella tua dashboard principale come spiegato sopra!
+
+## Breve introduzione all'interfaccia
+
+Quando apri una partita, vieni immediatamente accolto da una varietà di elementi dell'interfaccia.
+
+![Una sessione di esempio in partita](./assets/in-game.png)
+
+A dominare la maggior parte dello schermo è il cuore di ogni VTT: la mappa con segnalini, visione e illuminazione.
+Il tuo DM avrà preparato tutto questo in precedenza.
+
+<Warning title="È tutto nero?!">
+    È possibile che l'unica cosa che vedi sia il vuoto nero puro. Ma non preoccuparti: probabilmente il tuo DM deve
+    ancora darti accesso a una forma!
+
+    Se l'ha fatto e non vedi ancora nulla, prova a premere <kbd>spazio</kbd> per riposizionare lo schermo su un segnalino
+    a cui hai accesso alla visione.
+
+</Warning>
+
+Nel prossimo capitolo vedremo come interagire correttamente con la mappa, scorrendola e ingrandendola, oltre a spostare i nostri personaggi.
+
+Prima introduciamoti agli angoli dello schermo, dove PA mette la maggior parte degli altri elementi prominenti dell'interfaccia.
+
+In alto a sinistra c'è un'icona <Cog /> che aprirà una barra laterale;
+serve soprattutto a configurare alcune impostazioni meno usate ed è anche il modo per lasciare la partita corrente e tornare alla dashboard principale.
+
+In alto a destra, c'è uno slider di zoom per controllare il livello di zoom della mappa e vedi anche un elemento dell'interfaccia che mostra informazioni sul personaggio attualmente selezionato.
+
+Continuando in senso orario, vediamo un gruppo di icone in basso a destra e un interruttore Build/Play.
+Sono tutte legate a una varietà di strumenti che PA offre, che vanno da cose come strumenti di disegno a righelli e dadi.
+Ne vedremo di più nel prossimo capitolo!
+
+Infine c'è l'angolo in basso a sinistra, che nello screenshot qui sopra è vuoto.
+Quest'area è per lo più riservata alle cose specifiche del DM, ma può apparire dal lato del giocatore se il tuo DM usa una funzionalità speciale di PA chiamata "piani".
+Anche la chat testuale apparirà qui se il tuo DM ha abilitato questa funzionalità!
+
+Questa breve introduzione ci ha solo fatto bagnare i piedi; tuffiamoci completamente e vediamo a cosa servono questi strumenti e come interagire con il nostro personaggio [nel prossimo capitolo](/it/learn/player/interaction/)!

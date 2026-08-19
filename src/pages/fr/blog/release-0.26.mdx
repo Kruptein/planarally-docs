@@ -1,0 +1,242 @@
+---
+title: La refonte du tableau de bord - Release 0.26.0
+date: 2021-03-06 10:00:00
+excerpt: "Un aperçu des nouvelles fonctionnalités"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cette version contient une grande variété de contenu, avec des refontes d'interface, de nouvelles options d'outils, des améliorations de confort d'utilisation et plus encore !
+
+Il convient également de noter que cette version contient des contributions de plusieurs contributeurs du serveur discord, un grand merci à scoodle et mischievous !
+
+## Refonte du tableau de bord
+
+Nous commencerons par l'un des changements les plus évidents : le tableau de bord !
+Le tableau de bord est la page que vous voyez après vous être connecté et où vous sélectionnez la campagne que vous voulez jouer ou maîtriser.
+
+Cette page a été entièrement repensée et ressemble désormais à ceci :
+
+![Refonte du tableau de bord](./0.26/dashboard.png)
+
+### Menu
+
+La barre latérale gauche agit comme un menu qui vous donne un accès immédiat à différentes vues.
+
+La première section du menu concerne tout ce qui est lié au jeu : Play liste toutes les sessions dans lesquelles vous êtes un joueur actif,
+Run donne toutes les sessions que vous maîtrisez en tant que DM. Enfin, l'option Create vous permet de créer une nouvelle campagne.
+
+La deuxième partie concerne tout ce qui touche aux ressources. Le menu Manage ouvre le gestionnaire de ressources, un composant qui n'était auparavant accessible que depuis une partie. L'option Create n'est pas encore disponible ici, mais sera révélée dans une prochaine version !
+
+Enfin, nous avons une action pour ouvrir les paramètres et pour se déconnecter.
+
+Une remarque importante : les paramètres et le gestionnaire s'ouvrent actuellement encore dans leurs composants d'origine, mais l'intention est de les repenser pour les intégrer à cette nouvelle interface du tableau de bord.
+
+### Run/Play
+
+Dans les modes Run et Play, une deuxième barre apparaît à droite avec plus de détails sur la campagne actuellement sélectionnée.
+
+Parmi les nouveautés notables, citons la possibilité de définir des logos (réservé au DM), de créer de petites notes personnelles liées à une campagne, de voir la dernière fois que vous avez joué dans cette campagne et des actions pour quitter ou supprimer la campagne.
+
+## Outils
+
+### Mode erase (DM)
+
+Une nouvelle addition aux modes de dessin du DM est le mode 'erase'.
+
+Ce mode spécial vous permet de rendre transparentes des zones de votre étage actuel, vous permettant ainsi qu'aux joueurs de voir ce qui se passe à l'étage en dessous.
+
+Vous pouvez l'utiliser pour des explosions soudaines qui pourraient ouvrir un trou dans le sol, ou peut-être avez-vous simplement oublié de rendre quelque chose transparent lors de la préparation et souhaitez-vous le modifier directement dans PA lui-même.
+
+![Mode erase](./0.26/erase.png)
+
+Dans l'image ci-dessus, il y a 2 étages.
+L'étage du bas contient un rectangle de couleur turquoise.
+L'étage du haut contient toutes les autres formes.
+
+La forme polygonale qui ressemble grossièrement à une grosse flèche vers la droite est une forme dessinée en mode erase.
+Elle offre un aperçu de l'étage du bas.
+
+Cette forme fait partie de la pile de dessin comme n'importe quelle forme classique ! Comme vous pouvez le voir, le rectangle rouge est au-dessus de cette forme polygonale, comme si une bûche traversait l'ouverture dans le sol. Si vous déplacez le polygone au premier plan (ou l'objet rouge à l'arrière-plan), seules les parties rouges non recouvertes par le polygone seraient visibles !
+
+Un dernier aspect important est que cette forme est automatiquement créée sur l'étage de la carte lorsqu'elle est dessinée. Rien ne vous empêche toutefois de la déplacer vers un autre étage.
+
+### Formes de texte
+
+Une nouveauté assez simple de l'outil de dessin, disponible pour tous, est l'option de 'dessiner' du texte.
+
+Cette première version est relativement simple : elle propose une invite de texte lorsque vous cliquez avec le bouton gauche avec cette forme sélectionnée.
+La forme peut être pivotée/redimensionnée comme les autres formes.
+
+Attendez-vous à d'autres améliorations à l'avenir.
+
+### Changements de taille des Ping et Ruler
+
+Les ping et rulers que vous dessiniez avaient toujours une taille cohérente.
+Cependant, lorsque d'autres joueurs les dessinaient, leur taille était affectée par le niveau de zoom auquel ils se trouvaient, et non celui auquel vous étiez.
+Cela pouvait entraîner l'apparition de rulers très épais ou très fins sur votre écran, ou de ping difficiles à repérer.
+
+Cette version change les règles pour ces formes : elles seront toujours dessinées à exactement la même taille. Le niveau de zoom de vous ou de la personne qui dessine n'est plus pertinent pour cette décision.
+
+### Mise à jour de l'icône du cône de sort
+
+Une petite amélioration de confort : l'icône du cône de sort est désormais un cône plein.
+Merci à mon ami Jiri.
+
+## Paramètres
+
+### Refonte des paramètres du client
+
+Le tableau de bord n'était pas la seule interface à être rafraîchie, les paramètres du client ont également eu droit à une nouvelle couche de peinture !
+
+![Refonte des paramètres du client](./0.26/client.png)
+
+Au lieu de faire partie du menu latéral, les paramètres du client s'ouvrent désormais dans une modale, tout comme les paramètres DM.
+Cela offre plus d'espace et plus de marge pour davantage d'options.
+
+Dans le cadre de cette refonte, il existe désormais également un concept de paramètres du client spécifiques à une campagne.
+Lorsque vous modifiez un paramètre, vous remarquerez l'apparition de deux icônes à côté de lui, indiquant que le paramètre s'écarte des paramètres par défaut.
+
+L'icône de gauche réinitialise la valeur au paramètre global, tandis que l'icône de droite fait de cette nouvelle valeur le nouveau défaut global.
+
+Dans une prochaine version, les paramètres globaux seront également modifiables depuis la vue des paramètres du tableau de bord.
+
+### Désactiver le zoom par molette
+
+Une plainte souvent entendue par les joueurs utilisant des pavés tactiles est le besoin d'une option pour désactiver l'activation de l'outil de zoom au défilement,
+car cela peut très facilement se produire accidentellement avec un pavé tactile.
+
+Cette nouvelle option est désormais disponible dans les paramètres du client, sous behaviour !
+
+### Option Co-dm (DM)
+
+En tant que DM, vous pouvez désormais promouvoir des joueurs au rôle de co-DM depuis vos paramètres DM principaux.
+
+## Formes
+
+### Defeated
+
+Les formes n'ont reçu qu'un petit changement dans cette version, à savoir une propriété 'defeated'.
+Lorsque vous cochez cette case dans les propriétés de la forme ou lorsque vous appuyez sur 'x' avec une ou plusieurs formes sélectionnées,
+toutes les formes concernées recevront un X rouge dessiné par-dessus.
+
+![Symbole defeated](./0.26/defeated.png)
+
+_Contribué par scoodle sur discord !_
+
+### Barres visuelles des trackers
+
+Les trackers ont reçu la même refonte d'interface que les auras dans la dernière version.
+Ils ont désormais une case à cocher supplémentaire et deux entrées de couleur.
+
+Si "display on token" est coché, une barre sera dessinée au-dessus du pion dans les 2 couleurs de votre choix.
+
+![Barres visuelles des trackers](./0.26/tracker.png)
+
+_Contribué par scoodle sur discord !_
+
+## Chargement des informations de murs (DM)
+
+Une autre frustration que certains DM rencontrent parfois est le travail ardu lié au dessin des murs pour le système de vision.
+
+Cette version ajoute 2 options pour 'importer' des informations de murs à partir de sources alternatives.
+
+### dungeondraft
+
+Dungeondraft est un service populaire pour préparer vos cartes avant de les importer dans un VTT.
+Ils proposent des exports dans un format de fichier personnalisé dd2vtt.
+
+Ce format est désormais compris par PlanarAlly et lorsque vous déposez une ressource de ce type sur la table de jeu, ces informations y seront attachées.
+
+Pour des raisons techniques, les murs, portes et lumières associés au fichier dd2vtt ne sont pas immédiatement ajoutés à la scène.
+Vous pouvez d'abord redimensionner/positionner la ressource comme vous le souhaitez, puis charger toutes les informations supplémentaires en allant dans l'onglet "Extra" des propriétés de la forme et en cliquant sur le bouton 'Apply ddraft info'.
+
+Toutes les informations sont ajoutées à la table de jeu sous forme de véritables formes PlanarAlly, ce qui signifie que vous pouvez redimensionner les éléments, supprimer les lumières dont vous n'avez pas besoin, etc.
+
+### svg
+
+Une autre approche désormais disponible consiste à attacher un svg contenant des informations de murs à n'importe quelle ressource. Comme pour les fichiers dungeondraft, cela peut être fait depuis l'onglet 'Extra' des propriétés de la forme.
+
+**Un très gros avertissement** : gardez ces svg simples ou vous aurez droit à une expérience très douloureuse.
+
+Ces svg sont destinés à ne contenir que des informations de murs, alors assurez-vous de retirer les murs, fonds, etc. avant de les ajouter.
+
+Un dernier mot : ces murs ne sont pas interactifs, ils sont purement internes à la forme, donc vous ne pouvez pas les redimensionner, etc. pour le moment.
+
+## Confort d'utilisation
+
+### La grande bordure rouge
+
+Il y aura désormais une grande bordure rouge autour de l'écran lorsque la connexion au serveur est interrompue.
+
+Selon le problème, la connexion devrait se rétablir automatiquement, mais tout ce que vous avez modifié pendant la déconnexion pourrait être perdu.
+Cela a toujours été le cas, mais il devrait désormais être clair pour vous quand la progression risque d'être perdue.
+
+### Raccourcis clavier Mac
+
+Tous les raccourcis clavier utilisant la touche ctrl utiliseront désormais la touche cmd sur les ordinateurs Mac.
+
+### Chargement de la police
+
+La police opensans utilisée dans PlanarAlly sera désormais chargée depuis le serveur au lieu de google fonts.
+Cela pourrait sinon entraîner des problèmes de police lors d'un jeu hors ligne.
+
+### Animation de chargement
+
+Le spinner terne a été remplacé par une élégante animation de transformation en dés 3D.
+
+<video loop autoplay muted style="max-width: 680px;">
+    <source src="https://app.planarally.io/static/img/loading.webm" type="video/webm" />
+</video>
+
+_animation réalisée par Jiri sur discord_
+
+## Serveur
+
+### Spécifier le nom d'hôte public
+
+Par défaut, lorsqu'un lien d'invitation est montré au DM dans les paramètres DM, l'URL actuelle du navigateur est utilisée pour déterminer l'hôte.
+Cependant, lorsque le DM est connecté via une IP locale ou localhost, l'URL sera inutilisable par les autres joueurs.
+
+Un nouveau paramètre de configuration du serveur vous permet de définir un `public_name` qui, s'il est défini, sera toujours utilisé comme hôte racine.
+
+_Contribué par mischievous sur discord !_
+
+## Bugs notables
+
+### Nom d'étage en double (DM)
+
+Il n'est plus possible de créer un étage avec un nom déjà utilisé.
+Cela pouvait entraîner de multiples problèmes lors de l'interaction avec les deux étages.
+
+C'est un correctif rapide, mais il ne devrait pas vraiment imposer trop de restrictions de toute façon.
+
+### Interruptions de téléversement de fichiers
+
+Un correctif a été ajouté pour empêcher l'arrêt des téléversements de fichiers volumineux après une courte période.
+
+_Contribué par scoodle sur discord !_
+
+### Accrochage du pion à la sortie d'un mur
+
+Lorsqu'en déplaçant un pion vous déplacez votre souris dans un mur, vous pouviez vous désynchroniser de la forme en sortant du mur.
+C'est désormais corrigé.
+
+### Dépôt de modèle avec taille de grille non par défaut
+
+Lors du dépôt d'une forme avec un modèle contenant des informations de taille sur la table de jeu, mais utilisant une taille de grille non par défaut,
+la forme était redimensionnée à tort.
+
+### Formes de variantes visibles
+
+Lors de l'utilisation de la fonctionnalité expérimentale de variantes, tous les joueurs pouvaient voir toutes les formes variantes à tout moment.
+
+### Menu contextuel hors écran
+
+Lors de l'ouverture d'un menu contextuel en bas ou sur le bord droit de l'écran, le contenu sortait de l'écran.
+Ces menus sont désormais conscients des bords et s'adapteront en conséquence.
+
+### Navigation en arrière
+
+Lors de la navigation en arrière, que ce soit avec le bouton retour du navigateur ou un bouton de votre souris, l'URL se mettait correctement à jour,
+mais rien ne changeait. C'est désormais corrigé.

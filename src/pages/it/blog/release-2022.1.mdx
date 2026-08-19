@@ -1,0 +1,148 @@
+---
+title: Release 2022.1
+date: 2022-04-20 20:00:00
+excerpt: "Finalmente una nuova release"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+È passato _molto_ tempo dall'ultima release, più di mezzo anno, e avrei molte ragioni da spiegare sul perché e sul come, ma alla fine voglio solo scusarmi e spero che nel prossimo futuro vedremo una cadenza più regolare :)
+
+## Cambio del formato di versione
+
+_Puoi saltare completamente questa parte se vuoi solo sapere cosa è cambiato davvero!_
+
+Chi ha familiarità con PlanarAlly noterà probabilmente anche che il numero di versione è cambiato. È qualcosa a cui ho accennato nel mio post di riepilogo del 2021 e ho deciso di implementarlo per la prima versione del 2022.
+
+Sebbene non ci fosse nulla di necessariamente sbagliato nello schema di versioning originale, a mio parere non c'era nulla di drammatico all'orizzonte che giustificasse il passaggio a una 1.0.0, il che renderebbe praticamente inutile il primo numero. Anche il numero minore in costante aumento non sembrava una buona soluzione, quindi era il momento di qualcosa di nuovo.
+
+Passiamo da uno schema di versione major.minor.patch a uno schema year.minor.patch, dove ogni anno ricomincerà con una 1.0. Questo mantiene i numeri di versione abbastanza piccoli da ragionarci facilmente e li colloca in un periodo di tempo chiaro, mentre 0.18.0 potrebbe essere ovunque negli ultimi 3 anni.
+
+## Sistemi logici
+
+La principale novità di questa release è l'aggiunta di piccoli moduli logici che possono essere aggiunti alle forme. Questa release introduce due tipi: porte (Doors) e zone di teletrasporto.
+
+È stata aggiunta una nuova scheda al dialogo di modifica della forma da cui puoi abilitare, disabilitare e configurare il comportamento di questi moduli.
+
+#### Permessi
+
+Entrambi i moduli possono essere configurati con un sistema di permessi. Il DM avrà sempre accesso e di default tutti gli altri giocatori no. Puoi modificare l'accesso predefinito e configurare l'accesso per giocatori specifici come enabled/request/disabled, dove request significa che il DM riceverà una notifica per consentire o negare l'azione.
+
+### Porte
+
+Quando i giocatori incontrano una forma che blocca l'accesso a un'altra area, ci sono vari modi in cui il DM può permettere ai giocatori di superare questo ostacolo. Il DM potrebbe semplicemente spostarli sopra l'oggetto con i suoi poteri magici shift. Potrebbe semplicemente eliminare la forma. Potrebbe andare nelle proprietà della forma e disabilitare le proprietà "blocks vision" e "blocks movement". Oppure potrebbe entrare in build mode e trascinare la forma in modo che i giocatori possano passare.
+
+Personalmente tendevo a usare l'ultima opzione, ma le mie porte sono in genere anche sul livello fow, quindi dovevo cambiare sia livello che modalità, in breve un po' una scocciatura.
+
+È qui che entra in gioco il modulo Door. Quando una forma è configurata come porta, le sue proprietà di blocco possono essere attivate o disattivate immediatamente cliccando sulla forma in play mode da qualsiasi livello. Semplice e facile!
+
+Per rendere le cose ancora più facili, ora potrai anche applicare automaticamente questo alle forme che stai disegnando nello strumento Draw, maggiori dettagli più avanti!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/doors.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/doors.mp4" type="video/mp4" />
+</video>
+
+Nel video qui sopra la porta a sinistra è stata configurata per essere abilitata per tutti i giocatori di default e può quindi essere attivata senza problemi dal giocatore. La porta davanti al giocatore, invece, è stata configurata con il permesso request. In questi casi il DM riceverà una richiesta come quella che segue, in cui può scegliere di accettare o rifiutare la richiesta, oltre a spostare la telecamera sulla porta in questione, se sta guardando altrove.
+
+![Richiesta DM per la porta logica](./2022.1/door-dm-request.png)
+
+### Zone di teletrasporto
+
+Il secondo modulo offre un altro miglioramento alla qualità della vita. Come puoi intuire dal nome, ti permette di configurare una forma per agire come una zona speciale in cui, se una forma vi entra, viene teletrasportata in un altro luogo.
+
+Casi d'uso potenziali per questa funzionalità sono le scale verso altri piani, trappole o... cerchi di teletrasporto!
+
+Il bersaglio di queste zone di teletrasporto sono le posizioni di spawn esistenti, quindi assicurati di configurarle prima! Queste posizioni di spawn possono anche essere in altri luoghi, quindi anche i viaggi interdimensionali non sono un problema.
+
+Di default una zona di teletrasporto non si attiverà immediatamente, ma verrà invece mostrata una notifica ai giocatori mentre si trovano nella zona, che permetterà loro di attivarla a piacimento (ad es. un giocatore potrebbe stare su una scala senza avere intenzione di salire). È comunque possibile configurarla per agire immediatamente (ad es. una trappola a fossa di solito non è facoltativa!)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/tp.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/tp.mp4" type="video/mp4" />
+</video>
+
+## UI
+
+Sono stati apportati due piccoli cambiamenti alla UI degli strumenti.
+
+### Ristrutturazione dello strumento Draw
+
+Il popout dello strumento Draw stava diventando affollato, impedendo l'aggiunta di nuove cose. Questa release ripensa l'aspetto di questo popout e ora usa una struttura con 3 schede separate.
+
+La scheda base contiene la configurazione con cui interagirai più spesso ed è legata all'aspetto effettivo dell'oggetto che stai per disegnare.
+
+La seconda scheda è focalizzata sul comportamento FOW. Il DM può selezionare qui la modalità di disegno. Inoltre, le proprietà di blocco della forma disegnata possono ora essere modificate anche dallo strumento Draw. Queste impostazioni si abiliteranno comunque automaticamente quando selezioni il livello fow e si disabiliteranno di nuovo quando selezioni un altro livello. Ora hai però la possibilità di configurare questo per tutte le forme che stai per disegnare, senza doverle modificare una per una in seguito.
+
+L'ultima scheda è per i nuovi sistemi logici e attualmente offre solo un'opzione per configurare automaticamente il modulo Door per tutte le forme disegnate. Quando lavori sulle mappe, ti consiglio di fare prima tutte le pareti e poi una passata per le porte con questa impostazione abilitata. (E un'altra passata per le finestre con solo block movement abilitato!)
+
+### UI di modifica dei polygon
+
+Un piccolo miglioramento QoL alla UI di modifica dei polygon nasconderà ora la UI mentre trascini, poiché era solo rumore visivo che a volte interferiva con l'operazione di trascinamento.
+
+## Gestione degli asset
+
+### Supporto per il rilascio di cartelle
+
+Ora dovrebbe essere possibile nella maggior parte dei browser rilasciare cartelle nell'asset manager! Questa semplice cosa è stata spesso richiesta, comprensibilmente, ma il supporto dei browser su alcune delle funzioni usate non era ancora standardizzato, cosa che ora dovrebbe esserlo.
+
+### Informazioni sulle dimensioni
+
+Se un asset ha informazioni sulle dimensioni nel suo nome, occuperà automaticamente il numero previsto di celle della griglia quando viene rilasciato sul tavolo.
+
+PA cerca specificamente un modello che corrisponde a ?x?, dove i punti interrogativi rappresentano una o più cifre (ad es. 20x20 o 5x12), con i numeri che rappresentano la quantità di celle della griglia nelle direzioni X e Y.
+
+## Gestione del server
+
+Per chi ospita un server PA, abbiamo anche alcune novità interessanti!
+
+### Disabilitare la registrazione
+
+Ora è possibile impedire alle persone di registrare nuovi account, rendendo di fatto il tuo server privato. Basta configurare l'opzione `allow_signups` nel tuo file di configurazione del server e sei a posto.
+
+Non esiste ancora un meccanismo per offrire al proprietario del server (o ad altri) la possibilità di ammettere persone specifiche. È comunque possibile aggiungere manualmente un nuovo utente se hai familiarità con python, oppure semplicemente abilitare le iscrizioni per un breve periodo.
+
+### Admin Dashboard
+
+Ora è possibile abilitare una dashboard admin essenziale, che gira sulla stessa porta del server API. Usando questa dashboard puoi elencare tutti gli utenti registrati, resettare la loro password o eliminarli del tutto. Inoltre puoi anche elencare tutte le campagne.
+
+### Supporto docker arm64
+
+Una funzionalità di nicchia è che PA ora compila anche immagini docker arm64 per i rami release e dev.
+
+### [BREAKING] Gestione dei subpath
+
+Il modo in cui viene gestito l'hosting su subpath è stato modificato in questa release. Se ospiti un server PlanarAlly che è ospitato usando un subpath, assicurati di aggiornare la tua configurazione.
+
+#### Sto usando un subpath?
+
+L'hosting su subpath qui si riferisce specificamente a una configurazione in cui non ospiti PA alla radice del tuo dominio (ad es. `http://somedomain.org/`, `http://somedomain.org:2345/` o `http://subdomain.somedomain.org/`), ma piuttosto in un subpath (ad es. `http://somedomain.org/planarally/`)
+
+Ora ci si aspetta che il client sia specificamente compilato con le informazioni sul subpath. Questo significa che la variabile d'ambiente PA_BASEPATH deve essere impostata durante la compilazione.
+
+Inoltre, il percorso ora deve esplicitamente terminare con una barra.
+
+Se usavi docker, ora dovrai compilare l'immagine da solo, poiché dovrai fornire queste informazioni extra per la compilazione del client usando il flag `--build-arg PA_BASEPATH='/subpath/'` invece della vecchia configurazione che usava `--env PA_BASEPATH`
+
+## Bugfix
+
+In questa release sono stati corretti molti bug!
+
+- Il piano non veniva ricordato al ricaricamento dopo l'azione "Bring Players"
+- L'incollaggio delle forme non aumentava correttamente i contatori dei badge
+- Le forme di visione predefinite si comportavano sempre come segnalini (indipendentemente da isToken)
+- Il blocco delle proporzioni dello strumento Map non funzionava più
+- Le modali ora cambieranno posizione quando il ridimensionamento della finestra le porterebbe fuori dall'area visibile dello schermo
+- Corretto il problema delle barre di scorrimento visibili a causa del canvas dei dadi non dimensionato con precisione
+- Corretto il problema dei blocchi di movimento che si intersecavano con se stessi quando ci si muoveva sul livello dei segnalini
+- Corretto il problema degli asset che diventavano invisibili con una configurazione a subpath (si applica solo ai nuovi asset)
+- Corretto il problema del selettore di colori che non permetteva di modificare manualmente i valori rgba/hsla/hex
+- La rimozione dell'account non reindirizzava correttamente al login
+- Selezionare una forma disegnata in modalità reveal non rimuove più l'ombra durante la selezione
+- La rimozione di un asset rimuoveva qualsiasi campagna che lo usasse come logo
+- L'input numerico della direzione dell'aura non sincronizzava il cambiamento con il server
+- Alcune perdite di memoria quando si cambiava luogo
+- Comportamento dell'illuminazione dei piani per le immagini che si caricano in ritardo
+- I caricamenti DDraft non avanzavano nell'asset manager
+- Le luci DDraft non venivano configurate correttamente
+- [asset-manager] L'asset manager non controllava la presenza di file obsoleti quando si rimuoveva una cartella

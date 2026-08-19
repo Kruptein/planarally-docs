@@ -1,0 +1,172 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Обратный прокси
+
+Обычно при размещении сервера используют какой-нибудь обратный прокси, чтобы защитить сам сервер от внешнего мира.
+На этой странице приведён набор примеров для некоторых популярных прокси. Учтите, что часть из них внесена участниками сообщества и не тестировалась/не проверялась автором PA.
+
+Обратите внимание, что PA может работать либо в режиме `host:port`, либо в режиме сокета. Большинство прокси умеют работать с обоими режимами, в примерах обычно используется один из двух.
+
+И последнее замечание: в большинстве примеров будут захардкоженные значения, которые вам придётся изменить (например, в качестве примера имени хоста используется «app.planarally.io»).
+
+<Warning title="Websocket">
+PA по своей сути — вполне обычный веб-сервер, однако ему требуются websocket-соединения.
+В зависимости от прокси это может потребовать дополнительной настройки.
+
+Если вы можете открыть главную страницу PA, но не можете загрузить активы или выполнить что-то полезное в игре, скорее всего, виновато именно websocket-соединение.
+Либо неверно настроен ваш прокси, либо у вас проблемы с cors. Во втором случае перепроверьте, что [параметр конфигурации cors](/ru/server/management/configuration/#field-cors_allowed_origins) настроен правильно
+
+</Warning>
+
+## Caddy
+
+Всё, что вам нужно, — это:
+
+_Предполагается, что сокет PA находится по адресу `/run/pa.sock`. (это просто пример)_
+
+```apache
+app.planarally.io {
+  handle {
+    reverse_proxy unix//run/pa.sock
+  }
+}
+```
+
+Caddy обрабатывает websocket-вещи автоматически.
+Он также из коробки выдаёт сертификаты letsencrypt.
+
+## Nginx
+
+При использовании nginx вам нужно явно настроить проброс websocket.
+
+Ниже приведён пример конфигурации, повторяющий мою старую конфигурацию (до перехода на caddy).
+Важная часть — чтобы сокеты пробрасывались насквозь.
+
+Здесь используется сокет; если вы используете связку host:port, уберите секцию upstream и подставьте их напрямую в proxy_pass.
+
+```nginx
+server {
+    listen *:443;
+    ssl on;
+    ssl_certificate /etc/letsencrypt/live/planarally.io/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/planarally.io/privkey.pem; # managed by Certbot
+
+    server_name app.planarally.io;
+
+    location / {
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_redirect off;
+      proxy_buffering off;
+      proxy_pass http://pa_sock;
+    }
+
+    location /socket.io/ {
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header Host $host;
+      proxy_pass http://pa_sock/socket.io/;
+    }
+
+    location /static {
+      alias /home/darragh/dev/planarally/server/;
+    }
+
+    location ~ /.well-known {
+      allow all;
+      root /var/www/letsencrypt;
+    }
+}
+
+upstream pa_sock {
+  server unix:/tmp/planarally.sock fail_timeout=0;
+}
+```
+
+## Apache
+
+Приведённая ниже конфигурация apache предполагает, что сервер приложений PlanarAlly запущен на порту 8008 на той же машине, что и прокси.
+Также предполагается, что вы сгенерировали SSL/TLS-сертификаты и закрытые ключи по путям, указанным в `SSLCertificateFile/SSLCertificateKeyFile`.
+Все HTTP-запросы будут перенаправляться на HTTPS.
+Замените `planarally.CHANGEME.org` на фактическое доменное имя, по которому будет доступен PlanarAlly.
+
+```apache
+<VirtualHost *:80>
+    ServerName planarally.CHANGEME.org
+    # Redirect all HTTP requests to HTTPS
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName  planarally.CHANGEME.org
+  SSLEngine on
+  SSLCertificateFile /etc/ssl/certs/planarally.CHANGEME.org.crt
+  SSLCertificateKeyFile /etc/ssl/private/planarally.CHANGEME.org.key
+  ProxyPreserveHost On
+  ProxyRequests off
+  ProxyPass / http://127.0.0.1:8008/
+  ProxyPassReverse / http://127.0.0.1:8008/
+  RewriteEngine on
+  RewriteCond %{HTTP:Upgrade} websocket [NC]
+  RewriteCond %{HTTP:Connection} upgrade [NC]
+  RewriteRule ^/?(.*) "ws://127.0.0.1:8008/$1" [P,L]
+</VirtualHost>
+```
+
+## Traefik
+
+Вот пример конфигурации с использованием [docker-compose](https://docs.docker.com/compose/) и
+[traefik](https://containo.us/traefik/), менеджера docker-обратных прокси. Здесь предполагается, что ваша
+внешняя сеть traefik также называется `web`.
+
+#### docker-compose.yml
+
+Важно отметить изменения, которые нужно внести в `domain.com`, чтобы он соответствовал вашему домену, а также пути
+к папкам `assets` и `data`. Эти тома могут быть любыми на ваше усмотрение.
+
+```yaml
+---
+version: "3"
+
+networks:
+    traefik_network:
+        external:
+            name: web
+
+services:
+    # Media Server
+    planarally:
+        image: kruptein/planarally:latest
+        restart: unless-stopped
+        networks:
+            - traefik_network
+        volumes:
+            - "/path/to/data:/planarally/data/"
+            - "/path/to/assets:/planarally/static/assets/"
+        labels:
+            - "traefik.http.services.pa.loadbalancer.server.scheme=http"
+            - "traefik.http.services.pa.loadbalancer.server.port=8000"
+            - "traefik.enable=true"
+            - "traefik.docker.network=web"
+            - "traefik.http.routers.pa-http.service=pa"
+            - "traefik.http.routers.pa-http.rule=Host(`pa.domain.com`)"
+            - "traefik.http.routers.pa-http.entrypoints=http"
+            - "traefik.http.routers.pa.service=pa"
+            - "traefik.http.routers.pa.rule=Host(`pa.domain.com`)"
+            - "traefik.http.routers.pa.entrypoints=https"
+            - "traefik.http.routers.pa.tls=true"
+            - "traefik.http.routers.pa.tls.certresolver=dns"
+            - "traefik.http.routers.pa.tls.domains[0].main=domain.com"
+            - "traefik.http.routers.pa.tls.domains[0].sans=*.domain.com"
+            - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+            # these are required, this forces the websocket to forward over https
+            - "traefik.http.routers.pa.middlewares=ssl-header"
+            - "traefik.http.middlewares.ssl-header.headers.customrequestheaders.X-Forwarded-Proto=https"
+```

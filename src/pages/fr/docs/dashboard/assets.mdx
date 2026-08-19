@@ -1,0 +1,59 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
+
+# Ressources
+
+<Image src={DashboardAssets} alt="Ressources du tableau de bord" />
+
+La section **Ressources** vous permet de gérer ou de créer des ressources qui peuvent être utilisées dans les campagnes.
+_Consultez la section [Ressources du DM](/fr/docs/dm/assets/) pour apprendre à les utiliser_.
+
+<Info>
+    Actuellement, les ressources ne sont intéressantes que pour le DM. À l'avenir, cet espace devrait également devenir
+    un endroit où les joueurs peuvent téléverser des ressources.
+</Info>
+
+En haut à droite, une petite barre d'actions permet de créer un dossier, de téléverser de nouvelles ressources ou de supprimer la sélection active.
+
+## Naviguer dans les dossiers
+
+L'écran principal vous propose un explorateur de dossiers dans lequel vous pouvez double-cliquer pour entrer dans un dossier.
+Le chemin de votre dossier actuel est affiché sous forme de fil d'Ariane juste sous le titre « MANAGE ASSETS ».
+
+Pour revenir au dossier précédent, vous pouvez double-cliquer sur le dossier « .. »[^1].
+Vous pouvez également cliquer sur n'importe quel segment du fil d'Ariane pour revenir plusieurs dossiers en arrière d'un coup.
+
+## Téléverser des ressources
+
+Les ressources peuvent être téléversées soit en cliquant sur l'icône d'ajout de fichier dans la barre d'actions, soit en les faisant glisser sur le gestionnaire de ressources.
+
+## Déplacer des ressources
+
+Vous pouvez déplacer des ressources en les faisant glisser vers le dossier souhaité.
+Ainsi, pour déplacer une ressource d'un dossier vers le haut, faites-la glisser sur le dossier « .. ».
+
+Vous pouvez déplacer plusieurs ressources à la fois, soit en faisant glisser un dossier contenant plusieurs ressources, soit en sélectionnant plusieurs ressources.
+
+## Sélectionner des ressources
+
+Un simple clic sur une ressource la sélectionne et désélectionne toutes les autres ressources.
+
+Si vous souhaitez étendre la sélection, vous pouvez utiliser ctrl+clic ou shift+clic.
+La première option ajoute uniquement le fichier cliqué à la sélection,
+tandis que la seconde ajoute tous les fichiers situés entre la dernière sélection et la nouvelle sélection.
+
+<Info>
+    Le comportement actuel est un vestige de l'ancien gestionnaire de ressources et imite la logique des explorateurs de fichiers courants.
+
+    La façon dont la sélection est actuellement affichée la rend cependant un peu contre-intuitive.
+    Cela pourrait donc changer à l'avenir.
+
+</Info>
+
+[^1]: Ceci est un concept issu du monde Unix.

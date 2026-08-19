@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# アセット
+
+アセットメニューは、ゲームにアセットを挿入するために使用します。
+挿入できるのは、マップ、トークン、オブジェクトなど、何でも構いません。
+このメニューにアクセスするには、<Cog /> アイコンをクリックし、ドロップダウンメニューから「Assets」をクリックします。
+
+## アセットの配置
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="アセットの使用例" />
+
+アセットを使用するには、まずアセットタブを開きます。
+次に、ファイルを保存したフォルダを開きます。
+最後に、アセットをゲームボード上へドラッグします。
+これで、アセットを操作できるようになります。
+
+または、検索バーを使ってアセットを検索することもできます。
+これにより、検索クエリに一致する項目がないフォルダやサブフォルダは除外されます。
+
+<Tip title="アセットの寸法">
+    アセット名に寸法情報が含まれている場合、PA はアセットを自動的に正しいサイズに設定します。
+
+    例: goblin_5x5
+
+</Tip>
+
+### テンプレート
+
+右クリックのコンテキストメニューから、いつでもアセットの状態を保存できます。
+
+保存される状態には、デフォルトのプロパティに加えて、トラッカー、オーラ、寸法（幅と高さ）も含まれます。
+
+テンプレートが関連付けられたアセットをボードにドロップすると、基本の空のプリセットではなく、テンプレートを選択するプロンプトが表示されます。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+これは、HP や光源などをあらかじめ設定しておきたい、頻繁に使用するトークンを再利用するのに非常に便利です。
+
+### バリアント
+
+<Warning title="試験的機能！">
+    この機能は試験的なものです！ いくつかのエッジケースが発生することが予想されます。バグを発見した場合は、 [GitHub
+    のイシュートラッカー](https://github.com/Kruptein/PlanarAlly/issues) に報告してください！
+</Warning>
+
+新しいトークンを作成して以前のものを削除する代わりに、オブジェクトに _バリアント_ を追加して、異なる外観を与えることができます。
+一般的な使用例としては、ドルイドのワイルドシェイプ、キャラクターの代替アート、複数段階のボス、サプライズの演出などがあります。
+
+バリアントを追加するには、基本オブジェクトの編集ウィンドウの下部にある `+` ボタンを使用します。
+鉛筆アイコン <PencilAlt/> をクリックすると、アクティブなバリアントの名前を編集できます。
+バリアントの名前はオブジェクトの名前とは関連していないことに注意してください！
+
+基本オブジェクトはどのようなシェイプ（Shape、Token、Asset）でも構いませんが、バリアントとして追加できるのは _アセット_ のみです。
+オブジェクトのバリアントは一度に1つだけ表示され、別のバリアントに交換できます。
+
+各バリアントは、独自のサイズ、プロパティ、トラッカー、オーラを保持します。
+トラッカーとオーラは、すべてのバリアント間で共有するように設定できます。
+新しく作成したバリアントには、基本バリアントで適用されている設定は一切引き継がれません。
+これにはアクセス権、一般的なシェイプのプロパティ（例: 名前）、注釈が含まれます！
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+ごみ箱ボタン <TrashAlt /> でバリアントを削除できます。

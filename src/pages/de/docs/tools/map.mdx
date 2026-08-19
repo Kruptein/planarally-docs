@@ -1,0 +1,39 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Werkzeug Map
+
+Das Map-Werkzeug kann über die Symbolleiste unten rechts am Spieltisch aufgerufen werden, aber nur im [Build-Modus](/de/docs/tools-overview/#toolbar-and-modes) und nur vom GM.
+Es bietet eine einfache Möglichkeit, eine benutzerdefinierte Form an das Raster anzupassen.
+Es kann verwendet werden, um beliebige Formen zu skalieren, aber sein Hauptzweck liegt in Karten.
+
+Um das Map-Werkzeug zu verwenden, muss zuerst eine Form ausgewählt werden.
+Ist dies nicht der Fall, weist dich das Map-Werkzeug darauf hin und du kannst eine Form direkt aus dem Map-Werkzeug heraus auswählen, ohne zum Select-Werkzeug wechseln zu müssen.
+
+Wenn eine Form ausgewählt ist, kannst du einen Bereich in dieser Form auswählen, der als Referenz verwendet werden soll, oder das gesamte Bild skalieren.
+Beachte, dass in beiden Fällen das gesamte Bild skaliert wird.
+Beim Skalieren „des gesamten Bildes" wird einfach das gesamte Bild als Referenz verwendet, ohne nur einen Teil als Referenz auszuwählen.
+
+## Bereich auswählen
+
+Das Auswählen eines Bereichs erfolgt durch Ziehen eines Rahmens um ihn.
+Du kannst zum Beispiel einen Bereich auswählen, der eine Fläche von 3 mal 3 auf dem Raster darstellen soll.
+Nach deiner ersten Auswahl kannst du die Auswahl skalieren und weiter verfeinern, um sicherzustellen, dass sie genau das abdeckt, was du möchtest.
+
+Wenn die Auswahl angemessen ist, kannst du die X- und Y-Abmessungen eingeben, die der ausgewählte Bereich einnehmen soll, und auf Anwenden klicken.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+Oben siehst du ein Beispiel für die Verwendung des Map-Werkzeugs, um die importierte Karten-Asset wieder an das Raster
+anzupassen. Wir haben einen Bereich ausgewählt, leichte Änderungen vorgenommen und dem Werkzeug dann die gewünschten
+Abmessungen mitgeteilt.
+
+## Gesamtes Bild skalieren
+
+Beim Skalieren „des gesamten Bildes" wird das gesamte Bild als Referenz für die Skalierung verwendet.
+Dies kann entweder durch Festlegen der Ziel-Rasterzellen oder der Ziel-Pixel erfolgen.
+Durch die Angabe von Rasterzellen wird das Bild die angegebene Anzahl an Rasterzellen abdecken, während bei der Angabe von Pixeln das Bild entsprechend der Eingabe skaliert wird.
+Beide Alternativen können so eingestellt werden, dass das Seitenverhältnis des Bildes beibehalten wird, indem das „Ketten"-Symbol rechts neben den Eingabefeldern verbunden wird.

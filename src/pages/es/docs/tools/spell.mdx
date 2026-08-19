@@ -1,0 +1,62 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Herramienta Spell
+
+La herramienta Spell se puede acceder en la barra de herramientas en la parte inferior derecha de la pantalla por todos los jugadores, pero solo en [Play mode](/es/docs/tools-overview/#toolbar-and-modes).
+
+Tiene algunas similitudes con la herramienta Draw, pero está enfocada específicamente en lanzar hechizos durante el juego.
+
+Puedes seleccionar la forma de tu hechizo (cuadrado/círculo/cono) y configurar su tamaño, alcance, color y, por último, si tus hechizos serán compartidos con otros jugadores o si son solo para ti.
+
+Notablemente ausente en la lista de formas de hechizo está la línea, que es un patrón común en el lanzamiento de hechizos.
+Consideramos que la herramienta Ruler existente era suficiente aquí y encontramos innecesario añadir funcionalidad extra a la herramienta Spell.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+## Funcionamiento general
+
+A menos que el alcance esté configurado en 0, tu hechizo seguirá a tu ratón en todo momento mientras tengas la herramienta Spell activa.
+
+El modo de hechizo predeterminado solo se usa para medir cosas rápidamente y ver, por ejemplo, a cuántas personas podrías apuntar.
+Tu hechizo desaparecerá si cambias de herramienta.
+
+Si tienes un hechizo que no es instantáneo, sino que permanecerá en el campo de batalla durante más tiempo, puedes hacer **clic izquierdo** para convertir el hechizo en una forma real.
+Pasarás automáticamente a la herramienta Select.
+
+Si hiciste clic por error, o el efecto del hechizo se desvanece, puedes eliminar el hechizo como cualquier otra forma.
+Ten en cuenta también que si tienes 'show public' desactivado, ¡en el momento en que 'lanzas' el hechizo adquirirá la propiedad 'invisible'!
+Nada te impide eliminar esta propiedad una vez lanzado.
+
+El clic derecho también te devolverá a la herramienta Select, pero no lanzará el hechizo.
+Está previsto como una operación de 'cancelación'.
+
+## Contexto de selección
+
+La forma de cono y el parámetro de alcance solo están disponibles cuando tienes una forma seleccionada activamente.
+
+El primero porque no pude encontrar ejemplos de conos en uso que no sean de auto-lanzamiento,
+pero también porque tuve algunas dificultades para imaginar la ergonomía de la UX en cuanto a la rotación en el caso de no auto-lanzamiento.
+
+El segundo porque de lo contrario no hay un punto de referencia.
+
+## Tamaño
+
+El parámetro de tamaño decide el área que cubre el hechizo.
+Para un cuadrado es la longitud de 1 lado.
+Para un círculo y un cono es el radio del hechizo.
+
+Al igual que las auras, estos números se definen en términos del tamaño de unidad configurado, que por defecto es 5 ft. (consulta la configuración de la cuadrícula del DM)
+
+## Alcance
+
+_El alcance del hechizo, como se mencionó anteriormente, solo se puede configurar si tienes una forma activa seleccionada._
+
+Si el alcance se establece en 0, se asume que es un lanzamiento sobre uno mismo y centrará automáticamente el hechizo en tu forma activa.
+
+Si el alcance es cualquier número >0, se mostrará un círculo negro con un radio igual al alcance configurado.
+Esto

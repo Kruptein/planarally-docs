@@ -1,0 +1,134 @@
+---
+// src/components/LanguagePicker.astro
+import Globe from "~icons/lucide/globe";
+import ChevronDown from "~icons/lucide/chevron-down";
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { languages } from '../i18n/ui';
+import { getLangFromUrl } from '../i18n/utils';
+
+const currentLang = getLangFromUrl(Astro.url);
+let basePath = Astro.url.pathname;
+
+const prefix = `/${currentLang}`;
+if (basePath.startsWith(prefix + '/')) {
+    basePath = basePath.slice(prefix.length);
+} else if (basePath === prefix) {
+    basePath = '/';
+}
+---
+
+<div class="lang-picker-wrapper">
+    <Globe class="lang-icon" />
+    <select class="lang-picker" id="language-selector" aria-label="Select language">
+        {
+            Object.entries(languages).map(([lang, label]) => (
+                <option 
+                    value={getRelativeLocaleUrl(lang, basePath)} 
+                    data-lang={lang}
+                    selected={lang === currentLang}
+                >
+                    {label}
+                </option>
+            ))
+        }
+    </select>
+    <ChevronDown class="chevron-icon" />
+</div>
+
+<script>
+    const picker = document.getElementById('language-selector');
+    if (picker) {
+        picker.addEventListener('change', (e) => {
+            const target = e.target as HTMLSelectElement;
+            const selectedOption = target.options[target.selectedIndex];
+            
+            const lang = selectedOption.getAttribute('data-lang');
+            if (lang) {
+                localStorage.setItem('preferredLang', lang);
+            }
+            
+            window.location.href = target.value;
+        });
+    }
+</script>
+
+<style lang="scss">
+    .lang-picker-wrapper {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid rgba(150, 150, 150, 0.25);
+        border-radius: 6px;
+        background-color: var(---bg-color);
+        transition: border-color 0.2s, box-shadow 0.2s;
+        flex-shrink: 0;
+        
+        &:hover {
+            border-color: #00835c;
+        }
+
+        &:focus-within {
+            border-color: #00835c;
+            box-shadow: 0 0 0 2px rgba(0, 131, 92, 0.15);
+        }
+
+        .lang-icon {
+            position: absolute;
+            left: 7px;
+            pointer-events: none;
+            width: 14px;
+            height: 14px;
+            opacity: 0.75;
+            color: var(---fg-color);
+
+            @media (max-width: 480px) {
+                left: 5px;
+                width: 13px;
+                height: 13px;
+            }
+        }
+
+        .chevron-icon {
+            position: absolute;
+            right: 6px;
+            pointer-events: none;
+            width: 12px;
+            height: 12px;
+            opacity: 0.6;
+            color: var(---fg-color);
+
+            @media (max-width: 480px) {
+                right: 4px;
+                width: 11px;
+                height: 11px;
+            }
+        }
+    }
+
+    .lang-picker {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        color: var(---fg-color);
+        border: none;
+        padding: 4px 20px 4px 25px;
+        font-size: 0.85rem;
+        font-family: inherit;
+        font-weight: 500;
+        cursor: pointer;
+        outline: none;
+        line-height: 1.2;
+
+        @media (max-width: 480px) {
+            padding: 4px 16px 4px 20px;
+            font-size: 0.78rem;
+        }
+
+        option {
+            background-color: var(---bg-color);
+            color: var(---fg-color);
+            padding: 6px;
+        }
+    }
+</style>

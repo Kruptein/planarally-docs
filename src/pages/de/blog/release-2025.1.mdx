@@ -1,0 +1,247 @@
+---
+title: Release 2025.1
+date: 2025-01-31 19:32:00
+excerpt: "Würfelverbesserungen und eine einfache Chat-Box"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Ein neues Jahr hat begonnen und wir haben ein paar schöne Änderungen für euch im Gepäck!
+
+<Warning title="Server-Upgrade">
+    Wenn du einen Server betreibst, schau dir die Änderungen an den Assets an – es gibt 3 serverbezogene Änderungen.
+</Warning>
+
+## ENTFERNT
+
+Dieses Release bringt etwas Aufräumarbeit mit sich, denn 2 Funktionen wurden entfernt:
+
+### Labels/Filters
+
+Wie in den letzten 2 Versionshinweisen angekündigt, ist dieser Funktionssatz jetzt offiziell entfernt.
+
+Labels waren Tags, die du auf Formen platzieren konntest, und das Filterwerkzeug erlaubte es dir, Formen auf dem Bildschirm ein- oder auszublenden, indem du nach diesen Tags gefiltert hast.
+Ich kann mir dafür immer noch einige Anwendungsfälle vorstellen, aber die derzeitige Umsetzung war nicht gut, sah sehr veraltet aus und wurde meines Wissens einfach nicht genutzt.
+Die Tatsache, dass sich seit der Bekanntgabe der Einstellung niemand dazu gemeldet hat, ist ein Zeichen dafür, dass ihre Entfernung niemandem wehtun wird.
+
+### .paa-Dateien
+
+In einer älteren Version von PA hatte der Asset-Manager die Option, alle deine Assets in eine `.paa`-Datei zu exportieren, die du dann auf einer anderen PA-Installation importieren konntest.
+
+Seitdem wurde der Asset-Manager überarbeitet und bietet diese Funktion in seiner Benutzeroberfläche nicht mehr an.
+Ursprünglich war es meine Absicht, diese Funktion zurückzubringen, aber in der Zwischenzeit wurde stattdessen die Möglichkeit hinzugefügt, Kampagnen zu exportieren, was automatisch alle zugehörigen Assets mit exportiert.
+
+Das deckte die meisten Anwendungsfälle des ursprünglichen paa-Setups ab. Ähnlich wie bei der anderen Entfernung hat sich niemand danach erkundigt, dass diese Funktion nicht mehr in der Benutzeroberfläche verfügbar ist.
+Es war also ein guter Zeitpunkt zum Aufräumen, da einige interne Asset-Logiken für Änderungen weiter unten in diesen Versionshinweisen neu geschrieben wurden.
+
+## Würfel
+
+### Werkzeug-UI
+
+_beigetragen von rexy712_
+
+In 2024.3 erhielt das Würfelwerkzeug eine glänzende neue Benutzeroberfläche, die bereits eine Verbesserung gegenüber der ursprünglichen UI war, aber rexy hat es sich zur Aufgabe gemacht, diese noch weiter zu verbessern.
+
+Die UI erhielt einige elegante Übergänge und vereint die Ergebnisse eines Wurfs in der UI, statt ein separates Modal zu öffnen, wodurch die Erfahrung weniger ablenkend ist.
+Zusätzlich ist der Würfelverlauf besser integriert und es wurde ein Schnell-Button zum Wiederholen des letzten Wurfs hinzugefügt.
+
+![Neue Würfelwerkzeug-UI](./2025.1/dice-basic.png)
+
+3D-Würfel können jetzt auch in 2 getrennten Modi geworfen werden: Standard und Box. Standard ist das ursprüngliche Verhalten, bei dem sie über den gesamten Bildschirm geworfen werden,
+Box öffnet oben einen kleinen Bereich, der wie eine kleine Würfelschale ist.
+
+![Neue Würfelwerkzeug-UI](./2025.1/dice-box.png)
+
+## Anpassungen an der 3D-Würfelsimulation
+
+_beigetragen von rexy712_
+
+Die physikalischen Eigenschaften der 3D-Würfel wurden geändert, was zu einem besseren Verhalten führen sollte.
+Insbesondere sollten die Würfel jetzt viel schneller aufhören zu rutschen.
+
+## D100-Handhabung
+
+Die Handhabung von D100-Würfen war im 2D-Modus und im 3D-Modus sehr unterschiedlich: Der 2D-Modus deckte alle Werte zwischen 1 und 100 ab,
+während der 3D-Modus nur die Zehner (z. B. 10/20/30/...) abdeckte und das Werfen eines zusätzlichen d10 erforderte, um die Einer abzudecken,
+aber es gab keine Logik, die festlegte, was passieren sollte, wenn z. B. eine 00 und eine 0 geworfen werden.
+
+Dieses Release verbessert all das oben Genannte. Im 3D-Modus wird beim Werfen eines d100 automatisch ein d10 mitgeworfen,
+sodass du es nicht selbst angeben musst. Zusätzlich ist eine integrierte Logik vorhanden, die das Verhalten im Fall von 00/0 festlegt.
+
+Die zugrunde liegende Würfelbibliothek `@planarally/dice` kann so konfiguriert werden, dass sie entweder im 0-99- oder im 1-100-Modus arbeitet.
+Die aktuelle PlanarAlly-Oberfläche bietet jedoch keine Möglichkeit, dies zu konfigurieren, sodass vorerst immer der 1-100-Modus ausgewählt ist.
+
+## Assets
+
+Eine weitere Reihe großer Änderungen betrifft die Assets. Es wurden sowohl technische Änderungen auf dem Server als auch visuelle Updates im Client vorgenommen!
+
+### DM-In-Game-UI
+
+Der Asset-Manager ist eine schöne Möglichkeit, deine Assets außerhalb des Spiels zu organisieren, um Dinge für eine Sitzung vorzubereiten.
+
+Im Spiel hat der DM jedoch eine völlig andere Ansicht auf seine Assets.
+Es gibt eine Seitenleiste mit einer Baumstruktur, aber es sind keine echten Interaktionen möglich, außer ein bestimmtes Asset auf die Karte zu ziehen.
+
+Dieses Release ändert das und entfernt die Seitenleiste, ersetzt sie durch ein großes Modal, das der neuen Notizen-UI etwas ähnlich ist,
+aber mit einem ähnlichen Look-and-Feel wie der Asset-Manager außerhalb des Spiels.
+Tatsächlich teilen sich der Asset-Manager außerhalb und im Spiel jetzt für einen großen Teil ihrer Benutzeroberfläche denselben Code.
+
+Genau wie die überarbeitete Notizen-UI letztes Jahr kann die Asset-UI über die Seitenleiste geöffnet werden, aber auch durch Drücken des Tastenkürzels <kbd>a</kbd>.
+
+![Neue Asset-UI](./2025.1/asset-ui.png)
+
+#### Suche
+
+Die Seitenleiste hatte immer eine Suchleiste, die auch in der neuen UI weiterhin verfügbar ist und nun viel effizienter umgesetzt wurde:
+Beim Verbinden mit dem Spiel müssen nicht mehr alle Asset-Informationen im Voraus geladen werden.
+
+Ihr Verhalten unterscheidet sich etwas von der Seitenleisten-Suche, da die Darstellung völlig anders ist.
+Sie zeigt alle Assets an, die zur Suche passen. Die Seitenleiste hielt dagegen alle Ordner sichtbar, die irgendwo in sich ein passendes Asset enthielten.
+
+#### Verknüpfungen
+
+Eine weitere neue Funktion ist die Möglichkeit, einen Ordner als Verknüpfung zu markieren. Verknüpfungen erscheinen auf der linken Seite, unterhalb der festen Verknüpfung „Alle Assets“.
+Sie erlauben es dir, schnell zu einem bestimmten Ordner zu springen, den du häufig brauchst (z. B. Hauptordner der Kampagne, gängige DnD-Token, ...).
+
+Verknüpfungen werden pro Kampagne gespeichert.
+
+#### Ziehen
+
+Du fragst dich vielleicht, wie du jetzt ein Asset auf die Karte ziehen sollst, da die neue UI einen großen Teil der Bildschirmmitte einnimmt.
+
+Wenn du beginnst, ein Asset zu ziehen, kannst du es auf einen Ordner ziehen, um es in diesen Ordner zu verschieben, wie du es aus dem Asset-Manager kennst.
+Wenn du das Asset jedoch aus der UI herausziehst, verschwindet die UI vollständig, sodass du es tatsächlich auf der Karte platzieren kannst.
+
+Um für Klarheit zu sorgen, wird beim Ziehen unten in der UI immer eine Meldung angezeigt, die dich über dieses Verhalten informiert.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2025.1/asset-drop.webm" type="video/webm" />
+    <source src="/blog/release-2025.1/asset-drop.mp4" type="video/mp4" />
+</video>
+
+### Kleinere Änderungen am Asset-Manager
+
+#### Umbenennen-UI
+
+_beigetragen von rexy712_
+
+Zum Umbenennen eines Assets wurde früher ein Popup geöffnet, in das du den neuen Namen eintragen musstest.
+Das ist nun weniger aufdringlich, da du den Namen direkt an Ort und Stelle bearbeiten kannst, wie du es vielleicht vom Datei-Explorer deines Betriebssystems kennst.
+
+#### Auswahl im Kontextmenü
+
+Wenn du im Asset-Manager mit der rechten Maustaste auf ein Asset klickst, erscheint ein Kontextmenü.
+Dabei wurde die Auswahl bisher immer auf genau das Asset zurückgesetzt, auf das du mit der rechten Maustaste geklickt hast.
+
+Das ist nicht mehr der Fall, sodass du eine Gruppe von Dateien richtig auswählen und über das Kontextmenü entfernen kannst.
+Aktionen wie „Umbenennen“ werden nicht angezeigt, wenn mehrere Assets ausgewählt sind.
+
+Die Auswahl wird auf nur das angeklickte Asset zurückgesetzt, wenn es von vornherein nicht Teil der aktuellen Auswahl war.
+
+### Miniaturansichten
+
+Assets können in den unterschiedlichsten Qualitäten hochgeladen werden, und wenn sie auf der Karte angezeigt werden, möchten wir sie in derselben Qualität haben.
+
+Es gibt jedoch auch andere Stellen, an denen wir mit Assets arbeiten, wo die höhere Qualität nicht erforderlich ist und die Dinge nur schwerer macht.
+Der Asset-Manager ist der Hauptkandidat, da dort potenziell viele Bilder auf einmal geladen werden.
+
+Ab diesem Release versucht der Server, für alle hochgeladenen Assets Miniaturansichten zu generieren und zieht diese beim Anzeigen von Assets z. B. im Asset-Manager vor.
+Dadurch lädt der Asset-Manager viel flotter, da er nicht eine Reihe von Bildern in höherer Qualität laden muss.
+
+<Warning title="Server-Upgrade">
+    Beim Starten des Servers wird ein Hintergrundjob gestartet, der Miniaturansichten für alle vorhandenen Assets generiert. Dabei wird
+    ab und zu ein Fortschritt protokolliert, das Hauptverhalten des Servers wird aber nicht blockiert.
+
+    Für den Fall, dass keine Miniaturansichten vorhanden sind, gibt es auch ein Fallback-Verhalten, sodass dieser Prozess weniger kritisch ist.
+
+</Warning>
+
+### Upload- und Speichergrenzen
+
+Der Serverbetreiber kann nun globale Grenzen für Assets in der Serverkonfiguration festlegen.
+Es stehen zwei neue Einstellungen zur Verfügung: eine zur Begrenzung der maximalen Größe eines einzelnen Assets und eine weitere zur Begrenzung der Gesamtgröße aller Assets, die ein bestimmter Benutzer auf dem Server hat.
+
+Beide Einstellungen sind standardmäßig ohne Limit, stelle also sicher, dass du dies nach deinen Wünschen anpasst.
+
+Es ist wichtig zu wissen, dass sich Änderungen an den Grenzen nur auf neu hochgeladene Assets auswirken.
+Wenn ein Benutzer vor dem Hinzufügen der Einstellung bereits mehr Speicherplatz belegt, werden keine seiner vorhandenen Assets entfernt, aber er kann keine weiteren Assets mehr hochladen.
+
+<Warning title="Server-Upgrade">
+    Dadurch kommen neue Einträge zur Konfigurationsdatei hinzu. Stelle sicher, dass du diese zu deiner Konfiguration
+    hinzufügst, sonst startet der Server nicht.
+</Warning>
+
+### Speicherort
+
+_das ist eine technische Serveränderung, du kannst das überspringen, wenn du ein Spieler bist_
+
+Die physischen Dateien, die zu hochgeladenen Assets gehören, werden in einem bestimmten Ordner auf der Festplatte gespeichert, wobei alle Namen dem Hash des Assets entsprechen.
+Diese wurden bisher in einem einzigen flachen Ordner gespeichert, aber aus Leistungsgründen speichert dieses Release sie stattdessen in einer Unterordnerstruktur auf Basis des Hashs.
+Dadurch verkürzen sich einige E/A-Operationszeiten, da nicht mehr in einem großen Ordner gearbeitet werden muss.
+
+<Warning title="Server-Upgrade">
+    Beim Start wird eine einmalige Migration durchgeführt, um alle vorhandenen Dateien an ihren neuen Speicherort zu verschieben.
+    Je nach Anzahl der Assets auf deinem Server kann das eine Weile dauern.
+
+    Es ist wichtig, dass dieser Prozess nicht unterbrochen wird, da sowohl die physischen Dateien als auch die Daten in der Datenbank verschoben werden, die alles miteinander verknüpfen.
+
+</Warning>
+
+## Notizen
+
+Ein letzter Teil der Änderungen betrifft Notizen. Die meisten davon sind allerdings kleinere Änderungen und Fehlerbehebungen.
+
+### Vollständiges Herauslösen
+
+Mit der Einführung der neuen Notizen-UI kann eine Notiz aus dem Notiz-Manager herausgelöst werden, was zu einem schwebenden Notiz-Modal führt, das du innerhalb des PA-Bildschirms herumziehen kannst.
+
+Dieses Release macht es möglich, dieses Modal vollständig aus der Seite heraus zu lösen, sodass du die Notiz auf einen anderen Bildschirm ziehen und weiter mit ihr arbeiten kannst.
+Dieser schwebende Dialog ist weiterhin an die geöffnete PA-Seite gebunden, aber nicht an eine bestimmte Bildschirmposition. Wenn du den PA-Tab schließt, schließt sich auch der schwebende Dialog.
+
+### Globaler Notizzugriff
+
+Der Standardzugriff auf globale Notizen wurde entfernt.
+Dieser erlaubte es Benutzern, eine Notiz global für alle Benutzer sichtbar (oder sogar bearbeitbar) zu machen, was einfach nicht etwas ist, das wir wollen.
+
+### Kleine UI-Verbesserungen
+
+- Du kannst die Suchleiste der Notizen jetzt mit einem Button leeren.
+- Der Lokal/Global-Umschalter ist jetzt ein Dropdown mit der Option, Alle Notizen zu filtern
+- Der Notizen-Button in der Seitenleiste ist jetzt auch für Spieler sichtbar
+- Notizen-Popouts für Notizen ohne Schreibzugriff zeigen jetzt „Quelle anzeigen“ statt „Bearbeiten“
+
+### Fehlerbehebungen
+
+- Verschiedene UI-Fehler im Zusammenhang mit der Interaktion mit Nur-Lese-Zugriff sind behoben
+- Die Paginierung der Notizen wurde beim Ändern von Suche/Filter nicht zurückgesetzt
+- Der Standard-Bearbeitungszugriff auf Notizen funktionierte nicht richtig
+- Die Suchleisten-UI überlagerte andere UIs
+- Es war möglich, eine schreibgeschützte Notiz lokal zu bearbeiten (diese Änderungen wurden vom Server immer abgelehnt)
+
+## Standardfarben des Zeichenwerkzeugs
+
+Wenn ich auf der Kriegsnebel-Ebene zeichne, wechsle ich oft zwischen dem Zeichnen von Wänden, Fenstern, Türen usw.
+Für jede dieser Arten verwende ich eine bestimmte Farbe, damit sie sofort visuell hervorstechen, wenn ich die Kriegsnebel-Ebene öffne.
+
+Bisher war das etwas mühsam, da du beim Wechseln zwischen den verschiedenen Arten immer die Farben ändern musstest. Und obwohl das Farbwerkzeug sich zuletzt verwendete Farben merkt,
+war es trotzdem lästig.
+
+Das ändert sich nun mit der Einführung von Standardfarben: In deinen Client-Einstellungen kannst du jetzt Standardfarben für Wände/Fenster und Türen konfigurieren.
+Diese werden standardmäßig angewendet, wenn es im Zeichenwerkzeug relevant ist.
+
+Um das klar zu kommunizieren, sind die Farbwähler im Zeichenwerkzeug deaktiviert, wenn eine Standardfarbe verwendet würde.
+Du kannst dieses Verhalten jedoch weiterhin deaktivieren und für ein bestimmtes Objekt bestimmte Farben wählen, indem du das Kontrollkästchen „Standardfarben verwenden“ in den Sicht-Einstellungen des Zeichenwerkzeugs (2. Tab) deaktivierst.
+
+Das ist eine kleine Ergänzung, hat mir aber schon viel Zeit gespart!
+
+## Sonstiges
+
+- SuikaXhq hat sich viel Mühe gegeben, viele der hartkodierten englischen Labels in der UI auf Übersetzungslabels umzustellen
+- Die Rahmenfarben des Neu-Spiel-Buttons im Dashboard wurden aktualisiert
+- Ein seltsames Verhalten bei Änderungen wurde behoben, wenn sich die Auswahl geändert hat (z. B. beim Ändern des Namens einer Form und Klicken auf eine andere Form, bevor das Namenseingabefeld verlassen wurde)
+- Ziehende Modals werden jetzt auch fokussiert
+- Das Teleportieren von zusammengesetzten Formen konnte zu einigen clientseitigen Fehlern führen
+- Das Einrasten des Auswahlwerkzeugs verhält sich jetzt wie das Einrasten des Zeichenwerkzeugs (d. h. Sobald es an einem Punkt eingerastet ist, rastet es beim Loslassen der Maustaste nicht mehr am Raster ein)
+- Ein Klick auf eine Sitzung, die denselben Namen wie eine andere Sitzung trägt, klappte beide auf

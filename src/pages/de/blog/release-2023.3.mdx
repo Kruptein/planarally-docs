@@ -1,0 +1,128 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+Der Fokus von 2023.3 liegt auf experimentellen Features: Mods und ein neues Konzept namens 'Charakter' sind die wichtigsten.
+Mehr dazu weiter unten, sie stecken noch ganz am Anfang ihrer Iteration,
+aber statt den Entwicklungszweig einfach so lange als Geisel zu halten, bis ich zufrieden bin, veröffentliche ich sie schon jetzt so, wie sie sind.
+
+Ein Teil des Grundes dafür ist auch, dass es in diesem Release einige Bugfixes gibt, die ich so schnell wie möglich herausbringen möchte.
+
+## Kampagnen-Sortierung
+
+Beginnen wir mit einer kleinen Qualitätsverbesserung, die längst überfällig war.
+Die Kampagnenliste kann jetzt alphabetisch oder nach der letzten Interaktion sortiert werden.
+Standardmäßig wird nach der letzten Aktivität sortiert.
+
+Dazu gibt es nicht viel mehr zu sagen, es ist eine kleine Änderung, aber eine schöne.
+
+## Beleuchtung & Sicht
+
+### Kreise wieder großartig machen
+
+Der Code, der die Sicht verarbeitet, arbeitet mit Eckpunkten und Kanten.
+Kreise passen nicht wirklich ohne Weiteres in dieses Modell, da ein Kreis eine unendliche Menge von Punkten ist.
+
+Historisch wurde das "gelöst", indem einfach die Begrenzungsbox des Kreises in sichtbezogenen Code verwendet wurde.
+Das führt dazu, dass Säulen und andere Dinge auf deiner Karte im Sichtsystem als Quadrate dargestellt werden.
+
+Das ist natürlich nicht wirklich das, was du willst, und so haben die meisten Leute das Polygon-Tool verwendet, um diesem Bedarf gerecht zu werden.
+
+Das Polygon-Tool ist ein sehr vielseitiges und mächtiges Werkzeug, aber manchmal willst du einfach einen verdammten Kreis verwenden.
+Und wenn PA einen Kreis als mögliche zu zeichnende Form anzeigt, erwartest du etwas, das zumindest annähernd ein Kreis ist, und kein Quadrat.
+
+Kurz gesagt: Kreise werden nun für alles Sichtbezogene anhand ihrer Größe durch Polygone angenähert.
+Es ist keine perfekte Annäherung, da das rechnerisch aufwendig wäre, aber es ist viel besser als ein Quadrat.
+
+### Abstürze in der Triangulation
+
+Der oben erwähnte sichtbezogene Code, der Eckpunkte und Kanten verwendet, basiert auf einem Triangulationsalgorithmus.
+Obwohl selten, kann es vorkommen, dass etwas in diesem Code hart einfriert und das Spiel in einen unspielbaren Zustand versetzt.
+
+Einer dieser seltenen Randfälle wurde kürzlich wie durch ein Wunder von zwei verschiedenen Personen erlebt, obwohl dieser spezielle Randfall seit mehreren Jahren existiert.
+Das wird in diesem Release angegangen und sollte nicht mehr vorkommen.
+
+### Betrügende Auren
+
+Offenbar wurde, wenn du eine Aura aktiviert hattest, bei der sowohl normale als auch gedimmte Werte auf null gesetzt waren und die eine sichtinteragierende Aura ist, einfach die gesamte Karte beleuchtet.
+
+Das ist nicht mehr der Fall, und die Aura verhält sich nun so, als wäre sie deaktiviert.
+
+## Assets
+
+Es wurden einige kleine Änderungen an der Asset-Entfernungslogik vorgenommen.
+
+Das Entfernen eines Assets aus dem Asset-Manager entfernt das eigentliche Asset nicht von der Festplatte, wenn es noch Formen gibt, die dieses Asset verwenden.
+
+Dementsprechend wird beim Entfernen von Formen im Spiel eine zusätzliche Prüfung durchgeführt, um festzustellen, ob das zugehörige Asset von der Festplatte entfernt werden kann.
+
+## Experimentelle Neuerungen
+
+Wie in der Einleitung erwähnt, enthält dieses Release einige experimentelle Neuerungen.
+Es sollte erneut darauf hingewiesen werden, dass sich jede davon noch in frühen Iterationen befindet und Änderungen unterliegen kann.
+
+### Mods
+
+Ich bin nur eine einzelne Person, und manchmal erhalte ich Anfragen, für deren Umsetzung ich schlicht keine Zeit habe oder die ich als nicht zur Hauptcodebasis gehörig empfinde,
+auch wenn sie interessant sein könnten. Mods sind ein Weg, es anderen zu ermöglichen, diese Features zu implementieren.
+
+Ich bin mit dem Anbieten von Modding-Fähigkeiten nicht sehr vertraut, das ist also auch für mich sehr lehrreich.
+Die aktuelle Implementierung ist sehr rudimentär, und ich bin sicher, dass es viele Dinge gibt, die verbessert werden könnten, aber wir brauchen einen Ausgangspunkt, und der ist hiermit da!
+
+Für weitere Informationen zur Modding-API, was genau sie umfasst, und einige Beispiele, wirf einen Blick auf [diesen PR auf GitHub](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_das sind rein technische Informationen und für reguläre Nutzer nicht wirklich relevant_
+
+Ein weiteres neues Konzept, das mit den Mods eingeführt wird, sind "DataBlocks".
+Das ist das System, das derzeit vorgeschlagen wird, um Mods serverseitige Datenspeicherung anzubieten.
+
+Mods sind rein clientseitig, sie können also weder direkt mit der Datenbank interagieren noch direkt mit serverseitigem Code.
+Stattdessen können sie beliebige Daten in Form von DataBlocks speichern und abrufen.
+
+### Charaktere
+
+"Charaktere" sind ein neues Konzept, das derzeit erforscht wird und dem Konzept der 'Vorlagen' benachbart ist.
+
+Vorlagen bieten eine Möglichkeit, Varianten einer bestimmten Form mit vorausgefüllten Informationen zu erstellen. Sobald sie auf der Karte abgelegt sind, sind sie jedoch völlig unabhängig voneinander.
+Typische Anwendungsfälle für eine Vorlage sind Monster. Du hast eine Vorlage für einen Goblin, und du kannst so viele Goblins auf der Karte ablegen, wie du willst, und ihre HP und RK sind bereits konfiguriert.
+Du willst jedoch nicht, dass Änderungen an einem Goblin die anderen Goblins verändern, sobald sie auf der Karte sind.
+
+Charaktere sind das Gegenstück dazu. Sie repräsentieren eine einzigartige Instanz einer bestimmten Form. Änderungen an einem Charakter werden gespeichert.
+Du kannst eine Form entfernen, die mit einem Charakter verknüpft ist, und später den Charakter per Drag&Drop wieder auf die Karte ziehen, und er wird sich in exakt demselben Zustand befinden wie beim Entfernen.
+
+#### Erstellung
+
+Du kannst einen Charakter aus dem Rechtsklick-Kontextmenü einer beliebigen Form erstellen, solange du Bearbeitungszugriff auf sie hast.
+
+#### Aktionen
+
+Sobald eine Form mit einem Charakter verknüpft ist, wird sie im Abschnitt Charaktere in der linken Seitenleiste aufgelistet.
+Wie üblich sieht auch der DM alle von Spielern erstellten Charaktere, während Spieler nur ihre eigenen Charaktere sehen.
+
+Wenn du auf einen Charakter in dieser Liste klickst, wird deine Kamera so bewegt, dass sie auf den jeweiligen Charakter zentriert.
+
+Zusätzlich kannst du als DM den Charakter per Drag&Drop ziehen, wie du es mit einem Asset tun würdest. Das teleportiert die vorhandene Form des Charakters an die Stelle, an der du losgelassen hast.
+Wenn derzeit keine Form mit dem Charakter verbunden ist, wird stattdessen eine an diesem Ort mit all ihren vorherigen Daten erstellt.
+
+#### Zukunft
+
+Die Idee ist, diesem Konzept in Zukunft mehr Funktionalität zu geben.
+Insbesondere das Konzept der Charakterbögen, die über Mod-Interaktion eingerichtet werden könnten, wird erforscht.
+
+Eine weitere Idee ist, Spielern zu erlauben, Charaktere vom Haupt-Dashboard aus zu erstellen und sie dann mit einer Kampagne zu verknüpfen.
+So können Spieler ihre eigenen Charaktere im Voraus mit bereits ausgefüllten Grafiken und Werten erstellen, ohne ständig über den DM gehen zu müssen.
+
+## Sonstige Fehlerbehebungen
+
+- Export: Kampagnen mit Notizen konnten beim Exportieren fehlschlagen
+- Rauswurf: Die Prüfung, um zu verhindern, dass der Co-DM den Haupt-DM rauswirft, war falsch
+- Formen: Der Winkel von Formen beim Rotieren wurde auf ganze Zahlen gerundet, was bei Bogenmaß irgendwie unangenehm ist
+    - Das führte in der Praxis oft dazu, dass eine gedrehte Form für andere Spieler oder nach dem Aktualisieren gar nicht wirklich gedreht war
