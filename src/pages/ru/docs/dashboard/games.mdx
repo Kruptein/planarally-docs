@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Игры
+
+<Image src={Dashboard} alt="Панель управления" />
+
+В разделе _Игры_ можно создавать кампании или запускать существующие.
+
+Экран разделён на две части — раздел DM и раздел игрока.
+В каждом из них перечислены все кампании, в которых вы выступаете как DM или как игрок.
+
+Клик по кампании развернёт её и предложит несколько опций.
+
+<Image src={DashboardDmCampaign} alt="Панель управления, кампания DM" />
+<Image src={DashboardPlayerCampaign} alt="Панель управления, кампания игрока" />
+
+Будучи DM, вы можете изменить логотип или название кампании, кликнув по значку карандаша (<PencilAlt />).
+
+<Warning title="Удаление кампании">Это безвозвратно удалит кампанию для вас и для *всех* игроков.</Warning>
+
+## Создание
+
+Создать кампанию просто: введите название и кликните `Go`.
+Также можно выбрать логотип кампании, кликнув по логотипу по умолчанию, отображаемому рядом с полем ввода названия.
+
+<Info title="Загрузка логотипа">Логотип должен быть загружен как [актив](/ru/docs/dm/assets/).</Info>
+
+## Присоединение
+
+Чтобы присоединиться к игре, нужен URL-приглашение. Его может создать DM в самой игре через настройки DM.

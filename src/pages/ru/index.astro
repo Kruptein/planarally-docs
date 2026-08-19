@@ -1,0 +1,212 @@
+---
+import Main from "../../layouts/main.astro";
+
+const paths = [
+    {
+        href: "/ru/learn/",
+        title: "Обучение",
+        description: "Пошаговые руководства для игроков и DM. Если вы новичок — начните отсюда.",
+    },
+    {
+        href: "/ru/docs/",
+        title: "Документация",
+        description: "Справочник по функциям, инструментам и многому другому.",
+    },
+    {
+        href: "/ru/server/setup/",
+        title: "Сервер",
+        description: "Разверните PlanarAlly на своём сервере, настройте инстанс и управляйте пользователями.",
+    },
+    {
+        href: "/ru/blog/",
+        title: "Блог",
+        description: "Заметки о выпусках и новости разработки.",
+    },
+];
+
+const features = [
+    {
+        title: "Освещение и обзор",
+        description: "Динамическое освещение и линия обзора.",
+        href: "/ru/docs/dm/lighting-vision/",
+    },
+    {
+        title: "Слои, этажи и локации",
+        description: "Организуйте карты по слоям, этажам и сценам.",
+        href: "/ru/docs/game/gameboard/",
+    },
+    {
+        title: "Активы и пресеты",
+        description: "Загружайте карты и жетоны, сохраняйте пресеты для повторного использования.",
+        href: "/ru/docs/dm/assets/",
+    },
+    {
+        title: "Инструменты Build и Play",
+        description: "Готовьте игру в режиме «Сборка», проводите сессии в режиме «Игра».",
+        href: "/ru/docs/tools-overview/",
+    },
+    {
+        title: "Свой сервер",
+        description: "Запускайте офлайн и полностью контролируйте свои данные.",
+        href: "/ru/server/setup/",
+    },
+];
+---
+
+<Main>
+    <main>
+        <section class="hero">
+            <img
+                id="logo"
+                src="/logos/pa-logo.svg"
+                alt="Логотип PlanarAlly"
+                data-no-zoom
+            />
+            <h1>PlanarAlly</h1>
+            <p class="tagline">
+                Открытый виртуальный стол для настольных ролевых игр. Разворачивайте самостоятельно, играйте офлайн и
+                проводите захватывающие сессии благодаря системе освещения, обзора и гибким картам.
+            </p>
+        </section>
+
+        <section class="paths">
+            <h2>Быстрый старт</h2>
+            <div class="cards">
+                {
+                    paths.map((path) => (
+                        <a class="card" href={path.href}>
+                            <div class="card-title">{path.title}</div>
+                            <p>{path.description}</p>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Ключевые возможности</h2>
+            <ul>
+                {
+                    features.map((feature) => (
+                        <li>
+                            <a href={feature.href}>{feature.title}</a>
+                            <span> — {feature.description}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+    </main>
+</Main>
+
+<style lang="scss">
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 25px 100px;
+    }
+
+    section {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 4rem;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+    }
+
+    #logo {
+        height: 160px;
+        width: 160px;
+        margin-bottom: 2rem;
+        padding: 25px;
+        background: #f1e7d0e1;
+        border-radius: 25%;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card {
+        display: block;
+        border: solid 1px rgb(226, 236, 236);
+        padding: 1.5rem;
+        color: inherit;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 2px 15px 0 #cfe6e6;
+        }
+
+        .card-title {
+            font-size: x-large;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #00835c;
+        }
+
+        p {
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+
+    .features {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 0.75rem 0;
+            border-bottom: solid 1px rgb(226, 236, 236);
+            line-height: 1.5;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        a {
+            color: #00835c;
+            font-weight: bold;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        span {
+            color: var(---fg-color);
+        }
+    }
+</style>

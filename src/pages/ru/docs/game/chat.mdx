@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# **Чат**
+
+Внутриигровой чат, начиная с релиза 2024.3, теперь доступен простым нажатием кнопки `Чат` в левом нижнем углу области просмотра.
+
+![Chat button](assets/chat_button_default.png)
+
+Когда любой пользователь отправляет сообщение в чат, рядом с кнопкой появляется число непрочитанных сообщений.
+
+![Chat Button Messages waiting](assets/chat_button_waiting.png)
+
+Окно чата принимает ввод в формате Markdown, что означает возможность включения стилей и ссылок, а также более продвинутого форматирования. См. [Урок по Markdown](../../../learn/dm/Markdown_Tutorial/markdown)
+
+![Chat example](assets/chat.png)
+
+<Warning title="Хранение чата">
+    Чат не хранится на сервере. Он временный и исчезнет при обновлении страницы или сбросе соединения.
+</Warning>
+
+Чат можно отключить в `Настройках DM` на вкладке `Функции`, сняв флажок включения чата.
+
+![Chat toggle](assets/chat_toggle.png)

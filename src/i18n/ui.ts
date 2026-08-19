@@ -4,6 +4,7 @@ import es from "./locales/es.json";
 import fr from "./locales/fr.json";
 import it from "./locales/it.json";
 import ja from "./locales/ja.json";
+import ru from "./locales/ru.json";
 import zh from "./locales/zh.json";
 
 export const languages = {
@@ -14,6 +15,7 @@ export const languages = {
     fr: "Français",
     zh: "中文",
     ja: "日本語",
+    ru: "Русский",
 } as const;
 
 export const defaultLang = "en";
@@ -26,6 +28,7 @@ export const ui = {
     fr,
     zh,
     ja,
+    ru,
 } as const;
 
 export type SupportedLanguage = keyof typeof ui;
