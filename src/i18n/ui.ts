@@ -1,3 +1,4 @@
+import da from "./locales/da.json";
 import de from "./locales/de.json";
 import en from "./locales/en.json";
 import es from "./locales/es.json";
@@ -10,6 +11,7 @@ import zh from "./locales/zh.json";
 export const languages = {
     en: "English",
     de: "Deutsch",
+    da: "Dansk",
     it: "Italiano",
     es: "Español",
     fr: "Français",
@@ -23,6 +25,7 @@ export const defaultLang = "en";
 export const ui = {
     en,
     de,
+    da,
     it,
     es,
     fr,

@@ -1,0 +1,175 @@
+---
+title: Release 2023.1
+date: 2023-02-14 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Årets første udgivelse består hovedsageligt af en samling fejlrettelser sammen med nogle mindre forbedringer hist og her.
+
+## Ændring af aktivet for en form
+
+Når du havde droppet et aktiv på kortet, blev det en form, og hvis du havde brug for et andet aktiv, havde du to muligheder:
+
+- droppe det nye aktiv på kortet og kopiere alle egenskaberne fra den gamle form over, og derefter fjerne den gamle form
+- tilføje det nye aktiv som en variant
+
+Den første mulighed er tydeligvis besværlig og fejlbehæftet, og den anden mulighed er grundlæggende at misbruge en funktion til noget andet.
+
+Derfor tilføjer denne udgivelse den længe ventede mulighed for blot at bytte aktivet, der bruges af en bestemt form, ud.
+Der er tilføjet en simpel knap til egenskabsvisningen af formen.
+
+## Stabling og lukning af modal-vinduer
+
+Når du har flere modal-vinduer/dialogbokse åbne, kan det nogle gange blive til et spil med at flytte dem rundt, så du kan interagere med et bestemt et.
+Dette skyldes, at modal-vinduerne havde en fast rækkefølge.
+
+Nyt i denne udgivelse er, at det senest fokuserede modal-vindue nu flyttes til toppen, som du sikkert er vant til i andre programmer.
+
+Derudover kan du nu lukke det øverste modal-vindue med escape-tasten.
+
+_Bemærk, at alt ovenstående hovedsageligt kun gælder for modal-vinduer, der kan åbnes i længere tid (f.eks. formindstillinger, DM-indstillinger ...) og ikke for modal-vinduer, der kræver øjeblikkelig interaktion (f.eks. prompts for handlinger)_
+
+## Spell-værktøjets ændringer og fejlrettelser
+
+Spell-værktøjet har haft nogle problemer i hele sin levetid.
+Et af disse problemer var den potentielle forvirring mellem `size` og `range`.
+Førstnævnte angav staveformens faktiske størrelse, mens sidstnævnte blev brugt til at vise, hvor langt en bestemt stavning kunne kastes.
+Range var kun konfigurerbar, hvis du havde valgt en form, før du startede Spell-værktøjet, så der kunne tegnes en range-cirkel for den specifikke form.
+Derudover ville range som standard være 0 i så fald, hvilket var ment som en selvkast-mulighed.
+
+I praksis viste dette sig at være forvirrende; nogle gange ville spillere bare kaste en tilfældig stavning på et bestemt sted, men fordi de havde deres karakter valgt,
+var den låst til dem selv uden megen klarhed om hvorfor, og du var nødt til enten at fravælge dig selv eller ændre size til en værdi, der ikke var nul, for faktisk at kunne gøre det, du ville.
+
+Derfor fjerner denne udgivelse range-inputfeltet, og i stedet vil der, hvis en form er valgt, automatisk blive tegnet en Ruler mellem markøren og den valgte form.
+Dette formidler den samme information uden at skulle indtaste noget og uden forvirringen om, at selvkast låser formen.
+
+Derudover er en bunke fejl relateret til Spell-værktøjet blevet rettet:
+
+- At bruge Spell-værktøjet med en markering var faktisk i stykker i de sidste par udgivelser
+- Udfyldningsfarven lavede mærkelige ting, hvis kantfarven havde < 1 opacitet
+- Højreklik for at tegne formen åbnede kontekstmenuen
+- Når først brugt, blev Select-værktøjet ikke korrekt aktiveret
+- 'is public'-etiketten i Spell-værktøjets UI var forkert knyttet til range-inputfeltet
+
+## Initiativtilstand
+
+Initiativ havde aldrig et reelt koncept for 'aktiv'. Du kunne have initiativ-UI'et åbent eller lukket uanset om der faktisk skete noget med initiativ.
+
+Dette hæmmer nogle ting, f.eks. er initiativ-indstillingen 'lock vision' i en halv-ødelagt tilstand på grund af dette, fordi der ikke er nogen officiel start eller slutning på initiativ,
+hvilket betyder, at denne funktion altid er slået til, når den er aktiveret, hvilket kræver manuelle handlinger for at ordne nogle ting, når initiativet er slut.
+
+Denne udgivelse tilføjer et første udkast til en ny 'initiativ aktiv'-tilstand. Den er helt valgfri,
+men klientindstillingerne 'lock camera' og 'lock vision' vil kun virke, når dette system bruges.
+Dette gør det muligt for synet faktisk at vende korrekt tilbage, når initiativet er slut, uden at brugeren skal gøre noget.
+
+DM'en vil kunne starte og afslutte initiativet (se quick access-toggles nedenfor for mere info).
+Som standard åbnes initiativ-UI'et på alle spilleres skærme, når initiativet startes. Dette kan deaktiveres i dine klientindstillinger, hvis du ikke kan lide det.
+
+Der er stadig nogle knaster/mærkværdigheder at arbejde med, men jeg vil se, hvordan folk kan lide denne nye ting, og selv få en fornemmelse af det.
+
+## Diverse
+
+- Formredigeringsdialogen siger nu korrekt 'Edit Shape' i stedet for 'Edit Asset'
+- Der er tilføjet en minimumshøjde til terningværktøjets UI, så der ikke er et akavet hop, når du først klikker på en terning for at kaste.
+
+## [DM] Quick access-toggles
+
+En ny tilføjelse til UI'et for DM'er er tilføjelsen af to toggles under værktøjslinjen.
+Disse er beregnet til hurtigt at slå visse funktioner til/fra, der ellers er gemt bag lag af indstillingsvinduer.
+
+Den første er en toggle til at aktivere/deaktivere 'Fake Player'-synstilstanden.
+Indtil nu var denne indstilling skjult i DM-indstillingerne, hvilket gjorde den meget uhandy at bruge i praksis.
+
+Den anden er en toggle til at starte/afslutte den nye initiativ-aktive-tilstand som nævnt ovenfor.
+Et klik på den starter initiativ og åbner initiativ-UI'et.
+Et klik på den igen stopper initiativ og lukker UI'et.
+
+Dette er noget nyt, jeg prøver af, så lad mig vide, hvad du synes.
+For øjeblikket bruger det blot nogle bogstaver til at angive, hvad det gør (dvs. FP=Fake Player, INI=Initiative),
+hvilket jeg er lidt ambivalent overfor. Et alternativ at kigge på er ikoner eller fulde ord, men det kan uddybes på et senere tidspunkt.
+
+Hvis der er andre forslag til indstillinger, du ofte toggler, så lad mig vide det, og jeg kan overveje at tilføje dem her, hvis funktionen modtages godt.
+
+## Fejlrettelser
+
+### [DM] Fake player
+
+Sammen med en ny måde at toggling funktionen, er Fake Player-tilstanden også blevet rettet, så den ikke længere viser DM-laget, mens den er aktiveret.
+DM-laget er ikke synligt for andre spillere, så at vise det i Fake Player-tilstand kunne give modstridende budskaber om, hvad spillerne faktisk ser.
+
+### Former
+
+Der blev lavet en række rettelser for former generelt.
+
+- Siden en nylig udgivelse begyndte badges at blive gennemsigtige som standard, hvilket var en utilsigtet ændring.
+- At vise en tracker-værdi oven på en form virkede ikke, hvis trackeren var en del af en variant-opsætning og delt med alle varianter.
+
+Flere tilfælde af, at klienter kunne redigere egenskaberne for en form, de ikke har adgang til lokalt, blev rettet.
+I alle disse tilfælde blev ændringen kun afspejlet lokalt i klienten og blev aldrig sendt til andre klienter, da serveren afviste ændringerne.
+
+- De fleste tracker-/aura-egenskaber var lokalt redigerbare
+- 'is defeated'- og 'is locked'-egenskaberne kunne redigeres ved at bruge de respektive tastebindinger til at toggling disse egenskaber
+
+### UI
+
+#### Prompts
+
+Igennem PA støder du lejlighedsvis på et prompt-modal-vindue, et UI-element, der kræver noget input for at fortsætte.
+Nogle gange er kun bestemte værdier tilladt (f.eks. kun tal), og koden kan sende en valideringsfunktion for at kontrollere, om inputtet er gyldigt.
+Disse valideringskontroller blev ikke altid ryddet korrekt, hvilket fik nogle prompts til at afvise input, der var gyldigt.
+
+#### Token-retninger
+
+UI'et til at vise retningen af tokens uden for skærmen ville altid udløses, selvom det var skjult bag et andet UI-element (f.eks. sidemenuen)
+
+#### Etager
+
+Etage-UI'et, der vises, når man klikker på etage-ikonet nederst til venstre, flyttede sig ikke, når sidemenuen blev åbnet.
+
+### Select-værktøj
+
+#### Størrelsesændring
+
+Når en form var roteret, og du specifikt forsøgte at ændre størrelsen på nederste højre hjørne, ville hele formen lave nogle mærkelige størrelsesændringer.
+En fejl i beregningen af formens centrum under denne handling forårsagede denne fejlbehæftede adfærd.
+
+#### Oplåsning
+
+Oplåsning af en form ville ofte snappe formen til musen, som om du trak i den.
+
+### Aktivstyring
+
+To fejl relateret til højreklikskontekstmenuen blev løst, begge relateret til scrolling.
+
+Når du scrollede i aktivstyringen, ville enhver åben kontekstmenu ikke længere være justeret.
+Kontekstmenuen lukkes nu automatisk, når du starter en scroll-handling.
+
+Når kontekstmenuen blev åbnet efter scrolling, ville den vises ved en forkert y-værdi (hvor elementet ville have været, hvis du ikke havde scrollet).
+Dette gjorde, at du ikke kunne interagere med nogle former, da deres kontekstmenu ville være uden for skærmen.
+
+### DM-indstillinger
+
+#### Sparke DM'en
+
+Som DM kan du sparke hvem som helst, inklusive dig selv.
+Det var muligt at sparke dig selv, hvis du var den eneste DM i kampagnen.
+Dette efterlod kampagnen i en uadministrerbar tilstand. Dette er ikke længere muligt.
+
+#### Invitations-URL på understi
+
+Når serveren hostes ved hjælp af en understi (dette er ikke standard), ville understien ikke blive inkluderet i spillerinvitations-URL'erne.
+
+Du var i stand til at omgå denne særlige fejl ved at inkludere den i serverens `publicName`-konfiguration, men det er ikke hensigten.
+Hvis du gjorde dette, bør du fjerne understien igen fra konfigurationen, da den nu automatisk vil blive inkluderet i invitations-URL'en.
+
+### Andre fejlrettelser
+
+- Skabeloner brugte kun det første tegn i det angivne skabelonnavn
+- Grupper: Tilføjelse af flere former til en gruppe spurgte altid om gruppespørgsmålet, selvom der ikke er nogen grupper til stede

@@ -1,0 +1,219 @@
+---
+layout: ../../../../../layouts/docs.astro
+---
+
+# Markdown-tutorial
+
+Guide bidraget af [@veritanuda](https://keybase.io/veritanuda)
+
+Denne guide udforsker specifikt Markdown-formateringens funktioner i PlanarAlly. Det bruges både i [Noter](../../../../docs/game/notes)-felterne og i [Chat](../../../../docs/game/chat)-vinduet.
+
+Informationen i denne guide stammer i høj grad fra denne [syntaksguide](https://markdown-it.github.io/)
+
+## Teksteffekter
+
+Det følgende er et eksempel på de teksteffekter, der kan anvendes.
+
+![Text_effect_graphic](./assets/Text_effect_graphic.png)
+
+I den kan du se:
+
+- Titelstørrelser
+- Tekstformatering
+- Tekststile
+
+Sådan ser det ud i Noter-vinduet.
+
+![Text_effect_note_view](./assets/Text_effect_note_view.png)
+
+Og sådan ser det ud i redigeringstilstand.
+
+![Text_effect_edit_view](./assets/Text_effect_edit_view.png)
+
+Tegnet `#` kan bruges til at angive titelstørrelser. 1 giver den største størrelse `Titelstørrelse 1`
+
+2 `#` giver den næste størrelse ned `Titelstørrelse 2`
+
+3 `#` giver stadig den næste størrelse ned `Titelstørrelse 3`
+
+4 `#` er det samme som at bruge fed skrift, hvilket kan gøres enten med `**` eller `__` omkring teksten. `Titelstørrelse 4`
+
+Understregning kræver HTML-notation, som også vil virke for andre teksteffekter såsom kursiv `<i> </i>` og fed `<b></b>`.
+
+`<u>Underlined</u>`
+
+`*` er _kursiv_
+
+`**` er **fed**
+
+`***` er **_fed og kursiv_**
+
+`~~` er ~~gennemstreget~~
+
+`<sup> </sup>` er super<sup>skript</sup>
+
+`<sub> </sub>` er sub<sub>skript</sub>
+
+`er`code`
+
+` ``` ` er
+
+```
+code
+block
+```
+
+---
+
+## Tekstlayout
+
+Det følgende er et eksempel på tekstlayouts
+
+![Text Layout](./assets/Text_Layout.png)
+
+### <u>Punktopstillinger</u>
+
+Punktopstillinger kan bruge enten `*` eller `-` til at adskille elementerne i listen.
+
+```
+Unordered List 1
+* First
+* Second
+* Third
+* Fourth
+```
+
+Punktliste 1
+
+- Første
+- Anden
+- Tredje
+- Fjerde
+
+```
+Unordered List 2
+- First
+- Second
+- Third
+- Fouth
+```
+
+Punktliste 2
+
+- Første
+- Anden
+- Tredje
+- Fjerde
+
+### <u>Nummererede lister</u>
+
+Nummererede lister bruger `<nummer>.` med tallene stigende fra det første tal, du angiver.
+
+```
+Ordered List
+1. First
+2. Second
+3. Third
+4. Fourth
+```
+
+Nummereret liste
+
+1. Første
+2. Anden
+3. Tredje
+4. Fjerde
+
+### <u>Indrykkede/flertrinslister</u>
+
+Indrykkede lister, eller flertrinslister, kan opnås ved at tilføje et dobbelt mellemrum mellem hvert listetrin.
+
+```
+Stepped List
+- First
+- Second
+- Third
+  - 3 a
+  - 3 b
+- Fourth
+```
+
+Indrykket liste
+
+- Første
+- Anden
+- Tredje
+    - 3 a
+    - 3 b
+- Fjerde
+
+### <u>Tabeller</u>
+
+Tabeller bruger `|` til at adskille kolonner, mens `-` og `:` bruges til at angive justering (valgfrit, da venstrejustering er standarden)
+
+```
+|Col A|Col B|Col C|
+|--|:--:|--:|
+|Row 1|Row One|R 1|
+|Left|Centre|Right|
+```
+
+| Col A |  Col B  | Col C |
+| ----- | :-----: | ----: |
+| Row 1 | Row One |   R 1 |
+| Left  | Centre  | Right |
+
+---
+
+## <u>Billeder og links</u>
+
+Nedenfor er et eksempel på inline-billeder og hyperlinks.
+
+![image_links](./assets/Image_links.png)
+
+For **_de fleste_** billed-URL'er kan du blot klippe og indsætte billedets placering, og billedet bør blive vist.
+
+Hvis det ikke virker, bør du kunne indsætte billeder inline ved at foranstille elementet med `!`, angive et tag-navn i `[ ]` og derefter linket i `( )`.
+
+```
+This is a Goblin below.
+
+![Goblin1](http://www.pngall.com/wp-content/uploads/4/Green-Goblin-Comic-PNG-Pic-180x180.png)
+```
+
+Der findes en alternativ metode, der kan gøre koden renere, kaldet reference-metoden, hvor du i stedet for et link til billedet bruger en reference, som i sig selv linker til billedet.
+
+```
+![Goblin][Goblin1]
+
+This is a Goblin above
+
+This is another Goblin
+
+![Goblin2][Goblin2]
+
+[Goblin1]:https://www.imarvintpa.com/Mapping/Tokens/g1/Goblin.png "This is a Goblin"
+[Goblin2]:https://gamepedia.cursecdn.com/crafttheworld_gamepedia/thumb/b/be/Cave_Goblin.png/150px-Cave_Goblin.png "This is a Cave Goblin"
+```
+
+Referencer kan også levere værktøjstips, så når en markør svæver hen over et billede, kan der ses et værktøjstip. Disse laves ved at anføre `" "` omkring værktøjstip-teksten efter URL'en
+
+![Tooltip](assets/Tooltip-image.png)
+
+**BEMÆRK:** Når du vælger billeder, der skal indsættes, vil de blive skaleret i chat-vinduet, men når billedet klikkes på, åbnes det i en større version i et andet vindue.
+
+## <u>**URL-links**</u>
+
+URL-links er som ovenfor, men uden det foranstillede `!`
+
+```
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+```
+
+[5E Character Sheet](https://media.wizards.com/2016/dnd/downloads/5E_CharacterSheet_Fillable.pdf)
+
+# Konklusion
+
+At bruge markdown i noter eller i chat er en nyttig måde at engagere sig med sine spillere på og give dem adgang til ting som handouts eller monsterbilleder, så spillet får mere dybde. Fra en GM's synspunkt kan det at holde styr på noter om tokens med statistikker, specielle evner, generel information, lokationsbeskrivelser osv. i høj grad lette den mængde information, du skal gemme og slå op uden for et spil. Det gør det meget mere flydende og gnidningsfrit at køre et spil.
+
+God fornøjelse med spillet!

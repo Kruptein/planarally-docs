@@ -1,0 +1,130 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+Fokus for 2023.3 er eksperimentelle funktioner: mods og et nyt koncept kaldet 'character' er de mest fremtrædende.
+Mere om disse nedenfor – de er stadig i en meget tidlig fase,
+men i stedet for bare at holde udviklingsgrenen som gidsel, indtil jeg er tilfreds, skubber jeg dem allerede ud, som de er.
+
+En del af grunden hertil er også, at der er nogle fejlrettelser i denne udgivelse, som jeg gerne vil have ud så hurtigt som muligt.
+
+## Sortering af kampagner
+
+Vi starter med en lille livskvalitetsforbedring, der var længe ventet.
+Kampagnelisten kan nu sorteres alfabetisk eller efter seneste interaktion.
+Den sorterer som standard efter seneste aktivitet.
+
+Der er ikke meget mere at sige – det er en lille ændring, men en dejlig en.
+
+## Belysning & syn
+
+### Gør cirkler gode igen
+
+Koden, der håndterer syn, arbejder med hjørner og kanter.
+Cirkler passer ikke rigtig ind i denne model uden videre, da en cirkel er et uendeligt sæt af punkter.
+
+Historisk blev dette "løst" ved bare at bruge cirklens begrænsningsramme, når den blev brugt i synsrelateret kode.
+Det resulterer i, at søjler og andre ting på dit kort bliver repræsenteret som kvadrater i synssystemet.
+
+Det er selvfølgelig ikke rigtig, hvad du ønsker, og de fleste har derfor brugt polygon-værktøjet til at opfylde dette behov.
+
+Polygon-værktøjet er et meget alsidigt og kraftfuldt værktøj, men nogle gange vil man bare bruge en skide cirkel.
+Og når PA viser en cirkel som en mulig form at tegne, forventer man noget, der i det mindste ligner en cirkel og ikke et kvadrat.
+
+Så kort sagt: cirkler er nu tilnærmet af polygoner baseret på cirklens størrelse for alt, der er synsrelateret.
+Det er ikke en perfekt tilpasning, da det ville være beregningsmæssigt dyrt, men det er meget bedre end et kvadrat.
+
+### Trianguleringsnedbrud
+
+Den førnævnte synskode, der bruger hjørner og kanter, er baseret på en trianguleringsalgoritme.
+Selvom det er sjældent, kan det ske, at noget hårdt går i stykker i denne kode og efterlader spillet i en uspillelig tilstand.
+
+Et af disse sjældne kanttilfælde blev for nylig mirakuløst stødt på af to forskellige personer, selvom det pågældende kanttilfælde har eksisteret i flere år.
+Dette er behandlet i denne udgivelse og burde ikke længere ske.
+
+### Snydende auras
+
+Tilsyneladende ville en aura, der var aktiveret med både normale og svage værdier sat til nul, og som interagerer med syn, bare lyse hele kortet op.
+
+Det er ikke længere tilfældet, og auren vil nu opføre sig, som om den er deaktiveret.
+
+## Aktiver
+
+Der er foretaget nogle små ændringer af logikken for fjernelse af aktiver.
+
+Fjernelse af et aktiv fra aktivadministratoren fjerner ikke selve aktivet fra disken, hvis der stadig er former, der bruger det pågældende aktiv.
+
+Som følge heraf foretages der en ekstra kontrol, når former fjernes i spillet, for at se om det relaterede aktiv kan fjernes fra disken.
+
+## Eksperimentelle tilføjelser
+
+Som nævnt i indledningen indeholder denne udgivelse nogle eksperimentelle tilføjelser.
+Det bør igen bemærkes, at hver af disse stadig er i en tidlig fase og kan ændres.
+
+### Mods
+
+Jeg er kun en enkelt person, og nogle gange får jeg forespørgsler, som jeg bare ikke har tid til at implementere, eller som jeg føler ikke hører til i hovedkodebasen,
+selvom de kunne være interessante. Mods er en måde at lade andre implementere disse funktioner på.
+
+Jeg er ikke særlig fortrolig med at tilbyde modding-funktioner, så dette er også i høj grad en læringsoplevelse for mig.
+Den nuværende implementering er meget minimalistisk, og jeg er sikker på, at der er en masse ting, der kunne forbedres, men vi har brug for et udgangspunkt, og derfor er den her!
+
+For mere information om modding-API'et, hvad det præcist indebærer, og nogle eksempler, så se [denne PR på github](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_dette er rent teknisk information og ikke rigtig relevant for almindelige brugere_
+
+Et andet nyt koncept, der introduceres med mods, er "DataBlocks".
+Det er det system, der i øjeblikket foreslås for at tilbyde mods serverbaseret datalagring.
+
+Mods er rent klientbaserede, så de kan ikke interagere direkte med databasen, og de kan heller ikke interagere direkte med serverbaseret kode.
+I stedet kan de gemme og hente vilkårlige data i form af DataBlocks.
+
+### Characters
+
+"Characters" er et nyt koncept, der i øjeblikket udforskes, og som ligger tæt på 'templates'-konceptet.
+
+Templates tilbyder en måde at oprette varianter af en bestemt form med præudfyldt information.
+Når de først er sluppet på kortet, er de dog fuldstændig uafhængige af hinanden.
+Typiske brugsscenarier for en template er monstre. Du har en template for en goblin, og du kan slippe så mange goblins, du vil, på kortet, og deres hp og ac er allerede konfigureret.
+Du ønsker dog ikke, at ændringer af 1 goblin ændrer de andre goblins, når de først er på kortet.
+
+Characters er komplementet hertil. De repræsenterer en unik instans af en bestemt form. Ændringer af en character huskes.
+Du kan fjerne en form, der er knyttet til en character, og senere trække og slippe character'en tilbage på kortet, og den vil være i præcis samme tilstand, som da du fjernede den.
+
+#### Oprettelse
+
+Du kan oprette en character fra højreklikskontekstmenuen på enhver form, så længe du har redigeringsadgang til den.
+
+#### Handlinger
+
+Når en form er knyttet til en character, vil den blive listet i Characters-sektionen i den venstre sidebjælke.
+Som sædvanlig vil DM også se alle spillerskabte characters, mens spillere kun vil se deres egne characters.
+
+Når du klikker på en character på denne liste, flyttes dit kamera for at centrere på den pågældende character.
+
+Derudover kan du som DM trække og slippe character'en, som du ville gøre med et aktiv.
+Dette vil teleportere character'ens eksisterende form til det sted, du slipper den.
+Hvis der ikke i øjeblikket er nogen form knyttet til character'en, vil den i stedet blive oprettet på den lokation med alle sine tidligere data.
+
+#### Fremtiden
+
+Idéen er at tilbyde mere funktionalitet til dette koncept i fremtiden.
+Især tanken om karakterark, der kan opsættes gennem mod-interaktion, er noget, der udforskes.
+
+En anden idé er at lade spillere oprette characters fra hoveddashboardet og derefter knytte dem til en kampagne.
+På den måde kan spillere oprette deres egne characters på forhånd med deres kunst og statistikker allerede udfyldt, uden at de hele tiden skal igennem DM'en.
+
+## Diverse rettelser
+
+- Eksport: Kampagner med noter kunne fejle under eksport
+- Udsmidning: Kontrollen, der forhindrede co-DM'en i at smide hoved-DM'en ud, var forkert
+- Former: Vinklen på former blev afrundet til hele tal under rotation, hvilket er lidt akavet, når man arbejder med radianer
+    - Dette resulterede i praksis ofte i, at en roteret form slet ikke roterede for andre spillere eller ved en opdatering

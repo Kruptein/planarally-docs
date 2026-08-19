@@ -1,0 +1,133 @@
+---
+title: Sommer-rettelser – Release 0.28.0
+date: 2021-07-21 15:00:00
+excerpt: "Hvad er nyt?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Den sidste udgivelse var en stor teknisk ændring, og jeg er glad for at se, at overgangen gik ret glat, uden at noget større blev rapporteret som i stykker. Denne udgivelse bringer endnu en teknisk ændring ved at skifte js-buildsystemet fra vue-cli (webpack) til vite (esbuild + rollup). Denne ændring burde have ringe eller ingen indflydelse på slutbrugere, men øger buildtiderne dramatisk!
+
+Ud over den tekniske ændring er der tilføjet nogle QoL-ændringer, en pæn del fejl er blevet kvestet, og den vigtigste nye funktion er muligheden for at sætte en baggrundsfarve eller et gentaget billede for en etage.
+
+## Etageændringer
+
+Etage-UI'en er blevet en smule minimeret og viser ikke længere redigerings- og papirkurvsikonerne. I stedet har den nu et tandhjul, som ofte bruges i PlanarAlly til at betegne indstillinger.
+
+![Etage-UI-ændringer](./0.28/floors.png)
+
+Omdøbning og fjernelse af etager gøres nu gennem denne nye etageindstillings-UI.
+
+Hvis du er fortrolig med etager, vil du bemærke to nye indstillinger.
+
+_Baggrund fortjener sin egen sektion og vil blive forklaret i dybden nedenfor._
+
+Denne udgivelse tilføjer konceptet om etagetyper, der består af en foruddefineret liste af muligheder: underjordisk/jord/luft.
+
+Etageindstillinger kan konfigureres på etagesspecifikt niveau, som UI'en ovenfor viser, men vil også kunne konfigureres på lokations- eller kampagneniveau, og dette afhænger af etagetypen.
+
+![Lokations-etageindstillinger](./0.28/locations.png)
+
+I øjeblikket er det eneste sted, hvor etagetypen påvirker tingene, baggrundsindstillingen. I fremtiden agter jeg at tilføje nogle automatiske ydelsesforbedringer afhængigt af etagetyperne. (f.eks. ikke rendere lavere etager, hvis du er på stueetagen)
+
+Dette er stadig meget en idé, jeg leger med, og måske fjerner jeg forestillingen om etagetyper i fremtiden og erstatter den med renderindstillinger pr. etage.
+
+## Baggrundsudfyldning
+
+I de fleste tilfælde vil DM'en have forberedt et kort for spillerne at udforske.
+Nogle gange kan der dog forekomme en improviseret sideudforskning, eller måske bevæger spillerne sig uden for dine kortgrænser, fordi de fandt et hul.
+
+I de tilfælde er den hvide standardbaggrund det sted, de vil bevæge sig rundt, og det kan være en smule kedeligt. Andre kort eller billeder kan naturligvis tilføjes af DM'en, men nogle gange vil du bare have noget, der udfylder tomrummet.
+
+Som antydet tidligere er det nu muligt at konfigurere baggrunden for en etage. Enten for en bestemt etage eller alle etager af samme type.
+
+### Simpel farve
+
+Den mest grundlæggende mulighed er blot at sætte en enkelt farve som baggrundsfarve.
+
+![Grundlæggende baggrundsudfyldning](./0.28/green.png)
+
+Dette kan hurtigt forbedre immersionen og give en græsklædt følelse med minimal indsats.
+
+### Mønstre
+
+Det er dog også muligt at sætte et billede som baggrund, der gentages i alle retninger. Dette gør det muligt at bruge sømløse tilesets.
+
+![Mønster-baggrundsudfyldning](./0.28/grass.png)
+
+Når du angiver et billede, er det muligt at ændre mønsterets offset og skala.
+
+Offsettet er en værdi i pixels, som mønsteret forskydes med i forhold til gitteret.
+
+Skalaen er en procentdel, der påvirker størrelsen af mønsteret.
+
+## QoL
+
+### Initiativ
+
+Release 0.26 eftersynede initiativ-UI'en. Denne udgivelse tilføjer en lille forbedring til den layoutændring ved at tillade spillere at fortsætte initiativturen, hvis en karakter, de ejer, i øjeblikket handler.
+
+![Initiativ-UI-ændringer](./0.28/initiative.png)
+
+### Værktøjslinje
+
+En almindelig kilde til forvirring er værktøjslinjetilstandssystemet og især hvilken tilstand, der er aktiv. I tidligere udgivelser blev den aktive tilstand vist på højre side af værktøjslinjen med dens første bogstav synligt. At holde musen over bogstavet viste hele navnet.
+
+Mange var aldrig sikre på, om det viste den aktive tilstand eller den tilstand, der ville aktiveres, når man klikkede på den.
+
+Denne udgivelse løser den forvirring og viser alle mulige tilstande under værktøjslinjen med den aktive tilstand fremhævet.
+
+![Værktøjslinjetilstands-UI-ændring](./0.28/toolmode.png)
+
+### Draw-hjælper
+
+At miste overblikket over Draw-værktøjet er en anden ofte nævnt klage.
+En meget lille forbedring, der tilføjes i denne udgivelse, er en lille kontrastkant omkring penslen for at sikre, at penslen ikke blander sig med baggrunden, hvis den er i samme farve.
+
+![Draw-værktøjets hjælpe-UI](./0.28/drawmode.png)
+
+Det er på ingen måde en fuldstændig løsning på at miste overblikket over din tegnebørste, men det er et første lille skridt.
+
+Jeg overvejer at tilføje en større cirkel omkring penslen, hvis penslen er mindre end en vis størrelse, men jeg er endnu ikke sikker på, at folk vil være glade for det.
+
+## Rettelser
+
+### Farvevælger
+
+Farvevælgeren var den, der blev hårdest ramt af de tekniske ændringer i den sidste udgivelse, da den oprindelige komponent, jeg brugte, ikke var tilgængelig for vue3 endnu, så jeg lavede min egen version.
+
+Denne udgivelse retter:
+
+- Bevar fokus på mætningen, mens musen holdes nede.
+- Forøg højden på skyderne.
+- Ret farvetone-skyderens klik, der i første omgang ikke bevægede sig.
+- Tilføj skakbrætbaggrunden tilbage.
+- Vis cursor\:pointer, når du holder musen over skyderen.
+
+### Annotationer
+
+Markdown-komponenten var en anden, der endnu ikke var porteret til vue3. For denne komponent fandt jeg dog et andet open source-værktøj, der gav markdown-understøttelse i vue3.
+
+Det deaktiverede dog som standard nogle renderindstillinger, som vi var vant til med den ældre komponent. Især et sæt HTML-ændringer rendere nu igen.
+
+### Andet
+
+#### Draw-værktøjet
+
+Draw-værktøjets markør opdaterede ikke sin farve med det samme, når man valgte en anden farve.
+
+#### Initiativ
+
+Genbestilling af initiativposter ville kaste fejl, hvis en af posterne endnu ikke havde en værdi.
+
+#### Co-DM
+
+Det er ikke længere muligt at fratage kampagneskaberen DM-status, og det er heller ikke muligt at smide skaberen ud.
+
+#### Aktiver
+
+Med introduktionen af eksperimentel svg-understøttelse blev der introduceret en fejl, der fik "blokerer syn"- og "blokerer bevægelse"-egenskaberne for aktiver (dvs. brugeruploadet indhold) til ikke længere at fungere.
+
+#### Noter
+
+Når man skiftede lokation, blev notesektionen ryddet.

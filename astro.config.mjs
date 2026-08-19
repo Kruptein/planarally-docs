@@ -31,6 +31,8 @@ export default defineConfig({
         "/ja/server/": "/ja/server/setup/",
         "/ru/server": "/ru/server/setup/",
         "/ru/server/": "/ru/server/setup/",
+        "/da/server": "/da/server/setup/",
+        "/da/server/": "/da/server/setup/",
     },
     integrations: [
         vue(),
@@ -67,7 +69,7 @@ export default defineConfig({
         },
     },
     i18n: {
-        locales: ["en", "de", "it", "es", "fr", "zh", "ja", "ru"],
+        locales: ["en", "de", "it", "es", "fr", "zh", "ja", "ru", "da"],
         defaultLocale: "en",
         routing: {
             prefixDefaultLocale: true,

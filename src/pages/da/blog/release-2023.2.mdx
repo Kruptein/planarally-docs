@@ -1,0 +1,179 @@
+---
+title: Release 2023.2
+date: 2023-06-20 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+2023.2 er en udgivelse, der næsten udelukkende er fokuseret på fejlrettelser. Så den bliver ret tør, da intet super spændende er tilføjet i denne, undskyld!
+
+Det er gået godt 4 måneder siden den sidste udgivelse, hvilket jeg havde håbet at undgå denne gang.
+Efter 2023.1 var jeg startet på denne udgivelse med masser af energi, da jeg ønskede at bruge offscreencanvas i webworkers for at presse performance.
+Jeg brugte en masse tid på at prøve forskellige strategier, men i sidste ende materialiserede der sig intet, som jeg var tilfreds med,
+hvilket efterlod mig lidt udbrændt.
+
+Jeg har haft tid til at arbejde på nogle andre private projekter for at lette mit sind og håber at kunne
+skubbe nogle mere meningsfulde opdateringer ud i den nærmere fremtid.
+
+## Aktivhåndtering
+
+### Direkte aktiv-slip
+
+For at få noget til at vises på kortet har det altid været nødvendigt, at DM'en først havde uploadet aktivet til aktivhåndteringen.
+Selvom dette stadig er den anbefalede måde at håndtere tingene på, da du kan organisere dine aktiver ordentligt i aktivhåndteringen,
+tilføjer denne udgivelse muligheden for direkte at slippe noget på spillebordet uden først at uploade til aktivhåndteringen.
+
+Dette er især nyttigt, når du skal tilføje noget midt i en session.
+
+Aktiver uploadet på denne måde gemmes i rodmappen i din aktivhåndtering,
+men vil sandsynligvis blive flyttet til en specifik mappe i en senere udgivelse for at reducere rod i din rodmappe.
+
+### Progressbar
+
+Den gamle aktivhåndtering havde en progressbar. Siden integrationen med det nye dashboard er denne funktion aldrig blevet tilføjet igen.
+
+Den er tilbage, det var det :)
+
+## Brush Draw
+
+Brush-tilstanden i draw-værktøjet har været en øjenplage i _laaaang_ tid.
+Den findes, men er en performance-æder, hvilket betyder, at du sandsynligvis burde undgå den næsten hele tiden.
+
+Grunden til det performanceproblem var, hvordan formen gemmes internt.
+Bag kulisserne er det præcis den samme slags struktur som en form tegnet med polygon-værktøjet,
+men forskellen er i deres oprettelse. I polygon-tilstand bestemmer du punkterne med klik, hvorimod i brush-tilstand bestemmer din musetræk polygonen.
+
+Lang historie kort: musetrækket tilføjede en masse punkter.
+Denne udgivelse implementerer en algoritme, som under et træk vil forenkle polygonen
+ved at forsøge at fjerne punkter, der bidrager næsten intet til den faktiske form.
+
+Nogle små ændringer i den samlede form kan forekomme, men de burde være meget subtile, hvis nogen.
+
+Som et eksempel, tag billedet nedenfor:
+
+{/* <Image src="/blog/release-2023.2/brush.png" width={600} aspectRatio={875 / 583} alt="Brush draw point reductions" /> */}
+![Reduktion af brush-tegnepunkter](./2023.2/brush.png)
+
+De grønne punkter er punkter, der tidligere også blev gemt. Som du kan se, er det en masse punkter, der ikke længere skal spores \:D
+
+## Teleportering
+
+En række ændringer og rettelser er blevet lavet til TeleportZone-funktionen.
+
+### Vis anmodningsområde-ændring
+
+Når en TP-zone er konfigureret med "request"-tilstand, får DM'en en notifikation, når en bruger ønsker at bruge en teleportzone.
+
+Denne notifikation indeholder en knap til at flytte DM'ens kamera til teleportzonen.
+I praksis tog dette DM'en til teleportzonens mållokation.
+
+Denne udgivelse ændrer dette og bringer DM'en til teleportzonens udløserlokation,
+da det er der, hvor spilleren, der anmoder, befinder sig, og som regel giver mere kontekst til, hvad der sker.
+
+### Rettelse af TP'er, der ikke virkede for spillere
+
+Et par tilfælde blev rettet, hvor en spiller påbegyndte en teleportering:
+
+Teleportzoner konfigureret i ikke-øjeblikkelig tilstand virkede slet ikke, hvis en spiller påbegyndte teleporteringen.
+
+Teleporteringer påbegyndt, mens build-tilstand var aktiv, virkede heller ikke for spillere.
+
+### Bring spillernes zoom
+
+_Selvom det ikke er relateret til teleportzoner i sig selv, tilføjede jeg det her, da det stadig udfører en teleportering :V_
+
+Når DM'en bruger "Bring Players"-handlingen,
+vil alle spillere blive teleporteret på en sådan måde, at det markerede område bliver centreret på deres skærm.
+
+Derudover blev zoom-niveauet for alle spillere også ændret til at matche DM'ens.
+
+Det er ikke længere tilfældet i denne udgivelse.
+Klienter kan have forskellige zoomindstillinger af en mangfoldighed af grunde, og
+det burde på intet tidspunkt overskrives bare fordi, vi flytter til et andet sted.
+
+## Skabeloner
+
+Skabeloner er en måde at gemme en form med nogle forudfyldte indstillinger til senere genbrug.
+Siden introduktionen af skabeloner,
+er de ikke blevet opdateret til at matche nye funktioner og mangler derfor nogle data, som man ville forvente blev gemt.
+
+Følgende data gemmes nu også:
+
+- Annotation-offentlig synlighed
+- Trackers:
+    - Vis på token
+    - Farver til visning på token
+- Auras:
+    - Om auraen er aktiveret
+    - Stregfarven
+    - Vinklen og retningen
+
+Mens jeg genbesøgte disse nøgler, har jeg også fjernet nogle indstillinger, der ikke længere gemmes.
+De indstillinger, jeg har fjernet, føltes for situationsbestemte til at blive gemt som en generel indstilling.
+Ideelt set ville du på et tidspunkt, når du gemmer en skabelon, få mulighed for at vælge, hvilke ting der gemmes på et mere finkornet niveau, så du alligevel kan gemme dem til specifikke tilfælde. Men desværre er vi ikke der endnu.
+
+Følgende data gemmes ikke længere:
+
+- usynlig tilstand
+- besejret tilstand
+- låst tilstand
+- 'show badge'
+
+## (Mobil) Touch-rulning
+
+En lille ændring er, at det primære spillebord og menulinjen ikke længere burde udløse overscroll på mobile touch-enheder.
+
+Der er flere mobil/touch-forbedringer at lave, men dette er en første lille ting.
+
+## Grupper
+
+Knapperne til oprettelse og fjernelse af grupper var gået i stykker på flere måder. De burde nu opføre sig korrekt igen.
+
+Derudover blev nogle rettelser lavet til netværkskoden for grupper.
+Fuld gruppedata blev sendt for hver form, hvilket er vildt unødvendigt, da vi kun har brug for gruppeoplysningerne én gang per gruppe.
+Gruppeændringer på andre klienter blev heller ikke synkroniseret, så nogle ændringer af grupper var kun synlige, så snart du opdaterede.
+
+## Fake Player
+
+Fake Player-tilstanden er der for hurtigt at efterligne spilleres syn som DM.
+Den er dog længe blevet efterladt i støvet, og der startede bestræbelser med den sidste udgivelse for at polere den op igen.
+
+Denne udgivelse genarbejdede adgangslogikken, hvilket gjorde det muligt for mig at rette en hel del fejl relateret til fake player-tilstand.
+
+Former gengives nu kun, hvis og kun hvis en spiller i spillet har synsadgang til den form OG formen er aktiv i syn-værktøjet.
+Dette betyder også, at usynlige former ikke længere gengives, hvis du ikke aktivt styrer den form.
+
+Endelig er auras på DM-laget også alle skjult nu.
+
+## Adgang
+
+Flere generelle adgangsrelaterede ting blev også rettet.
+
+- Adgang: Ret spillere med specifikke adgangsregler, der hele tiden havde redigeringsadgang
+- Adgang: Ændring af adgang ville ikke liveopdatere redigerings-UI'et for formen, hvis det var åbent af en anden klient
+- Adgang: Ret standardadgangen i UI'et, der ikke var opdateret, hvis formen ikke har nogen adgangsændringer indtil reload
+- Adgang: Forhindre DM'er i at have en eksplicit adgangsregel
+
+## Rendering
+
+- Ret auras, der nogle gange ikke var synlige indtil en opdatering eller pan tættere på auraen
+- Gennemsigtigheden af højere lag blev ikke længere anvendt efter en vinduesstørrelsesændring
+- Nogle tilfælde, hvor synsadgangsrelaterede ændringer ikke ville rendere igen med det samme
+- Grid gengav ikke vandrette linjer, når bredden er mindre end skærmens højde
+
+## Diverse rettelser
+
+    - Auth: En logisk fejl i auth-routingkoden - i nogle tilfælde skulle du manuelt gå til login-siden
+    - Labels: Ret fjernelse, der ikke virkede
+    - Værktøjslinje: Ret syn- og filterværktøjer, der ikke var umiddelbart tilgængelige, når det var relevant
+    - Logik: Request-tilstand virkede ikke som tiltænkt og opførte sig som Enabled-tilstand i stedet
+    - Token-retninger: Ret, at viste token'er ikke tog filtrerede token'er i betragtning
+    - Select: Rotations-UI'et burde forblive konsistent ved zoom
+    - LocationBar: Ret bredden på trækhåndtaget for flerlinjede lokationer
+    - Egenskaber: Usynlig-kontakten blev ikke anvendt før en opdatering for spillere
+    - Initiativ: Synslåsen tjekkede ikke aktive token'er korrekt
+    - Initiativ: Fjernelse af den sidste indgang, mens den er aktiv, kunne ødelægge initiativet
+    - Syn: Edgecase, der kunne forårsage en uendelig løkke ved tegning af synslinjer
+    - Annotation: Markdown blev ikke længere gengivet som fed i firefox
+    - [server] Subpath: 2 tilfælde, hvor subpath-baseret opsætning ikke indlæste billeder korrekt (initiativ & change asset)

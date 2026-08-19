@@ -1,0 +1,120 @@
+---
+title: Release 0.23.0 - Hvad er nyt!
+date: 2020-10-18 16:30:00
+excerpt: "Hvad er nyt i 0.23.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
+Så blev der til en ny udgivelse! Ligesom andre udgivelser indeholder den en masse fejlrettelser, men der er også andre spændende ting at finde.
+Et genarbejde af nogle UI-elementer, forbedringer af spawn-lokationer, et skabelonsystem og meget mere!
+
+**Vigtigt for serverejere** Denne udgivelse tilføjer en ny sektion til server_config. Sørg for at opdatere dine server_configs ved enten at overskrive den nye config med dine egne ændringer eller ved at tilføje den nye sektion til din eksisterende config.
+
+## Ændringer i spawn-lokationer
+
+Denne udgivelse bringer to ændringer til spawn-lokationssystemet. Understøttelse af flere spawn-lokationer og en ændring af det oprindelige spawn-lokationssystem.
+
+### Fjernelse af automatisk spawn-oprettelse
+
+Den første version af spawn-lokationer oprettede automatisk spawn-lokationen for dig.
+I praksis føltes det ikke fantastisk. Spawnet blev ikke altid oprettet første gang,
+nogle gange dukkede det op dobbelt, og nogle gange var det bare ikke, hvor du forventede det.
+Oven i købet er det ikke alle lokationer, der faktisk har brug for et spawn.
+
+Derfor blev det valgt ikke længere at lave denne automatiske oprettelse.
+Du kan nu manuelt oprette spawn-lokationer, hvor du vil.
+
+### Flere spawns
+
+Sammen med ovenstående ændring er grænsen på 1 spawn-lokation nu også fjernet.
+Når du opretter en spawn-lokation, bliver du bedt om at angive et navn.
+
+Når du flytter former til en anden lokation, får du en prompt, hvor du kan vælge mellem de spawns, der er defineret for den lokation.
+Hvis der kun findes 1 spawn, springes prompten i stedet over.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>
+
+## Skabeloner
+
+Den måske mest spændende ændring er muligheden for at gemme skabeloner af aktiver til senere genbrug.
+Når som helst kan du gemme tilstanden af et aktiv fra højrekliks-kontekstmenuen.
+
+Denne tilstand inkluderer standardegenskaber, men også trackers, auraer og dimensioner (bredde og højde).
+
+Når du dropper et aktiv på spillebordet, der har skabeloner tilknyttet, får du en prompt til at vælge en skabelon i stedet for den tomme basis-preset.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Dette kan være meget praktisk til at genbruge nogle tokens, du ofte bruger, til at forududfylde ting som HP og lyskilder.
+Det vil også være nøglen til at dele sæt med andre spillere.
+
+## UI-genarbejdelser
+
+### Login-side
+
+Login-siden er blevet genarbejdet og har nu lidt mere flair :)
+Derudover er registreringsforløbet mere eksplicit, da den gamle adfærd ikke var tydelig for alle.
+
+### Redigeringsdialogen
+
+Form-redigeringsdialogen var ved at blive ret stor, da hver par udgivelser tilføjer noget til dialogen.
+Denne udgivelse tilføjer derfor nogle undersektioner til redigeringsdialogen for at organisere tingene bedre uden at fylde hele skærmen.
+
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Rediger aktiv" />
+
+## Systemnotifikationer
+
+En ny tilføjelse for serverejere er muligheden for at oprette serverbeskeder.
+Disse beskeder sendes til alle nuværende spillere og fremtidige besøgende.
+Beskederne forbliver synlige, indtil spilleren lukker dem, eller serverejeren fjerner dem igen.
+
+Den primære tilsigtede brug af disse beskeder er at informere brugerne om ting som forventet nedetid.
+
+Et separat API-endepunkt er tilgængeligt til at publicere disse beskeder med simple REST-semantikker.
+Der er en ny sektion i server_config (ApiServer) dedikeret til at konfigurere denne webserver.
+Den konfigureres på samme måde som den primære webserver, men bruger `localhost` som standard i stedet for `0.0.0.0`
+og bruger 8001 som standardport.
+
+Kontroller [API-dokumentationen](/da/docs/server/api/) for mere info om, hvilke endepunkter der er tilgængelige.
+
+## Livskvalitet
+
+### Ruler-snapping
+
+Ruleren har nu også [snapping-adfærd](/da/docs/game/snapping/) og vil forsøge at snappe til en af 9 punkter for en bestemt grid-celle.
+De 4 hjørner af en grid-celle, deres midterpunkter og det absolutte centrum er alle snapping-punkter.
+
+### Annotation-markdown
+
+Annotation-feltet i form-redigeringsdialogen understøtter nu markdown.
+UI'et for viste annotationer har også fået en lille opdatering.
+
+![Markdown-annotationer](./0.23/annotations.png)
+
+### Server-backups
+
+Server-saves gemmes nu i en dedikeret undermappe.
+Før denne udgivelse blev de gemt i hovedservermappen,
+hvilket virkelig kunne rode tingene til.
+
+Ældre saves røres ikke, men du er velkommen til at flytte dem til den nye undermappe.
+
+## Diverse rettelser
+
+- Kør docker-containeren som ikke-root
+- Oplåsning af form via hurtigmenuen sætter ikke længere formen i træk-tilstand
+- Map tillod nogle ugyldige input (negative tal, 0, alt der ikke er et tal)
+- Note- og annotationstekstområder havde ikke den korrekte højde i starten
+- Konsolfejl, når du forsøgte at flytte etager, du ikke har adgang til
+- Private formnavne, der viste sig som ? for brugere med adgang
+- [tech] Vis fejlbeskeder baseret på svarteksten

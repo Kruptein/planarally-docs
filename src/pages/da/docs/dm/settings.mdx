@@ -1,0 +1,154 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
+
+import { Image } from "astro:assets";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
+
+# Kampagneindstillinger
+
+Som DM har du et særligt vindue med muligheder.
+Disse giver dig mulighed for at konfigurere indstillingerne for den aktive kampagne.
+
+DM-indstillingerne er tilgængelige fra side menuen (klik på <Cog />-ikonet øverst til venstre i dit browservindue for at åbne menuen).
+
+## Admin
+
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="DM Settings" />
+
+Admin-sektionen giver administrative muligheder.
+
+### Spillere
+
+I spillerafsnittet kan du se en liste over de aktuelle spillere.
+Ved siden af den enkelte spillers navn kan du angive deres rolle i kampagnen.
+
+<Warning title="Forsigtig!">
+    At sætte en hvilken som helst spiller som DM giver dem **ubegrænset** adgang til **hele** kampagnen!
+</Warning>
+
+Når <Eye />-ikonet er aktiveret, vil du se spillerens viewport på DM-laget.
+Dette giver dig mulighed for at holde styr på, hvor spillerne kigger, samt mulighed for at ændre, hvor de kigger.
+
+Klik på "kick" for at fjerne bestemte spillere fra din kampagne.
+
+### Invitations-URL
+
+Invitations-URL'en giver dig mulighed for at invitere spillere til din kampagne.
+Til højre for URL'en er der en knap, der kopierer URL'en til din udklipsholder.
+Tryk på "Refresh invitation code" for at opdatere URL'en.
+
+### Lås session
+
+Knappen Lock this Session låser eller låser kampagnen op.
+Når den er låst, kan kun DM'en få adgang til kampagnen.
+Denne funktion er nyttig, hvis du vil redigere dine kort og sikre, at ingen af dine spillere begynder at nuske rundt, mens du arbejder.
+
+### Fjern session
+
+Remove Session fjerner **PERMANENT** kampagnen fra PlanarAlly-serveren. Alle data vil være uigenkaldelige. **BRUG MED FORSIGTIGHED!**
+
+## Grid
+
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Grid Settings" />
+
+Grid-indstillingerne giver dig mulighed for at justere grid-indstillingerne eller endda deaktivere grid helt.
+Disse indstillinger er kampagnens standardindstillinger og kan tilsidesættes i de [individuelle lokationsindstillinger](/da/docs/dm/locations/#grid).
+
+### Brug grid
+
+Aktivér eller deaktiver grid. Dette gælder også for alle spillere.
+
+### Gridtype
+
+PA tilbyder fuld understøttelse af firkantede grids og minimal understøttelse af hex-baserede grids.
+
+Hex-gitre tilbydes i to varianter (spids & flad), men har ikke hele det funktionssæt, som firkantede grids har.
+Vigtigst af alt er [snapping-adfærd](/da/docs/game/snapping) ikke blevet opdateret med hex-understøttelse.
+
+### Størrelsesenhed
+
+Størrelsesenheden giver dig mulighed for at ændre standardrepræsentationen af enheder i ft (dnd-normen) til noget andet.
+Dette kan bruges til at ændre alt til meter (inklusive brøker, fx for dnd-standarden, hvor 1.5&nbsp;m svarer til 5&nbsp;ft), men kan også bruges til at have én lokation med et verdenskort skaleret i kilometer eller miles.
+
+### Enhedsstørrelse
+
+Enhedsstørrelse er den afstand, som én grid-celle repræsenterer i dit spilsystem. Når du bruger ruler-værktøjet til at måle afstande, vil denne info blive brugt til at lave konverteringen.
+
+## Vision
+
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Vision Settings" />
+
+Vision er en af de vigtigste indstillinger for DM'en.
+Disse indstillinger giver dig mulighed for at ændre, hvad spillerne ser, og hvordan de ser det.
+De er også omtalt i DM-sektionen om [belysning og syn](/da/docs/dm/lighting-vision/).
+
+De indstillinger, der er defineret i denne dialog, er kampagnens standardindstillinger, som kan tilsidesættes i de [individuelle lokationsindstillinger](/da/docs/dm/locations/#vision).
+
+### Fake Player
+
+Når dette er aktiveret, vil skærmen blive gengivet uden dine DM-rettigheder.
+Den vil i stedet blive gengivet ved hjælp af synet fra alle de spillere, du har valgt i [vision-værktøjet](/da/docs/tools/vision/).
+Dette kan hjælpe dig med at verificere under forberedelsen eller endda under spillet, at din synsopsætning er korrekt.
+
+Du kan hurtigt slå dette til/fra ved hjælp af [Quick Toggles](/da/docs/tools/quick-toggles/#fake-player)
+
+### Fyld hele lærredet med krigståge
+
+_FoW står for Fog of War_
+
+Med denne mulighed aktiveret er alt på skærmen som standard skjult for spillerne.
+Der skal tilføjes lys for at give syn i områderne.
+
+Med denne mulighed deaktiveret er alt på skærmen som standard vist for spillerne.
+Der skal tilføjes krigståge for at fjerne syn i områderne.
+
+### Kun synslinje
+
+_LoS står for Line of Sight_
+
+Denne mulighed skifter en avanceret belysningstilstand.
+
+Når den er deaktiveret, vil enhver lokation på skærmen med en lyskilde være synlig.
+Det er ligegyldigt, om en spiller er på den pågældende lokation eller ej.
+
+Når den er aktiveret, vil kun ting i spillertokensenes synslinje være synlige på skærmen.
+En spiller skal se lyset for, at det vises på skærmen.
+
+Se [belysningsdokumentationen](/da/docs/dm/lighting-vision/) for mere information om dette emne.
+
+### Krigstågens opacitet
+
+Denne indstilling giver DM'en mulighed for at vælge, hvad opaciteten af skjulte områder skal være for DM'en.
+Spillere vil altid have denne indstilling sat til 1.0 for dem selv og kan ikke redigere den.
+
+I fake player-tilstand er du også låst fast på 1.0.
+
+### Vision Mode
+
+<Warning>Dette er en teknisk indstilling, som du kun bør røre ved, hvis du ved, hvad du laver.</Warning>
+
+Den eksperimentelle vision-tilstand beregner belysningen/synet anderledes sammenlignet med standardversionen.
+
+I den eksperimentelle version foretages ændringer af lys/syn trinvist i stedet for en fuld genberegning ved hver ændring. Fordelene er meget tydelige; konsekvenserne er, at den er mindre testet, og at den i tilfælde af fejl kan gå fuldstændig i stå.
+
+Du kan overveje at bruge denne mulighed, hvis du har mange lys/syn-relaterede objekter på dit kort og oplever langsomme skærmopdateringer, når du flytter ting rundt.
+
+### Minimal/maksimal synsvidde
+
+Disse indstillinger er tuningsfaktorer for [synssystemet](/da/docs/dm/lighting-vision/).
+De bestemmer grænser for synet for alle tokens.
+
+Forestil dig et kæmpe, åbent felt, der strækker sig 5000 ft. og er fuldstændig oplyst.
+Man kunne forvente, at hele området er synligt for din token, der står midt på dette felt.
+Der er dog begrænsninger for det menneskelige og ikke-menneskelige øje, hvorfor disse indstillinger er introduceret.
+
+Alt op til den minimale synsvidde kan ses som normalt.
+Alt ud over den maksimale rækkevidde kan ikke ses og er krigståge.  
+Alt derimellem vises med stigende opacitet, jo længere du bevæger dig mod kanten af synsvidden.

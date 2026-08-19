@@ -1,0 +1,247 @@
+---
+title: Release 2025.1
+date: 2025-01-31 19:32:00
+excerpt: "Terningeforbedringer og en simpel chatboks"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Det er et nyt år, og vi har nogle gode ændringer i vente til dig!
+
+<Warning title="Serveropgradering">
+    Hvis du er serverejer, så tjek ændringerne til aktiverne for 3 ændringer, der relaterer sig til serveren.
+</Warning>
+
+## FJERNET
+
+Denne udgivelse bringer noget oprydning med sig, idet 2 funktioner fjernes:
+
+### Etiketter/filtre
+
+Som annonceret i de sidste 2 udgivelsesnoter er denne serie af funktioner nu officielt fjernet.
+
+Etiketter var tags, du kunne placere på former, og filterværktøjet gjorde det muligt at skjule/vis former på skærmen ved at filtrere på disse tags.
+Jeg kan stadig se nogle use cases for dette, men den nuværende implementering var ikke god, så meget gammeldags ud og blev så vidt jeg ved bare ikke brugt.
+Det faktum, at ingen har henvendt sig om dem, siden vi offentliggjorde fjernelsesmeddelelsen, er et tegn på, at det ikke kommer til at skade nogen at fjerne dem.
+
+### `.paa`-filer
+
+I en ældre version af PA havde aktivadministratoren mulighed for at eksportere alle dine aktiver til en `.paa`-fil, som du derefter kunne importere på en anden PA-installation.
+
+Siden da har aktivadministratoren gennemgået en omarbejdning, som ikke længere tilbyder denne funktionalitet i sin UI.
+Det var oprindeligt min intention at bringe denne funktionalitet tilbage, men i mellemtiden blev muligheden for at eksportere kampagner tilføjet i stedet, hvilket automatisk eksporterer alle relaterede aktiver.
+
+Dette dækkede de fleste af de oprindelige paa-setup's use cases. I lighed med den anden fjernelse har jeg ikke haft nogen, der har spurgt til, at denne funktion ikke længere er tilgængelig i UI'en,
+så det var et godt tidspunkt at rydde op, da noget af den interne aktivlogik er blevet omskrevet til nogle ændringer længere nede i disse udgivelsesnoter.
+
+## Terninger
+
+### Værktøjs-UI
+
+_bidraget af rexy712_
+
+I 2024.3 fik terningeværktøjet en flot ny UI, som allerede var et skridt op fra den oprindelige UI, men rexy tog det på sig at forbedre dette endnu mere.
+
+UI'en fik nogle elegante overgange og samler resultaterne af et kast i UI'en i stedet for at åbne en separat modal, hvilket gør oplevelsen mindre distraherende.
+Derudover er terningehistorikken bedre integreret, og der er tilføjet en hurtig "gentag sidste kast"-knap.
+
+![Ny terninge-værktøjs-UI](./2025.1/dice-basic.png)
+
+3D-terninger kan nu også kastes i 2 separate tilstande: standard og boks. Standard er den oprindelige adfærd, hvor de kastes hen over hele skærmen,
+mens boks åbner en lille sektion øverst, der ligner en lille terningebakke.
+
+![Ny terninge-værktøjs-UI](./2025.1/dice-box.png)
+
+## Justeringer af 3D-terningesimuleringen
+
+_bidraget af rexy712_
+
+Der er lavet ændringer af de fysiske egenskaber for 3D-terningerne, hvilket burde resultere i bedre adfærd,
+især bør terningerne nu holde op med at glide meget hurtigere.
+
+## Håndtering af D100
+
+Håndteringen af D100-kast var meget forskellig mellem 2D-tilstanden og 3D-tilstanden, hvor 2D-tilstanden dækkede alle værdier mellem 1-100,
+mens 3D-tilstanden kun lavede tierne (f.eks. 10/20/30/...) og krævede et ekstra d10-kast for at dække enerne,
+men der var ingen logik til stede til at håndtere, hvad der skulle ske, hvis f.eks. en 00 og en 0 blev kastet.
+
+Denne udgivelse forbedrer alt ovenstående. I 3D-tilstand kastes en d10 automatisk sammen med en d100,
+så du ikke selv skal specificere den. Derudover er der indbygget logik, der dikterer adfærden i 00/0-tilfældet.
+
+Det underliggende terningebibliotek `@planarally/dice` kan konfigureres til enten at være i 0-99- eller 1-100-tilstand.
+Den nuværende PlanarAlly-grænseflade tilbyder dog ingen måde at konfigurere dette på, så for nu er 1-100-tilstanden altid valgt.
+
+## Aktiver
+
+Endnu et sæt store ændringer relaterer sig til aktiver. Der er lavet nogle tekniske ændringer på serveren samt visuelle opdateringer på klienten!
+
+### DM's in-game-UI
+
+Aktivadministratoren er en god måde at organisere dine aktiver uden for spillet på, så du kan forberede ting til en session.
+
+In-game har DM'en derimod et helt andet syn på sine aktiver.
+Der er en sidebjælke med en træstruktur, men ingen reelle interaktioner er mulige, bortset fra at trække et bestemt aktiv over på kortet.
+
+Denne udgivelse ændrer dette og fjerner sidebjælken, som erstattes af en stor modal, der på en måde ligner den nye noter-UI,
+men med et lignende look and feel som aktivadministratoren uden for spillet.
+Faktisk deler aktivadministratoren uden for spillet og in-game nu den samme kode for en stor del af deres UI.
+
+Ligesom den omarbejdede noter-UI sidste år kan aktiv-UI'en åbnes fra sidebjælken, men også ved at trykke på genvejen <kbd>a</kbd>.
+
+![Ny aktiv-UI](./2025.1/asset-ui.png)
+
+#### Søgning
+
+Sidebjælken havde altid en søgelinje, og dette er stadig tilgængeligt i den nye UI og er implementeret meget mere effektivt,
+så det ikke længere kræver, at alle aktivoplysningerne indlæses på forhånd, når man forbinder til spillet.
+
+Dens adfærd er en smule anderledes end sidebjælkens søgning, da repræsentationen er helt anderledes.
+Den viser alle aktiver, der matcher søgningen, direkte. Sidebjælken beholdt derimod alle mapper, der havde et matchende aktiv et eller andet sted inde i sig, synlige.
+
+#### Genveje
+
+En anden ny funktion er muligheden for at markere en mappe som en genvej. Genveje vises på venstre side under den permanente genvej "Alle aktiver".
+De giver dig mulighed for hurtigt at gå til en bestemt mappe, som du måske ofte har brug for (f.eks. hovedkampagnemappen, almindelige dnd-tokens, ...).
+
+Genveje gemmes pr. kampagne.
+
+#### Træk og slip
+
+Du undrer dig måske over, hvordan du nu skal trække et aktiv ud på kortet, da den nye UI fylder en god del af den centrale del af skærmen.
+
+Når du begynder at trække et aktiv, kan du trække det hen over en mappe for at flytte det til den mappe, ligesom du ville gøre i aktivadministratoren.
+Hvis du derimod trækker aktivet ud af UI'en, forsvinder UI'en helt, så du faktisk kan placere det på kortet.
+
+For at sikre klarhed vises der altid en besked nederst i UI'en, når du trækker, som informerer dig om denne adfærd.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2025.1/asset-drop.webm" type="video/webm" />
+    <source src="/blog/release-2025.1/asset-drop.mp4" type="video/mp4" />
+</video>
+
+### Mindre ændringer i aktivadministratoren
+
+#### Omdøbnings-UI
+
+_bidraget af rexy712_
+
+At omdøbe et aktiv plejede at åbne en popup, hvor du skulle indsætte det nye navn.
+Dette er blevet gjort mindre påtrængende ved i stedet at lade dig redigere navnet på stedet, som du måske er vant til i dit operativsystems filhåndtering.
+
+#### Valg via kontekstmenuen
+
+Når du højreklikker på et aktiv i aktivadministratoren, vises en kontekstmenu.
+Dette nulstillede altid markeringen til kun det aktiv, du højreklikkede på.
+
+Det er ikke længere tilfældet, så du nu ordentligt kan vælge en stak filer og fjerne dem via kontekstmenuen.
+Handlinger som "omdøb" vises ikke, når der er valgt flere aktiver.
+
+Markeringen nulstilles til kun det klikkede aktiv, hvis det ikke allerede var en del af den aktuelle markering.
+
+### Miniaturebilleder
+
+Aktiver kan uploades i en bred vifte af kvaliteter, og når de vises på kortet, vil vi have dem i samme kvalitet.
+
+Der er dog nogle andre steder, hvor vi interagerer med aktiver, hvor den højere kvalitet ikke er nødvendig og kun gør tingene tungere.
+Aktivadministratoren er den primære kandidat, hvor vi potentielt indlæser en masse billeder på én gang.
+
+Fra og med denne udgivelse vil serveren forsøge at generere miniaturebilleder for alle uploadede aktiver og foretrække at bruge disse, når aktiver vises f.eks. i aktivadministratoren.
+Dette vil få aktivadministratoren til at indlæse meget hurtigere, da den ikke skal indlæse en masse billeder i høj kvalitet.
+
+<Warning title="Serveropgradering">
+    Når serveren startes, vil en baggrundsproces starte for at generere miniaturebilleder for alle eksisterende aktiver. Den vil logge
+    lidt fremgang af og til, men er ellers ikke blokerende for serverens hovedfunktion.
+
+    Der findes også fallback-adfærd, hvis miniaturebilleder ikke eksisterer, så denne proces er mindre kritisk.
+
+</Warning>
+
+### Upload- og lagerbegrænsninger
+
+Serverejeren kan nu konfigurere globale begrænsninger for aktiver i serverkonfigurationen.
+To nye indstillinger er tilgængelige: én til at begrænse den maksimale størrelse af et enkelt aktiv og én til at begrænse den samlede størrelse af alle aktiver, som en bestemt bruger har på serveren.
+
+Begge disse indstillinger er som standard uden begrænsning, så sørg for at ændre dette til, hvad du nu vil.
+
+Det er vigtigt at bemærke, at ændringer af begrænsningerne kun gælder for nyligt uploadede aktiver.
+Hvis en bruger bruger mere plads, før indstillingen blev tilføjet, fjernes ingen af deres eksisterende aktiver, men de vil ikke kunne uploade flere aktiver.
+
+<Warning title="Serveropgradering">
+    Dette tilføjer nye poster til konfigurationsfilen. Sørg for at tilføje disse til din konfiguration, ellers vil
+    serveren ikke starte.
+</Warning>
+
+### Gemmested
+
+_dette er en teknisk serverændring, du kan springe dette over, hvis du er spiller_
+
+De fysiske filer, der er knyttet til uploadede aktiver, gemmes på disk i en bestemt mappe, hvor alle navne svarer til aktivets hash.
+Indtil nu blev disse gemt i 1 flad mappe, men af ydelsesmæssige årsager vil denne udgivelse i stedet gemme dem i en undermappestruktur baseret på hashen.
+Dette vil reducere nogle I/O-operationstider, da de ikke længere behøver at arbejde i én stor mappe.
+
+<Warning title="Serveropgradering">
+    Der vil blive lavet en engangsmigrering for at flytte alle eksisterende filer til deres nye placering ved opstart.
+    Afhængigt af antallet af aktiver på din server kan dette tage et stykke tid.
+
+    Det er vigtigt, at denne proces ikke afbrydes, da både de fysiske filer og dataene i databasen, der forbinder alting, flyttes.
+
+</Warning>
+
+## Noter
+
+En sidste del af ændringerne relaterer sig til noter. De fleste af disse er dog mindre ændringer og fejlrettelser.
+
+### Fuld popout
+
+Med introduktionen af den nye noter-UI kan en note poppes ud fra notemanageren, hvilket resulterer i en flydende notemodal, som du kan trække rundt i PA-skærmen.
+
+Denne udgivelse gør det muligt at poppe denne modal helt ud af siden, så du kan trække noten hen til en anden skærm og fortsætte med at interagere med den.
+Denne flydende dialog er stadig knyttet til den åbne PA-side, men ikke bundet til en bestemt skærmposition. Hvis du lukker PA-fanen, lukkes den flydende dialog også.
+
+### Global noteadgang
+
+Standardadgangen til globale noter er blevet fjernet.
+Dette gjorde det muligt for brugere at sætte en note som synlig (eller endda redigerbar) globalt blandt alle brugere, hvilket bare ikke er noget, vi ønsker.
+
+### Små UI-forbedringer
+
+- Du kan nu rydde noterens søgelinje med en knap.
+- Lokal/global-kontakten er nu en dropdown med mulighed for at filtrere efter Alle noter.
+- Noteknappen i sidebjælken er nu også synlig for spillere.
+- Note-popouts for noter uden skriveadgang siger nu "Vis kilde" i stedet for "Rediger".
+
+### Rettelser
+
+- Forskellige UI-fejl relateret til interaktion med kun-læse-adgang er løst.
+- Pagineringen af noter blev ikke nulstillet, når man ændrede søgning/filtre.
+- Standard redigeringsadgangen for noter fungerede ikke korrekt.
+- Søgelinje-UI'en overlappede andre UI'er.
+- Det var muligt lokalt at redigere en skrivebeskyttet note (disse ændringer blev altid afvist af serveren).
+
+## Standardfarver for Draw-værktøjet
+
+Når jeg tegner på krigståge-laget, skifter jeg ofte mellem at tegne vægge, vinduer, døre osv.
+For hver af disse bruger jeg en bestemt farve, så de visuelt skiller sig ud med det samme, når jeg åbner krigståge-laget.
+
+Indtil nu var dette lidt af et besvær, da du altid skulle ændre farverne, når du skiftede mellem de forskellige typer, og selvom farveværktøjet har en hukommelse for nyligt brugte farver,
+var det stadig besværligt.
+
+Dette ændrer sig nu med tilføjelsen af standardfarver. I dine klientindstillinger kan du nu konfigurere standardfarver for vægge/vinduer og døre.
+Disse anvendes som standard, når det er relevant i Draw-værktøjet.
+
+For at kommunikere dette tydeligt er farvevælgerne deaktiveret i Draw-værktøjet, når en standardfarve ville blive brugt.
+Du kan dog stadig deaktivere denne adfærd og vælge bestemte farver for et bestemt objekt ved at fjerne markeringen i boksen 'brug standardfarver' i Draw-værktøjets synsindstillinger (2. fane).
+
+Dette er en lille tilføjelse, men har allerede sparet mig for en masse tid!
+
+## Varia
+
+- SuikaXhq gik ud af deres vej for at opdatere en masse af de hårdkodede engelske etiketter i UI'en til at bruge oversættelsesetiketter.
+- Dashboard-knappens kantfarver for nyt spil blev opdateret.
+- Rettede noget mærkelig håndtering af ændringer, når markeringen blev ændret (f.eks. ændring af en forms navn og klik på en anden form, før man forlader navneindtastningsfeltet).
+- Modaler kan nu også få fokus, når de trækkes.
+- Teleportering af sammensatte former kunne føre til nogle fejl på klienten.
+- Snapping i Select-værktøjet opfører sig nu som snapping i Draw-værktøjet (dvs. når der først er snappet til et punkt, vil det ikke længere snappe til gitteret, når musen slippes).
+- Klik på en session, der deler navn med en anden session, ville folde begge ud.

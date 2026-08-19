@@ -1,0 +1,59 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
+
+# Aktiver
+
+<Image src={DashboardAssets} alt="Dashboard Aktiver" />
+
+Sektionen **Aktiver** giver dig mulighed for at administrere eller oprette aktiver, der kan bruges i kampagner.
+_Se sektionen [DM-aktiver](/da/docs/dm/assets/) for at lære, hvordan du bruger dem_.
+
+<Info>
+    I øjeblikket er aktiver kun interessante for DM. I fremtiden skulle dette også blive et sted, hvor spillere kan
+    uploade aktiver.
+</Info>
+
+Øverst til højre er der en lille værktøjslinje, der giver dig mulighed for at oprette en mappe, uploade nye aktiver eller fjerne den aktive markering.
+
+## Navigering i mapperne
+
+Hovedskærmen viser en mappeudforsker, hvor du kan dobbeltklikke for at gå ind i en mappe.
+Din aktuelle mappesti vises som en brødkrummesti lige under titlen 'MANAGE ASSETS'.
+
+For at gå tilbage til den forrige mappe kan du dobbeltklikke på ".."-mappen[^1].
+Du kan også klikke på et hvilket som helst segment af brødkrummestien for at gå flere mapper tilbage på én gang.
+
+## Upload af aktiver
+
+Aktiver kan uploades enten ved at klikke på ikonet for at tilføje fil i værktøjslinjen eller ved at trække aktiverne ind på aktivadministratoren.
+
+## Flytning af aktiver
+
+Du kan flytte aktiver rundt ved at trække dem til den ønskede mappe.
+Hvis du vil flytte et aktiv en mappe op, skal du trække det hen over ".."-mappen.
+
+Du kan flytte flere aktiver på én gang, enten ved at trække en mappe, der indeholder flere aktiver, eller ved at vælge flere aktiver.
+
+## Valg af aktiver
+
+Et enkelt klik på et aktiv vælger det og fjerner markeringen fra alle andre aktiver.
+
+Hvis du vil udvide markeringen, kan du enten ctrl+klikke eller shift+klikke.
+Førstnævnte tilføjer blot den klikkede fil til markeringen,
+mens sidstnævnte tilføjer alle filer mellem den seneste markering og den nye markering.
+
+<Info>
+    Den nuværende adfærd er en rest fra den tidligere aktivmanager og efterligner almindelig semantik fra filudforskere.
+
+    Den måde, markeringen i øjeblikket vises på, gør det dog en smule uintuitivt.
+    Så dette kan ændre sig i fremtiden.
+
+</Info>
+
+[^1]: Dette er et koncept fra unix-verdenen.

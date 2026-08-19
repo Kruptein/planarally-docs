@@ -1,0 +1,484 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Serverkonfiguration
+
+<Warning title="Seneste ændringer">
+    Serverkonfigurationen blev fuldstændig ændret i udgivelse 2025.2. Den konfiguration, der beskrives i dette dokument,
+    refererer til det nye format.
+</Warning>
+
+Som standard findes der **ingen** konfigurationsfil. I stedet bruger PA standardværdier for alle indstillingerne. Standardkonfigurationsværdierne kan ses [her](#default-config)
+
+Hvis du vil ændre adfærden, skal du oprette en `config.toml`-fil i serverens `data`-mappe.
+
+Når en delvis konfigurationsfil leveres, bliver manglende felter/sektioner erstattet med standardværdier, hvor det er relevant.
+
+# Format
+
+Som konfigurationens filtype antyder, er konfigurationen formateret med [TOML](https://toml.io/en/).
+
+Konfigurationen er opdelt i mindre sektioner, som har en `[section]`-overskrift, hvor undersektioner betegnes med `[section.some.subsection]`.
+Efter hver (under)sektion følger separate linjer til at konfigurere bestemte værdier.
+
+Detaljeret information om, hvordan TOML-formatet fungerer, er uden for dette dokuments omfang, men efter at have gennemgået standardkonfigurationen burde du have en god forståelse af, hvordan det virker.
+
+# Standardkonfiguration
+
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
+```
+
+<Info title="Filstier">
+    Når du angiver stier til filer eller mapper, kan du bruge absolutte stier (f.eks. `/home/user/example.txt`) eller
+    relative stier (f.eks. `data/planar.sqlite`). Når en relativ sti bruges, er den relativ i forhold til serverens
+    hovedmappe og IKKE den mappe, hvor konfigurationen ligger.
+</Info>
+
+# Vigtige indstillinger
+
+Nogle indstillinger, du sandsynligvis helt sikkert bør tjekke, er:
+
+- [Konfiguration af gemmefil](#field-save_file)
+- [Adminbruger](#field-admin_user)
+- [Hele undersektionen webserver.connection](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+[Klient-URL'en](#field-client_url) er en, du normalt også ønsker at konfigurere, men den er ikke kritisk.
+
+# Sektioner
+
+Her er alle de mulige muligheder listet sammen med deres standardværdier.
+Hvis disse oplysninger på noget tidspunkt bliver forældede og forårsager fejl, kan sandhedskilden [findes på github](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py) i kodeform.
+
+## Generelt
+
+Sektionsnavn: `general`
+
+### Felt: `save_file`
+
+Standard: `"data/planar.sqlite"`\
+Type: `string`
+
+Sti til gemmefilen. Dette er en afgørende indstilling, som har stor betydning, hvis den ændres. Gemmefilen bør sikkerhedskopieres passende[^1].
+
+Hvis serveren starter, og den valgte sti ikke findes, opretter serveren en ny gemmefil.
+
+<Info title="Gemmefilformat">
+    Bemærk, at PlanarAlly i øjeblikket kun understøtter lagring af gemme i sqlite-format.
+</Info>
+
+<Warning>
+    Mens serveren kører, kan der blive oprettet ekstra databasefiler (f.eks. `planar.sqlite-shm` og `planar.sqlite-wal`).
+    Filen `planar.sqlite-wal` (eller write-ahead-log) er afgørende for gemmedatabasen, og data vil gå tabt, hvis den ikke gemmes.
+    Filen `planar.sqlite-shm` (eller shared memory) er ikke kritisk og behøver ikke at blive sikkerhedskopieret.
+
+    Hvis serveren lukker ned pænt, vil disse filer forsvinde. De kan dog blive hængende, hvis serveren ikke kunne stoppes rent.
+    Når du kopierer en gemmefil, skal du sørge for at kopiere disse filer med, hvis de findes, ellers kan din gemme være korrupt eller forældet.
+
+</Warning>
+
+### Felt: `admin_user`
+
+Standard: N/A - valgfrit felt\
+Type: `string`
+
+Når et brugernavn angives her, vil denne bruger blive betragtet som hovedadministratoren.
+Brugeren vil have adgang til ekstra funktioner i dashboardet til at administrere ting som brugere og kampagner på serveren.
+
+### Felt: `client_url`
+
+Standard: N/A - valgfrit felt\
+Type: `string`\
+_Det anbefales generelt at konfigurere dette felt, men det er ikke påkrævet for en minimal opsætning._
+
+Når dette er angivet, bør det være frontendapplikationens fulde basis-URL (f.eks. "https://app.planarally.io").
+
+Dette bruges i invitations-URL'en og i glemt-adgangskode-mails. Når feltet mangler, vil invitations-URL'en bruge den aktuelle URL i browseren, når den genereres. E-mail-URL'er vil dog **ikke** indeholde basis-URL-oplysningerne, da serveren ikke kan forudsige dette.
+
+### Felt: `allow_signups`
+
+Standard: `true`\
+Type: `boolean`
+
+Denne indstilling bestemmer, om brugere kan oprette en ny konto ved hjælp af frontend'en. Når den er deaktiveret, er kontoprettelse kun mulig gennem manipulation af databasen.
+
+### Felt: `enable_export`
+
+Standard: `true`\
+Type: `boolean`
+
+Når denne indstilling er aktiveret, er kontoeksport **og** -import tilgængelig for brugere.
+
+Dette anbefales generelt, da det giver brugerne mulighed for at flytte deres data til/fra en anden server samt at give mig data til fejlfinding.
+
+## Webserver
+
+Sektionsnavn: `webserver`
+
+En af de vigtigste sektioner at konfigurere er webserveren.
+Den omfatter den vigtige `connection`-undersektion, som du bør konfigurere for at bestemme, hvordan PA-serveren bindes til omverdenen.
+
+<div id="subsection">
+
+### Undersektion: `connection`
+
+_Dette er en undersektion (se [Standardkonfiguration](#default-config) for et eksempel på, hvordan dette konfigureres)._
+
+Dette konfigurerer, hvordan serveren forbindes til netværksstakken. Det skal enten være en HostPort-konfiguration eller en socket-konfiguration.
+Som standard bruges en HostPort-kombination.
+
+#### felt: `type`
+
+Standard: `"hostport"`\
+Type: `"hostport" or "socket"
+
+Feltet type er det, der i sidste ende bestemmer, hvilken forbindelsestype der bruges.
+
+```toml
+# Enten er en hostport-forbindelse konfigureret
+[webserver.connection]
+type = "hostport"
+...
+
+# Eller en socket-forbindelse
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### HostPort-felter
+
+#### felt: `host`
+
+Standard: `"0.0.0.0"`\
+Type: `string`
+
+Den IP-adresse, som serveren vil forsøge at binde sig til.
+
+#### felt: `port`
+
+Standard: `8000`\
+Type: `integer`
+
+Den port, som serveren vil forsøge at binde sig til.
+
+Sørg for, at den port, du bruger, ikke bruges af nogen anden applikation.
+Sørg også for, at den port, du bruger, er tilgængelig udefra maskinen.
+Især når du kører fra et privat netværk (f.eks. derhjemme), kan du få brug for at aktivere _port forwarding_ i din routers konfiguration.
+
+#### Eksempel på HostPort-konfiguration
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Socket-felter
+
+#### felt: `socket`
+
+Standard: N/A\
+Type: `string`
+
+Stien til den socket, der vil blive brugt til at binde sig.
+
+#### Eksempel på socket-konfiguration
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+</div>
+
+<div id="subsection">
+
+### Undersektion: ssl
+
+Dette er en valgfri undersektion. Når den udelades, anvendes ingen SSL-konfiguration på selve PA-serveren.
+Dette forhindrer dig ikke i at opsætte SSL højere oppe i kæden (f.eks. i din omvendte proxy).
+
+Det anbefales kraftigt at sikre, at SSL er opsat et sted i kæden!
+
+#### Felt: `enabled`
+
+Standard: `false`\
+Type: `boolean`
+
+Giver dig mulighed for at aktivere/deaktivere SSL-konfigurationen uden at skulle fjerne hele SSL-sektionen eller kommentere den ud.
+Kun når denne værdi er sat til `true`, vil SSL-konfigurationen faktisk blive anvendt.
+
+#### Felt: `fullchain`
+
+Standard: N/A\
+Type: `string`
+
+Sti til fuldkædecertifikatet.
+
+#### Felt: `privkey`
+
+Standard: N/A\
+Type: `string`
+
+Sti til den private nøgle.
+
+#### Eksempel på SSL-konfiguration
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+</div>
+
+### Felt: `cors_allowed_origins`
+
+Standard: N/A (valgfrit felt)\
+Type: `string / Liste af strenge`
+
+CORS-konfiguration for websocket-serveren.
+
+Denne værdi overføres til socketio-serveren. Mere information kan findes i [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class)-dokumentationen.
+En værdi på `'*'` kan angives for at tillade alle oprindelser. Dette er nyttigt til testformål, men ikke sikkert.
+
+Dette skal ofte konfigureres til enten wildcard-værdien (\*) eller det korrekte specifikke domæne for at det kan virke!
+Serverkonsollen bør logge, når forbindelsen blev afvist på grund af cors.
+
+### Felt: `max_upload_size_in_bytes`
+
+Standard: `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
+Type: `integer`
+
+Den maksimale størrelse, en enkelt upload af data fra klienten kan have.
+
+Det bør bemærkes, at dette for det meste vil fungere som en chunking-strategi.
+Aktivuploads og kampagneoverførsler vil blive opdelt i bidder i henhold til dette maksimum, men den samlede størrelse af disse kan dermed overstige grænsen!
+Se aktivsektionen i konfigurationen for information om, hvordan du begrænser brugernes aktivstørrelser.
+
+## Mail
+
+Sektionsnavn: `mail`
+
+Dette er en valgfri sektion og er som standard ikke aktiveret.
+
+Den bruges i øjeblikket kun til at sende mails som en del af glemt-adgangskode-flowet.
+
+### Felt: `enabled`
+
+Standard: `false`\
+Type: `boolean`
+
+Giver dig mulighed for at aktivere/deaktivere mailkonfigurationen uden at skulle fjerne hele sektionen eller kommentere den ud.
+Kun når denne værdi er sat til `true`, vil mailkonfigurationen faktisk blive anvendt.
+
+### Felt: `host`
+
+Standard: N/A\
+Type: `string`
+
+Værten for SMTP-mailserveren. Dette skal udfyldes.
+
+### Felt: `port`
+
+Standard: N/A\
+Type: `integer`
+
+Porten for SMTP-mailserveren. Dette skal udfyldes.
+
+### Felt: `username`
+
+Standard: N/A (valgfrit)\
+Type: `string`
+
+Hvis det er relevant, kan brugernavnet angives for at autentificere med.
+
+### Felt: `password`
+
+Standard: N/A (valgfrit)\
+Type: `string`
+
+Hvis det er relevant, kan adgangskoden angives for at autentificere med.
+
+### Felt: `default_from_address`
+
+Standard: N/A\
+Type: `email-string`
+
+Den standard-e-mailadresse, der skal bruges, når der sendes mails.
+
+### Felt: `ssl_mode`
+
+Standard: `"starttls"`\
+Type: `Literal["ssl", "tls", "starttls", "lmtp"]`\
+Tilføjet: v2025.2.1
+
+Dette konfigurerer den klientforbindelsestilstand, der bruges.
+Som standard bruges starttls-metoden, som bør dække et bredt spektrum.
+
+Dette kan nogle gange ikke virke korrekt, i hvilket tilfælde du kan prøve `"ssl"`-tilstanden eller en af de andre tilstande i stedet.
+
+## Statistik
+
+Sektionsnavn: `stats`
+
+Dette er en valgfri sektion, der, når den ikke er angivet, bruger et standardsæt af værdier.
+Den styrer indsamlingen og overførslen af anonyme brugsstatistikker.
+
+Se [denne github-PR](https://github.com/Kruptein/PlanarAlly/pull/1608) for nogle oplysninger om, hvad og hvorfor.
+
+### Felt: `enabled`
+
+Standard: `true`\
+Type: `boolean`
+
+Giver dig mulighed for at aktivere/deaktivere mailkonfigurationen uden at skulle fjerne hele sektionen eller kommentere den ud.
+Når det er sat til `false`, vil der slet ikke ske nogen statistikindsamling.
+
+### Felt: `enable_export`
+
+Standard: `true`\
+Type: `boolean`
+
+Giver dig mulighed for at deaktivere eksporten af statistik til PA-statistikserveren.
+Lokal indsamling vil stadig blive udført.
+
+### Felt: `export_frequency_in_seconds`
+
+Standard: `24 * 60 * 60` (1 dag)\
+Type: `int`
+
+Dette bestemmer, hvor ofte statistikken sendes til PA-statistikserveren.
+
+Det anbefales ikke at sætte dette lavere end 1 dag.
+Anbefalede intervaller er 1 dag, 1 uge eller 1 måned.
+
+### Felt: `stats_url`
+
+Standard: `https://stats.planarally.io`
+Type: `string`
+
+Den modtagende URL for statistikdataene.
+
+## Logning
+
+Sektionsnavn: `logging`
+
+Dette er en valgfri sektion, og dens standardkonfiguration er at logge til standardoutput på niveauet "INFO".
+
+<Info title="Flere poster">
+    Logningsektionen kan angives flere gange for at opsætte flere outputfiler. Derfor skal sektionsoverskriften angives
+    som `[[logging]]`
+</Info>
+
+### Felt: `level`
+
+Standard: `INFO`\
+type: `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+Det niveau, som denne logger vil udskrive på. Niveauer over dette logges også til dette niveau. Hvis du f.eks. sætter det til ERROR, vil både ERROR og CRITICAL blive logget til dette output.
+
+### Felt: `mode`
+
+Type: `Literal["stdout", "file"]`
+
+Hvis du angiver stdout, er det eneste andet tilgængelige felt level.
+
+Her er et logningseksempel, der sætter standardoutputtet til critical
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### Felt: `file_path`
+
+Standard: `data/planarally.log`\
+Type: `string`
+
+Sætter outputstien for en filbaseret log. Hvis du bruger docker, anbefales det at bruge data-mappen, så den er tilgængelig uden for containeren.
+
+### Felt: `max_log_size_in_bytes`
+
+Standard: `200_000`\
+Type: `int`
+
+Den maksimale størrelse, en logfil vil have, før den roteres til den næste fil.
+
+### Felt: `max_log_backups`
+
+Standard: `5`\
+Type: `int`
+
+Antallet af backupfiler, der skal bevares. Ældre filer slettes automatisk.
+
+Her er et eksempel på, hvordan du konfigurerer en fillogger, der kun har 2 backupfiler. Dette kan kombineres med standardoutputeksemplet for at udskrive til både standardoutput og en fil.
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
+
+## Aktiver
+
+Sektionsnavn: `assets`
+
+Dette er en valgfri sektion.
+
+### Felt: `max_single_asset_size_in_bytes`
+
+Standard: `0`\
+type: `int`
+
+Den maksimale størrelse i bytes, et nyligt uploadet aktiv kan have.
+Når dette felt er `<= 0`, betragtes det som "ingen grænse".
+
+Det bør bemærkes, at dette kun påvirker nye aktivuploads. Ændring af værdien vil ikke påvirke eksisterende aktiver.
+
+### Felt: `max_total_asset_size_in_bytes`
+
+Standard: `0`\
+type: `int`
+
+Den maksimale størrelse i bytes, en bruger må have uploadet.
+Når dette felt er `<= 0`, betragtes det som "ingen grænse".
+
+Et aktiv vil blive afvist, hvis dets størrelse ville få det samlede tilladte beløb for brugeren til at overskride denne værdi.
+Det bør bemærkes, at dette kun påvirker nye aktivuploads. Ændring af værdien vil ikke påvirke eksisterende aktiver.
+
+[^1]: SQLite-dokumentationen beskriver vigtigheden af [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files)- og [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files)-filerne.

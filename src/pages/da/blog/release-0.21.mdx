@@ -1,0 +1,232 @@
+---
+title: Release 0.21.0 - Hvad er nyt!
+date: 2020-06-13 21:02:34
+excerpt: "Hvad er nyt i 0.21.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+I denne udgivelse har vi fået nogle nye formegenskaber, et spawn-lokationssystem, oversættelser, en hel del livskvalitetsforbedringer og flere fejlrettelser for at runde det sædvanlige af.
+
+## Form
+
+Der er tilføjet nogle nye godbidder til formegenskaberne, og der er også en forbedring af kollisionsregistrering under bevægelse.
+
+### Usynlig-kontakt
+
+Det er nu muligt at markere en form som usynlig. Det betyder, at den er usynlig for alle spillere, som ikke har synsadgang til formen.
+Spillere med synsadgang vil se formen som normalt.
+
+Dette er især praktisk til ting som usynlige familiærer, men også til forskellige lystemmende objekter.
+Sidstnævnte er interessant, fordi usynlig-kontakten ikke gælder for aurasene fra disse usynlige former.
+Det er ideelt, hvis du vil tilføje en lampe til en scene uden at have en grim cirkel synlig for dine spillere, hvorfra lyset udgår.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/invisible.webm" type="video/webm" />
+    <source src="/blog/release-0.21/invisible.mp4" type="video/mp4" />
+</video>
+
+### Låst-kontakt
+
+En anden ny kontakt er låst-kontakten, som når den er aktiveret forhindrer token'et i at blive flyttet og/eller skaleret.
+Det er mest nyttigt for DM'en, som vil være sikker på ikke at flytte deres kort eller belysningsgrænser ved et uheld.
+
+Der er også en tastebinding (ctrl + L), som også virker på større markeringer, så du ikke skal åbne egenskaberne for hver form enkeltvis.
+
+Vigtigt at bemærke er, at låste former ikke inkluderes i markeringer, medmindre der kun er låste former i det markerede område.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/locked.webm" type="video/webm" />
+    <source src="/blog/release-0.21/locked.mp4" type="video/mp4" />
+</video>
+
+### Bevægelsesadgang
+
+I den sidste udgivelse blev adgangssektionen udvidet med en synsadgangstilladelse for andre spillere, som ikke skal have lov til at redigere en form, men som gerne må se deres private syn.
+
+Denne udgivelse tilføjer en ekstra adgangstilladelse, som gør det muligt for en anden bruger at flytte formen.
+
+### Kollisionsforbedringer
+
+Hitbox-kollisionstest mod vægge har altid været meget streng og til tider for streng (på grund af små afrundingsfejl).
+Det giver en ubehagelig oplevelse under spil, når man prøver at komme igennem en lille korridor eller en dør.
+
+Fra denne udgivelse er hitboxen, der bruges til kollisionstest, meget mindre under bevægelse, hvilket resulterer i mere glat gameplay.
+
+## Spawn-lokationer
+
+Et nyt koncept i denne udgivelse er ideen om spawn-lokationer.
+Det er en DM-funktion, som bestemmer, hvor token'er vises, hvis de skifter lokation.
+
+En speciel form skal nu altid vises på DM-laget, som frit kan flyttes rundt (også mellem etager) af DM'en.
+Når DM'en flytter et token til en anden lokation, vil det vises centreret på ovennævnte spawn-form.
+
+I øjeblikket er dette begrænset til kun ét spawn per lokation, men støtte til flere spawns vil blive tilføjet i fremtiden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.21/spawn.mp4" type="video/mp4" />
+</video>
+
+I videoen ovenfor flyttes token'erne til den aktive lokation af præsentationsmæssige årsager, men det samme koncept gælder for at flytte former til andre lokationer.
+
+## i18n
+
+Internationalisering (i18n) er tilføjet til kodebasen, hvilket betyder, at der nu kan arbejdes på oversættelser. Der er allerede oversættelser til kinesisk og tysk på skrivetidspunktet.
+
+Der er et sprogvalgselement på login-skærmen til at skifte mellem de aktuelt understøttede sprog.
+
+![Sprogvalg](./0.21/language.png)
+
+## Livskvalitet
+
+En række mindre livskvalitetsændringer er blevet arbejdet på i denne udgivelse.
+
+### Build-/Play-tilstand
+
+En af de mest bemærkelsesværdige ændringer er de nye 'værktøjstilstande'. Værktøjslinjen blev større og større med hver udgivelse.
+Derudover er nogle værktøjer ikke relevante under de fleste sessioner, men kun under DM-forberedelse.
+
+Derfor er værktøjslinjen nu opdelt i 2 tilstande: build- og play-tilstand.
+Man kan skifte mellem de to tilstande ved at klikke på bogstavet i slutningen af værktøjslinjen eller ved at trykke på TAB.
+
+Nogle værktøjer vises nu kun i en af de to tilstande (f.eks. Draw i build-tilstand og Ping i play-tilstand).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/toolmode.webm" type="video/webm" />
+    <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4" />
+</video>
+
+#### Skalering af former
+
+Nogle værktøjer kan nu også have forskellig opførsel afhængigt af deres aktive tilstand.
+
+Fra 0.21.0 kan select-værktøjet kun skalere former i build-tilstand. Alle andre funktioner i select-værktøjet forbliver brugbare i play-tilstand.
+
+Denne ændring er indført, fordi folk ofte ved et uheld skaleret former, når de prøvede at flytte dem, og skalering af en form er noget, der ikke sker ofte under spil.
+
+### Changelog
+
+En anden mærkbar ændring er, at der nu vil være en changelog-popup for at informere spillerne om, at serveren er blevet opdateret.
+
+![Viser changelog](./0.21/changelog.png)
+
+### Offentlig ruler-kontakt
+
+Ruler-værktøjet har nu en lille indstillingspopup ligesom draw- og map-værktøjerne.
+Det har kun én indstilling, og det er en kontakt til at bestemme, om din ruler skal være privat eller offentlig.
+
+### Initiativ
+
+Når du indtaster din initiativ, mens alle andre spillere gør det samme, måtte du ofte prøve igen, fordi en anden var hurtigere, hvilket forårsagede en omrokering af initiativlisten og resulterede i, at du mistede dit inputfokus.
+
+Fra nu af vil UI'et vente med at opdatere, mens du har et inputfelt fokuseret i initiativdialogen, indtil du forlader inputelementet.
+
+### Begræns spiller-UI
+
+Der var nogle steder, hvor spillere havde adgang til muligheder, der kun burde være tilgængelige for DM'en.
+
+Fra denne udgivelse kan spillere ikke længere fjerne eller tilføje etager og kan ikke længere selv flytte deres form til andre lag/etager/lokationer.
+
+## Diverse
+
+- Oprettelse af en ny etage vil ikke længere automatisk flytte alle til den etage
+- Versionen vist i øverste venstre hjørne i spillet vil nu være begrænset til den nyeste udgivelsesversion
+- Basistoken'er vil nu have deres standardnavn sat til deres etiket i stedet for 'Unknown shape'
+- Brugere på mobile enheder kan nu ikke længere udløse overscroll-opdatering ved blot at bevæge sig rundt
+- Hold musen over et billede i initiativlisten vil nu vise navnet på formen
+- Polygon-værktøjet opfører sig nu også som andre former med hensyn til snapping. Hvert punkt vil snap til en gridlinje, medmindre du deaktiverer snapping.
+
+## Fejlrettelser
+
+- Polygon-serveroprettelse med initial vertexliste bryder sessionen
+- Spillerens etagelokation bliver ikke husket
+- Ruler viser ikke decimaler
+- DM-indstillinger/grid-enhedsstørrelse viser ugyldigt input i firefox for flydende tal
+- Server viser JSON-dekodningsfejl
+- Spillere kan ikke opdatere initiativ-effekter
+- Aktivt lag nulstilles nogle gange ved reload
+- DM'er kan sparke sig selv
+- Nogle UI-komponenter opdateres ikke korrekt ved form-nulstilling
+- Området til højre for lagvælgeren forhindrer draw/select
+- Tastaturcenter kaster en fejl, når ingen token'er er defineret
+- Flere fejl med initiativ-synkronisering
+- Tre fejl med lokationsspecifikke muligheder, som ikke indlæses/gemmes korrekt
+- Scrollbar i bunden af siden i firefox, når lokationslinjen ikke passer på skærmen
+- Fejl, hvor en lyskildes 0/0-radius ville blokere alt lys fra den form
+
+## Op på trapperne
+
+Folk spørger mig ofte, hvad der er på vej på køreplanen, så jeg ville dele nogle af de emner, som jeg gerne vil tage fat på i de kommende udgivelser.
+Listen er hverken udtømmende eller endelig og vil ikke alt sammen være i næste udgivelse. Det er en visning af mulige ting, der er på vej.
+
+##### Forberedende arbejde på metadata/eksport/import
+
+Der har været nogle diskussioner på discord-serveren om at tilføje metadata til aktiver og muligheden for at importere/eksportere disse til andre servere.
+Nogle forberedende trin skal udføres, før jeg kan tage fat på hovedproblemet.
+
+##### Rotation
+
+Rotation er noget, der har manglet i et stykke tid i PA og burde endelig blive taget hånd om.
+
+##### Genarbejde opstartssekvensen
+
+Den nuværende opstartssekvens (rækkefølgen af begivenheder ved spilindlæsning) burde laves om. Der er noget performance at hente ved at omrokere tingene her,
+og nogle ting sendes unødvendigt.
+
+##### Flyt til fontawesome-vue
+
+Ikonerne i PA leveres af fontawesome, hvilket i øjeblikket gøres ved at sideloade fontawesome.js-biblioteket. Det er en stor fil, som tager indlæsningstid, hvilket kan løses
+ved at bruge et vue-specifikt bibliotek, der kun inkluderer de ikoner, der faktisk bruges.
+
+##### In-game asynkron aktivliste
+
+Ved opstart modtager DM'en hele aktivlisten, så den kan vises i sidebjælken.
+Det er spildt arbejde. Aktivhåndteringen i spillet burde, ligesom den fulde aktivhåndtering, anmode om data fra serveren, når den har brug for dem.
+
+##### Polygon-forbedringer
+
+Polygoner er fantastiske, men kan stadig bruge nogle ekstra funktioner som at tilføje punkter og fjerne punkter på eksisterende polygoner.
+
+##### Etage-værktøjsforbedringer
+
+Det burde være muligt at omrokere og omdøbe etager samt muligheder for at skjule etager for spillere.
+
+##### Udvid aura-muligheder
+
+Auras kunne bruge nogle nye funktioner som kantfarver og andre former som kegle-auras.
+
+##### Etage-offentlig synlighed
+
+Etageoplysninger er i øjeblikket offentlige for alle spillere. Det burde nok få en offentlig/synlighedsbehandling som mange andre ting i PA.
+
+##### Forbedr markøren i draw-værktøjet
+
+En brugerdefineret musemarkør bruges i draw-værktøjet for at give en mere glat tegneoplevelse. Den er dog ikke altid tydeligt synlig, hvilket er meget irriterende.
+
+##### Hex-grid
+
+Støtte til hexagonale grids er blevet efterspurgt et par gange tidligere, så jeg burde tilføje noget støtte til denne type grid før eller siden.
+
+Noget eksisterende logik er baseret på rektangulære grids, så måske vil en indledende version kun have render-støtte for hexes, men ingen snapping-muligheder. Det må undersøges.
+
+##### Hurtig indlæsning af nuværende etage
+
+I øjeblikket venter spillet med indlæsning, indtil alle etager er indlæst, når en lokation indlæses.
+Det kan forbedres ved først at indlæse den aktive etage og derefter indlæse de andre etager.
+
+##### Blurhash
+
+Nogle billeder, især kort, kan tage længere tid at indlæse. Jeg vil gerne levere en hurtig blurhash som et visuelt tegn på, at et billede indlæses, indtil det fulde billede er tilgængeligt.
+
+##### Flere spawn-lokationer
+
+Som nævnt i udgivelsesnoterne har det nye spawn-lokationssystem ikke støtte til flere spawns i én lokation.
+At udvide dette er muligt og mest et UI-problem, som burde være relativt enkelt.
+
+##### Flere grupperingsmuligheder
+
+Der er noget grupperingslogik, når du kopierer/indsætter former, men der er ingen andre muligheder.
+Ting som at tilføje et token til en gruppe, slå grupper sammen, opdele grupper osv. er interessante af forskellige årsager.
+
+Automatisk at anvende gruppeinitiativ-kontakten for grupper er en anden livskvalitetsændring, som jeg har tænkt mig at tilføje.
