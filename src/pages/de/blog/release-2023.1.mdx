@@ -1,0 +1,176 @@
+---
+title: Release 2023.1
+date: 2023-02-14 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Das erste Release von 2023 umfasst hauptsächlich eine Sammlung von Bugfixes sowie hier und dort einige kleinere Verbesserungen.
+
+## Das Asset einer Form ändern
+
+Sobald du ein Asset auf der Karte abgelegt hast, wird es zu einer Form, und wenn du ein anderes Asset benötigtest, hattest du zwei Möglichkeiten:
+
+- das neue Asset auf der Karte ablegen, alle Eigenschaften von der alten Form kopieren und dann die alte Form entfernen
+- das neue Asset als Variante hinzufügen
+
+Die erste Option ist offensichtlich recht umständlich und fehleranfällig, und die zweite Option missbraucht im Grunde eine Funktion für etwas anderes.
+
+Deshalb fügt dieses Release die längst überfällige Option hinzu, einfach das Asset auszutauschen, das von einer bestimmten Form verwendet wird.
+Der Eigenschaftenansicht der Form wird ein einfacher Button hinzugefügt.
+
+## Modale stapeln und schließen
+
+Wenn mehrere Modals/Dialoge geöffnet sind, kann es manchmal zu einem Spiel des Herumschiebens werden, damit man mit einem bestimmten interagieren kann.
+Das liegt daran, dass die Modals eine feste Reihenfolge hatten.
+
+Neu in diesem Release ist, dass das zuletzt fokussierte Modal jetzt nach oben rückt, wie du es wahrscheinlich aus anderen Programmen kennst.
+
+Außerdem kannst du jetzt das oberste Modal mit der Escape-Taste schließen.
+
+_Beachte, dass all das oben Genannte größtenteils nur für Modals gilt, die über einen längeren Zeitraum geöffnet sein können (z. B. Form-Einstellungen, DM-Einstellungen ...) und
+nicht für Modals, die eine sofortige Interaktion erfordern (z. B. Aufforderungen für Aktionen)_
+
+## Änderungen und Fixes am Spell-Werkzeug
+
+Das Spell-Werkzeug hatte seit seiner Einführung einige Probleme.
+Eines dieser Probleme war die potenzielle Verwechslung zwischen `size` und `range`.
+Ersteres bezeichnet die tatsächliche Größe des Zaubers selbst, während Letzteres dazu diente, zu zeigen, wie weit ein bestimmter Zauber gewirkt werden konnte.
+Der Range war nur konfigurierbar, wenn man vor dem Start des Spell-Werkzeugs eine Form ausgewählt hatte, damit für diese bestimmte Form ein Reichweitenkreis gezeichnet werden konnte.
+Zusätzlich war der Range in diesem Fall standardmäßig 0, was als Selbstwirken gedacht war.
+
+In der Praxis erwies sich das als verwirrend: Manchmal wollten Spieler einfach einen zufälligen Zauber an einem bestimmten Ort wirken, aber weil ihr Charakter ausgewählt war,
+war er ohne klare Erklärung auf sie selbst festgelegt, und man musste sich entweder selbst abwählen oder die Größe auf einen Wert ungleich Null ändern, um tatsächlich das tun zu können, was man tun wollte.
+
+Deshalb entfernt dieses Release das Range-Eingabefeld. Stattdessen wird, wenn eine Form ausgewählt ist, automatisch ein Lineal zwischen dem Cursor und der ausgewählten Form gezeichnet.
+Das übermittelt dieselben Informationen, ohne dass man etwas eingeben muss und ohne die Verwirrung durch das Selbstwirken, das die Form festlegt.
+
+Zusätzlich wurde eine Reihe von Bugs im Zusammenhang mit dem Spell-Werkzeug behoben:
+
+- Die Verwendung des Spell-Werkzeugs mit einer Auswahl war in den letzten Releases tatsächlich defekt
+- Die Füllfarbe machte seltsame Dinge, wenn die Rahmenfarbe eine Opazität < 1 hatte
+- Rechtsklicken zum Zeichnen der Form öffnete das Kontextmenü
+- Nach der Verwendung wurde das Select-Werkzeug nicht ordnungsgemäß aktiviert
+- Das Label „is public" in der Spell-Werkzeug-UI war fälschlicherweise an das Range-Eingabefeld gebunden
+
+## Initiative-Zustand
+
+Initiative hatte nie ein echtes Konzept von „aktiv". Du konntest die Initiative-UI geöffnet oder geschlossen haben, unabhängig davon, ob tatsächlich etwas mit der Initiative passiert.
+
+Das behindert einige Dinge: Zum Beispiel ist die Initiative-Einstellung „Sicht sperren" (lock vision) dadurch in einem halb-defekten Zustand, da es keinen offiziellen Anfang oder ein offizielles Ende der Initiative gibt,
+was dazu führt, dass diese Funktion bei Aktivierung immer an ist und manuelle Aktionen erfordert, um Dinge zu beheben, wenn die Initiative vorbei ist.
+
+Dieses Release fügt einen ersten Entwurf eines neuen „Initiative aktiv"-Zustands hinzu. Er ist vollständig optional,
+aber die Client-Einstellungen „Kamera sperren" und „Sicht sperren" funktionieren nur, wenn dieses System verwendet wird.
+Dadurch kann sich die Sicht am Ende der Initiative tatsächlich ordnungsgemäß zurücksetzen, ohne dass der Benutzer etwas tun muss.
+
+Der DM kann die Initiative starten und beenden (siehe unten bei „Quick-Toggles" für weitere Informationen).
+Standardmäßig öffnet sich die Initiative-UI auf allen Spielerbildschirmen, wenn die Initiative gestartet wird. Das kann in deinen Client-Einstellungen deaktiviert werden, wenn du das nicht magst.
+
+Es gibt noch einige Stolpersteine/Eigenheiten auszuarbeiten, aber ich möchte sehen, wie den Leuten diese neue Sache gefällt, und mir selbst ein Bild davon machen.
+
+## Varia
+
+- Der Form-Bearbeitungsdialog sagt jetzt korrekt „Edit Shape" statt „Edit Asset"
+- Der Würfel-Werkzeug-UI wurde eine Mindesthöhe hinzugefügt, sodass es keinen unbeholfenen Sprung gibt, wenn du zuerst auf einen Würfel zum Würfeln klickst.
+
+## [DM] Quick-Toggles
+
+Eine neue Ergänzung der UI für DMs sind zwei Toggles unterhalb der Symbolleiste.
+Sie dienen dazu, bestimmte Funktionen schnell umzuschalten, die sonst hinter Ebenen von Einstellungsfenstern versteckt sind.
+
+Der erste ist ein Toggle zum Aktivieren/Deaktivieren des „Fake Player"-Sichtmodus.
+Bisher war diese Einstellung in den DM-Einstellungen versteckt, was die Nutzung sehr unhandlich machte.
+
+Der zweite ist ein Toggle zum Starten/Beenden des oben erwähnten neuen Initiative-aktiv-Zustands.
+Ein Klick darauf startet die Initiative und öffnet die Initiative-UI.
+Ein erneuter Klick beendet die Initiative und schließt die UI.
+
+Das ist etwas Neues, das ich ausprobiere. Sag mir also, was du denkst.
+Momentan werden nur einige Buchstaben verwendet, um anzuzeigen, was es tut (d. h. FP=Fake Player, INI=Initiative),
+womit ich etwas unschlüssig bin. Eine Alternative wären Icons oder ganze Wörter, aber das kann später ausgearbeitet werden.
+
+Wenn du Vorschläge für andere Einstellungen hast, die du häufig umschaltest, lass es mich wissen, und ich werde sie vielleicht hier hinzufügen, wenn das Feature gut ankommt.
+
+## Fixes
+
+### [DM] Fake Player
+
+Neben einer neuen Möglichkeit, diese Funktion schnell umzuschalten, wurde auch der Fake-Player-Modus repariert, sodass er die DM-Ebene im aktivierten Zustand nicht mehr anzeigt.
+Die DM-Ebene ist für andere Spieler nicht sichtbar, sodass ihre Anzeige im Fake-Player-Modus widersprüchliche Botschaften darüber senden konnte, was Spieler tatsächlich sehen.
+
+### Formen
+
+Es wurde eine Vielzahl von Fixes für Formen im Allgemeinen vorgenommen.
+
+- Seit einem neueren Release wurden Badges standardmäßig transparent, was eine unbeabsichtigte Änderung war.
+- Die Anzeige eines Tracker-Werts auf einer Form funktionierte nicht, wenn der Tracker Teil eines Varianten-Setups war und mit allen Varianten geteilt wurde.
+
+Mehrere Fälle, in denen Clients Eigenschaften einer Form bearbeiten konnten, auf die sie lokal keinen Zugriff hatten, wurden behoben.
+In all diesen Fällen wurde die Änderung nur lokal im Client widergespiegelt und nie an andere Clients gesendet, da der Server die Änderungen ablehnte.
+
+- Die meisten Tracker-/Aura-Eigenschaften waren lokal bearbeitbar
+- Die Eigenschaften „is defeated" und „is locked" waren über die jeweiligen Tastenkürzel zum Umschalten dieser Eigenschaften bearbeitbar
+
+### UI
+
+#### Aufforderungen
+
+In PA stößt man gelegentlich auf ein Aufforderungs-Modal, ein UI-Element, das eine Eingabe zum Fortfahren erfordert.
+Manchmal sind nur bestimmte Werte erlaubt (z. B. nur Zahlen), und der Code kann eine Validierungsfunktion übergeben, um zu prüfen, ob die Eingabe gültig ist.
+Diese Validierungsprüfungen wurden nicht immer ordnungsgemäß zurückgesetzt, wodurch einige Aufforderungen Eingaben ablehnten, die gültig waren.
+
+#### Token-Richtungen
+
+Die UI zur Anzeige der Richtung von Offscreen-Tokens löste immer aus, selbst wenn sie hinter einem anderen UI-Element (z. B. dem Seitenmenü) verborgen war.
+
+#### Etagen
+
+Die Etagen-UI, die erscheint, wenn man auf das Etagen-Symbol unten links klickt, bewegte sich nicht, wenn das Seitenmenü geöffnet wurde.
+
+### Select-Werkzeug
+
+#### Größenänderung
+
+Wenn eine Form gedreht war und man versuchte, speziell die untere rechte Ecke zu verkleinern, machte die gesamte Form seltsame Größenänderungen.
+Ein Bug in der Berechnung des Mittelpunkts der Form während dieser Operation verursachte dieses fehlerhafte Verhalten.
+
+#### Entsperren
+
+Beim Entsperren einer Form rastete die Form oft an der Maus ein, als würde man sie ziehen.
+
+### Asset-Manager
+
+Zwei Bugs im Zusammenhang mit dem Rechtsklick-Kontextmenü wurden behoben, beide bezogen auf das Scrollen.
+
+Beim Scrollen im Asset-Manager war jedes geöffnete Kontextmenü nicht mehr ausgerichtet.
+Das Kontextmenü schließt sich jetzt automatisch, wenn du eine Scroll-Aktion beginnst.
+
+Beim Öffnen des Kontextmenüs nach dem Scrollen erschien es an einem falschen y-Wert (dort, wo das Element gewesen wäre, wenn du nicht gescrollt hättest).
+Das machte es unmöglich, mit einigen Formen zu interagieren, da ihr Kontextmenü außerhalb des Bildschirms lag.
+
+### DM-Einstellungen
+
+#### Den DM kicken
+
+Als DM kannst du jeden kicken, auch dich selbst.
+Es war möglich, sich selbst zu kicken, wenn man der einzige DM in der Kampagne war.
+Das hinterließ die Kampagne in einem nicht mehr verwaltbaren Zustand. Das ist nicht mehr möglich.
+
+#### Einladungs-URL bei Subpath
+
+Wenn der Server mit einem Subpath gehostet wird (das ist nicht der Standard), wurde der Subpath nicht in die Spieler-Einladungs-URLs aufgenommen.
+
+Man konnte diesen speziellen Bug umgehen, indem man ihn in die `publicName`-Konfiguration des Servers aufnahm, aber das ist nicht beabsichtigt.
+Wenn du das getan hast, solltest du den Subpath wieder aus der Konfiguration entfernen, da er jetzt automatisch in die Einladungs-URL aufgenommen wird.
+
+### Andere Fixes
+
+- Vorlagen verwendeten nur das erste Zeichen des angegebenen Vorlagennamens
+- Gruppen: Das Hinzufügen mehrerer Formen zu einer Gruppe stellte immer die Gruppenfrage, selbst wenn keine Gruppen vorhanden waren

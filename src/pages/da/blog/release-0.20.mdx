@@ -1,0 +1,199 @@
+---
+title: Release 0.20.0 - Hvad er nyt!
+date: 2020-05-10 21:02:34
+excerpt: "Hvad er nyt i 0.20.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
+
+Jeg vil gerne starte med en stor tak! Vores lille fællesskab er ved at vokse, og det varmer mit hjerte at se alle disse mennesker komme til og dele deres oplevelser.
+I disse tider er det vigtigt at have noget at lave med sine venner som dungeons and dragons, og derfor håber jeg, at PlanarAlly kan bringe glæde til nogle af jer derude.
+
+I denne udgivelse har vi lavet nogle forbedringer af aktivstyringen, en gennemgribende omlægning af lokationslinjen, forbedret UI/UX og en hel bunke fejlrettelser.
+
+De emner, der nævnes i denne udgivelsesopdatering, er listet til venstre, og den fulde ændringslog kan findes på [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.20.0).
+
+_Jeg har også oprettet en [patreon-konto](https://www.patreon.com/planarally), du er velkommen til at tjekke den ud :)_
+
+## Aktiver
+
+### Søgefelt i spillet
+
+Når du har et stort antal aktiver, er det at organisere dem i mapper én måde at navigere i dine filer i spillet på, men det kan stadig tage noget tid.
+Vi har nu et søgefelt øverst på aktivlisten i spillet! Det er en meget simpel søgeimplementering, så der er ingen fancy regex for nu, men det har allerede lettet mine forberedelser enormt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/search.webm" type="video/webm" />
+    <source src="/blog/release-0.20/search.mp4" type="video/mp4" />
+</video>
+
+### Upload-fremskridtsinformation
+
+Upload af billeder i aktivstyringen gav overhovedet ingen feedback på fremskridtet. Du var nødt til at vente, indtil det var færdigt, før det dukkede op, og der var også en fejl, hvor det ikke engang altid dukkede op, før du opdaterede.
+
+De dage er forbi, og vi har nu en fremskridtslinje :)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/progressbar.webm" type="video/webm" />
+    <source src="/blog/release-0.20/progressbar.mp4" type="video/mp4" />
+</video>
+
+### Diverse
+
+Når du fjerner aktiver i aktivstyringen, bliver de også fjernet fra disken, hvis ingen andre brugere bruger den samme fil. Hvis du vil anvende dette retroaktivt på alle dine eksisterende filer, der ikke længere bruges, kan serverejeren bruge [denne kode](/public/blog/release-0.20/remove_old_assets.txt)
+
+Højreklikskontekstmenuen blev ikke vist korrekt, hvis du scrollede i filbrowseren. Dette er nu blevet løst, ligesom den førnævnte fejl, hvor filer ikke dukkede op i stifinderen, før du opdaterede.
+
+## Lokationer
+
+Lokationslinjen har gennemgået en massiv omlægning og har nu flere nye funktioner!
+
+### Flytning af spillere
+
+Før denne udgivelse, hvis DM'en klikkede på en lokation, flyttede DM'en og alle spillerne. Dette er selvfølgelig ikke ideelt, og dette er blevet omarbejdet.
+
+Hvis du klikker på navnet på en lokation, flytter du og kun du til den lokation.
+Hvis du vil flytte dine spillere, kan du vælge enten at trække hele spillergruppen til en anden lokation, eller du kan åbne spiller-elementet og trække en enkelt spiller til en anden lokation.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+### Omarrangering af lokationer
+
+Sammen med muligheden for at trække spillere rundt, kan du nu også trække selve lokationerne rundt for at omarrangere dem i den rækkefølge, du foretrækker.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+### Indstillinger
+
+Et ofte forvirrende aspekt ved at konfigurere lokationer var, at deres indstillinger delvist lå i DM-indstillingerne for hele sessionen.
+Der var ingen klare tegn på, hvilke indstillinger der ville gælde for alle lokationer, eller hvilke der kun gjaldt for den aktive lokation.
+
+Dette er nu blevet omarbejdet, og DM-indstillingerne dikterer nu standardværdierne for alle lokationer. Individuelle lokationer kan derefter tilsidesætte denne adfærd i deres egne indstillinger.
+Enhver tilsidesat værdi vil blive fremhævet for at gøre det klart, at den afviger fra standardindstillingerne.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+Derudover er det nu også muligt at omdøbe eller endda fjerne en lokation.
+
+<Image src={RenameLocation} alt="Omdøb lokation" />
+
+## Andre UI/UX-forbedringer
+
+Den førnævnte lokationsomlægning er en tydelig stor gevinst for UI/UX-forbedringer, men der er også andre steder, hvor der er gjort fremskridt!
+
+### Formejerskab
+
+Det var besværligt tidligere at tilføje brugere som ejere af former, fordi du manuelt skulle skrive navnene. Derudover var der tilfælde, hvor du ville have, at nogen skulle have synsadgang, men ikke generel redigeringsadgang.
+
+Begge dele hører fortiden til!
+
+<Image src={Access} alt="Adgangsindstillinger" />
+
+Adgangsdelen af dialogboksen for formegenskaber er blevet opgraderet. Den viser nu altid en standardtilladelseslinje, som du kan bruge til straks at give alle spillere syns- og redigeringsadgang.
+
+En dropdown kan bruges til at tilføje tilladelser for en bestemt bruger, og ikonerne giver dig mulighed for at finjustere tilladelser som andre steder.
+
+Blyanten giver redigeringsadgang; Dette indebærer stort set alt: formbevægelse, redigering af felter i egenskaberne osv.
+
+Pæren giver synsadgang; Den giver blot spilleren mulighed for at se, hvad formen kan se.
+
+### Map-værktøj
+
+Map-værktøjet har altid været praktisk, men det var aldrig særlig klart, hvordan det virkede. Denne udgivelse tilføjer mere tydelig information om, hvordan man bruger det, og ændrer også lidt på adfærden.
+
+Map-værktøjet virker kun på en valgt form. For at gøre dette klart, vil der nu vises et tooltip, der beder dig vælge en form. Dette kan også gøres fra selve Map-værktøjet, så du ikke længere behøver at skifte til Select-værktøjet og tilbage igen.
+
+Tidligere skulle du indsætte dine ønskede X/Y-dimensioner på forhånd, og størrelsesændringen skete, så snart du var færdig med at vælge. Dette er blevet ændret, så du kan vælge et område og stadig finjustere det, indtil du er tilfreds, før du færdiggør størrelsesændringen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+
+En anden lille UX-forbedring er, at formen ikke længere kan hoppe ud af skærmen efter en størrelsesændring. Der er altid en garanteret del af den, der altid forbliver på samme sted.
+
+### Størrelsesændring af former
+
+En størrelsesændring af en form vil ikke længere forsøge at centrere formen givet dens begrænsninger blandt celler. I stedet ændres kun det dragede hjørne til det nærmeste grid-punkt, hvilket giver en mere naturlig effekt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/resize.webm" type="video/webm" />
+    <source src="/blog/release-0.20/resize.mp4" type="video/mp4" />
+</video>
+
+### Draw-penselstørrelse
+
+For polygon- og penselværktøjet er standardstørrelsen på penslen blevet reduceret fra 1 grid-enhed til 1/10-del af en grid-enhed.
+I praksis bruges disse værktøjer mest i forbindelse med synlighedslinjer, og mindre linjer foretrækkes i så fald.
+
+### Formmarkører
+
+Du kan nu sætte en markør på en form. Dette tilføjer en post til markørundermenuen, som kan åbnes i venstre sidepanel.
+
+Denne menu giver dig mulighed for at centrere skærmen på en valgt markør.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/markers.webm" type="video/webm" />
+    <source src="/blog/release-0.20/markers.mp4" type="video/mp4" />
+</video>
+
+## Nye tastebindinger
+
+### Bevar billedformat
+
+Når du ændrer størrelsen på en form, vil du nogle gange sikre, at billedformatet bevares. Dette er fra nu af muligt ved at holde ctrl-tasten nede under størrelsesændringen.
+
+Ctrl-tasten bruges også til multi-select, men de to handlinger overlapper ikke hinanden, så dobbeltbrugen virkede passende.
+
+De sædvanlige alt- og shift-modifikatorer kan også bruges sammen med denne modifikator.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/aspectratio.webm" type="video/webm" />
+    <source src="/blog/release-0.20/aspectratio.mp4" type="video/mp4" />
+</video>
+
+### Centrer skærmen på token
+
+Sammen med det nye markørsystem og ctrl+0-tastebindingen introduceret i 0.19.0, er der nu endnu en mulighed for at centrere din skærm på vigtige tokens.
+
+Ved at trykke på mellemrumstasten cykler du gennem dine tokens og centrerer dem på skærmen. Dette flytter dig også til andre etager, hvis du tilfældigvis er et andet sted.
+
+### Inverter alt-adfærd
+
+Nogle mennesker kan ikke lide standard-snapping-adfærden, og fra nu af kan de leve lykkeligt til deres dages ende. Denne udgivelse tilføjer en afbryder til klientindstillingerne i sidepanelet for at invertere alt-adfærden.
+
+Hvis denne indstilling er aktiveret, vil standardhandlingerne ikke udføre nogen snapping, og kun når alt-modifikatoren trykkes, vil den forsøge at snappe til grid'et eller nærliggende punkter.
+
+## Diverse
+
+### Nye funktioner
+
+- CORS-origin-indstillinger
+- Logo, version øverst til venstre
+- Tooltips til de fleste ikoner
+- Lagdelt serverkonfiguration
+
+### Fejlrettelser
+
+- Polygonbredden tages nu i betragtning ved hitregistrering
+- Etage-/laglinjen flytter sig nu med sidemenuen, når den åbnes
+- Sidemenuen og lokationsmenuen overlapper ikke længere hinanden
+- Vinduesændring, der ødelagde belysningsgrænserne
+- Tidligere prompt-værdier ryddes nu, før en ny prompt vises
+- Grid-lag på alle lavere etager var synlige
+- DM kunne invitere sig selv til rummet som spiller
+- Draw-værktøjet forsinker ikke længere gengivelsen af penselhjælperen efter lag-/etageskift
+- Den aktive etage huskes, når man genindtræder i sessionen

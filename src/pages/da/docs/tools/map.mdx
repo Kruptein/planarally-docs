@@ -1,0 +1,38 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Værktøj Map
+
+Map-værktøjet kan tilgås i værktøjslinjen nederst til højre på spillebordet, men kun i [Build-tilstand](/da/docs/tools-overview/#toolbar-and-modes) og kun af GM'en.
+Det tilbyder en nem metode til at tilpasse en form til gitteret.
+Det kan bruges til at ændre størrelsen på vilkårlige forme, men dets kerneformål er fokuseret på kort.
+
+For at bruge map-værktøjet skal en form først vælges.
+Hvis det ikke er tilfældet, giver map-værktøjet dig besked om det, og du vil kunne vælge en form fra inden i map-værktøjet uden at skulle skifte til select-værktøjet.
+
+Hvis en form er valgt, kan du vælge et område i denne form, som du vil bruge som reference, eller skalere hele billedet.
+Bemærk, at hele billedet i begge tilfælde skaleres.
+Skalering af 'hele billedet' bruger simpelthen hele billedet som reference, uden at vælge kun en del som reference.
+
+## Vælg område
+
+Et område vælges ved at trække en boks omkring det.
+For eksempel kan du vælge et område, der skal repræsentere et 3 gange 3-område på gitteret.
+Du kan ændre størrelsen på og yderligere justere dette valg efter dit første valg for at sikre, at det dækker præcis det, du ønsker.
+
+Hvis valget er passende, kan du indtaste de X- og Y-dimensioner, det valgte område skal optage, og trykke på apply.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+Ovenstående er et eksempel på at bruge map-værktøjet til at tilpasse det importerede kort-aktiv til gitteret. Vi valgte
+et område, foretog nogle små ændringer og informerede derefter værktøjet om de ønskede dimensioner.
+
+## Skaler hele billedet
+
+Skalering af 'hele billedet' bruger hele billedet som reference for skaleringen.
+Dette kan gøres enten ved at angive mål-gitterceller eller mål-pixels.
+Ved at angive gitterceller får billedet til at dække det angivne antal gitterceller, mens angivelse af pixels ændrer billedets størrelse i forhold til inputtet.
+Begge alternativer kan fås til at bevare billedets størrelsesforhold ved at forbinde 'links'-symbolet lige til højre for inputfelterne.

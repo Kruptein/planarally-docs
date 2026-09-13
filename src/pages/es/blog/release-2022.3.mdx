@@ -1,0 +1,256 @@
+---
+title: Release 2022.3
+date: 2022-12-12 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Prometí actualizaciones más regulares y he fracasado miserablemente, pero bueno, ¡aquí hay una nueva versión!
+
+_Propietarios de servidores: se han realizado cambios en el inicio del servidor, consulta [Server](#server)_
+
+## Cambios en la interfaz
+
+### Rediseño del panel
+
+Ya rediseñamos el panel en 0.26 (marzo de 2021), pero aquí estamos de nuevo \:D
+
+La sección de juegos se ha reducido de 3 entradas de navegación (run/play/create) a una sola sección.
+Además, la barra lateral de "detalles" que teníamos antes ocupaba mucho espacio en dispositivos con menos espacio en pantalla.
+Esta sección se ha reelaborado para que la mayoría de esas opciones estén disponibles al hacer clic en un juego de la lista.
+
+![Panel](../docs/dashboard/assets/dashboard.png)
+
+También es importante mencionar que esta vez el administrador de recursos sí se ha incluido en el rediseño.
+Así que esperemos que esto haga felices a algunas personas, ya que la iteración anterior era otra cosa \:D
+
+![Recursos del panel](../docs/dashboard/assets/dashboard-assets.png)
+
+### Iconos de la barra de herramientas
+
+Otro cambio visual es que la barra de herramientas ahora viene con iconos en lugar de etiquetas.
+
+Hay una configuración de usuario para volver a las etiquetas si no te gusta.
+
+![Ejemplo de la barra de herramientas de un DM en modo 'Build' con la herramienta Select activa y el modo listo para cambiar a Play mode, mientras que la herramienta de filtro se puede usar, pero no la herramienta Vision.](../docs/assets/toolbar-example.png)
+
+## Saltar por el lienzo
+
+A veces perdemos la noción de dónde estamos en el tablero o queremos cambiar nuestra vista a la de otro personaje.
+
+El usuario veterano de PA sabrá que normalmente puede usar la barra espaciadora para lograr esto.
+En esta versión, sin embargo, he añadido 2 cosas visuales extra para mejorar esta experiencia.
+
+### Volver al contenido
+
+La primera función es específicamente para cuando estás perdido en el lienzo infinito y solo ves una pantalla llena de niebla.
+
+Si esto ocurre, aparecerá un nuevo elemento de interfaz en la parte inferior de la pantalla.
+Al hacer clic en este elemento, tu vista se centrará en el elemento visible más cercano.
+
+Esto tendrá en cuenta el modo de visión de la campaña (ajustes de niebla de guerra y línea de visión).
+
+### Direcciones de las fichas
+
+Otra adición es que las fichas (a las que tienes acceso) que están fuera de pantalla ahora aparecerán en los lados de la pantalla con una flecha que apunta hacia su dirección.
+Cuando haces clic en esta flecha, centras tu vista en la forma correspondiente.
+
+![Ejemplo de direcciones de fichas](./2022.3/token-directions.png)
+
+Toman el mismo color que el color configurado de tu Ruler.
+La función también se puede desactivar con una nueva configuración del cliente.
+
+## Calidad de vida
+
+Se añadieron un montón de mejoras de calidad de vida.
+
+### Panning
+
+Ya era posible desplazarse con el botón central del ratón, ahora el botón derecho del ratón también iniciará el modo de paneo (panning) mientras se arrastra.
+
+Esto es principalmente para mejorar la experiencia de las personas que usan un panel táctil, donde el clic del botón central es menos sencillo.
+
+### Recordatorios de comportamiento
+
+La herramienta Draw y la herramienta Vision ahora tendrán un color de fondo naranja cuando tengan un comportamiento alterado.
+Esto debería captar tu atención cuando hayas cambiado algo y luego lo olvides.
+
+Para la herramienta Vision, se resaltará en cualquier momento en que no tengas todas las fichas activas.
+
+Para la herramienta Draw, resaltará las pestañas de lógica y/o visión cuando haya algo activo allí.
+
+### Soporte de expresiones complejas en trackers
+
+Al usar trackers, un salvavidas es usar la información de selección rápida para modificar rápidamente los trackers durante el juego.
+Hasta ahora, sin embargo, estabas limitado a un solo número y podías añadir un `+` o un `-` al principio para hacerlo relativo al valor original.
+
+A partir de esta versión, esa interfaz se ha modificado para admitir expresiones más complejas.
+Ahora debería admitirse casi cualquier expresión matemática (respaldada por math.js).
+
+Ahora también tiene 2 modos: modo absoluto y modo relativo. Este último añade el resultado de la expresión al valor original.
+
+También hay una nueva configuración del cliente para elegir qué modo se selecciona por defecto al iniciar un juego.
+
+Algunos ejemplos:
+
+Si tu tracker tiene un valor de 50 y ejecutas la siguiente expresión:
+
+`-(10 + 20 + 5 * 2) + sqrt(4)`
+
+En modo absoluto el tracker ahora será `-38`, en modo relativo será `12` (`50-38`)
+
+Del mismo modo, empezando de nuevo desde 50:
+
+`12`
+
+En modo absoluto se convertirá en `12` y en modo relativo `62` (`50+12`)
+
+### Herramienta Vision - auras privadas
+
+Al deseleccionar una forma en la herramienta Vision, sus auras privadas ya no serán visibles.
+
+### Importar/Exportar
+
+Se han hecho algunos ajustes al código de importación y exportación.
+
+Los DM pueden exportar su campaña desde la lista de juegos del panel.
+La importación se puede hacer yendo a "new game".
+
+Tanto la importación como la exportación muestran ahora una página separada en la que se puede ver la información de progreso.
+Esto debería aclarar si la importación/exportación está funcionando o si ha fallado en algún sitio.
+
+### Dados
+
+Los resultados de los dados individuales ahora también se muestran junto con los subtotales y el total general de una tirada.
+
+Esto es para dar cabida a sistemas en los que los resultados de los dados individuales pueden afectar a los resultados.
+
+## DM: Jugadores
+
+### Rectángulos de cliente
+
+El DM tiene una opción para ver la ventana gráfica (viewport) de jugadores específicos en la configuración del DM.
+Este ajuste funciona bien cuando tus jugadores solo inician sesión una vez (es decir, tienen 1 cliente).
+
+Cuando un jugador inicia sesión en varios navegadores (es decir, >1 cliente), la ventana gráfica mostrada al DM seguía siempre al cliente movido más recientemente.
+Esto es confuso y no es lo esperado. Ahora se mostrará un rectángulo separado para cada cliente conectado.
+
+Es importante saber que el movimiento de un cliente seguirá aplicándose también al otro cliente.
+
+### Jugadores activos
+
+La barra lateral izquierda ahora también tendrá una sección Jugadores para el DM que enumera todos los jugadores conectados.
+Al hacer clic en un nombre de esta lista, tu vista se centrará en su ventana gráfica actual.
+
+Esta es una configuración temporal, ya que pretendo explorar más el concepto de jugador,
+pero no he encontrado el tiempo todavía desde que empecé este prototipo tosco.
+
+## Rendimiento
+
+Se añadieron algunas mejoras de rendimiento.
+
+### Limitar el renderizado de plantas
+
+Ahora hay una opción de usuario para limitar el renderizado solo a la planta activa.
+
+Esto es útil cuando tienes uno o más jugadores que notan un rendimiento inferior al deseado al usar un mapa con muchas plantas.
+
+### Cálculo del centro de las formas
+
+El centro de una forma se usa en muchos lugares y se calculaba sobre la marcha cada vez que se necesitaba.
+
+Ahora el centro se calculará una vez y se recordará, hasta que alguna acción provoque que el centro cambie (por ejemplo, que la forma se mueva), momento en el que se volverá a calcular.
+
+La mayoría de las formas no cambian a menudo de posición (por ejemplo, las paredes), así que esto _debería_ en teoría mejorar el rendimiento.
+
+### Sectores
+
+Al renderizar la escena, para cada capa, solo se tienen en cuenta las formas visibles en la pantalla.
+Hasta ahora esto se hacía iterando sobre las formas y haciendo una comprobación de visibleInCanvas.
+
+Lo nuevo de esta versión es que las formas se ordenan en sectores (o chunks) y solo se comprueban los sectores que están en vista.
+
+Esto podría requerir un ajuste fino adicional.
+
+## Server
+
+### Ubicación alternativa de los archivos de recursos
+
+Ahora es posible cambiar la ubicación de la carpeta de archivos de recursos, desde la que se sirven todos los recursos.
+
+### Inicio del servidor
+
+Para gestionar el servidor un poco más fácilmente, los archivos se han reorganizado.
+Esto afecta al inicio del servidor: ahora debes llamar al archivo `planarally.py` en lugar del archivo `planarserver.py`.
+
+Acepta los mismos parámetros, etc., que aceptaba el script original.
+
+La imagen de docker se ha modificado, así que si usas esa, no tienes que cambiar nada.
+
+### Importar/Exportar
+
+La importación y la exportación deberían ser más estables ahora y se han vuelto a habilitar por defecto en el server_config.
+
+## Last-Gameboard
+
+Esta versión también incluye el código de integración con la plataforma last gameboard.
+
+## Bugs
+
+### Correcciones de la lógica de las formas
+
+- La zona de teletransporte no se activaba correctamente cuando la iniciaba un jugador
+- La zona de teletransporte no aterrizaba correctamente en el centro del objetivo
+- Las alternancias de puerta del jugador no se sincronizaban con el servidor / no persistían
+- La vista previa del área de puerta/Tp no cambiaba de planta
+
+### Trackers/Auras
+
+- Los trackers/auras compartidos no aparecían en la información de selección
+- La eliminación de trackers/auras compartidos no se mostraba en el cliente hasta actualizar
+
+### Initiative
+
+Desde un cambio técnico en 2022.1, el sistema de iniciativa se ha estado comportando mal cuando había formas desconocidas para el cliente.
+Las formas desconocidas pueden deberse a cualquier cantidad de razones (por ejemplo, la forma se ha movido a otra ubicación, la forma está en la capa de DM y, por tanto, no la conoce un jugador, ...).
+
+Algunas de las entradas siguientes están relacionadas con el problema descrito arriba, que ya se ha resuelto, pero algunas entradas son un problema totalmente aparte.
+
+- El servidor debería detectar mejor los errores del cliente en los listados de iniciativa y rechazar datos incorrectos
+- La modificación de la iniciativa debería conservar al actor activo actual en más circunstancias
+- La eliminación de formas causaba algunas inconsistencias en la iniciativa
+- El cambio entre la capa de DM y la capa visible para el jugador a veces alteraba la iniciativa
+- El bloqueo de cámara de la iniciativa no cambiaba de planta
+
+### Recursos
+
+- [DM] Los recursos no se podían mover a la carpeta padre
+- [DM] Los recursos no se podían eliminar si existía una forma con un enlace al recurso
+- [DM|server] El administrador de recursos ya no era utilizable con una configuración de subruta
+
+### Misceláneos
+
+- Los errores en los modales de prompt no eran visibles
+- La información visible de las anotaciones no se sincronizaba con otros clientes hasta actualizar (solo UI)
+- El estado del jugador se borraba al cambiar de ubicación
+- Sensibilidad del zoom en el panel táctil
+- Error tipográfico en el menú de ubicación
+- Correcciones de UI en el modal AssetPicker del juego
+- El modal de prompt no borraba correctamente el mensaje de error
+- Los detalles de las herramientas no siempre estaban en la ubicación correcta (por ejemplo, al cambiar de modo)
+- Recortar el espacio en blanco ruidoso en la información de selección
+- Saltar al marcador no cambiaba de planta
+- Mover una forma compuesta/variante a otra planta y seguirla mostraba cuadros de selección extra
+- La capa Draw se renderizaba debajo de la niebla (por ejemplo, rulers/ping, etc.)
+- La visión no se recalculaba correctamente al eliminar formas bloqueantes en configuraciones de varias plantas
+- La UI de AssetPicker aparecía demasiado baja
+- La UI de edición de polígonos se quedaba atrás al desplazarse (pan)
+- Mover un punto del polígono cuando el polígono está rotado
+- Las formas normales a veces se identificaban erróneamente como ubicaciones de spawn
+- Los dados a veces salían de la pantalla
+- El movimiento con el teclado no movía el ayudante de rotación de la herramienta Select
+- [DM] Las anotaciones seguían siendo visibles hasta actualizar después de eliminar el acceso de un jugador
+- [DM] Restablecer los ajustes específicos de ubicación no se sincronizaba inmediatamente con los clientes hasta actualizar
+- [DM] Activar el modo de jugador falso ocultaba las entradas de DM de la barra lateral izquierda
+- [server] El lanzador de dados no funcionaba en servidores con subruta

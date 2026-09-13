@@ -1,0 +1,132 @@
+---
+title: Release 0.22.0 – Was gibt's Neues!
+date: 2020-08-26 20:00:00
+excerpt: "Was gibt's Neues in 0.22.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Es ist mehr als 2 Monate her seit dem letzten Release, ein Update war also längst überfällig!
+Dieses Release bringt nicht tonnenweise neue Funktionen, aber eine große: Rotation!
+Weitere Dinge in diesem Release sind eine Reihe von Leistungsverbesserungen, einige QoL-Änderungen an Etagen und eine Reihe kleinerer Änderungen und Fixes.
+
+## Rotation
+
+Das Rotieren von Formen ist eine häufig nachgefragte Funktion, aus offensichtlichen Gründen.
+Es ist jedoch eine eher technische Änderung, die einige Anpassungen im Kern der Zeichenlogik erforderte,
+aber am Ende hat alles funktioniert.
+
+Das Rotieren erfolgt im Auswahl-Werkzeug, aber nur im Build-Modus (genau wie beim Skalieren).
+Wenn du in den Build-Modus wechselst, erscheint eine rotationsspezifische UI (eine Linie mit einem Ball).
+Indem du den Ball greifst und dich bewegst, kannst du eine Form frei um ihren Mittelpunkt rotieren.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Wenn mehrere Formen ausgewählt sind, wird die Rotations-UI um die gesamte Gruppe gezeichnet und erlaubt das gleichzeitige Rotieren aller Formen.
+Diese Rotation erfolgt wiederum relativ zum Mittelpunkt dieses Rotationsrahmens!
+
+Zusätzlich rastet die Rotation beim Einrasten auf saubere Winkel von 45 Grad ein.
+
+## QoL-Verbesserungen für Etagen
+
+Ich habe Etagen wirklich schätzen gelernt, aber es gab noch einige kleinere Schwachstellen, die ich hier ansprechen möchte.
+
+### Zugänglichkeit
+
+Der DM kann die Zugänglichkeit von Etagen nun umschalten. Konkret bedeutet das, dass sie verhindern können, dass Spieler manuell zu einer bestimmten Etage gehen.
+
+**Das verhindert nicht die Sicht auf eine Etage auf dem eigentlichen Spielfeld** (z. B. ein Spieler auf einer höheren Etage, der aus einem Fenster auf ein Grasfeld darunter blickt)
+
+### Umbenennen
+
+Etagen können nun umbenannt werden, juhu.
+
+### Anzeigereihenfolge
+
+Die Reihenfolge, in der Etagen im Popup-Menü angezeigt werden, ist nun umgekehrt. Sie folgt jetzt einer logischeren Ordnung, in der der oberste Eintrag die höchste Etage ist.
+
+### Neusortieren
+
+Es ist nun auch möglich, Etagen neu zu sortieren, indem du sie herumziehst. Du musst also nicht mehr sicherstellen, dass alles vorausgeplant ist, oder eine Menge Zeug manuell verschieben!
+
+### Nebel-Bug
+
+Es wurde eine unnötige Menge Nebel zu unteren Etagen hinzugefügt, was sie dunkler machte.
+
+## Leistungsverbesserungen
+
+Es wurden eine Reihe von Leistungsoptimierungen vorgenommen, die große Auswirkungen haben sollten!
+
+### Startzeit
+
+Einige Änderungen bei der WebSocket-Behandlung bewirken, dass der Client nun viel schneller auf Serverdaten reagiert,
+was sich wiederum in schnellerem visuellem Laden auf allen Karten niederschlagen sollte.
+
+Zusätzlich werden Etagen beim Start nun separat geladen, wobei die zuletzt besuchte Etage zuerst geladen wird.
+Das sollte die Zeit bis zum ersten Rendern auf Karten mit vielen Etagen dramatisch verbessern.
+
+Die in der gesamten UI verwendeten Fontawesome-Icons werden nun mit einer Vue-Bibliothek geladen. In der Vergangenheit wurden alle Icons über ein fontawesome.js-Skript geladen, jetzt laden wir nur die tatsächlich verwendeten Icons, was eine Menge Daten spart!
+
+Die Spielschleife wird nun erst gestartet, wenn die erste Etage ankommt. Das ist im großen Ganzen eine eher kleine Verbesserung, aber trotzdem eine schöne.
+
+### Sonstiges
+
+Eine weitere große Verbesserung betrifft die Bewegung von Formen. Gruppenbewegungen werden effizienter verarbeitet, und auch für jede einzelne Formbewegung werden weniger Daten benötigt.
+
+Eine letzte Verbesserung: Beim Verschieben der Ansicht wird das Aktualisieren nicht sichtbarer Etagen verzögert, bis die Verschiebe-Aktion abgeschlossen ist, was wiederum Karten mit vielen Etagen zugutekommt.
+
+## Verschiedenes
+
+- Es gibt nun ein Sperren/Entsperren-Umschalt-Icon in der Auswahl-UI
+- Die Lesbarkeit der Lineal-Distanz ist verbessert
+- Die Raster-Pixelgröße ist nun eine Client-seitige Funktion, die es dem Spieler erlaubt, diesen Wert je nach verwendeter Anzeigemethode zu wählen (z. B. Projektor vs. Laptop-Bildschirm)
+
+## Bugfixes
+
+- Aura wurde nicht angezeigt, wenn sich das Token außerhalb der sichtbaren Leinwand befand
+- Firefox-Standort-Scrollleiste bei geöffnetem linkem Menü
+- Einige erhebliche Leistungsengpässe
+- Der Server beendet sich nun mit Verweis auf die Dokumentation/das Tutorial, wenn der Client vor dem Start nicht gebaut wurde
+- Eingerastete Punkte gegenüber Raster-Einrasten bevorzugen
+- Weißes Icon in der Menü-UI oben links entfernt
+- Das Bewegen von Polygonen mit der Tastatur bewegte nur den Ursprungspunkt
+- Degenerierte Fälle in der Triangulation
+    - Der Triangulationscode konnte auf einen degenerierten Fall stoßen, wenn er mit winzigen Zahlenunterschieden in der Größenordnung von 1e-15 umging
+    - Nun berücksichtigt der Triangulationscode nur noch die ersten 10 Stellen nach dem Komma, um numerische Instabilität zu verhindern.
+- Mouseleave-Ereignisse wurden in einigen Fällen nicht ausgelöst (z. B. bei Alt-Tab), was dazu führen konnte, dass einige Formen (z. B. Lineale) auf dem Bildschirm zurückblieben
+- Die Größenänderung des Karten-Werkzeugs wird nicht repliziert
+- Mittelpunktberechnung bei Polygonen mit wiederholten Punkten
+- Eine auf einen anderen Ort verschobene Form verschwindet nun ordnungsgemäß am alten Ort
+
+## Rückblick auf das „Up next"
+
+Im letzten Release habe ich einen Abschnitt „Up next" hinzugefügt, um einige der Dinge auf der Roadmap zu skizzieren. Ich wollte den Status überprüfen, nachdem dieses Release abgeschlossen ist.
+
+##### erledigt
+
+- Rotation
+- Überarbeitung der Startsequenz
+- Umstellung auf fontawesome-vue
+- Öffentliche Sichtbarkeit von Etagen
+- Verbesserungen des Etagen-Werkzeugs
+- Schnelles Laden der aktuellen Etage
+
+##### teilweise erledigt
+
+- Vorbereitungsarbeiten für Metadaten/Export/Import
+
+##### nicht erledigt
+
+- Asynchrone Asset-Liste im Spiel
+- Polygon-Verbesserungen
+- Erweiterung der Aura-Optionen
+- Verbesserung des Cursors im Zeichen-Werkzeug
+- Hex-Raster
+- Blurhash
+- Mehrere Spawn-Orte
+- Weitere Gruppierungsoptionen
+
+Obwohl dieses Release etwas länger gedauert hat, bin ich mit 6 von 15 erledigten Punkten zufrieden. :)

@@ -1,0 +1,43 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# ゲーム
+
+<Image src={Dashboard} alt="ダッシュボード" />
+
+*ゲーム*セクションでは、キャンペーンを作成したり、既存のキャンペーンを起動したりできます。
+
+画面は DM セクションとプレイヤーセクションの2つに分かれています。
+どちらも、自分が DM またはプレイヤーである関連キャンペーンをすべて一覧表示します。
+
+キャンペーンをクリックすると展開され、いくつかのオプションが表示されます。
+
+<Image src={DashboardDmCampaign} alt="ダッシュボードの DM キャンペーン" />
+<Image src={DashboardPlayerCampaign} alt="ダッシュボードのプレイヤーキャンペーン" />
+
+DM として、ペンシルアイコン（<PencilAlt />）をクリックするとキャンペーンのロゴや名前を編集できます。
+
+<Warning title="キャンペーンの削除">
+    これにより、キャンペーンはあなたと*すべての*プレイヤーから取り返しのつかない形で削除されます。
+</Warning>
+
+## 作成
+
+キャンペーンの作成は簡単です。名前を入力して `Go` をクリックしてください。
+名前の入力欄の横に表示されるデフォルトのロゴをクリックすると、キャンペーンのロゴを選択することもできます。
+
+<Info title="ロゴのアップロード">ロゴは[アセット](/ja/docs/dm/assets/)としてアップロードする必要があります。</Info>
+
+## 参加
+
+ゲームに参加するには、招待 URL が必要です。これは DM がゲーム内の DM 設定から作成できます。

@@ -1,0 +1,391 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ArrowsAlt from "~icons/fa-solid/arrows-alt";
+import Eye from "~icons/fa-solid/eye";
+import Lightbulb from "~icons/fa-solid/lightbulb";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+import { Image } from "astro:assets";
+import AssetListPicture from "./assets/asset-list.png";
+import EditAssetPropertiesPicture from "./assets/edit-asset-properties.png";
+import EditAssetDefeatedPicture from "./assets/defeated.png";
+import EditAssetTrackersPicture from "./assets/edit-asset-trackers.png";
+import EditAssetLogicPicture from "./assets/edit-asset-logic.png";
+import EditAssetExtraPicture from "./assets/edit-asset-extra.png";
+import EditAssetAccessPicture from "./assets/edit-asset-access.png";
+import EditAssetAnnotationsPicture from "./assets/edit-asset-annotations.png";
+import ShapeBadgePicture from "./assets/shape-badge.png";
+import LabelManagerPicture from "./assets/label-manager.png";
+
+# Former
+
+_Du skal være DM for at kunne lægge aktiver på kortet, se [DM-asset-dokumentationen](/da/docs/dm/assets/)._
+
+## Håndtering af objekter
+
+Valg/interaktion med objekter foregår primært gennem [select-værktøjet](/da/docs/tools/select/).
+
+Når formen er valgt, kan du også bruge dine piletaster til at flytte den.
+
+<Tip title="DM-fusk">
+    Som DM kan du holde shift nede for at flytte former igennem terræn, der normalt blokerer bevægelse.
+</Tip>
+
+### Kontekstmenu
+
+Et højreklik på en form giver dig en liste med valgmuligheder.
+De viste muligheder afhænger af, om du er DM eller ej,
+men også af token'ens tilstand (f.eks. Tilføj vs. Vis initiativ).
+
+<Image src={AssetListPicture} width={500} aspectRatio={532 / 520} alt="Kontekstmenu" />
+
+Listen ovenfor er DM-visningen.
+
+#### (DM) Etage/Lag/Lokation
+
+Hvis du holder musen over Etage/Lag/Lokation-mulighederne, åbnes en undermenu, hvor du kan flytte den valgte form til den valgte mulighed.
+
+Hvis du flytter formen til en anden etage eller et andet lag, bevarer den sine koordinater.
+Hvis du derimod flytter formen til en anden lokation, skal du vælge den ønskede spawn-lokation, hvor formen skal dukke op.
+
+For mere information, se dokumenterne om [etager](/da/docs/dm/floors/), [lag](/da/docs/dm/layers/) eller [lokationer](/da/docs/dm/locations/).
+
+#### Flyt forrest & Flyt bagest
+
+Disse muligheder placerer din form enten forrest eller bagest i den aktive lagstak.
+Dette giver dig mulighed for at placere flere objekter på samme lag, men lade dem overlappe på bestemte måder.
+
+#### Tilføj initiativ eller Vis initiativ
+
+Denne mulighed placerer tokens i initiativmenuen.
+Hvis de allerede er i initiativmenuen, vises det som "vis initiativ".
+For mere information, se dokumentet om [initiativ](/da/docs/tools/initiative/).
+
+#### Slet former
+
+Denne mulighed sletter den eller de valgte former.
+Du kan også trykke på `Del` eller `Backspace` for at gøre det.
+
+<Tip title="Undo/Redo">
+    Hvis du ved et uheld fjerner en form, kan du fortryde det ved at bruge ctrl+z-tastebindingen. Dette virker også for
+    visse andre operationer som bevægelse.
+</Tip>
+
+#### Sæt markør
+
+Denne mulighed gør formen til en markør.
+Se [markører](/da/docs/game/markers/) for mere information.
+
+#### (DM) Gem skabelon
+
+Når du gemmer en form som skabelon, gemmer du den aktuelle information om formen (f.eks. størrelse, trackere, ...) på serveren.
+
+Når du trækker et aktiv på spillebordet med skabeloner, kan du vælge din gemte information for at udfylde den på forhånd.
+
+For mere information se [Asset-skabeloner](/da/docs/dm/assets/#templates)
+
+#### Vis egenskaber
+
+Denne mulighed åbner dialogen "Edit asset", som beskrives nedenfor.
+
+## Formens egenskaber
+
+Ved at højreklikke og vælge "Vis egenskaber" åbner du dialogen "Edit asset",
+som giver dig mulighed for at ændre forskellige indstillinger, der relaterer til den valgte form.
+
+<Tip title="Åbn formens egenskaber hurtigere">
+    Du kan også trykke på **enter** for at åbne denne dialog med det samme!
+</Tip>
+
+### Egenskaber
+
+<Image src={EditAssetPropertiesPicture} width={800} aspectRatio={784 / 698} alt="Dialog for asset-egenskaber" />
+
+Det første afsnit består af almindelige egenskaber, der relaterer til den valgte form.
+
+#### Navn
+
+Formens navn; dette er et valgfrit felt, som som standard viser 'Unknown shape'.
+Dette navn vil dukke op andre steder, f.eks. i hurtigvalgsinformationen og i [initiativlisten](/da/docs/tools/initiative/).
+
+<Eye />
+-symbolet bruges til at skifte mellem, om andre spillere uden redigeringsadgang må se dette navn. Hvis det ikke er
+tilladt, vil andre spillere se 'Unknown shape', uanset om navnet er sat.
+
+#### Er usynlig
+
+Ved at vælge denne mulighed bliver formen usynlig for alle spillere uden syns- eller redigeringsadgang til formen _(\*)_.
+
+Et eksempel på brugen af denne funktion er usynlige kaldte væsner, som en spiller kontrollerer.
+
+Der er i øjeblikket ingen visuel indikator på spillebordet til at huske, at en form er usynlig.
+
+_(\*) DM'en vil også se usynlige former, da de har implicit redigeringsadgang til alle former_
+
+#### Er besejret
+
+Når denne er afkrydset, vises et enkelt, rødt `x` over formen for at indikere, at den er besejret.
+Denne egenskab kan også skiftes ved at trykke på `x`.
+
+<Image src={EditAssetDefeatedPicture} width={200} aspectRatio={194 / 146} alt="Asset besejret" />
+
+#### Kantfarve & fyldfarve
+
+Som navnene antyder, påvirker disse muligheder formens farver.
+
+_Bemærk, at der for visse specifikke formtyper kun bruges en af de to farver._
+
+#### Blokerer syn/lys
+
+Ved at vælge denne mulighed blokeres syn og lys fra at passere gennem formen.
+Mere information om belysning findes i dokumentet om [belysning og syn](/da/docs/dm/lighting-vision/).
+
+Eksempler på brug er vægge/døre/...
+
+Af præstationsmæssige årsager bør du typisk ikke tildele denne egenskab til former, der jævnligt bevæger sig.
+
+#### Blokerer bevægelse
+
+Ved at vælge denne mulighed forhindres andre former i at bevæge sig gennem den.
+
+Dette kombineres ofte med blokering af syn for vægge, men kan også bruges alene til ting som vinduer.
+
+<Tip title="DM-fusk">
+    Som DM kan du omgå denne begrænsning ved at bruge **shift**-modifikatoren, mens du flytter former.
+</Tip>
+
+Af præstationsmæssige årsager bør du typisk ikke tildele denne egenskab til former, der jævnligt bevæger sig.
+
+#### Er låst
+
+Ved at vælge denne mulighed låses formen på plads.
+Dette kan være nyttigt for statiske former, du ikke ønsker at flytte ved et uheld under spillet.
+Især nyttigt for dine kort, som ellers kan tage tid at justere til gitteret igen.
+
+Tryk på `Ctrl + L` for at gøre dette uden at åbne menuen Edit asset.
+
+#### Vis badge
+
+Ved at vælge denne mulighed vises et badge nederst til højre på formen.
+Som standard er badgenummeret 1.
+Når du kopierer og indsætter denne form, vil badgenummeret stige trinvist.
+
+<Image src={ShapeBadgePicture} width={150} aspectRatio={177 / 150} alt="Eksempel på formbadge" />
+
+Denne mulighed er nøglen i situationer, hvor du har store grupper af ens tokens.
+Hvis alle væsner har samme ikon, kan det være svært at skelne mellem dem under kamp.
+Ved at aktivere denne mulighed sikrer du, at spillerne og DM'en taler om de samme former.
+
+Du kan konfigurere detaljerne for, hvordan badge-værdierne genereres, i afsnittet [Gruppe](#group).
+
+### Trackere & auraer
+
+<Image src={EditAssetTrackersPicture} width={800} aspectRatio={1371 / 958} alt="Eksempel på asset-tracker" />
+
+#### Trackere
+
+Trackere kan bruges til at holde styr på forskellige tilstande.
+Almindelige anvendelser er f.eks. HP, NPC-holdning eller pil-/ammunitionsforbrug.
+
+En tracker består af en værdi og eventuelt et navn og en sekundær værdi.
+Den anden værdi kan bruges til at angive et maksimum (f.eks. HP 20/40).
+
+Trackere oprettes ved at klikke på `New Tracker` og udfylde en værdi.
+
+En tracker, der er sat til `public`, vises for alle, der vælger formen.
+Ellers vil kun spillere med `edit`-adgang til token'en kunne se den.
+
+Aktivering af `display on token` viser en vandret bjælke oven på token'en.
+Den kan konfigureres med to farver: den primære farve viser den første værdi til venstre i bjælken, den sekundære viser den anden værdi til højre i bjælken.
+Bjælken følger `public`-indstillingen for at bestemme dens synlighed.
+
+Ved at klikke på tracker'ens titellinje kan du klappe tracker'en sammen for at reducere rod.
+En tracker fjernes ved at klikke på skraldespandsikonet <TrashAlt/> til højre på titellinjen.
+
+#### Auraer
+
+Auraer ligner trackere, men har en visuel effekt på spillebordet.
+
+##### Rækkevidde
+
+For at tegne en aura på spillebordet skal du angive dens rækkevidde.
+Dette koncept består af to værdier. "Normal"-delen og "dim"-delen.
+
+Normal-værdien bruges til at tegne en cirkel med den angivne radius i fuld opacitet,
+mens dim-delen bruges til at tegne en ekstra radius, hvis opacitet daler mod kanten.
+
+F.eks. defineres en fakkel i DnD 5e som 20 ft. klart og 20 ft. svagt lys, så her ville man også udfylde 20/20.
+
+De udfyldte tal hænger direkte sammen med, hvordan DM'en har konfigureret gitteret. Som standard er 5 ft. = 1 gitterfelt, så en værdi på 20 ville blive til en aura, der dækker 4 felter (radius).
+
+##### Vinkel
+
+Dette er en nichefunktion, der kan bruges, når du ikke ønsker, at auraen skal dække en hel cirkel, men snarere skal være en kegle.
+
+Den første værdi bestemmer bredden af keglevinklen og er som standard 360 (dvs. en hel cirkel).
+Den anden værdi, som indstilles ved at trække i knappen på cirklen eller ved at ændre tekstfeltet,
+bestemmer den retning, keglen skal pege i. For en hel cirkel ignoreres denne værdi af indlysende årsager.
+
+Retningen er relativ til formens rotation. Så hvis du roterer din form, roterer keglen med!
+
+##### Farve & kant
+
+Hver aura kan have to forskellige farver (inklusive gennemsigtighedsindstillinger).
+Disse tegnes på spillebordet, hvis auraen er aktiv.
+Den farve, der er sat for `aura`, påvirker det område, auraen dækker.
+Uafhængigt heraf kan en farve for auraens kant sættes.
+
+<Tip title="Lys & trylleformularer">
+    Brug vinkler og farver til at angive lys båret af karakteren og kanter til at angive rækkevidden af trylleformularer
+    centreret på dig, f.eks. _detect magic_ eller _invisibility purge_. Du kan også bruge dette til at minde dig selv om
+    særlig angrebsrækkevidde osv.
+</Tip>
+
+##### Public
+
+Som standard er enhver form eller aura kun synlig for DM'en og enhver spiller med redigeringsadgang til formen.
+
+Nogle gange ønsker du dog at vise auraer til alle spillere, og det er der, du gør auraen public.
+
+Du ville aktivere denne indstilling for en fakkel, men f.eks. deaktivere den for darkvision.
+
+##### Lyskilde
+
+Denne lille kontakt har stor indvirkning på auraen og er noget af det, der gør synssystemet i PA så godt!
+
+Som standard tegnes auraer bare på spillebordet uanset vægge eller andre forhindringer og giver dig ikke syn.
+Dette er perfekt til ting som paladin-auraer og lignende.
+
+Ved at slå indstillingen 'light source' til, signalerer du til PA, at dette ikke er en normal aura, men faktisk en kilde til lys/syn.
+Hvis der er vægge i vejen, stopper auraen ved kanterne og afslører ikke noget bag dem. Derudover vil den faktisk afsløre alt i auraen for spilleren (og alle andre spillere, hvis det er en public lyskilder).
+
+Almindelige anvendelser er darkvision, som er en privat lyskilde, og en fakkel, som er en public lyskilde.
+
+_Bemærk: syn og belysning er typisk kun relevante, når du bruger synslinje-synssystemet_
+
+### Logik
+
+<Image src={EditAssetLogicPicture} width={500} aspectRatio={580 / 449} alt="Asset-ekstra" />
+
+Dette afsnit giver dig mulighed for at tilføje ekstra logik til formen.
+I øjeblikket findes der to typer logik: "døre" og "teleportzoner".
+
+#### Døre
+
+En form med dør-logik vil have et <Lock /> eller <Unlock />-ikon, når du holder musen over dem i Play-tilstand.
+Klik, når dette vises, åbner eller lukker døren.
+
+Som standard skiftes både syns- og bevægelsesegenskaberne for at efterligne en dør,
+men du kan ændre dette til f.eks. kun at skifte synet for at efterligne et vindue.
+
+Du kan ændre, hvem der kan åbne/lukke "døren", i sektionen for tilladelser.
+
+#### Teleportzoner
+
+En form markeret som en tp-zone kan teleportere former, der kommer ind i den, til et andet sted.
+Målet for en tp-zone er altid en spawn-lokation og kan være på en anden etage eller endda lokation.
+
+TP-zoner findes i to varianter, som kan styres med indstillingen "immediate mode".
+I immediate mode udløses tp-zonen automatisk, når en form afslutter sin bevægelse på zonen (f.eks. en fælde, der udløses).
+Ellers vises en notifikation, der giver dig mulighed for at udløse zonen, hvis du ønsker det (f.eks. landingen af en trappe).
+
+### Adgang
+
+<Image src={EditAssetAccessPicture} width={400} aspectRatio={424 / 216} alt="Eksempel på asset-adgang" />
+
+Spilleradgang til formen kan konfigureres i dette afsnit.
+Som standard har formens opretter fuld adgang til formen, ligesom DM'en har.
+
+Du kan ændre standardadgangen eller sætte specifikke adgangsrettigheder for en spiller ved hjælp af dropdown-menuen.
+
+Der er 3 forskellige adgangsniveauer, og de kan aktiveres/deaktiveres individuelt.
+
+#### <PencilAlt /> Redigeringsadgang
+
+Når den gives, giver denne rettighed brugeren mulighed for at ændre formens egenskaber.
+Dette inkluderer alle andre indstillinger som trackere og selve adgangen.
+
+#### <ArrowsAlt /> Bevægelsesadgang
+
+Giver brugeren mulighed for at flytte formen rundt på kortet.
+
+Det er vigtigt at være klar over, at når denne adgangsret gives uden synsrettigheder,
+er det muligt for spilleren at flytte deres form ind i krigstågen og miste den.
+
+#### <Lightbulb /> Synsadgang
+
+Når den gives, giver den brugeren synsadgang til de private auraer på formen.
+
+Dette er en vigtig indstilling for syn baseret på synslinje.
+
+#### Nogle adgangskombinationer
+
+Når alle adgangsrettigheder gives, har du simpelthen fuldt ejerskab over en form. Dette bruges almindeligvis til spillerfigurer.
+
+Som nævnt under bevægelsesadgang er det muligt at have bevægelsesadgang uden synsadgang.
+Et eksempel på en grund til, at du måske ønsker dette, er kaldte væsner/kæledyr/ledsagere.\
+Grundlæggende enhver form, som du ejer til en vis grad, men som du ikke faktisk har fulde synsrettigheder til.
+(F.eks. ser du som regel ikke, hvad der sker, hvis du sender dem rundt om hjørnet, selvom særlige trylleformularer eller funktioner kan ændre dette)
+
+En anden klasse af former, som du ikke rigtig bør have synsadgang over, er former oprettet med draw-værktøjet.
+Disse repræsenterer typisk objekter som vægge osv.
+Når de tegnes, giver de dig som standard ikke synsadgang, selvom du selvfølgelig kan aktivere det, når det er relevant.
+
+### Gruppe
+
+Grupper er en måde at organisere former med et valgfrit badge for at skelne dem (f.eks. ogre 5).
+Inden for en gruppe har hver form en unik\* værdi, dens badge.
+
+_\* når du fletter grupper, har du mulighed for at beholde de oprindelige badge-værdier, hvilket kan føre til duplikerede badges_
+
+Gruppemulighederne konfigureres i denne UI-menu. Den viser de gældende regler, de eksisterende medlemmer i den aktive lokation, og du kan skifte/fjerne enkelte medlemmer eller skifte hele gruppen på én gang.
+
+Uden for denne dialog findes der også en kontekstmenu, når du højreklikker med et valg, der indeholder flere elementer.
+Denne kontekstmenu giver også muligheder for at oprette/flette/splitte/fjerne grupper.
+
+Som standard bliver former, når du kopierer og indsætter, placeret i samme gruppe.
+
+#### Tegnsæt
+
+Som standard består badges af tal, men andre tegn kan foretrækkes.
+Der er 2 foruddefinerede sæt (tal og latinske tegn), men et brugerdefineret sæt tegn kan angives som en kommasepareret liste `,` (f.eks. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+#### Oprettelsesrækkefølge
+
+Som standard, når et nyt medlem tilføjes til gruppen, får det et nyt nummer, der er 1 højere end det hidtil højeste nummer i gruppen.
+Det betyder, at fjernede numre springes over (f.eks. hvis der er 5 orker, og ork 2 dør, og en ny ork oprettes, får den nummer 6 og ikke 2)
+
+En anden tilgængelig mulighed er at randomisere numrene.
+Ved randomisering tildeles et badge-index tilfældigt mellem 0 og 2 gange antallet af medlemmer i sættet (med et minimum på 10).
+Det tilgængelige randomiseringsrum skaleres således automatisk opad uden at afsløre for meget for metagamere.
+
+Når oprettelsesrækkefølgen ændres, får alle eksisterende former nye badges (efter en bekræftelses-popup).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+#### Grupper fordelt over flere lokationer
+
+Ja, det kan være tilfældet: Hvis en gruppe monstre jagter partiet til en anden lokation,
+kommer de måske ikke alle frem på samme tid, eller flytter sig overhovedet alle til den nye lokation.
+
+Selvom det teknisk er muligt, er sporing over flere lokationer en kæmpe besværlighed med mange specialtilfælde.
+På grund af dette og det faktum, at den faktiske effekt synes lille, vælger PA enkelhed.
+Når et nyt gruppemedlem tilføjes i en gruppe med flere lokationer, garanteres badge'ets unikhed kun inden for det sæt af medlemmer, der deler lokation.
+For tilfældig oprettelsesrækkefølge er chancen for en reel kollision meget lille; for stigende rækkefølge afhænger det af, hvilken lokation der har medlemmet med højest værdi.
+Under alle omstændigheder er effekten så lille sammenlignet med den ekstra programmeringslogik, der ville skulle tilføjes, at det er en værdifuld afvejning.
+
+### Ekstra
+
+<Image src={EditAssetExtraPicture} width={400} aspectRatio={484 / 382} alt="Asset-ekstra" />
+
+Denne panel indeholder nogle indstillinger, der ikke passer ind andre steder.

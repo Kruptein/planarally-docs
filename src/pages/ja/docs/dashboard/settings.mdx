@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# 設定
+
+<Image src={DashboardSettings} alt="ダッシュボードの設定" />
+
+現在利用できるのはアカウント設定のみです。
+このセクションでは、必要に応じてメールアドレスを設定できます。また、さらに重要なこととして、パスワードの変更やアカウントの削除を行うこともできます。
+
+<Warning title="アカウントの削除">
+    これは完全な削除操作であり、PA は削除後、あなたに関する情報を一切保持しません。
+
+    !!また、このユーザーが現在所有しているキャンペーンもすべて削除されます!!
+
+</Warning>

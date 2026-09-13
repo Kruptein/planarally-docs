@@ -1,0 +1,85 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import LayersPicture from "./assets/layers.png";
+
+# Ebenen
+
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Ebenen-Informationen" />
+
+PlanarAlly ordnet seinen Spieltisch in mehreren Ebenen an.
+Sie werden übereinander gezeichnet.
+Diese mehreren Ebenen ergeben das Bild, das du beim Spielen siehst.
+
+Jede dieser Ebenen hat eine bestimmte Verwendung.
+Es ist wichtig, dass der DM den Zweck jeder Ebene versteht.
+Für eine kurze Übersicht über jede Ebene sieh dir das Dokument [Schnellreferenz](/de/docs/reference/) an.
+Für detailliertere Informationen lies weiter!
+
+Mit Ausnahme der DM-Ebene werden alle Ebenen auch auf den Spieltischen der Spieler gezeichnet.
+Allerdings können die Spieler nur mit Elementen auf der Tokens-Ebene interagieren.
+
+_Derzeit sind diese Ebenen fest verdrahtet, aber ich sehe durchaus die Möglichkeit, dies in Zukunft nach deinen eigenen Vorlieben anpassen zu können._
+
+## Map
+
+Ganz unten im Zeichenstapel liegt die Map-Ebene.
+Diese Ebene dient zum Platzieren von Karten, Gebäudegrundrissen usw.
+
+Diese Ebene wird unterhalb der Raster-Ebene gezeichnet.
+Dadurch kannst du deine Rasterlinien an deinen Dungeons ausrichten.
+Ansonsten verhält sich diese Ebene wie die Tokens-Ebene.
+
+## Grid
+
+Diese Ebene kann nicht manuell ausgewählt werden, aber sie kann über das [DM-Optionen-Menü](/de/docs/dm/settings/) konfiguriert werden.
+Diese Ebene zeichnet Rasterlinien auf dem Bildschirm.
+
+Diese Rasterlinien sind entweder quadratisch (Standard) oder hexagonal.
+Sowohl Hex-Raster mit flacher als auch mit spitzer Oberseite können gezeichnet werden, werden aber derzeit nur experimentell unterstützt.
+
+<Warning title="Experimentell">
+    Hex-Raster sind experimentell, daher kann es regelmäßig zu seltsamem Verhalten kommen. Ein Beispiel ist das
+    Einrasten am Raster, das trotz angezeigtem Hex-Raster weiterhin mit quadratischen Rastern funktioniert.
+</Warning>
+
+## Tokens
+
+Auf dieser Ebene findet das eigentliche Spielgeschehen statt.
+Hier bewegen sich Spieler und Nichtspieler-Charaktere.
+Diese Ebene wirst du oft aktiv haben.
+
+## DM
+
+Diese Ebene ist nur für den DM zugänglich.
+Spieler sehen nichts auf dieser Ebene.
+Sie kann verwendet werden, um Begegnungen im Voraus zu planen.
+Sie kann auch genutzt werden, um Textbeschriftungen zu platzieren, um sich wichtige Informationen zu merken.
+
+Du kannst auch die Ebene einer Form ändern.
+Indem du Assets, die die Spieler noch nicht sehen sollen, auf der DM-Ebene versteckst, kannst du sicherstellen, dass deine Spieler Informationen nicht vorzeitig sehen.
+
+## FOW
+
+Diese Ebene hat ein spezielles Verhalten, das bei der Sicht hilft.
+
+Wenn du deine Wände zeichnest, sollen sie statisch sein.
+Du möchtest nicht, dass sie sich verändern, denn deine Spieler könnten Abschnitte der Karte sehen, die sie noch nicht sehen sollen.
+Indem du Wände auf der Sicht-Ebene zeichnest, stellst du sicher, dass du bei der Interaktion mit der Tokens-Ebene nicht versehentlich eine Wand verschiebst.
+Daher vollführt diese Ebene automatisch zwei Zaubertricks für dich.
+
+Die meisten Formen, die du auf dieser Ebene zeichnest, werden für Wände oder Türen verwendet. Formen, die auf dieser Ebene gezeichnet werden, werden daher automatisch mit den Einstellungen „blocks movement" (blockiert Bewegung) und „blocks vision" (blockiert Sicht) erstellt.
+„Blocks movement" verhindert, dass sich Spieler durch diese Formen bewegen.
+„Blocks vision" verhindert, dass Spieler durch diese Formen hindurchsehen.
+Du kannst diese Optionen abwählen, wenn du sie nicht brauchst, aber sei dir bewusst, dass sie auf dieser Ebene standardmäßig angewendet werden.
+
+**Alles**, was auf dieser Ebene gezeichnet wird, ist auf anderen Ebenen unsichtbar.
+Das liegt daran, dass deine Karte in der Regel bereits vorgezeichnete Wände hat.
+Wenn du ein hässliches schwarzes Rechteck zeichnest, um dem Beleuchtungssystem eine Wand mitzuteilen, möchtest du diesen hässlichen Fleck nicht sehen, wenn du dich auf der Tokens-Ebene befindest.
+
+Diese Ebene dient rein der Bequemlichkeit.
+Wenn dir die automatischen Einstellungen oder der unsichtbare Aspekt nicht gefallen, kannst du die Tokens-Ebene verwenden und deine Wände dort mit beliebigen Einstellungen zeichnen.

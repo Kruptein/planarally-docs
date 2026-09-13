@@ -1,0 +1,226 @@
+---
+title: Release 2022.2
+date: 2022-06-11 12:00:00
+excerpt: "Import/Export"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Comme je l'avais promis dans la dernière version, je souhaite faire des mises à jour plus régulières, même si elles n'ajoutent pas beaucoup de fonctionnalités.
+Cette version corrige beaucoup de bugs, mais introduit aussi quelques nouveautés !
+
+_Propriétaires de serveur : des changements ont été apportés à la server_config, consultez [la partie serveur](#server-stuff)_
+
+## Import/Export
+
+La nouvelle fonctionnalité la plus marquante est l'import/export.
+La fonctionnalité d'export avait déjà été ajoutée dans la dernière version comme simple fonctionnalité API (c'est-à-dire sans interface pour exporter),
+mais la fonctionnalité d'import n'était pas encore définie.
+
+_En passant, grâce à cette fonctionnalité d'export, j'ai pu aider à résoudre certains bugs plus rapidement !_
+
+Cette version apporte la fonctionnalité d'import ainsi qu'une interface pour l'export et l'import, afin que les utilisateurs finaux puissent également s'en servir.
+
+### Expérimental
+
+Je tiens à souligner que cette fonctionnalité n'est pas encore dans sa forme définitive, mais étant donné qu'il s'agit d'une fonctionnalité très spécifique,
+j'étais confiant de pouvoir déjà la rendre disponible pour que les gens la testent.
+
+Points à prendre en compte :
+
+- L'interface est très minimale : l'import et l'export ne sont chacun qu'un simple bouton, sans aucune information sur la progression.
+- Il n'y a pas encore non plus d'information d'erreur côté client.
+- Vous ne pouvez pas importer une campagne qui porte le même nom qu'une campagne que vous exécutez déjà.
+- Vous ne pouvez importer une campagne que sur un serveur qui exécute une version identique ou plus récente que le serveur d'où vous avez exporté.
+
+Les deux premiers points sont des choses sur lesquelles je travaillerai pour une future version.
+Le troisième point est une question d'interface et d'UX, et consistera à offrir un moyen de spécifier un nom de campagne différent.
+Le dernier point est une limite technique évidente, étant donné qu'un serveur plus ancien n'aura aucune idée de ce qui a changé dans le format de sauvegarde.
+
+Pour résoudre ce problème, un service séparé devra être créé, capable de mettre à niveau/retrograder les fichiers de sauvegarde entre des versions arbitraires. Cela demandera pas mal de travail, donc n'attendez pas cela de si tôt.
+
+### Comment exporter/importer
+
+Les fonctionnalités d'export et d'import sont toutes deux accessibles depuis le tableau de bord principal, donc PAS en jeu !
+
+Pour exporter une campagne que vous gérez en tant que DM, il suffit de cliquer sur une campagne dans votre section "en cours" puis de cliquer sur le bouton "export" dans la barre latérale.
+Lorsque l'export est terminé (s'il n'a pas échoué côté serveur), le navigateur vous proposera le téléchargement du fichier. L'export d'une campagne n'est pas instantané, mais il ne prend pas non plus super longtemps.
+
+Le résultat d'une campagne exportée est un fichier unique portant l'extension ".pac", pour PlanarAlly Campaign.
+Ce fichier contient toutes les ressources utilisées dans la campagne exportée, ainsi que toutes les informations de la base de données qui concernent la campagne.
+
+Pour ensuite importer cette campagne sur un autre serveur, vous allez dans la section "import" de la barre de navigation latérale et vous appuyez sur le simple bouton.
+Une fois terminé, vous serez redirigé vers la section "en cours" et la campagne importée devrait être listée.
+
+Le temps nécessaire à l'export et à l'import est proportionnel à la taille de la campagne (#emplacements, #étages, #formes) ainsi qu'à la taille des ressources utilisées dans ces campagnes.
+
+### Quand utiliser cette fonctionnalité ?
+
+Vous vous demandez peut-être à quoi cela sert réellement et je parie que la plupart des gens resteront avec un seul serveur et n'auront jamais à se soucier de l'export/import !
+
+Voici quelques cas d'utilisation potentiels :
+
+1. Vous avez trouvé un bug, quelque chose ne fonctionne pas correctement et après une discussion avec moi, il n'est pas immédiatement clair ce qui cloche.
+   C'est le moment idéal pour exporter votre campagne et me l'envoyer. Ainsi je peux la déboguer à mon rythme sans avoir à faire des allers-retours avec vous.
+
+2. Vous aimez faire vos propres sauvegardes. Il est toujours possible que quelque chose tourne mal avec un serveur que vous utilisez. Garder une sauvegarde ne fait de mal à personne.
+
+3. Vous allez jouer dans un endroit sans internet. Exportez rapidement votre campagne,
+   importez-la sur un serveur local que vous pouvez exécuter et boum, vous pouvez continuer à jouer là où vous vous étiez arrêté.
+   Dès que vous êtes de nouveau dans un environnement connecté, vous pouvez la réimporter !
+
+4. Vous souhaitez tout simplement changer de serveur PA.
+
+## Sélecteur de couleur
+
+Le sélecteur de couleur s'est vu offrir un nouvel atout amusant et bénéficie également de 2 corrections qui m'agaçaient :D.
+
+### Mémorisation des couleurs précédemment utilisées.
+
+Le sélecteur de couleur mémorise désormais les couleurs que vous avez utilisées (\*).
+Elles sont affichées en bas du sélecteur sur 2 rangées (20 couleurs maximum sont suivies). Vous pouvez cliquer sur l'une de ces couleurs pour la définir comme couleur courante. Passer la souris sur une couleur de la liste affichera également la valeur rgba de cette couleur.
+
+L'historique des couleurs est enregistré par utilisateur, toutes campagnes confondues.
+
+![Mémoire des couleurs](./2022.2/colour-memory.png)
+
+(\*) Une couleur est ajoutée à la liste lorsque vous fermez le sélecteur, _et non_ en dessinant avec elle. Cette dernière option aurait nécessité du code dans toute la base de code, alors qu'à présent cela peut être contenu dans la logique du sélecteur de couleur.
+
+### Bugs
+
+2 bugs du sélecteur de couleur ont également été corrigés.
+
+#### Réinitialisation de l'opacité
+
+Lorsqu'on cliquait sur la barre de couleur (celle au-dessus de la barre d'opacité), l'opacité était souvent réinitialisée à 1 ou 0, au lieu de se souvenir du niveau d'opacité courant.
+
+#### Le panneau de saturation revenant au rouge
+
+Lors de la première sélection d'une couleur sur la barre de couleur puis d'un clic sur le rectangle de saturation, la barre de couleur revenait souvent à sa valeur la plus à gauche (le rouge). Cela ne devrait plus arriver désormais.
+
+## Ajustements de la logique
+
+La logique était l'une des nouvelles choses brillantes de la version 2022.1 et nous sommes là pour polir une partie de ce nouveau glamour !
+
+### Porte : Clarté des icônes
+
+Lorsqu'on survole une porte en mode Play, une icône <Lock /> ou <Unlock /> apparaît.
+C'était juste une icône noire, ce qui la rend difficile à voir sur un fond sombre.
+
+Cette version ajoute une bordure blanche aux icônes afin qu'elles soient toujours visibles.
+
+### Porte : Bloqueurs spécifiables
+
+La première version de la logique de porte visait purement ... les portes.
+Pour une porte standard, les propriétés "bloquer le mouvement" et "bloquer la vision" doivent être activées/désactivées lors de l'ouverture ou de la fermeture.
+Il existe cependant aussi des variantes de portes (par exemple une herse) ou des choses comme des fenêtres où l'on pourrait ne vouloir activer/désactiver qu'une seule propriété.
+
+Vous pouvez maintenant spécifier quel bloqueur la porte doit activer/désactiver au clic.
+
+![Mode de blocage de la porte](./2022.2/door-block-mode.png)
+
+Vous pouvez bien sûr toujours modifier manuellement l'autre propriété de blocage comme bon vous semble. \
+(par exemple, utiliser la logique de porte sur une fenêtre pour ne basculer que la vision afin d'imiter des rideaux, mais modifier la propriété de mouvement si quelqu'un lance une brique à travers la fenêtre)
+
+### Bugs
+
+Plusieurs bugs liés à la logique des formes ont été résolus.
+
+- Droits de porte de l'outil Draw non enregistrés
+- Le bouton de logique de porte ne mettant pas immédiatement à jour l'interface lorsque les propriétés de la forme sont ouvertes
+- Zones de téléportation déclenchées depuis d'autres étages
+- Cas limites d'initialisation de la logique cassant l'interface jusqu'au rafraîchissement
+- Sélecteur de permissions de la logique affichant une erreur dans un cas limite
+
+## Améliorations UI/UX
+
+Quelques changements intéressants ont été faits pour améliorer l'UX et l'UI générale dans certains domaines.
+
+### Affichage plus rapide de l'animation de chargement
+
+Lors de l'ouverture d'une campagne, une belle animation de chargement est affichée.
+Cependant, cette animation ne démarrait qu'à un certain moment et, selon l'ordinateur,
+il pouvait y avoir une courte période où rien ne semblait se passer lors de l'ouverture d'une campagne.
+
+L'animation est maintenant affichée immédiatement après un clic sur une campagne, afin qu'il soit clair que PA fait quelque chose et que vous n'avez pas simplement cliqué par erreur.
+
+### Échelle des dégâts et des badges avec la forme
+
+L'overlay de dégâts de forme et les badges de forme avaient une taille fixe.
+Cela signifiait qu'un badge pour une créature gargantuesque était minuscule et qu'un badge pour une créature minuscule masquait presque entièrement le pion de la créature.
+De plus, cela posait aussi problème avec des tailles de grille différentes.
+
+Cette version ajuste désormais correctement l'échelle de ces éléments avec la taille de la forme à laquelle ils appartiennent.
+
+### Gestion des modales sur Firefox
+
+La gestion des événements dragEnd de Firefox est très incohérente/bugguée, ce qui cassait complètement le glissement des modales.
+Une partie de ce comportement bancal est corrigée dans les versions nightly de Firefox, mais tout ce qui m'agaçait ne sera pas corrigé à court terme sur Firefox. J'ai donc changé la logique des modales pour utiliser plutôt l'événement drop. Cela demande un peu plus de code, mais garantit au moins un comportement similaire sur tous les navigateurs.
+
+### Vue
+
+Le rectangle affichant la vue active des joueurs (lorsqu'elle est activée) utilisait une seule couleur unie qui, comme pour les icônes de porte, n'était pas très lisible selon la couleur de fond. Il utilise maintenant une deuxième couleur pour le contraste.
+
+![Mise à jour de la vue](./2022.2/viewport.png)
+
+### Varia
+
+- Afficher le bouton "non" par défaut dans l'invite de suppression/abandon de campagne
+- Le gestionnaire de ressources met correctement à jour l'interface lors de l'utilisation des boutons précédent/suivant du navigateur
+- En-têtes de navigation du tableau de bord parfois mal stylisés
+
+## Côté serveur
+
+Le serveur a reçu quelques petites modifications, y compris des changements dans la configuration du serveur !
+
+### Rotation des journaux
+
+Le serveur fera désormais une rotation des journaux au lieu d'avoir un seul gros fichier de journal sans fin.
+
+La section General a reçu deux nouvelles propriétés :
+
+```python
+max_log_size_in_bytes = 200_000
+max_log_backups = 5
+```
+
+Pour plus d'informations sur leur fonctionnement, consultez la documentation dans la configuration du serveur.
+
+### Taille des morceaux d'import
+
+Les fichiers de campagne peuvent devenir volumineux parce que les ressources font partie du fichier.
+Pour éviter d'avoir à configurer la taille de téléversement à un nombre absurdement élevé, ce qui serait un risque de sécurité,
+le client enverra plutôt les fichiers d'import par morceaux correspondant à la taille maximale que le serveur accepte.
+
+Cette taille peut maintenant être configurée dans la section Webserver et a pour valeur par défaut 10 Mio.
+
+```python
+max_upload_size_in_bytes = 10_485_760
+```
+
+## Bugs
+
+### Correctifs SVG
+
+Quelques correctifs spécifiques à la section SVG du menu des paramètres supplémentaires des formes :
+
+- La section svg des paramètres supplémentaires ne se mettant pas à jour immédiatement avant de changer d'onglet
+- La suppression d'un svg dans les paramètres supplémentaires ne fonctionnant pas correctement
+- L'ajout d'un svg dans les paramètres supplémentaires ne fonctionnant pas pour les formes sans propriétés svg préalables
+
+### Correctifs Undo/Redo
+
+- La logique de redo lors d'une opération de redimensionnement ne se souvenant pas de la bonne position lorsqu'elle était accrochée
+- L'outil Draw essayant d'ajouter une opération de création de forme à la pile d'annulation lorsque la forme n'était pas valide
+- Undo/Redo non persisté sur le serveur pour les déplacements et rotations
+
+### Divers
+
+- Emplacements d'apparition chargés incorrectement
+- Les points modifiés par l'interface d'édition de polygone ne sont pas accrochables avant un rafraîchissement
+- Le socket des ressources ne nettoyait pas les connexions passées
+- Les auras qui sont des sources de lumière n'apparaissent plus comme un cercle noir du destin lorsque le brouillard de guerre n'est pas activé
+- Le niveau de zoom par défaut d'un emplacement est maintenant 0.2 au lieu de 1.0

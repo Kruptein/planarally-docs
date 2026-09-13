@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+# Grundlæggende serverbrugeradministration
+
+<Info>
+    Denne sektion er meget forældet. Du kan forespørge på flere ting med CLI'et samt opsætte en grundlæggende
+    browservisning til nogle administrative opgaver.
+</Info>
+
+Fra og med v0.22.3 er der ingen grafisk grænseflade til brugeradministration på serverniveau, derfor skal du bruge python-scripts til brugeradministration.
+
+Sørg altid for, at du er i en python-shell, før du kører nogen af disse scripts. Åbn blot en terminal og skriv `python` for at åbne en shell. Du kan afslutte shell'en med `quit()`
+
+PlanarAlly bruger peewee som sit database-orm-værktøj.
+
+## Vis alle brugernavne på serveren
+
+```python
+from src.db.all import User
+[ u.name for u in User.select() ]
+```
+
+## Skift adgangskoden for en bestemt bruger
+
+```python
+from src.db.all import User
+u = User.get(name="*some-username*")
+u.set_password("*new-passowrd*")
+u.save()
+```
+
+## Opret ny bruger som administrator
+
+```python
+from src.db.all import User
+User.create_new("*some-username*", "*some-password*", "*some-email(optional)")
+```

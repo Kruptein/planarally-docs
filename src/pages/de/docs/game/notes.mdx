@@ -1,0 +1,247 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Notizen
+
+Als DM oder Spieler wirst du manchmal das Bedürfnis haben, Notizen zu einem Charakter, einem Ort, einem Ereignis usw. zu machen.
+Diese Seite zeigt dir, was PlanarAlly in Bezug auf die Notizverwaltung zu bieten hat.
+
+## Konzepte
+
+Im Kern sind alle Notizen einfache Container, die Text, einen optionalen Titel und einen Autor enthalten.
+Sie können jedoch auf verschiedene Weise verwendet werden.
+
+Notizen können mit anderen Spielern geteilt oder privat für den Ersteller der Notiz gehalten werden.
+Notizen können auch an Formen angehängt werden, sodass du beim Auswählen der Form schnellen Zugriff auf die Notiz hast.
+Oder einfach, um dich selbst an etwas zu erinnern, das mit der Form zusammenhängt.
+
+Notizen unterstützen Markdown-Formatierung. Weitere Informationen findest du im [Markdown-Tutorial](../../../learn/dm/Markdown_Tutorial/markdown)
+
+### Global vs. lokal
+
+In den meisten Fällen ist eine Notiz nur für die aktuelle Kampagne bzw. den aktuellen Ort relevant.
+Es gibt aber einige Randfälle, in denen du eine Notiz haben möchtest, die kampagnenunabhängig und von überall aus verfügbar ist.
+
+Ersteres wird lokal, Letzteres global genannt.
+Beim Erstellen einer Notiz musst du dich entscheiden, welche Art du anlegen möchtest.
+
+Ein schönes Beispiel für eine globale Notiz ist ein Statblock für ein Monster.
+Kombinierst du dies mit [Asset-Vorlagen](/de/docs/dm/assets/#templates), kannst du einen Goblin auf den Spieltisch ziehen und
+hast eine Notiz mit dessen Statblock angehängt.
+
+## Die Benutzeroberfläche des Notiz-Managers
+
+Im Zentrum der Notiz-Interaktion steht der Notiz-Manager.
+Dieses große UI-Element ermöglicht das Suchen, Filtern und Erstellen von Notizen.
+
+### Öffnen
+
+Der Notiz-Manager kann geöffnet werden, indem du im Seitenmenü auf der linken Seite des Bildschirms auf den Abschnitt „Notes“ klickst.
+
+Er kann auch über die Tastenkombination <kbd>n</kbd> geöffnet und geschlossen werden.
+
+Schließlich kann er auch über das Kontextmenü einer Form oder über das Auswahlinformations-Panel auf der rechten Seite des Bildschirms geöffnet werden, wenn eine Form ausgewählt ist.
+In diesen Fällen wird der Notiz-Manager mit einem Filter geöffnet, der nur Notizen anzeigt, die mit der Form zusammenhängen.
+
+### Hauptansicht
+
+Hier wird die Liste aller derzeit verfügbaren Notizen angezeigt (mit angewendeten spezifischen Filtern).
+
+![Notiz-Manager](./assets/note-manager-list.png)
+
+#### Suchen und Filtern
+
+Das erste große UI-Element ist die Suchleiste, mit der du alle Notizen durchsuchen und filtern kannst.
+
+![Notiz-Manager - Suchleiste](./assets/note-manager-list-search.png)
+
+Die Suchleiste enthält einen Schalter, um zwischen lokalen und globalen Notizen umzuschalten.
+Diese Notizen unterscheiden sich in der Regel stark in ihrer Art und haben daher eine eigene, separate Ansicht.
+
+Das zweite Element ist das eigentliche Suchfeld, in das du deine Suchanfrage eingeben kannst.
+
+PA gleicht alle bekannten Notizen mit dieser Anfrage ab und zeigt die Ergebnisse in der Liste darunter an.
+Wo PA nach deiner Anfrage sucht, hängt von den verwendeten Filtern ab;
+dies kann über das letzte Element der Suchleiste konfiguriert werden.
+
+![Notiz-Manager - Suchfilter](./assets/note-manager-list-filters.png)
+
+Standardmäßig sucht PA in Titel und Tags der Notiz nach deiner Anfrage.
+Es kann jedoch geändert werden, sodass auch der Inhalt der Notiz sowie der Autor durchsucht werden.
+
+Standardmäßig durchsucht PA außerdem nur Notizen, die im aktiven Ort erstellt wurden.
+Dies kann geändert werden, um alle nicht archivierten Orte oder sogar alle Orte der aktuellen Kampagne zu durchsuchen.
+
+Es ist möglich, alle Notizen auszublenden, die an Formen angehängt sind.
+Das kann nützlich sein, wenn du dich auf Notizen konzentrieren möchtest, die eher mit der übergeordneten Geschichte zusammenhängen.
+
+Ein letzter möglicher Filter besteht darin, den lokalen Schalter für globale Notizen zu ignorieren, die an lokale Formen angehängt sind.
+Im Wesentlichen werden damit alle Notizen einbezogen (unabhängig von ihrem lokalen/globalen Status), die an eine Form im aktuellen Ort angehängt sind.
+(z. B. erscheint der globale Statblock eines Goblins in der lokalen Auflistung, wenn sich ein Goblin im aktuellen Ort befindet)
+
+##### Formen-Filter
+
+Es ist möglich, den Notiz-Manager in den Formen-Filtermodus zu versetzen, indem du im Kontextmenü einer Form
+„Notizen anzeigen“ auswählst oder über den Notizen-Bereich der aktiven Formauswahl gehst.
+
+![Notiz-Manager - Formen-Auflistung](./assets/note-manager-list-shape.png)
+
+In diesem Fall werden nur Notizen angezeigt, die an die betreffende Form angehängt sind.
+Die meisten Suchfilter verschwinden bzw. werden deaktiviert, da sie nicht mehr relevant sind. (Beachte, dass sowohl globale als auch lokale Notizen angezeigt werden, die an die Form angehängt sind)
+
+In diesem Modus hängt der Button „Neue Notiz erstellen“ die Notiz außerdem automatisch an die Form an.
+
+<Info>
+    Es ist auch möglich, Notizen über den Tab „shapes“ in der Bearbeitungsansicht an bestehende Notizen anzuhängen.
+</Info>
+
+#### Notizliste
+
+Im Zentrum der Hauptansicht werden für jede Notiz, die der Suchanfrage und den Filtern entspricht, Titel, Autor, Tags und einige Schnellaktionen angezeigt.
+
+Der Titel ist ein klickbarer Link, der die Notiz in der Bearbeitungsansicht öffnet.
+
+Die derzeit verfügbaren zwei Schnellaktionen sind die Bearbeiten- und die Popout-Buttons.
+Das Bearbeiten-Symbol öffnet die Notiz – genau wie ein Klick auf den Titel – in der Bearbeitungsansicht,
+das Popout-Symbol öffnet die Notiz in einem separaten Modal. (Weitere Informationen findest du unter [Popout-Notizen](#popout-notes))
+
+Diese Ansicht wird paginiert, wenn zu viele Notizen den aktiven Filtern entsprechen. In diesem Fall erscheinen oben rechts `<`- und `>`-Buttons.
+
+### Neue Notiz erstellen
+
+Nach dem Klick auf den Button „Neue Notiz erstellen“ in der Hauptlistenansicht erscheint ein neuer Bildschirm, um eine neue Notiz vorzukonfigurieren.
+In dieser Ansicht kannst du den Titel und den Typ der Notiz (global oder lokal) konfigurieren.
+
+Dies geschieht über eine separate Ansicht, um Raum für die Erklärung des Unterschieds zwischen globalen und lokalen Notizen zu schaffen.
+
+![Notiz-Manager - Neue Notiz erstellen](./assets/note-manager-create.png)
+
+Nach dem Erstellen einer Notiz wirst du automatisch zur Bearbeitungsansicht weitergeleitet, um weitere Konfigurationen vorzunehmen.
+
+### Bearbeitungsansicht
+
+Diese Ansicht ist der erweiterte Modus zum Bearbeiten einer Notiz.
+Wenn du zur Hauptansicht zurückkehren möchtest, kannst du den Zurück-Pfeil oben links neben dem Titel der Notiz drücken.
+
+![Notiz-Manager - Bearbeitungsmodus](./assets/note-manager-edit-view.png)
+
+Die Bearbeitungsansicht ist in mehrere Abschnitte unterteilt, von oben nach unten:
+
+#### Titel
+
+Hier wird einfach der Titel der Notiz angezeigt.
+
+Wenn du Bearbeitungsrechte für die Notiz hast, kannst du sie bearbeiten.
+
+Auf der rechten Seite stehen wieder einige Schnellaktionen zur Verfügung.
+Dort gibt es ein weiteres [Popout](#popout-notes)-Symbol sowie ein Papierkorb-Symbol, mit dem die Notiz gelöscht wird.
+
+#### Tags
+
+Hier werden alle Tags angezeigt, die derzeit an der Notiz hängen.
+
+Wenn du Bearbeitungsrechte für die Notiz hast, kannst du Tags hinzufügen oder entfernen.
+
+![Notiz-Manager - Tags](./assets/note-manager-edit-tags.png)
+
+Tags sind frei und können alles sein, was du möchtest, auch wenn sie idealerweise relativ kurz sein sollten.
+Sie dienen PA ausschließlich zum Filtern bzw. Durchsuchen von Notizen, du kannst sie also nach Belieben organisieren.
+
+Einem Tag wird automatisch eine konsistente Farbe zugewiesen, die auf seinem Inhalt basiert.
+
+<Warning>
+    Tags sind für jeden Benutzer sichtbar, der „can view“-Rechte für die Notiz hat. (siehe [Tab „Zugriff“](#tab-access))
+</Warning>
+
+_Die Farberzeugung funktioniert nur in HTTPS-Kontexten, da sie einen SHA1-Algorithmus verwendet. In HTTP-Kontexten wird daher auf eine gräuliche Farbe zurückgegriffen_
+
+#### Tab: Ansicht & Bearbeiten
+
+Diese beiden Tabs arbeiten zusammen und bilden den Kern der Notiz.
+
+Im Tab „Bearbeiten“ kannst du den eigentlichen Inhalt der Notiz in einem Markdown-fähigen Textformat schreiben bzw. bearbeiten.
+Das tatsächlich gerenderte Markdown kannst du dann im Tab „Anzeigen“ sehen.
+
+![Notiz-Manager - Bearbeiten](./assets/note-manager-edit-edit.png)
+
+#### Tab: Trigger & Darstellung
+
+Dieser Tab kann nur geöffnet werden, wenn die Notiz an eine Form angehängt ist.
+
+Er ermöglicht die Konfiguration einiger spezieller Verhaltensweisen für die Notiz.
+
+![Notiz-Manager - Trigger](./assets/note-manager-edit-triggers.png)
+
+Derzeit bietet er zwei Optionen:
+
+Notizsymbol anzeigen: Hiermit wird ein kleines Symbol neben der Form (auf der Karte) angezeigt.
+Das kann dir helfen, dich an eine wichtige Notiz zu erinnern.
+
+Text beim Überfahren der Form anzeigen: Beim Überfahren der Form mit dem Mauszeiger wird der (als Markdown gerenderte) Inhalt der Notiz angezeigt.
+Er erscheint oben in der Mitte des Bildschirms. Beachte, dass eine große Notiz vermutlich einen großen Teil des Bildschirms abdeckt.
+
+#### Tab: Zugriff
+
+In diesem Tab kannst du konfigurieren, wer die Notiz sehen und bearbeiten kann.
+
+Standardmäßig können nur der Autor die Notiz sehen und bearbeiten.
+Du möchtest aber vielleicht allen Spielern Lesezugriff auf eine Notiz geben, die sie irgendwo gefunden haben.
+
+![Notiz-Manager - Zugriff](./assets/note-manager-edit-access.png)
+
+Du kannst auch einzelnen Spielern granular Zugriff gewähren, sodass du versteckte Notizen mit bestimmten Spielern teilen kannst.
+
+Es ist wichtig zu wissen, dass die Tags einer Notiz für Spieler mit Lesezugriff sichtbar sind.
+Achte darauf, dass du nicht versehentlich etwas verrätst, indem du einen Tag wie `faction:evil` oder Ähnliches verwendest.
+
+<Info>
+Wenn du einem Spieler Lesezugriff gewährst (egal ob einem bestimmten oder allen Spielern), erhält er eine Benachrichtigung, dass eine neue Notiz verfügbar ist.
+
+Als DM ist es also eine gute Möglichkeit, deine Spieler über eine bestimmte Information zu informieren, die sie gerade entdeckt haben, indem du einfach Lesezugriff auf eine Notiz gewährst.
+
+</Info>
+
+#### Tab: Formen
+
+Dieser Tab listet alle Formen auf, die derzeit an der Notiz angehängt sind.
+
+![Notiz-Manager - Formen](./assets/note-manager-edit-shapes.png)
+
+Dabei wird zunächst die Anzahl aller Formen über alle Kampagnen hinweg aufgelistet, gefolgt von der Anzahl für den aktiven Ort.
+
+Für den aktiven Ort listet er außerdem alle Formen mit ihrem Namen auf. Ein Klick auf den Namen zentriert deinen Bildschirm auf diese Form.
+Beim Überfahren eines Namens erscheint außerdem ein Papierkorb-Symbol, das die Notiz beim Anklicken von dieser Form löst.
+
+## Popout-Notizen
+
+Manchmal benötigst du häufig Zugriff auf eine oder mehrere Notizen.
+In diesem Fall ist es lästig, ständig den Notiz-Manager zu öffnen und Notizen auszutauschen.
+
+Um das zu lösen, bietet PA die Möglichkeit, eine Notiz in ein separates Modal auszulagern.
+Es können mehrere gleichzeitig geöffnet sein, die sich einzeln verschieben lassen.
+
+![Notiz-Manager - Popout](./assets/note-manager-edit-popout.png)
+
+Ein Popout bietet nur Anzeige- und Bearbeitungsfunktionen; für andere Notiz-Einstellungen musst du den eigentlichen Notiz-Manager öffnen.
+
+Es ist auch möglich, ein Popout zusammenzuklappen, wodurch der Inhalt der Notiz ausgeblendet und nur der Titel angezeigt wird.
+Das ist besonders nützlich, wenn mehrere Popouts geöffnet sind oder du weißt, dass eine bestimmte Notiz gerade nicht mehr relevant ist, aber in naher Zukunft wieder sein wird.
+
+![Notiz-Manager - Zusammengeklapptes Popout](./assets/note-manager-edit-popout-collapsed.png)
+
+## Notizen in der aktiven Formauswahl
+
+PA zeigt auf der rechten Seite des Bildschirms stets ein UI-Element mit kurzen Informationen über die aktuell ausgewählte Form.
+
+Dieser Bereich hat auch einen eigenen Notizen-Abschnitt.
+Er zeigt die Anzahl der angehängten Notizen und ein Symbol, um den Notiz-Manager sofort mit einem Filter zu öffnen, der nur Notizen anzeigt, die mit der Form zusammenhängen. (Weitere Informationen findest du unter [Formen-Filter](#shape-filtering))
+
+![Notizen der Auswahl](./assets/note-manager-selection-notes.png)
+
+Wenn eine oder mehrere Notizen an der Form angehängt sind, kannst du diesen Abschnitt außerdem auf- und zuklappen, um die Notizen aufzulisten.
+So kannst du eine Notiz schnell als Popout öffnen oder im Notiz-Manager öffnen.
+Zusätzlich wird beim Überfahren dieser Notizen der Inhalt der Notiz oben in der Mitte des Bildschirms angezeigt, unabhängig von deren Trigger-Konfiguration.

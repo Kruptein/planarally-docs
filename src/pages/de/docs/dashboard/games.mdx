@@ -1,0 +1,43 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Spiele
+
+<Image src={Dashboard} alt="Dashboard" />
+
+Im Bereich _Spiele_ kannst du Kampagnen erstellen oder eine bestehende Kampagne starten.
+
+Der Bildschirm ist in zwei Bereiche aufgeteilt: einen DM- und einen Spieler-Bereich.
+Beide listen alle relevanten Kampagnen auf, in denen du entweder ein DM oder ein Spieler bist.
+
+Wenn du auf eine Kampagne klickst, klappt sie auf und bietet einige Optionen an.
+
+<Image src={DashboardDmCampaign} alt="Dashboard-DM-Kampagne" />
+<Image src={DashboardPlayerCampaign} alt="Dashboard-Spieler-Kampagne" />
+
+Als DM kannst du das Logo oder den Namen der Kampagne bearbeiten, indem du auf die Stiftsymbole klickst (<PencilAlt />).
+
+<Warning title="Kampagne löschen">
+    Dadurch wird die Kampagne unwiderruflich für dich und *alle* Spieler entfernt.
+</Warning>
+
+## Erstellen
+
+Eine Kampagne zu erstellen ist einfach: Gib einen Namen ein und klicke auf `Go`.
+Du kannst auch ein Logo für die Kampagne wählen, indem du auf das Standard-Logo klickst, das neben dem Namensfeld angezeigt wird.
+
+<Info title="Logo-Upload">Das Logo muss als [Asset](/de/docs/dm/assets/) hochgeladen werden.</Info>
+
+## Beitreten
+
+Um einem Spiel beizutreten, benötigst du die Einladungs-URL. Diese kann der DM im Spiel über die DM-Einstellungen erstellen.

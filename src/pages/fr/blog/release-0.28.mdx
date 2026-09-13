@@ -1,0 +1,133 @@
+---
+title: Correctifs d'été - Release 0.28.0
+date: 2021-07-21 15:00:00
+excerpt: "Quoi de neuf ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+La dernière release était un grand changement technique et je suis heureux de constater que la transition s'est déroulée sans accroc, rien de majeur n'ayant été signalé comme cassé. Cette release apporte un autre changement technique en faisant passer le système de build js de vue-cli (webpack) à vite (esbuild + rollup). Ce changement devrait avoir peu ou pas d'impact sur les utilisateurs finaux, mais augmente considérablement les temps de build !
+
+En dehors du changement technique, quelques améliorations de qualité de vie sont ajoutées, un bon nombre de bugs ont été corrigés et la principale nouveauté est la possibilité de définir une couleur de fond ou une image répétée pour un étage.
+
+## Changements sur les étages
+
+L'interface des étages a été légèrement réduite et n'affiche plus les icônes d'édition et de corbeille. Elle présente désormais à la place un engrenage, couramment utilisé dans PlanarAlly pour désigner les paramètres.
+
+![Changements de l'interface des étages](./0.28/floors.png)
+
+Le renommage et la suppression des étages se font désormais via cette nouvelle interface de paramètres d'étage.
+
+Si vous êtes familier avec les étages, vous remarquerez deux nouveaux paramètres.
+
+_Le fond mérite sa propre section et sera expliqué en détail ci-dessous._
+
+Cette release ajoute le concept de types d'étage, consistant en une liste prédéfinie d'options : underground/ground/air.
+
+Les paramètres d'étage peuvent être configurés au niveau d'un étage spécifique, comme le montre l'interface ci-dessus, mais pourront aussi être configurés au niveau de l'emplacement ou de la campagne, et ce selon le type d'étage.
+
+![Paramètres d'étage de l'emplacement](./0.28/locations.png)
+
+Actuellement, le seul endroit où le type d'étage influence les choses est le paramètre de fond. À l'avenir, j'ai l'intention d'ajouter des améliorations automatiques de performance selon les types d'étage. (par ex. ne pas rendre les étages inférieurs si vous êtes au rez-de-chaussée)
+
+C'est encore très largement une idée avec laquelle je joue et peut-être que je supprimerai la notion de types d'étage à l'avenir pour la remplacer par des paramètres de rendu par étage.
+
+## Remplissage du fond
+
+Dans la plupart des cas, le DM aura préparé une carte pour que les joueurs l'explorent.
+Parfois cependant, une exploration secondaire impromptue peut survenir ou peut-être que les joueurs sortent des limites de votre carte parce qu'ils ont trouvé une faille.
+
+Dans ces cas, le fond blanc par défaut est l'endroit où ils se déplaceront et cela peut être un peu terne. D'autres cartes ou images peuvent bien sûr être ajoutées par le DM, mais parfois vous voulez juste quelque chose qui comble le vide.
+
+Comme il a été laissé entendre plus tôt, il est maintenant possible de configurer le fond d'un étage. Soit pour un étage spécifique, soit pour tous les étages du même type.
+
+### Couleur simple
+
+L'option la plus basique est de définir une seule couleur comme couleur de fond.
+
+![Remplissage de fond basique](./0.28/green.png)
+
+Cela peut rapidement améliorer l'immersion pour donner une sensation herbeuse avec un effort minimal.
+
+### Motifs
+
+Il est cependant aussi possible de définir une image comme fond qui sera répétée dans toutes les directions. Cela permet l'utilisation de tilesets sans couture.
+
+![Remplissage de fond en motif](./0.28/grass.png)
+
+Lors de la fourniture d'une image, il est possible de modifier le décalage et l'échelle du motif.
+
+Le décalage est une valeur en pixels de laquelle décaler le motif par rapport à la grille.
+
+L'échelle est un pourcentage qui affecte la taille du motif.
+
+## Qualité de vie
+
+### Initiative
+
+La release 0.26 a refondu l'interface de l'initiative, cette release ajoute une petite amélioration à ce changement de mise en page en permettant aux joueurs de faire avancer le tour d'initiative si un personnage qu'ils possèdent est en train d'agir.
+
+![Changements de l'interface de l'initiative](./0.28/initiative.png)
+
+### Barre d'outils
+
+Une cause fréquente de confusion est le système de modes de la barre d'outils, et en particulier quel mode est actif. Dans les releases précédentes, le mode actif était affiché à droite de la barre d'outils avec sa première lettre visible. En survolant la lettre, on voyait le nom complet.
+
+Beaucoup de gens n'étaient jamais sûrs de savoir si cela affichait le mode actif ou le mode qui s'activerait au clic.
+
+Cette release corrige cette confusion et affiche tous les modes possibles sous la barre d'outils, le mode actif étant mis en évidence.
+
+![Changement de l'interface des modes de la barre d'outils](./0.28/toolmode.png)
+
+### Aide au dessin
+
+Perdre la trace de l'outil Draw est une autre plainte souvent entendue.
+Une très petite amélioration ajoutée dans cette release est une fine bordure de contraste autour du pinceau pour s'assurer que le pinceau ne se fonde pas dans le fond s'il est de la même couleur.
+
+![Interface d'aide de l'outil Draw](./0.28/drawmode.png)
+
+Ce n'est en aucun cas une solution complète pour ne pas perdre la trace de votre pinceau de dessin, mais c'est un premier petit pas.
+
+Je pense à ajouter un cercle plus grand autour du pinceau si le pinceau est plus petit qu'une certaine taille, mais je ne suis pas encore sûr que les gens en seront satisfaits.
+
+## Corrections
+
+### Sélecteur de couleurs
+
+Le sélecteur de couleurs a été le plus impacté par les changements techniques de la dernière release, car le composant d'origine que j'utilisais n'était pas encore disponible pour vue3, j'ai donc fait ma propre version.
+
+Cette release corrige :
+
+- Garder le focus sur la saturation pendant que le bouton de la souris est enfoncé
+- Augmenter la hauteur des curseurs
+- Corriger le clic du curseur de teinte qui ne bougeait pas au départ
+- Rétablir le fond en damier
+- Afficher cursor\:pointer au survol du curseur
+
+### Annotations
+
+Le composant markdown était un autre élément non encore porté vers vue3. Pour ce composant, j'ai toutefois trouvé un autre outil open source offrant un support markdown dans vue3.
+
+Par défaut, il désactivait cependant certains paramètres de rendu auxquels nous étions habitués avec l'ancien composant. En particulier, un ensemble de changements HTML est à nouveau rendu.
+
+### Autres
+
+#### Outil Draw
+
+Le curseur de l'outil Draw ne mettait pas immédiatement à jour sa couleur lors du choix d'une couleur différente.
+
+#### Initiative
+
+Réordonner les entrées d'initiative générait des erreurs si l'une des entrées n'avait pas encore de valeur.
+
+#### Co-DM
+
+Il n'est plus possible de retirer le statut de DM au créateur de la campagne, ni d'exclure (kick) le créateur.
+
+#### Ressources
+
+Avec l'introduction du support expérimental des svg, un bug a été introduit qui faisait que les propriétés « bloque la vision » et « bloque le mouvement » des ressources (c'est-à-dire le contenu téléversé par l'utilisateur) ne fonctionnaient plus.
+
+#### Notes
+
+Lors du changement d'emplacements, la section des notes était effacée.

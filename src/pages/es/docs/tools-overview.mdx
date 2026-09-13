@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# Resumen de herramientas
+
+PlanarAlly proporciona un conjunto de herramientas para interactuar con el juego y con otros jugadores.
+Los DM disponen de algunas herramientas adicionales adecuadas a sus necesidades.
+La mayoría de estas herramientas, aunque no todas, son accesibles mediante una barra de herramientas en la parte inferior derecha de la pantalla.
+
+<Image
+    src={ToolbarExample}
+    alt="Ejemplo de la barra de herramientas de un DM en modo 'Build' con la herramienta Select activa y el modo listo para cambiarse a Play, mientras la herramienta de filtro puede usarse, pero no la herramienta de visión."
+/>
+
+## Barra de herramientas y modos
+
+Para evitar que la barra de herramientas se llene de opciones, las herramientas se muestran según un modo de la barra.
+Actualmente hay 2 modos, "Play" y "Build": el primero se centra en las herramientas que se usan realmente durante el juego
+y el segundo en las herramientas que se usan sobre todo durante la preparación del DM.
+
+Para cambiar de modo, haz clic en el modo deseado o usa la tecla `Tab`.
+
+A continuación se muestra un resumen de todas las herramientas y en qué modo están disponibles.
+Ten en cuenta que algunas herramientas pueden tener un comportamiento distinto según el modo.
+
+## Referencia rápida de herramientas
+
+| Herramienta                              | Acceso | Modo      | Descripción                                                                                        |
+| ---------------------------------------- | ------ | --------- | -------------------------------------------------------------------------------------------------- |
+| [Select](/es/docs/tools/select/)         | Todos  | Ambos[^1] | Selecciona, mueve, rota o cambia el tamaño de las formas.                                          |
+| [Pan](/es/docs/tools/pan/)               | Todos  | Ambos     | Desplaza tu vista del juego.                                                                       |
+| [Draw](/es/docs/tools/draw/)             | Todos  | Build     | Crea formas de varios tipos básicos.                                                               |
+| [Spell](/es/docs/tools/spell/)           | Todos  | Play      | Mide y lanza hechizos.                                                                             |
+| [Ruler](/es/docs/tools/ruler/)           | Todos  | Ambos     | Mide distancias.                                                                                   |
+| [Ping](/es/docs/tools/ping/)             | Todos  | Play      | Muestra una baliza temporal visible para todos.                                                    |
+| [Map](/es/docs/tools/map/)               | DM     | Build     | Ayuda a cambiar el tamaño de los recursos (sobre todo mapas) para que coincidan con la cuadrícula. |
+| [Vision](/es/docs/tools/vision/)         | Todos  | Play[^2]  | Limita qué personajes contribuyen a la visión.                                                     |
+| [Zoom](/es/docs/tools/zoom/)             | Todos  | Ambos[^3] | Acerca o aleja una porción del juego.                                                              |
+| [Initiative](/es/docs/tools/initiative/) | Todos  | Ambos[^3] | Realiza un seguimiento del orden de iniciativa y de los efectos temporizados.                      |
+| [Undo/Redo](/es/docs/tools/undo/)        | Todos  | Ambos[^3] | Deshace y rehace ciertas acciones.                                                                 |
+
+[^1]: La funcionalidad varía según el modo.
+
+[^2]: Solo visible en la barra de herramientas cuando realmente se puede usar.
+
+[^3]: No forma parte de la barra de herramientas.

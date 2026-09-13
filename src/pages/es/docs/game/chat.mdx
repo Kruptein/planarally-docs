@@ -1,0 +1,28 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# **Chat**
+
+El chat dentro del juego, desde la versión 2024.3, ahora es posible simplemente haciendo clic en el botón `Chat` en la parte inferior izquierda de la ventana de vista.
+
+![Botón de chat](assets/chat_button_default.png)
+
+Cuando cualquier usuario envía un mensaje de chat, aparecerá un número de mensajes no leídos junto al botón.
+
+![Botón de chat con mensajes pendientes](assets/chat_button_waiting.png)
+
+La ventana de chat acepta entradas en Markdown, lo que significa que se pueden incluir estilos y enlaces, así como un formato más avanzado. Consulta el [Tutorial de Markdown](../../../learn/dm/Markdown_Tutorial/markdown)
+
+![Ejemplo de chat](assets/chat.png)
+
+<Warning title="Persistencia del chat">
+    El chat no se almacena en el servidor. Es efímero y desaparecerá cuando actualices la página o la conexión se
+    restablezca.
+</Warning>
+
+El chat se puede desactivar desde la pestaña `Feature` de la `configuración del DM` desmarcando la casilla de habilitar el chat.
+
+![Alternar chat](assets/chat_toggle.png)

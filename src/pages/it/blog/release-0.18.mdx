@@ -1,0 +1,170 @@
+---
+title: Release 0.18.0 - What's new!
+date: 2019-11-15 21:02:34
+excerpt: "Un tuffo nelle nuove novità dell'imminente release 0.18.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+È passato un po' di tempo (~5 mesi) dall'ultima release di PlanarAlly. Questo ritardo è stato causato in parte dalla mia campagna personale che mi ha richiesto molto tempo, ma anche da alcune funzionalità tecniche che non sono nemmeno pronte per questa release :(.
+
+Lo sviluppo però non si è fermato nel frattempo! Abbiamo ricevuto molti bei contributi a PA da @Daniferitto e @CalebKoch, per citarne alcuni.
+
+Gli argomenti menzionati in questo aggiornamento della release sono elencati a sinistra, il changelog completo si trova su [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.18.0).
+
+Prima di immergermi nell'elenco dei cambiamenti vorrei anche segnalare un paio di importanti cambiamenti alla versione 0.19.0 di PlanarAlly.
+
+##### Cambiamenti all'orizzonte (0.19.0+)
+
+Fino ad ora c'era la possibilità di scegliere tra la più recente modalità di visione "triangolo" o la più vecchia modalità "bhv".
+
+A partire dalla 0.19.0, la modalità bhv sparirà. Non ha ricevuto fix di recente ed è semplicemente inferiore in ogni aspetto rispetto alla modalità triangolo.
+
+Un'altra modalità di visione farà il suo ingresso nella 0.19 che chiamerò 'triangle+'.
+È lo stesso algoritmo di visione ma, invece di dover ricalcolare l'intera triangolazione a ogni cambiamento, cambierà effettivamente la triangolazione in tempo reale.
+
+Questo significa che qualsiasi bug in questo sistema può danneggiare irreversibilmente la triangolazione, motivo per cui la lancio come funzionalità opzionale per iniziare.
+
+Questa nuova modalità di visione dovrebbe essere anche più veloce dell'esistente modalità triangolo, poiché non dovrà ricalcolare l'intero spazio di visione dopo un piccolo cambiamento.
+
+## Personalizzazione
+
+### Unità di lunghezza
+
+Per primo nell'elenco c'è l'aggiunta per cambiare la rappresentazione dell'unità per la distanza. Fino ad ora questo era sempre codificato in piedi (cioè ft.) soprattutto perché i libri di regole dnd ufficiali lo usano per tutto.
+
+Ora è possibile scegliere la rappresentazione per ogni luogo. Quindi potresti avere un luogo "worldmap" con unità in km e un'altra mappa "città" con unità in metri!
+
+Per cambiare l'unità di misura del luogo attivo, vai nelle impostazioni del DM e apri la scheda griglia.
+
+<video src="/blog/release-0.18/size-units.webm" type="video/webm" autoplay loop></video>
+
+## Strumenti
+
+#### Clic destro in ogni strumento
+
+In precedenza il menu del clic destro era disponibile solo quando lo strumento select era attivo, il che era piuttosto fastidioso e quindi è stato fatto il cambiamento per fornirlo in ogni strumento.
+
+#### Strumento ping
+
+Una nuova aggiunta alla lista degli strumenti è lo strumento ping.
+
+Un comune lifehack in passato era usare il ruler e ruotarlo rapidamente per attirare l'attenzione su una certa area della mappa. Ovviamente questo è tutt'altro che ottimale e quindi è nata la necessità di una sorta di strumento ping.
+
+Questo nuovo strumento ping è un'implementazione molto minimale che offre una soluzione al problema sopra descritto, fornendo al DM e ai giocatori una forma leggermente più elegante per evidenziare dove vogliono attirare l'attenzione.
+
+<video src="/blog/release-0.18/ping-tool.webm" type="video/webm" autoplay loop></video>
+
+L'idea è di espanderlo ulteriormente in futuro con alcune opzioni di animazione per ingrandire/rimpicciolire il simbolo del ping.
+
+### Strumento select
+
+#### Operazioni di gruppo
+
+Spostare un gruppo di segnalini su livelli diversi in passato doveva essere fatto segnalino per segnalino.
+
+Ora l'intera selezione può essere spostata sul livello desiderato in una volta sola!
+
+<video src="/blog/release-0.18/group-select.webm" type="video/webm" autoplay loop></video>
+
+#### Selezione dei segnalini con ctrl
+
+Insieme alla selezione di gruppo è stata aggiunta un'altra miglioria alla qualità della vita allo strumento select.
+
+Ora puoi aggiungere forme alla selezione attiva usando il tasto ctrl. Puoi fare clic con ctrl su una singola forma per aggiungerla o trascinare una nuova casella di selezione tenendo premuto ctrl per aggiungere più forme in una volta.
+
+<video src="/blog/release-0.18/ctrl-select.webm" type="video/webm" autoplay loop></video>
+
+### Strumento draw
+
+#### Escape per annullare
+
+Ora è possibile annullare il disegno della forma attiva premendo il tasto escape.
+
+<video src="/blog/release-0.18/escape.webm" type="video/webm" autoplay loop></video>
+
+#### Poligoni aperti
+
+Lo strumento poligono era già uno dei miei strumenti più usati, ma ora con l'aggiunta dei poligoni aperti è diventato il mio metodo preferito per creare rapidamente muri e altri oggetti che bloccano la luce.
+
+Proprio come la variante chiusa, il poligono aperto è una forma che può essere disegnata cliccando dove vuoi aggiungere un punto alla forma del poligono e facendo clic destro per segnalare che la forma è completa.
+Tuttavia **non** crea una connessione automatica tra il primo e l'ultimo punto del poligono.
+
+Un'altra differenza è che il poligono aperto non ha colore di riempimento poiché non c'è un'area tra i punti che viene riempita.
+
+Uso questa forma estensivamente per disegnare rapidamente muri.
+
+<video src="/blog/release-0.18/openpolygon.webm" type="video/webm" autoplay loop></video>
+
+#### Dimensione del pennello per i poligoni
+
+Insieme all'aggiunta dei poligoni aperti, i poligoni ora hanno anche una dimensione del pennello proprio come lo strumento paint-brush.
+
+<video src="/blog/release-0.18/brushsize.webm" type="video/webm" autoplay loop></video>
+
+#### Bordi dei cerchi verso l'interno
+
+Poiché la creazione di segnalini circolari spesso doveva essere ridimensionata per entrare in una cella della griglia, è stata presa la decisione di rendere i bordi dei cerchi verso l'interno.
+
+## Livelli
+
+### FOW invisibile in tutto
+
+Ogni forma sul livello FOW è ora invisibile quando viene selezionato un altro livello.
+In passato questo si applicava solo alle forme che avevano attiva l'opzione visionObstruction, ma ora si applica a tutte le forme sul livello.
+Questo riguarda puramente la visibilità effettiva della forma, qualsiasi aura applicata alla forma sarà comunque visibile!
+
+Questo permette di impostare le luci senza che siano visibili ai giocatori o di creare muri invisibili trasparenti e altre cose utili.
+
+## Barra dei luoghi
+
+### Colore del luogo attivo
+
+Un bel miglioramento alla qualità della vita porta un colore di evidenziazione al luogo attualmente attivo nella barra dei luoghi, così sei sicuro di dove ti trovi ;).
+
+## Bug fix
+
+Un breve elenco dei bug fix più importanti.
+
+### Rivelazione di dati privati durante lo spostamento
+
+Il bug fix più importante è quello in cui durante lo spostamento di una forma, le impostazioni specifiche del DM andavano perse e quindi alcune informazioni diventavano pubbliche per i giocatori,
+incluse le aure e altre impostazioni legate alla visione.
+
+Questo risultava in alcune aree della mappa che diventavano improvvisamente visibili durante un movimento del mouse, ma poi venivano di nuovo rivelate quando il mouse veniva rilasciato.
+Ora questo dovrebbe comportarsi correttamente.
+
+### Le aure di luce attraversano i muri
+
+Un altro fastidioso bug che è stato schiacciato è legato alle aure di luce.
+
+Per il livello di controllo la visione veniva correttamente tagliata ai confini di visione come i muri, per il DM e altri potenziali giocatori invece l'aura mostrava un'area visibile corretta, ma inoltre passava dritta attraverso il muro.
+
+### Lo stato di blocco funziona correttamente all'ingresso
+
+La nuova funzionalità di blocco per i DM appariva sempre come 'sbloccato' all'ingresso in una sessione anche quando la sessione era bloccata.
+
+### Segmenti di anteprima dei poligoni
+
+Quando si disegna un poligono, viene sempre mostrata in anteprima una linea che parte dall'ultimo punto cliccato verso il puntatore del mouse. Questa linea appariva sempre nera invece di usare i colori di disegno attivi.
+
+### Sessioni con barra
+
+Le sessioni con una barra nel nome non funzionavano.
+
+### Larghezza dello zoom del ruler
+
+Lo strumento ruler aveva una larghezza incoerente tra i vari livelli di zoom. Ora ha la stessa larghezza sullo schermo a qualsiasi livello di zoom.
+
+### Il brushhelper che rimaneva
+
+Il brush helper (il puntino di anteprima) spesso rimaneva in alcuni casi limite. Ora dovrebbe scomparire correttamente quando si cambiano strumenti o livelli.
+
+### Forme temporanee che rimanevano
+
+Quando un giocatore usciva o si riconnetteva mentre disegnava una forma temporanea, questa spesso rimaneva finché tutti non facevano un refresh.
+Ora questo dovrebbe essere pulito correttamente alla disconnessione del giocatore.
+
+### Cerchi negativi
+
+In certe circostanze era possibile tentare di creare un cerchio con un raggio negativo. Questo tentativo rompeva la pagina.

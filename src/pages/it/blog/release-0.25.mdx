@@ -1,0 +1,134 @@
+---
+title: Lancia incantesimi e annulla le tue azioni passate - Release 0.25.0
+date: 2021-02-07 13:30:00
+excerpt: "Una panoramica delle nuove chicche"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import EditAssetTrackersPicture from "../docs/game/assets/edit-asset-trackers.png";
+
+Per la seconda release dell'anno, ho ottenuto una release forse un po' più piccola del solito, ma ha comunque un certo impatto.
+
+Questa release contiene un paio di funzionalità che i giocatori apprezzeranno davvero!
+
+## Revisione delle aure
+
+Innanzitutto, una delle mie funzionalità preferite di questa release è una revisione delle aure!
+
+<Image src={EditAssetTrackersPicture} width={1000} aspectRatio={1371 / 958} alt="Esempio di tracker dell'asset" />
+
+La maggior parte noterà subito il drammatico cambiamento della UI che ha subito la sezione delle aure, ma l'occhio allenato noterà anche 3 nuove funzionalità aggiunte.
+
+### Modifiche alla UI
+
+La UI è stata modificata in modo che solo le informazioni di base siano visibili per impostazione predefinita (nome + abilitato/disabilitato) e quando si apre un'aura si possono vedere tutti i dettagli.
+Un altro grande cambiamento è che le criptiche icone delle aure ora hanno etichette testuali dedicate per evitare qualsiasi confusione.
+
+### Abilita/Disabilita
+
+In passato non c'era un modo esplicito per disabilitare un'aura; si poteva rimuoverla o impostare i suoi valori di raggio a 0.
+
+Entrambe queste azioni sono alquanto fastidiose e quindi ora finalmente c'è un interruttore dedicato visibile in ogni momento.
+
+### Bordo
+
+In passato il bordo era invisibile, ma ora è possibile specificare un colore per il bordo.
+
+Questo è particolarmente utile con aure che non sono fonti di luce, dove potresti voler tracciare qualcosa ma non vuoi avere l'intera aura riempita di colore, dato che potrebbe diventare un pasticcio visivo se ci sono molte aure in corso. Quindi ora puoi rendere l'aura trasparente ma darle, ad esempio, un bordo nero pieno.
+
+### Coni
+
+L'ultimo cambiamento è la capacità di cambiare l'aura per non coprire un cerchio completo, ma limitarsi a un cono.
+
+Il parametro dell'angolo contiene 2 strumenti di input, il primo un normale campo numerico per scegliere l'ampiezza dell'angolo,
+il secondo per scegliere l'effettiva direzione verso cui l'aura deve puntare.
+
+Questa è una funzionalità più di nicchia, che non mi aspetto venga usata molto, ma le persone possono usarla per alcune regole di visione hardcore, fonti di luce speciali o semplicemente qualsiasi cosa venga in mente!
+
+## Annulla/Ripeti
+
+Una funzionalità spesso richiesta, per buone ragioni, è la capacità di annullare le azioni.
+
+Questa release aggiunge una prima versione della funzionalità di annullare e ripetere, limitata a un insieme iniziale di azioni.
+Queste azioni sono:
+
+- movimento delle forme
+- rotazione delle forme
+- ridimensionamento delle forme
+- cambio piano
+- cambio livello
+- creazione/rimozione delle forme
+
+Questo dovrebbe coprire alcune cose di base (spostarsi in giro) e anche la cosa più importante che è fastidiosa: la rimozione accidentale delle forme.
+Quindi cose come modifiche specifiche alle proprietà e simili non sono ancora annullabili, ma c'è una base con cui lavorare.
+
+ctrl+z serve per annullare le azioni, ctrl+shift+z serve per ripetere le azioni.
+
+Attualmente c'è una memoria delle azioni fissa di 50 azioni.
+
+_Perché non ctrl+r per ripetere? Sovrascriverebbe un comune tasto di ricaricamento del browser, cosa che preferisco evitare._
+
+## Lancio di incantesimi
+
+Una richiesta che ho avuto un paio di volte è di fornire qualcosa che permetta di lanciare incantesimi o almeno alcuni strumenti per vedere se certi nemici verrebbero colpiti da un certo incantesimo.
+
+Ora vedrai un nuovo strumento apparire nella barra degli strumenti (in play mode) opportunamente chiamato 'Spell' che ti permetterà di fare proprio questo!
+
+Ecco una piccola anteprima di cosa aspettarti:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+Come si può vedere, hai la scelta di selezionare tra 3 forme di base (cerchio/quadrato/cono) e puoi configurare cose come dimensione e raggio dell'incantesimo.
+
+Il comportamento predefinito è focalizzato solo sulla misurazione, vedere quale sarebbe l'impatto degli incantesimi,
+ma quando fai clic con il tasto sinistro in realtà "lanci" l'incantesimo e l'effetto rimarrà sul campo di battaglia!
+
+Per maggiori informazioni su come funziona lo strumento Spell vedi [la documentazione](/it/docs/tools/spell/)
+
+## Archiviazione dei luoghi
+
+Quando una campagna va avanti per molto tempo, arriva il momento in cui la tua barra dei luoghi potrebbe riempirsi.
+Puoi conviverci e scorrere verso destra o trascinare manualmente i luoghi attivi a sinistra.
+
+Con questa release c'è ora l'opzione di archiviare i luoghi. Questo semplicemente li nasconde dalla barra ma li lascia per il resto intatti.
+L'archiviazione viene fatta dalle impostazioni del luogo.
+
+Un nuovo pulsante UI viene aggiunto a sinistra della barra dei luoghi per ripristinare i luoghi archiviati nella barra.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/archive.webm" type="video/webm" />
+    <source src="/blog/release-0.25/archive.mp4" type="video/mp4" />
+</video>
+
+## Annotazioni pubbliche
+
+Una funzionalità più piccola è che ora c'è un'opzione per rendere pubbliche le annotazioni delle forme.
+
+## Correzioni degne di nota
+
+### Barra dei luoghi (DM)
+
+La posizione dei giocatori ora viene aggiornata con precisione in tempo reale quando vengono spostati in un altro luogo come parte di un teletrasporto a uno spawn.
+
+### Aure private dello strumento Vision
+
+Lo strumento Vision è un bel strumento da avere quando controlli più personaggi su 1 schermo.
+Tuttavia non teneva correttamente conto dell'impostazione pubblica/privata delle aure e mostrava sempre tutte le aure dei segnalini che controlli, anche se avevi disabilitato la visione di uno dei segnalini.
+
+### Nuovi piani che non funzionavano fino al refresh
+
+Quando crei nuovi piani, non avrai più bisogno di un refresh perché non erano triangolati correttamente.
+
+### Sincronizzazione dei nomi delle forme
+
+Quando si attiva/disattiva la visibilità dei nomi delle forme c'erano alcuni problemi di sincronizzazione che sono stati risolti.
+
+### Visione su più piani
+
+C'era un bug che è sfuggito di recente che permetteva alle aure su un piano di illuminare anche le cose sui piani sottostanti.

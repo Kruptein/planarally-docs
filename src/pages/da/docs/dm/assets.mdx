@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# Aktiver
+
+Aktivmenuen bruges til at indsætte aktiver i dit spil.
+Disse kan være kort, tokens, objekter eller hvad som helst andet, du ønsker at indsætte.
+For at få adgang til denne menu skal du klikke på <Cog />-ikonet og klikke på "Assets" i dropdown-menuen.
+
+## Placér aktiver
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Asset usage example" />
+
+For at bruge dine aktiver skal du først åbne aktivfanen.
+Åbn derefter den mappe, hvor du har gemt dine filer.
+Til sidst trækker du aktivet ind på spillebordet.
+Dit aktiv kan nu manipuleres.
+
+Alternativt kan du også søge efter et aktiv ved hjælp af søgefeltet.
+Dette filtrerer mapper og undermapper fra, der ikke har elementer, der matcher din søgeforespørgsel.
+
+<Tip title="Aktivets dimensioner">
+    Hvis aktivets navn indeholder dimensionsoplysninger, vil PA automatisk tilpasse aktivets størrelse korrekt.
+
+    fx goblin_5x5
+
+</Tip>
+
+### Skabeloner
+
+På ethvert tidspunkt kan du gemme tilstanden for et aktiv fra højrekliks-kontekstmenuen.
+
+Denne tilstand inkluderer standardegenskaber, men også trackers, auraer og dimensioner (bredde og højde).
+
+Når du slipper et aktiv på spillebordet, der har skabeloner tilknyttet, vil du få en prompt til at vælge en skabelon i stedet for den tomme basis-preset.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Dette kan være meget praktisk til at genbruge nogle tokens, du ofte bruger, til at forududfylde ting som HP og lyskilder.
+
+### Varianter
+
+<Warning title="Eksperimentelt!">
+    Denne funktion er eksperimentel! Der forventes nogle kanttilfælde, så meld venligst fejl på [issue-trackeren på
+    GitHub](https://github.com/Kruptein/PlanarAlly/issues), hvis du støder på nogen!
+</Warning>
+
+Du kan tilføje _varianter_ til objekter for at give dem et andet udseende uden at skulle oprette en ny token og fjerne den forrige.
+Populære brugstilfælde kunne være en druides wildshape, alternativ kunst til karakterer, bossfigurer i flere faser, overraskelsesafsløringer osv.
+
+For at tilføje en variant skal du bruge `+`-knappen nederst i basisobjektets redigeringsvindue.
+Ved at klikke på blyanten <PencilAlt/> kan du redigere navnet på den aktive variant.
+Bemærk, at navnet på en variant ikke er forbundet med objektets navn!
+
+Mens basisobjektet kan være enhver form (Shape, Token eller Asset), kan kun _aktiver_ tilføjes som varianter.
+Til enhver tid er kun én variant af et objekt synlig og kan byttes ud med en anden.
+
+Hver variant beholder sin egen størrelse, egenskaber, trackers og auraer.
+Trackers og auraer kan konfigureres til at blive delt mellem alle varianter.
+En nyoprettet variant vil ikke have nogen af de anvendte indstillinger, som basisvarianten har.
+Dette inkluderer adgangsrettigheder, generelle formegenskaber (fx navn) eller annotationer!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Du kan slette en variant ved hjælp af skraldespanden <TrashAlt />-knappen.

@@ -1,0 +1,132 @@
+---
+title: Release 0.22.0 - Hvad er nyt!
+date: 2020-08-26 20:00:00
+excerpt: "Hvad er nyt i 0.22.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Det er mere end 2 måneder siden den sidste udgivelse, så vi er længe for sent på den med en opdatering!
+Denne udgivelse pakker ikke en masse nye funktioner, men pakker én stor: rotation!
+Andre ting i denne udgivelse er en hel del performanceforbedringer, nogle livskvalitetsændringer til etager og en masse mindre ændringer og rettelser.
+
+## Rotation
+
+At rotere former er en ofte efterspurgt funktion, af oplagte grunde.
+Det er dog en mere teknisk ændring, der krævede nogle justeringer i kernen af tegnelogikken,
+men det hele lykkedes i sidste ende.
+
+Rotation udføres i select-værktøjet, men kun i build-tilstand (ligesom skalering).
+Når du går ind i build-tilstand, vil et rotationsspecifikt UI dukke op (en linje med en kugle).
+Ved at gribe kuglen og bevæge dig rundt kan du rotere en form frit omkring dens centrum.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Når flere former er markeret, vil rotations-UI'et blive tegnet omkring hele gruppen og giver mulighed for at rotere alle former på én gang.
+Denne rotation udføres igen i forhold til midten af denne rotationsramme!
+
+Derudover vil rotationen snap til rene 45-graders vinkler, når du bruger snapping.
+
+## Etage-livskvalitetsforbedringer
+
+Jeg er virkelig begyndt at kunne lide etager, men der var stadig nogle mindre smertepunkter, som jeg håber at tage fat på her.
+
+### Tilgængelighed
+
+DM'en kan nu slå etagers tilgængelighed til. Specifikt betyder det, at de kan forhindre spillere i manuelt at gå til en bestemt etage.
+
+**Dette forhindrer ikke syn på en etage på det faktiske spillefelt** (f.eks. en spiller på en højere etage, der kigger ud af et vindue på et græsareal nedenunder)
+
+### Omdøb
+
+Etager kan nu omdøbes, woo.
+
+### Visningsrækkefølge
+
+Rækkefølgen, hvori etager vises i popup-menuen, er nu vendt om. Den følger nu en mere logisk rækkefølge, hvor det øverste indslag er den højeste etage.
+
+### Omrokering
+
+Det er nu også muligt at omrokere etager ved at trække dem rundt. Så du behøver ikke længere sørge for, at alt er planlagt på forhånd, eller flytte en masse ting rundt manuelt!
+
+### Krigståge-fejl
+
+Der blev tilføjet en unødvendig mængde krigståge til lavere etager, hvilket gjorde dem mørkere.
+
+## Performanceforbedringer
+
+En hel del performancetilpasninger er blevet lavet, som burde have stor indvirkning!
+
+### Opstartstid
+
+Nogle ændringer i websocket-håndteringen gør, at klienten nu reagerer meget hurtigere på serverdata,
+hvilket til gengæld burde afspejles i hurtigere visuel indlæsning på alle kort.
+
+Derudover indlæses etager nu separat ved opstart, hvor den sidst besøgte etage indlæses først.
+Det burde forbedre tiden til første maling dramatisk på kort med mange etager.
+
+Fontawesome-ikoner, der bruges i hele UI'et, indlæses nu med et vue-bibliotek. Tidligere blev alle ikoner indlæst med et fontawesome.js-script; nu indlæser vi kun de ikoner, der faktisk bruges, hvilket sparer en masse data!
+
+Spilløkken startes nu kun, når den første etage ankommer. Det er en ret lille forbedring i det store billede, men en rar forbedring alligevel.
+
+### Andet
+
+En anden stor forbedring er lavet i formbevægelse. Gruppe-flytninger håndteres mere effektivt, og der kræves også mindre data for hver formflytning.
+
+En sidste forbedring er, at pan vil udsætte opdateringen af ikke synlige etager, indtil pan-handlingen er færdig, hvilket igen gavner kort med mange etager.
+
+## Diverse
+
+- Der er nu et lås/oplås-kontaktsikon i markeringens UI
+- Ruler-afstandslæsbarheden er forbedret
+- Grid-pixelstørrelsen er nu en klientfunktion, som giver spilleren mulighed for at vælge denne værdi afhængigt af hvilken visningsmetode de bruger (f.eks. projektor vs. bærbar skærm)
+
+## Fejlrettelser
+
+- Aura vises ikke, når token'et er uden for det synlige canvas
+- Firefox-lokationsscrollbar, når venstre menu er åben
+- Nogle betydelige performance-flaskehalse
+- Serveren afslutter nu med henvisning til docs/tutorial, hvis klienten ikke var bygget før start
+- Foretræk snappede punkter frem for grid-snapping
+- Fjern hvidt ikon i øverste venstre menu-UI
+- Flytning af polygoner med tastatur flyttede kun oprindelsespunktet
+- Degenererede tilfælde i triangulering
+    - Trianguleringskoden kunne ramme et degenereret tilfælde ved håndtering af små talafvigelser i størrelsesordenen 1e-15
+    - Nu tager trianguleringskoden kun de første 10 cifre efter kommaet i betragtning for at forhindre numerisk ustabilitet.
+- Mouseleave-begivenheder blev ikke udløst i nogle tilfælde (f.eks. alt-tab), hvilket kunne få nogle former (f.eks. rulers) til at forblive på skærmen
+- Map-værktøjets skalering replikeres ikke
+- Centerberegning af polygoner med gentagne punkter
+- Lokationsflyttet form forsvinder nu korrekt på den gamle lokation
+
+## Refleksion over "Op på trapperne"
+
+I sidste udgivelse tilføjede jeg en "Op på trapperne"-sektion for at skitsere nogle af tingene på køreplanen. Jeg ville reflektere over, hvad status er, med denne udgivelse fuldført.
+
+##### gjort
+
+- rotation
+- Genarbejde opstartssekvensen
+- Flyt til fontawesome-vue
+- Etage-offentlig synlighed
+- Etage-værktøjsforbedringer
+- Hurtig indlæsning af nuværende etage
+
+##### delvist gjort
+
+- forberedende arbejde på metadata/eksport/import
+
+##### ikke gjort
+
+- In-game asynkron aktivliste
+- Polygon-forbedringer
+- Udvid aura-muligheder
+- Forbedr markøren i draw-værktøjet
+- Hex-grid
+- Blurhash
+- Flere spawn-lokationer
+- Flere grupperingsmuligheder
+
+Selvom denne udgivelse tog lidt længere tid, er jeg stadig glad for 6 ud af 15 gjort. :)

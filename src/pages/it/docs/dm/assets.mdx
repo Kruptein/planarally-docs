@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# Asset
+
+Il menu degli asset viene utilizzato per inserire asset nel tuo gioco.
+Possono essere mappe, segnalini, oggetti o qualsiasi altra cosa tu voglia inserire.
+Per accedere a questo menu, fai clic sull'icona <Cog /> e clicca su "Assets" nel menu a discesa.
+
+## Posizionare gli asset
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Esempio di utilizzo di un asset" />
+
+Per utilizzare i tuoi asset, apri prima la scheda degli asset.
+Poi, apri la cartella in cui hai salvato i tuoi file.
+Infine, trascina l'asset sul tavolo di gioco.
+Il tuo asset sarà ora pronto per essere manipolato.
+
+In alternativa, puoi anche cercare un asset usando la barra di ricerca.
+Questo filtrerà cartelle e sottocartelle che non contengono elementi corrispondenti alla tua query di ricerca.
+
+<Tip title="Dimensioni dell'asset">
+    Se il nome dell'asset contiene informazioni sulle dimensioni, PA dimensionerà automaticamente l'asset in modo corretto.
+
+    es. goblin_5x5
+
+</Tip>
+
+### Modelli
+
+In qualsiasi momento puoi salvare lo stato di un asset dal menu contestuale del tasto destro.
+
+Questo stato include le proprietà predefinite ma anche tracker, aure e dimensioni (larghezza e altezza).
+
+Quando trascini un asset sul tavolo a cui sono associati dei modelli, riceverai una richiesta per scegliere un modello invece del preset vuoto di base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Questo può essere molto utile per riutilizzare segnalini che usi frequentemente per precompilare elementi come HP e sorgenti luminose.
+
+### Varianti
+
+<Warning title="Sperimentale!">
+    Questa funzione è sperimentale! Potrebbero verificarsi alcuni casi limite, quindi segnala eventuali bug [al tracker
+    dei problemi su GitHub](https://github.com/Kruptein/PlanarAlly/issues) se ne incontri!
+</Warning>
+
+Puoi aggiungere delle _varianti_ agli oggetti per dare loro un aspetto diverso senza dover creare un nuovo segnalino e rimuovere quello precedente.
+I casi d'uso più comuni sono la forma selvatica di un druido, immagini alternative per i personaggi, boss a più stadi, rivelazioni a sorpresa, ecc.
+
+Per aggiungere una variante, usa il pulsante `+` in fondo alla finestra di modifica dell'oggetto di base.
+Cliccando sulla matita <PencilAlt/>, puoi modificare il nome della variante attiva.
+Nota che il nome di una variante non è collegato al nome dell'oggetto!
+
+Mentre l'oggetto di base può avere qualsiasi forma (Forma, Segnalino o Asset), solo gli _asset_ possono essere aggiunti come varianti.
+In qualsiasi momento, solo una variante di un oggetto è visibile e può essere sostituita con un'altra.
+
+Ogni variante mantiene le proprie dimensioni, proprietà, tracker e aure.
+I tracker e le aure possono essere configurati per essere condivisi tra tutte le varianti.
+Una variante appena creata non avrà nessuna delle impostazioni applicate alla variante di base.
+Questo include i diritti di accesso, le proprietà generali della forma (es. nome) o le annotazioni!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Puoi eliminare una variante usando il pulsante del cestino <TrashAlt />.

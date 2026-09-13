@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Schnellreferenz
+
+## Standard-Ebenen
+
+Weitere Informationen zu Ebenen findest du in der [Ebenen-Dokumentation](/de/docs/dm/layers/).
+
+| Name   | Für Spieler sichtbar | Für Spieler bearbeitbar | Kurzbeschreibung                                                                             |
+| ------ | -------------------- | ----------------------- | -------------------------------------------------------------------------------------------- |
+| Map    | Ja                   | Nein                    | Ebene unter dem Raster, normalerweise für Karten-Assets verwendet                            |
+| Grid   | Ja                   | Nein                    | Auch für den DM nicht auswählbar, kann aber in den Sitzungseinstellungen konfiguriert werden |
+| Tokens | Ja                   | Ja                      | Der wichtigste Spieltisch                                                                    |
+| DM     | Nein                 | Nein                    | Ein Ort, an dem der DM Objekte platziert, die für Spieler verborgen sind                     |
+| Vision | Ja                   | Nein                    | Alle Formen hier sind auf anderen Ebenen unsichtbar                                          |
+
+## Tastenkürzel
+
+Verwende auf einem Mac `Command` anstelle von `Ctrl`.
+
+### Bewegung
+
+Ein großer Teil der Tastenkürzel dient dazu, Formen oder den Bildschirm zu bewegen.
+
+| Taste/Modifikator            | Kontext       | Aktion                                                                        |
+| ---------------------------- | ------------- | ----------------------------------------------------------------------------- |
+| Pfeiltasten, Numpad 1-4, 6-9 | leere Auswahl | Bewegt den Spieltisch um 1 Rasterzelle in die gedrückte Richtung              |
+|                              | Auswahl       | Bewegt die ausgewählten Formen um 1 Rasterzelle in die gedrückte Richtung     |
+| Leertaste, Numpad 0          |               | Zentriert den Bildschirm auf dem nächsten Token (wechselt durch eigene Token) |
+| Shift                        | Auswahl       | Bewegt Formen durch bewegungsblockierendes Gelände (nur DM)                   |
+| Ctrl + 0, Numpad 5           |               | Fokussiert den Ursprung (0,0) des Rasters                                     |
+| Numpad 5                     | Auswahl       | Fokussiert die Mitte der Auswahl                                              |
+| mittlere Maustaste (halten)  |               | Verschiebt (pannt) den Bildschirm                                             |
+| mittleres Mausrad            |               | Zoomt relativ zum aktuellen Mauszeiger.                                       |
+| Page up/down                 |               | Bewegt die Kamera-Etage nach oben/unten                                       |
+| Page up/down + Alt           | Auswahl       | Bewegt die Etage der Auswahl nach oben/unten                                  |
+| Page up/down + Shift + Alt   | Auswahl       | Bewegt Etage von Auswahl und Kamera nach oben/unten                           |
+
+### Verhalten
+
+| Taste/Modifikator | Kontext | Aktion                                              |
+| ----------------- | ------- | --------------------------------------------------- |
+| Tab               |         | Wechselt zwischen den Modi (Build/Play)             |
+| Alt (halten)      |         | Deaktiviert das [Einrasten](/de/docs/game/snapping) |
+| Ctrl + u          |         | Blendet die Benutzeroberfläche ein/aus              |
+| Ctrl + z          |         | Undo                                                |
+| Ctrl + Shift + z  |         | Redo                                                |
+| n                 |         | Öffnet den [Notiz-Manager](/de/docs/game/notes)     |
+| Leertaste         | ruler   | Setzt [Lineal-Wegpunkte](/de/docs/tools/ruler)      |
+
+### Auswahl / Interaktionen mit Formen
+
+| Taste/Modifikator | Kontext      | Aktion                                                      |
+| ----------------- | ------------ | ----------------------------------------------------------- |
+| Enter             | Auswahl      | Öffnet den Bearbeitungsdialog für die Form                  |
+| Ctrl              | Auswahl      | Erweitert die aktive Auswahl um mit Ctrl ausgewählte Formen |
+|                   | Größe ändern | Behält das Seitenverhältnis bei                             |
+| Leertaste         | Auswahl      | Setzt [Lineal-Wegpunkte](/de/docs/tools/ruler)              |
+| Entf, Backspace   | Auswahl      | Löscht alle Formen der aktiven Auswahl                      |
+| d                 | Auswahl      | Hebt die Auswahl aller aktuell ausgewählten Formen auf      |
+| x                 | Auswahl      | Markiert Formen als besiegt                                 |
+| Ctrl + l          | Auswahl      | (Ent)sperrt ausgewählte Formen                              |
+| Ctrl + c          | Auswahl      | Kopiert die Auswahl in die Zwischenablage                   |
+| Ctrl + v          |              | Fügt die Zwischenablage auf dem Spieltisch ein              |

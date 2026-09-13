@@ -1,0 +1,170 @@
+---
+title: Release 0.18.0 - Hvad er nyt!
+date: 2019-11-15 21:02:34
+excerpt: "Et kig på de nye godbidder i den kommende 0.18.0-udgivelse."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Det er efterhånden et stykke tid (~5 måneder) siden den sidste PlanarAlly-udgivelse. Denne forsinkelse er delvist forårsaget af min personlige kampagne, der tager en del tid, men også på grund af nogle tekniske funktioner, der ikke engang er klar til denne udgivelse :(.
+
+Udviklingen er dog ikke stoppet i mellemtiden! Vi fik en masse gode bidrag til PA fra @Daniferitto og @CalebKoch for at nævne et par.
+
+De emner, der nævnes i denne udgivelsesopdatering, er listet til venstre, og den fulde ændringslog kan findes på [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.18.0).
+
+Før jeg dykker ned i listen over ændringer, vil jeg også gerne gøre opmærksom på et par vigtige ændringer til version 0.19.0 af PlanarAlly.
+
+##### Ændringer på horisonten (0.19.0+)
+
+Indtil nu var der mulighed for at vælge mellem den nyere 'triangle'-synstilstand eller den ældre 'bhv'-tilstand.
+
+Fra 0.19.0 og frem vil bhv-tilstanden forsvinde. Den har ikke modtaget nogen rettelser på det seneste og er ganske enkelt underlegen i alle aspekter sammenlignet med triangle-tilstanden.
+
+Endnu en synstilstand vil få sin entré i 0.19, som jeg vil kalde 'triangle+'.
+Det er den samme synsalgoritme, men i stedet for at skulle genberegne hele trianguleringen ved hver ændring, vil den faktisk ændre trianguleringen live.
+
+Dette betyder, at enhver fejl i dette system uigenkaldeligt vil ødelægge trianguleringen, hvilket er grunden til, at jeg lancerer det som en valgfri funktion til at starte med.
+
+Denne nye synstilstand burde være endnu hurtigere end den eksisterende triangle-tilstand, da den ikke skal genberegne hele synsområdet ved en lille ændring.
+
+## Tilpasning
+
+### Længdeenheder
+
+Først på listen er tilføjelsen af at ændre enheden for afstand. Indtil nu var denne altid hardcoded i feet (dvs. ft.), hovedsageligt fordi de officielle dnd-kildebøger bruger dette til alt.
+
+Nu er det muligt at vælge repræsentationen per-lokation. Så du kunne have en 'worldmap'-lokation med enheder i km og et andet 'city'-kort med enheder i meter!
+
+For at ændre den aktive lokations størrelsesenhed, gå til DM-indstillingerne og åbn grid-fanen.
+
+<video src="/blog/release-0.18/size-units.webm" type="video/webm" autoplay loop></video>
+
+## Værktøjer
+
+#### Højreklik i alle værktøjer
+
+Tidligere var højrekliksmenuen kun tilgængelig, når Select-værktøjet var aktivt, hvilket var ret irriterende, og derfor blev ændringen lavet for at give dette i alle værktøjer.
+
+#### Ping-værktøj
+
+En ny tilføjelse til værktøjslisten er Ping-værktøjet.
+
+En almindelig lifehack tidligere var at bruge Ruler og hurtigt spinde rundt for at få opmærksomhed på et bestemt område af kortet. Dette er selvfølgelig suboptimalt, og derfor opstod behovet for en slags ping-værktøj.
+
+Dette nye Ping-værktøj er en meget barebones-implementering, der giver en løsning på ovenstående problem og giver DM'en og spillerne en lidt mere elegant form til at fremhæve, hvor de vil have opmærksomhed.
+
+<video src="/blog/release-0.18/ping-tool.webm" type="video/webm" autoplay loop></video>
+
+Ideen er at udvide dette yderligere i fremtiden med nogle animationsmuligheder for at vokse/svinde ping-symbolet.
+
+### Select-værktøj
+
+#### Gruppeoperationer
+
+At flytte en gruppe tokens til forskellige lag skulle tidligere gøres token for token.
+
+Nu kan hele markeringen flyttes til det ønskede lag på én gang!
+
+<video src="/blog/release-0.18/group-select.webm" type="video/webm" autoplay loop></video>
+
+#### Ctrl-select tokens
+
+Sammen med gruppeudvælgelsen er endnu en kvalitetsforbedring blevet tilføjet til Select-værktøjet.
+
+Du er nu i stand til at tilføje former til den aktive markering ved hjælp af kontroltasten. Du kan enten ctrl-klikke på en enkelt form for at tilføje, eller trække en ny markeringsramme, mens du holder ctrl-tasten nede for at tilføje flere former på én gang.
+
+<video src="/blog/release-0.18/ctrl-select.webm" type="video/webm" autoplay loop></video>
+
+### Draw-værktøj
+
+#### Escape for at annullere
+
+Det er nu muligt at annullere den aktive formtegning ved at trykke på escape-tasten.
+
+<video src="/blog/release-0.18/escape.webm" type="video/webm" autoplay loop></video>
+
+#### Åbne polygoner
+
+Polygon-værktøjet var allerede et af mine mest brugte værktøjer, men nu med tilføjelsen af åbne polygoner er det blevet min go-to-metode til hurtigt at skabe vægge og andre lysblokerende objekter.
+
+Ligesom den lukkede variant er den åbne polygon en form, der kan tegnes ved at klikke der, hvor du vil tilføje et punkt til polygonformen, og højreklikke for at signalere, at formen er færdig.
+Den skaber dog **ikke** en automatisk forbindelse mellem polygonens første og sidste punkt.
+
+En anden forskel er, at den åbne polygon ikke har nogen udfyldningsfarve, da der ikke er noget område mellem punkterne, der bliver udfyldt.
+
+Jeg bruger denne form i stor udstrækning til hurtigt at tegne vægge.
+
+<video src="/blog/release-0.18/openpolygon.webm" type="video/webm" autoplay loop></video>
+
+#### Penselstørrelse for polygon
+
+Sammen med tilføjelsen af åbne polygoner har polygoner nu også en penselstørrelse ligesom paint-brush-værktøjet.
+
+<video src="/blog/release-0.18/brushsize.webm" type="video/webm" autoplay loop></video>
+
+#### Cirkelgrænser indad
+
+Fordi oprettelse af cirkulære tokens ofte måtte ændres i størrelse for at passe til en grid-celle, blev beslutningen truffet at lave cirkelgrænserne indadrettede.
+
+## Lag
+
+### FOW usynliggør alt
+
+Enhver form på FOW-laget er nu usynlig, når et andet lag er valgt.
+Tidligere gjaldt dette kun for former, der havde visionObstruction-muligheden aktiv, men nu gælder dette for alle former på laget.
+Dette er rent relateret til selve formens synlighed; enhver aura, der er anvendt på formen, vil stadig være synlig!
+
+Dette gør det muligt at opsætte lys uden at de er synlige for spillerne, eller for nogle gennemsigtige usynlige vægge og andre gode ting.
+
+## Lokationslinje
+
+### Lokationsfarve aktiv
+
+En dejlig kvalitetsforbedring bringer en fremhævelsesfarve til den nuværende aktive lokation i lokationslinjen, så du er sikker på, hvor du er ;).
+
+## Fejlrettelser
+
+En kort liste over fremtrædende fejlrettelser.
+
+### Afsløring af private data ved flytning
+
+Den vigtigste fejlrettelse er den, hvor DM-specifikke indstillinger under en formflytning ville gå tabt, og nogle oplysninger dermed blev offentlige for spillerne,
+inklusive auraer og andre synsrelaterede indstillinger.
+
+Dette resulterede i, at nogle områder af kortet pludselig blev synlige under en museflytning, men derefter blev afsløret igen, når musen blev sluppet.
+Dette burde nu opføre sig korrekt.
+
+### Lysauraer klippet gennem vægge
+
+Endnu en irriterende fejl, der blev klemt, er relateret til lysauraer.
+
+For det kontrollerende lag ville synet blive korrekt klippet ved synsgrænser som vægge, men for DM'en og potentielle andre spillere ville auraen dog vise et korrekt synligt område, men derudover også gå lige gennem væggen.
+
+### Låst tilstand virker korrekt ved indtræden
+
+Den nye låsefunktion for DM'er viste altid 'unlocked', når man gik ind i en session, selvom sessionen var låst.
+
+### Polygon-forhåndsvisningssegmenter
+
+Når man tegner en polygon, forhåndsvises en linje altid fra det sidst klikkede punkt til musemarkøren. Denne linje plejede altid at vises som sort i stedet for at bruge de aktive tegnefarver.
+
+### Sessioner med skråstreg
+
+Sessioner med en skråstreg i deres navn virkede ikke.
+
+### Ruler-zoom-bredde
+
+Ruler-værktøjet havde en inkonsekvent bredde på tværs af flere zoom-niveauer. Det har nu den samme skærmbredde på alle zoom-niveauer.
+
+### Penselhjælperen bliver hængende
+
+Penselhjælperen (forhåndsvisningsprikken) ville ofte blive hængende i nogle kantede tilfælde. Den burde nu forsvinde korrekt, når man skifter værktøjer eller lag.
+
+### Midlertidige former bliver hængende
+
+Når en spiller forlader eller genforbinder, mens en midlertidig form tegnes, ville den ofte blive hængende, indtil alle opdaterede.
+Dette burde nu ryddes korrekt ved spillerens afbrydelse.
+
+### Negative cirkler
+
+Det var under visse omstændigheder muligt at forsøge at skabe en cirkel med en negativ radius. Dette forsøg ville ødelægge siden.

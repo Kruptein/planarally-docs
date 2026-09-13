@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# 快捷开关
+
+DM 工具栏下方有一些额外的图标。这些是快捷开关，对各种用途都很有用。
+
+<Image src={QuickTogglesImage} width={150} alt="Initiative 工具概览" />
+
+## 假玩家模式
+
+启用此选项后，DM 的屏幕将以假玩家模式渲染（参见[假玩家模式](/zh/docs/dm/settings/#fake-player)）。
+
+## 视线
+
+此快捷开关只有在启用[视线](/zh/docs/dm/settings/#only-los)后才会显示。
+
+它允许你 **仅** 在自己的屏幕上禁用 LoS。与假玩家模式开关一样，这有助于在准备工作期间验证光照和视野设置。
+当 LoS 启用时它会显示绿色，当它被（暂时）禁用时显示红色。
+
+特别是在处理新地点时，你可能还没有准备好任何具有视野访问权限的形状，这时你可以用它来验证设置的光照，而无需创建临时形状。
+
+## 先攻
+
+与其他开关相比，先攻快捷开关与其说是一种便利，不如说是必需。
+启用后它会变绿（直到再次点击），并指示 [Initiative](/zh/docs/tools/initiative/) 处于激活状态。
+
+它会自动为所有玩家打开 Initiative 界面，并激活一些 [Initiative 设置](/zh/docs/game/settings/#initiative)。
+这些设置只有在使用此开关明确启用先攻时才生效！

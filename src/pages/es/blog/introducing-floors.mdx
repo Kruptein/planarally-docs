@@ -1,0 +1,39 @@
+---
+title: Presentación de las plantas y pequeñas actualizaciones
+date: 2020-02-13 21:02:34
+excerpt: "Una introducción a una nueva función próxima: ¡las plantas! Y una pequeña visión general de otras cosas que están sucediendo en la versión 0.19.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+No tengo una fecha de lanzamiento fija en mente para la versión 0.19.0, pero mi objetivo es sacar algo al menos este mes. Mientras tanto, quería hablar ya de algunos cambios que deberías esperar en la versión 0.19.0 y mostrar una mirada más detallada de una función nueva en particular.
+
+## Las novedades de la 0.19.0
+
+Para empezar, por fin el botón de configuración que ha sido visible en el panel de control principal, donde puedes seleccionar a qué sesión unirte, tiene uso.
+Ahora tiene un propósito y muestra una configuración de cuenta muy simple. Puedes establecer una dirección de correo electrónico, cambiar tu contraseña y eliminar tu cuenta.
+Ten en cuenta que actualmente no se hace nada con la dirección de correo electrónico, pero un administrador del servidor podría usarla para enviar información de mantenimiento u otra cosa.
+
+Espero ampliar la configuración en el futuro con muchas otras cosas, como configuraciones predeterminadas para todas las configuraciones relacionadas con el juego.
+
+Otra cosa que viene en la próxima versión es el ajuste durante las acciones de dibujo y redimensionado. Aunque la herramienta de polígono ya proporcionó la tan necesaria simplicidad en el aspecto del dibujo (y en particular en el dibujo de la niebla de guerra), tenía la desventaja incómoda de que no había forma de engancharse exactamente a otros puntos, introduciendo a menudo pequeños huecos en la visión alrededor de puertas y muros.
+Ahora puedo decir con alegría que esos días terminaron y ahora puedes ajustar libremente los puntos de los polígonos (¡y de otras formas)!
+
+Por último, una pequeña nota sobre una función contribuida por LDeeJay1969: introdujo un atajo de teclado (ctrl+0) para restablecer la vista a (0, 0) en caso de que te pierdas en el vacío infinito.
+Hay más trabajo en camino en cuanto a saltar por el mapa, ¡pero esta pequeña adición ya es un buen empujón para evitar la frustración!
+
+## Plantas
+
+Ahora pasamos a una función con un impacto visual mayor: ¡las plantas!
+
+_El siguiente video usa contenido de la campaña Waterdeep\:Dragonheist publicada por Wizards of the coast_
+
+<video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
+
+Como se puede ver en el video de arriba, se está trabajando en la capacidad de definir múltiples plantas que se renderizan una encima de otra.
+
+Añadir plantas añade una inmersión mucho más profunda en comparación con saltar entre ubicaciones o tener que desplazar la vista por el mapa.
+Sin embargo, cada planta añade una carga mayor al cliente, ¡ya que las plantas debajo de la planta activa también deben renderizarse!
+Solo para aclarar: este sistema es completamente opcional (es decir, el valor predeterminado es solo 1 planta).
+
+Como se puede ver, la iluminación y la visión se tienen en cuenta para mostrar lo que un jugador determinado puede ver. Hay que hacer algunas simplificaciones/suposiciones, ya que PA no es un juego 3D sino una multitud de capas 2D una encima de otra, pero en general la iluminación en plantas superiores e inferiores se tiene en cuenta al renderizar.

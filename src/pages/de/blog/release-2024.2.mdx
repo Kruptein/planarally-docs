@@ -1,0 +1,163 @@
+---
+title: Release 2024.2
+date: 2024-05-18 14:00:00
+excerpt: "Bestagons sind zurück"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Bei diesem Release dreht sich alles um Raster und insbesondere darum, den Sechsecken etwas Liebe zu schenken.
+
+## Abschaffungshinweis
+
+Bevor wir zum Guten kommen,
+möchte ich ankündigen, dass ich beabsichtige, das Label-/Filtersystem irgendwann in der Zukunft zu entfernen.
+Dies wird, _denke ich_, nicht wirklich stark genutzt und ist ein wenig ein Relikt aus der Vergangenheit.
+
+Es ist möglich, dass in der Zukunft ein Ersatz oder eine Alternative bereitgestellt wird,
+aber die aktuelle Implementierung ist einfach zu umständlich, um sie zu behalten.
+
+Wenn du das aktiv nutzt, kontaktiere mich bitte.
+
+## Raster-Einstellungen für Formen
+
+Im Dialog „Form bearbeiten“ wurde ein neuer Tab mit dem Namen 'grid' hinzugefügt, um einige neue Einstellungen zum Rasterverhalten der Form zu konfigurieren.
+
+![Raster-Einstellungen der Form](./2024.2/grid-settings.png)
+
+### Form-Rastergröße
+
+Das Einrasten von Formen am Raster funktioniert für 1x1-Formen gut.
+Aber wenn du eine Form hast, die größer als 1x1 ist, kann das Einrastverhalten etwas unvorhersehbar sein.
+Das liegt daran, dass PA eine bestmögliche Schätzung anstellen muss, wie viele Rasterzellen eine bestimmte Form darstellen soll.
+
+Wenn eine Form 75px x 75px groß ist und das Raster 50px beträgt, soll sie dann an einen Rasterbereich einrasten, der 1x1 oder 2x2 entspricht?
+Die Antwort hängt von der tatsächlichen Form ab. Vielleicht ist es nur ein sehr großes Kunst-Asset, das aber nur 1 Rasterzelle einnehmen soll.
+Es könnte aber genauso gut ein sehr kleines Asset für ein größeres Wesen sein.
+
+Dieses Release gibt dir mehr Kontrolle über dieses Verhalten, indem es die Möglichkeit bietet, die Rastergröße, die eine Form einnehmen soll, explizit anzugeben.
+PA schätzt standardmäßig weiterhin die Rastergröße anhand der Abmessungen der Form, du kannst das aber nun überschreiben.
+
+### Rasterbelegung anzeigen
+
+Dies ist eine neue Einstellung, mit der du die Rasterzellen anzeigen kannst, die eine Form derzeit belegt.
+Du kannst die Hintergrundfarbe und die Rahmenfarbe der Rasterzellen festlegen.
+
+Das kann nützlich sein, wenn du einige Assets hast, deren Größe nicht klar erkennbar ist, und du sicherstellen möchtest, dass ihr Einfluss klar dargestellt wird.
+
+### Sechseck-Orientierung
+
+Ein Teil der verbesserten Sechseck-Unterstützung ist die Möglichkeit, die Orientierung von gleichmäßig großen Sechsecken zu konfigurieren.
+
+Diese Sechsecke können zwei Orientierungen haben, sodass du mit dieser Einstellung zwischen den beiden umschalten kannst.
+
+## Sechsecke
+
+PA unterstützt sechseckige Raster schon eine Weile, aber es war immer ein wenig ein Bürger zweiter Klasse.
+Abgesehen vom Rendern eines flachen oder spitzen Sechseck-Rasters interagierte nichts anderes im System mit Sechsecken.
+Das verursachte in der Praxis viele Probleme bei der Verwendung von Sechsecken.
+Zum Beispiel funktionierte das Einrasten von Formen am Raster oder an Punkten nicht korrekt, da die Logik weiterhin eine quadratische Darstellung verwendete.
+
+Dieses Release zielt darauf ab, das zu beheben und Sechsecke zu vollwertigen Bürgern erster Klasse in PA zu machen.
+
+Insbesondere wurde das Einrasten aktualisiert, um korrekt mit Sechsecken zu funktionieren.
+Das beinhaltet das Einrasten eines Punktes am Raster, aber auch das Einrasten von Formen am Raster.
+
+Die Werkzeuge Select, Draw, Ruler und Map wurden alle aktualisiert, um besser mit Sechsecken zu arbeiten.
+
+## Ruler-Werkzeug: Rastermodus
+
+Eine weitere rasterbezogene Änderung ist, dass das Ruler-Werkzeug nun eine neue Option hat, die aktiviert werden kann und 'Rastermodus' (grid mode) genannt wird.
+
+Im Rastermodus misst das Ruler-Werkzeug die Entfernung zwischen zwei Punkten nicht mehr in einer geraden Linie, sondern entlang des Rasters.
+Das sollte einige Probleme beim Messen großer Entfernungen auf Rastern lösen, bei denen es dir nur um die Anzahl der durchquerten Zellen geht und
+nicht so sehr um die tatsächliche Entfernung in Pixeln.
+
+Beim Aktivieren des Rastermodus zeigt das Ruler-Werkzeug sowohl die Anzahl der Zellen als auch die Gesamtentfernung an.
+Dieses Verhalten kann jedoch in deinen Client-Einstellungen konfiguriert werden, sodass du stattdessen nur eines von beiden anzeigen kannst.
+
+![Ruler im Rastermodus](./2024.2/ruler-gridmode.png)
+
+## UI-Update des Kontextmenüs
+
+Das Rechtsklick-Kontextmenü hat ein längst überfälliges Update seiner Optik erhalten.
+
+Zunächst hat die UI jetzt mehr Platz, was das Lesen und Navigieren erleichtert.
+
+Zweitens wurden, da das Menü ständig gewachsen ist, neue Unterabschnitte hinzugefügt.
+Insbesondere alle Aktionen, die mit dem Verschieben einer Form an einen anderen Ort zu tun haben,
+wurden in einen neuen Abschnitt 'Verschieben' (Move) verschoben.
+
+![Neues Kontextmenü-UI](./2024.2/context-menu.png)
+
+## Export/Import
+
+### Fehlende Daten
+
+Das neue Notizsystem, das im letzten Release implementiert wurde, hat die Export- und Importfunktion kaputt gemacht.
+
+Dieses Release behebt das sowie einige andere Dinge, die ich vergessen hatte, zum Export/Import-System hinzuzufügen.
+Insbesondere werden Charaktere, Datenblöcke (DataBlocks) und Notizen nun korrekt exportiert.
+
+### Importname
+
+Beim Importieren einer Kampagne kannst du nun festlegen, welchen Namen sie haben soll, anstatt immer den Namen in der Datei zu verwenden.
+
+### Importbereinigung
+
+Am Importcode wurden kleine Verbesserungen vorgenommen.
+
+Wenn Imports fehlschlagen, wird der Raum, in den importiert wurde, nun ordnungsgemäß bereinigt.
+
+Ein Randfall, bei dem der Importcode zweimal ausgeführt werden konnte, wurde ebenfalls behoben.
+
+## Form bearbeiten: Gruppen-UI
+
+Dieser Tab im Dialog „Form bearbeiten“ war eine Weile lang nicht reaktionsfähig.
+Vorgenommene Änderungen wurden nicht sofort aktualisiert, was Verwirrung darüber stiftete, ob es tatsächlich funktionierte.
+
+Dieses Release hat die Interna dieser UI komplett überarbeitet, und sie sollte nun reaktionsfähig sein und so funktionieren, wie man es erwarten würde.
+Das gilt für alle Badge-bezogenen Einstellungen, aber auch für das Hinzufügen/Entfernen von Mitgliedern zur Gruppe.
+
+## Kleinere Änderungen
+
+### Notiz-Fixes
+
+Das neue Notizsystem läuft im Allgemeinen ziemlich gut, aber einige kleine Fehler wurden gemeldet und behoben.
+
+- Der Filter wurde beim Öffnen von Form-Notizen nicht richtig erneut ausgeführt, sodass Notizen der vorherigen Form manchmal noch sichtbar waren
+- Bei der Formfilterung änderte sich der Formname in der UI, wenn du mit dem Select-Werkzeug auf eine andere Form geklickt hast.
+- Notizsymbole, die auf einer Form gezeichnet wurden, konnten in einigen Fällen hinter der Form gezeichnet werden.
+- Behoben: 'Form hinzufügen'- und 'Form entfernen'-Ereignisse werden nicht sofort synchronisiert, wenn du nur Ansichtszugriff hast
+- Behoben: Rendering von Markdown, das rohe HTML-Elemente in Anmerkungen enthielt
+- Notizen wurden nicht richtig auf Vorlagen gespeichert
+
+### Einrast-Fixes
+
+Beim Select- und beim Draw-Werkzeug wurde ein kleiner Fehler behoben, bei dem einige Operationen (z. B. an Punkt einrasten, Größe ändern) versuchten, an den Punkt einzurasten, der bewegt wurde.
+Das verursachte ein seltsames Verhalten, bei dem du scheinbar gar nicht einrastest.
+
+Das Draw-Werkzeug rastete außerdem beim ersten Klick nicht an einem Punkt ein.
+
+### Spell-Werkzeug
+
+Das Spell-Werkzeug hat eine integrierte Logik, um nach dem Wirken eines Zaubers zum Select-Werkzeug zurückzukehren.
+Es war jedoch etwas zu aufdringlich in seiner Anforderung, zum Select-Werkzeug zurückzukehren.
+
+Das manuelle Auswählen eines anderen Werkzeugs führte immer dazu, dass stattdessen das Select-Werkzeug ausgewählt wurde; das wurde behoben.
+
+Ein weiterer kleiner Komfort-Fix ist, dass sich das Größen-Eingabefeld nun besser verhält, wenn du versuchst, eine Zahl kleiner als 1 einzugeben.
+
+### Polygon-Enthalten-Prüfung
+
+Die Logik zur Erkennung, ob du auf ein Polygon geklickt hast, hatte zwei Fehler, die behoben wurden.
+
+Wenn ein Polygon einen Punkt wiederverwendete (aufgrund einer Selbstüberschneidung), fing der Enthalten-Code an zu halluzinieren.
+
+Die imaginäre Linie zwischen dem ersten und dem letzten Punkt bei einem nicht geschlossenen Polygon wurde ebenfalls als Teil des Polygons angesehen.
+
+### Andere Fehlerbehebungen
+
+- Verschieben von Formen nach vorne/hinten aktualisierte nicht sofort
+- Behoben: Initiative.Order.Change schlug fehl, wenn es mit bestimmten Form-IDs aufgerufen wurde.
+- Das Ändern der Client-Einstellungen für das Raster aktualisierte den Bildschirm nicht sofort

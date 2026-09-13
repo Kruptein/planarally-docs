@@ -1,0 +1,154 @@
+---
+title: Release 2025.2
+date: 2025-06-14 16:25:00
+excerpt: "Mail, Mods & QoL"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Ein neues Release mit ein paar Leckerbissen, auch wenn diese sich hauptsächlich an DMs und Serverbesitzer richten.
+
+Eine kurze Zusammenfassung:
+
+- Das Konfigurationsformat des Servers wurde komplett geändert
+- Der Server-Admin kann nun einen Mailserver konfigurieren, was einen „Passwort vergessen“-Ablauf ermöglicht
+- Die Eigenschaft isToken wurde entfernt, und der Formenzugriff funktioniert jetzt anders
+- Die experimentelle Mod-Unterstützung hat einige Verbesserungen erhalten
+- Weiterführung des im letzten Release überarbeiteten Asset-Managers im Spiel
+- Anonyme Statistik-Erfassung zum Server hinzugefügt
+
+<Warning title="Server-Änderungen">
+    Wenn du Serverbesitzer bist: Die Server-Konfiguration wurde drastisch geändert und erfordert manuelles Eingreifen. Weitere
+    Infos findest du unten!
+
+    Der Server verwendet nun außerdem UV für das Abhängigkeitsmanagement, was sich auf dein Upgrade auswirken kann.
+
+</Warning>
+
+## Mail
+
+Das war längst überfällig: Serverbesitzer können nun Mailserver-Informationen in der (neuen) Konfiguration festlegen.
+Wenn konfiguriert, kann PA damit E-Mails an Spieler senden.
+
+Es gibt derzeit nur eine Verwendung dafür, aber eine wichtige: den „Passwort vergessen“-Ablauf.
+
+_Weiterführende Lektüre: [Mail-Konfigurationsabschnitt](/de/server/management/configuration/#mail)_
+
+### Passwort vergessen
+
+Wenn Mail konfiguriert ist, zeigt der Login-Bildschirm unter dem Passwort-Label nun eine „Passwort vergessen?“-Aktion an,
+die einen Ablauf zum Zurücksetzen des Passworts für eine bestimmte E-Mail-Adresse bietet.
+
+Beachte, dass das nur funktioniert, wenn der Benutzer eine E-Mail konfiguriert hat (beachte, dass E-Mail bei der Registrierung optional ist).
+
+Eine kleine, tangentiale Komfort-Aktualisierung ist, dass nun eine Erfolgs-Benachrichtigung erscheint, wenn du deine E-Mail-Adresse im Dashboard änderst.
+Bis jetzt war es nicht super klar, dass bei dieser Änderung tatsächlich etwas geändert wurde.
+
+## LoS-Rendering deaktivieren
+
+Als DM kennst du vielleicht den Fall, dass du an einem neuen Ort arbeitest und eine Reihe von Lichtern konfiguriert hast,
+aber nicht sicher bist, ob sie tatsächlich das abdecken, was du erwartest, weil du LoS aktiviert hast und deine Spieler noch an einem anderen Ort sind.
+
+Es gibt eine Reihe von „Hacks“ dafür: das Erstellen einer temporären Form mit Sicht-Berechtigungen, das vorübergehende Deaktivieren von LoS in den Ortseinstellungen, ...
+
+Sie funktionieren alle, sind aber tendenziell umständlich oder sogar fehleranfällig (z. B. vergisst du, die LoS-Einstellung wieder zu aktivieren, wenn deine Spieler bereit sind, den Ort zu besuchen).
+
+Deshalb gibt es nun unter der Werkzeugleiste einen neuen Schnellschalter (Quick Toggle) für DMs mit dem Titel 'LOS'.
+Er ist nur sichtbar, wenn LoS am Ort aktiviert ist.
+Er hat einen grünen (an) und einen roten (aus) Modus, mit denen die LoS-Einstellung rein lokal auf deinem Client überschrieben werden kann.
+
+Das ermöglicht es dir, das Verhalten schnell ein- und auszuschalten, ohne die Spieler zu beeinflussen, was die Level-Erstellung einfacher macht.
+
+_Weiterführende Lektüre: [Quick Toggles](/de/docs/tools/quick-toggles/)_
+
+## Zugriffsebenen & isToken
+
+Jede Form in PA hat Zugriffsebenen, die pro Spieler feinabgestimmt werden können. Einige Spieler haben volle Bearbeitungskontrolle über eine Form, andere nur Sicht-Zugriff.
+
+Bis jetzt waren diese Zugriffsebenen (Sicht/Bewegung/Bearbeitung) additiv. Jede Zugriffsebene gab auch alle Berechtigungen der darunterliegenden Zugriffsebenen (z. B. umfasste Bewegung auch Sicht-Berechtigungen).
+Das hat als Grundlage für den Großteil von PAs Existenz gut funktioniert, aber ich bin kürzlich auf einige Probleme gestoßen, die ich angehen wollte und die wegen dieser additiven Natur nicht möglich waren.
+
+Zugriffsebenen sind nun vollständig getrennt. So ist es zum Beispiel jetzt möglich, Bearbeitungszugriff ohne Sicht-Zugriff zu haben. Das kann nützlich sein, wenn ein Spieler die Kontrolle über die Werte eines Haustiers hat, aber nicht sehen kann, was das Haustier sehen kann.
+
+Zusätzlich hatte jede Form auch eine spezielle Eigenschaft `isToken`. Diese war essenziell für die Sichtberechnung, wenn LoS aktiviert ist, und etwas, das bei allen Spielerformen aktiviert sein musste.
+Diese Eigenschaft ist für die meisten neuen Spieler jedoch nicht sonderlich intuitiv, und selbst einige Veteranen sind sich nicht ganz sicher, was sie tatsächlich bewirkt, außer dass sie sie für LoS aktivieren müssen.
+
+Das wurde vor langer Zeit aus Leistungsgründen eingeführt, aber nach etwas Bedenkzeit habe ich herausgefunden, dass sie tatsächlich nicht nötig ist, wenn ich ändere, wie die Zugriffsebenen funktionieren.
+Das Ergebnis ist, dass die `isToken`-Eigenschaft entfernt wurde; es ist nicht mehr nötig, Benutzerformen manuell damit zu markieren.
+Stattdessen wird jede Form, auf die dein Benutzer Sicht-Zugriff hat, so gerendert, als hätte sie früher isToken gehabt.
+
+Ich habe einen [ausführlichen Blog-Post](https://www.planarally.io/blog/removing-is-token/) über die Gründe für diese Änderungen geschrieben, falls du mehr Infos möchtest.
+
+_Weiterführende Lektüre: [Formenzugriff](/de/docs/game/shapes/#access)_
+
+## Assets
+
+Der Dashboard-Asset-Manager hatte dedizierte Erstelle-Ordner/Datei-upload/Auswahl-entfernen-Buttons, die die Version im Spiel nicht hatte.
+Das Hinzufügen von Dateien und das Entfernen von Auswahlen war weiterhin über Maus-Drag&Drop und Kontextmenüs möglich, aber das Erstellen von Ordnern war einfach nicht möglich.
+
+Diese Buttons sind nun auch im Asset-Manager im Spiel vorhanden.
+
+Zusätzlich verwenden einige Stellen noch die alte Asset-Auswahl-UI (z. B. der Kampagnen-Logo-Setter); alle wurden auf die neue UI aus dem letzten Release aktualisiert.
+
+## Statistik-Erfassung
+
+Eine Frage, die ich oft erhalte, ist, wie viele Benutzer PA tatsächlich hat, und ich kann das nie wirklich beantworten oder auch nur schätzen.
+
+Es gibt keinen offiziellen PA-Server, auf den ich mich für einige Schätzungen stützen kann. Ich habe nur einige vage Zahlen wie GitHub-Sterne oder Discord-Benutzer, aber die sagen nichts wirklich über tatsächliche Benutzer aus, und wenn sie überhaupt eine Indikation sind, repräsentieren sie eher Serverbesitzer als Spieler.
+
+Um ein Gefühl dafür zu bekommen, was dort draußen tatsächlich passiert, führe ich eine Statistik-Erfassung auf dem Server ein.
+Das wird sich in einem späteren Release auch mit einigen Änderungen verbinden, die ich an der lokalen Server-Administration vornehmen möchte, sodass diese Statistiken mit entsprechenden Berechtigungen auch im Dashboard sichtbar werden.
+
+Die gesammelten Statistiken sind sehr einfach und enthalten keinerlei persönliche Informationen. Sie geben mir nur eine Ahnung davon, wie viele Benutzer/Kampagnen tatsächlich aktiv genutzt werden.
+
+Weitere Details zu den Statistiken und wie mit der Privatsphäre umgegangen wird, findest du im [GitHub-PR](https://github.com/Kruptein/PlanarAlly/pull/1608), der mehr Informationen enthält.
+
+Für Serverbesitzer ist diese Funktion mit dem neuen Konfigurationsformat konfigurierbar.
+
+## Mod-Updates
+
+_Bitte beachte, dass die Mod-Unterstützung weiterhin sehr experimentell ist_
+
+Vor einem Jahr wurde frühe Unterstützung für Mods hinzugefügt. Das war noch sehr grob, wobei ein großes Problem darin bestand, dass nur der Serverbesitzer Mods hinzufügen konnte, indem er sie manuell in einen bestimmten Ordner legte.
+Dieses Release fügt eine UI pro Kampagne hinzu, die es dem DM ermöglicht, Mods für diese bestimmte Kampagne hochzuladen.
+
+Zusätzlich wurden viele Interna der Mod-API aktualisiert, insbesondere die DataBlock-API hat drastische Änderungen erhalten, was die Mod-UI-Seite wesentlich kompakter macht.
+
+Alle Beispiel-Mods im planarally-mods-Repo wurden ebenfalls auf die neue API aktualisiert.
+
+_Weiterführende Lektüre: [Mod-PR](https://github.com/Kruptein/PlanarAlly/pull/1583)_
+
+## Server: Konfigurationsänderung
+
+Das Konfigurationsformat hat sich komplett geändert, und auch der Speicherort im Server-Ordner hat sich geändert.
+Es ist nun ein toml-basiertes Format und wird im Datenordner gespeichert.
+Es gibt mehrere Gründe, warum diese Änderung vorgenommen wurde, und sie war längst überfällig.
+
+Es wird **stark** empfohlen, die ausführliche Begründung und Informationen im [GitHub-PR](https://github.com/Kruptein/PlanarAlly/pull/1574) zu lesen.
+
+Die Server-Dokumente wurden aktualisiert, um alle [Konfigurationsoptionen](/de/server/management/configuration/) zu zeigen.
+
+Wenn du Hilfe beim Aktualisieren deiner bestehenden Konfigurationsdatei brauchst, zögere nicht, den #help-Kanal auf dem Discord-Server zu kontaktieren.
+
+## Server: Änderung des Abhängigkeitsmanagements
+
+Der Server wird nun auch mit [UV](https://docs.astral.sh/uv/) für das Abhängigkeitsmanagement verwaltet.
+
+Das bedeutet, wenn du den Server manuell mit python/pip verwaltest, musst du uv installieren und das neue System ebenfalls übernehmen.
+Das wird eine kleine Anzahl von Benutzern betreffen, also sollte die Auswirkung gering sein.
+
+Weitere Informationen findest du im [GitHub-PR](https://github.com/Kruptein/PlanarAlly/pull/1550) und in der Server-README, die mit Informationen zur Verwendung von uv aktualisiert wurde.
+
+## Fehlerbehebungen
+
+- Das Draw-Werkzeug-Polygon aktualisierte die Sicht erst bei Abschluss der Form nicht
+- Reduzierter Render-Overhead, wenn Token-Formen bewegt wurden, die der Spieler nicht besaß
+- Das Form-Kontextmenü schloss sich beim Auswählen einer Option nicht
+- Die Select-Werkzeug-Build-UI erschien nicht beim Moduswechsel
+- Datenblöcke für die Kategorien Raum und Benutzer hatten einen Fehler im Server, der das Erstellen verhinderte
+- Entfernen im Asset-Kontextmenü funktionierte nicht
+- Die Hintergrundfarbe des Asset-Kontextmenüs war im Spiel manchmal falsch
+- Die Asset-Upload-Leiste fehlte im Dashboard-Asset-Manager
+- Das Ablegen von Assets, für die du geteilte Sicht-Berechtigung hast, auf der Karte funktionierte nicht

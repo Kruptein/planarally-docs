@@ -1,0 +1,475 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# 配置
+
+<Warning title="近期变更">服务器配置在 2025.2 版本中完全改版。本文档所描述的配置指的就是新格式。</Warning>
+
+默认情况下**没有**配置文件。PA 会对所有设置使用默认值。默认配置值可以在[这里](#default-config)查看。
+
+要更改行为，请在服务器的 `data` 文件夹中创建一个 `config.toml` 文件。
+
+当提供部分配置文件时，缺失的字段/节会被替换为相关的默认值。
+
+# 格式
+
+正如配置文件的扩展名所示，配置使用 [TOML](https://toml.io/en/) 格式。
+
+配置被划分为较小的节，每个节以 `[section]` 作为标题，子节用 `[section.some.subsection]` 表示。
+每个（子）节后面跟着单独的配置行来设置具体值。
+
+关于 TOML 格式工作原理的详细信息超出了本文档的范围，但在查看默认配置后，你应该就能很好地掌握它的用法。
+
+# 默认配置
+
+```toml
+[general]
+save_file = "data/planar.sqlite"
+allow_signups = true
+enable_export = true
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[webserver]
+max_upload_size_in_bytes = 10485760
+
+[webserver.connection]
+type = "hostport"
+host = "0.0.0.0"
+port = 8000
+
+[[logging]]
+mode = "stdout"
+level = "INFO"
+```
+
+<Info title="文件路径">
+    指定文件或文件夹的路径时，可以使用绝对路径（例如 `/home/user/example.txt`）或相对 路径（例如
+    `data/planar.sqlite`）。使用相对路径时，它将相对于服务器主文件夹，而 不是配置文件所在的文件夹。
+</Info>
+
+# 重要设置
+
+以下设置你肯定需要关注：
+
+- [存档文件配置](#field-save_file)
+- [管理员用户](#field-admin_user)
+- [整个 webserver.connection 子节](#subsection-connection)
+- [CORS](#field-cors_allowed_origins)
+
+[客户端 URL](#field-client_url) 通常也值得配置，但它不是关键项。
+
+# 节
+
+这里列出了所有可用选项及其默认值。
+如果这些信息在任何时候过时并导致错误，可以[在 github 上](https://github.com/Kruptein/PlanarAlly/blob/dev/server/src/config/types.py)找到以代码形式存在的权威依据。
+
+## 通用
+
+节名称：`general`
+
+### 字段：`save_file`
+
+默认值：`"data/planar.sqlite"`\
+类型：`string`
+
+存档文件的路径。这是一个关键设置，修改后会带来很大影响。存档文件应进行适当的备份[^1]。
+
+如果服务器启动时选择的路径不存在，服务器将创建一个新的存档文件。
+
+<Info title="存档文件格式">请注意，目前 PlanarAlly 仅支持以 sqlite 格式存储存档。</Info>
+
+<Warning>
+    在服务器运行期间，可能会创建额外的数据库文件（例如 `planar.sqlite-shm` 和 `planar.sqlite-wal`）。
+    `planar.sqlite-wal`（即预写日志 write-ahead-log）文件对存档数据库至关重要，如果不保存，数据将会丢失。
+    `planar.sqlite-shm`（即共享内存 shared memory）文件不是关键文件，无需备份。
+
+    如果服务器正常关闭，这些文件会消失。但如果服务器未能干净地停止，它们可能会残留下来。
+    复制存档文件时，如果这些文件存在，请务必一并复制，否则你的存档可能会损坏或过期。
+
+</Warning>
+
+### 字段：`admin_user`
+
+默认值：无 - 可选字段\
+类型：`string`
+
+在此处指定用户名后，该用户将被视为主要管理员用户。
+它将拥有仪表盘中的额外功能，用于管理服务器上的用户和战役等。
+
+### 字段：`client_url`
+
+默认值：无 - 可选字段\
+类型：`string`\
+_通常建议配置此字段，但对于最小化的设置来说并非必需。_
+
+设置后，它应为前端应用的完整基础 URL（例如 "https://app.planarally.io"）。
+
+它用于邀请链接和忘记密码邮件。若未设置，生成邀请链接时会使用浏览器中的当前 URL。但邮件中的 URL 将**不会**包含根 URL 信息，因为服务器无法预知这一点。
+
+### 字段：`allow_signups`
+
+默认值：`true`\
+类型：`boolean`
+
+此设置决定用户是否可以通过前端注册新账户。禁用后，只能通过数据库操作来创建账户。
+
+### 字段：`enable_export`
+
+默认值：`true`\
+类型：`boolean`
+
+启用此设置后，用户可以导出**和**导入账户。
+
+通常建议启用，因为这允许用户在服务器之间迁移数据，同时也能为我提供调试所需的数据。
+
+## Web 服务器
+
+节名称：`webserver`
+
+Web 服务器是配置中最重要的节之一。
+它包含关键的 `connection` 子节，你需要配置它以决定 PA 服务器如何与外部世界绑定。
+
+<div id="subsection">
+
+### 子节：`connection`
+
+_这是一个子节（如何配置请参见[默认配置](#default-config)示例）。_
+
+它配置服务器如何接入网络栈。它必须是 HostPort 配置或 socket 配置。
+默认使用 HostPort 组合。
+
+#### 字段：`type`
+
+默认值：`"hostport"`\
+类型：`"hostport" or "socket"
+
+type 字段最终决定使用哪种连接类型。
+
+```toml
+# Either a hostport connection is configured
+[webserver.connection]
+type = "hostport"
+...
+
+# Or a socket connection
+[webserver.connection]
+type = "socket"
+...
+```
+
+#### HostPort 字段
+
+#### 字段：`host`
+
+默认值：`"0.0.0.0"`\
+类型：`string`
+
+服务器将尝试绑定的 IP。
+
+#### 字段：`port`
+
+默认值：`8000`\
+类型：`integer`
+
+服务器将尝试绑定的端口。
+
+请确保你使用的端口没有被其他应用程序占用。
+同时，确保该端口可从机器外部访问。
+尤其是在私有网络（例如家庭网络）中运行时，你可能需要在路由器的配置中启用*端口转发*。
+
+#### HostPort 配置示例
+
+```toml
+[webserver.connection]
+type = "hostport"
+host = "192.168.0.1"
+port = "80"
+```
+
+#### Socket 字段
+
+#### 字段：`socket`
+
+默认值：无\
+类型：`string`
+
+将用于绑定的 socket 路径。
+
+#### Socket 配置示例
+
+```toml
+[webserver.connection]
+type = "socket"
+socket = "/var/run/pa.sock"
+```
+
+</div>
+
+<div id="subsection">
+
+### 子节：ssl
+
+这是一个可选的子节，省略时不会对 PA 服务器本身应用任何 SSL 配置。
+这不影响你在链路更上层（例如反向代理中）配置 SSL。
+
+强烈建议确保在链路的某个位置配置 SSL！
+
+#### 字段：`enabled`
+
+默认值：`false`\
+类型：`boolean`
+
+允许你启用/禁用 SSL 配置，而无需完全删除 SSL 节或将其注释掉。
+仅当此值设为 `true` 时，SSL 配置才会真正生效。
+
+#### 字段：`fullchain`
+
+默认值：无\
+类型：`string`
+
+完整证书链的路径。
+
+#### 字段：`privkey`
+
+默认值：无\
+类型：`string`
+
+私钥证书的路径。
+
+#### SSL 配置示例
+
+```toml
+[webserver.ssl]
+enabled = true
+fullchain = "/etc/letsencrypt/live/planarally/fullchain.pem"
+privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
+```
+
+</div>
+
+### 字段：`cors_allowed_origins`
+
+默认值：无（可选字段）\
+类型：`string / List of strings`
+
+websocket 服务器的 CORS 配置。
+
+该值会传递给 socketio 服务器，更多信息可参见 [socketio](https://python-socketio.readthedocs.io/en/latest/api.html#asyncserver-class) 文档。
+可设置 `'*'` 值以允许所有来源，这在测试时很有用，但不安全。
+
+要让其生效，通常必须配置为通配符值（\*）或正确的具体域名！
+服务器控制台应会记录因 cors 而被拒绝的连接。
+
+### 字段：`max_upload_size_in_bytes`
+
+默认值：`10_586_760`（10 \* 1024 \*\* 2 == 10 MB）\
+类型：`integer`
+
+客户端单次上传数据的最大大小。
+
+需要注意的是，这主要作为一种分块策略。
+素材上传和战役传输将按此最大值进行分块，因此它们的总大小可能会超过该限制！
+有关如何限制用户的素材大小，请参阅配置的 assets 节。
+
+## 邮件
+
+节名称：`mail`
+
+这是一个可选节，默认不启用。
+
+目前它仅用于发送忘记密码流程中的邮件。
+
+### 字段：`enabled`
+
+默认值：`false`\
+类型：`boolean`
+
+允许你启用/禁用邮件配置，而无需完全删除该节或将其注释掉。
+仅当此值设为 `true` 时，邮件配置才会真正生效。
+
+### 字段：`host`
+
+默认值：无\
+类型：`string`
+
+SMTP 邮件服务器的主机，必须填写。
+
+### 字段：`port`
+
+默认值：无\
+类型：`integer`
+
+SMTP 邮件服务器的端口，必须填写。
+
+### 字段：`username`
+
+默认值：无（可选）\
+类型：`string`
+
+如有需要，可以指定用户名进行身份验证。
+
+### 字段：`password`
+
+默认值：无（可选）\
+类型：`string`
+
+如有需要，可以指定密码进行身份验证。
+
+### 字段：`default_from_address`
+
+默认值：无\
+类型：`email-string`
+
+发送邮件时使用的默认电子邮件地址。
+
+### 字段：`ssl_mode`
+
+默认值：`"starttls"`\
+类型：`Literal["ssl", "tls", "starttls", "lmtp"]`\
+添加于：v2025.2.1
+
+它配置所使用的客户端连接模式。
+默认使用 starttls 方式，这应该能覆盖大多数情况。
+
+这种方式有时无法正常工作，此时你可以改尝试 `"ssl"` 模式或其他模式。
+
+## 统计数据
+
+节名称：`stats`
+
+这是一个可选节，未指定时会使用一组默认值。
+它控制匿名使用统计信息的收集与传输。
+
+有关内容及原因的信息，请参阅[这个 github PR](https://github.com/Kruptein/PlanarAlly/pull/1608)。
+
+### 字段：`enabled`
+
+默认值：`true`\
+类型：`boolean`
+
+允许你启用/禁用统计信息配置，而无需完全删除该节或将其注释掉。
+设为 `false` 时不会进行任何统计信息收集。
+
+### 字段：`enable_export`
+
+默认值：`true`\
+类型：`boolean`
+
+允许你禁用向 PA 统计服务器导出统计数据。
+本地收集仍会进行。
+
+### 字段：`export_frequency_in_seconds`
+
+默认值：`24 * 60 * 60`（1 天）\
+类型：`int`
+
+这决定统计数据向 PA 统计服务器发送的频率。
+
+不建议将其设置低于 1 天。
+推荐的频率为 1 天、1 周或 1 个月。
+
+### 字段：`stats_url`
+
+默认值：`https://stats.planarally.io`
+类型：`string`
+
+接收统计数据的目标 URL。
+
+## 日志记录
+
+节名称：`logging`
+
+这是一个可选节，其默认配置是以 "INFO" 级别记录到标准输出。
+
+<Info title="多个条目">Logging 节可以多次指定，以设置多个输出文件。因此，节标题必须写为 `[[logging]]`</Info>
+
+### 字段 `level`
+
+默认值：`INFO`\
+类型：`Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
+
+该日志记录器的输出级别。高于此级别的内容也会记录到该级别。例如，如果你设置为 ERROR，则 ERROR 和 CRITICAL 都会记录到此输出。
+
+### 字段 `mode`
+
+类型：`Literal["stdout", "file"]`
+
+如果你指定 stdout，则唯一可用的其他字段是 level。
+
+下面是一个将标准输出设置为 critical 的日志记录示例：
+
+```toml
+...
+[[logging]]
+mode = "stdout"
+level = "CRITICAL"
+...
+```
+
+### 字段 `file_path`
+
+默认值：`data/planarally.log`\
+类型：`string`
+
+设置基于文件的日志的输出路径。如果使用 docker，建议使用 data 文件夹，这样它在容器外部也可用。
+
+### 字段 `max_log_size_in_bytes`
+
+默认值：`200_000`\
+类型：`int`
+
+日志文件在被轮转到下一个文件之前可以达到的最大大小。
+
+### 字段 `max_log_backups`
+
+默认值：`5`\
+类型：`int`
+
+要保留的备份文件数量，较旧的文件将被自动删除。
+
+下面是一个如何配置只有 2 个备份文件的文件日志记录器的示例。它可以与上面的标准输出示例结合使用，同时输出到标准输出和文件。
+
+```toml
+...
+[[logging]]
+mode = "file"
+level = "INFO"
+max_log_backups = 2
+...
+```
+
+## 素材
+
+节名称：`assets`
+
+这是一个可选节。
+
+### 字段 `max_single_asset_size_in_bytes`
+
+默认值：`0`\
+类型：`int`
+
+新上传的素材可以拥有的最大大小（以字节为单位）。
+当此字段为 `<= 0` 时，视为"无限制"。
+
+需要注意的是，这只会影响新上传的素材。更改该值不会影响任何已有的素材。
+
+### 字段 `max_total_asset_size_in_bytes`
+
+默认值：`0`\
+类型：`int`
+
+用户允许上传的总大小（以字节为单位）。
+当此字段为 `<= 0` 时，视为"无限制"。
+
+如果素材的大小会导致用户允许的总量超过此值，则该素材将被拒绝。
+需要注意的是，这只会影响新上传的素材。更改该值不会影响任何已有的素材。
+
+[^1]: SQLite 文档阐述了 [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) 和 [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files) 文件的重要性。

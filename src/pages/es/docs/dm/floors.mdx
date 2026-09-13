@@ -1,0 +1,69 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import FloorsPicture from "./assets/floors.png";
+
+# Plantas
+
+Un conjunto completo de [capas](/es/docs/dm/layers/) apiladas se denomina _planta_.
+
+Las plantas se dibujan una encima de otra.
+Por lo tanto, en una planta recién creada, la planta inferior sería completamente visible.
+Esto será cierto para cada parte del tablero de juego que no esté cubierta por cualquier otra cosa, ya sea un recurso en la capa _map_, o una forma en la capa _tokens_.
+
+<Image
+    src={FloorsPicture}
+    width={300}
+    aspectRatio={314 / 277}
+    alt="El botón de plantas con el menú de plantas abierto"
+/>
+
+Se puede acceder a las plantas mediante el botón de plantas en la parte inferior izquierda de la pantalla.
+Las plantas están numeradas (se muestran a la izquierda del menú abierto) y tienen nombres (que se muestran a la derecha).
+El botón de plantas siempre muestra el número de tu planta activa.
+
+**Útil**: ¡asegúrate de revisar los [atajos de teclado de movimiento](/es/docs/reference/#movement) para que navegar entre plantas sea pan comido!
+
+En cualquier [ubicación](/es/docs/dm/locations), siempre hay al menos una planta presente, por lo tanto, al crear la ubicación, la primera planta se creará automáticamente.
+Se llamará `ground` y se numerará con `0`, que siempre es el número de la planta en la parte inferior de la pila.
+
+Las plantas se enumeran en su orden de presentación. La planta más alta es la primera en la lista.
+
+Las plantas son una herramienta muy útil para mejorar la inmersión/la percepción y se recomienda usarlas con frecuencia cuando corresponda. Ten en cuenta que cada planta aumenta el tiempo de renderizado. Hay algunas optimizaciones para reducir esta carga (p. ej. las plantas más altas no se renderizan/se calculan), pero tenlo presente.
+
+## Crear nuevas plantas
+
+Puedes crear nuevas plantas haciendo clic en `Add new floor`.
+Se te pedirá el nombre de la planta en una ventana emergente.
+
+<Info title="Sin duplicados">Ten en cuenta que dos plantas en una ubicación no pueden tener el mismo nombre.</Info>
+
+## Reordenar plantas
+
+Puedes reordenar las plantas arrastrándolas a otra posición. Todos los objetos de una planta permanecerán asociados a esa misma planta.
+
+## Acciones de planta
+
+### Renombrar
+
+Al hacer clic en el lápiz <PencilAlt/> aparecerá una ventana emergente en la que puedes insertar un nuevo nombre para la planta.
+
+### Alternar acceso de los jugadores
+
+Al hacer clic en el ojo <Eye/> puedes alternar si los jugadores pueden acceder a esta planta manualmente.
+
+**Ten en cuenta** que esto no oculta la planta. Puede haber una ventana a través de la cual la planta sea visible.
+
+### Eliminar
+
+Eliminar plantas es tan fácil como hacer clic en el botón <TrashAlt /> en el menú abierto.
+Tendrás que confirmar la eliminación de la planta, _ya que no hay forma de revertir esta acción_!
+
+Al eliminarse, la planta se sacará de la pila y se descartará. Todos los objetos de la planta también se eliminarán.

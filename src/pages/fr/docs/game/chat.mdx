@@ -1,0 +1,28 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# **Chat**
+
+Le tchat en jeu est désormais possible depuis la version 2024.3 en cliquant simplement sur le bouton `Chat` en bas à gauche de la fenêtre de vue.
+
+![Bouton de tchat](assets/chat_button_default.png)
+
+Lorsqu'un message de tchat est envoyé par un utilisateur, un indicateur du nombre de messages non lus apparaît à côté du bouton.
+
+![Messages de tchat en attente](assets/chat_button_waiting.png)
+
+La fenêtre de tchat accepte la saisie en Markdown, ce qui permet d'inclure des styles et des liens, ainsi qu'une mise en forme plus avancée. Consultez le [Tutoriel Markdown](../../../learn/dm/Markdown_Tutorial/markdown)
+
+![Exemple de tchat](assets/chat.png)
+
+<Warning title="Persistance du tchat">
+    Le tchat n'est pas stocké sur le serveur. Il est éphémère et disparaîtra lorsque vous actualiserez la page ou
+    lorsque la connexion sera réinitialisée.
+</Warning>
+
+Le tchat peut être désactivé depuis l'onglet `Feature` des `paramètres DM` en décochant la case d'activation du tchat.
+
+![Bouton d'activation du tchat](assets/chat_toggle.png)

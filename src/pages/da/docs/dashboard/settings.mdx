@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Klientindstillinger
+
+<Image src={DashboardSettings} alt="Dashboard-indstillinger" />
+
+I øjeblikket er kun kontoindstillinger tilgængelige.
+Denne sektion giver dig mulighed for at angive en e-mailadresse, hvis du ønsker det, og endnu vigtigere giver dig mulighed for at ændre din adgangskode eller slette din konto.
+
+<Warning title="Sletning af en konto">
+    Dette er en hård sletning; PA gemmer ingen oplysninger om dig, når kontoen først er fjernet.
+
+    !!Dette fjerner også enhver kampagne, der i øjeblikket ejes af denne bruger!!
+
+</Warning>

@@ -1,0 +1,226 @@
+---
+title: Release 2022.2
+date: 2022-06-11 12:00:00
+excerpt: "Import/eksport"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+Som jeg lovede i den sidste udgivelse, vil jeg gerne lave mere regelmæssige opdateringer, selvom de ikke tilføjer mange funktioner.
+Denne udgivelse retter en masse fejl, men introducerer også nogle nye ting!
+
+_Serverejere: der er lavet ændringer til server_config, tjek [Serverting](#server-stuff)_
+
+## Import/eksport
+
+Den mest prominente nye funktion er import/eksport-funktionalitet.
+Eksportfunktionaliteten blev allerede tilføjet i den sidste udgivelse som en ren API-funktion (dvs. ingen UI til at eksportere),
+men importfunktionaliteten var endnu ikke defineret.
+
+_Som en sidebemærkning lykkedes det mig hurtigere at hjælpe med at løse nogle fejl på grund af denne eksportfunktionalitet!_
+
+Denne udgivelse bringer importfunktionalitet samt UI for både eksport og import, så slutbrugere også kan bruge det.
+
+### Eksperimentelt
+
+Jeg vil gerne understrege, at denne funktion endnu ikke er i sin endelige form, men da det er en meget nichepræget funktion,
+følte jeg mig tryg ved allerede at gøre den tilgængelig for folk at teste.
+
+Ting, du bør være opmærksom på:
+
+- UI'en er meget minimal, både import/eksport er bare en enkelt knap uden fremskridtsinformation.
+- Der er endnu ingen fejlinformation på klientsiden.
+- Du kan ikke importere en kampagne, der deler navn med en kampagne, du allerede kører.
+- Du kan kun importere en kampagne på en server, der kører samme eller en nyere version end serveren, hvor du eksporterede.
+
+De første to punkter er ting, jeg vil arbejde på i en fremtidig udgivelse.
+Det tredje punkt er et spørgsmål om UI/UX og at tilbyde en måde at angive et andet kampagnenavn på.
+Det sidste er en åbenlys teknisk begrænsning, da en ældre server ikke vil have nogen idé om, hvad der ændrede sig i gemmeformatet.
+
+For at tackle dette problem skal der laves en separat tjeneste, der er i stand til at opgradere/nedgradere gemmefiler mellem vilkårlige versioner. Det vil kræve en del arbejde, så forvent ikke dette for tidligt.
+
+### Sådan eksporterer/importerer du
+
+Både eksport- og importfunktionaliteten er tilgængelig fra hoved-dashboardet, så IKKE in-game!
+
+For at eksportere en kampagne, du er DM for, klikker du blot på en kampagne i din "run"-sektion og klikker derefter på "eksporter"-knappen i sidebjælken.
+Når eksporten er færdig (hvis den ikke endte med at fejle på serversiden), vil du blive bedt om en fildownload fra din browser. Eksport af en kampagne er ikke øjeblikkelig, men det tager heller ikke super lang tid.
+
+Resultatet af en eksporteret kampagne er en enkelt fil, der har en ".pac"-udvidelse, forkortelse for PlanarAlly Campaign.
+Denne fil indeholder alle de aktiver, der bruges i den eksporterede kampagne, samt al informationen fra databasen, der relaterer sig til kampagnen.
+
+For derefter at importere den kampagne på en anden server, går du til "import"-sektionen i navigationssidebjælken og trykker på den simple knap.
+Når det er færdigt, bliver du omdirigeret til "run"-sektionen, og den importerede kampagne skulle være listet.
+
+Tiden, det tager for både eksport og import, skalerer med kampagnens størrelse (#lokationer, #etager, #former) samt størrelsen af de aktiver, der bruges i de kampagner.
+
+### Hvornår ville jeg bruge dette?
+
+Du undrer dig måske over, hvad den faktiske nytte af dette er, og jeg vil vædde på, at de fleste bare bliver ved med 1 server og aldrig behøver at bekymre sig om eksport/import!
+
+Her er nogle potentielle use cases:
+
+1. Du har fundet en fejl, noget virker ikke rigtigt, og ud fra en samtale med mig er det ikke umiddelbart klart, hvad der går galt.
+   Dette er et perfekt tidspunkt at lave en eksport af din kampagne og sende den til mig. Så jeg kan fejlsøge i min egen tid uden at skulle kommunikere frem og tilbage med dig.
+
+2. Du kan lide at lave dine egne sikkerhedskopier. Det er altid muligt, at noget går galt med en server, du bruger. At have en sikkerhedskopi skader ingen.
+
+3. Du skal til at spille et sted uden internet. Eksporter din kampagne hurtigt,
+   importér den på en lokal server, du kan køre, og bum, så kan du fortsætte med at spille, hvor du slap.
+   Når du er i et internetmiljø igen, kan du importere den tilbage!
+
+4. Du vil blot skifte til en anden PA-server.
+
+## Farvevælger
+
+Farvevælgeren fik et sjovt nyt trick og har også 2 rettelser, der generede mig :D.
+
+### Husker tidligere brugte farver.
+
+Farvevælgeren husker nu, hvilke farver du brugte (\*).
+De vises nederst på vælgeren i 2 rækker (maks. 20 farver spores). Du kan klikke på en af disse farver for at sætte dem som den aktuelle farve. At holde musen over en farve på listen viser også rgba-værdien for den farve.
+
+Farvehistorikken gemmes pr. bruger på tværs af alle deres kampagner.
+
+![Farvehukommelse](./2022.2/colour-memory.png)
+
+(\*) En farve tilføjes til listen, når du lukker vælgeren, _ikke_ ved at tegne med den. Sidstnævnte ville kræve kode i hele kodebasen, hvorimod det nu kan indeholdes i farvevælgerlogikken.
+
+### Fejl
+
+2 fejl med farvevælgeren blev også rettet.
+
+#### Nulstilling af opacitet
+
+Når du klikkede på farvebjælken (den oven over opacitetsbjælken), blev opaciteten ofte nulstillet til enten 1 eller 0 i stedet for at huske det aktuelle opacitetsniveau.
+
+#### Mætningspanel vendte tilbage til rød
+
+Når du først valgte en farve på farvebjælken og derefter klikkede på mætningsrektanglet, blev farvebjælken ofte nulstillet til dens yderste venstre værdi (rød). Det burde ikke længere ske.
+
+## Logikjusteringer
+
+Logic var en af de nye fede ting i 2022.1-udgivelsen, og vi er her for at polere noget af den nye glans!
+
+### Dør: ikonklarhed
+
+Når du holder musen over en dør i Play-tilstand, vises et <Lock /> eller <Unlock /> ikon.
+Dette var blot et sort ikon, hvilket gør det svært at se på en mørk baggrund.
+
+Denne udgivelse tilføjer en hvid kant til ikonerne, så de altid burde være synlige.
+
+### Dør: specificér blokkere
+
+Den første udgivelse af dørlogikken var rettet mod udelukkende ... døre.
+For en standarddør bør egenskaberne "bloker bevægelse" og "bloker syn" skiftes, når der åbnes eller lukkes.
+Der findes dog også varianter af døre (f.eks. faldgitter) eller ting som vinduer, hvor du måske kun vil skifte 1 egenskab.
+
+Du kan nu specificere, hvilken blokker døren skal skifte ved klik.
+
+![Dørblokeringstilstand](./2022.2/door-block-mode.png)
+
+Du kan naturligvis stadig manuelt ændre den anden bloker-egenskab, som du finder passende. \
+(f.eks. få et vindue til at bruge dørlogikken til kun at skifte syn for at efterligne gardiner, men ændre bevægelsesegenskaben, hvis nogen kaster en mursten gennem vinduet)
+
+### Fejl
+
+Flere fejl relateret til formlogik blev løst.
+
+- Draw-værktøjets dørrettigheder blev ikke gemt.
+- Dørlogikkens skift opdaterede ikke UI'en med det samme, når formegenskaberne var åbne.
+- Teleportzoner udløste fra andre etager.
+- Logik-start kanttilfælde brød UI'en indtil opdatering.
+- Logic-rettighedsvælger viste en fejl i et kanttilfælde.
+
+## UI/UX-forbedringer
+
+Der blev lavet nogle gode ændringer for at forbedre UX og den generelle UI på bestemte områder.
+
+### Viser indlæsningsanimation hurtigere
+
+Når du åbner en kampagne, vises en flot indlæsningsanimation.
+Denne animation startede dog kun på et bestemt tidspunkt, og afhængigt af computeren
+kunne der være en kort periode, hvor intet så ud til at ske, når du åbnede en kampagne.
+
+Animationen vises nu med det samme, når du klikker på en kampagne, så det er klart, at PA laver noget, og at du ikke bare klikkede forkert.
+
+### Skalering af defeat og badge med formen
+
+Formdefeat-overlayet og formbadges havde en fast størrelse.
+Det betød, at en badge for et kæmpemæssigt væsen var super lille, og en badge for et bittesmåt væsen næsten skjulte selve væsenets token.
+Derudover ville dette også gå galt ved brug af forskellige gitterstørrelser.
+
+Denne udgivelse skalerer nu ordentligt disse aspekter med størrelsen på den form, de tilhører.
+
+### Modalhåndtering i firefox
+
+Firefox's håndtering af dragEnd-hændelser er meget inkonsistent/fejlbehæftet, hvilket fik dragbare modaler til at bryde fuldstændigt.
+Dele af denne mærkelige adfærd er rettet i nightly-versioner af firefox, men ikke alt, der generede mig, vil blive rettet på kort sigt i firefox. Så jeg ændrede modallogikken til at bruge drop-hændelsen i stedet. Det kræver en smule mere kode, men garanterer i det mindste lignende adfærd på tværs af alle browsere.
+
+### Viewport
+
+Rektanglet, der viser spillernes aktive viewport (når aktiveret), brugte 1 solid farve, som ligesom dørikonerne ikke var særlig læselig afhængigt af baggrundsfarven. Dette bruger nu også en anden farve for kontrast.
+
+![Viewport-UI-opdatering](./2022.2/viewport.png)
+
+### Varia
+
+- Vis standard "nej"-knappen i slet/forlad-kampagne-prompten.
+- Aktivadministratoren opdaterer nu UI'en korrekt, når man bruger browserens tilbage/frem-knapper.
+- Dashboard-navigationsoverskrifter blev nogle gange fejlstylet.
+
+## Serverting
+
+Serversiden fik nogle små ændringer, herunder ændringer af serverkonfigurationen!
+
+### Logrotation
+
+Serveren vil nu lave en logrotation i stedet for kun at have 1 stor uendelig logfil.
+
+Generalsektionen fik to nye egenskaber:
+
+```python
+max_log_size_in_bytes = 200_000
+max_log_backups = 5
+```
+
+For mere information om, hvad de gør, tjek dokumentationen i serverkonfigurationen.
+
+### Importchunkstørrelse
+
+Kampagnefiler kan blive store, da aktiverne er en del af filen.
+For at undgå at skulle konfigurere uploadstørrelsen til et usandsynligt højt tal, hvilket ville være en sikkerhedsrisiko,
+sender klienten i stedet importfilerne i chunks, der matcher den maksimale størrelse, serveren accepterer.
+
+Denne størrelse kan nu konfigureres i Webserver-sektionen og er som standard 10 MiB.
+
+```python
+max_upload_size_in_bytes = 10_485_760
+```
+
+## Fejl
+
+### SVG-rettelser
+
+Et par rettelser specifikt for SVG-sektionen i formens ekstra indstillingsmenu:
+
+- ExtraSettings-svg-sektionen opdaterede ikke med det samme, før man skiftede faner.
+- ExtraSettings fjern svg fungerede ikke ordentligt.
+- ExtraSettings tilføj svg fungerede ikke for former uden tidligere svg-egenskaber.
+
+### Undo/Redo-rettelser
+
+- Redo-logik ved resize-operation huskede ikke den korrekte placering, når det var snappet.
+- Draw-værktøjet forsøgte at tilføje en formoprettelsesoperation til undo-stakken, når formen ikke var gyldig.
+- Undo/Redo blev ikke gemt til serveren for bevægelse og rotation.
+
+### Diverse
+
+- Spawnlokationer blev indlæst forkert.
+- Punkter ændret af polygonredigerings-UI'en kunne ikke snappes, før der blev opdateret.
+- Aktiv-socket ryddede ikke op i tidligere forbindelser.
+- Auras, der er lyskilder, optræder ikke længere som en sort undergangscirkel, når FOW ikke er slået til.
+- Standardlokationens zoomniveau er nu 0.2 i stedet for 1.0.

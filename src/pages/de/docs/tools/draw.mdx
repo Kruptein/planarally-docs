@@ -1,0 +1,91 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Werkzeug Draw
+
+Das Draw-Werkzeug kann von allen Spielern über die Symbolleiste unten rechts auf dem Bildschirm aufgerufen werden, allerdings nur im [Build-Modus](/de/docs/tools-overview/#toolbar-and-modes).
+
+Es ermöglicht dir, Formen auf dem Spieltisch zu zeichnen, und ist in drei Bereiche gegliedert: Form, Sicht und Logik.
+
+## Formeinstellungen
+
+In den Formeinstellungen kannst du die gewünschte Form sowie einige allgemeine Basiseigenschaften für die Form auswählen.
+
+Die meisten Formen bieten eine Einstellung für Füll- und/oder Rahmenfarbe.
+
+### Rechteck
+
+Eine der einfachsten Formen ist das _Rechteck_. Während die Maustaste gedrückt ist, wird eine Vorschau angezeigt, wie das Rechteck aussehen wird, wenn du die Taste loslässt.
+
+### Kreis
+
+Genau wie das Rechteck ist auch der _Kreis_ sehr einfach. Der gezeichnete Kreis wird auf den Ort zentriert, an dem du die Maustaste gedrückt hast, und hat einen Radius, der davon abhängt, wo du die Maustaste losgelassen hast.
+
+### Polygon / Linie
+
+_Polygon / Linie_ ist vermutlich die komplexeste Form, bietet aber die größte Flexibilität.
+
+Anders als bei allen anderen Formen musst du die Maustaste beim Zeichnen nicht gedrückt halten. Stattdessen erscheint bei jedem Klick irgendwo auf dem Spieltisch ein neuer Punkt, der mit einer Linie mit dem vorherigen Punkt verbunden wird. Du kannst vorhandene Punkte frei überschreiten oder wiederverwenden.
+
+Um anzuzeigen, dass die Form vollständig ist, verwendest du derzeit die rechte Maustaste. Zum Abbrechen des Zeichnens kannst du die Escape-Taste drücken.
+
+Wenn du das Kontrollkästchen „geschlossenes Polygon" aktivierst, werden der letzte und der erste Punkt beim Abschluss der Form automatisch verbunden und das Polygon mit der Füllfarbe gefüllt.
+
+### Pinsel
+
+Ein weiterer Zeichenmodus ist der _Pinsel_, eine Freihand-Option, mit der du alles Beliebige zeichnen kannst.
+
+<Warning title="Leistung">
+    Beachte, dass das Zeichnen mit dem _Pinsel_ sehr viele Punkte benötigt, um eine Form darzustellen. Dies wird im
+    Allgemeinen nur für kleine Dinge empfohlen, da es leistungstechnisch recht schlecht ist.
+</Warning>
+
+### Text
+
+Der letzte verfügbare Zeichenmodus ist _Text_.
+Setze die Schriftgröße vor dem Zeichnen fest, da du die Größe selbst später nicht mehr ändern kannst.
+Du kannst das Textobjekt jedoch frei skalieren.
+
+Anders als bei den anderen Zeichenmodi erfordert das Zeichnen von Text statt eines Ziehens einen einzelnen Klick.
+Dadurch wird ein Popup geöffnet, in dem nach dem anzuzeigenden Text gefragt wird.
+
+Jeder eingegebene Text wird in der Serifenschrift gerendert, die für einfache Tokens verwendet wird, _zentriert auf den im ersten Schritt angeklickten Punkt_.
+Er kann wie jede andere Form gezogen und skaliert werden usw.
+
+<Tip title="Bearbeiten">Du kannst den Text anschließend im Dialog der Formeigenschaften bearbeiten!</Tip>
+
+## Sichteinstellungen
+
+Mit den Sichteinstellungen kannst du die Beleuchtungs- und Sichteinstellungen der gezeichneten Form vorab konfigurieren.
+
+Die Block-Einstellungen werden automatisch umgeschaltet, wenn du zur Kriegsnebel-Ebene wechselst oder von ihr zurückwechselst,
+aber du kannst sie nach Belieben an deine Bedürfnisse anpassen.
+
+Wenn mindestens eine Block-Einstellung aktiviert ist, wird das <Eye />-Symbol des Werkzeugs als visuelle Erinnerung mit orangefarbenem Hintergrund angezeigt.
+
+### DM-only Modi
+
+DMs können in diesem Bereich zusätzlich weitere Sicht-Zeichenmodi auswählen.
+
+Der _Normal_-Modus entspricht wie erwartet dem Standardverhalten.
+
+_Enthüllen_ und _Verbergen_ zeichnen jeweils „magisches Licht" bzw. „Dunkelheit".
+Weitere Informationen findest du in [der Dokumentation zu magischem Licht und Dunkelheit](/de/docs/dm/lighting-vision/#magical-lights-and-darkness).
+
+_Löschen_ erstellt eine Form, die als (tragbares) „Loch" fungiert und alle Objekte _unterhalb_ von ihr im Zeichenstapel durchdringt, einschließlich [Etagen](/de/docs/dm/floors/)!
+Eine _gelöschte_ Form wird automatisch auf der [Karten-Ebene](/de/docs/game/gameboard/#map) abgelegt, kann aber auf jede Ebene verschoben werden.
+
+Weitere Informationen zum Löschmodus findest du in den [Versionshinweisen zu 0.26](/de/blog/release-0.26#erase-floor-mode-dm).
+
+## Logikeinstellungen
+
+Hiermit kannst du die Türlogik für die Form vorab konfigurieren.
+
+Das kann dir beim Karten deiner Wände und Türen eine Menge Zeit sparen!
+
+Weitere Informationen findest du unter [Formlogik](/de/docs/game/shapes/#logic).

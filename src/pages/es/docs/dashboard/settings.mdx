@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Configuración
+
+<Image src={DashboardSettings} alt="Configuración del panel" />
+
+Actualmente solo está disponible la configuración de la cuenta.
+Esta sección te permite establecer una dirección de correo electrónico si lo deseas y, más importante aún, te permite cambiar tu contraseña o eliminar tu cuenta.
+
+<Warning title="Eliminar una cuenta">
+    Esta es una operación de borrado definitivo, PA no conserva ninguna información sobre ti una vez que te elimina.
+
+    !!Esto también elimina cualquier campaña que actualmente sea propiedad de este usuario!!
+
+</Warning>

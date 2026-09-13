@@ -1,0 +1,91 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Herramienta Draw
+
+La herramienta Draw es accesible desde la barra de herramientas en la parte inferior derecha de la pantalla para todos los jugadores, pero solo en [Build mode](/es/docs/tools-overview/#toolbar-and-modes).
+
+Permite dibujar formas en el tablero y está organizada en tres secciones: forma, visión y lógica.
+
+## Configuración de la forma
+
+En la configuración de la forma se puede elegir la forma deseada, así como algunas propiedades básicas comunes para la forma.
+
+La mayoría de las formas ofrecen una configuración de color de relleno y/o de borde.
+
+### Rectángulo
+
+Una de las formas más simples, un _rectángulo_. Mientras el botón del mouse está presionado se muestra una vista previa de cómo se verá el rectángulo si lo sueltas.
+
+### Círculo
+
+Igual que el rectángulo, un _círculo_ es muy simple. El círculo dibujado estará centrado en la ubicación donde presionaste el mouse y tendrá un radio basado en el punto donde soltaste el mouse.
+
+### Polígono / Línea
+
+_Polígono / Línea_ es probablemente la forma más compleja, pero permite la mayor flexibilidad.
+
+A diferencia de todas las demás formas, no tienes que mantener presionado el botón del mouse mientras dibujas. En su lugar, cada vez que haces clic en algún lugar del tablero aparecerá un nuevo punto con una línea que lo conecta al punto anterior. Eres libre de cruzar o reutilizar puntos ya existentes.
+
+Para indicar que la forma está completa, actualmente se usa el botón derecho del mouse. Para cancelar el dibujo puedes presionar Escape.
+
+Si marcas la casilla de polígono cerrado, el último punto y el primer punto se conectarán automáticamente al finalizar la forma y el polígono se rellenará con el color de relleno.
+
+### Pincel
+
+Otra modalidad de dibujo es el _pincel_, una opción de trazo libre que te ofrece la posibilidad de dibujar lo que sea.
+
+<Warning title="Rendimiento">
+    Ten en cuenta que dibujar con el _pincel_ requiere usar muchos puntos para representar una forma. En general, esto
+    solo se recomienda para cosas pequeñas, ya que es bastante malo en cuanto a rendimiento.
+</Warning>
+
+### Texto
+
+La última modalidad de dibujo disponible es _texto_.
+Establece un tamaño de fuente antes de dibujar, ya que no podrás cambiar el tamaño en sí más adelante.
+Sin embargo, podrás escalar el objeto de texto libremente.
+
+A diferencia de arrastrar, como en las demás modalidades de dibujo, dibujar texto requiere un solo clic.
+Esto abrirá una ventana emergente pidiendo el texto que se debe mostrar.
+
+Cualquier texto ingresado se renderizará con la fuente serif utilizada para las fichas simples, _centrado en el punto donde hiciste clic_ en el primer paso.
+Se puede arrastrar y redimensionar, etc., como cualquier otra forma.
+
+<Tip title="Editar">¡Puedes editar el texto más adelante en el diálogo de propiedades de la forma!</Tip>
+
+## Configuración de visión
+
+La configuración de visión te permite preconfigurar la configuración de iluminación y visión de la forma dibujada.
+
+La configuración de bloqueo se activa automáticamente al cambiar hacia y desde la capa de niebla de guerra,
+pero eres libre de modificarla según tus necesidades.
+
+Cuando al menos una configuración de bloqueo está activada, el icono <Eye /> de la herramienta se mostrará con un fondo naranja como recordatorio visual.
+
+### Modos solo para DM
+
+Los DM también pueden seleccionar modalidades de dibujo de visión adicionales en esta sección.
+
+El modo _Normal_ es, como se espera, el comportamiento por defecto.
+
+_Reveal_ y _Hide_ dibujarán 'luz mágica' u 'oscuridad', respectivamente.
+Para más información, consulta [la documentación sobre luz mágica y oscuridad](/es/docs/dm/lighting-vision/#magical-lights-and-darkness).
+
+_Erase_ creará una forma que funciona como un 'agujero' (portátil), atravesando todos los objetos _debajo_ de ella en la pila de dibujo, ¡incluidas las [plantas](/es/docs/dm/floors/)!
+Una forma _borrada_ se colocará automáticamente en la [capa del mapa](/es/docs/game/gameboard/#map), pero se puede mover a cualquier capa.
+
+Consulta las [notas de la versión 0.26](/es/blog/release-0.26#erase-floor-mode-dm) para más información sobre el modo de borrado.
+
+## Configuración de lógica
+
+Esto te permite preconfigurar la lógica de puertas para la forma.
+
+¡Esto puede ahorrarte mucho tiempo cuando estás mapeando tus paredes y puertas!
+
+Consulta la [lógica de formas](/es/docs/game/shapes/#logic) para más información.

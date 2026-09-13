@@ -1,0 +1,163 @@
+---
+title: Release 2024.2
+date: 2024-05-18 14:00:00
+excerpt: "Les bestagons sont de retour"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cette release est entièrement dédiée aux grilles et en particulier aux hexagones, qui ont droit à un peu d'amour.
+
+## Avis de dépréciation
+
+Avant de passer aux bonnes choses,
+je tiens à annoncer que je prévois de supprimer le système d'étiquettes/filtres dans un futur plus ou moins proche.
+C'est, _je pense_, une fonctionnalité qui n'est pas vraiment utilisée, et c'est un peu une relique du passé.
+
+Il est possible qu'un remplaçant ou une alternative soit proposé à l'avenir,
+mais l'implémentation actuelle est tout simplement trop lourde pour être conservée.
+
+Si vous utilisez activement cette fonctionnalité, merci de me contacter.
+
+## Réglages de grille des formes
+
+Un nouvel onglet intitulé « grille » a été ajouté dans la boîte de dialogue Edit Shape pour configurer de nouveaux réglages liés au comportement de la grille de la forme.
+
+![Réglages de grille des formes](./2024.2/grid-settings.png)
+
+### Taille de grille de la forme
+
+L'accrochage des formes à la grille fonctionne bien pour les formes 1x1.
+Mais lorsque vous avez une forme plus grande que 1x1, le comportement d'accrochage peut être un peu imprévisible.
+Cela vient du fait que PA doit faire une supposition sur le nombre de cellules de la grille qu'une forme donnée est censée représenter.
+
+Si une forme occupe 75px par 75px et que la grille est de 50px, doit-elle s'accrocher à une zone de grille correspondant à 1x1 ou à 2x2 ?
+La réponse dépend de la forme réelle. Il s'agit peut-être d'une ressource graphique très grande qui ne devrait pourtant occuper qu'1 cellule de la grille.
+Mais il peut tout aussi bien s'agir d'une ressource très petite pour une créature plus grande.
+
+Cette release offre plus de contrôle sur ce comportement en permettant de spécifier explicitement la taille de grille qu'une forme doit occuper.
+PA estimera toujours par défaut la taille de grille en fonction des dimensions de la forme, mais vous pouvez désormais remplacer ce comportement.
+
+### Afficher l'occupation de la grille
+
+Il s'agit d'un nouveau réglage qui permet d'afficher les cellules de la grille actuellement occupées par une forme.
+Vous pouvez spécifier la couleur d'arrière-plan et la couleur de bordure de ces cellules de la grille.
+
+Cela peut être utile si vous avez des ressources dont la taille n'est pas clairement indiquée et que vous voulez vous assurer que leur influence est clairement montrée.
+
+### Orientation des hexagones
+
+Dans le cadre de l'amélioration du support des hexagones, il est désormais possible de configurer l'orientation des hexagones de taille régulière.
+
+Ces hexagones peuvent avoir 2 orientations, ce réglage vous permet donc de basculer entre les deux.
+
+## Hexagones
+
+PA supporte les grilles hexagonales depuis un certain temps, mais c'était toujours un peu un citoyen de seconde classe.
+En dehors du rendu d'une grille hexagonale plate ou pointue, rien d'autre dans le système n'interagissait avec les hexagones.
+Cela causait beaucoup de problèmes lors de l'utilisation d'hexagones en pratique.
+Par exemple, l'accrochage des formes à la grille ou aux points ne se comportait pas correctement, car la logique utilisait encore une représentation carrée.
+
+Cette release vise à corriger cela et à faire des hexagones de véritables citoyens de première classe dans PA.
+
+En particulier, l'accrochage a été mis à jour pour fonctionner correctement avec les hexagones.
+Cela inclut l'accrochage d'un point à la grille, mais aussi l'accrochage des formes à la grille.
+
+Les outils Select, Draw, Ruler et Map ont tous été mis à jour pour mieux fonctionner avec les hexagones.
+
+## Outil Ruler : mode grille
+
+Un autre changement lié à la grille est que l'outil ruler dispose désormais d'une nouvelle option activable appelée « grid mode » (mode grille).
+
+En mode grille, le ruler ne mesure plus la distance entre 2 points en ligne droite, mais mesure la distance en suivant la grille.
+Cela devrait résoudre certains problèmes de mesure de grandes distances sur des grilles où vous ne vous intéressez qu'au nombre de cellules parcourues,
+et pas tant à la distance réelle en pixels.
+
+Lorsque le mode grille est activé, le ruler affiche à la fois le nombre de cellules et la distance totale.
+Ce comportement peut toutefois être configuré dans vos paramètres du client, vous permettant de n'afficher que l'un des deux.
+
+![Ruler en mode grille](./2024.2/ruler-gridmode.png)
+
+## Mise à jour de l'interface du menu contextuel
+
+Le menu contextuel du clic droit a enfin reçu la mise à jour visuelle attendue depuis longtemps.
+
+Premièrement, l'interface offre plus d'espace, ce qui la rend plus facile à lire et à naviguer.
+
+Deuxièmement, comme le menu ne cessait de grandir, de nouvelles sous-sections ont été ajoutées.
+En particulier, toutes les actions liées au déplacement d'une forme vers un autre endroit
+ont été déplacées dans une nouvelle section « Move » (déplacer).
+
+![Nouvelle interface du menu contextuel](./2024.2/context-menu.png)
+
+## Export/Import
+
+### Données manquantes
+
+Le nouveau système de notes implémenté dans la dernière release a cassé la fonctionnalité d'export et d'import.
+
+Cette release corrige cela ainsi que d'autres choses que j'avais oublié d'ajouter au système d'export/import.
+En particulier, les personnages, les DataBlocks et les Notes sont désormais correctement exportés.
+
+### Nom d'import
+
+Lors de l'import d'une campagne, vous pouvez désormais spécifier le nom qu'elle doit avoir au lieu d'utiliser toujours celui du fichier.
+
+### Nettoyage de l'import
+
+De petites améliorations ont été apportées au code d'import.
+
+Lorsqu'un import échoue, la salle dans laquelle l'import était effectué est désormais correctement nettoyée.
+
+Un cas limite où le code d'import pouvait s'exécuter deux fois a également été résolu.
+
+## Edit Shape : interface des groupes
+
+Cet onglet de la boîte de dialogue Edit Shape était non réactif depuis un certain temps.
+Les modifications apportées n'étaient pas mises à jour immédiatement, ce qui créait de la confusion quant au fonctionnement réel de l'onglet.
+
+Cette release a complètement revu l'intérieur de cette interface, qui devrait désormais être réactive et fonctionner comme on peut s'y attendre.
+Cela s'applique à tous les réglages liés aux badges, mais aussi à l'ajout/retrait de membres du groupe.
+
+## Changements mineurs
+
+### Corrections des notes
+
+Le nouveau système de notes fonctionne globalement très bien, mais quelques petits bugs ont été signalés et résolus.
+
+- Le filtre ne se réexécutait pas correctement lors de l'ouverture des notes de formes, ce qui pouvait parfois laisser des notes de la forme précédente visibles
+- Lors du filtrage des formes, le nom de la forme dans l'interface changeait si vous cliquiez sur une autre forme avec l'outil select
+- Les icônes de notes dessinées sur une forme pouvaient, dans certaines circonstances, être dessinées derrière la forme
+- Correction des événements « add shape » et « remove shape » qui n'étaient pas synchronisés immédiatement si vous n'avez qu'un accès en vision
+- Correction du rendu du markdown qui incluait des éléments HTML bruts dans les annotations
+- Les notes n'étaient pas correctement enregistrées sur les modèles (templates)
+
+### Corrections de l'accrochage
+
+Les outils Select et Draw ont eu quelques petits problèmes corrigés où certaines opérations (par ex. l'accrochage à un point, le redimensionnement) tentaient de s'accrocher au point en cours de déplacement.
+Cela provoquait un comportement étrange où l'accrochage semblait ne pas fonctionner du tout.
+
+L'outil draw ne s'accrochait pas non plus à un point lors du clic initial.
+
+### Outil Spell
+
+L'outil spell dispose d'une logique intégrée pour revenir à l'outil select après le lancement d'un sort.
+Son exigence de revenir à l'outil select était cependant un peu trop insistante.
+
+Sélectionner manuellement un autre outil aboutissait toujours à la sélection de l'outil select, ce qui a été résolu.
+
+Une autre petite amélioration de qualité de vie concerne le champ de taille, qui se comporte désormais mieux lorsque vous tentez de saisir un nombre inférieur à 1.
+
+### Vérification « contient » pour les polygones
+
+La logique permettant de détecter si vous avez cliqué sur un polygone présentait deux défauts qui ont été résolus.
+
+Si un polygone réutilisait un point (à cause d'une auto-intersection), le code de détection se mettait à divaguer.
+
+La ligne imaginaire entre le premier et le dernier point lors de l'utilisation d'un polygone non fermé était également considérée comme faisant partie du polygone.
+
+### Autres corrections de bugs
+
+- Le déplacement des formes vers l'avant/l'arrière-plan n'était pas mis à jour immédiatement
+- Correction d'un problème où Initiative.Order.Change échouait lorsqu'il était appelé avec certains IDs de formes
+- La modification des paramètres du client pour la grille ne mettait pas immédiatement à jour l'écran

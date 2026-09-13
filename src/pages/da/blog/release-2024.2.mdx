@@ -1,0 +1,162 @@
+---
+title: Release 2024.2
+date: 2024-05-18 14:00:00
+excerpt: "Bestagonerne er tilbage"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Denne release handler alt sammen om gitter, og især om at give sekskanterne noget kærlighed.
+
+## Udfasningsvarsel
+
+Inden vi går videre til det gode, vil jeg gerne meddele, at jeg har til hensigt at fjerne etiket-/filtersystemet et sted i fremtiden.
+Det er, _tror jeg_, ikke særligt udbredt, og det er en slags relikvie fra fortiden.
+
+Det er muligt, at der i fremtiden vil blive leveret en erstatning eller et alternativ,
+men den nuværende implementering er bare lidt for klodset til at beholde.
+
+Hvis det er noget, du bruger aktivt, så kontakt mig endelig.
+
+## Form-gitterindstillinger
+
+Der er tilføjet en ny fane i dialogboksen Edit Shape kaldet 'grid' til at konfigurere nogle nye indstillinger relateret til formens gitteradfærd.
+
+![Form-gitterindstillinger](./2024.2/grid-settings.png)
+
+### Formens gittermål
+
+Det fungerer godt at snappe former til gitteret for 1x1-former.
+Men når du har en form, der er større end 1x1, kan snapping-adfærden være lidt uforudsigelig.
+Det skyldes, at PA må gætte sig til, hvor mange gitterceller en given form formodes at repræsentere.
+
+Hvis en form fylder 75px gange 75px, og gitteret er 50px — skal den så snappes til et gitterområde svarende til 1x1 eller 2x2?
+Svaret afhænger af selve formen. Måske er det bare et meget stort kunstaktiv, som kun skal fylde 1 gittercelle.
+Men det kunne lige så godt være et meget lille aktiv for et større væsen.
+
+Denne release giver mere kontrol over denne adfærd ved at tilbyde muligheden for eksplicit at angive den gittermål, en form skal optage.
+PA vil stadig som standard estimere gittermålet ud fra formens dimensioner, men du kan nu tilsidesætte dette.
+
+### Vis gitterbesættelse
+
+Dette er en ny indstilling, der giver dig mulighed for at vise de gitterceller, som en form i øjeblikket optager.
+Du kan angive baggrundsfarven og kantfarven for gittercellerne.
+
+Dette kan være nyttigt, hvis du har nogle aktiver, der ikke klart angiver deres størrelse, og du vil sikre, at deres indflydelse vises tydeligt.
+
+### Sekskant-orientering
+
+En del af den forbedrede sekskantunderstøttelse er muligheden for at konfigurere orienteringen af lige store sekskanter.
+
+Disse sekskanter kan have 2 orienteringer, så denne indstilling giver dig mulighed for at skifte mellem de to.
+
+## Sekskanter
+
+PA har haft understøttelse for sekskantede gitter et stykke tid nu, men det har altid været lidt en andenklasses borger.
+Ud over at rendere et fladt eller spidst sekskantgitter interagerede intet andet i systemet med sekskanter.
+Det forårsagede en del problemer, når man forsøgte at bruge sekskanter i praksis.
+For eksempel ville snapping af former til gitteret eller punkter ikke opføre sig korrekt, da det stadig brugte en kvadratisk repræsentation i sin logik.
+
+Denne release sigter mod at rette op på det og gøre sekskanter til en førsteklasses borger i PA.
+
+Især er snapping blevet opdateret til at fungere korrekt med sekskanter.
+Det inkluderer både snapping af et punkt til gitteret og snapping af former til gitteret.
+
+Værktøjerne Select, Draw, Ruler og Map er alle blevet opdateret til at fungere bedre med sekskanter.
+
+## Ruler-værktøj: Grid-tilstand
+
+En anden gitterrelateret ændring er, at ruler-værktøjet nu har en ny mulighed, der kan aktiveres, som kaldes 'grid mode' (gittertilstand).
+
+I grid-tilstand måler linealen ikke længere afstanden mellem 2 punkter i en lige linje, men måler i stedet afstanden langs gitteret.
+Det burde løse nogle problemer med at måle store afstande på gitter, hvor du kun er interesseret i antallet af tilbagelagte celler og
+ikke så meget i den faktiske afstand i pixels.
+
+Når du aktiverer grid-tilstand, viser linealen både antallet af celler og den samlede afstand.
+Denne adfærd kan dog konfigureres i dine klientindstillinger, så du kun kan vise den ene af de to.
+
+![Lineal i grid-tilstand](./2024.2/ruler-gridmode.png)
+
+## UI-opdatering til kontekstmenuen
+
+Højrekliks-kontekstmenuen fik en længe ventet opdatering af sit udseende.
+
+For det første har UI'et nu mere plads, hvilket gør det nemmere at læse og navigere.
+
+For det andet er der, efterhånden som menuen er vokset, tilføjet nye undersektioner.
+Især er alle handlinger relateret til at flytte en form til et andet sted
+blevet flyttet til en ny 'Move'-sektion.
+
+![Nyt kontekstmenu-UI](./2024.2/context-menu.png)
+
+## Eksport/import
+
+### Manglende data
+
+Det nye notesystem, der blev implementeret i den forrige release, ødelagde eksport- og importfunktionaliteten.
+
+Denne release retter op på det såvel som nogle andre ting, som jeg tilfældigvis glemte at tilføje til eksport-/importsystemet.
+Især eksporteres Characters, DataBlocks og Notes nu korrekt.
+
+### Imports navn
+
+Når du importerer en kampagne, kan du nu angive, hvilket navn den skal have, i stedet for altid at bruge navnet i filen.
+
+### Importoprydning
+
+Der blev foretaget små forbedringer af importkoden.
+
+Når en import fejler, bliver det rum, der blev importeret til, nu ryddet ordentligt op.
+
+En edgecase, hvor importkoden kunne køre to gange, blev også løst.
+
+## Rediger form: Groups-UI
+
+Denne fane i dialogboksen Edit Shape har været upålidelig et stykke tid nu.
+Ændringer ville ikke straks blive opdateret, hvilket forårsagede forvirring om, hvorvidt det faktisk virkede.
+
+Denne release overhalede fuldstændigt det interne i dette UI, og det burde nu være responsivt og fungere, som man ville forvente.
+Det gælder alle badge-relaterede indstillinger, men også tilføjelsen/fjernelsen af medlemmer i gruppen.
+
+## Mindre ændringer
+
+### Note-rettelser
+
+Det nye notesystem kører generelt ganske godt, men nogle små fejl er blevet rapporteret og løst.
+
+- Filteret kørte ikke korrekt igen, når man åbnede formnoter, hvilket betød, at noter fra den forrige form nogle gange stadig var synlige
+- Ved formfiltrering ville formens navn i UI'et ændre sig, hvis du klikkede på en anden form med select-værktøjet.
+- Noteikoner tegnet på en form kunne i nogle tilfælde blive tegnet bag formen.
+- Rettede 'add shape'- og 'remove shape'-hændelser, som ikke blev synkroniseret straks, hvis du kun har visningsadgang
+- Rettede rendering af markdown, som inkluderede rå HTML-elementer i annotationer
+- Noter blev ikke gemt korrekt på skabeloner
+
+### Snapping-rettelser
+
+Select- og Draw-værktøjet fik løst et lille problem, hvor nogle operationer (f.eks. snap til punkt, ændring af størrelse) forsøgte at snappe til det punkt, der blev flyttet.
+Det forårsagede mærkelig adfærd, hvor man tilsyneladende slet ikke snappede.
+
+Draw-værktøjet snappede desuden ikke til et punkt ved det første klik.
+
+### Spell-værktøjet
+
+Spell-værktøjet har indbygget logik til at vende tilbage til select-værktøjet, efter en staveform er kastet.
+Det var dog lidt for insisterende i sit krav om at vende tilbage til select-værktøjet.
+
+At vælge et andet værktøj manuelt endte altid med, at select-værktøjet blev valgt i stedet; det er nu løst.
+
+En anden lille QoL-rettelse er, at størrelsesfeltet nu opfører sig bedre, når du forsøger at indtaste et tal mindre end 1.
+
+### Poylgon indeholder-tjek
+
+Logikken til at registrere, om du klikkede på en polygon, havde to fejl, som nu er løst.
+
+Hvis en polygon genbrugte et punkt (på grund af en selv-overskæring), begyndte contains-koden at hallucinere.
+
+Den imaginære linje mellem det første og det sidste punkt ved brug af en ikke-lukket polygon blev også set som en del af polygonen.
+
+### Andre fejlrettelser
+
+- Flytning af former til forrest/bagerst opdaterede ikke straks
+- Rettede et problem, hvor Initiative.Order.Change ville fejle, når det blev kaldt med nogle Shape Ids.
+- Ændring af klientindstillinger for gitteret opdaterede ikke straks skærmen

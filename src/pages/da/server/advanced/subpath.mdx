@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Undermappehosting
+
+PlanarAlly kan nemt hostes på et rodniveau (f.eks. https://www.planarally.io) eller på et underdomæne (f.eks. https://app.planarally.io).
+Når man hoster på en undermappe, kræver det dog noget ekstra arbejde (f.eks. https://www.planarally.io/dnd/).
+
+Du skal signalere til serveren og klienten, at de skal køre på en undermappe.
+Derudover kan du også få brug for at foretage nogle ændringer i din proxy.
+
+Resten af disse dokumenter vil nogle gange referere til miljøvariablen PA_BASEPATH, som skal matche den ønskede undermappe.
+For eksempel:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Ændret adfærd">
+Siden 2022.1 har der været nogle ændringer i håndteringen af undermapper,
+sørg for at genlæse disse dokumenter grundigt, hvis du har brugt dem tidligere!
+
+Klienten skal især nu altid bygges manuelt, og docker-containeren bruger --build-arg i stedet for --env.
+
+</Warning>
+
+## Ændringer på klienten
+
+Når du vil bruge en undermappe, skal du [bygge klienten selv](/da/server/setup/self-hosting/#manual-installation).
+Undermappeoplysningerne skal indbygges i build-output-filerne.
+Dette kan gøres ved blot at bygge klienten, mens miljøvariablen PA_BASEPATH er sat.
+
+## Ændringer på serveren
+
+Serveren skal også kende undermappen. Sørg blot for, at miljøvariablen PA_BASEPATH er sat, før du kører serveren.
+
+## Docker
+
+Når du bruger docker-image'et, skal denne miljøvariabel videregives til containeren.
+Tilføj følgende del til din docker-kommando.
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## Proxy
+
+### Nginx
+
+Når du bruger nginx, vil du have en meget lignende opsætning som den, der er beskrevet i [proxy](/da/server/advanced/proxy/), men alle `location`-dele vil starte med `/planarally`, hvis det er din ønskede undermappe.
+
+Derudover skal du foretage en lille ændring i den socket.io-specifikke location-regel:
+
+proxy_pass (eller host\:port-pass) skal ændres, så den inkluderer undermappen. (f.eks. `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+Sørg for at opsætte proxypass og reverse på undermappen!
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

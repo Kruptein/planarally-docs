@@ -1,0 +1,185 @@
+---
+title: La grande réécriture du client - Release 0.27.0
+date: 2021-06-02 15:00:00
+excerpt: "Un aperçu des nouvelles fonctionnalités"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cela fait un moment que nous n'avions pas eu de nouvelle version.
+La bonne nouvelle, c'est que peu de bugs ont été signalés, la version 0.26 était donc assez stable, ce qui est toujours agréable à voir.
+La mauvaise nouvelle, c'est que cette version pourrait être un peu plus mouvementée et nous verrons bientôt pourquoi.
+
+Cette version visait principalement à faire une seule chose : mettre à niveau le framework réactif utilisé par PA (Vue) de la version 2 à la version 3.
+C'est un changement très technique qui, _idéalement_, ne devrait pas avoir d'impact direct sur l'expérience utilisateur, mais qui touche beaucoup de code, raison pour laquelle je voulais une période plus longue pour vérifier que tout se comporte correctement. J'expliquerai en détail ce que ces changements impliquent à la fin de cet article pour ne pas faire fuir les vrais utilisateurs ! :)
+
+Mais les changements de code interne ne sont pas la seule chose qui a changé : l'initiative a été revue, il y a quelques nouveautés pour utiliser PA comme une table de jeu physique et il y a eu encore de merveilleuses contributions de la communauté. C'est parti !
+
+## Initiative
+
+L'outil Initiative, tel qu'il fonctionnait jusqu'à présent, avait été plus ou moins bricolé en quelques jours après qu'un commentaire reddit ait demandé le support de l'initiative. Il faisait le travail, mais avait toujours quelques problèmes mineurs. J'ai enfin pris le temps de traiter ces problèmes en suspens et de repenser une partie des fonctionnalités de l'initiative.
+
+![Refonte de l'outil Initiative](./0.27/initiative.png)
+
+### UI/UX
+
+L'un des problèmes était que l'interface pouvait être très chargée.
+Surtout pour les joueurs qui pouvaient toujours voir les boutons d'administration sans pouvoir interagir avec eux d'aucune manière.
+
+#### Barre DM
+
+Les actions réservées au DM ont été déplacées dans une "barre DM" séparée et ne seront visibles que pour les (co-)DM.
+
+#### Paramètres
+
+Par ailleurs, les icônes de verrouillage de caméra et de vision ont été déplacées vers les paramètres du client, accessibles via une petite icône en forme de roue dentée.
+Cela résout aussi le "bug" où les personnes qui utilisaient fréquemment ces paramètres devaient toujours réappliquer ces configurations par le passé.
+
+#### Suppression
+
+Un autre changement notable devrait être la suppression de la poubelle parmi les icônes de chaque acteur d'initiative.
+Pour quelque chose qui n'est _pas_ si important à voir en permanence, elle prenait de la place.
+Une petite croix rouge apparaîtra désormais à la place dans le coin supérieur droit lorsqu'on survole un acteur d'initiative.
+
+#### Champ de saisie
+
+Enfin, la valeur de saisie elle-même a reçu plus de largeur. Elle a maintenant un peu d'espace pour respirer !
+Son style a aussi changé : elle ne ressort plus comme une étrange boîte de saisie, mais ressemble maintenant à un élément "normal" de la modale.
+
+Lors de la saisie de votre initiative, il est possible que vous perdiez le focus du champ de saisie si quelqu'un d'autre modifie des valeurs simultanément, ce qui fait sauter les initiatives. Cela avait été traité par le passé en attendant de rafraîchir la fenêtre d'initiative jusqu'après l'envoi de votre modification. Il n'y avait cependant aucune indication montrant que les valeurs n'étaient pas synchronisées si vous gardiez le champ de saisie focalisé. Ce n'est pas idéal car c'est très peu clair et cela peut mener à beaucoup de confusion. C'est pourquoi, dans la nouvelle fenêtre d'initiative, toutes les autres lignes d'initiative seront estompées pendant que vous avez un champ de saisie focalisé, afin de montrer visuellement que vous effectuez une action qui n'est pas encore terminée.
+
+![Estompage de l'initiative](./0.27/blur.png)
+
+En dernier changement pour le confort d'utilisation, appuyer sur `enter` fonctionnera désormais aussi dans les champs de saisie d'initiative :).
+
+### Comportement
+
+Un second problème de l'ancienne initiative était que le comportement de tri pouvait se bloquer, l'ordre d'initiative ne se mettant plus à jour ou se mettant à jour à tort. La structure de données en coulisses responsable de cela a été changée et devrait maintenant se comporter correctement en toutes circonstances.
+
+La barre DM de l'initiative a aussi de nouvelles fonctionnalités :
+
+Vous pouvez maintenant revenir en arrière si vous avez accidentellement sauté quelqu'un ou si quelqu'un n'a pas fini son tour.
+Vous pouvez aussi maintenant effacer toutes les valeurs d'initiative. Cela vous permet de demander une nouvelle initiative et de voir qui doit encore mettre à jour sa valeur, alors qu'autrement vous ne pourriez pas être sûr que la valeur soit nouvelle ou encore l'ancienne.
+
+#### Tri
+
+Enfin, vous pouvez maintenant aussi modifier activement le comportement de tri. Les trois options sont : décroissant, croissant et manuel.
+Si vous glissez des initiatives, le tri passera automatiquement en mode manuel, sauf si vous avez échangé deux acteurs avec la même valeur d'initiative.
+
+## Copier des emplacements
+
+_Contribution de CalebKoch_
+
+Cette fonctionnalité pratique permet aux DM de copier un emplacement vers une autre session. Le concept est assez simple, mais il fait gagner beaucoup de travail si vous exécutez la même campagne pour plusieurs groupes et que vous n'avez pas à refaire toute la cartographie et le dessin du brouillard de guerre !
+
+Il est accessible en tant que DM depuis les paramètres de l'emplacement que vous souhaitez copier. Une boîte de dialogue vous présentera toutes vos campagnes.
+
+## Table de jeu
+
+Cela vient en partie d'une demande des gens de la dernière table de jeu avec lesquels je me suis associé pour apporter PA à leur plateforme,
+mais cela a aussi un usage général !
+
+![Dimensions de la table de jeu physique](./0.27/gameboard.png)
+
+Dans la plupart des cas, PA est utilisé uniquement comme solution numérique pour les jeux de table.
+Dans ce contexte, c'est avant tout la taille en pixels que devrait représenter une cellule de grille qui est importante.
+
+Dans certains cas, PA est utilisé comme une extension du jeu physique "traditionnel" et PA sert ainsi de table de jeu plus traditionnelle avec des fonctionnalités supplémentaires.
+Dans ce contexte, renseigner directement la taille en pixels est moins intéressant, mais pouvoir placer des figurines sur la table est ce qui compte.
+
+Il est maintenant possible de définir la taille de la grille dans un contexte physique en fournissant la taille des figurines et le PPI (parfois appelé DPI) de l'écran. Une conséquence de cela est que le zoom n'a plus de sens et cela ne fonctionnera donc pas pour l'instant.
+
+## Vue
+
+En tant que DM, vous avez parfois votre propre écran DM mais contrôlez aussi un autre écran qui montre ce que les joueurs peuvent voir.
+Dans ce contexte, il peut être pénible de passer d'un écran/ appareil à l'autre pour contrôler la caméra des joueurs.
+
+Nouveau dans cette version : la possibilité d'afficher la vue active des joueurs. Dans les paramètres d'administration, vous pouvez activer la vue pour chaque joueur individuellement.
+
+Chaque vue sera rendue sur le calque DM sous la forme d'un rectangle sans remplissage dont la bordure montre la région exacte que ce joueur regarde à ce moment précis.
+
+Chaque vue peut de plus être déplacée par le DM, ce qui fait directement défiler l'écran du joueur concerné.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.27/viewport.webm" type="video/webm" />
+    <source src="/blog/release-0.27/viewport.mp4" type="video/mp4" />
+</video>
+
+_désolé pour l'artefact, et un bonus à ceux qui reconnaissent l'image en arrière-plan ;)_
+
+## Qualité de vie
+
+C'est tout pour les changements les plus importants, mais beaucoup de belles améliorations de la qualité de vie ont aussi été faites !
+
+### Synchronisation du menu des ressources
+
+La barre latérale du menu des ressources, disponible uniquement pour les DM pour l'instant, n'était jamais mise à jour en direct lorsque de nouvelles ressources étaient ajoutées au gestionnaire de ressources.
+Cela causait à moi-même et à beaucoup d'autres bien des tracas chaque fois qu'il fallait recharger la page après l'ajout de nouvelles ressources.
+
+Nous n'avons plus besoin d'endurer cela, car la barre sera désormais mise à jour en direct en fonction de ce qui se passe dans le gestionnaire de ressources !
+
+### Modifier les valeurs de texte des formes
+
+Certaines formes (c'est-à-dire Text et CircularToken) ont une certaine valeur de texte associée.
+Par le passé, cette valeur n'était configurable que lors de la création de ces formes et n'était plus modifiable ensuite.
+
+Une nouvelle ligne 'valeur' a été ajoutée à l'onglet propriétés des boîtes de dialogue d'édition de ces formes.
+
+### HiDPI/Retina
+
+Comme vous avez pu le voir sur une image précédente, les paramètres du client ont un nouvel onglet d'affichage.
+Il contient aussi une bascule pour activer le support des écrans HiDPI et retina.
+Tout devrait être plus net !
+
+**avertissements** :
+
+- C'est plus lourd à dessiner pour votre ordinateur
+- J'ai eu quelques retours où le zoom/le défilement déraille avec ce paramètre activé, soyez donc prudents !
+
+### Désélection avec ctrl
+
+Un clic avec ctrl sur des formes vous permet d'ajouter des formes individuelles à une sélection active. D'autres outils prennent aussi couramment en charge le clic avec ctrl sur des formes déjà sélectionnées pour les désélectionner. C'est maintenant aussi pris en charge.
+
+### Confirmation avant d'exclure un joueur
+
+Exclure un joueur demandera désormais d'abord une confirmation :)
+
+## Serveur
+
+### Le serveur API est maintenant désactivé par défaut
+
+Le serveur API est une fonctionnalité très spécifique et il était activé par défaut, ce qui nécessitait d'ouvrir un port supplémentaire.
+Il est maintenant désactivé par défaut pour éviter des messages d'erreur obscurs pour les personnes qui utilisent des conteneurs avec seulement le port principal ouvert.
+
+### public_name commenté par défaut
+
+_contribution de dthv_
+
+Un petit changement de qualité de vie qui montre clairement qu'il s'agit d'une fonctionnalité optionnelle.
+
+### Modifications des Dockerfiles
+
+_contribution de jirsat_
+
+Nettoyage de certaines dépendances inutilisées et ajout du support ARM dans les dockerfiles.
+
+## Correctifs
+
+- Un bug lié aux étages et à l'éclairage sur les étages supérieurs qui ne se mettaient pas à jour
+- Le réordonnancement des étages étant rendu incorrectement jusqu'à un rafraîchissement
+- Redo ne fonctionnant pas sur Mac
+- Barres de suivi avec valeurs négatives affichant une barre allant vers la gauche
+- Co-DM ne voyant pas les initiatives privées
+- La suppression du dernier étage donnant un écran vide
+- La suppression d'étages sous l'étage actif donnant un écran vide
+- La possibilité de définir une valeur &lt; 1 pour unitSize
+
+## Détails de la réécriture du client
+
+Comme dit en introduction, PA utilise maintenant Vue 3, qui a introduit l'API de composition, plus friendly avec typescript.
+
+Tout le code d'interface a été complètement réécrit pour utiliser cette nouvelle API.
+De plus, tous les "stores" ont été réécrits pour utiliser une API d'état très simple, écrite sur mesure, qui correspond mieux à mes propres besoins.
+Cela m'a permis de refactoriser beaucoup de code qui était auparavant réparti entre de purs fichiers ts et un store associé.
+
+Un autre avantage intéressant de Vue 3 est qu'il prend maintenant en charge Map et Set dans les contextes réactifs, ce qui a grandement amélioré certains domaines où je devais travailler avec des données de type Map de façon moins idéale.

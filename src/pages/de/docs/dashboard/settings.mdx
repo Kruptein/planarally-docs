@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# Einstellungen
+
+<Image src={DashboardSettings} alt="Dashboard-Einstellungen" />
+
+Derzeit sind nur die Kontoeinstellungen verfügbar.
+Dieser Bereich ermöglicht es dir, falls gewünscht, eine E-Mail-Adresse festzulegen und, was noch wichtiger ist, dein Passwort zu ändern oder dein Konto zu löschen.
+
+<Warning title="Konto löschen">
+    Dabei handelt es sich um eine endgültige Löschung: PA speichert keine Informationen über dich, sobald das Konto entfernt wurde.
+
+    !!Dadurch werden auch alle Kampagnen entfernt, die sich derzeit im Besitz dieses Benutzers befinden!!
+
+</Warning>

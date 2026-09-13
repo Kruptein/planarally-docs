@@ -1,0 +1,239 @@
+---
+title: Release 0.24.0
+date: 2021-01-10 22:00:00
+excerpt: "Wir starten das Jahr mit einem neuen großen Release!"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Es ist schon eine Weile her! Aber ich hatte im vergangenen Monat viel Freizeit, daher enthält dieses Release einige aufregende neue Funktionen und eine Menge Bugfixes!
+
+Eine kleine Warnung, wenn du eine Karte in der neuen Version öffnest:
+Aufgrund eines Bugfixes für den Zoom bei nicht standardmäßigen Rastergrößen ist es wahrscheinlich, dass dein erster Ladevorgang einer Karte leicht aus der Mitte verschoben ist, verglichen mit der Position, an der sich deine Kamera zuletzt befand. Normalerweise sollte das nicht weit vom ursprünglichen Ort entfernt sein.
+Wenn du Probleme hast, deine Sachen wiederzufinden, versuche die Leertaste, um dich auf deine Tokens zu zentrieren, oder Strg+0, um zum Weltmittelpunkt zu gehen.
+Falls du immer noch Probleme hast, kontaktiere mich und ich gebe dir etwas Konsolen-Code.
+
+## Hexagons
+
+Ein oft angefragtes Feature – aus gutem Grund – ist die Unterstützung von Sechsecken.
+Ich kann jetzt endlich sagen, dass es _eine gewisse_ Unterstützung gibt.
+
+Als Teil der DM-Rastereinstellungen kannst du nun den Rastertyp auswählen. Standardmäßig sind es quadratische Raster,
+aber du kannst sie auch auf flache oder spitze Sechsecke umstellen.
+Dies kann auf Kampagnen- oder Ortsebene konfiguriert werden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/hexagons.webm" type="video/webm" />
+    <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4" />
+</video>
+
+_Es ist vielleicht wegen meiner geringen Rasteropazität nicht extrem klar zu erkennen, Entschuldigung dafür_
+
+Eine wichtige Sache, die du wissen solltest: Das Einrasten am Raster wird noch nicht unterstützt. Daher empfehle ich dir dringend, dein ALT-Verhalten vorerst zu invertieren, wenn du Sechsecke verwendest.
+
+## Gruppen-Verbesserungen
+
+Gruppen sind eine Möglichkeit, Formen zu organisieren, mit einem optionalen Badge, um sie zu unterscheiden (z. B. Oger 5).
+Innerhalb einer Gruppe hat jede Form einen eindeutigen Wert: ihren Badge.
+
+Bis zu diesem Release gab es ein implizites Gruppierungskonzept, das beim Kopieren und Einfügen einer Form angewendet wurde.
+
+Dieses Release erweitert das Gruppierungssystem stark und macht es deutlich konfigurierbarer und expliziter.
+
+![Asset-Gruppe bearbeiten](./0.24/edit-asset-group.png)
+
+Im Dialog zum Bearbeiten von Assets steht den Besitzern von Formen/DMs jetzt ein neuer Tab zur Verfügung.
+Dieser Tab erlaubt die Konfiguration verschiedener Dinge in Bezug auf die Gruppe, zu der die ausgewählte Form gehört.
+
+Zeichensätze können konfiguriert werden; zwei vorgefertigte Sätze sind verfügbar, aber du kannst frei einen eigenen Satz festlegen (z. B. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+Badges können einzeln oder für die gesamte Gruppe auf einmal umgeschaltet werden. Einzelne Mitglieder können entfernt werden und auch die gesamte Gruppe kann entfernt werden.
+
+Badges können nun auch randomisiert werden, um mögliche Metagaming-Spieler zu zügeln.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+Zusätzlich gibt es nun auch eine neue Kontextmenü-Option in Bezug auf Gruppen, wenn du mit der rechten Maustaste auf eine Auswahl von Formen klickst.
+Damit kannst du Gruppen nach Belieben erstellen/zusammenführen/teilen/löschen.
+
+Das bedeutet auch, dass Gruppen nicht länger auf Formen desselben Assets beschränkt sind!
+
+Weitere Informationen zum Gruppierungssystem findest du in der [Dokumentation](/de/docs/game/assets/#group)
+
+## Varianten
+
+_Dies ist **experimentell**; ich rechne damit, dass einige Grenzfälle auftauchen. Bitte lass mich wissen, wenn du auf irgendwelche Fehler stößt!_
+
+Eine neue Funktion für Formen ist die Möglichkeit, Varianten hinzuzufügen. Varianten sind grob definiert als jede andere Form, zu der man wechseln möchte, ohne ein neues Token erstellen und ein vorheriges Token entfernen zu müssen.
+Denke an Wildformen, alternative Grafiken, mehrstufige Bosse, Überraschungsenthüllungen ...
+
+Zu jedem Zeitpunkt ist nur eine Variante sichtbar und kann gegen eine andere ausgetauscht werden.
+Jede Variante behält ihre eigene Größe, Eigenschaften und Tracker, aber Tracker und Auren können so konfiguriert werden, dass sie unter allen Varianten geteilt werden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Wie im obigen Video zu sehen ist, können Varianten über ein neues UI-Element am unteren Rand des Dialogs zum Bearbeiten von Formen erstellt, umbenannt und entfernt werden.
+
+#### Bekannte Einschränkungen
+
+Beim Erstellen einer neuen Variante hat sie keine der Einstellungen, die auf die Basisvariante angewendet wurden.
+Dazu gehören Zugriffsrechte, allgemeine Form-Eigenschaften (z. B. Name, ob es ein Token ist usw.) oder Annotationen!
+
+Momentan kannst du nur neue Varianten hinzufügen, die Assets in deinem Asset-Manager sind. Die Basisform kann jedoch jede Form sein.
+In der Zukunft wirst du auch ein einfaches Token als Alternative auswählen können, statt nur aus dem Asset-Manager wählen zu können.
+
+Derzeit ist es nicht möglich, eine Form mit Varianten in der Datenbank zu speichern; das wird in der Zukunft möglich sein, wenn du auch andere benutzerdefinierte Formen in der Datenbank speichern kannst.
+
+## Werkzeuge
+
+### Initiative
+
+Das Initiative-Werkzeug hat einige kleine Änderungen erhalten: Es hat nun einen expliziten Button, um Effekte zu entfernen, statt sich nur auf das automatische Entfernen bei negativen Zahlen zu verlassen.
+
+Außerdem beginnt der Runden-Zähler jetzt bei 1 statt bei 0, und eine Menge Fehler im Zusammenhang mit der Initiative-Synchronisierung wurden behoben.
+
+### Map
+
+Das Map-Werkzeug hat jetzt eine Funktion zum Beibehalten des Seitenverhältnisses! Beim Konfigurieren der Rasterwerte kann ein Schlosssymbol umgeschaltet werden, um die Seitenverhältnis-Sperre zu erzwingen.
+
+Eine weitere Neuerung ist, dass du die Größenanpassungs-Auswahl überspringen und stattdessen das gesamte Asset direkt skalieren kannst.
+Dies kann in der Anzahl von Rasterzellen oder in Pixeln erfolgen.
+
+### Ruler
+
+Das Ruler-Werkzeug hat eine neue Tastenkombination erhalten, mit der du Lineale biegen kannst.
+Wenn du die "Leertaste" drückst, kannst du ein neues Lineal starten, das am Endpunkt des letzten Lineals beginnt.
+Die angezeigte Distanz ist die Gesamtsumme aller aktuell kombinierten Lineale.
+
+Du kannst beim Select-Werkzeug jetzt auch 'show ruler' umschalten, um beim Bewegen von Formen ein Lineal anzuzeigen.
+Dieses zeigt ein Lineal, das an der ursprünglichen Position der Form beginnt und der Form folgt, die du gerade bewegst.
+Es unterstützt auch die 'Leertaste', um Distanzen hinter Ecken zu messen.
+
+Wenn du das Lineal im Select-Modus verwendest, behält es den Datenschutzmodus (d. h. öffentlich/privat) des Ruler-Werkzeugs bei.
+
+![Mehrfachlineal](./0.24/multiruler.png)
+
+### Vision
+
+Das Verhalten des Vision-Werkzeugs wurde geändert, wenn du die letzte Form abwählst. In der Vergangenheit wurde sofort alles wieder ausgewählt.
+Das war jedoch sehr kontraintuitiv und nervig, daher wurde dies entfernt.
+
+Damit visuell klar ist, dass du deine Sicht-Ansicht auf eine ausgewählte Gruppe von Tokens einschränkst,
+hat das Vision-Werkzeug jetzt eine andere Hintergrundfarbe, wenn nicht alles angezeigt wird.
+
+## Asset-Import/-Export
+
+Im letzten Release wurden Vorlagen (Templates) hinzugefügt. Es ist jetzt möglich, Assets aus dem Asset-Store auf deinen lokalen Computer zu exportieren und sie auf einen anderen PA-Server hochzuladen oder sie als eine Art Backup aufzubewahren.
+
+Die exportierte Datei endet mit der Erweiterung '.paa', kurz für planar ally assets. Sie behält die exakte Ordnerstruktur und das Benennungsschema bei, das du hattest, einschließlich aller Vorlagen-Informationen.
+
+Beim Importieren einer paa-Datei wird alles in den aktuellen Ordner extrahiert, den du dir ansiehst.
+Beachte, dass Dateien mit demselben Namen nicht überschrieben werden, aber neue Dateien und Ordner immer erstellt werden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/export.webm" type="video/webm" />
+    <source src="/blog/release-0.24/export.mp4" type="video/mp4" />
+</video>
+
+**Wichtig** Das obige Filmmaterial ist beschleunigt (bzw. einige Frames wurden geschnitten), da der Prozess von der Größe der Dateien/Ordner abhängt und in dieser Zeit derzeit wenig Feedback gegeben wird. Ich hoffe, dies in zukünftigen Releases zu verbessern, aber für den Moment bietet es eine funktionierende Basis.
+
+## Allgemeine UX-Verbesserungen
+
+### Öffnen des Bearbeiten-Dialogs
+
+Der Bearbeiten-Dialog konnte immer über das Rechtsklick-Kontextmenü der Form oder die Schnellauswahl-Info oben rechts geöffnet werden.
+
+Jetzt kannst du auch 'enter' auf einer ausgewählten Form drücken, um dieses Fenster sofort zu öffnen.
+
+### Navigieren
+
+Du kannst jetzt den Nummernblock zum Navigieren verwenden; dieser unterstützt auch vollständig die Bewegung auf Sechseck-Rastern.
+Das Drücken von 5 zentriert den Bildschirm auf den Ursprung.
+
+### Token-erstellen-Dialog
+
+Das Eingabefeld ist jetzt automatisch fokussiert, und das Drücken von Enter übermittelt die Informationen!
+
+### Allgemeine Werkzeuge
+
+Die meisten Werkzeuge unterstützen jetzt das Rechtsklick-Kontextmenü auf ausgewählten Formen, ohne zum Select-Werkzeug wechseln zu müssen.
+
+Es gibt zwei Ausnahmen: Draw und Map. Diese haben ihr eigenes Rechtsklick-Verhalten.
+
+Zusätzlich erlauben das Filter- und das Vision-Werkzeug eine größere Auswahl an Select-Werkzeug-Optionen, ohne wechseln zu müssen.
+
+Schließlich: Wenn du zu einem Werkzeug-Modus wechselst, den das aktuelle Werkzeug nicht unterstützt, wird automatisch zum Select-Werkzeug gewechselt.
+
+### Lösch-Performance
+
+Beim gleichzeitigen Entfernen mehrerer Formen, insbesondere in Bezug auf Sicht/Belichtung, konnte der Client einen großen Performance-Einbruch erleiden oder sogar komplett hängen bleiben und nur eine teilweise Entfernung durchführen.
+
+Dies lag an einer ziemlich ineffizienten Neuberechnung der Sicht-/Belichtungs-Triangulation. Diese wird nun intelligenter durchgeführt und führt zu **viel** flüssigerem Verhalten.
+
+## Nennenswerte Fixes
+
+### Form-Auswahl
+
+Zwei Fixes wurden für die Form-Auswahl in Bezug auf rotierte Formen vorgenommen:
+
+Wenn du auf eine rotierte Form mit der Absicht klickst, sie auszuwählen, wählte der Code die Form aus, wenn du auf eine Stelle klicktest, die die nicht rotierte Form einnehmen würde.
+
+Bei einer Gruppenauswahl verwendeten Polygone (und andere Formen) ihre größte Begrenzungsbox, um die Kollisionserkennung zu bestimmen.
+Das ist ziemlich ungenau und wurde jetzt exakt geändert.
+
+## Weitere Änderungen
+
+Einige kleinere technische Änderungen, die Endbenutzer nicht sofort betreffen sollten, wurden ebenfalls vorgenommen:
+
+- Upgrade auf socket.io v3
+- Reduzierte Anzahl der Berechnungen zur Bestimmung der minimalen Sicht-Reichweite für Tokens
+
+## Weitere Fixes
+
+- Das Sperren von Formen über Tastenkürzel wurde nicht mit dem Server synchronisiert
+- Annotationen von anderen Etagen wurden angezeigt
+- Merken der Ruler-Sichtbarkeit bei Werkzeugwechsel
+- `Ctrl 0` zentriert die Ansicht jetzt auf den Ursprung (vorher wurde der Ursprung oben links in der Ansicht angezeigt)
+- Initiative-Effekte wurden für nicht-numerische Eingaben zu NaN
+- Neue Initiative-Effekte wurden bis zu einem vollständigen Client-Refresh nicht sofort synchronisiert
+- Form-Namensänderungen wurden für öffentliche Namen nicht mit Benutzern synchronisiert, die die Form nicht besitzen
+- Form-Namensänderungen wurden nicht immer auf der Initiative-Liste aktualisiert
+- Das Bewegen von Formen mit Standard-Bewegungsrechten funktionierte nicht
+- Verschiedene Fehler bei Initiative-Berechtigungsupdates
+- Negative Werte für Auren verursachen keine Zeichenprobleme mehr
+- Tracker lieferten keine leeren Zeilen, bis der Dialog erneut geöffnet wurde
+- Das Einfügen von Formen führte zu zusätzlichen leeren Tracker-Zeilen
+- Das Größenanpassen von Rechtecken verursachte eine Positionsverschiebung
+- Ortsänderungen wurden manchmal nicht für alle übernommen
+- Das Größenanpassen rotierter Formen mit Einrasten rastet jetzt korrekt an Rasterpunkten ein
+- Abgelegte Assets wurden nicht sofort gerendert
+- Formen mit einem fehlerhaften Indexwert (verwendet für nach hinten/nach vorne verschieben)
+- Bereich in der oberen Mitte des Bildschirms, in dem die Maus manchmal nicht verwendet werden konnte
+- Auren, die öffentlich werden, sind auf anderen Clients nicht ordnungsgemäß als Sicht-Quelle konfiguriert
+- Auswahl rotierter Rechtecke und Assets
+- Gruppenauswahl rotierter Formen
+- Doppelte Einträge im Vision-Werkzeug
+- Die meisten Assets wurden automatisch so skaliert, dass sie in eine Rasterzelle passen
+    - Sie behalten jetzt beim Ablegen ihre ursprüngliche Größe (außer bei Verwendung von Vorlagen)
+- Fehlerhafter Zustand im Asset-Manager bei erneuter Verbindung
+- Sortierreihenfolge im Asset-Manager
+- Shift-Auswahl im Asset-Manager verhielt sich seltsam, wenn Dateien und Ordner gemischt wurden
+- Weitere Fälle, in denen das Ruler- und das Ping-Werkzeug hängen bleiben konnten
+- Werkzeug-Dialoge bewegen sich jetzt korrekt beim Wechsel des Modus
+- Der Bearbeiten-Dialog bleibt geöffnet, wenn eine andere Form ausgewählt wird
+- Etagenbewegung berechnete die Sicht-/Bewegungs-Triangulation nicht neu
+- Auswahl schloss Formen außerhalb der Sicht ein
+- Hinzufügen/Entfernen von Labels wurde nicht mehr vom Server synchronisiert
+- Die aktuelle Etage wurde nicht mehr im Kontextmenü hervorgehoben
+- Mehrere Probleme bei einer geänderten Client-Rastergröße
+    - Auren/Zoom/Map verwendeten alle falsche Mathematik
+- Teleportieren zu einer Spawn-Position änderte nur den Ort, nicht die Position
+- Synchronisierung der Label-Sichtbarkeit
+- Initiative funktionierte beim Wechseln des Ortes möglicherweise nicht
+- [DM] Etagenumbenennung setzte immer einen leeren Namen

@@ -1,0 +1,25 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# **聊天**
+
+游戏内聊天自 2024.3 版本起可用，只需点击视口窗口左下角的 `Chat` 按钮即可。
+
+![Chat button](assets/chat_button_default.png)
+
+当任何用户发送聊天消息后，按钮旁边会出现未读消息的数量。
+
+![Chat Button Messages waiting](assets/chat_button_waiting.png)
+
+聊天窗口支持 Markdown 输入，这意味着可以包含样式和链接，以及更高级的格式。参见 [Markdown 教程](../../../learn/dm/Markdown_Tutorial/markdown)
+
+![Chat example](assets/chat.png)
+
+<Warning title="聊天持久性">聊天内容不会存储在服务器上。它是临时的，当你刷新页面或连接重置时，聊天内容会消失。</Warning>
+
+可以通过取消勾选 `DM settings` 的 `Feature` 选项卡中的聊天启用框来禁用聊天。
+
+![Chat toggle](assets/chat_toggle.png)

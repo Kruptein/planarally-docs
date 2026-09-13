@@ -1,0 +1,145 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# Einstellungen
+
+Die In-Game-Einstellungen sind über das Seitenmenü erreichbar (klicke auf das <Cog />-Symbol oben links im Browserfenster, um das Menü zu öffnen).
+
+#### Synchronisierung der Einstellungen
+
+Standardmäßig stammen die angezeigten Einstellungen direkt von deinen globalen Standard-Client-Einstellungen.
+Wenn du eine Einstellung änderst, erscheinen zwei zusätzliche Buttons daneben, die anzeigen, dass diese Einstellung das Standardverhalten überschreibt.
+
+Du kannst die Einstellung auf den Standardwert zurücksetzen, indem du auf das <TimesCircle />-Symbol klickst.
+
+Wenn du deine Änderung stattdessen zum neuen Standardwert machen möchtest, kannst du auf <SyncAlt /> klicken.
+Das wirkt sich auf alle anderen Kampagnen aus, in denen du diese Einstellung nicht überschrieben hast.
+
+## Darstellung
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Einstellungen Darstellung" />
+
+### Sprache
+
+Hier kannst du eine andere Sprache für die Benutzeroberfläche auswählen.
+Das wird auf alle anderen Kampagnen übertragen, in denen du spielst oder die du leitest, genau so, als wäre es über das [Dashboard](/de/docs/dashboard/#localisation) gemacht worden.
+
+### Symbolleisten
+
+_Hinzugefügt in 2022.3_
+
+Mit dieser Einstellung kannst du zwischen Symbolen oder Text für die Werkzeuge der Symbolleiste wählen (z. B. das Ruler-Symbol gegenüber „Ruler“).
+
+### Raster
+
+Die Farbeinstellung legt fest, in welcher Farbe die [Rasterebene](/de/docs/dm/layers/#grid) (d. h. die Rasterlinien) gezeichnet wird.
+
+### Ruler
+
+Hier kann die Farbe des [Rulers](/de/docs/tools/ruler) eingestellt werden.
+Wenn der Ruler öffentlich verwendet wird, sehen alle anderen Spieler deinen Ruler in der hier definierten Farbe.
+
+### Nebel
+
+Hier wird die Farbe des Nebels festgelegt, der alles bedeckt, was du nicht sehen kannst.
+
+## Verhalten
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Einstellungen Verhalten" />
+
+### Einrasten
+
+Wenn aktiviert, invertiert dies das Standard-[Einrastverhalten](/de/docs/game/snapping/).
+
+### Maus & Gesten
+
+Standardmäßig kannst du durch Scrollen hinein- oder herauszoomen. Auf Touch-Geräten kann das jedoch störend sein und daher deaktiviert werden.
+
+### Auswahlinformationen
+
+_Hinzugefügt in 2022.3_
+
+Diese Einstellung beeinflusst, wie Änderungen der Tracker in den Auswahlinformationen standardmäßig interpretiert werden.
+
+Im absoluten Modus ist das Ergebnis des eingegebenen Ausdrucks der neue Wert des Trackers.
+
+Im relativen Modus wird das Ergebnis zum ursprünglichen Wert des Trackers addiert.
+So kannst du Werte schnell ändern, z. B. mit -5 oder +5.
+
+## Anzeige
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Einstellungen Anzeige" />
+
+Mit der HiDPI-Einstellung kannst du die Auflösung des gerenderten Spiels auf Bildschirmen erhöhen, die Subpixel-Rendering unterstützen.
+
+<Warning title="Erhöhter Leistungsbedarf">
+Das Aktivieren dieser Einstellung erfordert mehr Leistung von deinem Computer.
+
+Wenn das Spiel ruckelt, stelle sicher, dass diese Option nicht aktiviert ist.
+
+</Warning>
+
+### Spieltisch
+
+Wenn du PlanarAlly auf einem Bildschirm verwendest, den du als physischen Spieltisch mit echten Miniaturen nutzt,
+solltest du diese Einstellungen konfigurieren, um die Rastergröße passend zu deinen Miniaturen einzustellen.
+
+Dafür musst du den PPI-Wert deines Bildschirms kennen, damit dies ordnungsgemäß funktioniert.
+
+Beachte, dass das Hinein-/Herauszoomen derzeit deaktiviert ist, während diese Einstellung aktiv ist.
+
+### Raster
+
+Wenn du _keinen_ physischen Spieltisch verwendest, kannst du hier konfigurieren, wie groß eine einzelne Rasterzelle auf deinem Bildschirm sein soll.
+
+Du solltest das ändern, wenn du z. B. auf einem Beamer spielst.
+
+## Initiative
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Einstellungen Initiative" />
+
+<Info>
+    Die beiden folgenden Sperreinstellungen werden nur verwendet, wenn die Initiative aktiv ist. Die Initiative ist nur
+    richtig aktiv, wenn sie über die [Quick Toggles](/de/docs/tools/quick-toggles/) aktiviert wurde.
+</Info>
+
+### Kamera sperren
+
+Wenn du diese Funktion aktivierst, zentriert sich die Kamera jedes Mal automatisch auf den nächsten Charakter, wenn die Initiative zu ihm wechselt – vorausgesetzt, du hast Zugriff auf ihn.
+
+### Sicht sperren
+
+Wenn du diese Funktion aktivierst, wird die Sicht eingeschränkt, als hättest du nur Zugriff auf den aktiven Initiativ-Charakter (solange du Zugriff auf diese Form hast).
+
+Das hat denselben Effekt, als würdest du das [Vision-Werkzeug](/de/docs/tools/vision/) verwenden und es jede Runde manuell auf den aktiven Initiativ-Teilnehmer umstellen.
+Das ist nur relevant, wenn du mehrere Charaktere steuerst.
+
+### Effekte
+
+Mit dieser Einstellung kannst du festlegen, wann Initiativ-Effekte angezeigt werden sollen.
+Standardmäßig sind nur die Effekte des aktiven Akteurs aufgeklappt, du kannst dies aber so ändern, dass alle Akteure jederzeit aufgeklappt sind.
+
+## Leistung
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Einstellungen Leistung" />
+
+### Rendering
+
+_Hinzugefügt in 2022.3_
+
+Etagen sind ein immersives Erlebnis, kosten aber mehr Leistung.
+Mit dieser Einstellung kannst du das Rendering auf die aktive Etage beschränken.

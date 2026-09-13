@@ -1,0 +1,240 @@
+---
+title: Release 0.24.0
+date: 2021-01-10 22:00:00
+excerpt: "Starter året med en ny stor udgivelse!"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Det er længe siden! Men jeg havde en masse fritid i den forgangne måned, så denne udgivelse indeholder nogle spændende nye funktioner og en hel masse fejlrettelser!
+
+En lille advarsel, når du åbner et kort i den nye version:
+På grund af en fejlrettelse med zoom for ikke-standard gridstørrelser vil din første indlæsning af et kort sandsynligvis være en smule forkert centreret
+i forhold til, hvor du havde dit kamera sidste gang. Dette bør normalt ikke være langt fra den oprindelige lokation.
+Hvis du har problemer med at finde dine ting igen, så prøv mellemrumstasten for at centrere på dine tokens eller ctrl+0 for at gå til verdens centrum.
+Hvis du stadig har problemer, så kontakt mig, og jeg kan give dig noget konsolkode.
+
+## Hexagoner
+
+En ofte efterspurgt ting af gode grunde er hexagon-understøttelse.
+Jeg kan nu endelig sige, at der er _noget_ understøttelse.
+
+Som en del af DM-grid-indstillingerne kan du nu vælge grid-typen. Den er som standard firkantede grids,
+men kan ændres til flade eller spidse hexes.
+Dette kan konfigureres på kampagne- eller lokationsniveau.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/hexagons.webm" type="video/webm" />
+    <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4" />
+</video>
+
+_Det er måske ikke ekstremt tydeligt på grund af min lave grid-opacitet, undskyld for det_
+
+En vigtig ting at vide er, at grid-snapping endnu ikke understøttes, så jeg anbefaler stærkt at vende din ALT-adfærd om foreløbig, når du bruger hexes.
+
+## Forbedringer af grupper
+
+Grupper er en måde at organisere former med en valgfri badge til at adskille dem (f.eks. ogre 5).
+Inden for en gruppe har hver form en unik værdi, dens badge.
+
+Indtil denne udgivelse var der et implicit grupperingskoncept, der blev anvendt, når du kopierede og indsatte en form.
+
+Denne udgivelse udvider grupperingssystemet betydeligt og gør det meget mere konfigurerbart og eksplicit.
+
+![Rediger aktivgruppe](./0.24/edit-asset-group.png)
+
+En ny fane i rediger-aktiv-dialogen er nu tilgængelig for formejere/DM'er.
+Denne fane giver mulighed for at konfigurere forskellige ting relateret til den gruppe, den valgte form tilhører.
+
+Tegnsæt kan konfigureres, 2 færdiglavede sæt er tilgængelige, men du kan frit angive et brugerdefineret sæt (f.eks. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+Badges kan slås til/fra individuelt eller for hele gruppen på én gang. Individuelle medlemmer kan fjernes, og hele gruppen kan også fjernes.
+
+Badges kan nu også randomiseres for at dæmpe eventuelle metagaming-spillere.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+Derudover er der også en ny kontekstmenumulighed relateret til grupper, når du højreklikker på et udvalg af former.
+Dette giver dig mulighed for at oprette/flette/dele/slette grupper efter behag.
+
+Dette betyder også, at grupper ikke længere er begrænset til former af det samme aktiv!
+
+Du kan finde mere information om grupperingssystemet i [dokumentationen](/da/docs/game/assets/#group)
+
+## Varianter
+
+_Dette er **eksperimentelt**, jeg forventer, at nogle kanttilfælde dukker op, så giv mig endelig besked, hvis du støder på nogle fejl!_
+
+En ny funktion for former er muligheden for at tilføje varianter. Varianter er løst defineret som enhver anden form, man måtte ønske at skifte til uden at skulle oprette et nyt token og fjerne et tidligere token.
+Tænk på wildshapes, alternativ kunst, flerfasebosses, overraskelsesafsløringer ...
+
+Til enhver tid er kun én variant synlig og kan byttes ud med en anden.
+Hver variant beholder sin egen størrelse, egenskaber og trackers, men trackers og auraer kan konfigureres til at blive delt mellem alle varianter.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Som det kan ses i videoen ovenfor, kan varianter oprettes, omdøbes og fjernes fra et nyt UI-element i bunden af rediger-form-dialogen.
+
+#### Kendte begrænsninger
+
+Når du opretter en ny variant, vil den ikke have nogen af de anvendte indstillinger, som basisvarianten har.
+Dette inkluderer adgangsrettigheder, generelle formegenskaber (f.eks. navn, er et token osv.) eller annotationer!
+
+På nuværende tidspunkt kan du kun tilføje nye varianter, der er aktiver i din aktivstyring. Basisformen kan dog være enhver form.
+I fremtiden vil du også kunne vælge et grundlæggende token som alternativ i stedet for kun at kunne vælge fra aktivstyringen.
+
+På nuværende tidspunkt er det ikke muligt at gemme en form med varianter til databasen. Dette vil blive muligt i fremtiden, når du også kan gemme andre brugerdefinerede former til databasen.
+
+## Værktøjer
+
+### Initiativ
+
+Initiativ-værktøjet fik nogle små ændringer; det fik en eksplicit knap til at fjerne effekter i stedet for kun at stole på den automatiske fjernelse for negative tal.
+
+Derudover starter rundeoptælleren nu ved 1 i stedet for 0, og en masse fejl relateret til initiativ-synkronisering er blevet rettet.
+
+### Map
+
+Map-værktøjet har nu fasthold-aspektforhold-funktionalitet! Når du konfigurerer grid-værdierne, kan et låsikon slås til for at tvinge aspektforholds-lås.
+
+En anden ny ting er, at du kan beslutte at springe størrelsesvalget over og i stedet skalere hele aktivet direkte.
+Dette kan gøres i antal grid-celler eller i pixels.
+
+### Ruler
+
+Ruleren fik en ny tastebinding, der giver dig mulighed for at bøje rulers.
+Når du trykker på "mellemrum", kan du starte en ny ruler fra den sidste rulers slutpunkt.
+Den viste afstand er den samlede sum af alle de nuværende rulers.
+
+Du kan nu også slå 'vis ruler' til/fra i select-værktøjet for at vise en ruler, når du flytter former.
+Dette viser en ruler, der starter ved den oprindelige forms position og følger den form, du aktivt flytter.
+Dette understøtter også 'mellemrum' til at måle afstande bag hjørner.
+
+Når du bruger ruleren i select-tilstand, bevarer den privatlivsindstillingen (dvs. offentlig/privat) for ruler-værktøjet.
+
+![Multiruler](./0.24/multiruler.png)
+
+### Syn
+
+Syn-værktøjets adfærd blev ændret, når du fravælger den sidste form. Tidligere ville det straks vælge alt igen.
+Dette var dog meget kontraintuitivt og irriterende, så det er blevet fjernet.
+
+For at gøre det visuelt klart, at du begrænser dit syn til et udvalgt sæt tokens,
+vil syn-værktøjet nu have en anden baggrundsfarve, når det ikke viser alt.
+
+## Aktiv-import/eksport
+
+Sidste udgivelse introducerede skabeloner. Det er nu muligt at eksportere aktiver fra assetstore til din lokale computer og uploade dem til en anden PA-server eller beholde dem som en slags backup.
+
+Den eksporterede fil ender med filtypen '.paa', kort for planar ally assets. Den bevarer den nøjagtige mappestruktur og navngivning, du havde, inklusive al skabeloninformation.
+
+Når du importerer en paa-fil, udpakkes alt til den mappe, du aktuelt kigger på.
+Vær opmærksom på, at filer med samme navn ikke overskrives, men nye filer og mapper vil altid blive oprettet.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/export.webm" type="video/webm" />
+    <source src="/blog/release-0.24/export.mp4" type="video/mp4" />
+</video>
+
+**Vigtigt** Ovenstående optagelse er speedet op (eller rettere, nogle frames er klippet fra), da processen afhænger af størrelsen på filerne/mapperne, og der i øjeblikket gives lidt feedback i denne periode. Jeg håber at forbedre dette i fremtidige udgivelser, men det giver en fungerende baseline for nu.
+
+## Generelle UX-forbedringer
+
+### Åbning af redigeringsdialogen
+
+Redigeringsdialogen kunne altid åbnes fra enten formens højrekliks-kontekstmenu eller hurtigvalgsinformationen i øverste højre hjørne.
+
+Nu kan du også trykke på 'enter' på en valgt form for straks at åbne dette vindue.
+
+### Bevægelse
+
+Du kan nu bruge numpad til at navigere rundt; dette har også fuld hexagon-bevægelsesunderstøttelse.
+Ved at trykke på 5 centreres skærmen på oprindelsen.
+
+### Opret-token-dialogen
+
+Inputfeltet er nu automatisk fokuseret, og ved at trykke på enter indsendes informationen!
+
+### Generelle værktøjer
+
+De fleste værktøjer understøtter nu højrekliks-kontekstmenuen på valgte former uden at skulle skifte til select-værktøjet.
+
+Der er to undtagelser: draw og map. Disse har deres egen højrekliks-adfærd.
+
+Derudover tillader filter- og syn-værktøjerne, at en bredere mængde select-værktøjsmuligheder bruges uden at skifte.
+
+Endelig skiftes der automatisk til select-værktøjet, når du skifter til en værktøjstilstand, som det nuværende værktøj ikke understøtter.
+
+### Slette-performance
+
+Når du fjerner flere former på én gang, især relateret til syn/belysning, kunne klienten tage et stort performance-ram eller ligefrem gå i stå og kun udføre en delvis fjernelse.
+
+Dette skyldtes en ret ineffektiv genberegning af syns-/belysningstrianguleringen. Dette gøres nu klogere og resulterer i **meget** mere responsiv adfærd.
+
+## Bemærkelsesværdige rettelser
+
+### Formvalg
+
+Der blev lavet to rettelser til formvalg vedrørende roterede former:
+
+Når du klikkede på en roteret form med det formål at vælge den, ville koden vælge formen, hvis du klikkede på en lokation, som den ikke-roterede form ville optage.
+
+Når der blev lavet et gruppevalg, ville polygoner (og andre former) bruge deres største begrænsningsramme til at bestemme kollision.
+Dette er ret unøjagtigt og er nu blevet ændret til at være præcist.
+
+## Andre ændringer
+
+Der er også lavet nogle mindre tekniske ændringer, der ikke umiddelbart bør påvirke slutbrugerne:
+
+- Opgraderet til socket.io v3
+- Reduceret antallet af beregninger, der bruges til at bestemme den minimale synsafstand for tokens
+
+## Andre rettelser
+
+- Låsning af former via tastaturgenvej synkroniserede ikke til serveren
+- Annotationer fra andre etager blev vist
+- Husk ruler-synlighed ved værktøjsskift
+- `Ctrl 0` centrerer nu viewporten på oprindelsen (før ville den vise oprindelsen i øverste venstre hjørne af viewporten)
+- Initiativ-effekter blev NaN for ikke-numeriske input
+- Nye initiativ-effekter synkroniserede ikke umiddelbart før en fuld klientopdatering
+- Opdateringer af formnavne synkroniserede ikke offentlige navne til brugere, der ikke ejer formen
+- Opdateringer af formnavne opdaterede ikke altid initiativlisten
+- Flytning af former med standardbevægelsesrettigheder fungerede ikke
+- Forskellige fejl med opdateringer af initiativrettigheder
+- Negative værdier for auraer forårsager ikke længere tegnefejl
+- Trackers gav ikke tomme rækker, før dialogen blev genåbnet
+- Indsætning af former resulterede i ekstra tomme tracker-rækker
+- Ændring af rektangelstørrelse forårsagede positionsskift
+- Lokationsændringer gik nogle gange ikke igennem for alle
+- Ændring af størrelsen på roterende former med snapping snapper nu korrekt til grid-punkter
+- Droppede aktiver gengav ikke umiddelbart
+- Former med en ødelagt indeksværdi (bruges til flyt bagest/flyt forrest)
+- Område i toppen midt på skærmen, hvor musen nogle gange ikke kunne bruges
+- Auraer, der bliver offentlige, blev ikke korrekt konfigureret som en synskilde på andre klienter
+- Valg af roterede rektangler og aktiver
+- Gruppevalg af roterede former
+- Dobbelte indgange i syn-værktøjet
+- De fleste aktiver ændrede automatisk størrelse for at passe til 1 grid-celle
+    - de beholder nu deres oprindelige størrelse ved drop (medmindre du bruger skabeloner)
+- Forkert tilstand i aktivstyringen ved genforbindelse
+- Sorteringsrækkefølge i aktivstyringen
+- Aktivstyringens shift-valg opførte sig mærkeligt ved blanding af filer og mapper
+- Flere tilfælde, hvor ruler- og ping-værktøjet kunne gå i stå
+- Værktøjsdialoger bevæger sig nu korrekt ved tilstandsskift
+- Redigeringsdialogen forbliver åben, når du vælger en anden form
+- Etagebevægelse genberegnede ikke syns-/bevægelsestrianguleringen
+- Valg inkluderede former uden for synet
+- Tilføjelse/fjernelse af labels synkroniseres ikke længere af serveren
+- Den nuværende etage fremhæves ikke længere i kontekstmenuen
+- Flere problemer ved en ændret klient-gridstørrelse
+    - auras/zoom/map brugte alle forkerte matematikker
+- Teleportering til en spawn-lokation ændrede kun lokationen, men satte ikke positionen
+- Synkronisering af label-synlighed
+- Initiativ fungerede muligvis ikke ved skift af lokationer
+- [DM] Omdøbning af etage satte altid et tomt navn

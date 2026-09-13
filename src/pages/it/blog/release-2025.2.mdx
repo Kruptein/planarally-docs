@@ -1,0 +1,153 @@
+---
+title: Release 2025.2
+date: 2025-06-14 16:25:00
+excerpt: "Email, mod e QoL"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+Una nuova release con qualche chicca, anche se rivolta principalmente a DM e proprietari di server.
+
+Un breve riepilogo:
+
+- Il formato di configurazione del server è cambiato completamente
+- Un mailserver può ora essere configurato dall'amministratore del server, consentendo un flusso di 'password dimenticata'
+- La proprietà isToken è stata rimossa e l'accesso alle forme ora funziona diversamente
+- Il supporto sperimentale per i mod ha ricevuto alcuni miglioramenti
+- Seguito al gestore di asset in gioco rinnovato nella scorsa release
+- Aggiunta la raccolta anonima di statistiche al server
+
+<Warning title="Modifiche al server">
+    Se sei un proprietario di server, la configurazione del server è cambiata drasticamente e richiede un intervento manuale: vedi sotto per maggiori informazioni!
+
+    Il server ora usa anche UV per la gestione delle dipendenze, il che potrebbe avere un impatto sul tuo aggiornamento.
+
+</Warning>
+
+## Email
+
+Era attesa da tempo, ma ora i proprietari di server possono configurare le informazioni del mailserver nella (nuova) configurazione.
+Una volta configurato, PA potrà usarlo per inviare email ai giocatori.
+
+Al momento c'è un solo utilizzo, ma è importante: il flusso per la password dimenticata.
+
+_Per approfondire: [sezione Mail della configurazione](/it/server/management/configuration/#mail)_
+
+### Password dimenticata
+
+Quando l'email è configurata, la schermata di accesso mostrerà ora un'azione "password dimenticata?" sotto l'etichetta della password,
+fornendo un flusso per reimpostare la password per un determinato indirizzo email.
+
+Nota: funziona solo se l'utente ha configurato un'email (tieni presente che l'email è opzionale durante la registrazione).
+
+Un piccolo aggiornamento collaterale per la qualità della vita: ora apparirà una notifica di successo quando modifichi il tuo indirizzo email nella dashboard.
+Fino ad ora non era molto chiaro che qualcosa fosse stato effettivamente modificato.
+
+## Disattivare il rendering della LoS
+
+Come DM potresti conoscere il caso in cui stai lavorando su un nuovo luogo e hai configurato un sacco di luci,
+ma non sei sicuro che coprano davvero ciò che ti aspetti, perché hai la LoS attivata e i tuoi giocatori sono ancora in un altro luogo.
+
+Esistono vari "escamotage": creare una forma temporanea con permessi di visione, disattivare temporaneamente la LoS nelle impostazioni del luogo, ...
+
+Funzionano tutti, ma tendono a essere una seccatura o addirittura soggetti a errori (ad es. dimenticarsi di riattivare l'impostazione LoS quando i tuoi giocatori sono pronti a visitare il luogo).
+
+Per questo ora c'è un nuovo toggle rapido sotto la barra degli strumenti per i DM intitolato 'LOS'.
+È visibile solo se la LoS è attivata nel luogo.
+Ha una modalità verde (on) e rossa (off) che può essere usata per sovrascrivere l'impostazione LoS solo sul tuo client locale.
+
+Questo ti permette di attivare/disattivare rapidamente il comportamento senza che abbia un impatto sui giocatori, rendendo la progettazione dei livelli più semplice.
+
+_Per approfondire: [Quick Toggles](/it/docs/tools/quick-toggles/)_
+
+## Livelli di accesso e isToken
+
+Ogni forma in PA ha dei livelli di accesso che possono essere regolati per ogni giocatore. Permettendo ad alcuni giocatori il controllo completo di modifica su una forma e ad altri solo l'accesso di visione.
+
+Fino ad ora questi livelli di accesso (visione/movimento/modifica) erano additivi. Ogni livello di accesso dava anche tutti i permessi relativi ai livelli inferiori (ad es. il movimento includeva anche i permessi di visione).
+Come base è andato bene per la maggior parte dell'esistenza di PA, ma di recente mi sono imbattuto in alcuni problemi che volevo affrontare e che non erano possibili a causa di questa natura additiva.
+
+Ora i livelli di accesso sono completamente separati. Ad esempio, ora è possibile avere l'accesso di modifica senza l'accesso di visione. Questo può essere utile se un giocatore ha il controllo sulle statistiche di un animale, ma non può vedere ciò che vede l'animale.
+
+Inoltre, ogni forma aveva anche una proprietà speciale `isToken`. Questa era essenziale per il calcolo della visione quando la LoS è attivata e qualcosa che tutte le forme dei giocatori dovevano avere attivato.
+Questa proprietà però non è molto intuitiva per la maggior parte dei nuovi giocatori, e anche alcuni veterani non sono sicurissimi di cosa faccia realmente, a parte il fatto che deve essere attivata per la LoS.
+
+È stata introdotta molto tempo fa per motivi di prestazioni, ma dopo un po' di riflessione ho capito che in realtà non serve se modifico il modo in cui funzionano i livelli di accesso.
+Il risultato è che la proprietà `isToken` è stata rimossa, non è più necessario marcare manualmente le forme degli utenti con questa.
+Invece, qualsiasi forma su cui il tuo utente ha accesso di visione verrà renderizzata come se avesse isToken in passato.
+
+Ho scritto un [post del blog approfondito](https://www.planarally.io/blog/removing-is-token/) sui motivi di questi cambiamenti, se vuoi maggiori informazioni.
+
+_Per approfondire: [Accesso alle forme](/it/docs/game/shapes/#access)_
+
+## Asset
+
+Il gestore di asset della dashboard ha pulsanti dedicati per creare cartelle/caricare file/rimuovere la selezione, che la versione in gioco non aveva.
+L'aggiunta di file e la rimozione della selezione erano comunque possibili tramite trascinamento e menu contestuali, ma la creazione di cartelle non era proprio possibile.
+
+Questi pulsanti ora sono presenti anche nel gestore di asset in gioco.
+
+Inoltre, alcuni punti che usavano ancora la vecchia interfaccia di selezione asset (ad es. l'impostazione del logo della campagna) sono stati tutti aggiornati alla nuova interfaccia introdotta nella scorsa release.
+
+## Raccolta di statistiche
+
+Una domanda che ricevo spesso è quanti utenti ha realmente PA e non riesco mai a rispondere o nemmeno a stimarlo.
+
+Non esiste un server PA ufficiale su cui basarmi per delle stime, ho solo numeri vaghi come le stelle di github o gli utenti di discord, ma non dicono nulla di concreto sugli utenti reali e, se sono un'indicazione, rappresentano più probabilmente i proprietari di server che i giocatori.
+
+Per avere un'idea di cosa sta realmente succedendo là fuori, sto introducendo una raccolta di statistiche sul server.
+Questo si collegherà in una release successiva anche ad alcuni cambiamenti che voglio apportare all'amministrazione locale del server, permettendo che queste statistiche siano visibili anche nella dashboard con i permessi appropriati.
+
+Le statistiche raccolte sono molto semplici e non contengono alcuna informazione personale. Mi danno solo un'idea di quanti utenti/campagne sono realmente in uso attivo.
+
+Per maggiori dettagli su quali statistiche e su come viene gestita la privacy, vedi la [PR su github](https://github.com/Kruptein/PlanarAlly/pull/1608), che contiene maggiori informazioni.
+
+Per i proprietari di server questa funzionalità è configurabile con il nuovo formato di configurazione.
+
+## Aggiornamenti sui mod
+
+_Tieni presente che il supporto per i mod è ancora molto sperimentale_
+
+Un anno fa è stato aggiunto un supporto iniziale per i mod. Era ancora molto acerbo, con un grosso problema: solo il proprietario del server poteva aggiungere mod, aggiungendoli manualmente in una cartella specifica.
+Questa release aggiunge un'interfaccia per campagna, che permette al DM di caricare i mod usati per quella specifica campagna.
+
+Inoltre, molti interni dell'API dei mod sono stati aggiornati, in particolare l'API DataBlock ha ricevuto cambiamenti drastici, rendendo l'interfaccia dei mod molto più compatta.
+
+Tutti i mod di esempio nel repo planarally-mods sono stati aggiornati alla nuova API.
+
+_Per approfondire: [PR dei mod](https://github.com/Kruptein/PlanarAlly/pull/1583)_
+
+## Server: modifica della configurazione
+
+Il formato di configurazione è cambiato completamente ed è cambiata anche la posizione in cui viene salvato nella cartella del server.
+Ora è un formato basato su toml ed è salvato nella cartella dei dati.
+Ci sono molteplici motivi per cui è stato fatto questo cambiamento ed era atteso da tempo.
+
+Si consiglia **fortemente** di leggere le motivazioni dettagliate e le informazioni nella [PR su github](https://github.com/Kruptein/PlanarAlly/pull/1574).
+
+La documentazione del server è stata aggiornata per mostrare tutte le [opzioni di configurazione](/it/server/management/configuration/).
+
+Se hai bisogno di aiuto per aggiornare il tuo file di configurazione esistente, non esitare a contattare il canale #help sul server discord.
+
+## Server: modifica alla gestione delle dipendenze
+
+Il server ora è gestito anche usando [UV](https://docs.astral.sh/uv/) per la gestione delle dipendenze.
+
+Questo significa che se gestisci manualmente il server usando python/pip dovrai installare uv e adottare anche il nuovo sistema.
+Sarà un piccolo numero di utenti, quindi l'impatto dovrebbe essere contenuto.
+
+Per maggiori informazioni controlla la [PR su github](https://github.com/Kruptein/PlanarAlly/pull/1550) e il readme del server, che è stato aggiornato con informazioni su come usare uv.
+
+## Correzioni di bug
+
+- Il poligono dello strumento Draw non aggiornava la visione fino al completamento della forma
+- Ridotto un po' di overhead di rendering quando venivano spostate forme segnalino che il giocatore non possedeva
+- Il menu contestuale delle forme non si chiudeva quando si selezionava un'opzione
+- L'interfaccia Build dello strumento Select non appariva quando si cambiava modalità
+- I datablock per le categorie room e utente avevano un bug nel server che impediva di crearli
+- La rimozione dal menu contestuale degli asset non funzionava
+- Il colore di sfondo del menu contestuale degli asset a volte era sbagliato in gioco
+- La barra di caricamento asset mancava nel gestore di asset della dashboard
+- Trascinare sulla mappa asset per cui hai il permesso di visualizzazione condivisa non funzionava

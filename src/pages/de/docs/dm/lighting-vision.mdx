@@ -1,0 +1,110 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Beleuchtung & Sicht
+
+In diesem Abschnitt beschreiben wir, wie du als DM deine Dungeons lebendiger machen und deinen Spielern ein dynamisches Erlebnis bieten kannst!
+
+_Wenn du ein praktisches Beispiel möchtest, wirf einen Blick auf das [Tutorial zur ersten Session](/de/learn/dm/first-map/#setting-up-a-light)!_
+
+Wie der Titel schon vermuten lässt, gibt es in PlanarAlly zwei Kernideen, die dafür verantwortlich sind, wie deine Spieler den Zustand des Spieltisches wahrnehmen.
+
+Indem du an einigen Stellen auf der Karte Licht (oder Dunkelheit) hinzufügst, verleihst du einem Ort sofort mehr Persönlichkeit. Zusätzlich kannst du eine Fackel an einem Charakter platzieren und erhältst ein noch größeres Dungeon-Gefühl. Wenn du jedoch deine gesamte Karte mit Lichtern bestückst, wirst du deinen Spielern bereits coole Orte verraten, wenn sie sich erst am Eingang befinden. Um das zu verhindern, muss die Sicht eines bestimmten Charakters berücksichtigt werden. Und wenn wir das haben, sollte ein sehr immersives Erlebnis entstehen.
+
+Wir gehen zunächst auf den Aufbau der Beleuchtung ein und besprechen schließlich, wie die Sicht funktioniert.
+
+## Beleuchtung
+
+In PlanarAlly können wir unterschiedliche Komplexitätsgrade erreichen, und je nachdem, wie du dein Spiel leiten möchtest, wählst du eine andere Methode.
+
+Es gibt außerdem eine DM-Einstellung zum Thema Beleuchtung, die „Fill entire canvas with FOW" (Gesamte Leinwand mit Kriegsnebel füllen) heißt und im Tab „Vision" zu finden ist. Diese Einstellung schaltet um, ob der gesamte Bildschirm standardmäßig mit Nebel gefüllt werden soll oder nicht.
+
+<Warning>
+    Es wird dringend empfohlen, den Bildschirm mit Nebel zu füllen, wenn du das Sichtsystem verwenden möchtest. Derzeit
+    verhält sich das Sichtsystem ohne Nebel seltsam.
+</Warning>
+
+### Magisches Licht und Dunkelheit
+
+Die erste Art der Beleuchtung nenne ich „magische" Beleuchtung, weil sie so mächtig ist, dass magische Lichter nicht versteckt werden können und magische Dunkelheit nicht von normalen Lichtern durchdrungen werden kann.
+
+So aufregend das auch klingen mag, ich verwende diese Art von Lichtern selten, da sie sehr statisch ist. Ich nutze sie für einige Randfälle.
+
+#### So verwendest du sie
+
+Wenn du als DM das Draw-Werkzeug auswählst, siehst du oben einen Modus-Umschalter. Wenn dieser auf „reveal" (offenlegen) gesetzt ist, zeichnest du magisches Licht; wenn er auf „hide" (verbergen) gesetzt ist, zeichnest du magische Dunkelheit.
+
+Alle Formen, die im Reveal- oder Hide-Modus gezeichnet werden, werden automatisch auf der Sicht-Ebene (FOW) gezeichnet! Wenn du also einen Fehler gemacht hast oder etwas entfernen möchtest, gehe zur Sicht-Ebene, um es zu beheben!
+
+#### Wann du sie verwenden solltest
+
+Es kann vorkommen, dass du den Spielern schnell einen bestimmten Teil des Bildschirms zeigen möchtest, ohne sie umherbewegen zu müssen. Vielleicht möchtest du den Kompass jederzeit auf dem Bildschirm anzeigen, während der gesamte Bildschirm standardmäßig mit Nebel bedeckt ist. Oder du hast eine Tageslicht-Szene ohne Nebel, möchtest aber sicherstellen, dass der Inhalt eines Gebäudes erst beim großen Finale enthüllt wird.
+
+Ein weiterer typischer Anwendungsfall ist, dass du als DM den Spielern nach und nach Sicht gewähren möchtest und alles, was sie besucht haben, sichtbar bleibt. Durch die Kombination der Option „alles mit Nebel bedecken" und dem Zeichnen mit dem Pinsel im Reveal-Modus kannst du deinen Spielern ganz einfach einen Weg malen.
+
+### Normale Lichter
+
+Eine viel häufigere Verwendung von Beleuchtung ist das Platzieren von Lichtern auf der Karte. Du kannst ein Licht an jedem beliebigen Asset anbringen, und es strahlt vom Zentrum des Assets aus. Diese Lichter können normalen Nebel durchdringen, aber nicht den oben beschriebenen magischen Nebel.
+
+#### So verwendest du sie
+
+Öffne die Asset-Eigenschaften, indem du das Asset mit der rechten Maustaste anklickst und „edit properties" (Eigenschaften bearbeiten) auswählst. Suche den Abschnitt „auras" (Auren) und beginne, eine neue Zeile auszufüllen.
+
+Weitere Informationen findest du in der Dokumentation zu [Auren](/de/docs/game/shapes/#auras).
+
+Stelle sicher, dass du deine Aura als Lichtquelle markierst!
+
+<Tip title="Versteckte Lichtquellen">
+    Lichtquellen sind immer an Formen angehängt. Wenn du die Form vor deinen Spielern verbergen, aber ihre
+    Lichteinwirkung anzeigen möchtest, verschiebe sie auf die `fow`-Ebene – oder mache sie unsichtbar, wenn du die Farbe
+    der Aura angezeigt haben möchtest.
+</Tip>
+
+#### Wann du sie verwenden solltest
+
+Dies ist in den meisten Fällen die empfohlene Methode, um deiner Szene Licht hinzuzufügen. Wenn du ein Licht an einem Token befestigst, bietet das sofort dynamische Beleuchtung, wenn das Token bewegt wird. In Kombination mit der Sicht weiter unten ergibt das eine mächtige Kombination.
+
+## Sicht
+
+Bisher haben wir es geschafft, etwas Licht und/oder Nebel in unsere Szene zu bringen, aber nichts blockiert diese Lichter, sodass sie Wände auf unserer Karte durchqueren, es sei denn, du würdest jedes Licht minutiös verfeinern, was kein Spaß machen würde.
+
+Aus diesem Grund bietet dir PlanarAlly die Möglichkeit anzugeben, wo sich Wände, Türen und andere Hindernisse auf deiner Karte befinden, damit PA richtig einschätzen kann, wie sich ein Licht verhalten soll.
+
+### Lichtblockierende Objekte
+
+Das Wesentliche, um PA Informationen über Wände usw. zu geben, ist, Formen wie gewohnt zu zeichnen und die Option „blocks light" (blockiert Licht) im Eigenschaftendialog der Form auszuwählen. Da du diese Formen während der Vorbereitung oft zeichnen musst, bietet PA eine eigene Sicht-Ebene (FOW) an, die die Option „blockiert Licht" (und „blockiert Bewegung") automatisch auf jede auf dieser Ebene gezeichnete Form anwendet. Weitere Informationen zu dieser speziellen Ebene findest du in [der Dokumentation zu den Ebenen](/de/docs/dm/layers/).
+
+Du kannst jede verfügbare Form verwenden, um deine Gebäudegerüste zu zeichnen, aber einige sind nützlicher als andere. Obwohl das Rechteck für einfache Strukturen mit 90-Grad-Wänden nützlich sein kann, verwende ich heutzutage fast ausschließlich das Polygon-Werkzeug. Weitere Details zum Verhalten dieser Formen findest du in [der Dokumentation zum Draw-Werkzeug](/de/docs/tools/draw/).
+
+<Info>Dies blockiert nur normales Licht. „Magische" Lichter durchdringen jeden nicht magischen Nebel.</Info>
+
+### Sichtlinie
+
+Die letzte Einstellung, die wir noch besprechen müssen, um das Licht- und Sicht-Setup zu vervollständigen, ist die Einstellung „Line of Sight" (Sichtlinie) in den DM-Einstellungen.
+
+Ohne diese Einstellung beleuchten unsere Lichter zwar die Räume, wobei die Lichter ordnungsgemäß an den Kanten unserer Wände stoppen. Was uns fehlt, ist eine Vorstellung davon, was ein Charakter sehen kann. Alle Räume mit einer Lichtquelle werden sichtbar sein, unabhängig davon, ob sich ein Spieler in dem Raum befindet oder nicht.
+
+Wenn du die Sichtlinien-Einstellung in den DM-Einstellungen aktivierst, berücksichtigt PlanarAlly die Position der Spielercharaktere, und nur Lichter, die für ein Token tatsächlich sichtbar sind, werden den Spielern angezeigt.
+
+<Warning>
+    Diese Einstellung berücksichtigt nur Assets, auf die mindestens ein Spieler **Sichtzugriff** hat. Wenn es keine
+    Tokens gibt, auf die ein Spieler Sichtzugriff hat, hat dieser Spieler **keine Sicht**.
+</Warning>
+
+## Minimale/Maximale Sicht
+
+Diese können in den [Kampagnen-Einstellungen](/de/docs/dm/settings/) festgelegt werden.
+Diese Einstellungen verhalten sich sehr ähnlich wie Auren, aber sie _begrenzen_ lediglich die Sicht aller Tokens, anstatt Licht auf der Karte zu verbreiten.
+
+<Warning>Dies betrifft nur die Leinwand, die mit Kriegsnebel gefüllt ist.</Warning>
+
+Ein Token kann alles innerhalb der Grenze der _minimalen Sicht_ normal sehen.
+Dennoch _sieht_ es keine Lichtquellen jenseits der Grenze der _maximalen Sicht_.
+Jede Lichtquelle zwischen den Grenzen der minimalen und maximalen Sicht wird wie eine gedämpfte Licht-Aura abgedunkelt.
+
+<Info>Dies blockiert nur normales Licht. `Magische Lichter durchdringen jeden nicht magischen Nebel.</Info>

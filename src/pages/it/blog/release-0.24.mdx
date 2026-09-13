@@ -1,0 +1,240 @@
+---
+title: Release 0.24.0
+date: 2021-01-10 22:00:00
+excerpt: "Si inizia l'anno con una grande nuova release!"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+È passato un po' di tempo! Ma ho avuto molto tempo libero nell'ultimo mese, quindi questa release contiene alcune nuove entusiasmanti funzionalità e una quantità enorme di bug fix!
+
+Un piccolo avvertimento quando si apre una mappa nella nuova versione:
+A causa di un bugfix relativo allo zoom per dimensioni di griglia non predefinite, è probabile che il primo caricamento di una mappa risulti leggermente decentrato
+rispetto a dove si trovava la tua camera l'ultima volta. Normalmente questo non dovrebbe essere troppo lontano dalla posizione originale.
+Se hai problemi a ritrovare le tue cose, prova la barra spaziatrice per centrare i tuoi segnalini o ctrl+0 per andare al centro del mondo.
+Se hai ancora problemi, contattami e posso darti del codice da eseguire nella console.
+
+## Esagoni
+
+Una funzione spesso richiesta, a ragione, è il supporto per gli esagoni.
+Ora posso finalmente dire che c'è _qualche_ supporto.
+
+Come parte delle impostazioni della griglia per il DM puoi ora selezionare il tipo di griglia, che per impostazione predefinita è la griglia quadrata,
+ma può essere cambiata in esagoni "flat" o "pointy".
+Questo può essere configurato a livello di campagna o di luogo.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/hexagons.webm" type="video/webm" />
+    <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4" />
+</video>
+
+_Potrebbe non essere estremamente chiaro a causa della mia bassa opacità della griglia, mi scuso per questo_
+
+Una cosa importante da sapere è che l'aggancio alla griglia non è ancora supportato, quindi consiglio vivamente di invertire il comportamento di ALT per ora quando si usano gli esagoni.
+
+## Miglioramenti dei gruppi
+
+I gruppi sono un modo per organizzare le forme con un eventuale badge per differenziarle (ad es. ogre 5).
+All'interno di un gruppo ogni forma ha un valore univoco, il suo badge.
+
+Fino a questa release esisteva un concetto di raggruppamento implicito che veniva applicato quando si copiava e incollava una forma.
+
+Questa release espande notevolmente il sistema dei gruppi e lo rende molto più configurabile ed esplicito.
+
+![Modifica gruppo asset](./0.24/edit-asset-group.png)
+
+Una nuova scheda nella finestra di modifica asset è ora disponibile per i proprietari delle forme/DM.
+Questa scheda permette la configurazione di varie cose legate al gruppo a cui appartiene la forma selezionata.
+
+Si possono configurare i set di caratteri, sono disponibili 2 set predefiniti, ma sei libero di impostare un set personalizzato (ad es. `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+I badge possono essere attivati o disattivati singolarmente o per l'intero gruppo in una volta sola. I singoli membri possono essere rimossi e l'intero gruppo può essere rimosso.
+
+I badge ora possono anche essere randomizzati per scoraggiare i giocatori che metagameggiano.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+Inoltre c'è anche una nuova opzione nel menu contestuale relativa ai gruppi quando si fa clic con il tasto destro su una selezione di forme.
+Questo ti permette di creare/unire/suddividere/eliminare gruppi come preferisci.
+
+Questo significa anche che i gruppi non sono più limitati a forme dello stesso asset!
+
+Per maggiori informazioni sul sistema dei gruppi [consulta i documenti](/it/docs/game/assets/#group)
+
+## Varianti
+
+_Questa è una funzionalità **sperimentale**, mi aspetto che emergano alcuni casi limite, quindi ti prego di farmi sapere se incontri qualche bug!_
+
+Una nuova funzionalità per le forme è la possibilità di aggiungere varianti. Le varianti sono liberamente definite come qualsiasi altra forma a cui si potrebbe voler passare senza dover creare un nuovo segnalino e rimuovere un segnalino precedente.
+Pensa a forme selvagge, artwork alternativi, boss a più fasi, rivelazioni a sorpresa ...
+
+In qualsiasi momento è visibile solo una variante che può essere sostituita con un'altra.
+Ogni variante mantiene le proprie dimensioni, proprietà e tracker, ma i tracker e le aure possono essere configurati per essere condivisi tra tutte le varianti.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Come si può vedere nel video qui sopra, le varianti possono essere create, rinominare e rimosse da un nuovo elemento dell'interfaccia in fondo alla finestra di modifica della forma.
+
+#### Limiti noti
+
+Quando si crea una nuova variante, non avrà nessuna delle impostazioni applicate della variante base.
+Questo include i diritti di accesso, le proprietà generali della forma (ad es. nome, se è un segnalino ecc.) o le annotazioni!
+
+Al momento puoi aggiungere solo nuove varianti che sono asset nel tuo gestore di asset. La forma base invece può essere qualsiasi forma.
+In futuro potrai anche selezionare un segnalino base come alternativa, invece di poter scegliere solo dal gestore di asset.
+
+Al momento, salvare una forma con varianti nel database non è possibile; questo sarà possibile in futuro quando potrai salvare anche altre forme personalizzate nel database.
+
+## Strumenti
+
+### Initiative
+
+Lo strumento initiative ha ricevuto alcune piccole modifiche: ora ha un pulsante esplicito per rimuovere gli effetti invece di affidarsi solo alla rimozione automatica per i numeri negativi.
+
+Inoltre il contatore dei round ora parte da 1 invece che da 0 e sono stati corretti molti bug relativi alla sincronizzazione dell'iniziativa.
+
+### Map
+
+Lo strumento map ora ha la funzionalità di mantenere le proporzioni! Quando si configurano i valori della griglia, un'icona a lucchetto può essere attivata per forzare il blocco delle proporzioni.
+
+Un'altra novità è che puoi decidere di saltare la selezione di ridimensionamento e invece ridimensionare direttamente l'intero asset.
+Questo può essere fatto in numero di celle della griglia o in pixel.
+
+### Ruler
+
+Il ruler ha ricevuto una nuova scorciatoia da tastiera che ti permette di piegare i ruler.
+Quando premi "spazio" puoi iniziare un nuovo ruler partendo dal punto finale dell'ultimo ruler.
+La distanza mostrata è la somma totale di tutti i ruler correnti combinati.
+
+Ora puoi anche attivare 'mostra ruler' sullo strumento select, per mostrare un ruler quando sposti le forme.
+Questo mostrerà un ruler che parte dalla posizione originale della forma e segue la forma che stai spostando attivamente.
+Supporta anche 'spazio' per misurare le distanze dietro gli angoli.
+
+Quando usi il ruler in modalità select manterrà la modalità di privacy (cioè pubblico/privato) dello strumento ruler.
+
+![Multi-ruler](./0.24/multiruler.png)
+
+### Vision
+
+Il comportamento dello strumento vision è cambiato quando deselezioni l'ultima forma. In passato selezionava di nuovo immediatamente tutto.
+Questo era però molto controintuitivo e fastidioso, quindi è stato rimosso.
+
+Per rendere visivamente chiaro che stai limitando la tua visione a un insieme selezionato di segnalini,
+lo strumento vision ora avrà un colore di sfondo diverso quando non mostra tutto.
+
+## Import/export degli asset
+
+L'ultima release ha visto l'aggiunta dei template. Ora è possibile esportare gli asset dall'assetstore sul tuo computer locale e caricarli su un altro server PA o conservarli come una sorta di backup.
+
+Il file esportato terminerà con l'estensione '.paa', abbreviazione di planar ally assets. Manterrà l'esatta struttura di cartelle e lo schema di denominazione che avevi, inclusa tutta l'informazione sui template.
+
+Quando importi un file paa, estrarrà tutto nella cartella corrente che stai guardando.
+Tieni presente che i file con lo stesso nome non verranno sovrascritti, ma nuovi file e cartelle verranno sempre creati.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/export.webm" type="video/webm" />
+    <source src="/blog/release-0.24/export.mp4" type="video/mp4" />
+</video>
+
+**Importante** Il filmato qui sopra è accelerato (o meglio, alcuni fotogrammi sono stati tagliati) poiché il processo dipende dalla dimensione dei file/cartelle e viene fornito poco feedback durante questo periodo. Spero di migliorare questo aspetto nelle future release, ma per ora fornisce una base funzionante.
+
+## Miglioramenti UX generali
+
+### Apertura della finestra di modifica
+
+La finestra di modifica poteva sempre essere aperta dal menu contestuale della forma con clic destro o dall'informazione di selezione rapida in alto a destra.
+
+Ora puoi anche premere 'invio' su una forma selezionata per aprire immediatamente questa finestra.
+
+### Spostarsi
+
+Ora puoi usare il tastierino numerico per navigare, che ha anche il pieno supporto del movimento esagonale.
+Premere 5 centrerà la schermata sull'origine.
+
+### Finestra di creazione del segnalino
+
+Il campo di input ora è autofocalizzato e premere invio invierà le informazioni!
+
+### Strumenti generali
+
+La maggior parte degli strumenti ora supporta il menu contestuale con clic destro sulle forme selezionate senza dover passare allo strumento select.
+
+Ci sono due eccezioni: draw e map. Questi hanno il proprio comportamento con il clic destro.
+
+Inoltre gli strumenti filter e vision permettono di usare un insieme più ampio di opzioni dello strumento select senza cambiare strumento.
+
+Infine, quando si passa a una modalità di strumento che lo strumento corrente non supporta, si passa automaticamente allo strumento select.
+
+### Prestazioni di eliminazione
+
+Quando si rimuovono più forme in una volta, specialmente legate a vision/lighting, il client poteva subire un grosso calo di prestazioni o addirittura bloccarsi del tutto ed eseguire solo una rimozione parziale.
+
+Ciò era dovuto a un ricalcolo piuttosto inefficiente della triangolazione di vision/lighting. Ora viene fatto in modo più intelligente e si traduce in un comportamento **molto** più scattante.
+
+## Fix notevoli
+
+### Selezione delle forme
+
+Sono stati fatti due fix alla selezione delle forme riguardanti le forme ruotate:
+
+Quando si cliccava su una forma ruotata con l'intento di selezionarla, il codice selezionava la forma se cliccavi su una posizione che la forma non ruotata avrebbe occupato.
+
+Quando si faceva una selezione di gruppo, i poligoni (e altre forme) usavano il loro più grande rettangolo di delimitazione per determinare la collisione del colpo.
+Questo è piuttosto impreciso e ora è stato cambiato per essere esatto.
+
+## Altri cambiamenti
+
+Sono stati fatti anche alcuni cambiamenti tecnici minori che non dovrebbero avere un impatto immediato sugli utenti finali:
+
+- Aggiornato a socket.io v3
+- Ridotto il numero di calcoli usati per determinare la portata minima di vision per i segnalini
+
+## Altri fix
+
+- Il blocco delle forme tramite scorciatoia da tastiera non veniva sincronizzato sul server
+- Annotazioni di altri piani mostrate
+- Ricorda la visibilità del ruler al cambio di strumento
+- `Ctrl 0` ora centra la viewport sull'origine (prima, mostrava l'origine nell'angolo in alto a sinistra della viewport)
+- Gli effetti dell'iniziativa diventavano NaN per input non numerici
+- I nuovi effetti dell'iniziativa non si sincronizzavano immediatamente fino a un refresh completo del client
+- Gli aggiornamenti del nome delle forme non si sincronizzavano per i nomi pubblici agli utenti che non possiedono la forma
+- Gli aggiornamenti del nome delle forme non sempre si aggiornavano nella lista dell'iniziativa
+- Lo spostamento di forme con permessi di movimento predefiniti non funzionava
+- Vari bug con gli aggiornamenti dei permessi dell'iniziativa
+- I valori negativi per le aure non causano più problemi di disegno
+- I tracker non fornivano righe vuote finché non si riapriva la finestra di modifica
+- Incollare forme risultava in righe di tracker vuote extra
+- Il ridimensionamento dei rettangoli causava uno spostamento della posizione
+- I cambi di luogo a volte non passavano per tutti
+- Il ridimensionamento di forme ruotate con aggancio ora si aggancia correttamente ai punti della griglia
+- Gli asset trascinati non venivano renderizzati immediatamente
+- Forme con un valore di indice rotto (usato per portare in fondo/portare in primo piano)
+- Area al centro superiore dello schermo dove il mouse a volte non poteva essere usato
+- Le aure che diventano pubbliche non sono configurate correttamente come fonte di vision sugli altri client
+- Selezione di rettangoli e asset ruotati
+- Selezione di gruppo di forme ruotate
+- Voci doppie nello strumento vision
+- La maggior parte degli asset si ridimensionava automaticamente per entrare in 1 cella di griglia
+    - ora mantengono la loro dimensione originale al rilascio (a meno che non si usino template)
+- Stato errato nel gestore di asset alla riconnessione
+- Ordine di ordinamento nel gestore di asset
+- La selezione con shift nel gestore di asset si comportava in modo strano quando si mescolavano file e cartelle
+- Altri casi in cui il ruler e lo strumento ping potevano bloccarsi
+- Le finestre degli strumenti ora si spostano correttamente quando si cambia modalità
+- La finestra di modifica resta aperta quando si seleziona un'altra forma
+- Il movimento dei piani non ricalcolava la triangolazione di vision/movimento
+- La selezione includeva forme fuori dalla visione
+- L'aggiunta/rimozione delle etichette non veniva più sincronizzata dal server
+- Il piano corrente non veniva più evidenziato nel menu contestuale
+- Molti problemi quando si aveva una dimensione di griglia client modificata
+    - aure/zoom/map usavano tutti calcoli sbagliati
+- Il teletrasporto a una posizione di spawn cambiava solo il luogo senza impostare la posizione
+- Sincronizzazione della visibilità delle etichette
+- L'iniziativa poteva non funzionare quando si cambiavano luoghi
+- [DM] Il rinomina piano impostava sempre un nome vuoto

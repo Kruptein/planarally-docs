@@ -1,0 +1,92 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Lightbulb from "~icons/fa-solid/lightbulb";
+
+# Illuminazione stile RTS
+
+Guida contribuita da [@veritanuda](https://keybase.io/veritanuda)
+
+Questo tutorial si concentrerà su una configurazione di illuminazione più complessa.
+Assicurati di avere familiarità con il [sistema di illuminazione & visione](/it/docs/dm/lighting-vision/) di PlanarAlly, così come con i suoi [livelli](/it/docs/dm/layers) e le [aure](/it/docs/game/shapes/#trackers--auras) e l'[accesso](/it/docs/game/shapes/#access) dei segnalini.
+
+In questo tutorial, vogliamo emulare le configurazioni di illuminazione in stile RTS (*R*eal *T*ime *S*trategy).
+La configurazione **farà**:
+
+- dare ai giocatori una mappa da esplorare e
+- mostrare loro le aree che hanno già esplorato.
+
+La configurazione **non farà**:
+
+- tenere conto dell'effettiva linea di vista del giocatore, ma lavorare con semplificazioni,
+- aggiungere una 'nebbia di guerra sottile' che nasconde solo i segnalini ma non la mappa (PlanarAlly non può farlo), oppure
+- automatizzare il processo.
+
+## Concetto
+
+I giochi di strategia in tempo reale spesso mettono i giocatori di fronte a mappe inesplorate.
+Eppure, nel momento in cui un esploratore raggiunge l'area, la mappa viene rivelata e qualsiasi nebbia di guerra nasconde solo le unità degli altri giocatori ma non la mappa.
+Questa è una funzionalità che è stata spesso richiesta.
+Tuttavia, per vari motivi, non è stata ancora implementata in PlanarAlly (ancora?).
+
+Ma è facile emulare un effetto simile.
+Avrà gli svantaggi menzionati sopra, ma darà ai giocatori più (e migliore) orientamento sulla mappa rispetto alla sola loro linea di vista.
+
+In sostanza, noi:
+
+- divideremo la mappa in zone,
+- forniremo a queste zone delle sorgenti di luce, ciascuna,
+- illumineremo le zone nel momento in cui i giocatori le hanno esplorate, così potranno vederle quando se ne vanno.
+
+## Preparazione
+
+Per prima cosa, prepara la tua mappa regolare usando il sistema di illuminazione e visione: riempi la tela con la nebbia di guerra, aggiungi alcuni muri e luci come preferisci.
+
+![rts-image-00](./assets/rts-image-00.png)
+
+### Settori
+
+Poi guarda la tua mappa per identificare le porzioni che possono essere esplorate in modo indipendente.
+Per il tuo dungeon regolare, questo dovrebbe essere facile, dato che è già diviso in diverse stanze.
+
+Ora, posiziona una o più sorgenti di luce (a seconda del layout della zona).
+Queste luci dovrebbero essere in grado di illuminare l'intera zona.
+Probabilmente vorrai delle aura nette senza luce fioca sui bordi.
+
+![rts-image-01](./assets/rts-image-01.png)
+
+Nascondi le luci sul livello _DM_ e/o disattiva le aura per un uso successivo.
+
+## Implementazione
+
+Nel momento in cui la zona deve essere visibile ai tuoi giocatori (sia quando vi entrano sia quando l'hanno completamente esplorata), accendi le luci.
+Fallo attivando l'aura (se l'hai disattivata) e spostando la sorgente di luce sul livello `fow`, per illuminare la zona.
+Imposta la sorgente di luce anche su _pubblica_, così che i giocatori possano effettivamente vederla.
+
+![rts-image-02](./assets/rts-image-02.png)
+
+Poiché la sorgente di luce è sul livello _fow_, la sua aura verrà disegnata sul livello segnalini, mentre la forma stessa rimarrà invisibile.
+Il livello `fow` spoglierà anche l'aura di _qualsiasi_ colore.
+
+![rts-image-03](./assets/rts-image-03.png)
+
+![rts-image-04](./assets/rts-image-04.png)
+
+Nel caso tu voglia essere in grado di distinguere tra vista reale e vista stile RTS, dai alla vista dei giocatori una leggera tinta, oppure sposta le sorgenti di luce sul livello _mappa_.
+Puoi rendere il segnalino invisibile oppure nasconderlo sotto qualsiasi immagine della mappa che hai aggiunto tramite la funzione `move to back`.
+Usa la funzione `lock` per evitare di trascinare accidentalmente le luci con il tuo gruppo o altri elementi della mappa.
+
+Nel caso tu abbia abilitato l'opzione _mostra solo le luci nella linea di vista_, devi invece aggiungere l'accesso _visione_ per tutti i giocatori alle luci che vuoi usare.
+Altrimenti, perderanno la conoscenza della zona già esplorata nel momento in cui c'è un muro tra loro e la rispettiva zona.
+In questo caso, potresti voler aggiungere _voci_ di accesso per tutti i giocatori nelle proprietà delle sorgenti di luce in anticipo, disattivando ogni livello di accesso.
+
+In questo modo, ti basta spuntare alcune icone <Lightbulb/> per illuminare una zona.
+
+![rts-image-05](./assets/rts-image-05.png)
+
+![rts-image-06](./assets/rts-image-06.png)
+
+Nota che questo illuminerà non solo il livello _mappa_ ma anche il livello _segnalini_.
+
+Se vuoi nascondere i movimenti dei nemici ai tuoi giocatori, sposta i loro segnalini sul livello _DM_.

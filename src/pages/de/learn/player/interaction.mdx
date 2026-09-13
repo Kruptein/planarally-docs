@@ -1,0 +1,176 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import PenSquare from "~icons/fa-solid/pen-square";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Mit dem Spiel interagieren
+
+Es ist an der Zeit, PA tatsächlich zu benutzen!
+
+## Die Karte bewegen
+
+Beginnen wir mit dem Einfachsten: die Karte zu bewegen.
+
+Ein wesentlicher Teil der Nutzung eines VTT ist zu wissen, wie man die Kamera bewegt.
+
+### Zoomen
+
+Hinein-/Herauszoomen ist ziemlich unkompliziert, da es nur das Scrollen des Mausrads erfordert.
+Wie im vorherigen Kapitel gesehen, gibt es oben rechts auch einen eigenen Zoom-Regler, den du verwenden kannst.
+
+Der Hauptunterschied ist, dass der Regler immer relativ zur Bildschirmmitte zoomt,
+während das Zoomen mit der Maus relativ zur aktuellen Mausposition erfolgt.
+
+### Verschieben (Panning)
+
+Um die Karte zu bewegen, kannst du entweder die mittlere oder die rechte Maustaste gedrückt halten und die Maus bewegen.
+
+<Tip>
+    Du kannst die Taste, die du nicht verwenden möchtest, in deinen Client-Einstellungen deaktivieren, um
+    versehentliches Verschieben zu verhindern
+</Tip>
+
+Du kannst dich auch mit der Tastatur bewegen: Mit den Pfeiltasten verschiebt sich der Bildschirm in die jeweilige Richtung.
+Bei jedem Tastendruck wird der Bildschirm um 1 Rasterzelle bewegt.
+
+<Tip>
+    Sieh dir die [Tastenkürzel](/de/docs/reference/#keybindings) an, wenn du weitere Möglichkeiten entdecken möchtest!
+</Tip>
+
+## Die Werkzeuge ausprobieren
+
+Werfen wir einen genaueren Blick auf die Werkzeugleiste unten rechts.
+Sie kann je nach **Modus** zwei Formen annehmen, aber als Spieler wirst du fast ausschließlich den Play-Modus verwenden:
+
+![Play-Werkzeuge](./assets/tools-play.png)
+
+<Tip>
+    1: Wenn dir die abstrakten Symbole nicht gefallen, kannst du die UI in deinen Client-Einstellungen so ändern, dass
+    stattdessen Textbeschriftungen angezeigt werden.
+    <br />
+    2: Du kannst mit <kbd>tab</kbd> schnell zwischen den Modi wechseln
+</Tip>
+
+Die meisten Interaktionen in PA hängen davon ab, welches Werkzeug gerade aktiv ist, was im obigen Beispiel das Select-Werkzeug ist.
+
+Wir gehen hier kurz alle Werkzeuge durch, beschränken die Erklärung aber auf das Wesentliche, das du oft verwenden wirst.
+Für detailliertere Informationen wirf einen Blick auf die [Werkzeug-Dokumentation](/de/docs/tools/select/).
+
+### Select
+
+Das ist bei weitem das häufigste Werkzeug, das du verwenden wirst. Sein Hauptzweck ist ... Dinge auszuwählen!
+
+Ein Linksklick auf eine Form wählt sie aus und fügt einen roten Rahmen um die Form hinzu.
+Wenn du jetzt die linke Maustaste gedrückt hältst und die Maus bewegst, kannst du die Form verschieben.
+
+Wenn du mehrere Formen auswählst, kannst du sie alle auf einmal bewegen!
+
+Schockierend, ich weiß.
+
+Das Select-Werkzeug hat jedoch noch mehr zu bieten: Wenn du eine aktive Auswahl hast,
+erscheint oben rechts eine spezielle UI mit Schnellinformationen über die ausgewählte Form, und
+unten rechts sind zusätzliche Konfigurationsoptionen für das Select-Werkzeug verfügbar.
+
+<Info title="Skalieren / Drehen">
+    Das Select-Werkzeug kann eine Form auch skalieren oder drehen.
+    <br />
+    Da das normalerweise nichts ist, was du regelmäßig tust, ist diese Funktionalität nur im Build-Modus sichtbar. Das
+    verhindert versehentliches Skalieren, wenn du nur deine Form ziehen willst und zufällig ein wenig zu nah an der Ecke
+    klickst.
+</Info>
+
+### Pan
+
+Das nächste ist ein Werkzeug, das wahrscheinlich am wenigsten verwendet wird, da es dir erlaubt, den Bildschirm mit dem linken Mausklick zu verschieben/zu pannen.
+
+Da du von jedem Werkzeug aus mit der mittleren oder rechten Maustaste pannen kannst,
+wirst du dieses Werkzeug nur aktiv verwenden, wenn du auf einem Gerät ohne Maus bist.
+
+### Spell
+
+Wenn du jemals einen Zauberspruch-Effekt vorübergehend zum Spieltisch hinzufügen musst, ist dieses Werkzeug für dich da.
+
+Es ermöglicht dir, einige gängige Zauberspruch-Formen auszuwählen, die Abmessungen zu konfigurieren und sie auf der Karte zu platzieren.
+
+Wenn du eine Form ausgewählt hast, wird automatisch ein Lineal zwischen der Form und dem Zauberspruch-Effekt angezeigt,
+um sicherzustellen, dass du dir der Entfernung bewusst bist, über die du zauberst.
+
+### Ruler
+
+Dein Freund, wenn du Entfernungen messen musst.
+
+Ein sehr unkompliziertes Werkzeug: Du klickst und ziehst eine Linie, um die Entfernung entweder in der Anzahl der Rasterzellen oder in der In-Welt-Entfernung (z. B. ft oder m) zu messen.
+
+<Tip>
+    Wenn du während des Ziehens mit der Maus die Leertaste drückst, wird ein neuer Ankerpunkt gesetzt, sodass du um
+    Ecken herum messen kannst!
+</Tip>
+
+### Ping
+
+Ein weiteres kleines, aber praktisches Werkzeug ist das Ping-Werkzeug, mit dem du einfach die Aufmerksamkeit auf einen bestimmten Bereich der Karte lenken kannst.
+
+### Vision
+
+Dies ist ein spezialisiertes Werkzeug, das nur erscheint, wenn du mehrere Charaktere steuerst.
+
+Es begrenzt deine Sicht auf die in diesem Werkzeug ausgewählten Charaktere.
+
+### Dice
+
+Ein Werkzeug, das du entweder häufig oder nie benutzt, ist das Würfel-Werkzeug.
+
+Es ermöglicht dir, Würfelwürfe entweder in rein textueller Form oder durch die Simulation virtueller 3D-Würfel aufzulösen.
+
+### Draw
+
+Dieses Werkzeug ist nur im Build-Modus sichtbar!
+
+Mit diesem Werkzeug kannst du eine Vielzahl von Formen auf der Karte zeichnen.
+
+## Deinen Charakter ändern
+
+Noch nicht behandelt wurde, wie du deinen Charakter änderst, was natürlich auch ein wichtiger Teil des Spielens ist.
+
+Wenn dein Charakter ausgewählt ist, gibt es mehrere Möglichkeiten, die Bearbeiten-UI zu öffnen.
+
+- Drücke das <PenSquare />-Symbol in den Schnellinformationen (oben rechts)
+- Klicke mit der rechten Maustaste auf deinen Charakter und klicke auf „Eigenschaften anzeigen"
+- Drücke <kbd>Enter</kbd>
+
+Was auch immer du wählst, ein größeres UI-Element sollte erscheinen, das es dir erlaubt, mehrere Aspekte deines Charakters zu bearbeiten.
+Es kann viel konfiguriert werden, aber keine Sorge: Als Spieler sind die wichtigsten Registerkarten „Eigenschaften" und „Tracker".
+
+### Eigenschaften
+
+Hier kannst du einige Grundlagen wie den Namen und das Asset deines Charakters bearbeiten.
+
+### Tracker
+
+Hier kannst du Tracker und Auren konfigurieren.
+
+Tracker sind numerische Daten, die du über Spiele hinweg behalten und ändern möchtest (z. B. LP).
+Sie können optional auch auf deinem Charakter auf der Karte angezeigt werden, entweder privat oder sichtbar für alle anderen Spieler.
+
+Auren hingegen sind immer visuell; sie stellen Dinge wie Flächeneffekte und Lichter dar.
+Wenn die Aura dir Sicht geben soll (z. B. eine Fackel oder Dunkelsicht), stelle sicher, dass du „Lichtquelle" aktivierst.
+
+Auren haben 2 Werte für ihre Reichweiten-Eingabe: Der erste Wert ist, wie viele ft helles Licht vorhanden sein sollen,
+der zweite, wie viele ft gedämpftes Licht. Eine 5e-Fackel sollte also 20 / 20 sein (und nicht 20 / 40!).
+
+## Weiterführende Lektüre
+
+Das war ein sehr kurzer Überblick über die Werkzeuge, mit denen du mit PlanarAlly interagieren kannst.
+
+Einige Dinge, die nicht erwähnt wurden und die du dir vielleicht ansehen möchtest:
+
+- Notizen: Behalte Informationen im Blick, die du über bestimmte NSCs oder Story-Beats gesammelt hast
+- Chat: Ein einfacher textbasierter, flüchtiger Chat
+- Initiative: Ein grundlegender Initiative-Tracker
+
+Und wenn du daran interessiert bist, selbst ein Spiel zu hosten, kannst du dir den [DM-Leitfaden](/de/learn/dm/intro/) ansehen und herausfinden, worum es dabei geht.

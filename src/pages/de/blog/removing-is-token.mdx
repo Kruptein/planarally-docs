@@ -1,0 +1,90 @@
+---
+title: Änderungen an Sicht- und Zugriffssystemen
+date: 2025-02-26 23:45:00
+excerpt: 'Abschaffung von „is a Token" und mehr'
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Dies ist ein kurzer Artikel über den aktuellen Stand der Sicht-Funktionen und über einige Änderungen, die ich vorhabe, um einiges davon tatsächlich unkomplizierter zu machen.
+
+Sei beruhigt: Die Änderungen, die ich vornehmen möchte, sind nicht groß, es sind eher subtile Änderungen – dennoch fand ich, dass sie einen separaten Artikel verdienen, da Sicht meist das Herzstück des Spiels ist.
+
+## Wie es aktuell funktioniert
+
+Über das Beleuchtungssystem gibt es eine ausführliche Dokumentation [hier](/de/docs/dm/lighting-vision/#lighting--vision), aber eine kurze Zusammenfassung sieht wie folgt aus:
+
+Wenn der Spieltisch mit Nebel gefüllt ist (DM-Einstellung: mit Kriegsnebel füllen), ist für den Spieler alles verborgen. Jede Form mit einer Aura, die als öffentlich und als Lichtquelle markiert ist, wird für den Spieler allerdings sichtbar. Lichtquellen, die nicht als öffentlich markiert sind, erscheinen nur dann, wenn der Spieler Sichtzugriff auf die Form hat.
+
+Eine zusätzliche Sicht-Einstellung kann aktiviert werden: Sichtlinie (DM-Einstellung: LoS). Ist sie aktiviert, können Spieler die zuvor erwähnten Lichtquellen nur dann sehen, wenn sie Sichtzugriff über eine Form haben, die ausdrücklich als „is a token" markiert ist. Und mehr noch: Sie sehen nur den Teil dieser Lichtquellen, der in ihre Sicht fällt (Wände und andere sichtblockierende Formen werden dabei berücksichtigt). Man sieht also nicht, was hinter der Ecke liegt, selbst wenn es beleuchtet ist.
+
+## Was sind die Probleme?
+
+Was ist also falsch daran? Ehrlich gesagt nicht viel, aber nach einer Weile der Nutzung fallen einige Dinge auf.
+
+- Die Einstellung `is a token` ist ziemlich unintuitiv, ihre Wirkung ist nicht unmittelbar klar
+- Sie wird außerdem leicht vergessen, was am Spieltisch für Verwirrung/Frustration sorgen kann (z. B. „Nein, ich kann nichts sehen")
+- Auch die Bedeutung des Sichtzugriffs-Rechts wird in Kombination mit der Eigenschaft `is token` verwirrend
+- Als DM kann man manchmal ein falsches Bild davon haben, was Spieler sehen können (dazu später mehr)
+
+## Das Token-Konzept überdenken
+
+Das hat mich letztlich dazu gebracht, über die Kernidee hinter dem Token-Konzept nachzudenken. Warum wurde es ursprünglich eingeführt?
+
+Die Antwort auf diese Frage ist recht einfach: Performance.
+
+Die Sichtberechnung von Formen ist eine der intensiveren Aufgaben, die PA erledigen muss, und als Spieler besitzt man nur 1 oder vielleicht ein paar Formen, was also kein großes Problem darstellt – aber der DM besitzt technisch gesehen alle Formen in der Szene, und das können sehr viele sein. Deshalb wurde die Token-Eigenschaft eingeführt, um die Sichtberechnung auf genau die Formen zu beschränken, die als solche markiert wurden, was die DM-Seite beim Rendern stark entlastet.
+
+Wenn man einen Schritt zurücktritt, ist diese Lösung eigentlich etwas rückwärtsgewandt. Für Spieler ist die Lösung relativ geradlinig: Wenn sie Zugriff auf eine Form haben, brauchen sie mit hoher Wahrscheinlichkeit auch Sicht über das, was die Form sehen kann. Und ein DM kümmert sich letztlich (in der Regel) nur darum, was die Spieler tatsächlich sehen können.
+
+Können wir das `is a token`-Konzept also nicht einfach fallen lassen und stattdessen nur prüfen, ob an der Form ein Spieler mit Sichtzugriff hängt?
+
+Um diese Frage zu beantworten, müssen wir zunächst unsere Hypothese bestätigen: Brauchen Spieler Sicht über alle Formen, die sie besitzen?
+
+Groß gesagt gibt es drei verschiedene Arten von Formen, auf die ein Spieler Zugriff haben könnte:
+
+- Formen, die einen Charakter / ein Spieler-Token darstellen
+- Formen, die etwas wie eine Beschwörung / ein Haustier / NPC / andere Begleiter darstellen
+- Formen, die Objekte darstellen (z. B. Zaubereffekte, gezeichnete Formen, die Hindernisse darstellen usw.)
+
+Die erste Form sollte in 99 % der Fälle auf jeden Fall eine Form von Sicht gewähren, da sie im Grunde den Charakter des Spielers darstellt. Die zweite Form ist allerdings schon problematisch. Die Antwort hier ist „es kommt darauf an". Bei der letzten Form lautet die Antwort in 99 % der Fälle nein. Es gibt keinen Grund, warum das Rechteck, das du gezeichnet hast, um eine Barrikade darzustellen, dir Sicht gewähren sollte – eher sollte es die Sicht tatsächlich blockieren!
+
+Unsere Hypothese stimmt also leider nicht, und wir können die `is a token`-Eigenschaft doch nicht einfach fallen lassen?
+
+Nicht so schnell! Dem aufmerksamen Leser ist vielleicht aufgefallen, dass wir bisher oft von „Sichtzugriff" gesprochen haben – was darauf hindeuten könnte, dass es andere _Zugriffe_ gibt?
+
+Es stellt sich heraus, dass es sie gibt. PA hat 3 Zugriffsebenen, die die Berechtigungen schrittweise erweitern. Sichtzugriff gewährt Zugriff auf alle privaten Licht-/Sichtquellen, die die Form hat, Bewegungszugriff fügt die Möglichkeit hinzu, das Token dorthin zu bewegen, und schließlich gibt Bearbeitungszugriff die Möglichkeit, Eigenschaften/Auren/... der Form zu ändern.
+
+Wenn wir auf unsere 4 Beispiele zurückblicken, würden wir für die erste Form wahrscheinlich alle 3 Zugriffsebenen wollen, für die zweite Form aber nur Bearbeitungszugriff und vielleicht Bewegung. Etwas wie ein Haustier/eine Beschwörung könnte Werte oder andere Dinge haben, über die der Spieler Kontrolle haben sollte; er könnte es vielleicht bewegen, aber in der Regel wird er keinen Sichtzugriff haben.
+
+Das ist derzeit nicht möglich, da PA davon ausgeht, dass diese Berechtigungen additiv sind. Wir können sie aber stattdessen in vollständig eigenständige Berechtigungen aufteilen.
+
+## Endlich eine Lösung
+
+Wenn wir also die Zugriffsebenen aufteilen, die Token-Eigenschaft fallen lassen und stattdessen einfach auf den „Sichtzugriff" des Spielers schauen ... gelingt es uns!
+
+Zur Zusammenfassung also die Änderungen, die ich wahrscheinlich vornehmen werde:
+
+- Die 3 Zugriffsebenen unabhängig machen, statt sie aufeinander aufzustapeln
+- Die `is token`-Eigenschaft entfernen
+- Den Sichtzustand einer Form anhand der Sichtzugriffsebene bestimmen
+
+## Die Seite des DM
+
+Wie ich bereits erwähnt habe, kann es auf der DM-Seite bei der Behandlung von Sicht zu Verwirrung kommen. Im Allgemeinen sieht der DM die kombinierte Sicht aller Spieler und kann mit dem Vision-Werkzeug bestimmte Ansichten abwählen.
+
+Private Sicht-Auren, die nicht mit einem Spieler verbunden sind, erzeugen jedoch merkwürdige Effekte. Sie werden dem DM angezeigt, da der DM technisch gesehen Zugriff auf jede Form hat, also wirken die privaten Auren auch auf den DM. Es sind aber Auren, die für den Spieler nie sichtbar sein werden – sie also in der Sicht des DM anzuzeigen, ist ziemlich seltsam.
+
+Mit den oben beschriebenen Änderungen wird auch dieser spezielle „Bug" verschwinden.
+
+Es fügt allerdings eine neue Herausforderung hinzu: Wenn `is token` weg ist, wie bereitest du eine neue Karte vor, auf der sich die Spieler noch nicht am Ort befinden? Du könntest theoretisch einen beliebigen Spieler zu einer Testform hinzufügen, um zu prüfen, ob deine Beleuchtung korrekt eingerichtet ist. Du könntest auch einfach das standardmäßige Sichtzugriffsrecht der Form konfigurieren. Beide Ansätze funktionieren, aber du musst besonders darauf achten, dass du es nicht vergisst, wieder zu entfernen, wenn deine Spieler bereit sind, den Ort zu erkunden.
+
+Ich denke, hier können wir es besser machen. Bei der Vorbereitung einer Karte kümmert dich der Aspekt der Sichtlinie normalerweise gar nicht; das ist eher eine Einschränkung für die Spieler während des Spiels. Um die Einrichtung von Licht & Wänden selbst geht es uns bei der Vorbereitung wirklich. Man könnte die Sichtlinien-Einstellung während Vorbereitung und Spiel manuell umschalten, aber das ist ziemlich umständlich. Die verschiedenen Spielparameter (z. B. Sichtlinie) sollten konstant bleiben. Es ist die DM-Umgebung, die konfigurierbar sein sollte.
+
+Ich sehe hier einige Optionen:
+
+- LoS für den DM automatisch deaktivieren und aktivieren, wenn du den Fake-Spieler-Modus aktivierst
+- Einen neuen Quick Toggle unterhalb der Symbolleiste hinzufügen, der LoS **nur** für den DM ein-/ausschaltet
+- Einen neuen Quick Toggle hinzufügen, um den „Vorbereitungs"-Modus zu aktivieren. In diesem Modus ist die Kampagne automatisch gesperrt (d. h. Spieler können nicht beitreten) und einige spezifische Einstellungen sind aktiv (z. B. ist LoS ausgeschaltet)
+
+Die erste Option wird meiner Meinung nach unintuitiv sein, da man beim Aktivieren der LoS-DM-Einstellung keine sofortige Veränderung sieht, obwohl sie tatsächlich eine große Wirkung hat. Die zweite Option fühlt sich gut an und ist wahrscheinlich das, wofür ich mich entscheiden werde. Die dritte Option finde ich faszinierend, aber sie wird etwas sein, das nicht für jeden funktioniert. Ich denke stattdessen, dass der Sperrmodus eigentlich auch ein Quick Toggle werden könnte. Und irgendwann werde ich es wahrscheinlich konfigurierbar machen, welche Toggles sichtbar sind, wenn du nicht alle verwendest.

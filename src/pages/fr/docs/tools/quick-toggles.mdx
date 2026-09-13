@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Activation rapide
+
+La barre d'outils DM possède quelques icônes supplémentaires en dessous. Ce sont des bascules rapides utiles pour toutes sortes de choses.
+
+<Image src={QuickTogglesImage} width={150} alt="Aperçu de l'outil initiative" />
+
+## Fake Player
+
+Lorsque cette option est activée, l'écran du DM est rendu comme s'il était en mode faux joueur (voir [Fake Player](/fr/docs/dm/settings/#fake-player))
+
+## Ligne de vue
+
+Cette bascule rapide n'apparaît que si vous avez activé la [Ligne de vue](/fr/docs/dm/settings/#only-los).
+
+Elle vous permet de désactiver la LoS **uniquement** sur votre propre écran. Tout comme la bascule Fake Player, elle aide à vérifier les configurations d'éclairage et de vision pendant la préparation.
+Elle apparaît en vert lorsque la LoS est activée et en rouge lorsqu'elle est (temporairement) désactivée.
+
+En particulier lorsque vous travaillez sur un nouvel emplacement où vous n'avez probablement pas encore de formes avec accès à la vision, vous pouvez l'utiliser pour vérifier les lumières que vous avez configurées sans avoir à créer des formes temporaires.
+
+## Initiative
+
+La bascule rapide Initiative est, par rapport aux autres bascules, plus qu'un simple confort.
+Lorsqu'elle est activée, elle devient verte (jusqu'à ce que vous cliquiez à nouveau) et indique que l'[initiative](/fr/docs/tools/initiative/) est active.
+
+Elle ouvre automatiquement l'interface d'initiative pour tous les joueurs et active certains des [paramètres d'initiative](/fr/docs/game/settings/#initiative).
+Ces paramètres ne sont actifs que lorsque l'initiative est explicitement activée à l'aide de cette bascule !

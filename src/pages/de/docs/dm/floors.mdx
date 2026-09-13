@@ -1,0 +1,64 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import FloorsPicture from "./assets/floors.png";
+
+# Etagen
+
+Eine vollständige Gruppe übereinander gestapelter [Ebenen](/de/docs/dm/layers/) wird _Etage_ genannt.
+
+Etagen werden übereinander gezeichnet.
+Auf einer neu erstellten Etage ist die darunterliegende Etage also vollständig sichtbar.
+Das gilt für jeden Teil des Spieltisches, der nicht von etwas anderem bedeckt ist – sei es ein Asset auf der _Map_-Ebene oder eine Form auf der _Tokens_-Ebene.
+
+<Image src={FloorsPicture} width={300} aspectRatio={314 / 277} alt="Der Etagen-Button mit geöffnetem Etagen-Menü" />
+
+Auf Etagen kannst du über den Etagen-Button unten links auf dem Bildschirm zugreifen.
+Etagen sind nummeriert (auf der linken Seite des geöffneten Menüs angezeigt) und haben Namen (auf der rechten Seite angezeigt).
+Der Etagen-Button zeigt immer die Nummer deiner aktiven Etage.
+
+**Praktisch**: Schau dir unbedingt die [Bewegungs-Tastenkürzel](/de/docs/reference/#movement) an, um das Wechseln zwischen Etagen zum Kinderspiel zu machen!
+
+An jedem [Ort](/de/docs/dm/locations) gibt es immer mindestens eine Etage. Daher wird beim Erstellen des Ortes automatisch die erste Etage angelegt.
+Sie heißt `ground` und trägt die Nummer `0`, die immer die Nummer der untersten Etage des Stapels ist.
+
+Etagen werden in ihrer Darstellungsreihenfolge aufgelistet. Die oberste Etage steht an erster Stelle.
+
+Etagen sind ein sehr praktisches Werkzeug, um Immersion/Wahrnehmung zu verbessern, und es wird empfohlen, sie häufig einzusetzen, wenn möglich. Beachte jedoch, dass jede Etage die Renderzeit erhöht. Es gibt einige Optimierungen, um diese Belastung zu verringern (z. B. werden höher gelegene Etagen nicht gerendert/berechnet), aber behalte dies im Hinterkopf.
+
+## Neue Etagen erstellen
+
+Du kannst neue Etagen erstellen, indem du auf `Add new floor` klickst.
+In einem Pop-up wirst du nach dem Namen der Etage gefragt.
+
+<Info title="Keine Duplikate">Beachte, dass zwei Etagen an einem Ort nicht denselben Namen haben dürfen.</Info>
+
+## Etagen neu anordnen
+
+Du kannst Etagen neu anordnen, indem du sie an eine andere Position ziehst. Alle Objekte auf einer Etage bleiben dieser Etage zugeordnet.
+
+## Aktionen für Etagen
+
+### Umbenennen
+
+Wenn du auf den Stift <PencilAlt/> klickst, erscheint ein Pop-up, in dem du einen neuen Namen für die Etage eingeben kannst.
+
+### Spielerzugriff umschalten
+
+Mit einem Klick auf das Auge <Eye/> kannst du umschalten, ob Spieler manuell auf diese Etage zugreifen können.
+
+**Beachte**, dass dies die Etage nicht versteckt! Es könnte ein Fenster geben, durch das die Etage sichtbar ist.
+
+### Löschen
+
+Das Löschen von Etagen ist so einfach wie ein Klick auf den <TrashAlt />-Button im geöffneten Menü.
+Du musst das Löschen der Etage bestätigen, _da diese Aktion nicht rückgängig gemacht werden kann_!
+
+Beim Löschen wird die Etage aus dem Stapel entfernt und verworfen. Auch alle Objekte auf der Etage werden entfernt.

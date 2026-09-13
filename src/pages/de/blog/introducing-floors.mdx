@@ -1,0 +1,33 @@
+---
+title: Einführung von Etagen & kleine Updates
+date: 2020-02-13 21:02:34
+excerpt: "Eine Einführung in ein neues kommendes Feature: Etagen! Und ein kleiner Überblick über einige andere Dinge, die im Release 0.19.0 passieren."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Ich habe keinen festen Release-Tag für das 0.19.0-Release im Sinn, aber ich möchte in diesem Monat zumindest etwas herausbringen. In der Zwischenzeit wollte ich bereits auf einige Änderungen eingehen, die du im 0.19.0-Release erwarten kannst, und einen detaillierteren Blick auf ein neues Feature insbesondere zeigen.
+
+## Goodies von 0.19.0
+
+Zum Anfang haben wir endlich eine Verwendung für den Einstellungen-Button, der im Haupt-Dashboard sichtbar war, wo du auswählen kannst, welcher Session du beitrittst. Er hat jetzt einen Zweck und zeigt einige sehr einfache Kontoeinstellungen. Du kannst eine E-Mail-Adresse festlegen, dein Passwort ändern und dein Konto löschen. Beachte, dass derzeit mit der E-Mail-Adresse nichts gemacht wird, aber ein Server-Besitzer könnte sie nutzen, um Wartungsinformationen oder Ähnliches zu versenden.
+
+Ich hoffe, die Einstellungen in Zukunft um viele andere Dinge zu erweitern, wie Standardkonfigurationen für alle In-Game-bezogenen Einstellungen.
+
+Etwas anderes, das im nächsten Release kommt, ist das Einrasten bei Zeichen- und Größenänderungsaktionen. Obwohl das Polygon-Werkzeug bereits die dringend benötigte Einfachheit beim Zeichnen (und insbesondere beim Zeichnen von Kriegsnebel) bot, hatte es den umständlichen Nachteil, dass es keine Möglichkeit gab, exakt an anderen Punkten anzudocken, wodurch rund um Türen und Wände oft kleine Lücken in der Sicht entstanden. Ich kann jetzt erfreut sagen, dass diese Zeiten vorbei sind und du die Punkte von Polygonen (und anderen Formen) nun frei einrasten lassen kannst!
+
+Zum Schluss eine kleine Anmerkung zu einem Feature, das von LDeeJay1969 beigetragen wurde: Er führte ein Tastenkürzel (ctrl+0) ein, um die Ansicht auf (0, 0) zurückzusetzen, falls du dich irgendwie im unendlichen Nichts verlierst. Weitere Arbeit in Bezug auf das Springen in der Karte ist unterwegs, aber diese kleine Ergänzung ist schon ein netter Schub, um Frustration zu vermeiden!
+
+## Etagen
+
+Jetzt zu einem Feature mit einer optisch größeren Wirkung: Etagen!
+
+_Das folgende Video verwendet Inhalte aus der Kampagne Waterdeep\:Dragonheist, veröffentlicht von Wizards of the Coast_
+
+<video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
+
+Wie im obigen Video zu sehen ist, wird an der Möglichkeit gearbeitet, mehrere Etagen zu definieren, die übereinander gerendert werden.
+
+Das Hinzufügen von Etagen sorgt für eine viel tiefere Immersion als das Springen zwischen Orten oder das Panen über die Karte. Jede Etage erhöht allerdings die Last auf dem Client, da auch die Etagen unterhalb der aktiven Etage gerendert werden müssen! Nur um sicherzugehen: Dieses System ist vollständig optional (d. h. standardmäßig gibt es nur 1 Etage).
+
+Wie zu sehen ist, werden Beleuchtung und Sicht berücksichtigt, um zu zeigen, was ein bestimmter Spieler sehen kann. Einige Vereinfachungen/Annahmen sind nötig, da PA kein 3D-Spiel ist, sondern eine Vielzahl von 2D-Ebenen übereinander, aber im Allgemeinen wird die Beleuchtung auf höheren und niedrigeren Etagen beim Rendern berücksichtigt.

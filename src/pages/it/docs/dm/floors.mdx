@@ -1,0 +1,69 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import FloorsPicture from "./assets/floors.png";
+
+# Piani
+
+Un insieme completo di [livelli](/it/docs/dm/layers/) impilati è chiamato _piano_.
+
+I piani sono disegnati uno sopra l'altro.
+Quindi, su un piano appena creato, il piano sottostante sarà completamente visibile.
+Questo vale per ogni porzione del tavolo di gioco che non è coperta da altro, che sia un asset sul livello _mappa_ o una forma sul livello _segnalini_.
+
+<Image
+    src={FloorsPicture}
+    width={300}
+    aspectRatio={314 / 277}
+    alt="Il pulsante dei piani con il menu dei piani aperto"
+/>
+
+I piani sono accessibili tramite il pulsante dei piani in basso a sinistra dello schermo.
+I piani sono numerati (il numero è mostrato a sinistra del menu aperto) e hanno un nome (mostrato a destra).
+Il pulsante dei piani mostra sempre il numero del piano attivo.
+
+**Utile**: dai un'occhiata ai [tasti di movimento](/it/docs/reference/#movement) per rendere la navigazione tra i piani un gioco da ragazzi!
+
+In ogni [luogo](/it/docs/dm/locations), c'è sempre almeno un piano presente, quindi, alla creazione del luogo, il primo piano verrà creato automaticamente.
+Si chiamerà `ground` e sarà numerato con `0`, che è sempre il numero del piano in fondo alla pila.
+
+I piani sono elencati nel loro ordine di presentazione. Il piano più alto è il primo elencato.
+
+I piani sono uno strumento molto utile per migliorare l'immersione/percezione e si consiglia di usarli frequentemente quando possibile. Tieni presente che ogni piano aumenta il tempo di rendering. Ci sono alcune ottimizzazioni per ridurre questo carico (es. i piani più in alto non vengono renderizzati/calcolati), ma tienilo a mente.
+
+## Creare nuovi piani
+
+Puoi creare nuovi piani cliccando su `Add new floor`.
+Ti verrà chiesto il nome del piano in un pop-up.
+
+<Info title="Niente duplicati">Nota che due piani dello stesso luogo non possono avere lo stesso nome.</Info>
+
+## Riordinare i piani
+
+Puoi riordinare i piani trascinandoli in un'altra posizione. Tutti gli oggetti su un piano rimarranno associati a quel piano.
+
+## Azioni sui piani
+
+### Rinomina
+
+Cliccando sulla matita <PencilAlt/> apparirà un popup in cui puoi inserire un nuovo nome per il piano.
+
+### Attiva/disattiva l'accesso dei giocatori
+
+Cliccando sull'occhio <Eye/> puoi attivare o disattivare l'accesso manuale dei giocatori a questo piano.
+
+**Tieni presente** che questo non nasconde il piano! Potrebbe esserci una finestra attraverso cui il piano è visibile.
+
+### Elimina
+
+Eliminare i piani è facile come cliccare il pulsante <TrashAlt /> nel menu aperto.
+Dovrai confermare l'eliminazione del piano _poiché non c'è modo di annullare questa azione_!
+
+Alla cancellazione, il piano verrà rimosso dalla pila e scartato. Tutti gli oggetti sul piano verranno rimossi anch'essi.

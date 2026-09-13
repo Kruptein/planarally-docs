@@ -1,0 +1,146 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# クライアント設定
+
+ゲーム内設定にはサイドメニューからアクセスできます（ブラウザウィンドウの左上にある <Cog /> アイコンをクリックするとメニューが開きます）。
+
+#### 設定の同期
+
+デフォルトでは、表示される設定は、最初から既定のグローバルクライアント設定から導出されます。
+設定を変更すると、その隣に 2 つの追加ボタンが表示され、この設定が既定の動作を上書きしていることを示します。
+
+<TimesCircle /> アイコンをクリックすると、設定を既定値にリセットできます。
+
+代わりに、自分の変更を新しい既定値にしたい場合は、<SyncAlt /> をクリックします。
+これは、この設定を上書きしていない他のすべてのキャンペーンに影響します。
+
+## 外観
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="外観設定" />
+
+### 言語
+
+ここでは、ユーザーインターフェースに表示する言語を選択できます。
+これは、[ダッシュボード](/ja/docs/dashboard/#localisation) で行った場合と同様に、プレイまたは管理している他のすべてのキャンペーンに反映されます。
+
+### ツールバー
+
+_2022.3 で追加_
+
+この設定では、ツールバーのツールをアイコンまたはテキストのどちらで表示するかを選択できます（例：ルーラーアイコンと「ルーラー」のテキスト）。
+
+### グリッド
+
+色設定は、[グリッドレイヤー](/ja/docs/dm/layers/#grid)（つまりグリッド線）が描画される色を定義します。
+
+### Ruler
+
+ここでは、[Ruler](/ja/docs/tools/ruler) の色を設定できます。
+ルーラーが公開で使用されている場合、他のすべてのプレイヤーは、ここで定義した色でルーラーを見ることになります。
+
+### 霧
+
+これは、見えないものを覆う霧の色を設定します。
+
+## 動作
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="動作設定" />
+
+### スナップ
+
+チェックすると、既定の[スナップ動作](/ja/docs/game/snapping/)を反転します。
+
+### マウスとジェスチャー
+
+デフォルトでは、スクロールでズームインまたはズームアウトできますが、これはタッチデバイスでは煩わしい場合があるため、無効にできます。
+
+### 選択情報
+
+_2022.3 で追加_
+
+この設定は、選択情報トラッカーの変更がデフォルトでどのように解釈されるかに影響します。
+
+絶対モードを使用する場合、入力した式の結果がトラッカーの新しい値になります。
+
+相対モードを使用する場合、結果はトラッカーの元の値に加算されます。
+これにより、たとえば -5 や +5 で値をすばやく変更できます。
+
+## 表示
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="表示設定" />
+
+HiDPI 設定により、サブピクセルレンダリングに対応した画面で、描画されるゲームの解像度を上げることができます。
+
+<Warning title="パフォーマンスコストの増加">
+この設定を有効にすると、コンピューターにより多くのパフォーマンスが必要になります。
+
+ゲームがカクつく場合は、この設定が有効になっていないことを確認してください。
+
+</Warning>
+
+### ゲームボード
+
+PlanarAlly を、実際のミニチュアを使う物理的なゲームボードとして使用する画面で使っている場合は、
+これらの設定で、グリッドサイズを自分のミニチュアに合わせて正しく設定することになるでしょう。
+
+これを正しく機能させるには、画面の PPI を知っておく必要があります。
+
+この設定が有効な間は、ズームイン・ズームアウトが現在無効になっていることに注意してください。
+
+### グリッド
+
+物理的なボードを*使用していない*場合は、単一のグリッドセルが画面上でどのくらいの大きさになるかをここで設定できます。
+
+たとえばプロジェクターのようなものでプレイする場合は、これを変更することになるでしょう。
+
+## イニシアチブ
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="イニシアチブ設定" />
+
+<Info>
+    下の 2 つのロック設定は、イニシアチブが有効な場合のみ使用されます。イニシアチブは、[Quick
+    Toggles](/ja/docs/tools/quick-toggles/) でオンに切り替えた場合にのみ正しく有効になります。
+</Info>
+
+### カメラロック
+
+この機能を有効にすると、イニシアチブが次のキャラクターに移るたびに、
+そのキャラクターへのアクセス権があれば、カメラが自動的にそのキャラクターの中央に移動します。
+
+### 視野ロック
+
+この機能を有効にすると、アクティブなイニシアチブキャラクター（そのシェイプへのアクセス権がある限り）へのアクセスしかないかのように視野が制限されます。
+
+これは、[Vision ツール](/ja/docs/tools/vision/) を使用して、毎ターン手動でアクティブなイニシアチブ参加者に変更した場合と同じ効果があります。
+これは、複数のキャラクターを操作している場合にのみ関連します。
+
+### エフェクト
+
+この設定では、イニシアチブエフェクトをいつ表示するかを設定できます。
+デフォルトではアクティブなアクターのエフェクトのみが展開されますが、すべてのアクターを常時表示するように変更できます。
+
+## パフォーマンス
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="パフォーマンス設定" />
+
+### レンダリング
+
+_2022.3 で追加_
+
+フロアは没入感のある体験ですが、より多くのパフォーマンスを消費します。
+この設定では、レンダリングをアクティブなフロアに制限できます。

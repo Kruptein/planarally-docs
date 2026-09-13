@@ -1,0 +1,79 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Tablero
+
+Este es el corazón de PlanarAlly.
+Al jugar, interactuarás principalmente con el tablero de juego, moviendo fichas sobre un mapa que muestra (o no) el entorno de tu personaje y a otros personajes PC y NPC a su alrededor.
+
+<Warning title="El gran borde rojo">
+    La mayoría de las acciones que realizas deben sincronizarse con el servidor. En caso de que esta conexión se pierda
+    por cualquier motivo, un borde rojo grueso alrededor de la pantalla te lo advertirá. Cualquier cambio que hagas
+    durante una desconexión podría perderse.
+</Warning>
+
+## Resumen
+
+Este documento ofrece una breve introducción técnica a los conceptos de ubicaciones, plantas y capas.
+No es una lectura obligatoria para un jugador, pero podría dar más información sobre el comportamiento de ciertos sistemas.
+Como DM hay información más detallada sobre cada uno de estos conceptos en la sección del DM.
+
+PlanarAlly organiza las campañas usando 3 conceptos. Una campaña tiene 1 o más **ubicaciones**, cada una de las cuales consiste en 1 o más **plantas**, cada una de las cuales consiste en un conjunto fijo de **capas**.
+Todos juntos culminan en un escenario que se dibuja en la pantalla con el que interactúas.
+
+Como jugador normalmente no puedes cambiar la ubicación, planta o capa activa,
+pero de todos modos interactúas con estos conceptos cada vez que mueves una forma.
+
+## Ubicaciones
+
+En la parte superior de la organización está el concepto de ubicaciones.
+Una campaña tiene al menos 1 ubicación, pero puede tener varias.
+
+Una ubicación puede considerarse como una instancia específica de tu mundo de juego.
+Puede ser un edificio muy específico que el grupo está explorando, una vista de nivel superior de un pueblo o tal vez incluso el mapa del mundo.
+
+Un jugador en cualquier momento siempre interactúa exactamente con 1 ubicación, pero el DM puede mover a los jugadores mientras avanzan por el mundo.
+
+Consulta la [documentación del DM sobre ubicaciones](/es/docs/dm/locations/) para obtener más información.
+
+## Capas
+
+Cuando cargas una ubicación, las cosas deben dibujarse en tu pantalla.
+Esperas ver un mapa, las fichas de tus personajes y quizás algo de luz o sombra.
+
+Aunque todas estas cosas parecen estar en el mismo plano 2D, PlanarAlly en realidad apila varias **capas** una encima de otra.
+
+Como jugador solo puedes interactuar con la capa de _tokens_ (fichas).
+Esta es la capa principal donde mueves tus fichas y las formas que has dibujado.
+
+Hay otras capas que un jugador puede ver, pero con las que no puede interactuar: la capa de mapa y la capa de cuadrícula son los ejemplos más obvios.
+Ambas se renderizan debajo de la capa de fichas.
+
+Algunas otras capas son completamente invisibles para los jugadores.
+La capa del DM, por ejemplo, solo es visible para el DM y puede usarse para ocultar secretos hasta que sean relevantes.
+
+Para una explicación más detallada de las diferentes capas, ¡consulta la [documentación del DM](/es/docs/dm/layers/)!
+
+## Plantas
+
+Con solo ubicaciones y capas ya estamos listos para jugar.
+Sin embargo, PlanarAlly tiene un truco extra bajo la manga.
+
+Un conjunto de capas se llama **planta**.
+Una ubicación siempre tiene 1 planta, pero podría extenderse para tener varias.
+
+Cuando descubres una mansión embrujada, seguramente tendrás que subir o bajar algunas escaleras.
+Cuando subes una escalera, idealmente no quieres que el DM tenga demasiado trabajo para mover tu ficha al mapa de esa planta.
+Quizás se podría usar otra ubicación de PA o otra área en la ubicación activa, pero esto es simplemente torpe.
+
+Las plantas de PA son una herramienta que ofrece al DM la posibilidad de organizar este tipo de cosas de manera más fluida.
+Igual que en un edificio real, las plantas de PA se renderizan una encima de otra y, por lo tanto, podrías ver las plantas debajo de la planta en la que estás.
+
+Un ejemplo común de esto sería una ventana, un balcón o incluso un agujero en el suelo.
+Entonces, si nada obstruye tu vista, aún puedes ver algunas cosas que suceden en las plantas de abajo (por ejemplo, al mirar por una ventana).
+
+Si el DM te permite cambiar de planta manualmente, puedes acceder a ellas en el menú en la parte inferior izquierda de tu pantalla o usar uno de los atajos de teclado.
+Ten en cuenta que es posible que no puedas ver todo en una planta diferente, dependiendo de la [iluminación](/es/docs/dm/lighting-vision) y de si tienes acceso suficiente a las fichas en esa planta.

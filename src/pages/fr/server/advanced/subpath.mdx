@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Hébergement sur sous-chemin
+
+PlanarAlly peut être hébergé sans effort à la racine (par exemple https://www.planarally.io) ou sur un sous-domaine (par exemple https://app.planarally.io).
+En revanche, lors de l'hébergement sur un sous-chemin, un travail supplémentaire doit être effectué (par exemple https://www.planarally.io/dnd/).
+
+Vous devez signaler au serveur et au client qu'ils sont censés fonctionner sur un sous-chemin.
+De plus, vous devrez peut-être aussi apporter quelques modifications à votre proxy.
+
+Le reste de cette documentation fera parfois référence à la variable d'environnement PA_BASEPATH, qui doit correspondre au sous-chemin souhaité.
+Par exemple :
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="Comportement modifié">
+Depuis la version 2022.1, il y a eu quelques changements dans la gestion des sous-chemins,
+assurez-vous de bien relire cette documentation si vous l'avez utilisée par le passé !
+
+En particulier, le client doit désormais toujours être construit manuellement et le conteneur docker utilise --build-arg au lieu de --env.
+
+</Warning>
+
+## Modifications côté client
+
+Lorsque vous souhaitez utiliser un sous-chemin, vous devez [construire le client vous-même](/fr/server/setup/self-hosting/#manual-installation).
+L'information du sous-chemin doit être intégrée dans les fichiers de sortie de la construction.
+Cela peut simplement être fait en construisant le client alors que la variable d'environnement PA_BASEPATH est définie.
+
+## Modifications côté serveur
+
+Le serveur doit également connaître le sous-chemin, il suffit de vous assurer que la variable d'environnement PA_BASEPATH est définie avant de lancer le serveur.
+
+## Docker
+
+Lors de l'utilisation de l'image docker, cette variable d'environnement doit être transmise au conteneur.
+Ajoutez la partie suivante à votre commande docker.
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## Proxy
+
+### Nginx
+
+Lors de l'utilisation de nginx, vous aurez une configuration très similaire à celle décrite dans [proxy](/fr/server/advanced/proxy/), mais toutes les parties `location` commenceront par `/planarally` si c'est votre sous-chemin souhaité.
+
+De plus, vous devez apporter une petite modification à la règle de location spécifique à socket.io :
+
+La proxy_pass (ou host\:port pass) doit être modifiée pour inclure le sous-chemin. (par exemple `proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+Assurez-vous de configurer le proxypass et le reverse sur le sous-chemin !
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

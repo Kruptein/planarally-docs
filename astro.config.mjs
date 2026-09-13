@@ -13,7 +13,6 @@ import Icons from "unplugin-icons/vite";
 export default defineConfig({
     redirects: {
         "/server": "/server/setup/",
-        "/server/": "/server/setup/",
     },
     integrations: [
         vue(),
@@ -47,6 +46,13 @@ export default defineConfig({
         plugins: [Icons({ compiler: "vue3" })],
         ssr: {
             external: ["@fortawesome/fontawesome-svg-core", "@fortawesome/free-solid-svg-icons"],
+        },
+    },
+    i18n: {
+        locales: ["en", "de", "it", "es", "fr", "zh", "ja", "ru", "da"],
+        defaultLocale: "en",
+        routing: {
+            prefixDefaultLocale: true,
         },
     },
 });

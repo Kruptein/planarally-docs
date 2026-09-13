@@ -1,0 +1,39 @@
+---
+title: Présentation des étages & petites mises à jour
+date: 2020-02-13 21:02:34
+excerpt: "Une introduction à une nouvelle fonctionnalité à venir : les étages ! Et un petit aperçu de certaines autres choses en cours dans la version 0.19.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Je n'ai pas de date de sortie fixe en tête pour la version 0.19.0, mais j'essaie d'au moins sortir quelque chose ce mois-ci. En attendant, je voulais déjà aborder certains changements à attendre dans la version 0.19.0 et montrer un aperçu plus détaillé d'une nouvelle fonctionnalité en particulier.
+
+## Les nouveautés de 0.19.0
+
+Pour commencer, nous avons enfin une utilité pour le bouton de paramètres qui est visible sur le tableau de bord principal où vous pouvez sélectionner la session à rejoindre.
+Il a désormais un but, et il affiche des paramètres de compte très simples. Vous pouvez définir une adresse e-mail, changer votre mot de passe et supprimer votre compte.
+Notez que pour le moment rien n'est fait avec l'adresse e-mail, mais un propriétaire de serveur pourrait l'utiliser pour envoyer des informations de maintenance ou autre chose.
+
+J'espère étendre les paramètres à l'avenir avec beaucoup d'autres choses comme les configurations par défaut pour tous les paramètres liés au jeu.
+
+Une autre chose à venir dans la prochaine version est l'accrochage lors des actions de dessin et de redimensionnement. Bien que l'outil polygone ait déjà apporté une simplicité très appréciée dans l'aspect dessin (et en particulier le dessin du brouillard de guerre), il avait l'inconvénient pénible de ne pas pouvoir s'attacher exactement aux autres points, introduisant souvent de petits espaces dans la vision autour des portes et des murs.
+Je suis maintenant heureux de dire que ces jours sont révolus et que vous pouvez désormais accrocher librement les points des polygones (et d'autres formes) !
+
+Enfin, une petite note sur une fonctionnalité contribuée par LDeeJay1969 : il a introduit un raccourci clavier (ctrl+0) pour réinitialiser la vue à (0, 0) au cas où vous vous perdriez dans le vide infini.
+Plus de travail en ce qui concerne le saut sur la carte est en cours, mais ce petit ajout est déjà un bon moyen d'éviter la frustration !
+
+## Étages
+
+Passons maintenant à une fonctionnalité avec un impact visuel plus grand : les étages !
+
+_La vidéo suivante utilise du contenu de la campagne Waterdeep\:Dragonheist publiée par Wizards of the coast_
+
+<video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
+
+Comme on peut le voir dans la vidéo ci-dessus, un travail est en cours sur la possibilité de définir plusieurs étages rendus les uns au-dessus des autres.
+
+L'ajout d'étages apporte une immersion beaucoup plus profonde par rapport au saut entre les emplacements ou au fait de devoir faire défiler la carte.
+Chaque étage ajoute une charge accrue sur le client car les étages sous l'étage actif doivent également être rendus !
+Pour être clair : ce système est entièrement optionnel (c'est-à-dire que par défaut il n'y a qu'un seul étage).
+
+Comme on peut le voir, l'éclairage et la vision sont pris en compte pour montrer ce qu'un certain joueur peut voir. Des simplifications/hypothèses doivent être faites car PA n'est pas un jeu 3D mais plutôt une multitude de calques 2D les uns sur les autres, mais en général l'éclairage sur les étages supérieurs et inférieurs est pris en compte lors du rendu.

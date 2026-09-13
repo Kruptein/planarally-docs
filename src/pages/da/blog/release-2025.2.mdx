@@ -1,0 +1,154 @@
+---
+title: Release 2025.2
+date: 2025-06-14 16:25:00
+excerpt: "Mail, mods & kvalitet"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+En ny release med nogle godbidder, selvom de for det meste er rettet mod DM'er og serverejere.
+
+En hurtig opsummering:
+
+- Serverens konfigurationsformat blev fuldstændig ændret
+- En mailserver kan nu konfigureres af serveradministratoren, hvilket muliggør en 'glemt adgangskode'-proces
+- Egenskaben isToken er fjernet, og formadgang fungerer nu anderledes
+- Den eksperimentelle mod-understøttelse har fået nogle forbedringer
+- Opfølgning på den omarbejdede aktivhåndtering i spillet fra sidste release
+- Anonym statistikindsamling tilføjet til serveren
+
+<Warning title="Serverændringer">
+    Hvis du er serverejer, blev serverkonfigurationen ændret drastisk og kræver manuel indgriben, se nedenfor for
+    mere information!
+
+    Serveren bruger nu også UV til afhængighedsstyring, hvilket kan påvirke din opgradering.
+
+</Warning>
+
+## Mail
+
+Dette var længe ventet, men serverejere kan nu konfigurere mailserveroplysninger i den (nye) konfiguration.
+Når det er konfigureret, kan PA bruge det til at sende mails til spillere.
+
+Der er i øjeblikket kun én anvendelse for det, men det er en vigtig en: glemt adgangskode-processen.
+
+_Yderligere læsning: [Mail-konfigurationssektionen](/da/server/management/configuration/#mail)_
+
+### Glemt adgangskode
+
+Når mail er konfigureret, vil loginskærmen nu vise en "glemt adgangskode?"-handling under adgangskodeetiketten,
+der tilbyder en proces til at nulstille adgangskoden for en given e-mailadresse.
+
+Bemærk, at dette kun virker, hvis brugeren har en e-mail konfigureret (bemærk, at e-mail er valgfrit under registrering).
+
+En lille sideløbende kvalitetsforbedring er, at en successnotifikation nu vil vises, når du ændrer din e-mailadresse i dashboardet.
+Det var indtil nu ikke supertydeligt, at noget faktisk blev ændret, når du gjorde det.
+
+## Deaktiver LoS-rendering
+
+Som DM er du måske bekendt med situationen, hvor du arbejder på en ny lokation og har konfigureret en masse lys,
+men ikke er sikker på, om de faktisk dækker det, du forventer, at de dækker, fordi du har LoS aktiveret, og dine spillere stadig er på en anden lokation.
+
+Der findes en række "hacks" til dette: at oprette en midlertidig form med synsrettigheder, midlertidigt deaktivere LoS i lokationsindstillingerne, ...
+
+De virker alle, men de plejer at være besværlige eller endda fejlbehæftede (fx at glemme at slå LoS-indstillingen til igen, når du er klar til, at dine spillere besøger lokationen).
+
+Derfor er der nu en ny quick toggle under værktøjslinjen for DM'er med titlen 'LOS'.
+Den er kun synlig, hvis LoS er aktiveret i lokationen.
+Den har en grøn (til) og rød (fra) tilstand, der kan bruges til at tilsidesætte LoS-indstillingen udelukkende på din lokale klient.
+
+Dette giver dig mulighed for hurtigt at slå adfærden til/fra uden at det påvirker spillerne, hvilket gør niveaudesign nemmere.
+
+_Yderligere læsning: [Quick Toggles](/da/docs/tools/quick-toggles/)_
+
+## Adgangsniveauer og isToken
+
+Hver form i PA har adgangsniveauer, der kan finjusteres pr. spiller. Nogle spillere kan have fuld redigeringskontrol over en form, mens andre kun har synsadgang.
+
+Indtil nu var disse adgangsniveauer (syn/bevægelse/redigering) additive. Hvert adgangsniveau gav også alle rettigheder relateret til adgangsniveauerne under det (fx inkluderede bevægelse også synsrettigheder).
+Dette har fungeret fint som udgangspunkt i størstedelen af PA's levetid, men jeg stødte for nylig på nogle problemer, som jeg gerne ville løse, som ikke var mulige på grund af denne additive natur.
+
+Adgangsniveauerne er nu fuldstændig adskilte. For eksempel er det nu muligt at have redigeringsadgang uden synsadgang. Det kan være nyttigt, hvis en spiller har kontrol over et kæledyrs statistikker, men ikke kan se, hvad kæledyret kan se.
+
+Derudover havde hver form også en særlig egenskab kaldet `isToken`. Den var essentiel for synsberegning, når LoS er aktiveret, og noget, som alle spillerformene skulle have aktiveret.
+Denne egenskab er dog ikke særlig intuitiv for de fleste nye spillere, og selv nogle veteraner er ikke helt sikre på, hvad den faktisk gør, ud over at de skal aktivere den for LoS.
+
+Den blev introduceret af præstationshensyn for længe siden, men efter lidt tænketid fandt jeg ud af, at den faktisk ikke er nødvendig, hvis jeg ændrer, hvordan adgangsniveauerne fungerer.
+Resultatet er, at egenskaben `isToken` er fjernet — det er ikke længere nødvendigt manuelt at markere dine brugerformer med den.
+I stedet vil enhver form, som din bruger har synsadgang til, blive renderet, som om den havde isToken tidligere.
+
+Jeg skrev et [udvidet blogindlæg](https://www.planarally.io/blog/removing-is-token/) om grundene til, at disse ændringer blev lavet, hvis du vil have mere information.
+
+_Yderligere læsning: [Formadgang](/da/docs/game/shapes/#access)_
+
+## Aktiver
+
+Dashboardets aktivhåndtering har dedikerede opret-mappe/upload-fil/fjern-markering-knapper, som in-game-versionen ikke havde.
+Tilføjelse af filer og fjernelse af markering var stadig muligt via mus-slip og kontekstmenuer, men mappeoprettelse var simpelthen ikke muligt.
+
+Disse knapper er nu også til stede i aktivhåndteringen i spillet.
+
+Derudover er nogle steder, der stadig brugte det gamle aktivvælger-UI (fx kampagnelogo-indstilleren), alle blevet opdateret til det nye UI, der blev introduceret i sidste release.
+
+## Statistikindsamling
+
+Et spørgsmål, jeg ofte modtager, er, hvor mange brugere PA faktisk har, og jeg kan aldrig rigtig svare på det eller endda estimere det.
+
+Der er ingen officiel PA-server, som jeg kan basere nogle estimater på, jeg har kun nogle vage tal som github-stjerner eller discord-brugere, men de siger ikke rigtig noget om faktiske brugere, og hvis de indikerer noget, repræsenterer de mere sandsynligt serverejere end spillere.
+
+For at få en fornemmelse af, hvad der faktisk foregår derude, introducerer jeg en statistikindsamlingsfunktion på serveren.
+Dette vil i en senere release også knytte sig til nogle ændringer, jeg vil lave til lokal serveradministration, hvilket giver mulighed for, at disse statistikker også kan vises i dashboardet med passende rettigheder.
+
+De indsamlede statistikker er meget simple og indeholder ingen personlig information af nogen art. De giver mig kun en antydning af, hvor mange brugere/kampagner der faktisk er i aktiv brug.
+
+For flere detaljer om hvilke statistikker og hvordan privatlivet håndteres, se [github-PR'en](https://github.com/Kruptein/PlanarAlly/pull/1608), som indeholder mere information.
+
+For serverejere kan denne funktion konfigureres med det nye konfigurationsformat.
+
+## Mod-opdateringer
+
+_Bemærk venligst, at mod-understøttelse stadig er meget eksperimentel_
+
+For et år siden blev tidlig understøttelse af mods tilføjet. Den var stadig meget rå, med et stort problem værende, at kun serverejeren kunne tilføje mods ved manuelt at lægge dem i en bestemt mappe.
+Denne release tilføjer et UI pr. kampagne, der giver DM'en mulighed for at uploade mods, der bruges til den specifikke kampagne.
+
+Derudover er en stor del af mod-API'ets interne dele blevet opdateret, især DataBlock-API'et har modtaget nogle drastiske ændringer, hvilket gør mod-UI-siden meget mere kompakt.
+
+Alle eksempelmods i planarally-mods-repoet er også blevet opdateret til det nye API.
+
+_Yderligere læsning: [Mod-PR](https://github.com/Kruptein/PlanarAlly/pull/1583)_
+
+## Server: Konfigurationsændring
+
+Konfigurationsformatet er fuldstændig ændret, og placeringen, hvor det gemmes i servermappen, er også ændret.
+Det er nu et toml-baseret format og gemmes i datamappen.
+Der er flere grunde til, at denne ændring blev lavet, og den var længe ventet.
+
+Det er **stærkt** anbefalet at læse den detaljerede begrundelse og information i [github-PR'en](https://github.com/Kruptein/PlanarAlly/pull/1574).
+
+Serverdokumentationen er blevet opdateret til at vise alle [konfigurationsmuligheder](/da/server/management/configuration/).
+
+Hvis du har brug for hjælp til at opgradere din eksisterende konfigurationsfil, så tøv ikke med at kontakte #help-kanalen på discord-serveren.
+
+## Server: Ændring af afhængighedsstyring
+
+Serveren administreres nu også med [UV](https://docs.astral.sh/uv/) til afhængighedsstyring.
+
+Det betyder, at hvis du manuelt administrerer serveren ved hjælp af python/pip, bliver du nødt til at installere uv og adoptere det nye system også.
+Det vil være et lille antal brugere, så påvirkningen bør være lille.
+
+For mere information, se [github-PR'en](https://github.com/Kruptein/PlanarAlly/pull/1550) og serverens readme, som er blevet opdateret med information om, hvordan man bruger uv.
+
+## Fejlrettelser
+
+- Draw-værktøjets polygon opdaterede ikke synet, før formen var færdiggjort
+- Reducerede noget render-overhead, når token-former, som spilleren ikke ejede, blev flyttet
+- Formens kontekstmenu lukkede ikke, når en mulighed blev valgt
+- Select-værktøjets build-UI viste sig ikke ved tilstandsskift
+- Datablocks til rum- og brugerkategorier havde en fejl på serveren, der forhindrede oprettelse af dem
+- Aktiv-kontekstmenyens fjern-funktion virkede ikke
+- Aktiv-kontekstmenyens baggrundsfarve var forkert i spillet nogle gange
+- Aktiv-uploadbjælken manglede i dashboardets aktivhåndtering
+- Slip af aktiver, som du har delt-visningsrettighed til, på kortet virkede ikke

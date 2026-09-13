@@ -1,0 +1,43 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Partite
+
+<Image src={Dashboard} alt="Dashboard" />
+
+La sezione _Partite_ è il luogo in cui puoi creare campagne o avviare una campagna esistente.
+
+Lo schermo è diviso in due sezioni, una per il DM e una per i giocatori.
+Entrambe elencano tutte le campagne rilevanti in cui sei un DM o un giocatore.
+
+Facendo clic su una campagna, questa si espande offrendo alcune opzioni.
+
+<Image src={DashboardDmCampaign} alt="Dashboard campagna DM" />
+<Image src={DashboardPlayerCampaign} alt="Dashboard campagna giocatore" />
+
+Come DM puoi modificare il logo o il nome della campagna facendo clic sulle icone a matita (<PencilAlt />).
+
+<Warning title="Eliminazione di una campagna">
+    Questo rimuoverà irrevocabilmente la campagna per te e per *tutti* i giocatori.
+</Warning>
+
+## Creare
+
+Creare una campagna è facile: inserisci un nome e fai clic su `Go`.
+Puoi anche scegliere un logo per la campagna facendo clic sul logo predefinito mostrato accanto al campo del nome.
+
+<Info title="Caricamento del logo">Il logo deve essere caricato come [asset](/it/docs/dm/assets/).</Info>
+
+## Unirsi
+
+Per unirti a una partita hai bisogno dell'URL di invito. Questo può essere creato dal DM in gioco tramite le impostazioni del DM.

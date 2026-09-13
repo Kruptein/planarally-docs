@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# Orte
+
+Das Orte-Werkzeug stellt mehrere Instanzen eines Satzes von [Ebenen](/de/docs/dm/layers/) mit ihren eigenen Einstellungen bereit. Jede Instanz wird im Folgenden als _Ort_ bezeichnet.
+
+## Die Ortsleiste
+
+Nur der DM kann aktiv auf Orte zugreifen und diese verändern.
+Das geschieht durch einen Klick auf das <Compass />-Symbol in der oberen linken Ecke des Bildschirms.
+Da dies eine Funktion ist, die nur für DMs gedacht ist, können Spieler diesen Button nicht sehen.
+Spieler interagieren jeweils nur mit einer Leinwand; für sie sieht jeder neue Ort wie eine andere Karte aus (d. h. eine andere Gruppe gestapelter [Ebenen](/de/docs/dm/layers/)).
+
+Wenn die Ortsleiste geöffnet ist, zeigt sie in der ersten Zeile links einen Button zum Erstellen neuer Orte, gefolgt von Einträgen für jeden Ort der Kampagne.
+Der aktuelle Ort wird durch weißen Text und das <Cog />-Symbol hervorgehoben, während Text und Buttons aller anderen Orte weiß mit rötlichem Farbton sind.
+Jeder Eintrag der Liste besteht aus einem Griff zum Ziehen von Orten, einer Anzeige des Ortsnamens und einem <Cog />-Button für den Zugriff auf die individuellen Einstellungen des Ortes.
+
+Jeder Ort, an dem sich Spieler befinden, zeigt außerdem einen Tab mit der Aufschrift „Players" (Spieler), der erweitert werden kann, um eine Liste der einzelnen am Ort anwesenden Spieler anzuzeigen.
+
+In der zweiten Zeile zeigt die Ortsleiste einen Button für den Zugriff auf archivierte Orte.
+Wenn keine Orte archiviert sind, erscheint der Button leicht transparent; er wird vollständig deckend, sobald mindestens ein Ort archiviert ist.
+
+Ein erneuter Klick auf das <Compass />-Symbol schließt die Ortsleiste.
+
+## Orte erstellen und neu anordnen
+
+Ein Klick auf den „+"-Button auf der linken Seite der Ortsleiste öffnet einen Dialog, in dem du nach einem Namen für diesen Ort gefragt wirst.
+Dieser Name kann später bearbeitet werden.
+
+Klicken und Halten des „Neun-Punkte"-Symbols ermöglicht es, Orte frei auf der Leiste neu anzuordnen, wie im Video gezeigt:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## Ortseinstellungen
+
+Ein neu erstellter Ort erbt die Kampagnen-Standardeinstellungen, die in den [Einstellungen](/de/docs/dm/settings/) definiert sind.
+Einige der dort definierten Einstellungen können für jede Session einzeln überschrieben werden.
+
+Auf die Ortseinstellungen kannst du über das <Cog />-Symbol am jeweiligen Ortseintrag in der Ortsleiste zugreifen.
+Die Ortseinstellungen öffnen einen Dialog mit drei Tabs: Admin, Grid und Vision.
+
+Jede Einstellung, die so eingestellt wurde, dass sie die Kampagnen-Standardwerte überschreibt, bleibt so, bis sie zurückgesetzt wird.
+Das manuelle Setzen einer Einstellung auf denselben Wert wie in den Kampagnen-Standardwerten stellt die Verbindung zu den Standardwerten nicht wieder her, sondern behält diesen Wert, auch wenn die Kampagnen-Standardwerte später geändert werden.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+Der _Admin_-Tab in den Ortseinstellungen ermöglicht es dir, den Ort umzubenennen, zu archivieren oder zu entfernen.
+
+Archivierte Orte verschwinden von der Ortsleiste.
+Um einen archivierten Ort wieder auf der Ortsleiste erscheinen zu lassen, greife über den Button `Show archived locations` in der Ortsleiste auf das Archiv zu.
+Dadurch wird eine Liste aller archivierten Orte geöffnet.
+Sie werden durch einen Klick auf `select` wiederhergestellt.
+
+<Image src={RenameLocation} alt="Menü zum Umbenennen eines Ortes" />
+
+Du kannst nur Orte archivieren oder entfernen, an denen sich niemand befindet, weder Spieler noch DM.
+
+### Grid
+
+Siehe [„Grid" in den Kampagnen-Einstellungen](/de/docs/dm/settings/#grid).
+
+### Vision
+
+Siehe [„Vision" in den Kampagnen-Einstellungen](/de/docs/dm/settings/#vision).
+
+## Orte wechseln
+
+Bei geöffneter Ortsleiste kann der DM den Ort so einfach wechseln wie mit einem Klick auf den Block, der den Namen des gewünschten Ortes anzeigt.
+
+Spieler können den Ort nicht selbst wechseln.
+Auf Einladung hin treten Spieler einem bestehenden Ort bei, der von einem Spieler belegt ist (unabhängig davon, ob dieser Spieler zu diesem Zeitpunkt angemeldet ist).
+Wenn keine anderen Spieler in der Kampagne gelistet sind, tritt der erste Spieler, der einer Einladung folgt, dem Ort bei, an dem der DM gerade aktiv ist.
+Spieler bleiben an ihrem aktiven Ort, bis sie vom DM zu einem anderen Ort gezogen werden.
+
+Spieler können als Gruppe oder einzeln gezogen werden, wie hier gezeigt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+Spieler, die an einen anderen Ort geschickt werden, nehmen _keine_ der Formen mit, die sie kontrollieren.
+Stattdessen müssen diese Formen vom DM an diesen Ort geschickt werden.
+
+## Formen an einen anderen Ort verschieben
+
+Wenn ein Ort über einen oder mehrere Spawns verfügt, können Formen über ihr Kontextmenü (rechte Maustaste) einzeln oder als Gruppe an diesen Ort verschoben werden.
+
+Als DM kannst du einen oder mehrere Spawns erstellen, indem du mit der rechten Maustaste auf den Bereich klickst, in dem der Spawn liegen soll, und die Aktion „create spawntoken" auswählst.
+
+Wenn Formen an einen anderen Ort geschickt werden, erscheinen sie zentriert am gewählten Spawn-Ort. Dabei handelt es sich um eine spezielle Form, die auf der _dm_-[Ebene](/de/docs/dm/layers/#dm) erscheint.
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="Spawn-Ort-Symbol" />
+
+Der Spawn-Ort-Markierer kann frei auf der _dm_-Ebene verschoben werden.
+Seit 0.23 kannst du beliebig viele Spawn-Orte entfernen und erstellen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

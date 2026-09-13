@@ -1,0 +1,138 @@
+---
+layout: ../../../../../layouts/docs.astro
+---
+
+# **Guía para crear máscaras de paredes.**
+
+Guía aportada por [@veritanuda](https://keybase.io/veritanuda)
+
+Este método debería funcionar para cualquier mapa dependiendo de su fidelidad, pero incluso los mapas irregulares como las cuevas se pueden enmascarar fácilmente.
+
+# Requisitos
+
+Las instrucciones siguientes son para usar herramientas gratuitas disponibles: [GIMP](https://gimp.org) y [potrace](https://potrace.sourceforge.net/). Por supuesto, puedes usar herramientas propietarias para lograr los mismos resultados, pero no hay garantía de que se comporten igual.
+
+---
+
+A continuación mostraré 2 métodos.
+
+- Un método es para mazmorras y mapas prefabricados
+- El otro método es para mapas irregulares y mapas personalizados.
+
+# **Método Uno**
+
+Para este método elegiré un mapa aleatorio de los Free Friday Maps. Los puedes conseguir [aquí](https://www.drivethrurpg.com/browse/pub/10213/Paths-to-Adventure/subcategory/25973_33572/Free-Map-Friday), pero cualquier mapa servirá siempre que tenga algunas características clave.
+
+- Tiene una versión en blanco y negro y
+- tiene una opción sin cuadrícula.
+
+    Estas no son esenciales, pero hacen que hacer la máscara lleve algo menos de tiempo.
+
+Así que este es el mapa con el que empezaré.
+
+![FFMAP01](./assets/FREE-MAP-FRIDAY-001_COLOR_PLAYER-GRID.JPG)
+
+Viene en algunos tipos, incluido Lineart. Que es lo que usaremos.
+
+![method1_1](./assets/method1_1.png)
+
+# Eliminar el fondo
+
+En este mapa hay algún sombreado irregular alrededor del mapa como fondo. Afortunadamente, es de un color diferente, una especie de gris. Así que seleccionando la herramienta `Fuzzy select/Colour Select`, elige `Colour Select`, selecciona una de las zonas grises del fondo y deberías ver todo el gris resaltado.
+
+![method1_2](./assets/method1_2.png)
+
+Esto es bueno, pero, como las líneas entre ellas no están seleccionadas, si las elimináramos ahora dejaría solo el aspecto de pavimento loco negro.
+
+![method1_3](./assets/method1_3.png)
+
+Así que, con todo seleccionado, haz clic derecho en la imagen y ve a `Select` `>` `Grow...`
+
+Haz crecer la selección unos píxeles hasta que cubra las líneas entre los puntos grises. Una vez que estés satisfecho de haberlo cogido todo, pulsa `Delete` y _POOF_, el fondo desaparece.
+
+![method1_4](./assets/method1_4.png)
+
+Ahora vuelve a la `Fuzzy Select` y esta vez elige `Fuzzy Select`. Haz clic en el ahora fondo blanco y verás que todo está seleccionado.
+
+- _Nota: si tienes espacios cerrados, como este mapa, necesitas mantener pulsada la tecla shift y hacer clic en él para añadirlo a la selección._
+
+Ahora, en el panel `Layers` añade `New Layer`. Nombra esta capa `mask`.
+
+![method1_5](./assets/method1_5.png)
+
+En esa capa, selecciona la herramienta `Bucket Fill`. Haz clic en la selección del fondo que hiciste antes y debería rellenarla toda de negro.
+
+![method1_6](./assets/method1_6.png)
+
+Oculta la capa de arte de línea y comprueba que tienes una máscara completa sin partes que falten.
+
+![method1_7](./assets/method1_7.png)
+
+Si te olvidaste de algo, no entres en pánico: solo pulsa `Cntrl-Z` para deshacer y vuelve a seleccionar las partes que te faltaron antes.
+
+Dependiendo del mapa y de cómo seleccionaste el fondo, algunas puertas también podrían estar pintadas. Tendrás que hacerlo con la herramienta Erase y el pincel de la forma que mejor encaje, repasando todas las puertas y puertas secretas y eliminando el negro.
+
+Si no haces esto, harás que una puerta sea infranqueable. Siempre puedes añadir fichas de puerta a cualquier abertura que hayas hecho una vez que el mapa esté importado y las paredes añadidas.
+
+Una vez que estés satisfecho con tu máscara, puedes eliminar la capa de arte de línea.
+
+La siguiente parte es **vital** si quieres convertirla correctamente a SVG, que es lo que PlanarAlly usa para las paredes.
+
+Haz clic derecho en la imagen y ve a `Image` `>` `Mode`; si importaste el arte de línea, como hice yo, habrá estado en `greyscale`. A veces necesitarás convertir un mapa de color a `greyscale` para que sea más fácil eliminar fondos, etc. Pero ahora el modo debe ser `RGB`. Cambia la imagen a eso.
+
+Luego haz clic derecho en la imagen y ve a `File` `>` `Export As...` y guarda la imagen como un `BMP`. Desactiva `Run Length Encoding`, desactiva `Do not write colour space information` y asegúrate de que en `Advanced` estás en `32 Bits`.
+
+![method1_8](./assets/method1_8.png)
+
+Una vez que esté guardado, puedes usar el `potrace` de línea de comandos o hacerlo en línea gratis desde [este sitio web](https://svg-converter.com/potrace).
+
+El comando para hacerlo tú mismo es extremadamente simple.
+
+`potrace -s FREE-MAP-FRIDAY-001_LINEART_WALLS.bmp`
+
+Esto debería darte un `svg` que, si lo abres en un programa de gráficos, debería ser negro donde la luz estará bloqueada y claro donde la luz puede brillar.
+
+![method1_9](./assets/method1_9.png)
+
+# **Método Dos**
+
+Digamos que tienes un mapa irregular o que el fondo no es tan fácil de eliminar. Bueno, todavía puedes hacer una máscara a mano usando solo herramientas normales.
+
+Para este ejemplo usaré [este mapa](https://www.reddit.com/r/FantasyMaps/comments/hrf51h/battlemap30x202160x1440pxcavejunglepirateoc/)
+
+Importa el mapa en GIMP.
+
+![method1_1](./assets/method2_1.png)
+
+Crea una nueva capa, llámala `guide`.
+
+Con la herramienta `Pencil`, selecciona `Circle` como pincel y ponlo en negro. Redimensiona según sea necesario. Asegurándote de haber seleccionado la capa `guide`, empieza a dibujar sobre las partes de color del mapa **dentro** de las paredes.
+
+![method2_2](./assets/method2_2.png)
+
+![mehod2_3](./assets/method2_3.png)
+Una vez que estés satisfecho de haber rellenado toda la forma, crea otra capa llamada `walls.`
+
+En la capa `guide`, usa la herramienta `Select by colour` y haz clic en la guía negra que has hecho. Luego invierte la selección.
+
+![method2_4](./assets/method2_4.png)
+
+Luego, en la capa `walls`, usa la herramienta de relleno por cubo para rellenar la selección invertida con negro y completar las paredes.
+
+![method2_5](./assets/method2_5.png)
+
+Una vez hecho eso, oculta las capas anteriores y, si estás satisfecho de no haberte dejado nada, elimina esas capas y guarda la imagen como BMP como arriba para convertirla usando cualquiera de los métodos anteriores.
+
+![method2_6](./assets/method2_6.png)
+
+# Importar paredes en PA
+
+Ahora sube este SVG a tu carpeta `Assets` de PlanarAlly junto con el mapa del jugador y el mapa del GM, si lo hay.
+
+Arrastra esos recursos a una ubicación, con el mapa del jugador en la capa MAP y el mapa del GM en la capa GM. En la capa MAP, haz clic derecho sobre él, abre Propiedades y establece un `Name`; y en `Advanced`, marca `Blocks Vision/Light` y `Blocks Movement`. Luego ve a la pestaña `Extra` y, en `Lighting & Vision` `>` `Upload walls`, selecciona el SVG que acabas de subir a tus recursos. Tus paredes deberían estar aplicadas ahora.
+
+Pruébalo con una ficha que tenga una fuente de luz en la capa `Token` y ya casi has terminado. Ahora, si hay puertas o pasajes secretos, tendrás que aislarlos manualmente con fichas de puerta o niebla de guerra, tu elección. Pero si todo va bien, no deberías tener que preocuparte por crear paredes a mano de nuevo.
+
+¡Feliz juego!
+
+\*/}

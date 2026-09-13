@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# Lokationer
+
+Locations-værktøjet giver flere forekomster af et sæt [lag](/da/docs/dm/layers/) med deres egne indstillinger, hvor hver forekomst herefter omtales som en _lokation_.
+
+## Lokationslinjen
+
+Kun DM'en kan aktivt få adgang til og manipulere lokationer.
+Dette gøres ved at klikke på <Compass />-symbolet i øverste venstre hjørne af skærmen.
+Da dette er en 'kun DM'-funktion, kan spillere ikke se denne knap.
+Spillere interagerer kun med ét lærred ad gangen; for dem ser hver ny lokation ud som et andet kort (dvs. et andet sæt stablede [lag](/da/docs/dm/layers/)).
+
+Når lokationslinjen er åbnet, viser dens første linje en knap til at oprette nye lokationer til venstre, efterfulgt af elementer for hver af kampagnens lokationer.
+Den aktuelle lokation er fremhævet med hvid tekst og <Cog />, mens alle andre lokationers tekst og knapper er hvide med en rødlig nuance.
+Hvert element på listen består af et håndtag til at trække lokationer, en visning af lokationens navn og en <Cog />-knap til at få adgang til lokationens individuelle indstillinger.
+
+Hver lokation med spillere til stede viser også en fane med teksten "Players", som kan udvides for at vise en liste over de individuelle spillere, der er til stede på den pågældende lokation.
+
+På lokationslinjens anden linje vises en knap til at få adgang til arkiverede lokationer.
+Hvis der ikke er arkiveret nogen lokationer, vil knappen fremstå en smule gennemsigtig, og blive helt uigennemsigtig, hvis der er arkiveret mindst én lokation.
+
+Hvis du klikker på <Compass />-symbolet igen, lukkes lokationslinjen.
+
+## Opret og omarrangér lokationer
+
+Hvis du klikker på "+"-knappen til venstre på lokationslinjen, åbnes en dialog, der beder dig om et navn til lokationen.
+Dette navn kan redigeres senere.
+
+Ved at klikke på og holde 'nine-dots'-symbolet nede kan du frit omarrangere lokationerne på linjen, som vist i videoen:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## Lokationsindstillinger
+
+En nyoprettet lokation nedarver kampagnens standardindstillinger, som er defineret i [indstillingerne](/da/docs/dm/settings/).
+Nogle af de der definerede indstillinger kan tilsidesættes individuelt for hver session.
+
+Lokationsindstillingerne kan tilgås via <Cog />-symbolet på den pågældende lokations element på lokationslinjen.
+Lokationsindstillingerne åbner en dialog med tre faner: Admin, Grid og Vision.
+
+Enhver indstilling, der er sat til at tilsidesætte kampagnens standardindstillinger, forbliver sådan, indtil den nulstilles.
+Hvis du manuelt angiver en indstilling til at matche værdien, der også er sat i kampagnens standardindstillinger, vil forbindelsen til standardindstillingerne ikke blive genetableret, men værdien vil i stedet forblive på trods af enhver yderligere ændring i kampagnens standardindstillinger.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+Fanen _Admin_ i lokationsindstillingerne giver dig mulighed for at omdøbe, arkivere eller fjerne lokationen.
+
+Arkiverede lokationer forsvinder fra lokationslinjen.
+For at gendanne en arkiveret lokation til lokationslinjen skal du få adgang til arkivet via knappen `Show archived locations` på lokationslinjen.
+Dette åbner en liste over alle arkiverede lokationer.
+De gendannes ved at klikke på `select`.
+
+<Image src={RenameLocation} alt="Rename location menu" />
+
+Du kan kun arkivere eller fjerne lokationer, hvor der ikke er nogen til stede – hverken spillere eller DM.
+
+### Grid
+
+Se ['Grid' i kampagneindstillingerne](/da/docs/dm/settings/#grid).
+
+### Vision
+
+Se ['Vision' i kampagneindstillingerne](/da/docs/dm/settings/#vision).
+
+## Skift lokation
+
+Med lokationslinjen åbnet kan DM'en skifte lokation så nemt som at klikke på blokken, der viser navnet på den ønskede lokation.
+
+Spillere kan ikke selv skifte lokation.
+Når de modtager en invitation, tilslutter spillere sig en eksisterende lokation, der er optaget af en spiller (uanset om denne spiller er logget ind på det tidspunkt).
+Hvis der ikke er andre spillere angivet i kampagnen, vil den første spiller, der følger en invitation, tilslutte sig den lokation, som DM'en er aktiv ved.
+Spillere forbliver på deres aktive lokation, indtil de trækkes til en anden lokation af DM'en.
+
+Spillere kan trækkes som en gruppe eller individuelt, som vist her.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+Spillere, der sendes til en anden lokation, tager _ikke_ nogen af de former, de kontrollerer, med sig.
+I stedet skal disse former sendes til den pågældende lokation af DM'en.
+
+## Flyt former til en anden lokation
+
+Hvis en lokation har én eller flere spawns, kan former flyttes til denne lokation individuelt eller som en gruppe via deres højrekliks-kontekstmenu.
+
+Som DM kan du oprette én eller flere spawns ved at højreklikke på det område, hvor du vil have spawnet, og vælge handlingen 'create spawntoken'.
+
+Når de sendes til en anden lokation, vil former blive vist centreret på det valgte spawn-sted, som er en særlig form, der vises på _dm_-[laget](/da/docs/dm/layers/#dm).
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="Spawn Location Symbol" />
+
+Spawn-stedets markør kan flyttes frit på _dm_-laget.
+Siden 0.23 kan du fjerne og oprette lige så mange spawn-steder, som du ønsker.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Werkzeug Select
+
+Eines der am häufigsten verwendeten Werkzeuge ist das Select-Werkzeug.
+Sein Zweck ist es, wie der Name schon sagt, eine oder mehrere Formen auf dem Spieltisch auszuwählen, aber auch, um sie zu bewegen.
+Es kann von allen Spielern über die Symbolleiste unten rechts auf dem Bildschirm aufgerufen werden, verhält sich aber je nach aktiver [Modus](/de/docs/tools-overview/#toolbar-and-modes) unterschiedlich.
+
+Zusätzlich erlaubt es dir im Build-Modus auch, Formen zu rotieren und zu skalieren.
+
+## Grundlagen der Auswahl
+
+Du kannst auf eine einzelne Form klicken oder ein Rechteck um eine Gruppe ziehen, um sie alle zusammen zu bewegen.
+
+Um einer bestehenden Auswahl Formen hinzuzufügen, halte `Ctrl` gedrückt und wähle neue Formen aus.
+
+Um die Auswahl aufzuheben, klicke einfach auf eine leere Stelle auf dem Spieltisch oder verwende das Tastenkürzel `d`.
+
+_Im Gegensatz zum normalen Klickverhalten, das auch Formen auswählen kann, die du nicht besitzt, werden bei einer Gruppenauswahl nur Formen ausgewählt, die du tatsächlich besitzt._
+
+## Bewegen
+
+Du kannst deine Auswahl verschieben, indem du sie einfach über die Karte ziehst.
+
+Der DM kann Objekte als unpassierbar definieren (z. B. eine Wand).
+Diese stoppen die Bewegung.
+Der DM und alle Co-DMs haben die Möglichkeit, Bewegungsbeschränkungen zu ignorieren, solange die `shift`-Taste gedrückt ist.
+
+Wenn du den Schalter `show ruler` über der `select`-Schaltfläche in der Symbolleiste aktivierst, wird beim Ziehen eines Objekts zusätzlich ein Lineal angezeigt, das die zurückgelegte Strecke misst.
+Dieses Lineal funktioniert wie das [eigenständige Ruler-Werkzeug](/de/docs/tools/ruler/) und teilt sich auch dessen Einstellungen.
+
+## Größe ändern
+
+_Um die Größe einer Form zu ändern, musst du dich im 'build'-Modus befinden_
+
+Die Größe wird geändert, indem du einfach eine der Ecken der Form greifst und an eine andere Stelle ziehst.
+Die meisten Größenänderungs-Operationen wirken sich nur auf die gezogene Ecke aus; alle anderen Ecken bleiben an Ort und Stelle.
+
+Die einzige Ausnahme hiervon sind derzeit Kreise, die beim Ändern der Größe stattdessen den Radius vergrößern bzw. verkleinern.
+Dieses Verhalten könnte sich in Zukunft ändern.
+
+## Rotieren
+
+_Um eine Form zu rotieren, musst du dich im 'build'-Modus befinden_
+
+Im Build-Modus ist eine spezielle Rotationsoberfläche sichtbar, die einen Ankerpunkt und ein Rechteck anzeigt.
+
+Wenn du den Anker bewegst, rotierst du das gesamte Rechteck um seinen Mittelpunkt.
+
+Das Rotieren von Formen ist nicht auf einzelne Formen beschränkt, sondern kann auch auf eine ganze Gruppe angewendet werden.
+Denke daran, dass der Mittelpunkt des Rechtecks als Rotationspunkt verwendet wird.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Das Rotieren hat außerdem ein [Einrasten](/de/docs/game/snapping/) auf gängige Winkel (Vielfache von 45 Grad).
+
+## Auswahlreihenfolge
+
+Die Formen auf dem Spieltisch werden in einer bestimmten Reihenfolge gezeichnet, die darüber entscheidet, welche Form im Falle einer Überlappung ausgewählt wird.
+
+Du kannst die Reihenfolge ändern, indem du mit der rechten Maustaste auf eine Form klickst und sie nach hinten oder nach vorne im Stapel bewegst.

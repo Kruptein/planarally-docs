@@ -1,0 +1,133 @@
+---
+title: Correcciones de verano - Release 0.28.0
+date: 2021-07-21 15:00:00
+excerpt: "¿Qué hay de nuevo?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+La última versión fue un gran cambio técnico y me alegra ver que la transición fue bastante fluida, sin que se reportara nada grave como roto. Esta versión trae otro cambio técnico al cambiar el sistema de compilación js de vue-cli (webpack) a vite (esbuild + rollup). Este cambio debería tener poco o ningún impacto en los usuarios finales, pero aumenta drásticamente los tiempos de compilación.
+
+Aparte del cambio técnico, se han añadido algunos cambios de calidad de vida, se han aplastado un buen número de errores y la principal función nueva es la capacidad de establecer un color de fondo o una imagen repetida para una planta.
+
+## Cambios en las plantas
+
+La interfaz de plantas se ha reducido ligeramente y ya no muestra los iconos de edición y de papelera. Ahora en su lugar presenta una rueda dentada, comúnmente usada en todo PlanarAlly para indicar configuración.
+
+![Cambios en la interfaz de plantas](./0.28/floors.png)
+
+Renombrar y eliminar plantas ahora se hace a través de esta nueva interfaz de configuración de plantas.
+
+Si estás familiarizado con las plantas, notarás dos configuraciones nuevas.
+
+_El fondo merece su propia sección y se explicará en profundidad a continuación._
+
+Esta versión añade el concepto de tipos de planta, que consisten en una lista preestablecida de opciones: underground/ground/air.
+
+La configuración de plantas se puede ajustar a nivel de planta específica como muestra la interfaz anterior, pero también podrá configurarse a nivel de ubicación o de campaña, y esto depende del tipo de planta.
+
+![Configuración de plantas a nivel de ubicación](./0.28/locations.png)
+
+Actualmente el único lugar donde el tipo de planta influye en las cosas es en la configuración del fondo. En el futuro tengo la intención de añadir algunas mejoras automáticas de rendimiento dependiendo del tipo de planta. (p. ej., no renderizar las plantas inferiores si estás en la planta baja)
+
+Esto todavía es mucho una idea con la que estoy jugando y quizás en el futuro elimine la noción de tipos de planta y la reemplace con ajustes de renderizado por planta.
+
+## Relleno del fondo
+
+En la mayoría de los casos el DM habrá preparado un mapa para que los jugadores lo exploren.
+Sin embargo, a veces puede ocurrir una exploración lateral improvisada o tal vez los jugadores salen de los límites de tu mapa porque encontraron algún truco.
+
+En esos casos, el fondo blanco predeterminado es el lugar por el que se moverán, y esto puede ser algo aburrido. Otros mapas o imágenes pueden, por supuesto, ser añadidos por el DM, pero a veces solo quieres algo que llene el vacío.
+
+Como se insinuó antes, ahora es posible configurar el fondo de una planta. Ya sea para una planta específica o para todas las plantas del mismo tipo.
+
+### Color simple
+
+La opción más básica es simplemente establecer un solo color como color de fondo.
+
+![Relleno básico del fondo](./0.28/green.png)
+
+Esto puede mejorar rápidamente la inmersión, dando una sensación de césped con un esfuerzo mínimo.
+
+### Patrones
+
+Sin embargo, también es posible establecer una imagen como fondo que se repetirá en todas las direcciones. Esto permite el uso de tilesets sin fisuras.
+
+![Relleno del fondo con patrón](./0.28/grass.png)
+
+Al proporcionar una imagen, es posible alterar el desplazamiento y la escala del patrón.
+
+El desplazamiento es un valor en píxeles que indica cuánto desplazar el patrón en relación con la cuadrícula.
+
+La escala es un porcentaje que afecta al tamaño del patrón.
+
+## Calidad de vida
+
+### Iniciativa
+
+La versión 0.26 renovó la interfaz de la iniciativa; esta versión añade una pequeña mejora a ese cambio de diseño al permitir a los jugadores avanzar el turno de la iniciativa si un personaje que poseen está actuando actualmente.
+
+![Cambios en la interfaz de la iniciativa](./0.28/initiative.png)
+
+### Barra de herramientas
+
+Una causa común de confusión es el sistema de modos de la barra de herramientas y, en particular, qué modo está activo. En versiones anteriores, el modo activo se mostraba en el lado derecho de la barra de herramientas con su primera letra visible. Al pasar el mouse sobre la letra se mostraba el nombre completo.
+
+Muchas personas nunca estaban seguras de si mostraba el modo activo o el modo que se activaría al hacer clic en él.
+
+Esta versión aborda esa confusión y muestra todos los modos posibles debajo de la barra de herramientas, con el modo activo resaltado.
+
+![Cambio en la interfaz de modos de la barra de herramientas](./0.28/toolmode.png)
+
+### Ayuda para dibujar
+
+Perder la pista de la herramienta de dibujo es otra queja que se escucha a menudo.
+Una mejora muy pequeña que se añade en esta versión es un borde de contraste sutil alrededor del pincel para asegurarse de que el pincel no se mezcle con el fondo si es del mismo color.
+
+![Interfaz de ayuda de la herramienta de dibujo](./0.28/drawmode.png)
+
+De ninguna manera es una solución completa para perder la pista de tu pincel de dibujo, pero es un primer pequeño paso.
+
+Estoy pensando en añadir un círculo más grande alrededor del pincel si el pincel es más pequeño que cierto tamaño, pero aún no estoy seguro de si la gente estará contenta con eso.
+
+## Correcciones
+
+### Selector de color
+
+El selector de color fue el más afectado por los cambios técnicos de la última versión, ya que el componente original que usaba aún no estaba disponible para vue3, así que hice mi propia versión.
+
+Esta versión corrige:
+
+- Mantener el enfoque en la saturación mientras el mouse está presionado
+- Aumentar la altura de los deslizadores
+- Corregir que el clic en el deslizador de tono no se moviera inicialmente
+- Añadir de nuevo el fondo de cuadrícula a cuadros
+- Mostrar cursor\:pointer al pasar el mouse sobre los deslizadores
+
+### Anotaciones
+
+El componente markdown era otro que aún no se había portado a vue3. Sin embargo, para este componente encontré otra herramienta opensource que proporcionaba soporte de markdown en vue3.
+
+Sin embargo, por defecto deshabilitaba algunos ajustes de renderizado a los que estábamos acostumbrados con el componente más antiguo. En particular, un conjunto de cambios HTML vuelve a renderizarse ahora.
+
+### Otros
+
+#### Herramienta de dibujo
+
+El cursor de la herramienta de dibujo no actualizaba su color inmediatamente al elegir un color diferente.
+
+#### Iniciativa
+
+Reordenar las entradas de la iniciativa arrojaba errores si una de las entradas aún no tenía un valor.
+
+#### Co-DM
+
+Ya no es posible quitar el estado de DM al creador de la campaña, ni tampoco es posible expulsar al creador.
+
+#### Recursos
+
+Con la introducción del soporte experimental de svg, se introdujo un error que causaba que las propiedades "blocks vision" y "blocks movement" de los recursos (es decir, el contenido subido por los usuarios) dejaran de funcionar.
+
+#### Notas
+
+Al cambiar de ubicación, la sección de notas se vaciaba.

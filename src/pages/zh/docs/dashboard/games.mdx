@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# 游戏
+
+<Image src={Dashboard} alt="仪表盘" />
+
+*游戏*部分是你可以创建战役或启动现有战役的地方。
+
+界面分为两个部分：DM 部分和玩家部分。
+两部分分别列出所有与你相关的战役，也就是你担任 DM 或玩家的战役。
+
+点击某个战役，它会展开并提供一些选项。
+
+<Image src={DashboardDmCampaign} alt="仪表盘 DM 战役" />
+<Image src={DashboardPlayerCampaign} alt="仪表盘玩家战役" />
+
+作为 DM，你可以通过点击铅笔图标（<PencilAlt />）编辑战役的图标或名称。
+
+<Warning title="删除战役">这将不可挽回地删除该战役，对你和*所有*玩家都是如此。</Warning>
+
+## 创建
+
+创建战役很简单：输入名称并点击 `Go`。
+你也可以点击名称输入框旁显示的默认图标，为战役选择一个图标。
+
+<Info title="上传图标">图标必须先作为 [素材](/zh/docs/dm/assets/) 上传。</Info>
+
+## 加入
+
+要加入游戏，你需要邀请 URL。邀请 URL 由 DM 在游戏中通过 DM 设置创建。

@@ -1,0 +1,163 @@
+---
+title: Release 2024.2
+date: 2024-05-18 14:00:00
+excerpt: "Gli esagoni sono tornati"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Questa release parla tutta di griglie e in particolare di dare un po' di amore agli esagoni.
+
+## Avviso di deprecazione
+
+Prima di passare alle cose belle,
+vorrei annunciare che ho intenzione di rimuovere il sistema etichette/filtri in futuro.
+Questo, _penso_, non è usato molto e in un certo senso è un residuo del passato.
+
+È possibile che in futuro venga fornito un sostituto o qualche alternativa,
+ma l'implementazione attuale è semplicemente troppo macchinosa per tenerla.
+
+Se è qualcosa che usi attivamente, per favore contattami.
+
+## Impostazioni della griglia delle forme
+
+Nella finestra di dialogo Modifica Forma è stata aggiunta una nuova scheda chiamata 'griglia' per configurare alcune nuove impostazioni relative al comportamento della griglia della forma.
+
+![Impostazioni della griglia delle forme](./2024.2/grid-settings.png)
+
+### Dimensione della griglia della forma
+
+L'aggancio delle forme alla griglia funziona bene per forme 1x1.
+Ma quando hai una forma più grande di 1x1, il comportamento di aggancio può essere un po' imprevedibile.
+Questo perché PA deve fare un'ipotesi su quante celle della griglia dovrebbe rappresentare una determinata forma.
+
+Se una forma occupa 75px per 75px e la griglia è di 50px, dovrebbe agganciarsi a un'area della griglia corrispondente a 1x1 o 2x2?
+La risposta dipende dalla forma effettiva. Forse è solo un asset artistico molto grande, ma dovrebbe occupare solo 1 cella della griglia.
+Ma potrebbe anche essere un asset molto piccolo per una creatura più grande.
+
+Questa release dà più controllo su questo comportamento offrendo l'opzione di specificare esplicitamente la dimensione della griglia che una forma dovrebbe occupare.
+PA stima ancora per impostazione predefinita la dimensione della griglia in base alle dimensioni della forma, ma ora puoi sovrascriverla.
+
+### Mostra occupazione della griglia
+
+Questa è una nuova impostazione che ti permette di mostrare le celle della griglia che una forma sta attualmente occupando.
+Puoi specificare il colore di sfondo e il colore del bordo delle celle della griglia.
+
+Questo può essere utile se hai alcuni asset che potrebbero non indicare chiaramente la loro dimensione e vuoi assicurarti che la loro influenza sia mostrata chiaramente.
+
+### Orientamento degli esagoni
+
+Parte del supporto migliorato per gli esagoni è la possibilità di configurare l'orientamento degli esagoni di dimensioni uniformi.
+
+Questi esagoni possono avere 2 orientamenti, quindi questa impostazione ti permette di passare da uno all'altro.
+
+## Esagoni
+
+PA ha supportato le griglie esagonali da un po' di tempo, ma sono sempre state un po' cittadini di seconda classe.
+Oltre a renderizzare una griglia esagonale flat o pointy, nient'altro nel sistema interagiva con gli esagoni.
+Questo causava molti problemi quando si cercava di usare gli esagoni nella pratica.
+Ad esempio, l'aggancio delle forme alla griglia o ai punti non si comportava correttamente, perché la logica usava ancora una rappresentazione quadrata.
+
+Questa release mira a risolvere tutto ciò e a rendere gli esagoni cittadini di prima classe in PA.
+
+In particolare, l'aggancio è stato aggiornato per funzionare correttamente con gli esagoni.
+Questo include sia l'aggancio di un punto alla griglia, sia l'aggancio delle forme alla griglia.
+
+Gli strumenti Select, Draw, Ruler e Map sono stati tutti aggiornati per funzionare meglio con gli esagoni.
+
+## Strumento Ruler: Modalità griglia
+
+Un altro cambiamento relativo alla griglia è che lo strumento ruler ora ha una nuova opzione che può essere abilitata, chiamata 'modalità griglia'.
+
+In modalità griglia, il ruler non misurerà più la distanza tra 2 punti in linea retta, ma misurerà invece la distanza seguendo la griglia.
+Questo dovrebbe risolvere alcuni problemi con la misurazione di grandi distanze su griglie dove ti interessa solo il numero di celle percorse e
+non tanto la distanza effettiva in pixel.
+
+Quando abiliti la modalità griglia, il ruler mostrerà sia il numero di celle che la distanza totale.
+Tuttavia questo comportamento può essere configurato nelle tue Impostazioni Client, permettendoti di mostrare solo 1 dei due.
+
+![Ruler in modalità griglia](./2024.2/ruler-gridmode.png)
+
+## Aggiornamento dell'interfaccia del menu contestuale
+
+Il menu contestuale del clic destro ha ricevuto un aggiornamento visivo atteso da tempo.
+
+In primo luogo, l'interfaccia ha più spazio, rendendola più facile da leggere e navigare.
+
+In secondo luogo, dato che il menu continuava a crescere, sono state aggiunte nuove sottosezioni.
+In particolare, tutte le azioni relative allo spostamento di una forma in un altro luogo
+sono state spostate in una nuova sezione 'Sposta'.
+
+![Nuova interfaccia del menu contestuale](./2024.2/context-menu.png)
+
+## Esporta/Importa
+
+### Dati mancanti
+
+Il nuovo sistema di note implementato nell'ultima release ha rotto la funzionalità di esportazione e importazione.
+
+Questa release lo risolve, insieme ad altre cose che mi ero dimenticato di aggiungere al sistema di esportazione/importazione.
+In particolare, ora i Personaggi, i DataBlock e le Note vengono esportati correttamente.
+
+### Nome di importazione
+
+Quando importi una campagna, ora puoi specificare quale nome dovrebbe avere, invece di usare sempre il nome nel file.
+
+### Pulizia dell'importazione
+
+Sono stati fatti piccoli miglioramenti al codice di importazione.
+
+Quando le importazioni falliscono, la stanza in cui si stava importando viene ora pulita correttamente.
+
+È stato anche risolto un caso limite in cui il codice di importazione poteva essere eseguito due volte.
+
+## Modifica Forma: Interfaccia gruppi
+
+Questa scheda nella finestra di dialogo Modifica Forma non rispondeva da un po' di tempo.
+Le modifiche apportate non venivano aggiornate immediatamente, causando confusione sul fatto che funzionasse davvero o no.
+
+Questa release ha completamente rinnovato le parti interne di questa interfaccia e ora dovrebbe rispondere e funzionare come ci si aspetterebbe.
+Questo vale per tutte le impostazioni relative ai badge, ma anche per l'aggiunta/rimozione di membri al gruppo.
+
+## Modifiche minori
+
+### Correzioni delle note
+
+Il nuovo sistema di note funziona abbastanza bene in generale, ma sono stati segnalati e risolti alcuni piccoli bug.
+
+- Il filtro non veniva rieseguito correttamente quando si aprivano le note di una forma, causando la visibilità talvolta ancora delle note della forma precedente
+- Quando si filtrava per forma, il nome della forma nell'interfaccia cambiava se cliccavi su un'altra forma con lo strumento select.
+- Le icone delle note disegnate su una forma potevano essere disegnate dietro alla forma in alcune circostanze.
+- Corretto il mancato sync immediato degli eventi 'aggiungi forma' e 'rimuovi forma' se hai solo accesso in visualizzazione
+- Corretto il rendering del markdown che includeva elementi HTML grezzi nelle annotazioni
+- Le note non venivano salvate correttamente sui modelli
+
+### Correzioni dell'aggancio
+
+Gli strumenti Select e Draw hanno avuto alcuni piccoli problemi risolti dove alcune operazioni (ad es. aggancia a punto, ridimensiona) cercavano di agganciarsi al punto in movimento.
+Questo causava un comportamento strano in cui sembrava che non ti stessi agganciando affatto.
+
+Lo strumento draw inoltre non si agganciava a un punto al clic iniziale.
+
+### Strumento Spell
+
+Lo strumento Spell ha una logica integrata per tornare allo strumento select dopo che un incantesimo è stato lanciato.
+Tuttavia, era un po' troppo insistente nel suo requisito di tornare allo strumento select.
+
+Selezionare manualmente un altro strumento risultava sempre nella selezione dello strumento select, questo è stato risolto.
+
+Un'altra piccola correzione QoL è che l'input della dimensione ora si comporta meglio quando cerchi di inserire un numero più piccolo di 1.
+
+### Controllo di contenimento dei poligoni
+
+La logica per rilevare se hai cliccato su un poligono aveva due difetti che sono stati risolti.
+
+Se un poligono riutilizzava un punto (a causa di una qualche auto-intersezione) il codice di contenimento iniziava ad avere allucinazioni.
+
+La linea immaginaria tra il primo e l'ultimo punto quando si usa un poligono non chiuso era vista anch'essa come parte del poligono.
+
+### Altre correzioni di bug
+
+- Lo spostamento delle forme in primo piano/sullo sfondo non si aggiornava immediatamente
+- Risolto un problema per cui Initiative.Order.Change falliva quando veniva chiamato con alcuni Shape Id.
+- La modifica delle impostazioni client per la griglia non aggiornava immediatamente lo schermo

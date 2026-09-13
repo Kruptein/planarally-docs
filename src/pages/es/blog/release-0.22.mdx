@@ -1,0 +1,132 @@
+---
+title: Release 0.22.0 - ¡Qué hay de nuevo!
+date: 2020-08-26 20:00:00
+excerpt: "¿Qué hay de nuevo en la 0.22.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Han pasado más de 2 meses desde la última release, ¡así que llevábamos mucho tiempo necesitando una actualización!
+Esta release no trae muchas funcionalidades nuevas, pero trae una grande: ¡la rotación!
+Otras cosas en esta release son un montón de mejoras de rendimiento, algunos cambios de calidad de vida para las plantas y un montón de cambios y correcciones menores.
+
+## Rotación
+
+Rotar formas es una funcionalidad muy solicitada, por razones obvias.
+Sin embargo, es un cambio más técnico que requirió algunos ajustes en el núcleo de la lógica de dibujo,
+pero al final todo funcionó.
+
+La rotación se hace en la herramienta de selección, pero solo en modo build (igual que el redimensionado).
+Cuando entras en modo build, aparecerá una interfaz específica de rotación (una línea con una bola).
+Al agarrar la bola y moverte, puedes rotar una forma libremente alrededor de su centro.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Cuando se seleccionan varias formas, la interfaz de rotación se dibujará alrededor de todo el grupo y permitirá rotar todas las formas a la vez.
+¡Esta rotación también se realiza en relación con el centro de esta caja de rotación!
+
+Además, cuando usas el ajuste, la rotación se ajustará a ángulos limpios de 45 grados.
+
+## Mejoras de calidad de vida para plantas
+
+Las plantas me han gustado mucho, pero todavía había algunos pequeños puntos problemáticos que espero abordar aquí.
+
+### Accesibilidad
+
+El DM ahora puede activar o desactivar la accesibilidad de las plantas. Específicamente, esto significa que puede impedir que los jugadores vayan manualmente a una planta específica.
+
+**Esto no impide la visión de una planta en el campo de juego real** (por ejemplo, un jugador en una planta superior mirando por una ventana hacia un campo de hierba de abajo)
+
+### Renombrar
+
+Las plantas ahora pueden renombrarse, yupi.
+
+### Orden de visualización
+
+El orden en el que se muestran las plantas en el menú emergente ahora está invertido. Ahora sigue un orden más lógico donde la entrada superior es la planta más alta.
+
+### Reordenar
+
+Ahora también es posible reordenar las plantas arrastrándolas. ¡Así ya no tienes que asegurarte de que todo esté preplanificado o mover un montón de cosas manualmente!
+
+### Error de niebla
+
+Se estaba añadiendo una cantidad innecesaria de niebla a las plantas inferiores, haciéndolas más oscuras.
+
+## Mejoras de rendimiento
+
+Se han hecho un montón de ajustes de rendimiento que deberían tener un gran impacto!
+
+### Tiempo de inicio
+
+Algunos cambios en el manejo del websocket hacen que ahora el cliente reaccione mucho más rápido a los datos del servidor,
+lo que a su vez debería reflejarse en una carga visual más rápida en todos los mapas.
+
+Además, las plantas ahora se cargan por separado al inicio, cargándose primero la última planta visitada.
+Esto debería mejorar drásticamente el tiempo de primer pintado en mapas con muchas plantas.
+
+Los iconos Fontawesome usados en toda la interfaz ahora se cargan con una librería de vue. En el pasado, todos los iconos se cargaban con un script fontawesome.js, ahora solo cargamos los iconos realmente usados, ¡ahorrando un montón de datos!
+
+El bucle del juego ahora solo se inicia cuando llega la primera planta; es una mejora bastante pequeña en el gran esquema de las cosas, pero una buena mejora de todos modos.
+
+### Otros
+
+Otra gran mejora se ha hecho en el movimiento de formas. Los movimientos de grupo se manejan de forma más eficiente y también se requiere menos datos para cada movimiento de forma.
+
+Una última mejora es que la panorámica retrasará la actualización de las plantas no visibles hasta que la acción de panorámica termine, lo que de nuevo beneficia a los mapas con muchas plantas.
+
+## Varios
+
+- Ahora hay un icono de bloqueo/desbloqueo en la interfaz de selección
+- La legibilidad de la distancia de la regla ha mejorado
+- El tamaño de píxel de la cuadrícula ahora es una funcionalidad del lado del cliente, permitiendo al jugador elegir este valor dependiendo del método de visualización que use (por ejemplo, proyector vs pantalla de portátil)
+
+## Correcciones de errores
+
+- Aura no mostrada cuando la ficha está fuera del lienzo visible
+- Barra de desplazamiento de Firefox en las ubicaciones cuando el menú izquierdo está abierto
+- Algunos cuellos de botella de rendimiento significativos
+- El servidor ahora se cierra, refiriéndose a docs/tutorial, si el cliente no fue construido antes de iniciar
+- Preferir puntos ajustados sobre el ajuste a la cuadrícula
+- Eliminación del icono blanco en el menú UI superior izquierdo
+- Mover polígonos con el teclado solo movía el punto de origen
+- Casos degenerados en la triangulación
+    - El código de triangulación podía encontrarse con un caso degenerado al tratar con pequeñas diferencias numéricas en el orden de 1e-15
+    - Ahora el código de triangulación solo tendrá en cuenta los primeros 10 dígitos después del punto para prevenir la inestabilidad numérica.
+- Los eventos mouseleave no se disparaban en algunos casos (por ejemplo, alt-tab), esto podía causar que algunas formas (por ejemplo, las reglas) permanecieran en pantalla
+- El redimensionado de la herramienta de mapa no se replica
+- Cálculo del centro para polígonos con puntos repetidos
+- La forma movida a una ubicación ahora desaparece correctamente en la ubicación anterior
+
+## Reflexión sobre el "Up next"
+
+En la última release añadí una sección "Up next", para esbozar algunas de las cosas en la hoja de ruta. Quería reflexionar sobre cuál es el estado con esta release completada.
+
+##### hecho
+
+- rotación
+- Reelaboración de la secuencia de inicio
+- Cambio a fontawesome-vue
+- Visibilidad pública de plantas
+- Mejoras de la herramienta de plantas
+- Carga rápida de la planta actual
+
+##### parcialmente hecho
+
+- trabajo de preparación en metadata/export/import
+
+##### no hecho
+
+- Lista de recursos asíncrona en el juego
+- Mejoras de polígonos
+- Extender las opciones de auras
+- Mejorar el cursor en la herramienta de dibujo
+- Cuadrícula hexagonal
+- Blurhash
+- Múltiples ubicaciones de aparición
+- Más opciones de agrupación
+
+Aunque esta release tomó un poco más de tiempo, sigo contento con 6 de 15 hechos. :)

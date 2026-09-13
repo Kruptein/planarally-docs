@@ -1,0 +1,59 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
+
+# Recursos
+
+<Image src={DashboardAssets} alt="Recursos del panel" />
+
+La sección **Assets** te permite gestionar o crear recursos que se pueden usar en las campañas.
+_Mira la sección de [recursos del DM](/es/docs/dm/assets/) para aprender cómo usarlos_.
+
+<Info>
+    Actualmente los recursos solo son de interés para el DM. En el futuro este también debería ser un lugar donde los
+    jugadores puedan subir recursos.
+</Info>
+
+En la parte superior derecha hay una pequeña barra de acciones que te permite crear una carpeta, subir nuevos recursos o eliminar la selección activa.
+
+## Navegar por las carpetas
+
+La pantalla principal te ofrece un explorador de carpetas donde puedes hacer doble clic para entrar en una carpeta.
+Tu ruta de carpeta actual se muestra con una miga de pan justo debajo del título 'MANAGE ASSETS'.
+
+Para volver a la carpeta anterior puedes hacer doble clic en la carpeta ".."[^1].
+También puedes hacer clic en cualquier segmento de la miga de pan para volver varias carpetas de una vez.
+
+## Subir recursos
+
+Los recursos se pueden subir haciendo clic en el icono de añadir archivo en la barra de acciones o arrastrando los recursos sobre el gestor de recursos.
+
+## Mover recursos
+
+Puedes mover recursos arrastrándolos a la carpeta deseada.
+Así que cuando quieras mover un recurso una carpeta arriba, arrástralo sobre la carpeta "..".
+
+Puedes mover varios recursos a la vez, ya sea arrastrando una carpeta que contenga varios recursos o seleccionando varios recursos.
+
+## Seleccionar recursos
+
+Hacer clic una vez en un recurso lo selecciona y deselecciona todos los demás recursos.
+
+Si quieres ampliar la selección puedes usar ctrl+clic o shift+clic.
+El primero añade solo el archivo en el que hiciste clic a la selección,
+mientras que el último añade todos los archivos entre la última selección y la nueva.
+
+<Info>
+    El comportamiento actual es un remanente del gestor de recursos anterior y imita la semántica común de los exploradores de archivos.
+
+    Sin embargo, la forma en que se muestra actualmente la selección hace que esto sea un poco poco intuitivo.
+    Así que esto podría cambiar en el futuro.
+
+</Info>
+
+[^1]: Este es un concepto del mundo unix.

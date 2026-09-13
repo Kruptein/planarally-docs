@@ -1,0 +1,64 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Eye from "~icons/fa-solid/eye";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import FloorsPicture from "./assets/floors.png";
+
+# Etager
+
+Et komplet sæt af stablede [lag](/da/docs/dm/layers/) kaldes en _etage_.
+
+Etager tegnes oven på hinanden.
+Derfor vil etagen under en nyoprettet etage være fuldt synlig.
+Dette gælder for enhver del af spillebordet, der ikke er dækket af noget andet – uanset om det er et aktiv på _map_-laget eller en form på _tokens_-laget.
+
+<Image src={FloorsPicture} width={300} aspectRatio={314 / 277} alt="Etageknappen med åbnet etagemenu" />
+
+Etager kan tilgås via etageknappen nederst til venstre på skærmen.
+Etager er nummererede (vist til venstre i den åbnede menu), og de har navne (vist til højre).
+Etageknappen viser altid nummeret på din aktive etage.
+
+**Praktisk**: Sørg for at kigge på [tastebindingerne til bevægelse](/da/docs/reference/#movement) for at gøre navigering mellem etager til en leg!
+
+På enhver [lokation](/da/docs/dm/locations) er der altid mindst én etage til stede. Derfor oprettes den første etage automatisk, når lokationen oprettes.
+Den vil hedde `ground` og være nummereret med `0`, hvilket altid er nummeret for den nederste etage i stakken.
+
+Etager er listet i deres visningsrækkefølge. Den øverste etage er den første på listen.
+
+Etager er et meget praktisk værktøj til at forbedre indlevelsen/opfattelsen, og det anbefales at bruge dem hyppigt, når det er relevant. Bemærk, at hver etage øger rendertiden. Der er nogle optimeringer, der reducerer denne belastning (fx bliver etager højere oppe ikke renderet/beregnet), men hav det i baghovedet.
+
+## Opret nye etager
+
+Du kan oprette nye etager ved at klikke på `Add new floor`.
+Du vil blive bedt om etagens navn i et pop-up-vindue.
+
+<Info title="Ingen dubletter">Bemærk, at to etager på en lokation ikke kan have samme navn.</Info>
+
+## Omarrangér etager
+
+Du kan omarrangere etager ved at trække dem til en anden position. Alle objekter på en etage forbliver knyttet til den samme etage.
+
+## Etagehandlinger
+
+### Omdøb
+
+Ved at klikke på blyanten <PencilAlt/> vises et pop-up-vindue, hvor du kan indtaste et nyt navn for etagen.
+
+### Skift spilleradgang
+
+Ved at klikke på øjet <Eye/> kan du skifte, om spillere manuelt kan få adgang til denne etage.
+
+**Vær opmærksom på**, at dette ikke skjuler etagen! Der kan være et vindue, hvorigennem etagen er synlig.
+
+### Slet
+
+At slette etager er så nemt som at klikke på <TrashAlt />-knappen i den åbnede menu.
+Du skal bekræfte sletningen af etagen, _da der ikke er nogen måde at fortryde denne handling_!
+
+Ved sletning trækkes etagen ud af stakken og kasseres. Alle objekter på etagen fjernes også.

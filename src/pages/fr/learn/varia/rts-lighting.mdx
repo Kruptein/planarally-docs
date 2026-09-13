@@ -1,0 +1,92 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Lightbulb from "~icons/fa-solid/lightbulb";
+
+# Éclairage style RTS
+
+Guide contribué par [@veritanuda](https://keybase.io/veritanuda)
+
+Ce tutoriel se concentrera sur une configuration d'éclairage plus complexe.
+Assurez-vous d'être familier avec le [système d'éclairage et de vision](/fr/docs/dm/lighting-vision/) de PlanarAlly, ainsi qu'avec ses [calques](/fr/docs/dm/layers) et les [auras](/fr/docs/game/shapes/#trackers--auras) et [accès](/fr/docs/game/shapes/#access) des pions.
+
+Dans ce tutoriel, nous voulons imiter les configurations d'éclairage de type RTS (*R*eal *T*ime *S*trategy, stratégie en *T*emps *R*éel).
+La configuration **va** :
+
+- donner aux joueurs une carte à explorer et
+- leur montrer les zones qu'ils ont déjà explorées.
+
+La configuration **ne va pas** :
+
+- tenir compte de la ligne de vue réelle des joueurs, mais fonctionner avec des simplifications,
+- ajouter un « brouillard de guerre fin » qui ne cache que les pions mais pas la carte (PlanarAlly ne peut pas faire cela), ni
+- automatiser le processus.
+
+## Concept
+
+Les jeux de stratégie en temps réel confrontent souvent les joueurs à des cartes inexplorées.
+Pourtant, dès qu'un éclaireur atteint une zone, la carte est révélée et tout brouillard de guerre ne cache plus que les unités des autres joueurs, mais pas la carte.
+C'est une fonctionnalité qui a souvent été demandée.
+Pourtant, pour diverses raisons, elle n'a pas été implémentée dans PlanarAlly (pas encore ?).
+
+Mais il est facile d'imiter un effet similaire.
+Il aura les inconvénients mentionnés ci-dessus, mais donnera aux joueurs une meilleure (et plus complète) orientation sur la carte que leur seule ligne de vue.
+
+En substance, nous allons
+
+- diviser la carte en zones,
+- fournir à ces zones des sources de lumière, chacune,
+- éclairer les zones au moment où les joueurs les ont explorées, afin qu'ils puissent les voir, une fois qu'ils les ont quittées.
+
+## Préparation
+
+D'abord, configurez votre carte habituelle à l'aide du système d'éclairage et de vision : remplissez le canevas de brouillard de guerre, ajoutez quelques murs et lumières comme il vous plaît.
+
+![rts-image-00](./assets/rts-image-00.png)
+
+### Secteurs
+
+Ensuite, examinez votre carte pour identifier les portions qui peuvent être explorées indépendamment.
+Pour votre donjon habituel, cela devrait être facile, car il est déjà divisé en plusieurs pièces.
+
+Maintenant, placez une ou plusieurs sources de lumière (selon la disposition de la zone).
+Ces lumières devraient pouvoir éclairer toute la zone.
+Vous voudrez probablement des auras franches, sans lumière tamisée sur les bords.
+
+![rts-image-01](./assets/rts-image-01.png)
+
+Cachez les lumières sur le calque _DM_ et/ou désactivez les auras pour une utilisation ultérieure.
+
+## Mise en œuvre
+
+Au moment où la zone doit être visible pour vos joueurs (soit lorsqu'ils y entrent, soit lorsqu'ils l'ont entièrement explorée), allumez les lumières.
+Faites cela en activant l'aura (si vous l'avez désactivée) et en déplaçant la source de lumière sur le calque `fow`, pour éclairer la zone.
+Réglez aussi la source de lumière sur _publique_, afin que les joueurs puissent réellement la voir.
+
+![rts-image-02](./assets/rts-image-02.png)
+
+Comme la source de lumière est sur le calque _fow_, son aura sera dessinée sur le calque token, tandis que la forme elle-même restera invisible.
+Le calque `fow` enlèvera aussi _toute_ couleur de l'aura.
+
+![rts-image-03](./assets/rts-image-03.png)
+
+![rts-image-04](./assets/rts-image-04.png)
+
+Si vous voulez pouvoir différencier la vision réelle et la vision de type RTS, soit donnez à la vision des joueurs une légère teinte, soit déplacez les sources de lumière sur le calque _map_ à la place.
+Vous pouvez soit rendre le pion invisible, soit le cacher sous les images de carte que vous avez ajoutées via la fonction `move to back`.
+Utilisez la fonction `lock` pour éviter de faire glisser accidentellement les lumières avec votre groupe ou d'autres éléments de la carte.
+
+Si vous avez activé l'option _n'afficher les lumières que dans la ligne de vue_, vous devez à la place ajouter un accès _vision_ pour tous les joueurs aux lumières que vous voulez utiliser.
+Sinon, ils perdront la connaissance de la zone déjà explorée dès qu'un mur se trouvera entre eux et la zone respective.
+Dans ce cas, vous voudrez peut-être ajouter des _entrées_ d'accès pour tous les joueurs dans les propriétés des sources de lumière au préalable, tout en désactivant chaque niveau d'accès.
+
+De cette façon, il suffit de cocher quelques icônes <Lightbulb/> pour éclairer une zone.
+
+![rts-image-05](./assets/rts-image-05.png)
+
+![rts-image-06](./assets/rts-image-06.png)
+
+Notez que cela éclairera non seulement le calque _map_ mais aussi le calque _tokens_.
+
+Si vous voulez cacher les mouvements ennemis à vos joueurs, déplacez leurs pions sur le calque _DM_.

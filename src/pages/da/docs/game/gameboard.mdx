@@ -1,0 +1,79 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Spillebord
+
+Dette er PlanarAllys hjerte.
+Når du spiller, vil du mest interagere med spillebordet, hvor du flytter tokens over et kort, der viser (eller ikke viser) din karakters omgivelser og andre PC- og NPC-karakterer omkring dem.
+
+<Warning title="Den store røde kant">
+    De fleste handlinger, du udfører, skal synkroniseres med serveren. Hvis denne forbindelse af en eller anden grund
+    mistes, vil en tyk rød kant omkring skærmen advare dig. Eventuelle ændringer, du foretager under en afbrydelse, kan
+    gå tabt.
+</Warning>
+
+## Oversigt
+
+Dette dokument giver en kort teknisk introduktion til koncepterne lokationer, etager og lag.
+Dette er ikke nødvendig læsning for en spiller, men kan give mere indsigt i adfærden af visse systemer.
+Som DM er der mere dybdegående information om hvert af disse koncepter under DM-sektionen.
+
+PlanarAlly organiserer kampagner ved hjælp af 3 koncepter. En kampagne har 1 eller flere **lokationer**, som hver består af 1 eller flere **etager**, som hver består af et fast sæt **lag**.
+Alt dette tilsammen kulminerer i et scenario, der tegnes på skærmen, som du interagerer med.
+
+Som spiller kan du normalt ikke ændre den aktive lokation, etage eller lag,
+men du interagerer alligevel med disse koncepter, hver gang du flytter en form.
+
+## Lokationer
+
+Øverst i organiseringen er konceptet lokationer.
+En kampagne har mindst 1, men kan have flere lokationer.
+
+En lokation kan tænkes som en specifik instans af din spilverden.
+Det kan være en meget specifik bygning, gruppen udforsker, et billede på et højere niveau af en landsby eller måske endda verdenskortet.
+
+En spiller interagerer til enhver tid altid med præcis 1 lokation, men DM'en kan flytte spillerne rundt, mens de bevæger sig gennem verden.
+
+Se [DM-dokumentationen om lokationer](/da/docs/dm/locations/) for mere information.
+
+## Lag
+
+Når du indlæser en lokation, skal ting tegnes på din skærm.
+Du forventer at se et kort, dine karaktertokens og måske noget lys eller skygge.
+
+Selvom alle disse ting ser ud til at være på det samme 2D-plan, stakler PlanarAlly faktisk et par **lag** oven på hinanden.
+
+Som spiller kan du kun interagere med _tokens_-laget.
+Dette er hovedlaget, hvor du flytter dine tokens og former, du har tegnet.
+
+Der er nogle andre lag, en spiller kan se, men ikke interagere med: kort-laget og grid-laget er de mest oplagte eksempler.
+Begge disse renderes under tokens-laget.
+
+Nogle andre lag er helt usynlige for spillere.
+DM-laget er f.eks. kun synligt for DM'en og kan bruges til at skjule hemmeligheder, indtil de bliver relevante.
+
+For en mere dybdegående forklaring af de forskellige lag, tjek [DM-dokumentationen](/da/docs/dm/layers/)!
+
+## Etager
+
+Med blot lokationer og lag er vi klar til at spille spil.
+PlanarAlly har dog et ekstra trick i ærmet.
+
+En samling af lag kaldes en **etage**.
+En lokation har altid 1, men kan udvides til at have flere etager.
+
+Når du udforsker et uhyggeligt palæ, kommer du uundgåeligt til at gå op eller ned ad nogle trapper.
+Når du går op ad en trappe, vil du helst ikke have, at DM'en skal have for meget arbejde med at flytte din token til kortet for den etage.
+Måske kunne en anden PA-lokation bruges eller et andet område i den aktive lokation, men det er bare klodset.
+
+PA-etager er et værktøj, der giver DM'en mulighed for at organisere den slags ting mere smidigt.
+Ligesom en rigtig bygning renderes PA-etagerne oven på hinanden, og derfor kan du måske se etagerne under den etage, du befinder dig på.
+
+Et almindeligt eksempel på dette er et vindue, en balkon eller endda et hul i gulvet.
+Så hvis der ikke er noget, der hindrer dit syn, kan du stadig se nogle ting ske på etagerne nedenunder (f.eks. når du kigger ud af et vindue).
+
+Hvis DM'en tillader dig manuelt at skifte etage, kan du få adgang til dem via menuen nederst til venstre på din skærm eller ved at bruge en af tastebindingerne.
+Bemærk, at du måske ikke kan se alt på en anden etage, afhængigt af [belysningen](/da/docs/dm/lighting-vision) og hvorvidt du har tilstrækkelig adgang til tokens på denne etage.

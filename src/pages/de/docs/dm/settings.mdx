@@ -1,0 +1,154 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import Eye from "~icons/fa-solid/eye";
+
+import { Image } from "astro:assets";
+import GridPicture from "./assets/grid.png";
+import SettingsPicture from "./assets/settings.png";
+import VisionPicture from "./assets/vision.png";
+
+# Kampagnen-Einstellungen
+
+Als DM hast du ein spezielles Fenster mit Optionen.
+Diese ermöglichen es dir, die Einstellungen der aktiven Kampagne zu konfigurieren.
+
+Die DM-Einstellungen sind über das Seitenmenü erreichbar (klicke auf das <Cog />-Symbol oben links im Fenster deines Browsers, um das Menü zu öffnen).
+
+## Admin
+
+<Image src={SettingsPicture} width={600} aspectRatio={659 / 543} alt="DM-Einstellungen" />
+
+Der Admin-Bereich bietet administrative Optionen.
+
+### Spieler
+
+Im Spieler-Bereich kannst du eine Liste der aktuellen Spieler sehen.
+Neben dem Namen des jeweiligen Spielers kannst du seine Rolle innerhalb der Kampagne festlegen.
+
+<Warning title="Vorsicht!">
+    Wenn du einen Spieler zum DM machst, erhält er **uneingeschränkten** Zugriff auf die **gesamte** Kampagne!
+</Warning>
+
+Wenn das <Eye />-Symbol aktiviert ist, siehst du die Ansicht des Spielers auf der DM-Ebene.
+So kannst du im Blick behalten, wohin die Spieler schauen, und auch verändern, wohin sie schauen.
+
+Klicke auf „kick" (entfernen), um bestimmte Spieler aus deiner Kampagne zu entfernen.
+
+### Einladungs-URL
+
+Die Einladungs-URL ermöglicht es dir, Spieler in deine Kampagne einzuladen.
+Rechts neben der URL befindet sich ein Button, der die URL in deine Zwischenablage kopiert.
+Drücke „Refresh invitation code" (Einladungscode erneuern), um die URL zu erneuern.
+
+### Session sperren
+
+Der Button „Lock this Session" (Session sperren) sperrt oder entsperrt die Kampagne.
+Wenn sie gesperrt ist, kann nur der DM auf die Kampagne zugreifen.
+Diese Funktion ist nützlich, wenn du deine Karten bearbeiten möchtest und sicherstellen willst, dass keiner deiner Spieler während deiner Arbeit herumzuschnüffeln beginnt.
+
+### Session entfernen
+
+„Remove Session" (Session entfernen) entfernt die Kampagne **PERMANENT** vom PlanarAlly-Server. Alle Daten sind unwiederbringlich. **MIT VORSICHT VERWENDEN!**
+
+## Grid
+
+<Image src={GridPicture} width={600} aspectRatio={690 / 256} alt="Raster-Einstellungen" />
+
+Die Raster-Einstellungen bieten dir die Möglichkeit, die Raster-Einstellungen anzupassen oder das Raster sogar komplett zu deaktivieren.
+Diese Einstellungen sind die Kampagnen-Standardwerte und können in den [individuellen Ortseinstellungen](/de/docs/dm/locations/#grid) überschrieben werden.
+
+### Raster verwenden
+
+Aktiviere oder deaktiviere das Raster. Das gilt auch für alle Spieler.
+
+### Raster-Typ
+
+PA bietet volle Unterstützung für quadratische Raster und minimale Unterstützung für hexagonale Raster.
+
+Hex-Raster werden in zwei Varianten angeboten (spitz & flach), haben aber nicht den vollen Funktionsumfang quadratischer Raster.
+Am wichtigsten ist, dass das [Einrast-Verhalten](/de/docs/game/snapping) nicht an Hex-Raster angepasst wurde.
+
+### Größeneinheit
+
+Mit der Größeneinheit kannst du die Standarddarstellung der Einheiten in ft (die D&D-Norm) in etwas anderes ändern.
+Das könnte verwendet werden, um alles auf Meter umzustellen (einschließlich Brüchen, z. B. für den D&D-Standard, bei dem 1,5&nbsp;m 5&nbsp;ft entsprechen), aber auch, um einen Ort mit einer Weltkarte zu haben, die in Kilometern oder Meilen skaliert ist.
+
+### Einheitengröße
+
+Die Einheitengröße ist die Distanz, die eine Rasterzelle in deinem Spielsystem darstellt. Wenn du das Ruler-Werkzeug zum Messen von Entfernungen verwendest, wird diese Angabe für die Umrechnung herangezogen.
+
+## Vision
+
+<Image src={VisionPicture} width={600} aspectRatio={675 / 402} alt="Sicht-Einstellungen" />
+
+Sicht ist eine der wichtigsten Einstellungen für den DM.
+Diese Einstellungen ermöglichen es dir zu ändern, was Spieler sehen und wie sie es sehen.
+Sie werden auch im DM-Abschnitt zu [Beleuchtung & Sicht](/de/docs/dm/lighting-vision/) erwähnt.
+
+Die in diesem Dialog definierten Einstellungen sind die Kampagnen-Standardwerte, die in den [individuellen Ortseinstellungen](/de/docs/dm/locations/#vision) überschrieben werden können.
+
+### Fake Player
+
+Wenn dies aktiviert ist, wird der Bildschirm ohne deine DM-Rechte gerendert.
+Stattdessen wird die Sicht aller Spieler gerendert, die du in [dem Vision-Werkzeug](/de/docs/tools/vision/) ausgewählt hast.
+Das kann helfen, während der Vorbereitung oder sogar im Spiel zu überprüfen, ob dein Sicht-Setup korrekt ist.
+
+Du kannst dies schnell über [Quick Toggles](/de/docs/tools/quick-toggles/#fake-player) ein- und ausschalten.
+
+### Gesamte Leinwand mit Kriegsnebel füllen
+
+_Kriegsnebel steht für Fog of War (FoW)_
+
+Wenn diese Option aktiviert ist, ist standardmäßig alles auf dem Bildschirm für Spieler verborgen.
+Es müssen Lichter hinzugefügt werden, um Sicht in Bereichen zu gewähren.
+
+Wenn diese Option deaktiviert ist, wird standardmäßig alles auf dem Bildschirm den Spielern angezeigt.
+Kriegsnebel muss hinzugefügt werden, um die Sicht in Bereichen zu entfernen.
+
+### Nur LoS
+
+_LoS steht für Line of Sight (Sichtlinie)_
+
+Diese Option schaltet einen erweiterten Beleuchtungsmodus um.
+
+Wenn deaktiviert, ist jeder Ort auf dem Bildschirm mit einer Lichtquelle sichtbar.
+Es spielt keine Rolle, ob sich ein Spieler an diesem Ort befindet oder nicht.
+
+Wenn aktiviert, sind nur Dinge im Sichtlinien-Bereich von Spieler-Tokens auf dem Bildschirm sichtbar.
+Ein Spieler muss das Licht sehen können, damit es auf dem Bildschirm angezeigt wird.
+
+Weitere Informationen zu diesem Thema findest du in der [Beleuchtungs-Dokumentation](/de/docs/dm/lighting-vision/).
+
+### Kriegsnebel-Deckkraft
+
+Mit dieser Einstellung kann der DM wählen, wie hoch die Deckkraft versteckter Bereiche für den DM ist.
+Spieler haben diese Einstellung für sich selbst immer auf 1.0 und können sie nicht bearbeiten.
+
+Im Fake-Player-Modus bist du ebenfalls auf 1.0 festgelegt.
+
+### Sichtmodus
+
+<Warning>Dies ist eine technische Einstellung, die du nur anfassen solltest, wenn du weißt, was du tust.</Warning>
+
+Der experimentelle Sichtmodus berechnet Beleuchtung/Sicht anders als die Standardversion.
+
+In der experimentellen Version werden Änderungen an Licht/Sicht inkrementell statt durch eine vollständige Neuberechnung bei jeder Änderung vorgenommen. Die Vorteile sind offensichtlich; die Konsequenzen sind, dass er weniger getestet ist und bei Fehlern komplett hängen bleiben könnte.
+
+Du könntest diese Option in Betracht ziehen, wenn du viele licht-/sichtbezogene Objekte auf deiner Karte hast und beim Verschieben von Dingen langsame Bildschirmaktualisierungen erlebst.
+
+### Minimale/Maximale Sicht
+
+Diese Einstellungen sind Abstimmungsfaktoren für das [Sichtsystem](/de/docs/dm/lighting-vision/).
+Sie bestimmen Grenzen für die Sicht aller Tokens.
+
+Angenommen, es gibt ein riesiges, offenes Feld, das sich über 5000 ft. erstreckt und vollständig beleuchtet ist.
+Man könnte erwarten, dass der gesamte Bereich für dein Token, das in der Mitte dieses Feldes steht, sichtbar ist.
+Es gibt jedoch Grenzen des menschlichen und nichtmenschlichen Auges, weshalb diese Einstellungen eingeführt wurden.
+
+Alles bis zur minimalen Sichtweite ist wie gewohnt sichtbar.
+Alles jenseits der maximalen Sichtweite ist nicht sichtbar und ist Kriegsnebel.  
+Alles dazwischen wird mit zunehmender Deckkraft angezeigt, je weiter du dich an den Rand der Sicht bewegst.

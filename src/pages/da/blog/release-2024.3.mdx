@@ -1,0 +1,152 @@
+---
+title: Release 2024.3
+date: 2024-10-13 19:45:00
+excerpt: "Terningeforbedringer og en simpel chatboks"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Der er igen gået et par måneder siden sidste release, så uden videre, her er noget nyt :)
+
+### Gentaget udfasningsbesked
+
+Som annonceret i den forrige release er label/filter-systemet udfaset og vil blive fjernet i den næste release.
+
+## Simpelt chatsystem
+
+Denne release introducerer et simpelt chatsystem, der giver dig mulighed for at chatte med andre spillere i kampagnen.
+
+![Chat-knap med ventende beskeder](../docs/game/assets/chat.png)
+
+Det er designet til at være enkelt og præcist. Noget formatering er tilgængelig i form af markdown, og billed-URL'er konverteres automatisk til billeder.
+
+Det er vigtigt at bemærke, at sendte beskeder i øjeblikket ikke gemmes på serveren. Så enhver opdatering eller genforbindelse til sessionen vil rydde chathistorikken.
+
+Det er ikke altid nemt for mig at vide, hvilken slags grupper der bruger PA, hvilket er grunden til, at chatfunktionen er forholdsvis minimal.
+Hvis det ville hjælpe din gruppe med en vedvarende chathistorik eller nogle andre chatfunktioner, så ræk ud!
+
+For mere information om chat se [dokumentationen](../../docs/game/chat), info om markdown kan findes [her](../../learn/dm/Markdown_Tutorial/markdown/).
+
+## Terningeforbedringer
+
+En stor del af denne release blev brugt på at forbedre forskellige aspekter af terningssystemet.
+
+### Terningeværktøjets UI
+
+Terningeværktøjets UI er blevet fuldstændig fornyet.
+
+![Terningeværktøj](./2024.3/dice.png)
+
+#### Ikke-3D-tilstand
+
+Tidligere var den eneste måde at slå terninger på ved at simulere dem med 3D-objekter.
+Det kan være sjovt, men er ikke altid den bedste løsning af forskellige årsager.
+
+Fra nu af er der en mulighed for automatisk at afgøre terningeresultater uden en 3D-simulering.
+
+#### Inputforbedringer
+
+Den tidligere version havde et tekstinput og et simpelt klik-UI til at vælge terninger uden at skrive dem ud (fx at klikke 3 gange på 'd6' ville tilføje 3d6 til tekstboksen).
+
+Det virkede, men var forholdsvis begrænset. "Klik"-UI'et er blevet udvidet dramatisk.
+
+Terningsparserens grammatik er også blevet udvidet og tillader nu nogle mere komplekse udtryk som "kh2 (behold de 2 højeste)" og lignende.
+
+#### Deling af resultater
+
+Det er nu muligt at slå terninger helt privat, så DM'en heller ikke kan se resultaterne.
+
+Brugere, der modtager terningresultater fra en anden spiller, kan nu klikke på notifikationspopuppen for at se detaljerne for slaget.
+
+#### Resultat-UI og -historik
+
+Det UI, der viser resultaterne af terningeslaget, er også ændret en smule.
+
+For at reducere rod vises individuelle slag i en gruppe (fx 3d6) ikke længere, men kan afsløres ved at holde musen over gruppen.
+
+Slaghistorikken er også ændret en smule, og når du klikker på en række i historikken, vises det fulde resultat-UI igen.
+
+### Opdatering af 3D-bibliotek
+
+Til 3D-simuleringen bruges spilmotoren babylonjs. Den er blevet opgraderet fra version 4 til 7.
+Denne ændring inkluderer også en ændring i den fysikmotor, der bruges, da babylonjs nu bruger havok-motoren i stedet for ammo.
+
+3D-terningelogikken er også ændret en smule, men for det meste bør den samme adfærd forventes.
+
+### planarally-dice-biblioteket og terningssystemer
+
+I øjeblikket kredser en stor del af terninge-UI'et omkring d20-systemet, som er almindeligt i D&D, men også i nogle andre systemer.
+
+Det sagt, så er terningebiblioteket i sig selv blevet omskrevet, så det kan understøtte en lang række terningssystemer.
+PA's UI har dog endnu ingen måde at skifte mellem systemer på, så det bruger i øjeblikket som standard d20-systemet.
+
+Jeg tænker i øjeblikket over, hvordan jeg bedst kan tilbyde andre terningssystemer i PA selv.
+(fx en "terningssystem"-indstilling i dine DM-kampagneindstillinger, måske endda en generel "rpg-system"-indstilling.)
+
+Så der kan komme flere rpg-system/terningerelaterede ændringer i fremtiden.
+
+## Nemmere fangehulsmanøvrering
+
+Det kan nogle gange være besværligt at flytte en gruppe tokens gennem et par smalle korridorer med sving på grund af kollision med væggene.
+Oprindeligt grupperede jeg dem ofte manuelt tæt sammen og spredte dem derefter ud igen, når vi nåede et punkt, hvor positionen igen blev vigtig.
+For nylig flyttede jeg som regel bare 1 form rundt og shift-flyttede de andre til slutpositionen, simpelthen fordi det var mindre arbejde.
+
+Ingen af løsningerne er dog særlig gode, så denne release tilføjer en ny funktion, der til en vis grad kombinerer de to tilgange på en mindre manuel måde.
+
+Du kan nu højreklikke på en gruppe former og vælge "Collapse", hvilket vil flytte dem alle, så de er centreret på den form, du startede sammenklapningen på.
+Mens du så bare flytter den ene form, vil alle de andre automatisk følge med. Når en bestemt position er nået, kan du højreklikke og "Expand",
+hvilket vil skubbe alle formerne ud i deres oprindelige position i forhold til den form, du startede sammenklapningen på.
+
+Der er også en tastaturgenvej: Mens du holder bogstavet 'c' nede (for collapse), vil din markering blive klappet sammen; den udvides automatisk, når du enten slipper museknappen eller trykker på 'c' igen.
+
+<video autoplay loop muted style="max-width: min(750px, 75vw);">
+    <source src="/blog/release-2024.3/collapse-drag.webm" type="video/webm" />
+    <source src="/blog/release-2024.3/collapse-drag.mp4" type="video/mp4" />
+</video>
+
+<br />
+<br />
+
+## Kampagnefunktioner
+
+En mindre tilføjelse er muligheden for DM'en at deaktivere bestemte funktioner.
+Især chat- og terningeværktøjet kan deaktiveres fra og med denne release.
+
+Dette er mere en betafunktion, da jeg endnu ikke er sikker på, hvad jeg synes om det.
+Disse indstillinger passer måske bedre som brugerpræferencer.
+
+## Værktøjer
+
+### Ændring af værktøjslinjens UI
+
+En lille ændring af værktøjslinjens UI: Alle værktøjers udvidede UI vil nu være højrejusteret helt ud i stedet for at svæve over det relevante værktøj.
+Det betyder også, at den lille pil, der forbinder værktøjets UI og værktøjslinjen, nu også er væk.
+
+Mens jeg arbejdede på Select-værktøjets ændringer (se nedenfor), blev det tydeligt, at UI'et for værktøjer længere inde mod midten havde nogle problemer.
+Enten kunne værktøjet ikke have et stort UI, eller også ville det blokere en stor del af hovedskærmens plads.
+
+Ved at flytte alle værktøjs-UI'erne til højre kan de optage mere plads uden at kæmpe om midterskærmens plads.
+
+### Select- og ruler-tilstand
+
+Når en form er valgt, tilbød Select-værktøjets UI en mulighed for at tilføje en ruler til formens bevægelse.
+
+Det er ret rart, men indstillingerne for den pågældende ruler (fx om den er synlig for andre spillere) var kun konfigurerbare i Ruler-værktøjet.
+Hvilket betød, at du ofte måtte skifte frem og tilbage mellem begge værktøjer for enten at ændre eller bekræfte ruler-indstillingerne.
+
+Nu viser Select-værktøjet også ruler-indstillingerne og giver dig mulighed for at ændre dem direkte.
+
+![Select-værktøjets ruler-indstillinger](../docs/tools/select-ui.png)
+
+### Hexagoner i Spell-værktøjet
+
+Den forrige release lavede en stor opgradering af hexagoner, men dækkede ikke alle steder, hvor de kunne være nyttige.
+
+I denne release bliver Spell-værktøjet opmærksom på, hvilken gridtype du bruger, og tilbyder nu muligheden for at oprette spell-effekter i forskellige hex-størrelser.
+
+![Spell-værktøjets hex-størrelser](../docs/tools/spell-hex.png)
+
+### Fejlrettelser
+
+- Draw-værktøjet: Klik på "blocks movement"-etiketten i Draw-værktøjets synsindstilling skifter nu korrekt den relaterede afkrydsningsboks
+- Ruler-værktøjet: Grid-tilstandens mellemrumstast synkroniserede den snappede ende ikke korrekt til andre spillere

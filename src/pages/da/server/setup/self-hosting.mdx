@@ -1,0 +1,222 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Selvhost
+
+## Generel information
+
+At hoste PlanarAlly selv kræver lidt mere opsætning end blot at bruge en eksisterende tjeneste, men det giver dig mere kontrol, og du kan regne med, at det også virker offline.
+
+For at hoste PlanarAlly selv har du fire muligheder:
+
+- Byg klienten manuelt og kør serveren
+- Kør serveren med en færdigbygget klient
+- Brug en docker-container
+- Brug en prækompileret eksekverbar fil
+
+De første 2 kræver, at du manuelt installerer nogle ting (fx python, afhængigheder, ...).\
+Docker giver dig mulighed for at springe en del af det manuelle arbejde over, men kræver forståelse for containere og volumener.
+
+Endelig er der en .exe tilgængelig for folk, der ikke er særlig tekniske. Den burde kunne klare opgaven, men den er mindre testet.
+
+### Versioner
+
+Afhængigt af den valgte mulighed kan du beslutte, hvilken version af PA du vil bruge.
+
+For produktionsversioner kan du finde de officielle udgivelser [her](https://github.com/Kruptein/PlanarAlly/releases).\
+For en udviklingsversion kan du blot tjekke en hvilken som helst git-commit/gren ud og bygge den manuelt.\
+For alle udgivelser såvel som udviklingsgrenen offentliggøres docker-images automatisk på [dockerhub](https://hub.docker.com/r/kruptein/planarally/tags).
+
+### Sikkerhedskopier og opgraderinger
+
+Når du sikkerhedskopierer dine data, er der tre mapper, der er vigtige (relativt til servermappen):
+
+- data
+- static/assets
+- static/mods
+
+Hvis du har foretaget ændringer i konfigurationen (`data/config.toml`), kan det være nødvendigt at sikkerhedskopiere nogle andre mapper/filer også.
+
+Når du opgraderer PA, kan der forekomme en migrering af gemmefilen (standardplacering `data/planar.sqlite`). En sikkerhedskopi af den aktuelle gemmefil lægges i mappen `save_backups`.
+
+<Info>
+Hvis du installerer PA ved hjælp af en af udgivelsens zip/tarball-filer (fx hvis du pakker en mappe ud et sted), anbefales det generelt at pakke disse ud på en ny placering og flytte/kopiere de ovennævnte 3 data-mapper.
+<br />
+At pakke ud oven i den eksisterende installation vil normalt fungere, men det kan nogle gange føre til nogle subtile fejl, hvor en fil er blevet fjernet fra kodebasen, men ikke fjernes ved overskrivning.
+<br />
+Ved brug af git/docker gælder dette ikke.
+
+</Info>
+
+### Konfiguration
+
+Det er normalt, at du ikke finder en konfigurationsfil. PA bruger standardværdier, der er gemt internt.
+For at tilsidesætte nogle af disse indstillinger kan du oprette en `config.toml`-fil i serverens `data`-mappe for at ændre konfigurationen.
+
+Se [konfigurationsdokumentationen](/da/server/management/configuration/) for detaljerne.
+
+Som standard kører PA på port 8000, så hvis alt gik godt uanset den valgte host-mulighed, burde du kunne se PA på http://localhost:8000
+
+<Info>
+    Der er ingen forudkonfigureret admin-bruger, så når du ser loginsideen, skal du igennem registreringsflowet
+    ligesom enhver anden bruger!
+
+    <br/>
+
+    Hvis du ønsker det, kan du konfigurere din oprettede bruger som admin for at se ekstra UI ved at oprette/ændre serverkonfigurationen.
+
+</Info>
+
+## Fuld manuel installation
+
+PA består af to dele:
+
+- en server skrevet i python
+- en frontend skrevet i typescript
+
+Selvom du altid skal køre serveren for at bruge PA, skal du kun genbygge klienten, hvis du downloader/ændrer PA-versionen.
+
+### Frontend
+
+For at bygge frontend skal du have `node` og `npm` installeret. På skrivende tidspunkt kræves mindst version 22 af node. (Dog vil jeg anbefale version 24, hvis du endnu ikke har node installeret)
+
+```bash
+# Du skal være i client-mappen for at få klienten til at virke!
+cd client
+# Opdater afhængigheder, en ny version kommer normalt med nye afhængigheder
+npm i
+# Byg serveren
+npm run build
+```
+
+Dette konverterer typescript-filerne til et par minificerede javascript-filer og placerer dem i serverens static-mappe, så serveren kan køres.
+
+Det er alt!
+
+### Backend
+
+Du skal have en nyere version af python installeret for at køre PA. Jeg mener, at 3.11 er minimumsversionen, men den er officielt testet mod 3.13.
+
+Du kan bruge enhver metode til at installere python, men den anbefalede vej er at bruge [uv](https://docs.astral.sh/uv/getting-started/installation/).
+Dette adskiller python-installationer på en ren måde og er desuden utroligt hurtigt. Derudover bruges det til afhængighedsstyring af PA selv.
+
+<Info title="Afhængigheder uden uv">
+Hvis du ikke vil eller kan bruge uv, skal det bemærkes, at der ikke er nogen `requirements.txt`-fil i arkivet.
+PA bruger den moderne `pyproject.toml`-fil, som uv (såvel som andre værktøjer) forstår.
+
+Dette betyder dog, at du ikke kan lave en traditionel `pip install -r requirements.txt`. Du kan finde listen over de afhængigheder, du skal installere, i den førnævnte `pyproject.toml`-fil
+
+</Info>
+
+De følgende instruktioner forudsætter, at du bruger uv; tilpas kommandoerne til dit behov, hvis du bruger en anden tilgang.
+
+```bash
+# 1. Installér python (kan springes over, hvis du allerede har det)
+uv python install 3.13
+# 2. Flyt til servermappen!
+# (hvis du stadig er i client-mappen, skal du bruge `cd ../server`!)
+cd server
+# 3. Opret et virtuelt miljø til din python-installation
+uv venv
+# 4. Installér afhængighederne
+uv sync
+# 5. Kør PA
+uv run planarally.py
+```
+
+Når du i fremtiden vil (gen)starte din server, skal du kun køre trin 5 (i servermappen).
+
+## Færdigbygget klient
+
+Hvis du vil styre serverinstallationen, men ikke gider besværet med at bygge klienten, kan du bruge de færdigbyggede klientfiler.
+Disse optræder som `Planarally-bin`-filerne i udgivelserne.
+
+Disse har kun en servermappe. Du kan følge de samme trin som ved den fulde manuelle installation ovenfor, men spring alle frontend/klient-relaterede trin over.
+
+## Docker-container
+
+### Vanilla
+
+Du kan hente den [officielle container](https://hub.docker.com/r/kruptein/planarally) med denne kommando.  
+`docker pull kruptein/planarally`
+
+Der er 3 volumener, der bør mountes for at opnå datapersistens:
+
+- data: Her gemmes konfigurationen såvel som gemmefilen normalt
+- assets: Her gemmes brugeruploadede aktiver
+- mods: Dette er et valgfrit volumen, kun nødvendigt hvis du tillader/bruger mods på serveren.
+
+Det anbefales at oprette eksplicitte volumener til disse med `docker volume create` (Se https://docs.docker.com/storage/volumes/)
+
+PA kører som en begrænset bruger i docker-containeren; du skal ændre ejerskabet af de oprettede volumener, så det matcher dette:
+
+```
+cd /var/lib/docker/volumes
+sudo chown -R 9000:9000 data/
+# gentag for de andre volumener
+```
+
+Når volumenerne er sat op, er du klar til at køre containeren.
+
+```
+# PA kører på port 8000. Du kan udelade mods-volumenet, hvis du ikke har til hensigt at bruge eller tillade det
+# Det anbefales generelt at angive et bestemt tag på docker-image (fx v2025.2.2) i stedet for at bruge latest
+# Nye versioner kan komme med database-migreringer og kan kræve nogle manuelle indgreb, som du vil foretage, når du har tid
+docker run -d -t -p 8000:8000 -v data:/planarally/data/ -v assets:/planarally/static/assets/ -v mods:/planarally/static/mods --name planarally kruptein/planarally
+```
+
+### compose
+
+Der er i øjeblikket ingen officiel docker-compose-fil, men et medlem af fællesskabet skrev engang [denne guide](https://github.com/edmael/selfhosted-planarally) om brug af docker-compose, ssl og nginx.
+
+Der er også en compose-fil inkluderet i et eksempel-opsætning lavet til Traefik-reverse-proxyen, som kan findes [her](/da/server/advanced/proxy/#traefik).
+
+## Prækompileret eksekverbar fil
+
+_Bemærk, at versionsnumrene, der er en del af udgivelsernes filnavne, er udeladt i denne vejledning._
+
+For at køre PlanarAlly på Windows skal du downloade `planarally-windows.zip` fra udgivelsessiden og pakke den ud et sted i en ny mappe.
+
+Denne mappe indeholder en masse forskellige filer, men den vigtige for dig lige nu er den, der hedder `planarally.exe`.
+Når du udfører denne fil, vil der komme en kommandoprompt frem (en sort skærm med noget tekst).
+
+<Warning>
+    Det er sundt at være varsom over for tilfældige eksekverbare filer på internettet. Disse `.exe`-filer genereres ved hjælp af Nuitka fra
+    python-kildekoden i et isoleret CI-miljø.
+
+    Ikke desto mindre kan det ske, at en antivirus-leverandør derude udløser en falsk positiv af forskellige årsager.
+
+</Warning>
+
+## Udvikling
+
+Du kan konfigurere klienten og serveren til at køre i en særlig udviklingstilstand. På denne måde hot-reloades frontenden (dvs. ændringer anvendes straks uden at kræve en genbygning).
+
+Dette kræver, at serveren køres med det ekstra 'dev'-argument:
+
+```bash
+uv run planarally.py dev
+```
+
+Derudover kræver det også en separat proces, der håndterer klientens hot-reloading
+
+```bash
+# i client-mappen
+npm run dev
+```
+
+<Warning>
+    Klientens output vil nævne en bestemt port. Du skal fuldstændig ignorere denne, da PA's dev-server er koblet op på
+    en særlig måde for at være så tæt på den normale opsætning som muligt.
+    <br />
+    Du tilgår derfor stadig PA via den samme (server)port som før.
+</Warning>
+
+<Warning>
+    Hvis dette er en ren version af arkivet, skal klienten have været bygget normalt én gang, før du kan bruge
+    dev-serveren. Ellers vil nogle filer, der genereres på serveren, mangle.
+</Warning>

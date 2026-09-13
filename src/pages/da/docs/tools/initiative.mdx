@@ -1,0 +1,144 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import ChevronRight from "~icons/fa-solid/chevron-right";
+import Eye from "~icons/fa-solid/eye";
+import Stopwatch from "~icons/fa-solid/stopwatch";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+import Users from "~icons/fa-solid/users";
+import Video from "~icons/fa-solid/video";
+import WindowClose from "~icons/fa-regular/window-close";
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import InitiativeOverviewPicture from "../../blog/2026.1/initiative.png";
+
+# Værktøj Initiative
+
+Initiative-værktøjet er et flytbart pop-up-vindue, der giver dig mulighed for at holde styr på initiativrækkefølgen for forskellige objekter (normalt tokens).
+
+<Image src={InitiativeOverviewPicture} width={462} aspectRatio={462 / 492} alt="Oversigt over initiativ-værktøjet" />
+
+## Adgang
+
+Initiative-værktøjet er ikke tilgængeligt via værktøjslinjen nederst til højre i brugergrænsefladen.
+I stedet tilgås det via kontekstmenuer.
+Ved at højreklikke hvor som helst på kortet kan du altid vælge `Show Initiative` i kontekstmenuen for at aktivere værktøjet.
+Desuden viser kontekstmenuen for objekter (forme, aktiver eller tokens) indstillingen `Show Initiative`, hvis objektet allerede er tilføjet til initiativlisten.
+Hvis det pågældende objekt ikke (endnu) er på initiativlisten, viser kontekstmenuen `Add Initiative` (`Add all to Initiative`, hvis flere objekter er valgt), hvilket åbner Initiative-værktøjet og samtidig tilføjer objektet til listen.
+
+Initiative-værktøjet åbner et flytbart pop-up-vindue, der kan lukkes ved at klikke på <WindowClose /> i øverste højre hjørne.
+
+Det indeholder initiativlisten, som kan indeholde flere individuelle poster, og nedenunder en bjælke med flere funktioner.
+
+## Initiativlisten
+
+Initiativlisten er i bund og grund en tabel med seks kolonner og en række for hvert objekt, der er tilføjet til initiativlisten.
+Den _aktive_ række/post er fremhævet med en grøn baggrund, hvilket indikerer, at det er dette objekts tur.
+
+Når du holder musen over en post, vises den tilføjede forms navn, og det tilhørende objekt på kortet fremhæves også med en rød firkant omkring det.
+Dette er især nyttigt, hvis der er flere objekter på kortet, der illustreres med det samme aktiv (dvs. lignende monstre osv.).
+
+### Betegnelse
+
+Længst til venstre på hver række findes betegnelsen for den form, der er tilføjet til initiativ.
+Hvis objektet er et aktiv, er betegnelsen en miniaturiseret version af aktivet.
+Hvis objektet er en Basic Token, er betegnelsen den tekst, der vises på token'en.
+Hvis objektet er en anden form, er betegnelsen formens navn, som det er angivet i egenskaberne, når objektet tilføjes til initiativ.
+
+### Initiativværdi og sortering
+
+Efter betegnelsen kommer initiativværdien, som kan være et hvilket som helst tal.
+Spillere kan kun ændre initiativværdien for objekter, de har fået adgang til.
+DM'en kan ændre initiativværdien for alle objekter på listen.
+
+Posterne sorteres automatisk efter denne værdi, så de højeste værdier står øverst og de laveste nederst på listen.
+Hvis du holder musen over en post, fremhæves den med en kant, der viser et hak i nederste højre hjørne.
+Alle poster kan trækkes ved at klikke og holde på dette hak, hvilket tilsidesætter den automatiske sortering.
+
+### Tidsbegrænsede effekter
+
+Den næste kolonne viser et <Stopwatch />, efterfulgt af et tal (standard 0).
+Denne kolonne viser, hvor mange tidsbegrænsede effekter (se nedenfor) der er tildelt objektet.
+Denne funktion kan bruges til nemt at holde styr på buffs og/eller effekter (fx besværgelser), der gør skade over tid.
+
+Tidsbegrænsede effekter er frie poster, der tildeles til en post i initiativlisten, og som kun er gyldige i en begrænset periode, dvs. et antal runder.
+Ved at venstreklikke på <Stopwatch />-ikonet tilføjes en ny tidsbegrænset effekt, der er knyttet til den pågældende post.
+Når du holder musen over en post, udvides listen over tidsbegrænsede effekter nedenunder, forbundet med den fremhævende kant.
+Listen over tidsbegrænsede effekter for den aktive post er altid udvidet.
+
+Tidsbegrænsede effekter kan tilføjes når som helst.
+DM'en kan tilføje effekter til enhver post, mens spillere kun kan tilføje dem til poster, de har fået adgang til.
+
+Hver tidsbegrænset effekt har to værdier: beskrivelsen og varigheden.
+Beskrivelsen vises til venstre (standard ved oprettelse: `New Effect`) og kan være hvilken som helst tekst.
+Varigheden vises til højre (standard: `10`) og skal være et tal, der beskriver effektens varighed i de kommende runder.
+Hver gang en post bliver _aktiv_, falder varigheden med én, indtil den når `0`.
+
+Når varigheden har nået `0`, forsvinder den tidsbegrænsede effekt næste gang posten bliver aktiv, i stedet for at ændre sig fra `0` til `-1`.
+Den kan slettes ved at klikke på papirkurven <TrashAlt />-knappen ved siden af.
+
+### Synlighed
+
+Den næste kolonne viser et <Eye />, der slår postens synlighed til og fra.
+Hvis <Eye /> vises i gråt, er objektet usynligt, dvs. kun DM'en kan se den pågældende række.
+Et objekt, der tilføjes af en spiller, er synligt som standard, mens objekter, som DM'en tilføjer til initiativ, er usynlige som standard.
+
+### Gruppe-initiativ
+
+Næstsidste kolonne fra højre viser et <Users />-ikon.
+Ved at klikke på ikonet skiftes der mellem individuel/gruppe-initiativ.
+
+Når en post er markeret som _gruppe-initiativ_, kan den ikke slettes (se nedenfor) – hverken ved at klikke på papirkurven <TrashAlt />-symbolet eller ved at fjerne det tilhørende objekt.
+Den vil stadig fremhæve den tilhørende token ved hover; i øjeblikket er der ingen funktion til at fremhæve flere objekter på én gang.
+
+### Slet
+
+Kolonnen længst til højre, der viser et <TrashAlt />, bruges til at slette posten fra listen.
+DM'en kan slette enhver post fra initiativlisten.
+Spillere kan kun slette poster, de har fået adgang til.
+
+Hvis du sletter en token, der er tilføjet til initiativ, eller flytter den til en anden lokation, slettes den tilhørende post også i Initiative-værktøjet.
+
+Poster, der er tilføjet til gruppe-initiativ (se ovenfor), kan ikke slettes.
+
+## Funktionsbjælke
+
+Funktionsbjælken er en enkelt række, der til venstre indeholder en `Round`-indikator, der viser den aktuelle runde for handling/kamp, og til højre for indikatoren fire knapper.
+
+### Auto-lås af syn
+
+<Eye /> slår auto-lås af syn til og fra. Denne funktion er nyttig for spillere, der ejer mere end én token. Hvis den er
+aktiv, vises kun synet for det objekt, der får tildelt handlingen, hver gang handlingen tildeles et andet objekt (se
+[næste tur](/da/docs/tools/initiative/#next-turn) nedenfor). Dette kan slås til og fra individuelt af hver spiller.
+Auto-lås af syn viser kun synet for objekter, som spillerne har korrekt adgang til.
+
+<Info title="Vision-værktøj">
+    Auto-lås af syn får [Vision-værktøjet](/da/docs/tools/vision/) til at rekonfigurere. Brug dette værktøj til at
+    konfigurere, hvilke synslinjer du ønsker at se, uden for initiativ.
+</Info>
+
+Knappen har ingen funktion for DM'er, da de altid ser alt.
+
+### Auto-lås af kamera
+
+<Video /> slår auto-lås af kamera til og fra. Når auto-lås af kamera er aktiv, centreres viewporten på det nu aktive
+objekt, hver gang handlingen tildeles et andet objekt (se nedenfor). Dette kan slås til og fra individuelt af hver
+spiller. Auto-lås af kamera centrerer kun viewporten på objekter, som spillerne er i stand til at styre. For DM'en vil
+midten af viewporten således ændre sig næsten hver gang der klikkes på _Next_. Spillernes viewport ændres kun, når en
+token, de styrer, nu er aktiv ifølge Initiative Tracker.
+
+### Nulstil
+
+<SyncAlt />
+-knappen nulstiller runder og ture. Runderne nulstilles til runde 0, og handlingen tildeles objektet øverst på listen.
+Bemærk, at hverken initiativværdierne eller de tidsbegrænsede effekter nulstilles. Denne funktion er kun tilgængelig for
+DM'er.
+
+### Næste tur
+
+<ChevronRight />
+-knappen (_Next_) tildeler den næste spiller i initiativrækkefølgen status som _aktiv_ (se ovenfor). Denne funktion er
+kun tilgængelig for DM'er.

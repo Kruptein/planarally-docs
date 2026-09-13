@@ -1,0 +1,120 @@
+---
+title: Ændringer af syns- og adgangssystemerne
+date: 2025-02-26 23:45:00
+excerpt: "Fjernelse af 'is a Token' og mere"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Dette er en kort artikel om synstilstanden i sin nuværende form og nogle ændringer, som jeg har til hensigt at foretage,
+for at gøre nogle af delene mere ligetil.
+
+Vær tryg – de ændringer, jeg vil foretage, er ikke store; de er temmelig subtile, men jeg følte stadig, at det fortjente en separat artikel, da syn normalt er kernen i gameplay.
+
+## Sådan fungerer det i dag
+
+Der er dybdegående dokumentation om belysningssystemet [her](/da/docs/dm/lighting-vision/#lighting--vision), men et kort resumé er som følger:
+
+Når spillebordet er fyldt med tåge (DM-indstilling: fill with FOW), er alt skjult for spilleren.
+Enhver form med en aura, der er markeret som offentlig og som lyskilde, vil dog fremstå for spilleren.
+Lyskilder, der ikke er markeret som offentlige, vises kun, hvis spilleren har synsadgang til formen.
+
+En ekstra synsindstilling kan aktiveres: line of sight (DM-indstilling: LoS).
+Når denne er aktiveret, vil spillere kun kunne se de førnævnte lyskilder, hvis de har synsadgang til en form, der eksplicit er markeret som "is a token".
+Endda vil de kun se den del af disse lyskilder, der falder inden for deres syn (under hensyntagen til vægge og andre synsblokerende former).
+Så du kan ikke se, hvad der er bag hjørnet, selvom det er oplyst.
+
+## Hvad er problemerne?
+
+Så hvad er der galt med dette? Ærligt talt ikke det store, men et par ting springer i øjnene efter at have brugt det et stykke tid.
+
+- Indstillingen `is a token` er ret uintuitiv; dens virkning er ikke direkte tydelig
+- Det er også meget nemt at glemme, hvilket potentielt skaber forvirring/frustration ved bordet (f.eks. "Nej, jeg kan ikke se noget")
+- Betydningen af synsadgangsrettigheden bliver lige så forvirrende i kombination med `is token`-egenskaben
+- Som DM kan du nogle gange have et forkert billede af, hvad spillere måske kan se (mere om dette senere)
+
+## Genovervejelse af token-konceptet
+
+Dette fik mig i sidste ende til at tænke på kernetanken bag token-konceptet. Hvorfor blev det oprindeligt introduceret?
+
+Svaret på det spørgsmål er temmelig enkelt: ydelse.
+
+Beregning af syn for former er en af de mere krævende ting, som PA skal udføre, og som spiller ejer du kun 1 eller måske et par former, så det er ikke så stort et problem,
+men DM'en ejer teknisk set alle former i scenen, hvilket kan ende med at blive rigtig mange former.
+Derfor blev token-egenskaben introduceret for at begrænse synsberegning til kun de former, der var markeret som sådan, hvilket lettede DM'ens rendergenerering betydeligt.
+
+Hvis man dog tager et skridt tilbage, er denne løsning faktisk lidt bagvendt.
+For spillere er løsningen relativt ligetil.
+Hvis de har adgang til en form, vil de sandsynligvis også have brug for syn over, hvad formen kan se.
+Og en DM bekymrer sig i sidste ende (normalt) kun om, hvad spillerne faktisk kan se.
+
+Så kan vi ikke bare droppe `is a token`-konceptet og i stedet bare tjekke, om formen har en spiller med synsadgang knyttet til sig?
+
+For at besvare det spørgsmål skal vi først bekræfte vores hypotese: Kræver spillere syn over alle de former, de ejer?
+
+Der er groft sagt tre forskellige slags former, som en spiller kan have adgang til:
+
+- Former, der repræsenterer en character / spiller-token
+- Former, der repræsenterer noget som en summon / kæledyr / npc / anden ledsager
+- Former, der repræsenterer objekter (f.eks. trylleeffekter, tegnede former, der repræsenterer forhindringer osv.)
+
+Den første slags form bør i 99% af tilfældene under alle omstændigheder give en form for syn, da den fundamentalt repræsenterer spillerens character.
+Den anden slags form er dog allerede problematisk. Svaret her er "det kommer an på".
+For den sidste slags form er svaret dog i 99% af tilfældene nej. Der er ingen grund til, at rektanglet, du tegnede for at repræsentere en barrikade, skulle give dig syn;
+hvis noget burde det faktisk blokere for syn!
+
+Så vores hypotese er desværre ikke sand, så vi kan ikke alligevel droppe `is a token`-egenskaben?
+
+Ikke så hurtigt! Den opmærksomme læser har måske bemærket, at vi indtil videre ofte har refereret til "synsadgang", hvilket måske antyder, at der findes andre _adgange_?
+
+Det viser sig, at der er. PA har 3 adgangsniveauer, der gradvist øger tilladelserne.
+Synsadgang giver dig adgang til alle de private lys-/synskilder, formen har;
+bevægelsesadgang tilføjer muligheden for at flytte token'en dertil;
+og endelig giver redigeringsadgang dig muligheden for at ændre egenskaber/auras/... på formen.
+
+Hvis vi ser tilbage på vores 4 eksempler, ville vi sandsynligvis ønske alle 3 adgangsniveauer for den første slags form, men kun redigeringsadgang og måske bevægelse for den anden slags form.
+Noget som et kæledyr/en summon kan have statistikker eller nogle andre ting, som spilleren bør have kontrol over; de kan måske flytte det, men normalt vil de ikke have synsadgang.
+
+Dette er i øjeblikket ikke muligt, da PA antager, at disse er additive tilladelser. Men vi kan i stedet opdele dette i fuldstændig selvstændige tilladelser.
+
+## En løsning endelig
+
+Så hvis vi opdeler adgangsniveauerne, dropper token-egenskaben og i stedet bare kigger på den "synsadgang", spilleren har.. så lykkes det!
+
+Så for at opsummere de ændringer, jeg sandsynligvis vil foretage:
+
+- Gør de 3 adgangsniveauer uafhængige i stedet for at stakke oven på hinanden
+- Fjern `is token`-egenskaben
+- Beslut formens synstilstand ud fra synsadgangsniveauet
+
+## DM-siden af tingene
+
+Som jeg nævnte tidligere, kan der være en vis forvirring på DM-siden, når man arbejder med syn.
+Generelt kan DM'en se alle spillernes syn kombineret og kan fravælge bestemte visninger med vision-værktøjet.
+
+Private syns-auras, der ikke er knyttet til en spiller, ender dog med at give mærkelige effekter.
+De vil vise sig for DM'en, da DM'en teknisk set har adgang til alle former, så de private auras gælder også for DM'en.
+Disse er dog auras, der aldrig vil vise sig for spilleren, så det er lidt mærkeligt at vise dem i DM'ens visning.
+
+Med de ændringer, der er beskrevet ovenfor, vil denne særlige "bug" også være væk.
+
+Det tilføjer dog en ny udfordring: hvis `is token` er væk, hvordan forbereder du så et nyt kort, hvor spillerne endnu ikke er på lokationen?
+Du kunne i teorien tilføje en tilfældig spiller til en testform for at tjekke, om din belysning er sat korrekt op.
+Du kunne også bare konfigurere formens standard synsadgangsrettighed.
+Begge tilgange virker, men du bliver nødt til at være ekstra opmærksom på ikke at glemme at fjerne dette igen, når dine spillere er klar til at udforske lokationen.
+
+Jeg tror, vi kan gøre det bedre her. Når du forbereder et kort, er du normalt ikke rigtig interesseret i line of sight-aspektet; det er mere en begrænsning ved spillet for spillerne.
+Lys- og vægopsætningen i sig selv er alt, hvad vi egentlig interesserer os for under forberedelsen. Man kunne manuelt skifte line of sight-indstillingen under forberedelse og spil, men det er temmelig besværligt.
+De forskellige spilparametre (f.eks. line of sight) bør være konstante. Det er DM-miljøet, der skal kunne konfigureres.
+
+Jeg ser nogle muligheder her:
+
+- Automatisk deaktiver LoS for DM'en, aktiver det, når du aktiverer fake-player-tilstand
+- Tilføj en ny hurtigtoggle under værktøjslinjen, der slår LoS til/fra **kun** for DM'en
+- Tilføj en ny hurtigtoggle til at aktivere "prep"-tilstand. I denne tilstand er kampagnen automatisk låst (dvs. spillere kan ikke tilslutte sig), og nogle specifikke indstillinger er aktive (f.eks. er LoS slået fra)
+
+Den første mulighed vil efter min mening være uintuitiv, da du ikke ser en umiddelbar ændring, når du slår LoS-DM-indstillingen til, selvom den faktisk har en stor effekt.
+Den anden mulighed føles god, og den er sandsynligvis den, jeg vil gå med.
+Jeg finder den tredje mulighed spændende, men den kommer til at være noget, der ikke virker for alle.
+I stedet tror jeg faktisk, at låsetilstanden også kan blive en hurtigtoggle.
+Og på et tidspunkt vil jeg sandsynligvis gøre det konfigurerbart, hvilke toggles der er synlige, hvis du ikke bruger dem alle.

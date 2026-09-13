@@ -1,0 +1,166 @@
+---
+title: Release 0.19.0 - Hvad er nyt!
+date: 2020-03-20 21:02:34
+excerpt: "Hvad er nyt i 2020?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Med 0.19.0 har vi vores første udgivelse i år! Der er et par store nye funktioner (etager og badges) og en masse små kvalitetsforbedringer og ændringer.
+
+De emner, der nævnes i denne udgivelsesopdatering, er listet til venstre, og den fulde ændringslog kan findes på [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.19.0).
+
+_Jeg har også oprettet en [patreon-konto](https://www.patreon.com/planarally), du er velkommen til at tjekke den ud :)_
+
+## Syn
+
+### Etager
+
+En af de største tilføjelser i denne udgivelse er introduktionen af etager. Ligesom i det virkelige liv kan en bygning bestå af flere etager.
+Indtil nu, hvis du ville efterligne dette i PA, var du nødt til enten at bruge separate lokationer eller have forskellige områder i én lokation, der repræsenterer forskellige etager.
+Begge tilgange kræver en masse springen rundt, hvilket i sidste ende er uønsket.
+
+Med denne udgivelse ændrer det sig; DM'en kan oprette/slette en etage ved hjælp af etageknappen i nederste venstre hjørne, lige ved siden af lagvælgeren. Tallet, der vises i dette felt, er det aktive etagenummer.
+
+Syn og lys virker på tværs af etager på en naturlig måde; En token på den øverste etage kan se en token med et lys i haven gennem et vindue, og ligeledes kan nogen i haven se personen på den øverste balkon. _Bemærk, at dette ikke er ægte 3D-gengivelse, så nogle små kantede tilfælde, hvor højden af bestemte elementer er ukendt, kan forekomme._
+
+**Videoen nedenfor kan indeholde kortafsløringer for WotC-eventyret Waterdeep Dragonheist.**
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/newfloors.webm" type="video/webm" />
+    <source src="/blog/release-0.19/newfloors.mp4" type="video/mp4" />
+</video>
+
+Eksemplet ovenfor viser, hvordan etagesyn virker, hvor venstre side repræsenterer en spiller med ejerskab af Y-token'en på første etage. Højre side repræsenterer DM'en, som har adgang til begge tokens.
+
+For at skifte etage klikker du på etageknappen nederst til venstre og vælger din ønskede etage. For at ændre etagen for en form eller en gruppe af former, højreklikker du på dem og bruger etageundermenuen.
+
+**Top-tip:** Der er nogle ekstra tastebindinger dedikeret til etager, som vil give dig mulighed for at skifte problemfrit. Page Up/Down flytter dig en etage op eller ned. Du kan også flytte et udvalg af former til andre etager gennem tastebindinger; Ctrl + Page Up/Down vil flytte tokens en etage op/ned, hvis du vil flytte med med det samme, så brug Ctrl + Shift + Page Up/Down i stedet.
+
+Bemærk, at spillere i øjeblikket er frie til at flytte til den etage, de ønsker. Ekstra adgangskontrol vil blive tilføjet i fremtiden, men med de rigtige synsindstillinger burde dette faktisk være helt fint!
+
+Hver etage er i bund og grund et helt nyt sæt lag. Dette betyder også, at der er ekstra klient-side belastning for hver etage, du tilføjer. I fremtiden vil der blive tilføjet en mulighed for kun at gengive den aktive etage for de spillere, der måske ikke kan håndtere stigningen i belastning. Standardtilfældet med kun én etage vil ikke have nogen ekstra overhead sammenlignet med tidligere udgivelser.
+
+### Tilgængelige tilstande
+
+Den gamle synstilstand baseret på bounding volume hierarchies (bvh) er nu fjernet fra spillet; ethvert kort, der stadig brugte det, bør ændres til standardtilstanden baseret på triangle expansion.
+
+Derudover er en ny synstilstand tilgængelig. Det er en eksperimentel opgradering af standardtilstanden baseret på triangle-syn, som ikke skal genberegne hele scenen, men arbejder iterativt. Dette burde give mærkbare præstationsforbedringer på kort med mange synselementer, men kan stadig indeholde fejl, der vil ødelægge synet; hvis det sker, burde en genindlæsning af siden virke fint.
+
+## Former
+
+### Badges
+
+En anden ny funktion som foreslået af @adunis på github, er introduktionen af badges; Disse er små nummererede ikoner i nederste højre hjørne af tokens.
+
+Visningen af badges kan slås til eller fra per gruppe af tokens. En gruppe af tokens defineres her som alle instanser, der er et resultat af at kopiere og indsætte den samme token. _(f.eks. trækker jeg en ork-token på spillebordet og kopierer og indsætter den en bunke gange, alle disse tokens er en enkelt gruppe. At trække en ny ork-token på spillebordet er en anden gruppe.)_
+
+Badges tager deres baggrundsfarve fra formens stregfarve, og deres kantfarve og skriftfarve er enten sort eller hvid afhængigt af, hvad der er mest læsbart. Tokennumrene øges automatisk ved indsættelse.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/badges.webm" type="video/webm" />
+    <source src="/blog/release-0.19/badges.mp4" type="video/mp4" />
+</video>
+
+### Annotations
+
+Jeg formåede at glemme en fejl, der blev rapporteret i august, men den er nu endelig rettet!
+
+Annotations stoppede med at virke, når man skiftede lokation. Dette er nu blevet løst :)
+
+## Værktøjer
+
+### Snapping
+
+Polygon-værktøjet er et værktøj, jeg bruger meget. Især versionen, der ikke auto-lukkes. Et problem, jeg ofte stødte på, var dog, at jeg ikke havde nogen pålidelig måde at tilføje et punkt nøjagtigt til min polygon, som skulle matche præcist med et eksisterende punkt (f.eks. forbindende vægge). Dette ville forårsage meget små, men mærkbare problemer med belysningen omkring disse områder, hvor åbne polygoner ville mødes.
+
+Denne udgivelse tilføjer nu en snapping-funktion, der automatisk vil yanke din musemarkør mod et nærliggende eksisterende punkt, hvis du kommer tæt på det. Denne snapping-adfærd er kun aktiv, når du ændrer størrelse eller bruger Draw-værktøjet. Draw-værktøjet fremhæver nu også snappable punkter, når du aktiverer (dette er noget, jeg måske fjerner i fremtiden, afhængigt af feedback).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/snapping.webm" type="video/webm" />
+    <source src="/blog/release-0.19/snapping.mp4" type="video/mp4" />
+</video>
+
+Som du kan se i slutningen af videoen, vises kun 1 rød prik på det sted, hvor to polygoner mødes. Tidligere plejede dette at være flere prikker meget tæt på hinanden.
+
+_Som en påmindelse, for at lukke en polygon skal du bruge højreklik; En fremtidig udgivelse burde gøre dette tydeligere i UI'et_.
+
+### Touch-bevægelser
+
+Touch-support har altid været meget usikker i bedste fald. Dette er et første skridt for at give touch-enheder mulighed for at interagere med PlanarAlly på en mere intuitiv måde.
+
+Tilføjelsen af disse ændringer er hovedsageligt begrænset til at interagere med de forskellige UI-elementer ved hjælp af touch; nogle af de mere 'avancerede' bevægelser som pinch-to-zoom osv. er endnu ikke tilføjet.
+
+_Denne funktion blev bidraget af @ZachMyers3 på github_
+
+### Select-rettelser
+
+Der var et sæt fejl relateret til Select-værktøjet, der kunne resultere i en dårlig brugeroplevelse, disse er nu forhåbentlig løst.
+
+Især ville det at trække en gruppe tokens ofte starte med et pludseligt uventet hop, dette var forårsaget af dårlig vektormatematik, og at trække flere former på én gang burde nu være meget bedre.
+
+Størrelsesændringscursoren ville også ikke vises korrekt for alle former i en multiselektion.
+
+Størrelsesændring generelt var også i stykker, hvis du trak et hjørne over et andet hjørne.
+
+## Indstillinger
+
+### Kontindstillinger
+
+En meget barebones-kontindstillingsside er blevet oprettet. Tandhjulet i dashboardet har nu faktisk en funktion!
+
+![Kontoindstillinger](./0.19/accountsettings.png)
+
+Som det kan ses, er den forholdsvis begrænset i sit omfang, men du kan nu ændre dit brugernavn, tilføje en e-mailadresse, ændre din adgangskode og slette din konto, hvis du ønsker det.
+
+Bemærk, at e-mailadressen ikke bruges på nogen måde af PA (og den er heller ikke obligatorisk), men er der for eventuelle fremtidige ændringer, eller hvis en serveradministrator ønsker at sende en e-mail til sine brugere.
+
+## Diverse
+
+### ctrl 0
+
+Givet at PA har et uendeligt kort, kan det ske, at du ikke kan finde dit faktiske kort igen efter at have panoreret/scrollet rundt.
+
+Som en simpel workaround er der nu en tastebinding ctrl+0 for at nulstille dit kamera til kortets oprindelse.
+
+_Denne funktion blev bidraget af @LDeeJay1969 på github_
+
+### /\_load
+
+Forhåbentlig vil de fleste brugere ikke have bemærket dette, men PA plejede at have en særlig /\_load-sti, der blev brugt til overgang mellem stier.
+Hvis du dog gik tilbage ved hjælp af din browsers tilbage-knap, kunne du ende på denne særlige side, der ikke har noget at interagere med.
+
+Indlæsningsmekanismen er nu blevet ændret og behøver ikke længere den særlige sti.
+
+_Denne funktion blev bidraget af @ZachMyers3 på github_
+
+### Versionsnummer
+
+For at kunne se, hvilken version af PA serveren, du er på, faktisk bruger, viser loginpanelet nu versionsnummeret i sin titel.
+
+![Versionsnummer](./0.19/version.png)
+
+_Denne funktion blev bidraget af @ZachMyers3 på github_
+
+### Fjernelse af js-artefakter
+
+Dette er en teknisk ændring, der kun er relevant for kodebidragydere.
+
+Tidligere blev js-byggematerialet gemt i git-repositoriet, så servermappen kunne bruges med det samme uden ekstra js-bygning.
+Dette fører dog til en masse merge-konflikter og unødvendige filer i repositoriet.
+
+Du bør nu selv bygge js-filerne korrekt, hvis du vil teste lokalt.
+
+## Planlagt til 0.20.0
+
+### Lokationsomlægning
+
+Det, jeg absolut gerne vil tackle i den næste udgivelse, er UI/UX'en for lokationslinjen. Den er nu bare en grim ting med begrænset funktionalitet.
+
+### Markører
+
+@LDeeJay1969 har arbejdet på et markørsystem for at hoppe til markerede lokationer.
+
+### Tastebindingsvindue
+
+@Daniferrito startede arbejdet på et tastebindingsvindue.

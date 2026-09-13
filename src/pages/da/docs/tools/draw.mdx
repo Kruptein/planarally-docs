@@ -1,0 +1,91 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Værktøj Draw
+
+Draw-værktøjet kan tilgås i værktøjslinjen nederst til højre på skærmen af alle spillere, men kun i [Build-tilstand](/da/docs/tools-overview/#toolbar-and-modes).
+
+Det giver dig mulighed for at tegne former på bordet og er organiseret i tre sektioner: form, syn og logik.
+
+## Formindstillinger
+
+I formindstillingerne kan den ønskede form vælges såvel som nogle almindelige grundlæggende egenskaber for formen.
+
+De fleste former tilbyder en indstilling for fyld- og/eller kantfarve.
+
+### Rektangel
+
+En af de enkleste former, en _rektangel_. Mens musen er holdt nede, vises en forhåndsvisning af, hvordan rektanglet vil se ud, hvis du slipper den.
+
+### Cirkel
+
+Ligesom rektanglet er en _cirkel_ meget enkel. Den tegnede cirkel centreres på den lokation, hvor du trykkede musen ned, og får en radius baseret på, hvor du slap musen.
+
+### Polygon / linje
+
+_Polygon / linje_ er sandsynligvis den mest komplekse form, men den giver den største fleksibilitet.
+
+I modsætning til alle andre former behøver du ikke holde museknappen nede, mens du tegner. I stedet vil der hver gang, du klikker et sted på bordet, komme et nyt punkt med en linje, der forbinder det med det forrige punkt. Du kan frit krydse eller genbruge eksisterende punkter.
+
+For at signalere, at formen er færdig, bruger du i øjeblikket højre museknap. For at annullere tegningen kan du trykke på Escape.
+
+Hvis du markerer afkrydsningsfeltet for lukket polygon, bliver det sidste punkt og det første punkt automatisk forbundet, når formen færdiggøres, og polygonen fyldes med fyldfarven.
+
+### Pensel
+
+En anden tegnemetode er _pensel_, som er en fritløbende mulighed, der giver dig mulighed for at tegne lige, hvad du vil.
+
+<Warning title="Ydelse">
+    Bemærk, at tegning med _pensel_ kræver brug af mange punkter for at repræsentere en form. Dette anbefales generelt
+    kun til små ting, da det er ret dårligt ydelsesmæssigt.
+</Warning>
+
+### Tekst
+
+Den sidste tilgængelige tegnemetode er _tekst_.
+Angiv en skriftstørrelse, før du tegner, da du ikke vil kunne ændre størrelsen selv senere.
+Du vil dog kunne skalere tekstobjektet frit.
+
+I stedet for at trække, som ved de andre tegnemetoder, kræver tegning af tekst et enkelt klik.
+Dette åbner en popup, hvor du kan angive den tekst, der skal vises.
+
+Den indtastede tekst gengives i den serif-skrifttype, der bruges til simple tokens, _centreret på det klikkede punkt_ i første trin.
+Den kan trækkes og skaleres osv. som enhver anden form.
+
+<Tip title="Redigering">Du kan redigere teksten bagefter i dialogen med formegenskaber!</Tip>
+
+## Synsindstillinger
+
+Synsindstillingerne giver dig mulighed for at forudkonfigurere belysnings- og synsindstillingerne for den tegnede form.
+
+Blokeringsindstillingerne slås automatisk til og fra, når du skifter til og fra fow-laget,
+men du kan frit tilpasse dem efter dine behov.
+
+Når mindst én blokeringsindstilling er aktiveret, vises <Eye />-ikonet for værktøjet med en orange baggrund som en visuel påmindelse.
+
+### Kun DM-tilstande
+
+DM kan også vælge yderligere synstegnetilstande i denne sektion.
+
+_Normal_ tilstand er som forventet standardadfærden.
+
+_Reveal_ og _Hide_ tegner henholdsvis 'magisk lys' eller 'mørke'.
+For mere information, se [dokumentationen om magisk lys og mørke](/da/docs/dm/lighting-vision/#magical-lights-and-darkness).
+
+_Erase_ opretter en form, der fungerer som et (bærbart) 'hul', der gennemborer alle objekter _under_ dem i tegnestakken, inklusive [etager](/da/docs/dm/floors/)!
+En _erased_ form lægges automatisk på [map-laget](/da/docs/game/gameboard/#map), men kan flyttes til et hvilket som helst lag.
+
+Se [0.26-udgivelsesnoterne](/da/blog/release-0.26#erase-floor-mode-dm) for mere information om erase-tilstand.
+
+## Logikindstillinger
+
+Dette giver dig mulighed for at forudkonfigurere dør-logik for formen.
+
+Dette kan spare dig for en masse tid, når du kortlægger dine vægge og døre!
+
+Se [formlogik](/da/docs/game/shapes/#logic) for mere information.

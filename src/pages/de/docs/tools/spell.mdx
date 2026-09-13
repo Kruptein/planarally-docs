@@ -1,0 +1,62 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Werkzeug Spell
+
+Das Spell-Werkzeug kann von allen Spielern über die Symbolleiste unten rechts auf dem Bildschirm aufgerufen werden, allerdings nur im [Play-Modus](/de/docs/tools-overview/#toolbar-and-modes).
+
+Es weist einige Ähnlichkeiten mit dem Draw-Werkzeug auf, ist jedoch speziell auf das Wirken von Zaubern während des Spiels ausgerichtet.
+
+Du kannst deine Zauberform (Quadrat/Kreis/Kegel) auswählen und ihre Größe, Reichweite und Farbe sowie schließlich konfigurieren, ob deine Zauber mit anderen Spielern geteilt werden oder ob sie nur für dich bestimmt sind.
+
+Auffälligerweise fehlt in der Liste der Zauberformen die Linie, obwohl sie beim Zaubern ein gängiges Muster ist.
+Wir sind der Meinung, dass das vorhandene Ruler-Werkzeug hier ausreicht, und haben es für unnötig befunden, dem Spell-Werkzeug zusätzlichen Ballast hinzuzufügen.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.25/spell.webm" type="video/webm" />
+    <source src="/blog/release-0.25/spell.mp4" type="video/mp4" />
+</video>
+
+## Allgemeine Bedienung
+
+Außer wenn die Reichweite auf 0 gesetzt ist, folgt dein Zauber jederzeit deiner Maus, solange das Spell-Werkzeug aktiv ist.
+
+Der Standard-Zaubermodus dient nur dazu, Dinge schnell zu messen, um zum Beispiel zu sehen, wie viele Personen du treffen könntest.
+Dein Zauber verschwindet, wenn du das Werkzeug wechselst.
+
+Wenn du einen Zauber hast, der nicht sofort wirkt, sondern länger auf dem Schlachtfeld bleibt, kannst du per **Linksklick** aus dem Zauber eine echte Form machen.
+Du wechselst automatisch zum Select-Werkzeug.
+
+Wenn du danebengeklickt hast oder der Zaubereffekt abklingt, kannst du den Zauber wie jede andere Form entfernen.
+Beachte außerdem: Wenn 'show public' deaktiviert ist, erhält der Zauber in dem Moment, in dem du ihn 'wirkst', die Eigenschaft 'invisible'!
+Sobald der Zauber gewirkt ist, hindert dich nichts daran, diese Eigenschaft zu entfernen.
+
+Ein Rechtsklick bringt dich ebenfalls zurück zum Select-Werkzeug, wirkt den Zauber aber nicht.
+Dies ist als 'Abbrechen'-Funktion gedacht.
+
+## Auswahlkontext
+
+Die Kegelform und der Reichweitenparameter sind nur verfügbar, wenn du eine Form aktiv ausgewählt hast.
+
+Ersteres, weil ich keine Beispiele für die Verwendung von Kegeln gefunden habe, die nicht selbst gewirkt werden,
+aber auch, weil es mir schwerfiel, mir die UX-Ergonomie hinsichtlich der Rotation im nicht selbst gewirkten Fall vorzustellen.
+
+Letzteres, weil es sonst keinen Referenzpunkt gibt.
+
+## Größe
+
+Der Größenparameter bestimmt die Fläche, die der Zauber abdeckt.
+Bei einem Quadrat ist es die Länge einer Seite.
+Bei einem Kreis und einem Kegel ist es der Radius des Zaubers!
+
+Genau wie bei Auren werden diese Zahlen anhand der konfigurierten Einheitengröße definiert, die standardmäßig 5 ft. beträgt (siehe DM-Rastereinstellungen).
+
+## Reichweite
+
+_Die Reichweite des Zaubers kann, wie oben erwähnt, nur konfiguriert werden, wenn du eine aktive Form ausgewählt hast._
+
+Wenn die Reichweite auf 0 gesetzt ist, wird angenommen, dass es sich um einen selbst gewirkten Zauber handelt, und der Zauber wird automatisch auf deiner aktiven Form zentriert.
+
+Wenn die Reichweite eine beliebige Zahl >0 ist, wird ein schwarzer Kreis angezeigt, dessen Radius der konfigurierten Reichweite entspricht.
+Dies

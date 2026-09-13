@@ -1,0 +1,145 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# Klientindstillinger
+
+Indstillingerne i spillet er tilgængelige fra sidemenuen (klik på <Cog />-ikonet øverst til venstre i dit browservindue for at åbne menuen).
+
+#### Synkronisering af indstillinger
+
+Som standard afspejler de viste indstillinger direkte dine globale standardklientindstillinger.
+Når du ændrer en indstilling, vises to ekstra knapper ved siden af den for at indikere, at denne indstilling tilsidesætter standardadfærden.
+
+Du kan nulstille indstillingen til standardværdien ved at klikke på <TimesCircle />-ikonet.
+
+Hvis du i stedet vil gøre din ændring til den nye standardværdi, kan du klikke på <SyncAlt />.
+Dette påvirker alle andre kampagner, hvor du ikke har tilsidesat denne indstilling.
+
+## Udseende
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Apparance Settings" />
+
+### Sprog
+
+Her kan du vælge et andet sprog, der skal vises i brugergrænsefladen.
+Dette replikeres til alle andre kampagner, du spiller eller kører, ligesom hvis det blev gjort via [dashboardet](/da/docs/dashboard/#localisation).
+
+### Værktøjslinjer
+
+_Tilføjet i 2022.3_
+
+Denne indstilling giver dig mulighed for at vælge mellem ikoner eller tekst til værktøjslinjens værktøjer (f.eks. ruler-ikonet vs. "ruler").
+
+### Grid
+
+Farveindstillingen definerer, i hvilken farve [grid-laget](/da/docs/dm/layers/#grid) (dvs. grid-linjerne) tegnes.
+
+### Ruler
+
+Her kan farven på [ruleren](/da/docs/tools/ruler) angives.
+Hvis ruleren bruges offentligt, vil alle andre spillere se din ruler i den farve, du har defineret her.
+
+### Tåge
+
+Dette angiver farven for tågen, der dækker alt det, du ikke kan se.
+
+## Adfærd
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Behaviour Settings" />
+
+### Snapping
+
+Når den er afkrydset, inverteres standard-[snapping-adfærden](/da/docs/game/snapping/).
+
+### Mus & Bevægelser
+
+Som standard kan du rulle for at zoome ind eller ud. Dette kan dog være irriterende på touch-enheder og kan derfor deaktiveres.
+
+### Udvalgsinfo
+
+_Tilføjet i 2022.3_
+
+Denne indstilling påvirker, hvordan ændringer af udvalgsinfo-trackeren fortolkes som standard.
+
+Når du bruger absolut tilstand, er resultatet af det indtastede udtryk den nye værdi af trackeren.
+
+Når du bruger relativ tilstand, lægges resultatet til den oprindelige værdi af trackeren.
+Dette giver dig mulighed for hurtigt at ændre værdier med f.eks. -5 eller +5.
+
+## Visning
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Display Settings" />
+
+HiDPI-indstillingen giver dig mulighed for at øge opløsningen på det gengivne spil på skærme, der tilbyder subpixel-rendering.
+
+<Warning title="Øgede ydelseskrav">
+Aktivering af denne indstilling kræver mere ydelse fra din computer.
+
+Hvis spillet føles laggy, skal du sørge for, at dette ikke er aktiveret.
+
+</Warning>
+
+### Spillebord
+
+Hvis du bruger PlanarAlly på en skærm, som du bruger som et fysisk spillebord med rigtige minier,
+vil du gerne konfigurere disse indstillinger for at få grid-størrelsen korrekt afstemt efter dine minier.
+
+Du skal kende PPI på din skærm for, at dette kan fungere korrekt.
+
+Bemærk, at zoom ind/ud i øjeblikket er deaktiveret, når denne indstilling er aktiv.
+
+### Grid
+
+Når du _ikke_ bruger et fysisk bord, kan du her konfigurere, hvor stor en enkelt grid-celle skal være på din skærm.
+
+Du vil gerne ændre dette, hvis du f.eks. spiller på en projektor.
+
+## Initiativ
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Initiative Settings" />
+
+<Info>
+    De to låseindstillinger nedenfor er kun i brug, hvis initiativ er aktivt. Initiativ er kun korrekt aktivt, når det
+    slås til via [Quick Toggles](/da/docs/tools/quick-toggles/).
+</Info>
+
+### Lås kamera
+
+Ved at aktivere denne funktion centreres kameraet automatisk på den næste karakter, hver gang initiativet rykker til den næste karakter, hvis du har adgang til den.
+
+### Lås syn
+
+Ved at aktivere denne funktion begrænses synet, som om du kun havde adgang til den aktive initiativkarakter (så længe du har adgang til den form).
+
+Dette har samme effekt, som hvis du brugte [synsværktøjet](/da/docs/tools/vision/) og manuelt ændrede det til den aktive initiativdeltager hver tur.
+Dette er kun relevant, hvis du kontrollerer flere karakterer.
+
+### Effekter
+
+Denne indstilling giver dig mulighed for at konfigurere, hvornår initiativeffekter skal vises.
+Som standard er kun den aktive aktørs effekter udvidet, men du kan ændre dette til alle aktører på alle tidspunkter.
+
+## Ydelse
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Performance Settings" />
+
+### Rendering
+
+_Tilføjet i 2022.3_
+
+Etager er en fordybende oplevelse, men koster mere ydelse.
+Denne indstilling giver dig mulighed for at begrænse renderingen til den aktive etage.

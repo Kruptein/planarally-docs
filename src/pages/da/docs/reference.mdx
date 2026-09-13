@@ -1,0 +1,66 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+# Hurtig reference
+
+## Standardlag
+
+For mere information om lag, se [lagdokumentationen](/da/docs/dm/layers/).
+
+| Navn   | synligt for spiller | redigerbart af spiller | kort beskrivelse                                                              |
+| ------ | ------------------- | ---------------------- | ----------------------------------------------------------------------------- |
+| Map    | Ja                  | Nej                    | Lag under gitteret, typisk brugt til kortaktiver                              |
+| Grid   | Ja                  | Nej                    | Kan heller ikke vælges af DM, men kan konfigureres i sessionens indstillinger |
+| Tokens | Ja                  | Ja                     | Det primære spillebord                                                        |
+| DM     | Nej                 | Nej                    | Et sted, hvor DM kan placere objekter, der er skjult for spillerne            |
+| Vision | Ja                  | Nej                    | Alle former her er usynlige på andre lag                                      |
+
+## Tastebindinger
+
+På en Mac skal du bruge `Command` i stedet for `Ctrl`.
+
+### Bevægelse
+
+En god del af tastebindingerne er dedikeret til at flytte rundt på enten former eller skærmen.
+
+| Tast/Modifier                 | Kontekst        | Handling                                                   |
+| ----------------------------- | --------------- | ---------------------------------------------------------- |
+| Piletasterne, Numpad 1-4, 6-9 | ingen markering | Flyt bordet 1 gittercelle i den trykkede retning           |
+|                               | markering       | Flyt de valgte former 1 gittercelle i den trykkede retning |
+| Mellemrum, Numpad 0           |                 | Centrér skærmen på næste token (kører gennem ejede tokens) |
+| Shift                         | markering       | Flyt former gennem bevægelsesblokerende terræn (kun DM)    |
+| Ctrl + 0, Numpad 5            |                 | Fokuser gitterets oprindelsespunkt (0,0)                   |
+| Numpad 5                      | markering       | Fokuser midten af markeringen                              |
+| midterste museknap (hold)     |                 | Pan skærmen                                                |
+| midterste musehjul            |                 | Zoom i forhold til den aktuelle musemarkør.                |
+| Page up/down                  |                 | Flyt kamerakameraets etage op/ned                          |
+| Page up/down + alt            | markering       | Flyt markeringens etage op/ned                             |
+| Page up/down + shift + alt    | markering       | Flyt markering + kamerakameraets etage op/ned              |
+
+### Opførsel
+
+| Tast/Modifier    | Kontekst | Handling                                            |
+| ---------------- | -------- | --------------------------------------------------- |
+| Tab              |          | Skift mellem tilstande (Build/Play)                 |
+| Alt (hold)       |          | Deaktivér [snapping-adfærd](/da/docs/game/snapping) |
+| Ctrl + u         |          | Skift UI                                            |
+| Ctrl + z         |          | Fortryd (Undo)                                      |
+| Ctrl + shift + z |          | Gentag (Redo)                                       |
+| n                |          | Åbn [Note Manager](/da/docs/game/notes)             |
+| Mellemrum        | ruler    | Sæt [ruler](/da/docs/tools/ruler) waypoints         |
+
+### Markering / forminteraktion
+
+| Tast/Modifier  | Kontekst  | Handling                                       |
+| -------------- | --------- | ---------------------------------------------- |
+| Enter          | markering | Åbn redigeringsdialog for form                 |
+| Ctrl           | markering | Udvid aktiv markering med ctrl-valgte former   |
+|                | resize    | Bevar billedforhold                            |
+| Mellemrum      | markering | Sæt [ruler](/da/docs/tools/ruler) waypoints    |
+| Del, Backspace | markering | Slet alle former i den aktive markering        |
+| d              | markering | Fjern markering fra alle aktuelt valgte former |
+| x              | markering | Marker form(er) som besejret                   |
+| Ctrl + l       | markering | (Lås/Unlock) valgte former                     |
+| Ctrl + c       | markering | Kopiér markering til udklipsholder             |
+| Ctrl + v       |           | Indsæt udklipsholder på bordet                 |

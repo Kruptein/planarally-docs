@@ -1,0 +1,212 @@
+---
+import Main from "../../layouts/main.astro";
+
+const paths = [
+    {
+        href: "/zh/learn/",
+        title: "学习",
+        description: "面向玩家和 DM 的分步教程。如果你是新手，从这里开始。",
+    },
+    {
+        href: "/zh/docs/",
+        title: "文档",
+        description: "功能、工具等内容的参考文档。",
+    },
+    {
+        href: "/zh/server/setup/",
+        title: "服务器",
+        description: "自行托管 PlanarAlly、配置你的实例并管理用户。",
+    },
+    {
+        href: "/zh/blog/",
+        title: "博客",
+        description: "版本说明与开发动态。",
+    },
+];
+
+const features = [
+    {
+        title: "照明与视野",
+        description: "动态光照与视线。",
+        href: "/zh/docs/dm/lighting-vision/",
+    },
+    {
+        title: "图层、楼层与地点",
+        description: "跨图层、楼层和场景组织地图。",
+        href: "/zh/docs/game/gameboard/",
+    },
+    {
+        title: "素材与模板",
+        description: "上传地图和棋子，保存可复用的预设。",
+        href: "/zh/docs/dm/assets/",
+    },
+    {
+        title: "Build 与 Play 工具",
+        description: "在 Build 模式中准备，在 Play 模式中主持会话。",
+        href: "/zh/docs/tools-overview/",
+    },
+    {
+        title: "自托管",
+        description: "离线运行，完全掌控你的数据。",
+        href: "/zh/server/setup/",
+    },
+];
+---
+
+<Main>
+    <main>
+        <section class="hero">
+            <img
+                id="logo"
+                src="/logos/pa-logo.svg"
+                alt="PlanarAlly 标志"
+                data-no-zoom
+            />
+            <h1>PlanarAlly</h1>
+            <p class="tagline">
+                面向桌面角色扮演游戏的开源虚拟桌面。自行托管、离线游玩，借助照明、视野和灵活的地图系统主持沉浸式的
+                游戏。
+            </p>
+        </section>
+
+        <section class="paths">
+            <h2>快速开始</h2>
+            <div class="cards">
+                {
+                    paths.map((path) => (
+                        <a class="card" href={path.href}>
+                            <div class="card-title">{path.title}</div>
+                            <p>{path.description}</p>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>核心功能</h2>
+            <ul>
+                {
+                    features.map((feature) => (
+                        <li>
+                            <a href={feature.href}>{feature.title}</a>
+                            <span> — {feature.description}</span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </section>
+    </main>
+</Main>
+
+<style lang="scss">
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 25px 100px;
+    }
+
+    section {
+        width: 100%;
+        max-width: 900px;
+        margin-bottom: 4rem;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+    }
+
+    .hero {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+
+        h1 {
+            margin-bottom: 1rem;
+        }
+
+        .tagline {
+            max-width: 600px;
+            line-height: 1.6;
+        }
+    }
+
+    #logo {
+        height: 160px;
+        width: 160px;
+        margin-bottom: 2rem;
+        padding: 25px;
+        background: #f1e7d0e1;
+        border-radius: 25%;
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .card {
+        display: block;
+        border: solid 1px rgb(226, 236, 236);
+        padding: 1.5rem;
+        color: inherit;
+        transition:
+            transform 0.15s ease,
+            box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-3px);
+            box-shadow: 2px 2px 15px 0 #cfe6e6;
+        }
+
+        .card-title {
+            font-size: x-large;
+            font-weight: bold;
+            margin-bottom: 0.75rem;
+            color: #00835c;
+        }
+
+        p {
+            margin: 0;
+            line-height: 1.5;
+        }
+    }
+
+    .features {
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 0.75rem 0;
+            border-bottom: solid 1px rgb(226, 236, 236);
+            line-height: 1.5;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        a {
+            color: #00835c;
+            font-weight: bold;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        span {
+            color: var(---fg-color);
+        }
+    }
+</style>

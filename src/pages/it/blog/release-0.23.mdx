@@ -1,0 +1,120 @@
+---
+title: Release 0.23.0 - Cosa c'è di nuovo!
+date: 2020-10-18 16:30:00
+excerpt: "Cosa c'è di nuovo in 0.23.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
+Tempo di una nuova release! Come per le altre release abbiamo un sacco di correzioni di bug, ma ci sono anche altre cose interessanti.
+Una rielaborazione di alcuni elementi dell'interfaccia, miglioramenti dei luoghi di spawn, un sistema di template e altro ancora!
+
+**Importante per i proprietari dei server** Questa release aggiunge una nuova sezione al server_config, assicurati di aggiornare i tuoi server_config sovrascrivendo il nuovo config con le tue modifiche personalizzate, oppure aggiungendo la nuova sezione al tuo config esistente.
+
+## Modifiche ai luoghi di spawn
+
+Questa release porta due modifiche al sistema dei luoghi di spawn. Supporto per più luoghi di spawn e una modifica al sistema del luogo di spawn iniziale.
+
+### Rimozione della creazione automatica dello spawn
+
+La prima iterazione dei luoghi di spawn creava automaticamente il luogo di spawn per te.
+In pratica non sembrava fantastico. Lo spawn non veniva sempre creato la prima volta,
+a volte appariva doppio, e a volte non era proprio dove te lo aspettavi.
+Inoltre non tutti i luoghi hanno effettivamente bisogno di uno spawn.
+
+Quindi è stata fatta la scelta di non fare più questa creazione automatica.
+Ora potrai creare manualmente i luoghi di spawn dove vuoi.
+
+### Multipli spawn
+
+Insieme alla modifica di cui sopra, ora è stato anche rimosso il limite di 1 luogo di spawn.
+Quando crei un luogo di spawn ti verrà chiesto un nome.
+
+Quando sposti forme in un altro luogo ti verrà mostrato un prompt in cui puoi scegliere tra gli spawn definiti per quel luogo.
+Se esiste solo 1 spawn, il prompt verrà invece saltato.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>
+
+## Template
+
+Forse la modifica più entusiasmante è la possibilità di salvare template degli asset per un riutilizzo successivo.
+In qualsiasi momento puoi salvare lo stato di un asset dal menu contestuale del tasto destro.
+
+Questo stato include le proprietà predefinite ma anche tracker, aure e dimensioni (larghezza e altezza).
+
+Quando trascini un asset sul tavolo che ha dei template associati, ti verrà chiesto di scegliere un template invece del preset vuoto di base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Questo può essere molto utile per riutilizzare alcuni segnalini che usi spesso per precompilare cose come HP e fonti di luce.
+Questo sarà anche fondamentale per condividere set con altri giocatori.
+
+## Restyling dell'interfaccia
+
+### Pagina di accesso
+
+La pagina di accesso è stata ridisegnata e ora ha un po' più di stile :)
+Inoltre il flusso di registrazione è più esplicito, perché il vecchio comportamento non era chiaro a tutti.
+
+### Dialogo di modifica
+
+Il dialogo di modifica delle forme stava diventando piuttosto grande, con ogni release che aggiungeva qualcosa al dialogo.
+Questa release quindi aggiunge alcune sottosezioni al dialogo di modifica per organizzare meglio le cose senza riempire l'intero schermo.
+
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Modifica asset" />
+
+## Notifiche di sistema
+
+Una nuova aggiunta per i proprietari dei server è l'opzione di creare messaggi di sistema.
+Questi messaggi verranno trasmessi a tutti i giocatori attuali e ai visitatori futuri.
+I messaggi rimarranno visibili finché il giocatore non li chiude o finché il proprietario del server non li rimuove.
+
+L'uso principale previsto per questi messaggi è informare gli utenti su cose come i tempi di inattività previsti.
+
+Un endpoint API separato è disponibile per pubblicare questi messaggi con semplici semantiche REST.
+C'è una nuova sezione nel server_config (ApiServer) dedicata alla configurazione di questo webserver.
+È configurato allo stesso modo del webserver principale, ma di default usa `localhost` invece di `0.0.0.0`
+e usa 8001 come porta predefinita.
+
+Per maggiori informazioni su quali endpoint sono disponibili consulta la [documentazione API](/it/docs/server/api/).
+
+## Qualità della vita
+
+### Aggancio del Ruler
+
+Il Ruler ora ha anche un [comportamento di aggancio](/it/docs/game/snapping/) e proverà ad agganciarsi a uno dei 9 punti di una certa cella della griglia.
+I 4 angoli di una cella della griglia, i loro punti medi e il centro assoluto sono tutti luoghi di aggancio.
+
+### Markdown delle annotazioni
+
+Il campo annotazione nel dialogo di modifica delle forme ora supporta il markdown.
+Anche l'interfaccia delle annotazioni mostrate ha ricevuto un piccolo aggiornamento.
+
+![Annotazioni Markdown](./0.23/annotations.png)
+
+### Backup del server
+
+I salvataggi del server ora verranno salvati in una sottodirectory dedicata.
+Prima di questa release venivano memorizzati nella cartella principale del server,
+il che poteva davvero ingombrare le cose.
+
+I salvataggi più vecchi non verranno toccati, ma sentiti libero di spostarli in questa nuova sottodirectory.
+
+## Correzioni varie
+
+- Esegui il container docker come utente non-root
+- Sbloccare una forma tramite il menu rapido non mette più la forma in modalità trascinamento
+- Mappa che accettava alcuni input non validi (numeri negativi, 0, tutto ciò che non è un numero)
+- Le textarea di note e annotazioni non avevano l'altezza corretta inizialmente
+- Errori in console quando si tenta di spostare piani a cui non hai accesso
+- I nomi delle forme private apparivano come ? per gli utenti con accesso
+- [tech] Mostra i messaggi di errore in base al corpo della risposta

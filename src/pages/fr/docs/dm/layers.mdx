@@ -1,0 +1,85 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import LayersPicture from "./assets/layers.png";
+
+# Calques
+
+<Image src={LayersPicture} width={800} aspectRatio={861 / 404} alt="Informations sur les calques" />
+
+PlanarAlly organise sa table de jeu en plusieurs calques.
+Ils sont dessinés les uns par-dessus les autres.
+Ces multiples calques produisent le résultat que vous voyez en jouant.
+
+Chacun de ces calques a un usage dédié.
+Il est important que le DM comprenne l'utilité de chacun.
+Pour un aperçu rapide de chaque calque, consultez le document de [référence rapide](/fr/docs/reference/).
+Pour plus de détails, continuez votre lecture !
+
+À l'exception du calque DM, tous les calques sont également dessinés sur les tables des joueurs.
+Toutefois, ceux-ci ne peuvent interagir qu'avec les éléments du calque tokens.
+
+_Ces calques sont actuellement codés en dur, mais j'envisage bien la possibilité de les personnaliser selon vos préférences à l'avenir._
+
+## Map
+
+Tout en bas de la pile de dessin se trouve le calque map.
+Ce calque sert à placer les cartes, les plans des bâtiments, etc.
+
+Ce calque est dessiné sous le calque grille.
+Cela vous permet d'aligner vos lignes de grille sur vos différents donjons.
+Pour le reste, ce calque se comporte comme le calque tokens.
+
+## Grid
+
+Ce calque ne peut pas être sélectionné manuellement, mais il peut être configuré à l'aide du [menu des options du DM](/fr/docs/dm/settings/).
+Ce calque dessine les lignes de grille à l'écran.
+
+Ces lignes de grille sont soit des carrés (par défaut), soit des hexagones.
+Les deux types de grilles hexagonales, à pointe en haut et à plat, peuvent être dessinés, mais ne sont pour l'instant pris en charge qu'à titre expérimental.
+
+<Warning title="Expérimental">
+    Les grilles hexagonales sont expérimentales, un comportement étrange peut donc survenir régulièrement. Un exemple
+    est l'accrochage qui fonctionne toujours avec les grilles carrées, malgré l'affichage d'une grille hexagonale.
+</Warning>
+
+## Tokens
+
+Le cœur du jeu se déroulera sur ce calque.
+C'est l'endroit où les joueurs et les personnages non joueurs se déplacent.
+Vous aurez souvent ce calque actif.
+
+## DM
+
+Ce calque n'est accessible qu'au DM.
+Les joueurs ne verront rien de ce calque.
+Il peut servir à planifier les rencontres à l'avance.
+Il peut aussi servir à placer des étiquettes de texte pour mémoriser des informations clés.
+
+Vous pouvez également changer le calque d'une forme.
+En cachant sur le calque DM les ressources que les joueurs ne sont pas encore censés voir, vous vous assurez qu'ils ne voient pas les informations prématurément.
+
+## FOW
+
+Ce calque a un comportement particulier qui aide à la vision.
+
+Lorsque vous dessinez vos murs, vous voulez qu'ils soient statiques.
+Vous ne voulez pas qu'ils changent, car vos joueurs pourraient voir des sections de la carte qu'ils ne devraient pas encore voir.
+En dessinant les murs sur le calque vision, vous vous assurez qu'en interagissant avec le calque tokens, vous ne déplacez pas accidentellement un mur.
+Ce calque réalise donc deux tours de magie automatiquement pour vous.
+
+La plupart des formes que vous dessinez sur ce calque serviront pour les murs ou les portes ; les formes dessinées sur ce calque reçoivent donc automatiquement les réglages « blocks movement » et « blocks vision ».
+« Blocks movement » empêche les joueurs de traverser ces formes.
+« Blocks vision » empêche les joueurs de voir à travers ces formes.
+Vous pouvez désélectionner ces options si vous n'en avez pas besoin, mais sachez qu'elles seront appliquées par défaut sur ce calque.
+
+**Tout** ce qui est dessiné sur ce calque est invisible sur les autres calques.
+C'est parce que, généralement, votre carte possède déjà des murs pré-dessinés.
+Lorsque vous dessinez un vilain rectangle noir pour signaler un mur au système d'éclairage, vous ne voulez pas voir cette vilaine tache lorsque vous êtes sur le calque tokens.
+
+Ce calque est purement une commodité.
+Si vous n'aimez pas les réglages automatiques ou l'aspect invisible, vous pouvez utiliser le calque tokens et y dessiner vos murs avec les réglages de votre choix.

@@ -1,0 +1,91 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Eye from "~icons/fa-solid/eye";
+import Warning from "/src/components/directives/Warning.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Outil Draw
+
+L'outil Draw est accessible dans la barre d'outils en bas à droite de l'écran pour tous les joueurs, mais uniquement en [mode Build](/fr/docs/tools-overview/#toolbar-and-modes).
+
+Il permet de dessiner des formes sur la table de jeu et est organisé en trois sections : forme, vision et logique.
+
+## Paramètres de forme
+
+Dans les paramètres de forme, vous pouvez choisir la forme souhaitée ainsi que certaines propriétés de base communes à la forme.
+
+La plupart des formes proposent un réglage de couleur de remplissage et/ou de bordure.
+
+### Rectangle
+
+L'une des formes les plus simples, un _rectangle_. Tant que la souris est maintenue enfoncée, un aperçu montre à quoi ressemblera le rectangle si vous relâchez.
+
+### Cercle
+
+Tout comme le rectangle, un _cercle_ est très simple. Le cercle dessiné sera centré sur l'emplacement où vous avez appuyé avec la souris et aura un rayon basé sur l'endroit où vous avez relâché la souris.
+
+### Polygone / Ligne
+
+_Polygone / Ligne_ est probablement la forme la plus complexe, mais c'est celle qui offre le plus de flexibilité.
+
+Contrairement à toutes les autres formes, vous n'avez pas besoin de maintenir le bouton de la souris enfoncé pendant le dessin. À la place, chaque clic sur la table de jeu fait apparaître un nouveau point relié au précédent par une ligne. Vous êtes libre de croiser ou de réutiliser des points existants.
+
+Pour signaler que la forme est terminée, utilisez actuellement le bouton droit de la souris. Pour annuler le dessin, vous pouvez appuyer sur Échap.
+
+Si vous cochez la case « polygone fermé », le dernier point et le premier point seront automatiquement reliés à la fin de la forme et le polygone sera rempli avec la couleur de remplissage.
+
+### Pinceau
+
+Un autre mode de dessin est le _pinceau_, une option à main levée qui vous offre la possibilité de dessiner ce que vous voulez.
+
+<Warning title="Performance">
+    Notez que dessiner avec le _pinceau_ nécessite beaucoup de points pour représenter une forme. En général, cela n'est
+    conseillé que pour de petits éléments, car c'est assez mauvais en termes de performances.
+</Warning>
+
+### Texte
+
+Le dernier mode de dessin disponible est le _texte_.
+Définissez une taille de police avant de dessiner, car vous ne pourrez pas modifier la taille elle-même par la suite.
+Vous pourrez en revanche redimensionner librement l'objet texte.
+
+Au lieu de faire glisser, comme dans les autres modes de dessin, dessiner un texte nécessite un simple clic.
+Une fenêtre contextuelle s'ouvre alors pour demander le texte à afficher.
+
+Tout texte saisi sera rendu dans la police serif utilisée pour les pions simples, _centré sur le point cliqué_ lors de la première étape.
+Il peut être déplacé et redimensionné, etc., comme n'importe quelle autre forme.
+
+<Tip title="Modification">Vous pouvez modifier le texte par la suite dans la fenêtre des propriétés de la forme !</Tip>
+
+## Paramètres de vision
+
+Les paramètres de vision vous permettent de préconfigurer les paramètres d'éclairage et de vision de la forme dessinée.
+
+Les paramètres de bloc sont automatiquement activés ou désactivés lors du passage à l'étage fow ou du retour,
+mais vous êtes libre de les modifier selon vos besoins.
+
+Lorsqu'au moins un paramètre de bloc est activé, l'icône <Eye /> de l'outil s'affiche avec un fond orange comme rappel visuel.
+
+### Modes réservés au DM
+
+Les DM peuvent également sélectionner des modes de dessin de vision supplémentaires dans cette section.
+
+Le mode _Normal_ correspond, comme prévu, au comportement par défaut.
+
+_Reveal_ et _Hide_ dessinent respectivement de la « lumière magique » ou de l'« obscurité ».
+Pour plus d'informations, consultez [la documentation sur la lumière magique et l'obscurité](/fr/docs/dm/lighting-vision/#magical-lights-and-darkness).
+
+_Erase_ crée une forme qui agit comme un « trou » (portable), perçant tous les objets _situés en dessous_ dans la pile de dessin, y compris les [étages](/fr/docs/dm/floors/) !
+Une forme _erased_ sera automatiquement déposée sur le [calque map](/fr/docs/game/gameboard/#map), mais peut être déplacée vers n'importe quel calque.
+
+Consultez les [notes de version 0.26](/fr/blog/release-0.26#erase-floor-mode-dm) pour plus d'informations sur le mode erase.
+
+## Paramètres de logique
+
+Cela vous permet de préconfigurer la logique de porte pour la forme.
+
+Cela peut vous faire gagner beaucoup de temps lorsque vous cartographiez vos murs et vos portes !
+
+Consultez [la logique des formes](/fr/docs/game/shapes/#logic) pour plus d'informations.

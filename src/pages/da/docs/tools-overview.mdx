@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# Værktøjsoversigt
+
+PlanarAlly tilbyder et sæt værktøjer til at interagere med spillet og andre spillere.
+GMs får desuden nogle ekstra værktøjer, der passer til deres behov.
+De fleste, men ikke alle, af disse værktøjer er tilgængelige via en værktøjslinje i nederste højre hjørne af skærmen.
+
+<Image
+    src={ToolbarExample}
+    alt="Eksempel på værktøjslinjen for en GM i 'Build'-tilstand med Select-værktøjet aktivt og tilstanden klar til at blive ændret til Play-tilstand, mens filterværktøjet kan bruges, men ikke vision-værktøjet."
+/>
+
+## Værktøjslinje og tilstande
+
+For at undgå, at værktøjslinjen oversvømmes af en masse muligheder, vises værktøjer afhængigt af en værktøjslinjetilstand.
+Der er i øjeblikket 2 tilstande "Play" og "Build": førstnævnte fokuserer på værktøjer, der faktisk bruges under spillet,
+og sidstnævnte på værktøjer, der for det meste bruges under DM-forberedelse.
+
+For at skifte tilstand kan du klikke på den ønskede tilstand eller bruge `Tab`-tasten.
+
+Nedenfor er en oversigt over alle værktøjer og i hvilken tilstand de er tilgængelige.
+Bemærk, at nogle værktøjer kan have ændret adfærd afhængigt af tilstanden.
+
+## Værktøjer – hurtig reference
+
+| Værktøj                                  | Adgang | Tilstand  | Beskrivelse                                                         |
+| ---------------------------------------- | ------ | --------- | ------------------------------------------------------------------- |
+| [Select](/da/docs/tools/select/)         | Alle   | Begge[^1] | Vælg, flyt, roter eller skaler former.                              |
+| [Pan](/da/docs/tools/pan/)               | Alle   | Begge     | Pan dit viewport i spillet.                                         |
+| [Draw](/da/docs/tools/draw/)             | Alle   | Build     | Opret former af forskellige grundlæggende former.                   |
+| [Spell](/da/docs/tools/spell/)           | Alle   | Play      | Mål og kast spells.                                                 |
+| [Ruler](/da/docs/tools/ruler/)           | Alle   | Begge     | Mål afstande.                                                       |
+| [Ping](/da/docs/tools/ping/)             | Alle   | Play      | Vis en midlertidig beacon, som alle kan se.                         |
+| [Map](/da/docs/tools/map/)               | DM     | Build     | Hjælper med at skalere aktiver (mest kort), så de matcher gitteret. |
+| [Vision](/da/docs/tools/vision/)         | Alle   | Play[^2]  | Begræns hvilke karakterer, der bidrager til syn.                    |
+| [Zoom](/da/docs/tools/zoom/)             | Alle   | Begge[^3] | Zoom ind/ud på en del af spillet.                                   |
+| [Initiative](/da/docs/tools/initiative/) | Alle   | Begge[^3] | Spor initiativrækkefølge og tidsbaserede effekter.                  |
+| [Undo/Redo](/da/docs/tools/undo/)        | Alle   | Begge[^3] | Fortryd og gentag visse handlinger.                                 |
+
+[^1]: Funktionen varierer afhængigt af tilstanden.
+
+[^2]: Kun synlig i værktøjslinjen, når den faktisk kan bruges.
+
+[^3]: Ikke en del af værktøjslinjen.

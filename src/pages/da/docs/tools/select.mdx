@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Værktøj Select
+
+Et af de mest brugte værktøjer er Select-værktøjet.
+Dets formål er, som navnet antyder, at vælge én eller flere former på bordet, men også at flytte dem.
+Det kan tilgås i værktøjslinjen nederst til højre på skærmen af alle spillere, men opfører sig forskelligt afhængigt af den aktive [tilstand](/da/docs/tools-overview/#toolbar-and-modes).
+
+Derudover giver det dig, når du er i Build-tilstand, også mulighed for at rotere og skalere former.
+
+## Grundlæggende om markering
+
+Du kan klikke på en enkelt form eller trække en boks omkring en gruppe, så du kan flytte dem alle sammen.
+
+For at tilføje former til en eksisterende markering skal du holde `Ctrl` nede og vælge nye former.
+
+For at fjerne markeringen kan du blot klikke på et tomt sted på bordet eller bruge tastaturgenvejen `d`.
+
+_Ved en gruppemarkering bliver kun de former, du faktisk ejer, valgt. Dette står i modsætning til den normale klik-adfærd, der også kan vælge former, du ikke ejer._
+
+## Flytning
+
+Du kan flytte din markering ved blot at trække den hen over kortet.
+
+DM kan have defineret objekter som uigennemtrængelige (fx en væg).
+Disse stopper bevægelse.
+DM og alle med-DM'er har mulighed for at ignorere bevægelsesbegrænsningerne, mens de holder `shift`-tasten nede.
+
+Hvis du aktiverer kontakten `vis ruler` over `select`-knappen i værktøjslinjen, vil et objekttræk også vise en ruler, der måler den tilbagelagte afstand.
+Denne ruler fungerer ligesom det [selvstændige ruler-værktøj](/da/docs/tools/ruler/) og deler også dets indstillinger.
+
+## Skalering
+
+_For at skalere en form skal du være i 'build'-tilstand_
+
+Skalering gøres ved blot at gribe fat i et af formens hjørner og trække det til et andet sted.
+De fleste skaleringer påvirker kun det trukkede hjørne og lader alle andre hjørner forblive på plads.
+
+Den eneste nuværende undtagelse er cirkler, som i stedet øger/formindsker radiusen ved skalering.
+Denne adfærd kan ændre sig i fremtiden.
+
+## Rotation
+
+_For at rotere en form skal du være i 'build'-tilstand_
+
+I Build-tilstand vises et særligt rotionsinterface, der viser et ankerpunkt og en boks.
+
+Når du flytter ankeret, roterer du hele boksen omkring dens midtpunkt.
+
+Rotation er ikke begrænset til enkeltformer, men kan også anvendes på en hel gruppe.
+Husk, at boksens centrum vil blive brugt som rotationspunkt.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+Rotation har også [snapping-adfærd](/da/docs/game/snapping/) til almindelige vinkler (multipler af 45 grader).
+
+## Markeringsrækkefølge
+
+Former på bordet tegnes i en bestemt rækkefølge, der bestemmer, hvilken form der skal vælges ved overlap.
+
+Du kan ændre rækkefølgen ved at højreklikke på en form og flytte den bagest eller forrest i stakken.

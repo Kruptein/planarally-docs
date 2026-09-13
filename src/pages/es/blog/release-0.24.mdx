@@ -1,0 +1,240 @@
+---
+title: Release 0.24.0
+date: 2021-01-10 22:00:00
+excerpt: "¡Empezamos el año con un gran nuevo lanzamiento!"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+¡Ha pasado un tiempo! Pero tuve mucho tiempo libre el mes pasado, así que esta release incluye algunas características nuevas interesantes y un montón de correcciones de errores.
+
+Una pequeña advertencia al abrir un mapa en la nueva versión:
+Debido a una corrección relacionada con el zoom para tamaños de cuadrícula no estándar, es probable que la primera carga de un mapa esté ligeramente descentrada
+respecto a donde estaba tu cámara la última vez. Normalmente no debería estar muy lejos de la ubicación original.
+Si tienes problemas para encontrar tus cosas, prueba la barra espaciadora para centrar en tus fichas o ctrl+0 para ir al centro del mundo.
+Si todavía tienes problemas, contáctame y puedo darte algo de código para la consola.
+
+## Hexágonos
+
+Una cosa muy solicitada, y con razón, es el soporte de hexágonos.
+Ahora por fin puedo decir que hay _algo_ de soporte.
+
+Como parte de la configuración de cuadrícula del DM ahora puedes seleccionar el tipo de cuadrícula, que por defecto es cuadrada,
+pero puede cambiarse a hexágonos planos o puntiagudos.
+Esto puede configurarse a nivel de campaña o de ubicación.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/hexagons.webm" type="video/webm" />
+    <source src="/blog/release-0.24/hexagons.mp4" type="video/mp4" />
+</video>
+
+_Puede que no quede extremadamente claro debido a mi baja opacidad de cuadrícula, disculpas por eso_
+
+Una cosa importante a saber es que el ajuste a la cuadrícula aún no es compatible, así que recomiendo encarecidamente invertir el comportamiento de ALT por ahora cuando uses hexágonos.
+
+## Mejoras de grupos
+
+Los grupos son una forma de organizar las formas con una insignia opcional para diferenciarlas (por ejemplo, ogro 5).
+Dentro de un grupo, cada forma tiene un valor único, su insignia.
+
+Hasta esta release existía un concepto de agrupación implícito que se aplicaba al copiar y pegar una forma.
+
+Esta release amplía enormemente el sistema de grupos y lo hace mucho más configurable y explícito.
+
+![Editar grupo de recursos](./0.24/edit-asset-group.png)
+
+Ahora está disponible una nueva pestaña en el diálogo de edición de recursos para los propietarios de formas/DM.
+Esta pestaña permite la configuración de varias cosas relacionadas con el grupo al que pertenece la forma seleccionada.
+
+Se pueden configurar los conjuntos de caracteres, hay 2 conjuntos predefinidos disponibles, pero eres libre de establecer un conjunto personalizado (por ejemplo, `α,β,γ,δ,ε,ζ,η,θ,ι,κ,λ,μ,ν,ξ,ο,π,ρ,ς,τ,υ,φ,χ,ψ,ω`).
+
+Las insignias pueden activarse o desactivarse individualmente o para todo el grupo a la vez. Los miembros individuales pueden eliminarse y el grupo completo también puede eliminarse.
+
+Las insignias ahora también pueden aleatorizarse para frenar a los jugadores que metagamean.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/groups.webm" type="video/webm" />
+    <source src="/blog/release-0.24/groups.mp4" type="video/mp4" />
+</video>
+
+Además, también hay una nueva opción de menú contextual relacionada con los grupos al hacer clic derecho en una selección de formas.
+Esto te permite crear/combinar/dividir/eliminar grupos como prefieras.
+
+¡Esto también significa que los grupos ya no se limitan a formas del mismo recurso!
+
+Para más información sobre el sistema de grupos [consulta la documentación](/es/docs/game/assets/#group)
+
+## Variantes
+
+_Esto es **experimental**, espero que aparezcan algunos casos límite, ¡así que por favor avísame si encuentras algún error!_
+
+Una nueva funcionalidad para las formas es la capacidad de añadir variantes. Las variantes se definen libremente como cualquier otra forma a la que se quiera cambiar sin tener que crear una nueva ficha y eliminar una ficha anterior.
+Piensa en formas salvajes, arte alternativo, jefes multietapa, revelaciones sorpresa...
+
+En cualquier momento solo una variante es visible y puede intercambiarse por otra.
+Cada variante conserva su propio tamaño, propiedades y rastreadores, pero los rastreadores y las auras pueden configurarse para que se compartan entre todas las variantes.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Como se puede ver en el vídeo de arriba, las variantes pueden crearse, renombrarse y eliminarse desde un nuevo elemento de interfaz en la parte inferior del diálogo de edición de formas.
+
+#### Limitaciones conocidas
+
+Al crear una nueva variante, no tendrá ninguna de las configuraciones aplicadas de la variante base.
+¡Esto incluye los derechos de acceso, las propiedades generales de la forma (por ejemplo, nombre, si es una ficha, etc.) o las anotaciones!
+
+Por ahora solo puedes añadir nuevas variantes que sean recursos en tu gestor de recursos. Sin embargo, la forma base puede ser cualquier forma.
+En el futuro también podrás seleccionar una ficha básica como alternativa, en lugar de poder elegir solo desde el gestor de recursos.
+
+En este momento, guardar una forma con variantes en la base de datos no es posible; esto será posible en el futuro cuando también puedas guardar otras formas personalizadas en la base de datos.
+
+## Herramientas
+
+### Iniciativa
+
+La herramienta de iniciativa recibió algunos cambios pequeños: ahora tiene un botón explícito para eliminar efectos en lugar de depender solo del comportamiento de eliminación automática para los números negativos.
+
+Además, el contador de rondas ahora empieza en 1 en lugar de 0 y se han corregido muchos errores relacionados con la sincronización de la iniciativa.
+
+### Mapa
+
+¡La herramienta de mapa ahora tiene funcionalidad de mantener proporción! Al configurar los valores de la cuadrícula, un icono de candado puede activarse para forzar el bloqueo de la proporción.
+
+Otra novedad es que puedes decidir omitir la selección de redimensionado y, en su lugar, escalar directamente todo el recurso.
+Esto puede hacerse en número de celdas de cuadrícula o en píxeles.
+
+### Regla
+
+La regla recibió un nuevo atajo de teclado que te permite doblar reglas.
+Al pulsar "espacio" puedes empezar una nueva regla a partir del punto final de la última regla.
+La distancia mostrada es la suma total de todas las reglas actuales combinadas.
+
+Ahora también puedes activar 'mostrar regla' en la herramienta de selección, para mostrar una regla al mover formas.
+Esto mostrará una regla que parte de la posición original de la forma y sigue la forma que estás moviendo activamente.
+También admite 'espacio' para medir distancias detrás de esquinas.
+
+Al usar la regla en modo de selección conservará el modo de privacidad (es decir, público/privado) de la herramienta de regla.
+
+![Regla múltiple](./0.24/multiruler.png)
+
+### Visión
+
+El comportamiento de la herramienta de visión cambió al deseleccionar la última forma. En el pasado, volvía a seleccionarlo todo inmediatamente.
+Esto era muy contraintuitivo y molesto, así que se ha eliminado.
+
+Para dejar visualmente claro que estás limitando tu visión a un conjunto seleccionado de fichas,
+la herramienta de visión ahora tendrá un color de fondo diferente cuando no esté mostrando todo.
+
+## Importación/exportación de recursos
+
+La última release trajo la adición de las plantillas. Ahora es posible exportar recursos desde el almacén de recursos a tu ordenador local y subirlos a otro servidor de PA o conservarlos como una especie de copia de seguridad.
+
+El archivo exportado terminará con la extensión '.paa', abreviatura de planar ally assets. Conservará la estructura de carpetas exacta y el esquema de nombres que tenías, incluyendo toda la información de las plantillas.
+
+Al importar un archivo paa, se extraerá todo a la carpeta actual que estás viendo.
+Ten en cuenta que los archivos con el mismo nombre no se sobrescribirán, pero siempre se crearán nuevos archivos y carpetas.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/export.webm" type="video/webm" />
+    <source src="/blog/release-0.24/export.mp4" type="video/mp4" />
+</video>
+
+**Importante** El metraje de arriba está acelerado (o más bien, algunos fotogramas han sido cortados) ya que el proceso depende del tamaño de los archivos/carpetas y se proporciona poca retroalimentación durante este periodo. Espero mejorar esto en futuras releases, pero por ahora proporciona una base funcional.
+
+## Mejoras generales de UX
+
+### Abrir el diálogo de edición
+
+El diálogo de edición siempre podía abrirse desde el menú contextual de la forma con clic derecho o desde la información de selección rápida en la esquina superior derecha.
+
+Ahora también puedes pulsar 'enter' sobre una forma seleccionada para abrir inmediatamente esta ventana.
+
+### Moverse por el mapa
+
+Ahora puedes usar el teclado numérico para navegar, que también tiene soporte completo para el movimiento de hexágonos.
+Pulsar 5 centrará la pantalla en el origen.
+
+### Diálogo de creación de fichas
+
+¡El campo de entrada ahora está autofocalizado y pulsar enter enviará la información!
+
+### Herramientas generales
+
+La mayoría de las herramientas ahora admiten el menú contextual de clic derecho sobre formas seleccionadas sin tener que cambiar a la herramienta de selección.
+
+Hay dos excepciones: dibujo y mapa. Estos tienen su propio comportamiento de clic derecho.
+
+Además, las herramientas de filtro y visión permiten usar un conjunto más amplio de opciones de la herramienta de selección sin cambiar de herramienta.
+
+Por último, al cambiar a un modo de herramienta que la herramienta actual no admite, se cambia automáticamente a la herramienta de selección.
+
+### Rendimiento de eliminación
+
+Al eliminar varias formas a la vez, especialmente las relacionadas con la visión/iluminación, el cliente podía sufrir una gran caída de rendimiento o incluso quedarse colgado y realizar solo una eliminación parcial.
+
+Esto se debía a un recálculo bastante ineficiente de la triangulación de visión/iluminación. Ahora se hace de forma más inteligente y resulta en un comportamiento **mucho** más ágil.
+
+## Correcciones notables
+
+### Selección de formas
+
+Se hicieron dos correcciones a la selección de formas respecto a las formas rotadas:
+
+Al hacer clic en una forma rotada con la intención de seleccionarla, el código seleccionaba la forma si hacías clic en una ubicación que la forma no rotada ocuparía.
+
+Al hacer una selección de grupo, los polígonos (y otras formas) usaban su mayor cuadro delimitador para determinar la colisión del clic.
+Esto es bastante impreciso y ahora se ha cambiado para que sea exacto.
+
+## Otros cambios
+
+También se han realizado algunos cambios técnicos menores que no deberían afectar inmediatamente a los usuarios finales:
+
+- Actualizado a socket.io v3
+- Reducido el número de cálculos utilizados para determinar el rango mínimo de visión de las fichas
+
+## Otras correcciones
+
+- El bloqueo de formas mediante atajo de teclado no se sincronizaba con el servidor
+- Anotaciones de otras plantas que se mostraban
+- Recordar la visibilidad de la regla al cambiar de herramienta
+- `Ctrl 0` ahora centra el viewport en el origen (antes, mostraba el origen en la esquina superior izquierda del viewport)
+- Los efectos de iniciativa se convertían en NaN para entradas no numéricas
+- Los nuevos efectos de iniciativa no se sincronizaban inmediatamente hasta un refresco completo del cliente
+- Las actualizaciones del nombre de las formas no se sincronizaban para los nombres públicos a los usuarios que no poseen la forma
+- Las actualizaciones del nombre de las formas no siempre se actualizaban en la lista de iniciativa
+- Mover formas con permisos de movimiento predeterminados no funcionaba
+- Varios errores con las actualizaciones de permisos de iniciativa
+- Los valores negativos para las auras ya no causan problemas de dibujo
+- Los rastreadores no proporcionaban filas vacías hasta volver a abrir el diálogo
+- Pegar formas resultaba en filas de rastreadores vacías adicionales
+- El redimensionado de rectángulos causaba un desplazamiento de posición
+- Los cambios de ubicación a veces no llegaban a todos
+- El redimensionado de formas rotadas con ajuste ahora se ajusta correctamente a los puntos de la cuadrícula
+- Recursos soltados que no se renderizaban inmediatamente
+- Formas con un valor de índice roto (usado para mover al fondo/mover al frente)
+- Área en el centro superior de la pantalla donde el ratón a veces no podía usarse
+- Las auras que se vuelven públicas no se configuran correctamente como fuente de visión en otros clientes
+- Selección de rectángulos y recursos rotados
+- Selección de grupo de formas rotadas
+- Entradas duplicadas en la herramienta de visión
+- La mayoría de los recursos se redimensionaban automáticamente para caber en 1 celda de cuadrícula
+    - ahora conservan su tamaño original al soltarse (a menos que uses plantillas)
+- Estado incorrecto en el gestor de recursos al reconectar
+- Orden de clasificación en el gestor de recursos
+- La selección con shift en el gestor de recursos se comportaba de forma extraña al mezclar archivos y carpetas
+- Más casos en los que la regla y la herramienta de ping podían quedarse atascadas
+- Los diálogos de las herramientas ahora se mueven correctamente al cambiar de modo
+- El diálogo de edición permanece abierto al seleccionar otra forma
+- El movimiento de plantas no recalculaba la triangulación de visión/movimiento
+- La selección incluía formas fuera de la visión
+- Añadir/quitar etiquetas ya no se sincronizaba por el servidor
+- La planta actual ya no se resaltaba en el menú contextual
+- Múltiples problemas al tener un tamaño de cuadrícula de cliente modificado
+    - auras/zoom/mapa usaban cálculos incorrectos
+- Teletransportarse a una ubicación de aparición solo cambiaba la ubicación sin establecer la posición
+- Sincronización de la visibilidad de las etiquetas
+- La iniciativa podía no funcionar al cambiar de ubicación
+- [DM] Renombrar una planta siempre establecía un nombre vacío

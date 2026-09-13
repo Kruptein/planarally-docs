@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+
+import { Image } from "astro:assets";
+import Dashboard from "./assets/dashboard.png";
+import DashboardDmCampaign from "./assets/dashboard-dm-campaign.png";
+import DashboardPlayerCampaign from "./assets/dashboard-player-campaign.png";
+
+# Spil
+
+<Image src={Dashboard} alt="Dashboard" />
+
+Sektionen _Spil_ er der, hvor du kan oprette kampagner eller starte en eksisterende kampagne.
+
+Skærmen er delt op i to sektioner, en DM- og en spillersektion.
+Begge lister alle relevante kampagner, hvor du enten er DM eller spiller.
+
+Ved at klikke på en kampagne udvides den og tilbyder nogle muligheder.
+
+<Image src={DashboardDmCampaign} alt="Dashboard DM-kampagne" />
+<Image src={DashboardPlayerCampaign} alt="Dashboard spiller-kampagne" />
+
+Som DM kan du redigere kampagnens logo eller navn ved at klikke på blyantsikonerne (<PencilAlt />).
+
+<Warning title="Sletning af en kampagne">Dette fjerner kampagnen uigenkaldeligt for dig og *alle* spillere.</Warning>
+
+## Opret
+
+Det er nemt at oprette en kampagne: Indtast et navn, og klik på `Go`.
+Du kan også vælge et logo til kampagnen ved at klikke på det standardlogo, der vises ved siden af navnefeltet.
+
+<Info title="Logo-upload">Logoen skal uploades som et [aktiv](/da/docs/dm/assets/).</Info>
+
+## Deltag
+
+For at deltage i et spil skal du bruge inviterings-URL'en. Det er noget, som DM kan oprette i spillet via DM-indstillingerne.

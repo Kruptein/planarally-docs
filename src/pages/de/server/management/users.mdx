@@ -1,0 +1,41 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+# Grundlegende Server-Benutzerverwaltung
+
+<Info>
+    Dieser Abschnitt ist stark veraltet. Du kannst mit der CLI mehrere Dinge abfragen sowie eine einfache Browseransicht
+    für einige Verwaltungsaufgaben einrichten.
+</Info>
+
+Derzeit gibt es ab v0.22.3 keine grafische Oberfläche für die Benutzerverwaltung auf Serverebene, daher musst du für die Benutzerverwaltung python-Skripte verwenden.
+
+Stelle immer sicher, dass du dich zuerst in einer python-Shell befindest, bevor du eines dieser Skripte ausführst. Öffne einfach ein Terminal und tippe `python` ein, um eine Shell zu öffnen. Du kannst die Shell mit `quit()` verlassen.
+
+PlanarAlly verwendet peewee als Datenbank-ORM-Werkzeug.
+
+## Alle Benutzernamen auf dem Server auflisten
+
+```python
+from src.db.all import User
+[ u.name for u in User.select() ]
+```
+
+## Das Passwort für einen bestimmten Benutzer ändern
+
+```python
+from src.db.all import User
+u = User.get(name="*some-username*")
+u.set_password("*new-passowrd*")
+u.save()
+```
+
+## Neuen Benutzer als Admin erstellen
+
+```python
+from src.db.all import User
+User.create_new("*some-username*", "*some-password*", "*some-email(optional)")
+```

@@ -1,0 +1,128 @@
+---
+title: Release 2023.3
+date: 2023-09-17 17:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+El foco de 2023.3 son las funciones experimentales: los mods y un nuevo concepto llamado 'character' siendo los más destacados.
+Más sobre esto abajo, siguen estando muy en las primeras iteraciones,
+pero en lugar de mantener la rama de desarrollo como rehén hasta que esté satisfecho, ya las estoy publicando tal cual.
+
+Parte de la razón de esto también es que hay algunas correcciones de bugs en esta release que me gustaría sacar lo antes posible.
+
+## Ordenación de campañas
+
+Empezaremos con una pequeña mejora de calidad de vida que llevaba mucho tiempo pendiente.
+La lista de campañas ahora se puede ordenar alfabéticamente o por interacción más reciente.
+Se ordenará por defecto por la actividad más reciente.
+
+No hay mucho más que decir, es un pequeño cambio pero es agradable.
+
+## Iluminación y Visión
+
+### Devolver la grandeza a los círculos
+
+El código que maneja la visión trabaja con vértices y bordes.
+Los círculos no encajan realmente en este modelo por defecto, ya que un círculo es un conjunto infinito de puntos.
+
+Históricamente esto se "resolvía" usando simplemente la caja delimitadora del círculo cuando se usaba en código relacionado con la visión.
+Lo que hace que pilares y otras cosas en tu mapa se representen como cuadrados en el sistema de visión.
+
+Esto por supuesto no es realmente lo que quieres, y por eso la mayoría de la gente ha estado usando la herramienta de polígono para cubrir esta necesidad.
+
+La herramienta de polígono es una herramienta muy versátil y poderosa, pero a veces solo quieres usar un maldito círculo.
+Y cuando PA muestra un círculo como una forma posible de dibujar, esperas algo al menos cercano a un círculo y no un cuadrado.
+
+Así que tl;dr los círculos ahora se aproximan por polígonos basados en el tamaño del círculo para todo lo relacionado con la visión.
+No es un ajuste perfecto porque eso sería computacionalmente costoso, pero es mucho mejor que un cuadrado.
+
+### Fallos de triangulación
+
+El mencionado código de visión que usa vértices y bordes se basa en un algoritmo de triangulación.
+Aunque raro, puede ocurrir que algo se bloquee de forma definitiva en este código y deje el juego en un estado injugable.
+
+Uno de estos raros casos límite fue encontrado milagrosamente por dos personas diferentes recientemente, aunque el caso límite particular ha existido durante varios años.
+Esto se aborda en esta release y no debería volver a ocurrir.
+
+### Auras tramposas
+
+Aparentemente, cuando tienes un aura habilitada que tiene tanto los valores normales como los dim establecidos a cero y es un aura que interactúa con la visión, iluminaba todo el mapa.
+
+Esto ya no es el caso y el aura ahora se comportará como si estuviera deshabilitada.
+
+## Recursos
+
+Se han hecho algunos pequeños cambios en la lógica de eliminación de recursos.
+
+Eliminar un recurso del gestor de recursos no eliminará el recurso real del disco si todavía hay formas que usan ese recurso.
+
+En consecuencia, al eliminar formas en el juego se hace una comprobación adicional para ver si el recurso relacionado se puede eliminar del disco.
+
+## Adiciones experimentales
+
+Como se mencionó en la introducción, esta release contiene algunas adiciones experimentales.
+Cabe señalar de nuevo que cada una de ellas sigue en las primeras iteraciones y está sujeta a cambios.
+
+### Mods
+
+Soy solo una persona y a veces recibo peticiones que simplemente no tengo tiempo de implementar o que siento que no pertenecen al codebase principal,
+aunque podrían ser interesantes. Los mods son una forma de permitir que otros implementen estas funciones.
+
+No estoy muy familiarizado con ofrecer capacidades de modding, así que esto también es una experiencia de aprendizaje para mí.
+La implementación actual es muy básica y estoy seguro de que hay muchas cosas que podrían mejorarse, pero necesitamos un punto de partida y aquí está!
+
+Para más información sobre la API de modding, qué implica exactamente y algunos ejemplos, consulta [este PR en github](https://github.com/Kruptein/PlanarAlly/pull/1297).
+
+#### DataBlocks
+
+_esto es información puramente técnica y no realmente relevante para los usuarios normales_
+
+Otro nuevo concepto que se introduce con los mods son los "DataBlocks".
+Este es el sistema que actualmente se propone para ofrecer a los mods almacenamiento de datos en el lado del servidor.
+
+Los mods son puramente del lado del cliente, por lo que no pueden interactuar directamente con la base de datos, ni pueden interactuar directamente con ningún código del lado del servidor.
+En cambio, pueden almacenar y recuperar datos arbitrarios en forma de DataBlocks.
+
+### Characters
+
+Los "Characters" son un nuevo concepto que se está explorando actualmente y es adyacente al concepto de 'plantillas'.
+
+Las plantillas ofrecen una forma de crear variantes de una forma particular con información precargada. Una vez soltadas en el mapa son, sin embargo, completamente independientes entre sí.
+Los casos de uso típicos para una plantilla son los monstruos. Tienes una plantilla para un goblin y puedes soltar tantos goblins como quieras en el mapa y sus pg y ca ya están configurados.
+Pero no quieres que las modificaciones a 1 goblin alteren a los otros goblins una vez que están en el mapa.
+
+Los Characters son el complemento de esto. Representan una instancia única de una forma particular. Las modificaciones a un character se recuerdan.
+Puedes eliminar una forma que está vinculada a un character y luego arrastrar y soltar el character de nuevo en el mapa y estará exactamente en el mismo estado que cuando lo eliminaste.
+
+#### Creación
+
+Puedes crear un character desde el menú contextual con el botón derecho en cualquier forma siempre que tengas acceso de edición.
+
+#### Acciones
+
+Una vez que una forma está vinculada a un character, se listará en la sección Characters en la barra lateral izquierda.
+Como es habitual, el DM también verá todos los characters creados por los jugadores, mientras que los jugadores solo verán sus propios characters.
+
+Cuando haces clic en un character en esta lista, tu cámara se mueve para centrarse en ese character en particular.
+
+Además, como DM puedes arrastrar y soltar el character como harías con un recurso. Esto teletransportará la forma existente del character al lugar donde lo soltaste.
+Si no hay ninguna forma asociada actualmente con el character, se creará en su lugar en esa ubicación con todos sus datos anteriores.
+
+#### Futuro
+
+La idea es proporcionar más funcionalidad a este concepto en el futuro.
+En particular, la noción de hojas de personaje que podrían configurarse a través de la interacción de los mods es algo que se está explorando.
+
+Otra idea es permitir a los jugadores crear characters desde el dashboard principal y luego vincularlos a una campaña.
+De esta manera los jugadores pueden crear sus propios characters de antemano con su arte y estadísticas ya rellenadas, sin tener que pasar por el DM todo el tiempo.
+
+## Correcciones varias
+
+- Export: las campañas con notas podían fallar al exportar
+- Expulsión: la comprobación para evitar que el co-DM expulse al DM principal era incorrecta
+- Formas: el ángulo de las formas durante la rotación se redondeaba a enteros, lo cual es un poco incómodo cuando se trata con radianes
+    - En la práctica esto a menudo resultaba en que una forma rotada en realidad no rotaba nada para otros jugadores o al refrescar

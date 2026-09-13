@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# **チャット**
+
+ゲーム内チャットは、2024.3 リリース以降、ビューポートウィンドウの左下にある `Chat` ボタンをクリックするだけで使用できるようになりました。
+
+![Chat ボタン](assets/chat_button_default.png)
+
+誰かがチャットメッセージを送信すると、ボタンの横に未読メッセージ数が表示されます。
+
+![未読メッセージのある Chat ボタン](assets/chat_button_waiting.png)
+
+チャットウィンドウは Markdown 入力に対応しており、スタイルやリンクのほか、より高度な書式も使用できます。[Markdown チュートリアル](../../../learn/dm/Markdown_Tutorial/markdown) を参照してください。
+
+![チャットの例](assets/chat.png)
+
+<Warning title="チャットの保持について">
+    チャットはサーバーに保存されません。一時的なもので、ページを更新するか接続がリセットされると消えてしまいます。
+</Warning>
+
+チャットは、`DM settings` の `Feature` タブで、チャットを有効にするチェックボックスのチェックを外すことで無効にできます。
+
+![チャットの切り替え](assets/chat_toggle.png)

@@ -1,0 +1,242 @@
+---
+title: La riprogettazione della dashboard - Release 0.26.0
+date: 2021-03-06 10:00:00
+excerpt: "Una panoramica delle nuove chicche"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Questa release contiene davvero tanta varietà di contenuti: nuove riprogettazioni dell'interfaccia, nuove opzioni per gli strumenti, miglioramenti della qualità della vita e molto altro!
+
+Vale anche la pena notare che questa release include contributi di diversi collaboratori del server discord, un ringraziamento speciale a scoodle e mischievous!
+
+## Riprogettazione della dashboard
+
+Inizieremo con uno dei cambiamenti più evidenti, la dashboard!
+La dashboard è la pagina che vedi dopo il login e in cui selezioni la campagna che vuoi giocare o gestire.
+
+Questa pagina è stata completamente riprogettata e ora si presenta così:
+
+![Riprogettazione della dashboard](./0.26/dashboard.png)
+
+### Menu
+
+La barra laterale sinistra funge da menu che ti dà accesso immediato a varie viste.
+
+La prima sezione del menu riguarda tutto ciò che è legato al gioco: play elenca tutte le sessioni in cui sei un giocatore attivo,
+run elenca tutte le sessioni in cui fai da DM. Infine, l'opzione Create ti permette di creare una nuova campagna.
+
+La seconda parte riguarda tutto ciò che riguarda gli asset. Il menu Manage apre il gestore degli asset, un componente che in precedenza era accessibile solo dall'interno di una partita. L'opzione Create qui non è ancora disponibile, ma sarà rivelata in una release futura!
+
+Infine abbiamo un'azione per aprire le impostazioni e una per effettuare il logout.
+
+Una nota importante: le impostazioni e il gestore attualmente si aprono ancora nei loro componenti originali, ma l'intenzione è di riprogettarli per adattarli a questa nuova interfaccia della dashboard.
+
+### Run/Play
+
+Nelle modalità run e play appare una seconda barra a destra che contiene ulteriori dettagli sulla campagna attualmente selezionata.
+
+Le novità più evidenti dovrebbero essere la possibilità di impostare dei loghi (solo DM), creare piccole note personali legate a una campagna, vedere l'ultima volta in cui hai giocato in quella campagna e le azioni per uscire/eliminare la campagna.
+
+## Strumenti
+
+### Modalità erase piano (DM)
+
+Una nuova aggiunta alle modalità di disegno per il DM è la modalità 'erase'.
+
+Questa modalità speciale ti permette di rendere trasparenti alcune aree del piano corrente, permettendo a te e ai giocatori di vedere cosa succede nel piano sottostante.
+
+Potresti usarla per improvvise esplosioni che aprono un buco nel piano, o magari hai semplicemente dimenticato di rendere trasparente qualcosa in fase di preparazione e vuoi modificarlo direttamente in PA.
+
+![Modalità erase](./0.26/erase.png)
+
+Nell'immagine sopra ci sono 2 piani.
+Il piano inferiore contiene un rettangolo di colore turchese.
+Il piano superiore contiene tutte le altre forme.
+
+La forma poligonale che somiglia vagamente a una freccia grassa verso destra è una forma disegnata in modalità erase.
+Offre una visuale sul piano inferiore.
+
+Questa forma fa parte dello stack di disegno come qualsiasi altra forma! Come puoi vedere, il rettangolo rosso è sopra questa forma poligonale come se ci fosse un tronco che attraversa l'apertura nel piano. Se sposti il poligono in primo piano (o l'oggetto rosso sullo sfondo), saranno visibili solo le parti rosse non coperte dal poligono!
+
+Un ultimo aspetto importante è che questa forma viene creata automaticamente sul piano della mappa quando viene disegnata. Non c'è comunque nulla che ti impedisca di spostarla su un altro piano.
+
+### Forme di testo
+
+Una nuova aggiunta piuttosto semplice allo strumento di disegno, disponibile per tutti, è l'opzione di 'disegnare' del testo.
+
+Questa prima versione è relativamente semplice: offre un prompt di testo quando fai clic con il tasto sinistro con questa forma selezionata.
+La forma può essere ruotata/ridimensionata come le altre forme.
+
+Aspettati ulteriori miglioramenti in futuro.
+
+### Modifiche alle dimensioni di Ping e Ruler
+
+I ping e i righelli che disegnavi erano sempre di dimensioni costanti.
+Tuttavia, quando li disegnavano altri giocatori, la loro dimensione era influenzata dal livello di zoom su cui si trovavano loro, non dal tuo.
+Questo poteva far apparire alcuni righelli molto spessi o molto sottili sul tuo schermo, o ping difficili da individuare.
+
+Questa release cambia le regole per queste forme: saranno sempre disegnate esattamente della stessa dimensione. Il livello di zoom tuo o di chi disegna non è più rilevante per questa decisione.
+
+### Aggiornamento dell'icona del cono dell'incantesimo
+
+Un piccolo miglioramento della qualità della vita è che l'icona del cono dell'incantesimo ora è un cono pieno.
+Grazie al mio amico Jiri.
+
+## Impostazioni
+
+### Riprogettazione delle impostazioni client
+
+La dashboard non è stata l'unica interfaccia a essere rinnovata: anche le impostazioni client hanno ricevuto una mano di vernice!
+
+![Riprogettazione delle impostazioni client](./0.26/client.png)
+
+Invece di far parte del menu laterale, le impostazioni client ora si aprono in una finestra modale, proprio come le impostazioni DM.
+Questo offre più spazio per respirare e anche più margine per ulteriori opzioni.
+
+Come parte di questa riprogettazione, ora esiste anche un concetto di impostazioni client specifiche per la campagna.
+Quando modifichi un'impostazione, noterai che accanto compaiono due icone, che indicano che l'impostazione si discosta dalle impostazioni predefinite.
+
+L'icona di sinistra ripristina il valore all'impostazione globale, mentre l'icona di destra rende questo nuovo valore il nuovo default globale.
+
+In una release successiva le impostazioni globali saranno modificabili anche dalla vista delle impostazioni della dashboard.
+
+### Disabilita zoom con lo scroll
+
+Una lamentela spesso sentita dai giocatori che usano i touchpad è la richiesta di un'opzione per disabilitare l'attivazione dello zoom tramite lo scroll,
+poiché può facilmente accadere accidentalmente usando un touchpad.
+
+Questa nuova opzione è ora disponibile nelle impostazioni client, nella sezione behaviour!
+
+### Opzione co-dm (DM)
+
+Come DM ora puoi promuovere i giocatori al ruolo di co-dm direttamente dalle tue impostazioni DM principali.
+
+## Forme
+
+### Sconfitto
+
+Questa release le forme hanno subito solo un piccolo cambiamento: la proprietà 'defeated'.
+Quando spunti questa casella nelle proprietà della forma o quando premi 'x' con una o più forme selezionate,
+tutte le forme interessate riceveranno una X rossa disegnata sopra.
+
+![Simbolo sconfitto](./0.26/defeated.png)
+
+_Contributo di scoodle su discord!_
+
+### Barre visive dei tracker
+
+I tracker hanno ricevuto lo stesso restyling dell'interfaccia che gli aura avevano ricevuto nell'ultima release.
+Ora hanno una casella extra e due selettori di colore.
+
+Se "display on token" è spuntato, una barra verrà disegnata sopra il segnalino nei 2 colori scelti.
+
+![Barre visive dei tracker](./0.26/tracker.png)
+
+_Contributo di scoodle su discord!_
+
+## Caricare informazioni sui muri (DM)
+
+Un'altra frustrazione che alcuni DM a volte provano è il lavoro faticoso legato al disegno dei muri per il sistema di visione.
+
+Questa release aggiunge 2 opzioni per 'importare' le informazioni sui muri da fonti alternative.
+
+### dungeondraft
+
+Dungeondraft è un servizio popolare per preparare le tue mappe prima di importarle in un VTT.
+Offre esportazioni in un formato di file personalizzato dd2vtt.
+
+Questo formato ora è compreso da PlanarAlly e quando trascini un asset sul tavolo che è un file di questo tipo, le informazioni verranno allegate.
+
+Per motivi tecnici, i muri, le porte e le luci associati al file dd2vtt non vengono aggiunti immediatamente alla scena.
+Puoi invece prima ridimensionare/mappare l'asset in una forma che ti soddisfi e poi caricare tutte le informazioni extra spostandoti nella scheda "Extra" delle proprietà della forma e cliccando il pulsante 'Apply ddraft info'.
+
+Tutte le informazioni vengono aggiunte al tavolo come vere forme di PlanarAlly, il che significa che puoi ridimensionare le cose, rimuovere le luci che non ti servono, ecc.
+
+### svg
+
+Un altro approccio ora disponibile è allegare un svg con le informazioni sui muri a qualsiasi asset. Come per i file dungeondraft, questo può essere fatto dalla scheda 'Extra' nelle proprietà della forma.
+
+**Un avvertimento molto importante**: mantieni questi svg semplici o sarai in un mare di guai.
+
+Questi svg sono pensati per contenere solo informazioni sui muri, quindi assicurati di rimuovere muri, sfondi, ecc. prima di aggiungerli.
+
+Un'ultima nota: questi muri non sono interattivi, sono puramente interni alla forma, quindi al momento non puoi ridimensionarli, ecc.
+
+## Qualità della vita
+
+### Il grande bordo rosso
+
+Ora ci sarà un grande bordo rosso attorno allo schermo quando la connessione al server viene interrotta.
+
+A seconda del problema, la connessione dovrebbe ripristinarsi automaticamente, ma tutto ciò che hai modificato durante la disconnessione potrebbe andare perso.
+Questo è sempre stato così, ma ora dovrebbe esserti chiaro quando i progressi potrebbero andare persi.
+
+### Scorciatoie da tastiera per Mac
+
+Tutte le scorciatoie che usano il tasto ctrl ora useranno il tasto cmd sui computer Mac.
+
+### Caricamento dei font
+
+Il font opensans usato in PlanarAlly ora verrà recuperato dal server invece che da google fonts.
+Questo poteva altrimenti causare problemi con i font quando si giocava offline.
+
+### Animazione di caricamento
+
+Il noioso spinner è stato sostituito con una fantastica animazione di trasformazione di un dado 3d.
+
+<video loop autoplay muted style="max-width: 680px;">
+    <source src="https://app.planarally.io/static/img/loading.webm" type="video/webm" />
+</video>
+
+_animazione creata da Jiri su discord_
+
+## Server
+
+### Specifica del nome host pubblico
+
+Per impostazione predefinita, quando a un DM viene mostrato il link di invito nelle impostazioni DM, viene usato l'URL corrente del browser per determinare l'host.
+Tuttavia, quando il DM è connesso tramite un ip locale o localhost, l'URL sarà inutilizzabile per gli altri giocatori.
+
+Una nuova impostazione di configurazione del server ti permette di impostare un `public_name` che, se configurato, verrà sempre usato come host principale.
+
+_Contributo di mischievous su discord!_
+
+## Bug notevoli
+
+### nome piano duplicato (DM)
+
+Non è più possibile creare un piano con un nome già in uso.
+Questo poteva causare diversi problemi quando si interagiva con i due piani.
+
+Questa è una soluzione rapida, ma non dovrebbe comunque imporre troppe restrizioni.
+
+### Interruzioni nel caricamento dei file
+
+È stata aggiunta una correzione per impedire che i caricamenti di file di grandi dimensioni si interrompano dopo un breve periodo.
+
+_Contributo di scoodle su discord!_
+
+### aggancio del segnalino quando si lascia un muro
+
+Quando, mentre sposti un segnalino, muovi il mouse dentro un muro, potevi perdere la sincronizzazione con la forma quando uscivi dal muro.
+Ora è stato corretto.
+
+### drop di template con griglia non predefinita
+
+Quando trascinavi una forma con un template che contiene informazioni sulla dimensione sul tavolo, ma usava una dimensione della griglia non predefinita,
+la forma veniva ridimensionata in modo errato.
+
+### forme varianti visibili
+
+Quando usavi la funzione sperimentale delle varianti, tutti i giocatori potevano vedere qualsiasi forma variante in ogni momento.
+
+### menu contestuale fuori schermo
+
+Quando aprivi un menu contestuale sul bordo inferiore o destro dello schermo, il contenuto usciva dallo schermo.
+Questi menu ora sono consapevoli dei bordi e si adattano di conseguenza.
+
+### navigazione all'indietro
+
+Quando navigavi all'indietro usando il pulsante indietro del browser o un pulsante del mouse, l'URL si aggiornava correttamente,
+ma non cambiava nulla. Ora è stato corretto.

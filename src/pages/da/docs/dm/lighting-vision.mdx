@@ -1,0 +1,109 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Belysning og syn
+
+I dette afsnit vil vi beskrive, hvordan du som DM kan bringe mere liv til dine fangehuller og give dine spillere en dynamisk oplevelse!
+
+_Hvis du vil have et praktisk eksempel, så tjek [tutorialen til den første session](/da/learn/dm/first-map/#setting-up-a-light)!_
+
+Som titlen antyder, er der 2 kerneideer i PlanarAlly, der er ansvarlige for, hvordan dine spillere opfatter spillebordets tilstand.
+
+Ved at tilføje lys (eller mørke) på nogle steder på kortet bringer du straks mere personlighed til et sted. Du kan desuden placere en fakkel på en persons karakter og få en endnu større følelse af at dykke ned i fangehullet. Hvis du derimod placerer lys overalt på kortet, vil du allerede ødelægge overraskelsen ved nogle fede lokationer for dine spillere, mens de stadig kun er ved indgangen. For at forhindre dette skal en bestemt karakters syn tages i betragtning, og hvis vi har det, burde vi få en meget indlevende oplevelse.
+
+Vi vil først gennemgå noget af lysopsætningen og til sidst diskutere, hvordan syn fungerer.
+
+## Belysning
+
+Der er forskellige grader af kompleksitet, vi kan opnå i PlanarAlly, og afhængigt af hvordan du vil køre dit spil, vil du vælge en anden metode.
+
+Der er også 1 DM-indstilling relateret til belysning, der hedder 'Fill entire canvas with FOW', og den kan findes i fanen Vision. Denne indstilling skifter, om hele skærmen som standard skal være fyldt med tåge eller ej.
+
+<Warning>
+    Det anbefales kraftigt at fylde skærmen med tåge, hvis du vil bruge synssystemet. I øjeblikket opfører synssystemet
+    sig mærkeligt uden tåge.
+</Warning>
+
+### Magiske lys og mørke
+
+Den første slags belysning er det, jeg kalder 'magisk' belysning, fordi den er så kraftfuld, at de magiske lys ikke kan skjules, og at det magiske mørke ikke kan gennemtrænges af normale lys.
+
+Så spændende som det måske lyder, bruger jeg faktisk sjældent denne slags lys, da den er meget statisk. Jeg bruger den dog til nogle kanttilfælde.
+
+#### Sådan bruges det
+
+Hvis du som DM vælger draw-værktøjet, vil du se en tilstandsknap øverst. Når den er sat til reveal, tegner du magiske lys; når den er sat til hide, tegner du magisk mørke.
+
+Alle former tegnet i reveal- eller hide-tilstand tegnes automatisk på vision-laget (fow)! Så hvis du har lavet en fejl eller vil fjerne noget, så gå til vision-laget for at rette det!
+
+#### Hvornår skal det bruges
+
+Det kan ske, at du hurtigt vil vise en bestemt del af skærmen til spillerne uden at skulle flytte dem alle rundt. Måske vil du have kompasset vist på skærmen hele tiden, mens hele skærmen som standard er dækket af tåge. Eller måske har du en dagslysscene uden tåge, men vil sikre dig, at indholdet i en bygning ikke afsløres, før det endelige opgør.
+
+Et andet typisk brugstilfælde er, når du som DM vil give spillerne syn, mens de bevæger sig rundt, og holde alt, de har besøgt, synligt. Ved at kombinere indstillingen 'cover everything with fog' og derefter tegne med penslen i reveal-tilstand kan du nemt male en sti for dine spillere.
+
+### Normale lys
+
+En meget mere almindelig brug af belysning er at placere lys på kortet. Du kan fastgøre et lys til ethvert aktiv, og det vil udstråle fra aktivets centrum. Disse lys kan gennemtrænge normal tåge, men ikke den magiske tåge beskrevet ovenfor.
+
+#### Sådan bruges det
+
+Åbn aktivets egenskaber ved at højreklikke på aktivet og vælge 'edit properties'. Find sektionen med titlen 'auras', og begynd at udfylde en ny række.
+
+For mere info, se [auras-dokumentationen](/da/docs/game/shapes/#auras).
+
+Sørg for at markere din aura som en lyskilde!
+
+<Tip title="Skjulte lyskilder">
+    Lyskilder er altid knyttet til former. Hvis du vil skjule formen for dine spillere, men vise dens lyseffekt, så flyt
+    den til `fow`-laget – eller gør den usynlig, hvis du har brug for auraens farve vist.
+</Tip>
+
+#### Hvornår skal det bruges
+
+Dette er den anbefalede måde at tilføje lys til din scene i de fleste tilfælde. At fastgøre et lys til en token giver straks dynamisk belysning, når token flyttes rundt, og kombineret med syn senere hen giver det en kraftfuld kombination.
+
+## Syn
+
+Indtil videre har vi formået at tilføje noget lys og/eller tåge til vores scene, men der er intet, der blokerer disse lys, så de krydser vægge på vores kort, medmindre du skulle finjustere hvert lys omhyggeligt, hvilket ikke vil være sjovt.
+
+Derfor tilbyder PlanarAlly dig muligheden for at give input om, hvor vægge, døre og andre forhindringer er på dit kort, så PA korrekt kan vurdere, hvordan et lys skal opføre sig.
+
+### Objekter, der blokerer lys
+
+Essensen af at give PA oplysninger om vægge osv. er at tegne former, som du normalt gør, og vælge muligheden 'blocks light' i formens egenskabsdialog. Da du ofte under forberedelsen skal tegne disse former, tilbyder PA et dedikeret vision-lag (FOW), der automatisk anvender muligheden blocks light (og blocks movement) på alle former tegnet på dette lag. For mere info om dette specifikke lag, se [lag-dokumentationen](/da/docs/dm/layers/).
+
+Du kan bruge enhver af de tilgængelige former til at tegne dine bygningers skeletter, men nogle er mere nyttige end andre. Selvom rektanglen kan være nyttig til simple strukturer med vægge i 90 grader, bruger jeg i dag næsten udelukkende polygon-værktøjet. Se [draw-værktøjets dokumentation](/da/docs/tools/draw/) for mere detaljeret info om, hvordan disse former opfører sig.
+
+<Info>Dette blokerer kun normale lys. 'Magiske' lys gennemtrænger al ikke-magisk tåge.</Info>
+
+### Synslinje
+
+Den sidste indstilling, vi stadig skal diskutere for at fuldføre lys- og synsopsætningen, er synslinje-indstillingen i DM-indstillingerne.
+
+Uden denne indstilling aktiveret får vi lys, der oplyser rummene, hvor lysene korrekt stopper ved kanten af vores vægge. Det, vi ikke har, er en forestilling om, hvad en karakter kan se. Alle rum med en lyskilde vil være synlige, uanset om der er en spiller i rummet eller ej.
+
+Når du aktiverer synslinje-indstillingen i DM-indstillingerne, vil PlanarAlly tage spillerkarakterernes position i betragtning, og kun lys, der faktisk er synlige for en token, vises til spillerne.
+
+<Warning>
+    Denne indstilling tager kun hensyn til de aktiver, som mindst én spiller har **vision access** til. Hvis der ikke er
+    nogen tokens, som en spiller har vision access til, vil den pågældende spiller have **intet syn**.
+</Warning>
+
+## Minimal/maksimal synsvidde
+
+Disse kan indstilles i [kampagneindstillingerne](/da/docs/dm/settings/).
+Disse indstillinger opfører sig meget som auraer, men kun _begrænser_ synet for alle tokens i stedet for at kaste lys på kortet.
+
+<Warning>Dette påvirker kun lærreder, der er fyldt med krigståge.</Warning>
+
+En token vil kunne se alt inden for grænsen for _minimal synsvidde_ som normalt.
+Dog vil den _ikke_ se lyskilder ud over grænsen for _maksimal synsvidde_.
+Enhver lyskilde mellem grænserne for minimal og maksimal synsvidde vil blive dæmpet som en svag lysaura.
+
+<Info>Dette blokerer kun normale lys. `Magiske lys gennemtrænger al ikke-magisk tåge.</Info>

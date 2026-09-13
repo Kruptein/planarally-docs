@@ -1,0 +1,110 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Illuminazione e visione
+
+In questa sezione descriveremo come tu, come DM, puoi dare più vita ai tuoi sotterranei e offrire ai tuoi giocatori un'esperienza dinamica!
+
+_Se vuoi un esempio pratico, dai un'occhiata al [tutorial della prima sessione](/it/learn/dm/first-map/#setting-up-a-light)!_
+
+Come suggerisce il titolo, ci sono 2 idee fondamentali in PlanarAlly che determinano come i tuoi giocatori percepiscono lo stato del tavolo.
+
+Aggiungendo luci (o oscurità) in alcuni punti della mappa, dai immediatamente più personalità a un luogo; inoltre, puoi posizionare una torcia sul personaggio di qualcuno e ottenere un senso ancora maggiore di esplorazione dei sotterranei. Posizionare luci in tutta la mappa, tuttavia, rovinerà già alcuni luoghi fantastici ai tuoi giocatori quando sono ancora solo all'ingresso. Per prevenire questo, bisogna tenere conto della visione di un determinato personaggio e, se lo facciamo, dovremmo avere un'esperienza molto coinvolgente.
+
+Prima esamineremo alcune configurazioni dell'illuminazione e infine discuteremo di come funziona la visione.
+
+## Illuminazione
+
+Ci sono vari gradi di complessità che possiamo raggiungere in PlanarAlly e, a seconda di come vuoi gestire il tuo gioco, sceglierai un metodo diverso.
+
+C'è anche 1 impostazione DM legata all'illuminazione chiamata 'Riempi l'intero canvas con FOW' che si trova nella scheda Visione. Questa impostazione attiva/disattiva se l'intero schermo debba essere riempito con la nebbia per impostazione predefinita o meno.
+
+<Warning>
+    Si consiglia vivamente di riempire lo schermo con la nebbia se vuoi usare il sistema di visione. Attualmente il
+    sistema di visione senza nebbia si comporta in modo strano.
+</Warning>
+
+### Luci magiche e oscurità
+
+Il primo tipo di illuminazione è ciò che chiamo illuminazione 'magica', perché è così potente che le luci magiche non possono essere nascoste e l'oscurità magica non può essere penetrata dalle luci normali.
+
+Per quanto possa sembrare entusiasmante, in realtà uso raramente questo tipo di luci perché è molto statico. Lo uso per alcuni casi limite.
+
+#### Come usare
+
+Se selezioni lo strumento di disegno come DM, vedrai un interruttore di modalità in alto. Quando è impostato su reveal, disegnerai luci magiche; quando è impostato su hide, disegnerai oscurità magica.
+
+Tutte le forme disegnate in modalità reveal o hide vengono disegnate automaticamente sul livello visione (fow)! Quindi se hai commesso un errore o vuoi rimuovere qualcosa, per esempio, vai sul livello visione per sistemarlo!
+
+#### Quando usare
+
+Può capitare che tu voglia mostrare rapidamente una certa parte dello schermo ai giocatori, senza doverli spostare tutti. Forse vuoi mostrare la bussola sullo schermo in ogni momento mentre l'intero schermo è coperto dalla nebbia per impostazione predefinita. O forse hai una scena diurna senza nebbia, ma vuoi assicurarti che il contenuto di un edificio non venga rivelato fino alla resa dei conti finale.
+
+Un altro caso d'uso tipico è quando, come DM, vuoi concedere la visione ai giocatori man mano che avanzano, mantenendo visibile tutto ciò che hanno visitato. Combinando l'opzione 'copri tutto con la nebbia' e poi disegnando con il pennello in modalità reveal, puoi facilmente dipingere un percorso per i tuoi giocatori.
+
+### Luci normali
+
+Un uso molto più comune dell'illuminazione è posizionare luci sulla mappa. Puoi agganciare una luce a qualsiasi asset e questa irradierà dal centro dell'asset. Queste luci sono in grado di penetrare la nebbia normale ma non la nebbia magica descritta sopra.
+
+#### Come usare
+
+Apri le proprietà dell'asset facendo clic destro sull'asset e selezionando 'modifica proprietà'. Trova la sezione intitolata 'aure' e inizia a compilare una nuova riga.
+
+Per maggiori informazioni, consulta la documentazione sulle [aure](/it/docs/game/shapes/#auras).
+
+Assicurati comunque di contrassegnare la tua aura come sorgente luminosa!
+
+<Tip title="Sorgenti luminose nascoste">
+    Le sorgenti luminose sono sempre agganciate alle forme. Se vuoi nascondere la forma ai tuoi giocatori, ma mostrare
+    il suo effetto luminoso, spostala sul livello `fow` – o rendila invisibile, se hai bisogno che venga mostrato il
+    colore dell'aura.
+</Tip>
+
+#### Quando usare
+
+Questo è il metodo consigliato per aggiungere luci alla tua scena nella maggior parte dei casi. Agganciare una luce a un segnalino offre immediatamente un'illuminazione dinamica quando il segnalino viene spostato e, combinata con la visione in seguito, offre una combinazione potente.
+
+## Visione
+
+Finora siamo riusciti ad aggiungere alcune luci e/o nebbia alla nostra scena, ma non c'è nulla che blocchi queste luci, quindi attraversano i muri sulla nostra mappa, a meno che tu non voglia rifinire meticolosamente ogni luce, il che non sarà divertente.
+
+Per questo motivo PlanarAlly ti offre la possibilità di fornire indicazioni su dove si trovano muri, porte e altri ostacoli sulla tua mappa, così che PA possa valutare correttamente come una luce dovrebbe comportarsi.
+
+### Oggetti che bloccano la luce
+
+L'essenza del fornire a PA informazioni sui muri, ecc., consiste nel disegnare forme come fai di solito e selezionare l'opzione 'blocca la luce' nella finestra delle proprietà della forma. Poiché spesso durante la preparazione devi disegnare queste forme, PA offre un livello visione dedicato (FOW) che applica automaticamente l'opzione blocca la luce (e blocca il movimento) a ogni forma disegnata su questo livello. Per maggiori informazioni su questo livello specifico, consulta [la documentazione sui livelli](/it/docs/dm/layers/).
+
+Puoi usare qualsiasi forma disponibile per disegnare gli scheletri dei tuoi edifici, ma alcune sono più utili di altre. Sebbene il rettangolo possa essere utile per strutture semplici con muri a 90 gradi, oggigiorno mi ritrovo a usare quasi esclusivamente lo strumento poligono. Consulta la [documentazione dello strumento di disegno](/it/docs/tools/draw/) per informazioni più dettagliate su come si comportano queste forme.
+
+<Info>Questo blocca solo le luci normali. Le luci 'magiche' penetrano qualsiasi nebbia non magica.</Info>
+
+### Linea di vista
+
+L'ultima impostazione che dobbiamo ancora discutere per completare la configurazione di luce e visione è l'impostazione della linea di vista nelle impostazioni del DM.
+
+Senza questa impostazione attivata, le luci illuminano le stanze fermandosi correttamente ai bordi dei nostri muri. Ciò che non abbiamo è la nozione di ciò che un personaggio può vedere. Tutte le stanze con una sorgente luminosa saranno visibili, che ci sia o meno un giocatore nella stanza.
+
+Quando attivi l'impostazione della linea di vista nelle impostazioni del DM, PlanarAlly terrà conto della posizione dei personaggi dei giocatori e mostrerà ai giocatori solo le luci effettivamente visibili per un segnalino.
+
+<Warning>
+    Questa impostazione terrà conto solo degli asset a cui almeno un giocatore ha **accesso di visione**. Se non ci sono
+    segnalini a cui un giocatore ha accesso di visione, quel giocatore **non avrà visione**.
+</Warning>
+
+## Visione minima/massima
+
+Queste possono essere impostate nelle [impostazioni campagna](/it/docs/dm/settings/).
+Queste impostazioni si comportano molto come le aure, ma _limitano_ la visione di tutti i segnalini, invece di emettere luce sulla mappa.
+
+<Warning>Questo influenza solo i canvas riempiti con la nebbia di guerra.</Warning>
+
+Un segnalino potrà vedere tutto ciò che rientra nel limite della _visione minima_ come al solito.
+Tuttavia, _non_ vedrà le sorgenti luminose oltre il limite della _visione massima_.
+Ogni sorgente luminosa tra i limiti della visione minima e massima verrà attenuata come un'aura di luce fioca.
+
+<Info>Questo blocca solo le luci normali. `Magical lights pierce through any non magical fog.</Info>

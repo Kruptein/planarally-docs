@@ -1,0 +1,185 @@
+---
+title: La grande riscrittura del client - Release 0.27.0
+date: 2021-06-02 15:00:00
+excerpt: "Una panoramica delle nuove chicche"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+È passato un po' di tempo dall'ultima release.
+La buona notizia è che sono stati segnalati pochi bug, quindi la release 0.26 è stata piuttosto stabile, il che fa sempre piacere vedere.
+La cattiva notizia è che questa release potrebbe essere un po' più problematica e presto vedremo perché.
+
+Questa release serviva principalmente a fare una cosa: aggiornare il framework reattivo usato da PA (Vue) dalla versione 2 alla versione 3.
+È un cambiamento molto tecnico che _idealmente_ non dovrebbe avere un impatto diretto sull'esperienza utente, ma tocca molto codice, motivo per cui volevo un periodo più lungo per verificare che le cose si comportassero correttamente. Spiegherò in dettaglio cosa comportano i cambiamenti alla fine di questo articolo, per non spaventare i veri utenti! :)
+
+Ma i cambiamenti interni al codice non sono l'unica cosa cambiata: l'iniziativa ha subito una revisione, ci sono alcune nuove chicche per usare PA come tavolo da gioco fisico e ci sono stati di nuovo alcuni contributi meravigliosi dalla community. Quindi tuffiamoci!
+
+## Iniziativa
+
+Lo strumento Iniziativa, così com'è stato realizzato fino ad ora, è stato praticamente tirato su in un paio di giorni dopo un commento su reddit che chiedeva il supporto all'iniziativa. Faceva il suo lavoro, ma ha sempre avuto alcuni problemi minori. Finalmente mi sono preso il tempo per affrontare questi problemi irrisolti e ripensare parte delle funzionalità dell'iniziativa.
+
+![Rifacimento dello strumento Iniziativa](./0.27/initiative.png)
+
+### UI/UX
+
+Uno dei problemi era che la UI poteva essere molto affollata.
+Soprattutto per i giocatori che potevano sempre vedere i pulsanti dell'amministratore ma non interagire con essi in alcun modo.
+
+#### Barra DM
+
+Le azioni riservate ai DM sono state spostate in una "barra DM" separata e saranno visibili solo ai (co-)DM.
+
+#### Impostazioni
+
+Oltre a ciò, le icone di blocco della fotocamera e della visione sono state spostate nelle impostazioni client, a cui si può accedere tramite una piccola icona a forma di ingranaggio.
+Questo risolve anche il "bug" per cui chi usava spesso queste impostazioni doveva sempre riapplicare queste configurazioni in passato.
+
+#### Rimozione
+
+Un altro cambiamento evidente dovrebbe essere la rimozione del cestino dalle icone di ogni attore dell'iniziativa.
+Per qualcosa che non è _così_ importante da essere visibile in ogni momento, occupava troppo spazio.
+Al suo posto, ora apparirà una piccola croce rossa nell'angolo in alto a destra quando si passa il mouse su un attore dell'iniziativa.
+
+#### Campo di input
+
+Infine, il valore di input stesso ha più larghezza. Ora ha un po' di spazio per respirare!
+Ha anche cambiato stile e non risalta più come una strana casella di input, ma ora sembra un elemento "normale" nella finestra modale.
+
+Durante l'inserimento dell'iniziativa è possibile perdere il focus sul campo di input se qualcun altro sta modificando simultaneamente i valori, facendo saltare le iniziative. In passato questo problema era stato affrontato aspettando ad aggiornare la finestra dell'iniziativa fino a dopo l'invio della tua modifica. Non c'era però alcuna indicazione che i valori non fossero sincronizzati se si aveva ancora il campo di input a fuoco. Questo non è l'ideale, dato che è molto poco chiaro e potrebbe portare a molta confusione. Ecco perché nella nuova finestra dell'iniziativa, tutte le altre righe dell'iniziativa verranno sfocate mentre si ha un campo di input a fuoco, per mostrare visivamente che si sta eseguendo un'azione non ancora completata.
+
+![Sfocatura dell'iniziativa](./0.27/blur.png)
+
+Come ultima modifica per la qualità della vita, ora anche premere `enter` funzionerà nei campi di input dell'iniziativa :).
+
+### Comportamento
+
+Un secondo problema con la vecchia iniziativa era che il comportamento di ordinamento poteva bloccarsi, con l'ordine di iniziativa che non si aggiornava più o si aggiornava in modo errato. La struttura dati dietro le quinte responsabile di questo comportamento è stata cambiata e ora dovrebbe comportarsi correttamente in ogni momento.
+
+La barra DM dell'iniziativa ha anche delle nuove chicche:
+
+Ora puoi tornare indietro nel passato, se hai saltato accidentalmente qualcuno o qualcuno non aveva finito il suo turno.
+Ora puoi anche cancellare tutti i valori dell'iniziativa. Questo ti permette di chiedere una nuova iniziativa e vedere chi deve ancora aggiornare il proprio valore, mentre altrimenti potresti non essere sicuro se il valore sia nuovo o sia ancora quello vecchio.
+
+#### Ordinamento
+
+Infine, ora puoi anche modificare attivamente il comportamento di ordinamento. Le tre opzioni sono: decrescente, crescente e manuale.
+Se trascini le voci dell'iniziativa, l'ordinamento passerà automaticamente alla modalità manuale, a meno che tu non abbia scambiato due attori con lo stesso valore di iniziativa.
+
+## Copia dei luoghi
+
+_Contributo di CalebKoch_
+
+Questa pratica funzione consente ai DM di copiare un luogo in un'altra sessione. Il concetto è piuttosto semplice, ma fa risparmiare molto lavoro se stai gestendo la stessa campagna per più gruppi e non devi rifare tutta la mappatura e il disegno della nebbia di guerra!
+
+È accessibile come DM dalle impostazioni del luogo che desideri copiare. Una finestra di dialogo ti presenterà tutte le campagne che hai.
+
+## Tavolo da gioco
+
+Questo deriva in parte da una richiesta delle persone di Last Gameboard con cui ho collaborato per portare PA sulla loro piattaforma,
+ma ha anche un uso generale!
+
+![Dimensioni del tavolo da gioco fisico](./0.27/gameboard.png)
+
+Nella maggior parte dei casi PA è usato puramente come soluzione digitale per il gioco da tavolo.
+In questo contesto, ciò che conta è soprattutto la dimensione in pixel che una cella della griglia dovrebbe rappresentare.
+
+In alcuni casi, PA viene usato come estensione del gioco fisico "tradizionale" e quindi PA viene usato come un tavolo da gioco più tradizionale con funzionalità extra.
+In questo contesto, compilare direttamente la dimensione in pixel è meno interessante, ma poter mettere miniature sul tavolo è ciò che conta.
+
+Ora è possibile definire la dimensione della griglia in un contesto fisico fornendo la dimensione delle miniature e il PPI (a volte chiamato DPI) dello schermo. Una conseguenza di questo è che lo zoom non ha più senso e quindi per ora non funzionerà.
+
+## Viewport
+
+Come DM a volte hai il tuo schermo DM ma controlli anche un altro schermo che mostra ciò che i giocatori possono vedere.
+In questo contesto può essere una seccatura cambiare schermi/dispositivi per controllare la fotocamera dei giocatori.
+
+Novità di questa release è l'opzione di mostrare il viewport attivo dei giocatori. Nelle impostazioni Admin puoi attivare il viewport per i singoli giocatori.
+
+Ogni viewport verrà renderizzato sul livello DM come un rettangolo senza riempimento il cui bordo mostra l'esatta regione che quel giocatore sta guardando in quel momento.
+
+Ogni viewport può inoltre essere spostato dal DM, facendo pan direttamente sullo schermo del giocatore correlato.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.27/viewport.webm" type="video/webm" />
+    <source src="/blog/release-0.27/viewport.mp4" type="video/mp4" />
+</video>
+
+_scusa per gli artefatti, anche punti bonus a chi riconosce l'immagine sullo sfondo ;)_
+
+## QoL
+
+Questo era tutto per i cambiamenti più grandi, ma sono state apportate anche molte belle modifiche per la qualità della vita!
+
+### Sincronizzazione del menu asset
+
+La barra laterale del menu asset, per ora disponibile solo per i DM, non veniva mai aggiornata in tempo reale quando venivano aggiunti nuovi asset al gestore asset.
+Questo ha causato a me e a molti altri molto dolore ogni volta che dovevamo ricaricare la pagina dopo aver aggiunto nuovi asset.
+
+Non dobbiamo più sopportare tutto questo, dato che ora la barra si aggiornerà in tempo reale con ciò che accade nel gestore asset!
+
+### Modifica dei valori di testo delle forme
+
+Alcune forme (cioè Text e CircularToken) hanno un certo valore di testo associato.
+In passato questo valore era configurabile solo durante la creazione di queste forme e non poteva essere modificato in seguito.
+
+Una nuova riga 'value' è stata aggiunta alla scheda delle proprietà delle finestre di modifica di quelle forme.
+
+### HiDPI/Retina
+
+Come potresti aver visto in un'immagine precedente, le impostazioni client hanno una nuova scheda display.
+Contiene anche un interruttore per attivare il supporto per gli schermi HiDPI e retina.
+Questo dovrebbe rendere tutto più nitido!
+
+**avvertenze**:
+
+- È più pesante da disegnare per il tuo computer
+- Ho avuto alcune segnalazioni in cui lo zoom/panning va storto con questa impostazione attivata, quindi stai attento!
+
+### ctrl deselect
+
+Facendo clic con Ctrl sulle forme puoi aggiungere singole forme a una selezione attiva. Altri strumenti di solito supportano anche il clic con Ctrl sulle forme già selezionate per deselezionarle. Ora questo è supportato anche qui.
+
+### conferma per l'espulsione dei giocatori
+
+L'espulsione di un giocatore ora chiederà prima una conferma :)
+
+## Server
+
+### il server API è ora disabilitato per impostazione predefinita
+
+Il server API è una funzione molto di nicchia ed era abilitato per impostazione predefinita, il che richiedeva l'apertura di una porta aggiuntiva.
+Ora è disabilitato per impostazione predefinita per prevenire arcani messaggi di errore per chi esegue PA in container con solo la porta principale aperta.
+
+### public_name commentato per impostazione predefinita
+
+_contributo di dthv_
+
+Una piccola modifica per la qualità della vita che chiarisce che questa è una funzione opzionale.
+
+### Modifiche al Dockerfile
+
+_contributo di jirsat_
+
+Pulizia di alcune dipendenze inutilizzate e aggiunto supporto per ARM ai dockerfile.
+
+## Correzioni
+
+- Un bug relativo a piani e illuminazione sui piani superiori che non si aggiornavano
+- Il riordino dei piani veniva renderizzato in modo errato fino a un refresh
+- Redo non funzionante su Mac
+- Barre dei tracker con valori negativi che mostravano una barra verso sinistra
+- Co-DM che non vedeva le iniziative private
+- La rimozione dell'ultimo piano dava una schermata vuota
+- La rimozione dei piani sotto il piano attivo dava una schermata vuota
+- Era possibile impostare un valore &lt; 1 per unitSize
+
+## Dettagli della riscrittura del client
+
+Come detto nell'introduzione, PA ora usa Vue 3, che ha introdotto la composition API più amichevole verso TypeScript.
+
+Tutto il codice della UI è stato completamente riscritto per fare uso di questa nuova API.
+Inoltre, tutti gli "store" sono stati riscritti per usare un'API di stato molto semplice scritta su misura che si adatta meglio alle mie esigenze.
+Questo mi ha permesso di rifattorizzare molto codice che in passato era distribuito tra file ts puri e uno store correlato.
+
+Un altro bel vantaggio di Vue 3 è che ora supporta Map e Set in contesti reattivi, il che ha migliorato notevolmente alcune aree in cui dovevo lavorare con dati Maplike in modi meno ideali.

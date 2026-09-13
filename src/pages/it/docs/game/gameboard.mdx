@@ -1,0 +1,79 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Tavolo di gioco
+
+Questo è il cuore di PlanarAlly.
+Quando giochi, interagirai per lo più con il tavolo di gioco, muovendo i segnalini su una mappa che mostra (o non mostra) l'ambiente circostante del tuo personaggio e gli altri personaggi PC e NPC attorno a lui.
+
+<Warning title="Il grande bordo rosso">
+    La maggior parte delle azioni che compi devono essere sincronizzate con il server. Nel caso in cui questa
+    connessione venga persa per qualsiasi motivo, un spesso bordo rosso attorno allo schermo ti avviserà. Qualsiasi
+    modifica apportata durante una disconnessione potrebbe andare persa.
+</Warning>
+
+## Panoramica
+
+Questo documento offre una breve introduzione tecnica ai concetti di luoghi, piani e livelli.
+Questa lettura non è obbligatoria per un giocatore, ma potrebbe dare più informazioni sul comportamento di alcuni sistemi.
+Come DM troverai informazioni più approfondite per ciascuno di questi concetti nella sezione DM.
+
+PlanarAlly organizza le campagne usando 3 concetti. Una campagna ha 1 o più **luoghi**, ciascuno dei quali è composto da 1 o più **piani**, ciascuno dei quali è composto da un set fisso di **livelli**.
+Tutto questo insieme culmina in uno scenario che viene disegnato sullo schermo con cui interagisci.
+
+Come giocatore di solito non puoi cambiare il luogo, il piano o il livello attivo,
+ma interagisci comunque con questi concetti ogni volta che muovi una forma.
+
+## Luoghi
+
+Al vertice dell'organizzazione si trova il concetto di luoghi.
+Una campagna ha almeno 1 luogo ma può averne molti.
+
+Un luogo può essere pensato come un'istanza specifica del tuo mondo di gioco.
+Può essere un edificio molto specifico che il gruppo sta esplorando, oppure una vista a livello più alto di un villaggio, o magari anche la mappa del mondo.
+
+Un giocatore in qualsiasi momento interagisce sempre con esattamente 1 luogo, ma il DM può spostare i giocatori man mano che si muovono nel mondo.
+
+Consulta la [documentazione DM sui luoghi](/it/docs/dm/locations/) per maggiori informazioni.
+
+## Livelli
+
+Quando carichi un luogo, le cose devono essere disegnate sul tuo schermo.
+Ti aspetti di vedere una mappa, i segnalini dei tuoi personaggi e magari un po' di luce o ombra.
+
+Sebbene tutte queste cose sembrino trovarsi sullo stesso piano 2D, PlanarAlly in realtà sovrappone un certo numero di **livelli** l'uno sull'altro.
+
+Come giocatore puoi interagire solo con il livello _segnalini_.
+Questo è il livello principale in cui muovi i tuoi segnalini e le forme che hai disegnato.
+
+Ci sono alcuni altri livelli che un giocatore può vedere, ma con cui non può interagire: il livello mappa e il livello griglia sono gli esempi più ovvi.
+Entrambi vengono renderizzati sotto il livello segnalini.
+
+Alcuni altri livelli sono completamente invisibili ai giocatori.
+Il livello DM, per esempio, è visibile solo al DM e può essere usato per nascondere segreti finché non diventano rilevanti.
+
+Per una spiegazione più approfondita dei diversi livelli, consulta i [documenti DM](/it/docs/dm/layers/)!
+
+## Piani
+
+Con soli luoghi e livelli siamo pronti a giocare.
+PlanarAlly però ha un altro asso nella manica.
+
+Un insieme di livelli viene chiamato **piano**.
+Un luogo ha sempre 1 piano ma può essere esteso per avere più piani.
+
+Quando esplori una sinistra magione, ti troverai di certo a salire o scendere alcune scale.
+Quando sali una scala, idealmente non vorresti che il DM dovesse lavorare troppo per spostare il tuo segnalino sulla mappa di quel piano.
+Forse potrebbe essere usato un diverso luogo di PA o un'altra area nel luogo attivo, ma è solo goffo.
+
+I piani di PA sono uno strumento che offre al DM di organizzare questo genere di cose in modo più fluido.
+Proprio come un edificio reale, i piani di PA vengono renderizzati uno sopra l'altro, e quindi potresti essere in grado di vedere i piani sotto quello in cui ti trovi.
+
+Un esempio comune di questo sarebbe una finestra, un balcone o addirittura un buco nell'impalcato.
+Quindi se non c'è nulla che ostacoli la tua vista, puoi comunque vedere alcune cose che accadono sui piani sottostanti (ad es. quando guardi fuori da una finestra).
+
+Se il DM ti consente di cambiare piano manualmente, puoi accedervi dal menu in basso a sinistra dello schermo o usando una delle scorciatoie da tastiera.
+Nota che potresti non essere in grado di vedere tutto su un piano diverso, a seconda dell'[illuminazione](/it/docs/dm/lighting-vision) e del fatto che tu abbia un accesso sufficiente ai segnalini su questo piano.

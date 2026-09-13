@@ -1,0 +1,166 @@
+---
+title: Release 0.19.0 - What's new!
+date: 2020-03-20 21:02:34
+excerpt: "Was gibt's Neues in 2020?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Mit 0.19.0 haben wir unser erstes Release des Jahres! Es gibt ein paar große neue Features (Etagen und Badges) und viele kleine Verbesserungen und Änderungen für den Komfort.
+
+Die Themen, die in diesem Release-Update erwähnt werden, sind links aufgelistet. Das vollständige Changelog findest du auf [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.19.0).
+
+_Ich habe auch ein [patreon-Konto](https://www.patreon.com/planarally) eingerichtet, schau es dir gerne an :)_
+
+## Sicht
+
+### Etagen
+
+Eine der größten Ergänzungen dieses Releases ist die Einführung von Etagen. Genau wie im echten Leben kann ein Gebäude aus mehreren Etagen bestehen.
+Bisher musstest du, wenn du das in PA nachbilden wolltest, entweder separate Orte verwenden oder verschiedene Bereiche in einem Ort, die verschiedene Etagen darstellen.
+Beide Ansätze erfordern eine Menge Herumspringen, was letztlich unerwünscht ist.
+
+Mit diesem Release ändert sich das. Der DM kann eine Etage mit dem Etagen-Button in der unteren linken Ecke, direkt neben dem Ebenen-Wähler, erstellen/löschen. Die in diesem Kasten angezeigte Zahl ist die Nummer der aktiven Etage.
+
+Sicht und Lichter funktionieren auf natürliche Weise über Etagen hinweg; Ein Token auf der oberen Etage kann durch ein Fenster ein Token mit einem Licht im Garten sehen, und ebenso kann jemand im Garten die Person auf dem oberen Balkon sehen. _Beachte, dass dies keine echte 3D-Darstellung ist, sodass einige kleine Randfälle auftreten können, in denen die Höhe bestimmter Objekte unbekannt ist._
+
+**Das folgende Video könnte Karten-Spoiler für das WotC-Abenteuer Waterdeep Dragon Heist enthalten.**
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/newfloors.webm" type="video/webm" />
+    <source src="/blog/release-0.19/newfloors.mp4" type="video/mp4" />
+</video>
+
+Das obige Beispiel zeigt, wie die Etagen-Sicht funktioniert, wobei die linke Seite einen Spieler mit Besitz des Y-Tokens auf der ersten Etage darstellt. Die rechte Seite stellt den DM dar, der Zugriff auf beide Token hat.
+
+Um die Etage zu wechseln, klickst du auf den Etagen-Button unten links und wählst die gewünschte Etage aus. Um die Etage einer Form oder einer Gruppe von Formen zu ändern, klickst du mit der rechten Maustaste darauf und verwendest das Etagen-Untermenü.
+
+**Wichtiger Tipp:** Es gibt einige zusätzliche Tastenkürzel für Etagen, mit denen du nahtlos wechseln kannst. Mit Bild Auf/Ab bewegst du dich eine Etage nach oben oder unten. Du kannst eine Auswahl von Formen auch über Tastenkürzel auf andere Etagen verschieben; Strg + Bild Auf/Ab verschiebt die Token eine Etage nach oben/unten. Wenn du dich sofort mitbewegen möchtest, verwende stattdessen Strg + Umschalt + Bild Auf/Ab.
+
+Beachte, dass Spieler derzeit frei zu jeder beliebigen Etage wechseln können. Zusätzliche Zugriffskontrolle wird in Zukunft hinzugefügt, aber mit den richtigen Sicht-Einstellungen sollte das eigentlich völlig in Ordnung sein!
+
+Jede Etage ist im Wesentlichen ein kompletter neuer Satz an Ebenen. Das bedeutet auch, dass es zusätzliche clientseitige Last für jede hinzugefügte Etage gibt. In Zukunft wird eine Option zum Rendern nur der aktiven Etage für diejenigen Spieler hinzugefügt, die die zusätzliche Last möglicherweise nicht bewältigen können. Der Standardfall mit nur einer Etage hat im Vergleich zu früheren Releases keinen zusätzlichen Overhead.
+
+### Verfügbare Modi
+
+Der alte Sichtmodus auf Basis hierarchischer Begrenzungsvolumina (bvh) ist jetzt aus dem Spiel entfernt. Jede Karte, die ihn noch verwendete, sollte auf den Standardmodus auf Basis der Dreieckserweiterung umgestellt werden.
+
+Zusätzlich ist ein neuer Sichtmodus verfügbar. Es ist ein experimentelles Upgrade des Standard-Dreiecks-Sichtmodus, der nicht die gesamte Szene neu berechnen muss, sondern iterativ arbeitet. Das sollte spürbare Leistungsverbesserungen auf Karten mit vielen Sicht-Elementen bringen, könnte aber noch Bugs enthalten, die die Sicht lahmlegen. Wenn das passiert, sollte ein Neuladen der Seite funktionieren.
+
+## Formen
+
+### Badges
+
+Ein weiteres neues Feature, vorgeschlagen von @adunis auf github, ist die Einführung von Badges; Dies sind kleine nummerierte Symbole in der unteren rechten Ecke von Token.
+
+Die Anzeige von Badges kann pro Token-Gruppe ein- oder ausgeschaltet werden. Eine Token-Gruppe ist hier definiert als alle Instanzen, die aus dem Kopieren und Einfügen desselben Tokens resultieren. _(z. B. ziehe ich ein Ork-Token auf den Spieltisch und kopiere es ein paar Mal; all diese Token sind eine einzige Gruppe. Das Ziehen eines neuen Ork-Tokens auf den Spieltisch ist eine andere Gruppe.)_
+
+Badges beziehen ihre Hintergrundfarbe aus der Strichfarbe der Form, und ihre Rahmenfarbe und Schriftfarbe sind entweder schwarz oder weiß, je nachdem, was am besten lesbar ist. Die Token-Nummern werden beim Einfügen automatisch erhöht.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/badges.webm" type="video/webm" />
+    <source src="/blog/release-0.19/badges.mp4" type="video/mp4" />
+</video>
+
+### Annotationen
+
+Ich hatte es geschafft, einen Bug zu vergessen, der im August gemeldet wurde, aber er ist jetzt endlich behoben!
+
+Annotationen funktionierten beim Wechseln von Orten nicht mehr. Das ist jetzt gelöst :)
+
+## Werkzeuge
+
+### Einrasten
+
+Das Polygon-Werkzeug ist ein Werkzeug, das ich viel verwende. Insbesondere die Version, die sich nicht automatisch schließt. Ein Problem, auf das ich jedoch häufig stieß, war, dass ich keine zuverlässige Möglichkeit hatte, meinem Polygon präzise einen Punkt hinzuzufügen, der exakt mit einem vorhandenen Punkt übereinstimmen sollte (z. B. beim Verbinden von Wänden). Das verursachte sehr kleine, aber spürbare Probleme mit der Beleuchtung in diesen Bereichen, in denen offene Polygone aufeinandertrafen.
+
+Dieses Release fügt nun eine Einrasten-Funktion hinzu, die deinen Mauszeiger automatisch zu einem nahegelegenen vorhandenen Punkt zieht, wenn du dich ihm näherst. Dieses Einrasten-Verhalten ist nur beim Verkleinern oder bei der Verwendung des Draw-Werkzeugs aktiv. Das Draw-Werkzeug hebt einrastbare Punkte nun auch hervor, wenn es aktiviert wird (das könnte ich je nach Feedback in Zukunft entfernen).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.19/snapping.webm" type="video/webm" />
+    <source src="/blog/release-0.19/snapping.mp4" type="video/mp4" />
+</video>
+
+Wie du am Ende des Videos siehst, erscheint nur 1 roter Punkt an der Stelle, an der sich zwei Polygone treffen. In der Vergangenheit waren das mehrere Punkte sehr dicht beieinander.
+
+_Zur Erinnerung: Um ein Polygon zu schließen, verwende die rechte Maustaste; Ein zukünftiges Release sollte dies in der UI klarer machen_.
+
+### Touch-Gesten
+
+Die Touch-Unterstützung war bestenfalls immer sehr wackelig. Das ist ein erster Schritt, um es Touch-Geräten zu ermöglichen, auf intuitivere Weise mit PlanarAlly zu interagieren.
+
+Die Hinzufügung dieser Änderungen beschränkt sich hauptsächlich auf die Interaktion mit den verschiedenen UI-Elementen per Touch. Einige der „fortgeschritteneren" Gesten wie Pinch-to-Zoom usw. sind noch nicht hinzugefügt.
+
+_Dieses Feature wurde von @ZachMyers3 auf github beigesteuert_
+
+### Select-Fixes
+
+Es gab eine Reihe von Bugs im Zusammenhang mit dem Select-Werkzeug, die zu einer schlechten Benutzererfahrung führen konnten. Diese sind jetzt hoffentlich behoben.
+
+Insbesondere begann das Ziehen einer Gruppe von Token oft mit einem plötzlichen unerwarteten Sprung. Das wurde durch schlechte Vektormathematik verursacht, und das gleichzeitige Ziehen mehrerer Formen sollte jetzt viel besser funktionieren.
+
+Der Größenänderungs-Cursor erschien außerdem nicht ordnungsgemäß für alle Formen in einer Mehrfachauswahl.
+
+Das Verkleinern im Allgemeinen war auch defekt, wenn man eine Ecke über eine andere Ecke zog.
+
+## Einstellungen
+
+### Konto-Einstellungen
+
+Eine sehr rudimentäre Konto-Einstellungsseite wurde erstellt. Das Zahnrad im Dashboard hat jetzt tatsächlich einen Zweck!
+
+![Konto-Einstellungen](./0.19/accountsettings.png)
+
+Wie man sieht, ist der Umfang ziemlich begrenzt, aber du kannst jetzt deinen Benutzernamen ändern, eine E-Mail-Adresse hinzufügen, dein Passwort ändern und dein Konto löschen, wenn du das möchtest.
+
+Beachte, dass die E-Mail-Adresse von PA in keiner Weise verwendet wird (noch ist sie verpflichtend), aber sie ist für mögliche zukünftige Änderungen da oder falls ein Server-Admin eine E-Mail an seine Benutzer senden möchte.
+
+## Varia
+
+### Strg + 0
+
+Da PA eine unendliche Karte hat, kann es passieren, dass du deine eigentliche Karte nach dem Verschieben/Scrollen nicht wiederfindest.
+
+Als einfache Problemumgehung gibt es jetzt ein Tastenkürzel Strg+0, um deine Kamera zum Ursprung der Karte zurückzusetzen.
+
+_Dieses Feature wurde von @LDeeJay1969 auf github beigesteuert_
+
+### /\_load
+
+Hoffentlich ist den meisten Benutzern das nicht aufgefallen, aber PA hatte einen speziellen /\_load-Pfad, der für den Übergang zwischen Pfaden verwendet wurde.
+Wenn man jedoch mit der Zurück-Taste des Browsers zurückging, konnte man auf dieser speziellen Seite landen, auf der es nichts zu interagieren gibt.
+
+Der Lademechanismus wurde jetzt geändert und benötigt den speziellen Pfad nicht mehr.
+
+_Dieses Feature wurde von @ZachMyers3 auf github beigesteuert_
+
+### Versionsnummer
+
+Damit man sehen kann, welche PA-Version der Server, auf dem man ist, tatsächlich verwendet, zeigt das Login-Panel jetzt die Versionsnummer in seinem Titel an.
+
+![Versionsnummer](./0.19/version.png)
+
+_Dieses Feature wurde von @ZachMyers3 auf github beigesteuert_
+
+### Entfernung von JS-Artefakten
+
+Das ist eine technische Änderung, die nur für Code-Beitragende relevant ist.
+
+In der Vergangenheit wurden die JS-Build-Artefakte im Git-Repository gespeichert, sodass der Serverordner sofort ohne zusätzliches JS-Building verwendet werden konnte.
+Das führte jedoch zu einer Menge Merge-Konflikten und unnötigen Dateien im Repository.
+
+Du solltest die JS-Dateien jetzt selbst ordnungsgemäß bauen, wenn du lokal testen möchtest.
+
+## Geplant für 0.20.0
+
+### Ort-Überarbeitung
+
+Was ich im nächsten Release unbedingt angehen möchte, ist die UI/UX der Ort-Leiste. Sie ist jetzt einfach eine hässliche Sache mit begrenzter Funktionalität.
+
+### Marker
+
+@LDeeJay1969 hat an einem Markersystem gearbeitet, um zu markierte Orte zu springen.
+
+### Tastenkürzel-Fenster
+
+@Daniferrito hat mit der Arbeit an einem Tastenkürzel-Fenster begonnen.

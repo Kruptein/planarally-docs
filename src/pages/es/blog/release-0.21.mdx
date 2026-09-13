@@ -1,0 +1,214 @@
+---
+title: Release 0.21.0 - ¡Novedades!
+date: 2020-06-13 21:02:34
+excerpt: "¿Qué hay de nuevo en 0.21.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+En esta versión tenemos nuevas propiedades de formas, un sistema de ubicaciones de aparición, traducciones, un montón de cambios de calidad de vida y múltiples correcciones de errores, como de costumbre.
+
+## Formas
+
+Se han añadido algunas novedades a las propiedades de las formas y también hay una mejora en la detección de colisiones durante el movimiento.
+
+### Interruptor de invisibilidad
+
+Ahora es posible marcar una forma como invisible. Esto hará que sea invisible para todos los jugadores que no tengan acceso de visión a la forma. Los jugadores con acceso de visión verán la forma con normalidad.
+
+Es especialmente útil para cosas como familiares invisibles, pero también para varios objetos que emiten luz. Estos últimos son interesantes porque el interruptor de invisibilidad no se aplica a las auras de estas formas invisibles. Es ideal si quieres añadir una lámpara a una escena sin que tus jugadores vean un círculo feo del que emana la luz.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/invisible.webm" type="video/webm" />
+    <source src="/blog/release-0.21/invisible.mp4" type="video/mp4" />
+</video>
+
+### Interruptor de bloqueo
+
+Otro interruptor nuevo es el de bloqueo, que cuando está activado impide que la ficha se mueva o se redimensione. Esto es especialmente útil para el DM, que quiere asegurarse de no mover accidentalmente su mapa o los límites de iluminación.
+
+También hay un atajo de teclado (ctrl + L) que también funciona en selecciones más grandes, para que no tengas que abrir las propiedades de cada forma individualmente.
+
+Es importante tener en cuenta que las formas bloqueadas no se incluirán en las selecciones a menos que solo haya formas bloqueadas en la región seleccionada.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/locked.webm" type="video/webm" />
+    <source src="/blog/release-0.21/locked.mp4" type="video/mp4" />
+</video>
+
+### Acceso de movimiento
+
+En la última versión se amplió la sección de acceso añadiendo un permiso de acceso solo de visión para otros jugadores a los que no se les debería permitir editar una forma, pero sí ver su visión privada.
+
+Esta versión añade un permiso de acceso extra que permite a otro usuario mover la forma.
+
+### Mejoras en las colisiones
+
+La comprobación de colisiones del hitbox con las paredes siempre ha sido muy estricta y a veces demasiado estricta (debido a pequeños errores de redondeo). Esto genera una experiencia desagradable durante el juego al intentar pasar por un pasillo estrecho o una puerta.
+
+A partir de esta versión, el hitbox utilizado para comprobar las colisiones es mucho más pequeño durante el movimiento, lo que resulta en una jugabilidad más fluida.
+
+## Ubicaciones de aparición
+
+Un concepto nuevo en esta versión es la noción de ubicaciones de aparición. Es una función del DM que determina dónde aparecerán las fichas si cambian de ubicación.
+
+Ahora siempre debería aparecer una forma especial en la capa de DM que el DM puede mover libremente (también entre plantas). Cuando el DM mueve una ficha a otra ubicación, aparecerá centrada en la mencionada forma de aparición.
+
+Actualmente esto se limita a una aparición por ubicación, pero el soporte para múltiples apariciones llegará en el futuro.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.21/spawn.mp4" type="video/mp4" />
+</video>
+
+En el vídeo anterior, las fichas se mueven a la ubicación activa por motivos de presentación, pero el mismo concepto se aplica al mover formas a otras ubicaciones.
+
+## i18n
+
+Se ha añadido internacionalización (i18n) al código, lo que significa que ahora se puede trabajar en las traducciones. Ya hay traducciones para chino y alemán en el momento de escribir esto.
+
+Hay un elemento de selección de idioma en la pantalla de inicio de sesión para cambiar entre los idiomas actualmente soportados.
+
+![Selección de idioma](./0.21/language.png)
+
+## Calidad de vida
+
+En esta versión se han trabajado varios pequeños cambios de calidad de vida.
+
+### Build/Play mode
+
+Uno de los cambios más notables son los nuevos 'modos de herramienta'. La barra de herramientas se hacía cada vez más grande con cada versión. Además, algunas herramientas no son relevantes durante la mayoría de las sesiones, sino solo durante la preparación del DM.
+
+Por eso la barra de herramientas ahora se divide en 2 modos: build y play mode. Puedes alternar entre los dos modos haciendo clic en la letra al final de la barra de herramientas o pulsando TAB.
+
+Algunas herramientas ahora solo aparecen en uno de los dos modos (por ejemplo, Draw en build mode y Ping en play mode).
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.21/toolmode.webm" type="video/webm" />
+    <source src="/blog/release-0.21/toolmode.mp4" type="video/mp4" />
+</video>
+
+#### Redimensionar formas
+
+Algunas herramientas ahora también pueden tener un comportamiento diferente según su modo activo.
+
+A partir de 0.21.0, la herramienta Select solo puede redimensionar formas en build mode. El resto de las funciones de la herramienta Select seguirán siendo utilizables en play mode.
+
+Este cambio se ha introducido porque la gente a menudo redimensionaba accidentalmente las formas al intentar moverlas, y redimensionar una forma es algo que no ocurre a menudo durante el juego.
+
+### Changelog
+
+Otro cambio notable es que ahora habrá una ventana emergente de changelog para informar a los jugadores de que el servidor se ha actualizado.
+
+![Mostrando el changelog](./0.21/changelog.png)
+
+### Interruptor de regla pública
+
+La herramienta Ruler ahora tiene una pequeña ventana de opciones como las herramientas Draw y Map. Solo tiene un ajuste, un interruptor para decidir si tu regla debe ser privada o pública.
+
+### Iniciativa
+
+Al introducir tu iniciativa mientras todos los demás jugadores hacían lo mismo, a menudo tenías que reintentarlo porque alguien más era más rápido, lo que provocaba un reordenamiento de la lista de iniciativa y hacía que perdieras el foco de entrada.
+
+A partir de ahora, mientras tengas un campo de entrada enfocado en el diálogo de iniciativa, la interfaz esperará a actualizarse hasta que salgas del elemento de entrada.
+
+### Restringir la interfaz del jugador
+
+Había algunos lugares donde los jugadores tenían acceso a opciones que solo deberían estar disponibles para el DM.
+
+A partir de esta versión, los jugadores ya no pueden eliminar ni añadir plantas y ya no pueden mover sus formas a otras capas/plantas/ubicaciones por sí mismos.
+
+## Varios
+
+- Crear una nueva planta ya no moverá automáticamente a todos a esa planta
+- La versión que se muestra en la zona superior izquierda en el juego ahora se limitará a la versión más reciente
+- Las fichas básicas ahora tendrán su nombre predeterminado configurado en su etiqueta en lugar de 'Unknown shape'
+- Los usuarios de dispositivos móviles ya no podrán activar la actualización por overscroll simplemente moviéndose
+- Pasar el cursor sobre una imagen en la lista de iniciativa ahora mostrará el nombre de la forma
+- La herramienta Polygon ahora también se comporta como las otras formas en cuanto al ajuste. Cada punto se ajustará a una línea de la cuadrícula a menos que desactives el ajuste.
+
+## Corrección de errores
+
+- La creación de un polígono en el servidor con una lista inicial de vértices rompe la sesión
+- No se recordaba la ubicación de la planta del jugador
+- La regla no mostraba los puntos decimales
+- La configuración del DM/tamaño de unidad de cuadrícula mostraba una entrada no válida en firefox para números de coma flotante
+- El servidor mostraba errores de decodificación JSON
+- Los jugadores no podían actualizar los efectos de iniciativa
+- La capa activa a veces se restablecía al recargar
+- Los DM podían expulsarse a sí mismos
+- Algunos componentes de la interfaz no se actualizaban correctamente al restablecer la forma
+- El área a la derecha del selector de capas impedía draw/select
+- El centro del teclado generaba un error cuando no había fichas definidas
+- Múltiples errores con la sincronización de la iniciativa
+- Tres errores con las opciones específicas de ubicación que no se cargaban/guardaban correctamente
+- Barra de desplazamiento en la parte inferior de la página en firefox cuando la barra de ubicaciones no cabe en la pantalla
+- Error por el que una fuente de luz con radios 0/0 bloqueaba todas las luces de esa forma
+
+## Próximamente
+
+La gente me pregunta a menudo qué viene después en la hoja de ruta, así que quería compartir algunos de los temas que me gustaría abordar en las próximas versiones. Esta lista no es exhaustiva ni definitiva y no estará toda en la próxima versión, es una muestra de las posibles cosas que están por venir.
+
+##### Trabajo preparatorio sobre metadatos/exportar/importar
+
+Ha habido algunas discusiones en el servidor de Discord sobre añadir metadatos a los recursos y la posibilidad de importarlos/exportarlos a otros servidores. Hay que dar algunos pasos preparatorios antes de poder abordar el problema principal.
+
+##### Rotación
+
+La rotación es algo que ha faltado durante un tiempo en PA y por fin debería solucionarse.
+
+##### Rediseñar la secuencia de inicio
+
+La secuencia de inicio actual (el orden de los eventos que llegan al cargar el juego) debería rediseñarse. Hay algo de rendimiento que ganar reorganizando las cosas aquí y algunas cosas se envían innecesariamente.
+
+##### Pasar a fontawesome-vue
+
+Los iconos de PA los proporciona fontawesome, actualmente cargando de forma lateral la librería fontawesome.js. Es un archivo grande que consume tiempo de carga, lo que puede resolverse usando una librería específica de vue que solo incluya los iconos realmente usados.
+
+##### Lista de recursos asíncrona en el juego
+
+Al iniciar, el DM recibe toda la lista de recursos para que pueda mostrarse en la barra lateral. Es un esfuerzo desperdiciado; el gestor de recursos en el juego, al igual que el gestor de recursos completo, debería solicitar los datos al servidor cuando los necesite.
+
+##### Mejoras de Polygon
+
+Los polígonos son geniales, pero aún pueden beneficiarse de algunas funciones extra como añadir y eliminar puntos en polígonos existentes.
+
+##### Mejoras de la herramienta Floor
+
+Debería ser posible reordenar y renombrar las plantas, así como opciones para ocultar las plantas a los jugadores.
+
+##### Ampliar las opciones de aura
+
+Las auras podrían beneficiarse de algunas funciones nuevas como colores de borde y otras formas como las auras de cono.
+
+##### Visibilidad pública de las plantas
+
+La información de las plantas es actualmente pública para todos los jugadores; probablemente debería recibir un tratamiento de público/visibilidad como muchas otras cosas en PA.
+
+##### Mejorar el cursor en la herramienta Draw
+
+En la herramienta Draw se usa un cursor de ratón personalizado para una experiencia de dibujo más fluida. Sin embargo, no siempre es claramente visible, lo que es muy molesto.
+
+##### Cuadrícula hexagonal
+
+El soporte para cuadrículas hexagonales se ha solicitado un par de veces en el pasado, así que tarde o temprano debería añadir algo de soporte para este tipo de cuadrícula.
+
+Parte de la lógica existente se basa en cuadrículas rectangulares, así que quizá una versión inicial solo tendrá soporte de renderizado para los hexágonos, pero no capacidades de ajuste. Por investigar.
+
+##### Carga rápida de la planta actual
+
+Actualmente, al cargar una ubicación, el juego espera a que se carguen todas las plantas. Esto puede mejorarse cargando primero la planta activa y luego las demás.
+
+##### Blurhash
+
+Algunas imágenes, especialmente los mapas, pueden tardar más en cargarse. Me gustaría proporcionar un blurhash rápido como señal visual de que una imagen se está cargando hasta que la imagen completa esté disponible.
+
+##### Múltiples ubicaciones de aparición
+
+Como se indica en las notas de la versión, el nuevo sistema de ubicaciones de aparición no admite múltiples apariciones en una misma ubicación. Ampliarlo es posible y es sobre todo un problema de interfaz que debería ser relativamente simple.
+
+##### Más opciones de agrupación
+
+Hay algo de lógica de agrupación al copiar y pegar formas, pero no hay otras capacidades. Cosas como añadir una ficha a un grupo, fusionar grupos, dividir grupos, etc., son interesantes por varias razones.
+
+Aplicar automáticamente el interruptor de iniciativa de grupo para los grupos es otro cambio de calidad de vida que pretendo añadir.

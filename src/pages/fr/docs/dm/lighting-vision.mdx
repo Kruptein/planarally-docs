@@ -1,0 +1,110 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Éclairage et vision
+
+Dans cette section, nous décrirons comment, en tant que DM, vous pouvez donner plus de vie à vos donjons et offrir à vos joueurs une expérience dynamique !
+
+_Si vous voulez un exemple concret, consultez le [tutoriel de la première séance](/fr/learn/dm/first-map/#setting-up-a-light) !_
+
+Comme le titre l'indique, il y a 2 idées centrales dans PlanarAlly qui déterminent la façon dont vos joueurs perçoivent l'état de la table.
+
+En ajoutant des lumières (ou de l'obscurité) à certains endroits de la carte, vous apportez immédiatement plus de personnalité à un lieu ; de plus, vous pouvez placer une torche sur le personnage de quelqu'un et obtenir un sentiment encore plus grand d'exploration de donjon. Placer des lumières un peu partout sur votre carte gâchera cependant déjà de chouettes endroits à vos joueurs lorsqu'ils ne sont qu'à l'entrée. Pour éviter cela, il faut tenir compte de la vision d'un personnage donné, et si nous avons cela, nous devrions vivre une expérience très immersive.
+
+Nous aborderons d'abord une partie de la configuration de l'éclairage et terminerons par le fonctionnement de la vision.
+
+## Éclairage
+
+Il existe différents niveaux de complexité que l'on peut atteindre dans PlanarAlly et, selon la façon dont vous voulez mener votre partie, vous choisirez une méthode différente.
+
+Il existe également un réglage DM lié à l'éclairage, appelé « Fill entire canvas with FOW », que l'on trouve dans l'onglet Vision. Ce réglage active ou désactive le fait que tout l'écran soit rempli de brouillard par défaut.
+
+<Warning>
+    Il est fortement recommandé de remplir l'écran de brouillard si vous souhaitez utiliser le système de vision.
+    Actuellement, le système de vision sans brouillard se comporte de manière étrange.
+</Warning>
+
+### Lumières et ténèbres magiques
+
+Le premier type d'éclairage est ce que j'appelle l'éclairage « magique », car il est si puissant que les lumières magiques ne peuvent pas être cachées et que les ténèbres magiques ne peuvent pas être percées par les lumières normales.
+
+Aussi excitant que cela puisse paraître, j'utilise en fait rarement ce type de lumières, car c'est très statique. Je l'utilise pour certains cas limites.
+
+#### Comment les utiliser
+
+Si vous sélectionnez l'outil Draw en tant que DM, vous verrez un sélecteur de mode en haut. Lorsqu'il est réglé sur reveal, vous dessinez des lumières magiques ; lorsqu'il est réglé sur hide, vous dessinez des ténèbres magiques.
+
+Toutes les formes dessinées en mode reveal ou hide sont automatiquement dessinées sur le calque vision (fow) ! Donc, si vous avez fait une erreur ou souhaitez retirer quelque chose par exemple, allez sur le calque vision pour le corriger !
+
+#### Quand les utiliser
+
+Il peut arriver que vous souhaitiez montrer rapidement une certaine partie de l'écran aux joueurs, sans avoir à les déplacer partout. Peut-être voulez-vous afficher la boussole en permanence à l'écran alors que tout l'écran est couvert de brouillard par défaut. Ou peut-être avez-vous une scène en plein jour sans brouillard, mais voulez-vous vous assurer que le contenu d'un bâtiment ne soit pas encore révélé avant l'affrontement final.
+
+Un autre cas d'usage typique : en tant que DM, vous voulez accorder la vision aux joueurs au fur et à mesure, en gardant visible tout ce qu'ils ont visité. En combinant l'option « couvrir tout de brouillard » puis en dessinant au pinceau en mode reveal, vous pouvez facilement tracer un chemin pour vos joueurs.
+
+### Lumières normales
+
+Un usage beaucoup plus courant de l'éclairage consiste à placer des lumières sur la carte. Vous pouvez attacher une lumière à n'importe quelle ressource et elle rayonnera depuis le centre de la ressource. Ces lumières peuvent percer le brouillard normal, mais pas le brouillard magique décrit ci-dessus.
+
+#### Comment les utiliser
+
+Ouvrez les propriétés de la ressource en faisant un clic droit dessus et en sélectionnant « edit properties ». Trouvez la section intitulée « auras » et commencez à remplir une nouvelle ligne.
+
+Pour plus d'informations, consultez la documentation sur les [auras](/fr/docs/game/shapes/#auras).
+
+Veillez toutefois à marquer votre aura comme source de lumière !
+
+<Tip title="Sources de lumière cachées">
+    Les sources de lumière sont toujours attachées à des formes. Si vous voulez cacher la forme à vos joueurs, mais
+    afficher son effet lumineux, déplacez-la sur le calque `fow` – ou rendez-la invisible, si vous avez besoin de la
+    couleur de l'aura.
+</Tip>
+
+#### Quand les utiliser
+
+C'est la méthode recommandée pour ajouter des lumières à votre scène dans la plupart des cas. Attacher une lumière à un pion offre immédiatement un éclairage dynamique lorsque le pion est déplacé et, combiné à la vision, cela constitue ensuite une combinaison très puissante.
+
+## Vision
+
+Jusqu'ici, nous avons réussi à ajouter quelques lumières et/ou du brouillard à notre scène, mais rien ne bloque ces lumières : elles traversent donc les murs de notre carte, à moins de peaufiner méticuleusement chaque lumière, ce qui ne sera pas amusant.
+
+C'est pourquoi PlanarAlly vous offre la possibilité d'indiquer où se trouvent les murs, les portes et autres obstacles sur votre carte, afin que PA puisse évaluer correctement comment une lumière doit se comporter.
+
+### Objets bloquant la lumière
+
+L'essentiel pour fournir à PA les informations sur les murs, etc., consiste à dessiner des formes comme vous le faites habituellement et à sélectionner l'option « blocks light » dans la boîte de dialogue des propriétés de la forme. Comme vous devez souvent dessiner ces formes pendant la préparation, PA propose un calque vision dédié (FOW) qui applique automatiquement l'option blocks light (et blocks movement) à chaque forme dessinée sur ce calque. Pour plus d'informations sur ce calque spécifique, consultez [la documentation sur les calques](/fr/docs/dm/layers/).
+
+Vous pouvez utiliser n'importe laquelle des formes disponibles pour dessiner vos squelettes de bâtiments, mais certaines sont plus utiles que d'autres. Bien que le rectangle puisse être utile pour les structures simples avec des murs à 90 degrés, je me retrouve à utiliser presque exclusivement l'outil polygone de nos jours. Consultez la [documentation de l'outil Draw](/fr/docs/tools/draw/) pour des informations plus détaillées sur le comportement de ces formes.
+
+<Info>Cela ne bloque que les lumières normales. Les lumières « magiques » percent tout brouillard non magique.</Info>
+
+### Ligne de vue
+
+Le dernier réglage que nous devons encore aborder pour compléter la configuration de l'éclairage et de la vision est le réglage de la ligne de vue dans les paramètres du DM.
+
+Sans ce réglage activé, nous avons nos lumières qui illuminent les pièces, les lumières s'arrêtant correctement au bord de nos murs. Ce qui nous manque, c'est une notion de ce qu'un personnage peut voir. Toutes les pièces avec une source de lumière seront visibles, qu'un joueur s'y trouve ou non.
+
+Lorsque vous activez le réglage de ligne de vue dans les paramètres du DM, PlanarAlly prendra en compte la position des personnages des joueurs et seules les lumières réellement visibles pour un pion seront montrées aux joueurs.
+
+<Warning>
+    Ce réglage ne prend en compte que les ressources sur lesquelles au moins un joueur a un **accès à la vision**. S'il
+    n'y a aucun pion sur lequel un joueur a un accès à la vision, ce joueur n'aura **aucune vision**.
+</Warning>
+
+## Vision minimale/maximale
+
+Celles-ci peuvent être réglées dans les [paramètres de campagne](/fr/docs/dm/settings/).
+Ces réglages se comportent beaucoup comme des auras, mais ne font que _limiter_ la vision de tous les pions, au lieu d'éclairer la carte.
+
+<Warning>Cela n'affecte que le canevas rempli de brouillard de guerre.</Warning>
+
+Un pion pourra voir tout ce qui se trouve dans la limite de la _vision minimale_ normalement.
+En revanche, il ne verra _pas_ les sources de lumière au-delà de la limite de la _vision maximale_.
+Toute source de lumière entre les limites de la vision minimale et maximale sera atténuée comme une aura de lumière tamisée.
+
+<Info>Cela ne bloque que les lumières normales. `Les lumières magiques percent tout brouillard non magique.</Info>

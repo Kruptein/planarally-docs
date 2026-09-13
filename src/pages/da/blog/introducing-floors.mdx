@@ -1,0 +1,39 @@
+---
+title: Introduktion til etager & små opdateringer
+date: 2020-02-13 21:02:34
+excerpt: "En introduktion til en ny kommende funktion: etager! Og et lille overblik over nogle andre ting, der sker i 0.19.0-releasen."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Jeg har ingen fast releasedato i tankerne for 0.19.0-releasen, men jeg sigter efter i det mindste at få noget ud denne måned. I mellemtiden ville jeg allerede komme ind på nogle ændringer, som du kan forvente i 0.19.0-releasen, og vise et mere detaljeret kig på én ny funktion i særdeleshed.
+
+## 0.19.0-godbidder
+
+Til at starte med har vi endelig en brug for indstillingsknappen, der har været synlig på hoveddashboardet, hvor du kan vælge, hvilken session du skal deltage i.
+Den har nu et formål og viser nogle meget simple kontoindstillinger. Du kan angive en e-mailadresse, ændre din adgangskode og slette din konto.
+Bemærk, at der i øjeblikket ikke bliver gjort noget med e-mailadressen, men en serverejer kunne bruge den til at sende vedligeholdelsesinformation eller noget andet.
+
+Jeg håber at udvide indstillingerne i fremtiden med masser af andre ting som standardkonfigurationer for alle spil-relaterede indstillinger.
+
+En anden ting, der kommer i den næste release, er snapping under tegne- og ændre-størrelse-handlinger. Selvom polygonværktøjet allerede gav meget tiltrængt enkelhed i tegningsaspektet (og i særdeleshed krigståge-tegning), havde det den besværlige ulempe, at der ikke var nogen måde at hæfte nøjagtigt på andre punkter, hvilket ofte introducerede små huller i synet omkring døre og vægge.
+Jeg kan nu med glæde sige, at de dage er forbi, og nu kan du frit snap polygoners (og andre formers) punkter!
+
+Endelig en lille note om en funktion bidraget af LDeeJay1969; han introducerede en tastebinding (ctrl+0) til at nulstille viewporten til (0, 0), hvis du tilfældigvis farer vild i det uendelige tomrum.
+Mere arbejde i forhold til at hoppe rundt på kortet er på vej, men denne lille tilføjelse er allerede et godt skub til at undgå frustration!
+
+## Etager
+
+Nu til en funktion med en mere visuel og større påvirkning: etager!
+
+_Følgende video bruger indhold fra Waterdeep\:Dragonheist-kampagnen udgivet af Wizards of the Coast_
+
+<video src="/blog/release-0.19/floors.webm" type="video/webm" style="max-width: 75vh;" autoplay loop></video>
+
+Som det kan ses i videoen ovenfor, arbejdes der på muligheden for at definere flere etager, som gengives oven på hinanden.
+
+At tilføje etager giver en meget dybere fordybelse sammenlignet med at hoppe rundt mellem lokationer eller skulle panere rundt på kortet.
+Hver etage tilføjer dog en øget belastning på klienten, da etagerne under den aktive etage også skal gengives!
+Bare for at være sikker: dette system er helt valgfrit (dvs. standarden er kun 1 etage).
+
+Som det kan ses, tages der højde for belysning og syn for at vise, hvad en bestemt spiller kan se. Nogle simplificeringer/antagelser skal laves, da PA ikke er et 3D-spil, men i stedet en mængde af 2D-lag oven på hinanden, men generelt tages der højde for belysning på højere og lavere etager under gengivelsen.

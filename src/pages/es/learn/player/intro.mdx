@@ -1,0 +1,77 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Introducción
+
+¡Felicidades, tu grupo está considerando PlanarAlly para vuestra próxima partida!
+Pero, ¿cómo se usa de verdad?
+
+En esta guía introductoria vamos a ver cómo crear una cuenta, unirte a una partida y
+mojarnos los pies observando los principales elementos de la interfaz que son visibles al abrir una partida.
+
+## Creación de cuenta
+
+<Info title="Servidores de PA">
+    No existe un único servidor de PlanarAlly; cualquiera es libre de alojar su propia versión y hacerla abierta o
+    cerrada al resto de personas. Por lo general, alguien de tu grupo acuerda en qué servidor de PA vais a jugar; si no
+    es así, alguien tendrá que leer la [documentación de servidores](/es/server/setup/) y decidir un servidor común.
+</Info>
+
+Cuando visites el servidor elegido, te recibirá de inmediato una página de inicio de sesión.
+PlanarAlly no requiere nada especial de ti al registrar una cuenta nueva:
+solo un nombre de usuario y una contraseña, con opcionalmente una dirección de correo electrónico.
+
+Actualmente la dirección de correo no se usa para nada dentro de PA en sí,
+pero un administrador del servidor podría usarla para informar a los usuarios de próximas interrupciones del servicio o cosas por el estilo.
+
+## Unirse a una partida
+
+Al iniciar sesión, te recibirá el panel principal; mostrará las partidas en las que participas y, si más adelante decides organizar una partida tú mismo, también aparecerán aquí.
+
+![Panel principal después de iniciar sesión](./assets/dashboard.png)
+
+Sin embargo, para que una partida aparezca aquí, primero debes ser invitado.
+
+Tu anfitrión te enviará una URL que, al visitarla, configurará automáticamente la conexión con tu cuenta y te colocará en la partida.
+¡En el futuro, la partida aparecerá en tu panel principal como se explicó antes!
+
+## Introducción rápida a la interfaz
+
+Cuando abres una partida, te reciben de inmediato una variedad de elementos de la interfaz.
+
+![Un ejemplo de sesión dentro del juego](./assets/in-game.png)
+
+Ocupando la mayor parte de la pantalla está el núcleo de cualquier VTT: el mapa con fichas, visión e iluminación.
+Tu DM lo habrá preparado con antelación.
+
+<Warning title="¿Todo está en negro?">
+    Es posible que lo único que veas sea el vacío completamente negro. Pero no te preocupes: tu DM probablemente
+    todavía tiene que darte acceso a una forma.
+
+    Si ya lo ha hecho y aun así no ves nada, prueba a pulsar <kbd>space</kbd> para volver a centrar la pantalla en una ficha a la que tengas acceso de visión.
+
+</Warning>
+
+En el siguiente capítulo veremos cómo interactuar correctamente con el mapa: desplazarlo, hacer zoom y también mover nuestros personajes.
+
+Primero te presentamos las esquinas de la pantalla, donde PA coloca la mayoría de los demás elementos destacados de la interfaz.
+
+Arriba a la izquierda hay un <Cog /> que abrirá una barra lateral;
+sirve sobre todo para configurar algunos ajustes poco usados y también es la forma de salir de la partida actual y volver al panel principal.
+
+Arriba a la derecha hay un control deslizante de zoom para ajustar el nivel de zoom del mapa y también verás un elemento de la interfaz con información sobre el personaje seleccionado.
+
+Continuando el recorrido, vemos un conjunto de iconos abajo a la derecha y un conmutador Build/Play.
+Todos están relacionados con una variedad de herramientas que ofrece PA, desde herramientas de dibujo hasta reglas y dados.
+¡Más sobre esto en el siguiente capítulo!
+
+Por último, está la esquina inferior izquierda, que en la captura anterior está vacía.
+Esta zona está reservada principalmente para cosas específicas del DM, pero puede aparecer del lado del jugador si tu DM usa una función especial de PA llamada «plantas».
+¡El chat de texto también aparecerá aquí si tu DM ha habilitado esta funcionalidad!
+
+Esta introducción rápida solo nos ha mojado los pies. ¡Sumergámonos por completo y veamos de qué van estas herramientas y cómo podemos interactuar con nuestro personaje [en el siguiente capítulo](/es/learn/player/interaction/)!

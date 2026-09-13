@@ -1,0 +1,27 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Snapping
+
+Mange elementer i PlanarAlly har en eller anden form for snapping-adfærd.
+Der findes to typer snapping: snapping til grid og snapping til punkter.
+
+Snapping til grid er ret selvforklarende. Når du flytter former rundt, vil du ofte have dem korrekt placeret på grid'et.
+Ved at bruge grid-snapping behøver du ikke være superpræcis, og PlanarAlly gør arbejdet for dig.
+
+Den anden form for snapping er muligheden for at snappe til et andet eksisterende punkt.
+Punkt defineres her som punkter i eksisterende former, f.eks. hjørnerne på et rektangel eller punkterne i en polygon.
+
+Som standard er snapping aktiveret og virker på de fleste handlinger (f.eks. flytte/ændre størrelse/rotere).
+Du kan deaktivere denne adfærd for en specifik handling ved at holde `alt`-modifikatoren nede under handlingen.
+
+Hvis du vil deaktivere det permanent, kan du invertere adfærden i [klientindstillingerne](/da/docs/game/settings/), hvilket får `alt`-tasten til at fungere som en modifikator, der aktiverer snapping i stedet.
+
+## Eksempler
+
+Når du tegner en polygon, vil hvert klikket punkt forsøge at snappe til et nærliggende grid-punkt eller til et eksisterende punkt.
+
+Når du ændrer størrelsen på et punkt, vil det forsøge at snappe til et grid-punkt eller et eksisterende punkt.
+
+Når du roterer en form, vil rotationen snappe til multipla af 45 grader.

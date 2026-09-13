@@ -1,0 +1,170 @@
+---
+title: Release 0.18.0 - Les nouveautés !
+date: 2019-11-15 21:02:34
+excerpt: "Une plongée dans les nouveautés de la prochaine version 0.18.0."
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Cela fait un moment (~5 mois) depuis la dernière version de PlanarAlly. Ce retard est en partie dû au fait que ma campagne personnelle m'a pris beaucoup de temps, mais aussi à certaines fonctionnalités techniques qui ne sont même pas prêtes pour cette version :(.
+
+Le développement n'a toutefois pas cessé entre-temps ! Nous avons reçu beaucoup de belles contributions à PA de @Daniferitto et @CalebKoch pour n'en citer que quelques-uns.
+
+Les sujets abordés dans cette note de version sont listés à gauche ; le journal des changements complet se trouve sur [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.18.0).
+
+Avant de plonger dans la liste des changements, je voudrais aussi vous informer de quelques changements importants pour la version 0.19.0 de PlanarAlly.
+
+##### Changements à l'horizon (0.19.0+)
+
+Jusqu'à présent, il y avait l'option de choisir entre le nouveau mode de vision "triangle" ou l'ancien mode "bhv".
+
+À partir de la 0.19.0, le mode bhv disparaîtra. Il n'a reçu aucun correctif ces derniers temps et est tout simplement inférieur au mode triangle à tous les égards.
+
+Un autre mode de vision fera son entrée dans la 0.19, que je vais surnommer 'triangle+'.
+C'est le même algorithme de vision, mais au lieu de devoir recalculer toute la triangulation à chaque changement, il modifiera la triangulation en direct.
+
+Cela signifie que tout bug dans ce système détruira irrémédiablement la triangulation, ce qui est la raison pour laquelle je le lance d'abord comme fonctionnalité optionnelle.
+
+Ce nouveau mode de vision devrait être encore plus rapide que le mode triangle existant puisqu'il n'aura pas à recalculer tout l'espace de vision lors d'un petit changement.
+
+## Personnalisation
+
+### Unités de longueur
+
+En premier sur la liste, l'ajout de la possibilité de changer la représentation de l'unité pour les distances. Jusqu'à présent, elle était toujours codée en dur en pieds (c'est-à-dire ft.) principalement parce que les livres sources officiels de dnd utilisent cela pour tout.
+
+Il est maintenant possible de choisir la représentation par emplacement. Vous pouvez ainsi avoir un emplacement "worldmap" avec des unités en km et une autre carte "ville" avec des unités en mètres !
+
+Pour changer l'unité de taille de l'emplacement actif, allez dans les paramètres du DM et ouvrez l'onglet grille.
+
+<video src="/blog/release-0.18/size-units.webm" type="video/webm" autoplay loop></video>
+
+## Outils
+
+#### Clic droit dans chaque outil
+
+Auparavant, le menu du clic droit n'était disponible que lorsque l'outil Select était actif, ce qui était assez agaçant ; le changement a donc été fait pour le proposer dans chaque outil.
+
+#### Outil Ping
+
+Un nouvel ajout à la liste des outils est l'outil Ping.
+
+Une astuce courante par le passé consistait à utiliser la règle et à tourner rapidement autour pour attirer l'attention sur une certaine zone de la carte. C'est évidemment sous-optimal, d'où le besoin d'une sorte d'outil Ping.
+
+Ce nouvel outil Ping est une implémentation très basique qui apporte une solution au problème ci-dessus, en offrant au DM et aux joueurs une forme un peu plus élégante pour signaler où ils veulent attirer l'attention.
+
+<video src="/blog/release-0.18/ping-tool.webm" type="video/webm" autoplay loop></video>
+
+L'idée est de développer cela à l'avenir avec des options d'animation pour agrandir/réduire le symbole de ping.
+
+### Outil Select
+
+#### Opérations de groupe
+
+Déplacer un groupe de pions vers différents calques devait se faire pion par pion par le passé.
+
+Maintenant, toute la sélection peut être déplacée vers le calque souhaité en une fois !
+
+<video src="/blog/release-0.18/group-select.webm" type="video/webm" autoplay loop></video>
+
+#### Sélection de pions avec ctrl
+
+En plus de la sélection de groupe, un autre changement de qualité de vie a été ajouté à l'outil Select.
+
+Vous pouvez maintenant ajouter des formes à la sélection active en utilisant la touche contrôle. Vous pouvez soit faire un clic avec ctrl sur une forme unique pour l'ajouter, soit glisser une nouvelle zone de sélection tout en maintenant la touche ctrl pour ajouter plusieurs formes d'un coup.
+
+<video src="/blog/release-0.18/ctrl-select.webm" type="video/webm" autoplay loop></video>
+
+### Outil Draw
+
+#### Échap pour annuler
+
+Il est maintenant possible d'annuler le tracé de la forme active en appuyant sur la touche échap.
+
+<video src="/blog/release-0.18/escape.webm" type="video/webm" autoplay loop></video>
+
+#### Polygones ouverts
+
+L'outil polygone était déjà l'un de mes outils les plus utilisés, mais maintenant, avec l'ajout des polygones ouverts, c'est devenu ma méthode de référence pour créer rapidement des murs et d'autres objets bloquant la lumière.
+
+Tout comme la variante fermée, le polygone ouvert est une forme qui peut être tracée en cliquant là où vous voulez ajouter un point à la forme de polygone et en cliquant avec le bouton droit pour signaler que la forme est terminée.
+Il ne crée cependant **pas** de connexion automatique entre le premier et le dernier point du polygone.
+
+Une autre différence est que le polygone ouvert n'a pas de couleur de remplissage puisqu'il n'y a pas de zone entre les points à remplir.
+
+J'utilise beaucoup cette forme pour dessiner rapidement des murs.
+
+<video src="/blog/release-0.18/openpolygon.webm" type="video/webm" autoplay loop></video>
+
+#### Taille de pinceau des polygones
+
+En plus de l'ajout des polygones ouverts, les polygones ont maintenant aussi une taille de pinceau comme l'outil pinceau.
+
+<video src="/blog/release-0.18/brushsize.webm" type="video/webm" autoplay loop></video>
+
+#### Bordures de cercle en retrait
+
+Parce que la création de pions circulaires devait souvent être redimensionnée pour tenir dans une cellule de grille, la décision a été prise de faire en sorte que les bordures de cercle soient en retrait.
+
+## Calques
+
+### FOW tout invisible
+
+Toute forme sur le calque FOW est maintenant invisible lorsqu'un autre calque est sélectionné.
+Par le passé, cela ne s'appliquait qu'aux formes avec l'option visionObstruction active, mais maintenant cela s'applique à toutes les formes du calque.
+Cela ne concerne que la visibilité réelle de la forme : toute aura appliquée à la forme restera visible !
+
+Cela permet d'installer des lumières sans qu'elles soient visibles par les joueurs, ou d'avoir des murs invisibles transparents et autres bonnes choses.
+
+## Barre des emplacements
+
+### Couleur de l'emplacement actif
+
+Un beau changement de qualité de vie apporte une couleur de surbrillance à l'emplacement actuellement actif dans la barre des emplacements, pour que vous soyez sûr de savoir où vous êtes ;).
+
+## Corrections de bugs
+
+Une courte liste des corrections de bugs les plus marquantes.
+
+### Révélation de données privées lors du déplacement
+
+La correction de bug la plus importante est celle où, lors du déplacement d'une forme, les paramètres spécifiques au DM étaient perdus, ce qui rendait certaines informations publiques pour les joueurs,
+y compris les auras et autres paramètres liés à la vision.
+
+Cela entraînait l'apparition soudaine de certaines zones de la carte pendant un déplacement de la souris, puis leur redécouverte à la libération de la souris.
+Cela devrait maintenant se comporter correctement.
+
+### Auras lumineuses traversant les murs
+
+Un autre bug tenace qui a été écrasé concerne les auras lumineuses.
+
+Pour le calque de contrôle, la vision était correctement coupée aux limites de vision comme les murs ; pour le DM et d'éventuels autres joueurs, en revanche, l'aura montrait une zone visible correcte, mais passait en plus directement à travers le mur.
+
+### L'état de verrouillage fonctionne correctement à la connexion
+
+La nouvelle fonctionnalité de verrouillage pour les DM s'affichait toujours comme 'déverrouillé' à la connexion à une session, même lorsque la session était verrouillée.
+
+### Segments d'aperçu des polygones
+
+Lors du tracé d'un polygone, une ligne est toujours prévisualisée depuis le dernier point cliqué jusqu'au pointeur de la souris. Cette ligne s'affichait toujours en noir au lieu d'utiliser les couleurs de dessin actives.
+
+### Sessions avec un slash
+
+Les sessions avec un slash dans leur nom ne fonctionnaient pas.
+
+### Largeur de la règle selon le zoom
+
+L'outil Ruler avait une largeur incohérente à différents niveaux de zoom. Il a maintenant la même largeur d'écran quel que soit le niveau de zoom.
+
+### L'aide de pinceau qui restait
+
+L'aide de pinceau (le point d'aperçu) restait souvent dans certains cas limites. Elle devrait maintenant disparaître correctement lors du changement d'outil ou de calque.
+
+### Formes temporaires qui restaient
+
+Lorsqu'un joueur quittait ou se reconnectait pendant le tracé d'une forme temporaire, elle restait souvent jusqu'à ce que tout le monde rafraîchisse.
+Cela devrait maintenant être correctement effacé à la déconnexion du joueur.
+
+### Cercles négatifs
+
+Il était possible dans certaines circonstances de tenter de créer un cercle avec un rayon négatif. Cette tentative cassait la page.

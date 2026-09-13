@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# Emplacements
+
+L'outil Emplacements fournit plusieurs instances d'un ensemble de [calques](/fr/docs/dm/layers/) avec leurs propres réglages, chaque instance étant désignée ci-après comme un _emplacement_.
+
+## La barre des emplacements
+
+Seul le DM peut accéder activement aux emplacements et les manipuler.
+Cela se fait en cliquant sur le symbole <Compass /> dans le coin supérieur gauche de l'écran.
+Cette fonction étant réservée au DM, les joueurs ne peuvent pas voir ce bouton.
+Les joueurs n'interagissent qu'avec un seul canevas à la fois ; pour eux, chaque nouvel emplacement ressemble à une carte différente (c'est-à-dire un ensemble différent de [calques](/fr/docs/dm/layers/) empilés).
+
+Une fois ouverte, la barre des emplacements affiche sur sa première ligne un bouton pour créer de nouveaux emplacements à gauche, suivi d'éléments pour chacun des emplacements de la campagne.
+L'emplacement actuel est mis en évidence par un texte blanc et le symbole <Cog />, tandis que le texte et les boutons de tous les autres emplacements sont blancs avec une teinte rougeâtre.
+Chaque élément de la liste comprend une poignée pour faire glisser les emplacements, un affichage du nom de l'emplacement et un bouton <Cog /> pour accéder aux réglages individuels de l'emplacement.
+
+Chaque emplacement où des joueurs sont présents affiche également un onglet « Players » qui peut être déplié pour afficher la liste des joueurs présents sur ledit emplacement.
+
+Sur sa deuxième ligne, la barre des emplacements affiche un bouton pour accéder aux emplacements archivés.
+Si aucun emplacement n'est archivé, le bouton apparaîtra légèrement transparent, devenant complètement opaque dès qu'au moins un emplacement est archivé.
+
+Cliquer à nouveau sur le symbole <Compass /> fermera la barre des emplacements.
+
+## Créer et réorganiser des emplacements
+
+Cliquer sur le bouton « + » à gauche de la barre des emplacements ouvrira une boîte de dialogue vous demandant un nom pour cet emplacement.
+Ce nom pourra être modifié plus tard.
+
+Cliquer et maintenir le symbole « neuf points » permet de réorganiser librement les emplacements sur la barre, comme le montre la vidéo :
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## Paramètres des emplacements
+
+Un emplacement nouvellement créé hérite des réglages par défaut de la campagne définis dans les [paramètres](/fr/docs/dm/settings/).
+Certains des réglages définis là-bas peuvent être remplacés individuellement pour chaque session.
+
+Les paramètres de l'emplacement sont accessibles via le symbole <Cog /> sur l'élément de l'emplacement correspondant dans la barre des emplacements.
+Les paramètres de l'emplacement ouvriront une boîte de dialogue à trois onglets : Admin, Grid et Vision.
+
+Chaque réglage défini pour remplacer les valeurs par défaut de la campagne le restera jusqu'à réinitialisation.
+Définir manuellement un réglage pour qu'il corresponde à la valeur également définie dans les valeurs par défaut de la campagne ne rétablira pas le lien avec les valeurs par défaut, mais conservera cette valeur malgré toute modification ultérieure des valeurs par défaut de la campagne.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+L'onglet _Admin_ des paramètres de l'emplacement vous permet de renommer, archiver ou supprimer l'emplacement.
+
+Les emplacements archivés disparaîtront de la barre des emplacements.
+Pour restaurer un emplacement archivé dans la barre des emplacements, accédez aux archives via le bouton `Show archived locations` dans la barre des emplacements.
+Une liste de tous les emplacements archivés s'ouvrira alors.
+Ils sont restaurés en cliquant sur `select`.
+
+<Image src={RenameLocation} alt="Menu de renommage d'emplacement" />
+
+Vous ne pouvez archiver ou supprimer que les emplacements où personne n'est présent, ni joueurs ni DM.
+
+### Grid
+
+Voir ['Grid' dans les paramètres de campagne](/fr/docs/dm/settings/#grid).
+
+### Vision
+
+Voir ['Vision' dans les paramètres de campagne](/fr/docs/dm/settings/#vision).
+
+## Changer d'emplacement
+
+Avec la barre des emplacements ouverte, le DM peut changer d'emplacement aussi simplement qu'en cliquant sur le bloc affichant le nom de l'emplacement souhaité.
+
+Les joueurs ne peuvent pas changer d'emplacement par eux-mêmes.
+Sur invitation, les joueurs rejoindront un emplacement existant occupé par un joueur (que ce joueur soit ou non connecté à ce moment-là).
+S'il n'y a pas d'autres joueurs listés dans la campagne, le premier joueur à suivre une invitation rejoindra l'emplacement où le DM est actif.
+Les joueurs resteront sur leur emplacement actif jusqu'à ce que le DM les fasse glisser vers un autre emplacement.
+
+Les joueurs peuvent être déplacés en groupe ou individuellement, comme illustré ici.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+Les joueurs envoyés vers un autre emplacement n'emportent _pas_ avec eux les formes qu'ils contrôlent.
+Ces formes doivent au contraire être envoyées vers cet emplacement par le DM.
+
+## Déplacer des formes vers un autre emplacement
+
+Si un emplacement possède un ou plusieurs points d'apparition, les formes peuvent y être déplacées individuellement ou en groupe via leur menu contextuel du clic droit.
+
+En tant que DM, vous pouvez créer un ou plusieurs points d'apparition en faisant un clic droit sur la zone où vous voulez que le point d'apparition se trouve et en sélectionnant l'action « create spawntoken ».
+
+Lorsqu'elles sont envoyées vers un autre emplacement, les formes apparaissent centrées sur le point d'apparition choisi, qui est une forme spéciale apparaissant sur le [calque _dm_](/fr/docs/dm/layers/#dm).
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="Symbole du point d'apparition" />
+
+Le marqueur du point d'apparition peut être déplacé librement sur le calque _dm_.
+Depuis la version 0.23, vous pouvez supprimer et créer autant de points d'apparition que vous le souhaitez.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

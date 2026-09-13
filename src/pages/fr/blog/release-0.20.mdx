@@ -1,0 +1,199 @@
+---
+title: Release 0.20.0 - Les nouveautés !
+date: 2020-05-10 21:02:34
+excerpt: "Les nouveautés de la 0.20.0 ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
+
+Je veux commencer par un grand merci ! Notre petite communauté commence à grandir et cela me réchauffe vraiment le cœur de voir toutes ces personnes nous rejoindre et partager leurs expériences.
+En ces temps, avoir une activité à faire avec ses amis comme donjons et dragons est important et j'espère donc que PlanarAlly pourra apporter de la joie à certains d'entre vous.
+
+Dans cette version, nous avons des améliorations de la gestion des ressources, une refonte de la barre des emplacements, une meilleure UI/UX et tout un tas de corrections de bugs.
+
+Les sujets abordés dans cette note de version sont listés à gauche ; le journal des changements complet se trouve sur [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.20.0).
+
+_J'ai également créé un [compte patreon](https://www.patreon.com/planarally), n'hésitez pas à y jeter un œil :)_
+
+## Ressources
+
+### Barre de recherche en jeu
+
+Lorsque vous avez un grand nombre de ressources, les organiser dans des dossiers est une façon de parcourir vos fichiers en jeu, mais cela peut tout de même prendre du temps.
+Nous avons maintenant une barre de recherche en haut de la liste des ressources en jeu ! C'est une implémentation de recherche très simple, pas de regex sophistiquées pour l'instant, mais elle a déjà considérablement facilité mon travail de préparation.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/search.webm" type="video/webm" />
+    <source src="/blog/release-0.20/search.mp4" type="video/mp4" />
+</video>
+
+### Informations de progression du téléversement
+
+Le téléversement d'images dans le gestionnaire de ressources ne donnait aucune indication de progression. Il fallait attendre la fin pour qu'elles apparaissent et il y avait aussi un bug où elles n'apparaissaient parfois qu'après un rafraîchissement.
+
+Ces jours sont révolus et nous avons maintenant une barre de progression :)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/progressbar.webm" type="video/webm" />
+    <source src="/blog/release-0.20/progressbar.mp4" type="video/mp4" />
+</video>
+
+### Varia
+
+Lors de la suppression de ressources dans le gestionnaire de ressources, elles seront également supprimées du disque si aucun autre utilisateur n'utilise le même fichier. Si vous voulez appliquer cela rétroactivement à tous vos fichiers existants qui ne sont plus utilisés, le propriétaire du serveur peut utiliser [ce bout de code](/public/blog/release-0.20/remove_old_assets.txt)
+
+Le menu contextuel du clic droit ne s'affichait pas correctement si vous aviez fait défiler le navigateur de fichiers. Cela a maintenant été résolu, tout comme le bug mentionné précédemment où les fichiers n'apparaissaient dans l'explorateur qu'après un rafraîchissement.
+
+## Emplacements
+
+La barre des emplacements a subi une refonte massive et dispose maintenant de plusieurs nouvelles fonctionnalités !
+
+### Déplacer les joueurs
+
+Avant cette version, si le DM cliquait sur un emplacement, le DM et tous les joueurs se déplaçaient. Ce n'est évidemment pas idéal et cela a été retravaillé.
+
+Si vous cliquez sur le nom d'un emplacement, vous, et vous seul, vous déplacerez vers cet emplacement.
+Si vous voulez déplacer vos joueurs, vous pouvez soit glisser le groupe de joueurs entier vers un autre emplacement, soit ouvrir l'élément du joueur et glisser un joueur individuel vers un autre emplacement.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+### Réordonner les emplacements
+
+En plus de l'option de glisser les joueurs, vous pouvez maintenant aussi glisser les emplacements eux-mêmes pour les réorganiser dans l'ordre de votre choix.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+### Paramètres
+
+Un aspect souvent déroutant de la configuration des emplacements est que leurs paramètres se trouvaient en partie dans les paramètres du DM pour toute la session.
+Il n'y avait aucun signe clair indiquant quels paramètres s'appliquaient à tous les emplacements ou lesquels ne s'appliquaient qu'à l'emplacement actif.
+
+Cela a maintenant été retravaillé et les paramètres du DM dictent désormais les valeurs par défaut pour tous les emplacements. Les emplacements individuels peuvent ensuite remplacer ce comportement dans leurs propres paramètres.
+Toute valeur remplacée sera mise en évidence pour bien montrer qu'elle diverge des paramètres par défaut.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+De plus, il est maintenant aussi possible de renommer ou même de supprimer un emplacement.
+
+<Image src={RenameLocation} alt="Renommer l'emplacement" />
+
+## Autres améliorations UI/UX
+
+La refonte des emplacements mentionnée précédemment est une évidente grande victoire en termes d'UI/UX, mais d'autres domaines ont aussi fait des progrès !
+
+### Propriété des formes
+
+C'était pénible par le passé d'ajouter des utilisateurs comme propriétaires de formes parce qu'il fallait saisir les noms manuellement. De plus, il y avait des cas où l'on voulait donner à quelqu'un un accès de vision sans pour autant un accès d'édition général.
+
+Les deux choses sont maintenant du passé !
+
+<Image src={Access} alt="Paramètres d'accès" />
+
+La partie accès de la boîte de dialogue des propriétés de forme a été améliorée. Elle affiche désormais toujours une ligne de permission par défaut, que vous pouvez utiliser pour donner immédiatement un accès de vision et d'édition à tous les joueurs.
+
+Un menu déroulant permet d'ajouter des permissions pour un utilisateur spécifique et les icônes permettent d'affiner les permissions comme ailleurs.
+
+Le crayon donne l'accès d'édition ; cela englobe pratiquement tout : le déplacement des formes, la modification des champs dans les propriétés, etc.
+
+L'ampoule donne l'accès de vision ; elle permet simplement au joueur de voir ce que la forme peut voir.
+
+### Outil Map
+
+L'outil Map a toujours été pratique, mais son fonctionnement n'a jamais été très clair. Cette version ajoute des informations plus évidentes sur son utilisation et modifie aussi légèrement son comportement.
+
+L'outil Map ne fonctionne que sur une forme sélectionnée ; pour rendre cela clair, une infobulle apparaîtra désormais pour demander de sélectionner une forme. Cela peut aussi se faire directement depuis l'outil Map, vous n'avez donc plus besoin de passer par l'outil Select et de revenir.
+
+Par le passé, vous deviez saisir les dimensions X/Y souhaitées à l'avance et le redimensionnement se produisait dès que vous aviez fini de sélectionner. Cela a été modifié pour que vous puissiez sélectionner une zone et continuer à l'ajuster jusqu'à ce que vous soyez satisfait avant de finaliser le redimensionnement.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+
+Une autre petite amélioration d'UX est que la forme ne pourra plus sortir de l'écran après un redimensionnement. Une partie d'elle restera toujours garantie au même endroit.
+
+### Redimensionnement des formes
+
+Le redimensionnement d'une forme ne tentera plus de centrer la forme en fonction de ses contraintes parmi les cellules. Il redimensionnera simplement le coin glissé vers le point de grille le plus proche, ce qui donne un effet plus naturel.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/resize.webm" type="video/webm" />
+    <source src="/blog/release-0.20/resize.mp4" type="video/mp4" />
+</video>
+
+### Taille du pinceau de Draw
+
+Pour l'outil polygone et l'outil pinceau, la taille par défaut du pinceau a été réduite de 1 unité de grille à 1/10e d'unité de grille.
+En pratique, ces outils sont surtout utilisés pour des lignes de visibilité et des lignes plus fines sont préférées dans ce cas.
+
+### Marqueurs de forme
+
+Vous pouvez maintenant définir un marqueur sur une forme. Cela ajoutera une entrée au sous-menu des marqueurs, accessible depuis la barre latérale gauche.
+
+Ce menu vous permet de centrer l'écran sur un marqueur sélectionné.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/markers.webm" type="video/webm" />
+    <source src="/blog/release-0.20/markers.mp4" type="video/mp4" />
+</video>
+
+## Nouveaux raccourcis clavier
+
+### Conserver le rapport hauteur/largeur
+
+Lors du redimensionnement d'une forme, on veut parfois s'assurer que le rapport hauteur/largeur soit conservé. C'est désormais possible en maintenant la touche ctrl enfoncée pendant l'opération de redimensionnement.
+
+La touche ctrl est aussi utilisée pour la sélection multiple, mais les deux opérations ne se chevauchent pas, donc la double utilisation semblait appropriée.
+
+Les modificateurs habituels alt et shift peuvent aussi être utilisés avec ce modificateur.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/aspectratio.webm" type="video/webm" />
+    <source src="/blog/release-0.20/aspectratio.mp4" type="video/mp4" />
+</video>
+
+### Centrer l'écran sur un pion
+
+En plus du nouveau système de marqueurs et du raccourci ctrl+0 introduit dans la 0.19.0, une autre option est disponible pour centrer votre écran sur des pions importants.
+
+En appuyant sur la barre d'espace, vous ferez défiler vos pions et les centrerez à l'écran. Cela vous déplacera aussi vers d'autres étages si vous vous trouvez ailleurs.
+
+### Inverser le comportement de la touche alt
+
+Certaines personnes n'aiment pas le comportement d'accrochage par défaut et désormais elles peuvent vivre heureuses pour toujours. Cette version ajoute une bascule dans les paramètres du client de la barre latérale pour inverser le comportement de la touche alt.
+
+Si cette option est activée, les actions par défaut n'effectueront aucun accrochage et ce n'est que lorsque la touche alt est pressée qu'il tentera de s'accrocher à la grille ou aux points proches.
+
+## Varia
+
+### Ajouts
+
+- options cors origin
+- logo, version en haut à gauche
+- infobulles sur la plupart des icônes
+- configuration du serveur par paliers
+
+### Corrections de bugs
+
+- La largeur des polygones est maintenant prise en compte pour la détection de coups
+- La barre étage/calque se déplace maintenant avec le menu latéral lorsqu'il est ouvert
+- Le menu latéral et le menu des emplacements ne se chevauchent plus
+- Le redimensionnement de la fenêtre ne perturbe plus les bordures d'éclairage
+- Les valeurs des invites précédentes sont maintenant effacées avant d'afficher une nouvelle invite
+- Les grilles de tous les étages inférieurs étant visibles
+- Le DM pouvant s'inviter lui-même dans la salle en tant que joueur
+- L'outil Draw ne retardant plus le rendu de l'aide de pinceau après un changement de calque/étage
+- L'étage actif est mémorisé lors de la reconnexion à la session

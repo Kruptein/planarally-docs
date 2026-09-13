@@ -1,0 +1,146 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# Configuración del cliente
+
+La configuración dentro del juego es accesible desde el menú lateral (haz clic en el icono <Cog /> en la parte superior izquierda de la pantalla de tu navegador para abrir el menú).
+
+#### Sincronización de la configuración
+
+Por defecto, los ajustes mostrados se derivan inmediatamente de tu configuración global predeterminada del cliente.
+Al cambiar un ajuste, aparecerán dos botones extra junto a él, para indicar que este ajuste está sobrescribiendo el comportamiento predeterminado.
+
+Puedes restablecer el ajuste al valor predeterminado haciendo clic en el icono <TimesCircle />.
+
+Si en cambio quieres que tu cambio sea el nuevo valor predeterminado, puedes hacer clic en <SyncAlt />.
+Esto afectará a todas las demás campañas donde no hayas sobrescrito este ajuste.
+
+## Apariencia
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Configuración de apariencia" />
+
+### Idioma
+
+Aquí puedes elegir un idioma diferente para mostrar en la interfaz de usuario.
+Esto se replicará a todas las demás campañas que juegues o dirijas, igual que si se hiciera a través del [panel](/es/docs/dashboard/#localisation).
+
+### Barras de herramientas
+
+_Añadido en 2022.3_
+
+Este ajuste te permite elegir entre iconos o texto para las herramientas de la barra de herramientas (p. ej. el icono de regla vs "regla").
+
+### Cuadrícula
+
+El ajuste de color define el color en el que se dibujará la [capa de cuadrícula](/es/docs/dm/layers/#grid) (es decir, las líneas de la cuadrícula).
+
+### Ruler
+
+Aquí se puede configurar el color de la [regla](/es/docs/tools/ruler).
+Si la regla se usa públicamente, todos los demás jugadores verán tu regla en el color que definiste aquí.
+
+### Niebla
+
+Esto establece el color de la niebla que cubre todo lo que no puedes ver.
+
+## Comportamiento
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Configuración de comportamiento" />
+
+### Ajuste
+
+Cuando se marca, esto invierte el [comportamiento de ajuste](/es/docs/game/snapping/) predeterminado.
+
+### Ratón y gestos
+
+Por defecto, el desplazamiento te permite hacer zoom hacia dentro o hacia fuera; sin embargo, esto puede ser molesto en dispositivos táctiles y, por lo tanto, se puede desactivar.
+
+### Información de selección
+
+_Añadido en 2022.3_
+
+Este ajuste influye en cómo se interpretan por defecto las modificaciones del rastreador de información de selección.
+
+Cuando se usa el modo absoluto, el resultado de la expresión ingresada será el nuevo valor del rastreador.
+
+Cuando se usa el modo relativo, el resultado se añadirá al valor original del rastreador.
+Esto te permite modificar valores rápidamente con -5 o +5, por ejemplo.
+
+## Pantalla
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Configuración de pantalla" />
+
+El ajuste HiDPI te permite aumentar la resolución del juego renderizado en pantallas que ofrecen renderizado subpíxel.
+
+<Warning title="Mayores costos de rendimiento">
+Activar este ajuste requerirá más rendimiento de tu computadora.
+
+Si el juego se siente lento, debes asegurarte de que esto no esté activado.
+
+</Warning>
+
+### Tablero
+
+Si usas PlanarAlly en una pantalla que usas como tablero de juego físico con miniaturas reales,
+querrás configurar estos ajustes para configurar el tamaño de la cuadrícula correctamente para que coincida con tus miniaturas.
+
+Necesitas conocer el PPI de tu pantalla para que esto funcione correctamente.
+
+Ten en cuenta que el zoom hacia dentro/fuera está actualmente desactivado cuando este ajuste está activo.
+
+### Cuadrícula
+
+Cuando _no_ usas un tablero físico, puedes configurar aquí el tamaño que debe tener una celda de cuadrícula individual en tu pantalla.
+
+Querrás cambiar esto si estás jugando con algo como un proyector, por ejemplo.
+
+## Iniciativa
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Configuración de iniciativa" />
+
+<Info>
+    Los dos ajustes de bloqueo de abajo solo se usan si la iniciativa está activa. La iniciativa solo está realmente
+    activa cuando se activa usando los [Quick Toggles](/es/docs/tools/quick-toggles/).
+</Info>
+
+### Bloquear cámara
+
+Al habilitar esta característica, cada vez que la iniciativa avance al siguiente personaje,
+la cámara se centrará automáticamente en ese personaje si tienes acceso a él.
+
+### Bloquear visión
+
+Al habilitar esta característica, la visión se limitará como si solo tuvieras acceso al personaje de iniciativa activo (siempre que tengas acceso a esa forma).
+
+Esto tiene el mismo impacto que si usaras la [herramienta Vision](/es/docs/tools/vision/) y la cambiaras manualmente al participante de iniciativa activo en cada turno.
+Esto solo es relevante si controlas varios personajes.
+
+### Efectos
+
+Este ajuste te permite configurar cuándo deben mostrarse los efectos de iniciativa.
+Por defecto, solo los efectos del actor activo están expandidos, pero puedes cambiar esto a todos los actores en todo momento.
+
+## Rendimiento
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Configuración de rendimiento" />
+
+### Renderizado
+
+_Añadido en 2022.3_
+
+Las plantas son una experiencia inmersiva pero cuestan más rendimiento.
+Este ajuste te permite limitar el renderizado a la planta activa.

@@ -1,0 +1,194 @@
+---
+title: Release 0.20.0 - 有什么新功能！
+date: 2020-05-10 21:02:34
+excerpt: "0.20.0 有什么新功能？"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import RenameLocation from "../docs/dm/assets/rename-location.png";
+import Access from "./0.20/access.png";
+
+首先，我想表达诚挚的感谢！我们这个小社区开始成长起来了，看到这么多人加入并分享他们的经验，我真的很感动。
+在这样的时期，能和朋友们一起玩龙与地下城这样的游戏很重要，所以我希望 PlanarAlly 能给屏幕前的你带来一些快乐。
+
+这个版本我们对素材管理做了一些改进，对地点栏进行了全面重构，改善了 UI/UX，还修复了一大堆 bug。
+
+本版本更新中提到的话题列在左侧，完整的变更日志可以在 [github](https://github.com/Kruptein/PlanarAlly/releases/tag/0.20.0) 上找到。
+
+_我还开了一个 [patreon 账号](https://www.patreon.com/planarally)，欢迎去看看 :)_
+
+## 素材
+
+### 游戏内搜索栏
+
+当你有大量素材时，把它们整理到文件夹里是在游戏内浏览文件的一种方式，但仍然需要一些时间。现在，游戏内素材列表顶部有了一个搜索栏！它的实现非常简单，暂时没有花哨的正则表达式，但已经大大减轻了我的准备工作。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/search.webm" type="video/webm" />
+    <source src="/blog/release-0.20/search.mp4" type="video/mp4" />
+</video>
+
+### 上传进度信息
+
+在素材管理器中上传图片时，之前完全没有进度反馈。你只能等它上传完才能看到，而且还有一个 bug：有时候要刷新才会显示出来。
+
+这样的日子结束了，现在我们有了进度条 :)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/progressbar.webm" type="video/webm" />
+    <source src="/blog/release-0.20/progressbar.mp4" type="video/mp4" />
+</video>
+
+### 其他
+
+在素材管理器中移除素材时，如果其他用户没有使用同一个文件，这些文件也会从磁盘上删除。如果你想对现有的所有不再使用的文件追溯应用这一操作，服务器所有者可以使用[这段代码](/public/blog/release-0.20/remove_old_assets.txt)
+
+在文件浏览器中滚动时，右键上下文菜单无法正确显示。这个问题现在已经解决，之前提到的文件要刷新后才能出现在资源管理器中的 bug 也一并修复了。
+
+## 地点
+
+地点栏经过了大规模重构，现在有了几个新功能！
+
+### 移动玩家
+
+在之前，如果 DM 点击某个地点，DM 和所有玩家都会一起移动。这当然不理想，所以已经重新设计。
+
+如果你点击地点名称，只有你自己会移动到那个地点。如果你想移动玩家，可以选择把整个玩家组拖到另一个地点，也可以展开玩家元素，把单个玩家拖到另一个地点。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+### 地点排序
+
+除了可以拖动玩家之外，现在你还可以拖动地点本身，按你喜欢的任意顺序重新排列它们。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+### 设置
+
+配置地点时常常让人困惑的一点是，它们的设置有一部分位于整个会话的 DM 设置中。没有任何清晰的提示表明哪些设置适用于所有地点，哪些只适用于当前活动地点。
+
+现在这已经重新设计：DM 设置决定了所有地点的默认值，单个地点可以在自己的设置中覆盖这一行为。任何被覆盖的值都会被高亮，以确保它明显偏离了默认设置。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+此外，现在还可以重命名甚至移除地点。
+
+<Image src={RenameLocation} alt="重命名地点" />
+
+## 其他 UI/UX 改进
+
+前面提到的地点栏重构显然是 UI/UX 改进的一大亮点，但其他方面也有一些进步！
+
+### 形状所有权
+
+过去把用户添加为形状所有者很麻烦，因为你必须手动输入名字。另外，有时候你希望某个用户拥有视野权限，但没有常规的编辑权限。
+
+现在这两件事都已成为过去！
+
+<Image src={Access} alt="访问设置" />
+
+形状属性对话框中的访问部分已升级。它现在总是显示一行默认权限，你可以用它立即给所有玩家授予视野和编辑权限。
+
+可以使用下拉菜单为特定用户添加权限，图标则允许你像在其他地方一样微调权限。
+
+铅笔图标提供编辑权限；这基本上包含一切：移动形状、编辑属性中的字段等等。
+
+灯泡图标提供视野权限；它只是让玩家能看到该形状所能看到的东西。
+
+### Map 工具
+
+Map 工具一直很方便，但它的工作方式一直不太清楚。这个版本增加了一些更明确的使用说明，也略微改变了行为。
+
+Map 工具只对选中的形状生效，为了让这一点更清楚，现在会出现一个提示，请你先选择一个形状。这一步也可以在 Map 工具内完成，所以你不再需要切换到 Select 工具再切回来。
+
+过去，你必须预先输入想要的 X/Y 尺寸，一旦选择完成就会立即调整大小。现在改成了你可以先选择一个区域，在最终确定调整之前还可以继续微调，直到满意为止。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/maptool.webm" type="video/webm" />
+    <source src="/blog/release-0.20/maptool.mp4" type="video/mp4" />
+</video>
+
+另一个小的 UX 改进是，调整大小后形状不会再跳出屏幕。总会有部分形状保证留在原处。
+
+### 形状调整大小
+
+调整形状大小时，不再试图在网格单元格的约束下将形状居中。相反，它只会把拖动的角调整到最近的网格点，效果更自然。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/resize.webm" type="video/webm" />
+    <source src="/blog/release-0.20/resize.mp4" type="video/mp4" />
+</video>
+
+### Draw 画笔大小
+
+对于多边形和画笔工具，画笔的默认大小已从 1 个网格单位减小到 1/10 个网格单位。实际上这些工具主要用于绘制可见性线条，这种情况下更小的线条更受欢迎。
+
+### 形状标记
+
+现在你可以为形状设置一个标记。这会在左侧边栏的标记子菜单中添加一个条目。
+
+这个菜单允许你把屏幕居中到选定的标记上。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/markers.webm" type="video/webm" />
+    <source src="/blog/release-0.20/markers.mp4" type="video/mp4" />
+</video>
+
+## 新快捷键
+
+### 保持宽高比
+
+调整形状大小时，有时你会希望确保宽高比保持不变。从现在起，在调整大小期间按住 ctrl 键即可实现。
+
+ctrl 键也用于多选，但这两个操作没有重叠，所以双重用途看起来是合适的。
+
+通常的 alt 和 shift 修饰键也可以与此修饰键同时使用。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/aspectratio.webm" type="video/webm" />
+    <source src="/blog/release-0.20/aspectratio.mp4" type="video/mp4" />
+</video>
+
+### 将屏幕居中到棋子
+
+除了新的标记系统和 0.19.0 引入的 ctrl+0 快捷键之外，现在还有另一个选项可以把屏幕居中到重要的棋子上。
+
+按空格键可以循环切换你的棋子并将它们居中到屏幕上。如果你正好在其他楼层，这也会带你移动到相应的楼层。
+
+### 反转 alt 行为
+
+有些人不喜欢默认的吸附行为，从现在起他们可以一直开心地生活了。这个版本在侧边栏的客户端设置中增加了一个开关，可以反转 alt 行为。
+
+如果启用此选项，默认操作将不会执行任何吸附，只有在按下 alt 修饰键时才会尝试吸附到网格或附近的点。
+
+## 其他
+
+### 新增
+
+- cors 源选项
+- 左上角的 logo、版本号
+- 大多数图标的提示
+- 分层服务器配置
+
+### Bug 修复
+
+- 命中检测现在会考虑多边形宽度
+- 打开侧边菜单时，楼层/图层栏现在会随之移动
+- 侧边菜单和地点菜单不再重叠
+- 调整窗口大小导致照明边界混乱
+- 显示新提示之前，现在会清除之前的提示值
+- 所有较低楼层的网格图层可见
+- DM 能把自己当作玩家邀请进房间
+- 切换图层/楼层后，Draw 工具不再延迟渲染画笔辅助
+- 重新加入会话时会记住当前活动楼层

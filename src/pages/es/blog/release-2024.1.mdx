@@ -1,0 +1,181 @@
+---
+title: Release 2024.1
+date: 2024-01-27 12:00:00
+excerpt: "Mejorando las notas y la visión"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+¡Un año nuevo, una versión nueva!
+
+Como siempre, se corrigieron algunos errores, pero las dos estrellas principales de esta versión son una revisión completa del sistema de notas y la introducción de un nuevo modo de bloqueo de visión que mejorará la inmersión.
+
+## Un nuevo modo de bloqueo de visión
+
+### ¿Por qué necesitamos un modo extra?
+
+Hasta ahora, el bloqueo de visión era algo binario: o puedes ver a través/detrás del objeto, o bloquea completamente la visión. Esto está bien para muchos casos, pero cuando se trata de objetos más pequeños (por ejemplo, el tronco de un árbol, un pilar, una roca), a menudo lleva a una decisión que tienes que tomar como DM.
+
+- ¿Oscureces completamente el objeto, dándole un comportamiento correcto de bloqueo de visión, pero pierdes la inmersión porque no está claro para los jugadores qué es ese círculo aleatorio que bloquea la visión?
+- ¿Haces la forma de bloqueo de visión un poco más pequeña, para mostrar un poco del objeto, pero pierdes precisión como resultado?
+
+### El nuevo modo
+
+En esta versión se introduce un nuevo modo de bloqueo de visión, llamado `behind`. Acompañará al modo de visión existente, que se renombrará como `complete`.
+
+Cuando el nuevo modo está activo, la forma marcada como bloqueo de visión se renderizará como si no fuera una forma de bloqueo de visión, pero todo lo que hay detrás quedará completamente oscurecido. Esto, por ejemplo, te permitirá tener un tronco de árbol que bloquea la visión, pero seguir mostrando a los jugadores lo que están viendo (es decir, un tronco de árbol).
+
+Otro buen caso de uso de este nuevo modo son las puertas. Al configurarlo como bloqueo trasero (blocking behind), concedes una visión adecuada de todo el objeto de la puerta, dejando más claro a los jugadores lo que están viendo.
+
+**Bloqueo completo:**
+
+![Bloqueo de visión completo](./2024.1/vision-complete.png)
+
+**Bloqueo trasero:**
+
+![Bloqueo de visión trasero](./2024.1/vision-behind.png)
+
+#### Limitaciones
+
+Este modo especial solo funciona para formas cerradas. En la práctica, significa que funciona para la mayoría de las formas regulares (por ejemplo, rectángulo/círculo), pero no para formas especiales como la herramienta Brush o las formas de texto.
+
+¡Los polígonos pueden estar abiertos o cerrados! Así que si quieres usar esto para mostrar una forma irregular con la herramienta Polygon, asegúrate de haber marcado el polígono como cerrado. (esta es una opción en la herramienta Draw)
+
+Otro caso especial es que las luces colocadas dentro de objetos con este modo activado podrían renderizarse cuando tu aura no alcanza la forma. Es un caso límite de la implementación, pero no debería ser un gran problema en la práctica, ya que no hay muchas razones para colocar luces dentro de formas de bloqueo de visión.
+
+## Notas y anotaciones
+
+El otro gran cambio de esta versión es una revisión completa del sistema de notas.
+
+Hasta ahora, PlanarAlly ha tenido 2 conceptos de notas:
+
+- notas de campaña sueltas
+    - Tienen un título y algo de texto libre
+    - Siempre son privadas
+    - Pueden mantenerse abiertas / arrastrarse
+- notas de formas (conocidas como anotaciones)
+    - Tienen texto libre compatible con markdown
+    - Pueden ser públicas o privadas
+    - Limitadas a 1 por forma
+    - El markdown renderizado se muestra en la parte superior de la pantalla al pasar el cursor sobre la forma relacionada
+
+### Una colección de problemas
+
+Ambos conceptos tienen sus propios problemas y son inconsistentes entre sí:
+
+- para las notas sueltas
+    - no hay forma de buscar
+    - no hay forma de filtrar (por ejemplo, solo las notas relevantes para la ubicación actual)
+    - no hay forma de compartirlas con otros usuarios
+    - solo se puede tener 1 nota abierta a la vez
+    - no hay ningún renderizado de markdown
+- para las notas de formas
+    - no hay forma de tener información tanto privada como pública
+    - no hay forma de tenerlas en ventana emergente / acceder a ellas sin tener la forma seleccionada
+    - si necesitas la información que escribiste para una forma, tienes que encontrar la forma real dondequiera que esté
+    - a menos que sea un personaje, las notas se pierden cuando se elimina la forma
+
+### Una solución unificada
+
+Para resolver estos problemas se ha creado un sistema de notas unificado.
+
+En este nuevo sistema ya no hay diferencia entre las notas de formas y las notas de campaña. Las notas ahora son un único concepto, pueden adjuntarse a las formas y gestionarse mediante un nuevo elemento de interfaz llamado Note Manager.
+
+![Lista del Note Manager](../docs/game/assets/note-manager-list.png)
+
+### Cambios notables
+
+Para una visión general completa del nuevo sistema de notas, consulta la [documentación de notas](/es/docs/game/notes/). Se ha actualizado para reflejar el nuevo sistema y contiene varias imágenes y una explicación más detallada.
+
+#### Cambios en la interfaz
+
+El Note Manager es un nuevo elemento de interfaz que se puede abrir con el atajo de teclado <kbd>n</kbd> o haciendo clic en la sección de notas del menú de la izquierda. Es el núcleo del nuevo sistema de notas y te permite gestionar todas tus notas.
+
+El Note Manager tiene una barra de búsqueda que te permite buscar en todas tus notas. Las notas ahora también pueden tener etiquetas arbitrarias que se pueden usar tanto para buscar como para dar más contexto.
+
+Sin embargo, también puedes abrir notas en ventanas emergentes desde el Note Manager (y en algunas otras ubicaciones) para mantenerlas abiertas mientras haces otras cosas. Varias de estas notas pueden abrirse a la vez y pueden arrastrarse individualmente.
+
+Además, las notas emergentes también se pueden contraer para que solo muestren su título. Esto se puede usar para notas a las que necesitas acceder con frecuencia en un breve período de tiempo, sin saturar tu pantalla.
+
+![Edición en ventana emergente del Note Manager](../docs/game/assets/note-manager-edit-popout.png)
+
+#### Acceso
+
+Ahora es posible compartir notas con otros usuarios y definir derechos de acceso granulares para ellas.
+
+Esto significa que puedes dar acceso de visualización a todos los jugadores cuando se recupera una determinada nota, o dar a un jugador concreto una nota privada que solo él puede ver y editar.
+
+Las notas creadas por los jugadores son una de las pocas cosas en PA que no son visibles para el DM. Así que son realmente privadas a menos que se compartan específicamente.
+
+#### Formas
+
+Las notas pueden adjuntarse opcionalmente a las formas. ¡Una sola nota puede adjuntarse a varias formas y una sola forma puede tener varias notas adjuntas!
+
+Esto te permite tener tanto información pública como privada adjunta a una forma.
+
+Además, también hay un nuevo ajuste de notas que te permite configurar que aparezca un icono de nota en la forma. Esto es útil para recordar la presencia de una nota importante. También se ha convertido en un ajuste para decidir si la nota debe aparecer en la parte superior de la pantalla al pasar el cursor sobre una forma relacionada. ¡Ahora está desactivado por defecto!
+
+![Disparadores del Note Manager](../docs/game/assets/note-manager-edit-triggers.png)
+
+La sección de información rápida en el lado derecho de la pantalla cuando tienes una forma seleccionada ahora también muestra información sobre todas las notas adjuntas a la forma. Puedes pasar rápidamente el cursor sobre las notas para ver su contenido, pero también puedes abrirlas en ventanas emergentes desde allí.
+
+Para ver una visión general de todas las notas de una forma concreta, puedes hacer clic en el icono de nota en la sección de información rápida o usar el menú contextual de la forma seleccionada.
+
+#### Global vs Local
+
+Al crear una nueva nota, eliges si es una nota global o local.
+
+Esto significa que una nota global es independiente de la campaña y será visible en todas las campañas. Mientras que una nota local está relacionada con la campaña actual e incluso con la ubicación específica en la que se creó.
+
+Como las notas globales están disponibles en cada campaña, debes tener cuidado de no crear demasiadas, ya que normalmente la mayoría de las notas no son relevantes para todas las campañas.
+
+Sin embargo, un buen caso de uso para las notas globales son los bloques de estadísticas (stat block). No quieres redefinir el stat block de un monstruo específico en cada campaña. Combinado con el uso de [Plantillas de recursos](/es/docs/dm/assets/#templates) puedes soltar un goblin en el tablero y hacer que tenga el stat block adjuntado automáticamente.
+
+## Proporción de colocación de recursos
+
+Esta es una nueva función que a la vez también es una corrección de errores. Añade un nuevo ajuste a la configuración de la cuadrícula de la ubicación.
+
+PA tiene una opción para escalar automáticamente los recursos al soltarlos si tienen un formato específico en su nombre. Por ejemplo, goblin_1x1 debería, en circunstancias normales, caber exactamente en 1 celda de la cuadrícula, y dragon_3x3 debería redimensionarse a 3 por 3 celdas de la cuadrícula.
+
+La implementación existente usaba erróneamente un método basado en el sistema de 5ft para ajustar esto automáticamente cuando una ubicación tenía un tamaño mayor (por ejemplo, los mapas de 10ft hacían automáticamente que algo como something_2x2 cupiera en 1 celda)
+
+Sin embargo, esto se rompe por completo para todo lo que no usa el sistema de 5ft, ya sea porque usas unidades SI, porque tu sistema usa algo personalizado o porque te gusta definir tus tamaños en términos de pizzas.
+
+La solución simple es deshabilitar ese sistema, pero entonces soltar recursos en mapas que tienen una escala diferente ya no funciona correctamente. Así que, para abordar también eso, se ha añadido un nuevo ajuste: Asset Drop Ratio, que define cómo deben escalarse estos recursos al soltarlos en el mapa.
+
+Un ratio de colocación de 1 es el valor predeterminado, significa que el recurso se redimensionará puramente según sus dimensiones especificadas (es decir, goblin_1x1 ocupará 1 celda de la cuadrícula aunque represente 10ft). Un ratio de 0,5 redimensionaría algo como something_2x2 a 1x1.
+
+## Historial de dados
+
+_Contribución de SuikaXhq_
+
+Tengo planes más grandes para rediseñar la interfaz y el comportamiento de los dados, pero mientras avanzo lentamente en esto, SuikaXhq ha contribuido con una buena mejora al historial de dados existente.
+
+El historial de dados ahora mostrará de forma más destacada quién lanzó los dados (antes solo se mostraba al pasar el cursor) y contiene más detalles sobre la tirada específica en lugar de mostrar solo el resultado final.
+
+![Bloqueo de visión completo](./2024.1/dice-history.png)
+
+## Mejoras en la información de selección
+
+_Contribución de SuikaXhq_
+
+Como se señaló antes, la sección de información de selección en el lado derecho de la pantalla ahora incluye información sobre las notas adjuntas a la forma seleccionada.
+
+¡Pero este no fue el único cambio en la información de selección!
+
+Los Trackers y las Auras muestran información sobre sus números actuales y ofrecen una modificación rápida de estos números. Sin embargo, para las Auras esto no es muy útil; en la mayoría de los casos no es algo que quieras cambiar a menudo.
+
+Esta versión cambia la sección de aura para ofrecer en su lugar un interruptor para activar/desactivar el aura sin tener que abrir la configuración detallada del tracker. Además, si el aura está limitada en ángulo (es decir, no a 360 grados), también se muestra un control deslizante de rotación, para permitirte cambiar rápidamente la rotación del aura.
+
+![Actualizaciones de información rápida](../docs/game/assets/note-manager-selection-notes.png)
+
+## Correcciones de errores
+
+- Interfaz de edición de polígonos: no tenía en cuenta la rotación de la forma
+- Teletransporte: las formas teletransportadas sin seguimiento parecían no moverse porque la sincronización local no se actualizaba
+- Herramienta Dice: ignorar el botón GO si no se ha introducido nada
+- Personaje: se han corregido una colección de errores con las variantes
+- Trackers: añadir max-height y desplazamiento para arreglar la interfaz cuando hay muchos trackers
+- RotationSlider: corregir problemas de sincronización
+- RotationSlider: corregir que el ancla del control deslizante no se adhiriera a la guía bajo ciertos ángulos
+- \[server\] spam de registros de formas "unknown" cuando se mueven formas temporales

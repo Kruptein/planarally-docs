@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# サブパス
+
+PlanarAlly は、ルートレベル(例:https://www.planarally.io)やサブドメイン(例:https://app.planarally.io)であれば手間なくホストできます。
+一方、サブパスでホストする場合は、いくつか追加の作業が必要です(例:https://www.planarally.io/dnd/)。
+
+サーバーとクライアントに、サブパス上で実行することを通知する必要があります。
+さらに、プロキシにも変更が必要な場合があります。
+
+以降のドキュメントでは PA_BASEPATH 環境変数に言及することがありますが、これは目的のサブパスに一致させる必要があります。
+例:
+
+```bash
+export PA_BASEPATH="/planarally/"
+```
+
+<Warning title="動作の変更">
+2022.1 以降、サブパスの処理にいくつかの変更がありました。
+過去にこれらのドキュメントを使用したことがある場合は、必ず読み直してください!
+
+特に、クライアントは現在常に手動でビルドする必要があり、docker コンテナでは --env ではなく --build-arg を使用します。
+
+</Warning>
+
+## クライアントの変更
+
+サブパスを使用する場合は、[クライアントを自分でビルド](/ja/server/setup/self-hosting/#manual-installation)する必要があります。
+サブパス情報はビルド出力ファイルに組み込む必要があります。
+これは、PA_BASEPATH 環境変数を設定した状態でクライアントをビルドするだけで簡単に行えます。
+
+## サーバーの変更
+
+サーバーもサブパスを知る必要があります。サーバーを実行する前に PA_BASEPATH 環境変数が設定されていることを確認してください。
+
+## Docker
+
+docker イメージを使用する場合、この環境変数をコンテナに渡す必要があります。
+docker コマンドに次の部分を追加してください。
+
+```bash
+--build-arg PA_BASEPATH='/planarally/'
+```
+
+## プロキシ
+
+### Nginx
+
+nginx を使用する場合、[proxy](/ja/server/advanced/proxy/)で説明した設定と非常によく似た構成になりますが、すべての `location` 部分は、それが目的のサブパスであれば `/planarally` で始まります。
+
+さらに、socket.io 固有の location ルールに 1 つ小さな変更を加える必要があります:
+
+proxy_pass(または host\:port パス)を、サブパスを含むように変更する必要があります(例:`proxy_pass http://subaiohttp/subpath/socket.io/;`)
+
+### Apache
+
+サブパス上で proxypass と reverse を設定してください!
+
+```apache
+ProxyPass /planarally http://127.0.0.1:8000/planarally
+ProxyPassReverse /planarally http://127.0.0.1:8000/planarally
+```

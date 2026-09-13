@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# Ressources
+
+Le menu des ressources sert à insérer des ressources dans votre partie.
+Il peut s'agir de cartes, de pions, d'objets ou de tout autre élément que vous souhaitez insérer.
+Pour accéder à ce menu, cliquez sur l'icône <Cog /> puis sur « Ressources » dans le menu déroulant.
+
+## Placer des ressources
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="Exemple d'utilisation d'une ressource" />
+
+Pour utiliser vos ressources, ouvrez d'abord l'onglet ressources.
+Ensuite, ouvrez le dossier dans lequel vous avez stocké vos fichiers.
+Enfin, faites glisser la ressource sur la table de jeu.
+Votre ressource pourra désormais être manipulée.
+
+Vous pouvez également rechercher une ressource à l'aide de la barre de recherche.
+Cela permet de filtrer les dossiers et sous-dossiers ne contenant aucun élément correspondant à votre recherche.
+
+<Tip title="Dimensions des ressources">
+    Si le nom de la ressource contient des informations sur les dimensions, PA ajustera automatiquement la taille de la ressource.
+
+    p. ex. goblin_5x5
+
+</Tip>
+
+### Modèles
+
+À tout moment, vous pouvez enregistrer l'état d'une ressource à partir du menu contextuel du clic droit.
+
+Cet état comprend les propriétés par défaut, mais aussi les compteurs, les auras et les dimensions (largeur et hauteur).
+
+Lorsque vous déposez sur la table une ressource à laquelle des modèles sont associés, il vous sera demandé de choisir un modèle plutôt que le préréglage vierge de base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Cela peut s'avérer très pratique pour réutiliser certains pions que vous utilisez souvent afin de préremplir des éléments comme les points de vie et les sources de lumière.
+
+### Variantes
+
+<Warning title="Expérimental !">
+    Cette fonctionnalité est expérimentale ! Certains cas limites sont susceptibles d'apparaître, veuillez donc
+    [signaler les bugs sur le suivi de problèmes GitHub](https://github.com/Kruptein/PlanarAlly/issues) !
+</Warning>
+
+Vous pouvez ajouter des _variantes_ à des objets afin de leur donner une apparence différente sans avoir à créer un nouveau pion ni à supprimer le précédent.
+Les cas d'usage courants sont la forme sauvage d'un druide, des arts alternatifs pour les personnages, des boss à plusieurs phases, des révélations surprises, etc.
+
+Pour ajouter une variante, utilisez le bouton `+` en bas de la fenêtre d'édition de l'objet de base.
+En cliquant sur le crayon <PencilAlt/>, vous pouvez modifier le nom de la variante active.
+Notez que le nom d'une variante n'est pas lié au nom de l'objet !
+
+Si l'objet de base peut être n'importe quelle forme (Shape, Token ou Asset), seules des _ressources_ peuvent y être ajoutées comme variantes.
+À tout moment, une seule variante d'un objet est visible et peut être échangée contre une autre.
+
+Chaque variante conserve sa propre taille, ses propriétés, ses compteurs et ses auras.
+Les compteurs et les auras peuvent être configurés pour être partagés entre toutes les variantes.
+Une variante nouvellement créée n'aura aucun des réglages appliqués à la variante de base.
+Cela inclut les droits d'accès, les propriétés générales de la forme (p. ex. le nom) ou les annotations !
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+Vous pouvez supprimer une variante à l'aide du bouton corbeille <TrashAlt />.

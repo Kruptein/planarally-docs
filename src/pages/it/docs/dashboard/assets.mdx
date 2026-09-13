@@ -1,0 +1,59 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+
+import { Image } from "astro:assets";
+import DashboardAssets from "./assets/dashboard-assets.png";
+
+# Asset
+
+<Image src={DashboardAssets} alt="Dashboard asset" />
+
+La sezione **Asset** ti consente di gestire o creare asset che possono essere usati nelle campagne.
+_Vedi la sezione [Asset del DM](/it/docs/dm/assets/) per imparare come usarli_.
+
+<Info>
+    Attualmente gli asset interessano solo il DM. In futuro questo dovrebbe diventare anche un luogo in cui i giocatori
+    possono caricare asset.
+</Info>
+
+In alto a destra è presente una piccola barra delle azioni che ti consente di creare una cartella, caricare nuovi asset o rimuovere la selezione attiva.
+
+## Navigare nelle cartelle
+
+Lo schermo principale offre un esploratore di cartelle in cui puoi fare doppio clic per entrare in una cartella.
+Il percorso della cartella corrente viene mostrato con un breadcrumb subito sotto il titolo "GESTISCI ASSET".
+
+Per tornare alla cartella precedente puoi fare doppio clic sulla cartella ".."[^1].
+Puoi anche fare clic su qualsiasi segmento del breadcrumb per tornare indietro di più cartelle in una volta.
+
+## Caricare asset
+
+Gli asset possono essere caricati facendo clic sull'icona di aggiunta file nella barra delle azioni o trascinando gli asset nel gestore asset.
+
+## Spostare asset
+
+Puoi spostare gli asset trascinandoli nella cartella desiderata.
+Quindi, se vuoi spostare un asset di una cartella più in alto, trascinalo sulla cartella "..".
+
+Puoi spostare più asset contemporaneamente, trascinando una cartella che ne contiene più di uno o selezionando più asset.
+
+## Selezionare asset
+
+Un singolo clic su un asset lo seleziona e deseleziona tutti gli altri asset.
+
+Se vuoi estendere la selezione puoi usare ctrl+clic o shift+clic.
+Il primo aggiunge alla selezione solo il file su cui hai fatto clic,
+mentre il secondo aggiunge tutti i file tra l'ultima selezione e la nuova.
+
+<Info>
+    Il comportamento attuale è un residuo del precedente gestore asset e imita la semantica comune degli esploratori di file.
+
+    Il modo in cui la selezione viene attualmente mostrata, però, rende tutto questo un po' poco intuitivo.
+    Quindi potrebbe cambiare in futuro.
+
+</Info>
+
+[^1]: Questo è un concetto del mondo unix.

@@ -1,0 +1,119 @@
+---
+title: Cambios en los sistemas de visión y acceso
+date: 2025-02-26 23:45:00
+excerpt: "Eliminando 'is a Token' y más"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Este es un artículo breve sobre el estado de la visión en su forma actual y algunos cambios que pretendo hacer,
+para que algunas cosas sean más sencillas.
+
+Tranquilos, los cambios que quiero hacer no son grandes, son cambios más bien sutiles, pero aun así sentí que merecía un artículo aparte, ya que la visión suele ser el núcleo del juego.
+
+## Cómo funciona actualmente
+
+Hay documentación en profundidad sobre el sistema de iluminación [aquí](/es/docs/dm/lighting-vision/#lighting--vision), pero un breve resumen es el siguiente:
+
+Cuando el tablero se rellena de niebla (configuración del DM: rellenar con FOW), todo queda oculto para el jugador.
+Sin embargo, cualquier forma que tenga un aura marcada como pública y como fuente de luz aparecerá para el jugador.
+Las fuentes de luz no marcadas como públicas solo aparecerán si el jugador tiene acceso de visión a la forma.
+
+Se puede activar una configuración de visión adicional: la línea de visión (configuración del DM: LoS).
+Con esto activado, los jugadores solo podrán ver las fuentes de luz mencionadas si tienen acceso de visión sobre una forma marcada explícitamente como "is a token".
+Es más, solo verán la parte de esas fuentes de luz que cae dentro de su visión (teniendo en cuenta las paredes y otras formas que bloquean la visión).
+Así que no ves lo que está detrás de la esquina, aunque esté iluminado.
+
+## ¿Cuáles son los problemas?
+
+Entonces, ¿qué es lo que está mal? Para ser honesto, no mucho, pero algunas cosas destacan después de usarlo durante un tiempo.
+
+- La configuración de `is a token` es bastante poco intuitiva, su impacto no está claro directamente
+- También es muy fácil olvidarse, lo que puede causar confusión/frustración en la mesa (por ejemplo, "No, no puedo ver nada")
+- El significado del derecho de acceso de visión se vuelve igualmente confuso en combinación con la propiedad `is token`
+- Como DM a veces puedes tener una imagen equivocada de lo que los jugadores podrían ver (más sobre esto más adelante)
+
+## Repensar el concepto de ficha
+
+Esto finalmente me hizo pensar en la idea central detrás del concepto de ficha. ¿Por qué se introdujo originalmente?
+
+La respuesta a esa pregunta es bastante simple: el rendimiento.
+
+Calcular la visión de las formas es una de las cosas más intensivas que PA necesita hacer, y como jugador solo posees 1 o quizás un par de formas, así que no es un gran problema,
+pero el DM técnicamente posee todas las formas de la escena, que pueden llegar a ser muchas.
+Por eso se introdujo la propiedad de ficha para limitar el cálculo de la visión solo a aquellas formas marcadas como tales, aliviando mucho el lado del renderizado del DM.
+
+Sin embargo, dando un paso atrás, esta solución es en realidad un poco al revés.
+Para los jugadores la solución es relativamente sencilla.
+Si tienen acceso a una forma, es probable que también necesiten la visión de lo que la forma puede ver.
+Y un DM en última instancia (normalmente) solo se preocupa por lo que los jugadores pueden ver realmente.
+
+Entonces, ¿no podemos simplemente eliminar el concepto de `is a token` y en su lugar solo comprobar si la forma tiene un jugador con acceso de visión asociado?
+
+Para responder a esa pregunta primero necesitamos confirmar nuestra hipótesis: ¿los jugadores requieren visión sobre todas las formas que poseen?
+
+En términos generales, hay tres tipos diferentes de formas a las que un jugador podría tener acceso:
+
+- Formas que representan un personaje / ficha del jugador
+- Formas que representan algo como una invocación / mascota / npc / otro acompañante
+- Formas que representan objetos (por ejemplo, efectos de hechizo, formas dibujadas que representan obstrucciones...)
+
+La primera forma debería, en el 99 % de los casos, dar algún tipo de visión, ya que representa fundamentalmente el personaje del jugador.
+La segunda forma, sin embargo, ya es problemática. La respuesta aquí es "depende".
+Para la última forma, en cambio, la respuesta en el 99 % de los casos es no. No hay ninguna razón por la que el rectángulo que dibujaste para representar una barricada deba darte visión,
+si acaso ¡debería bloquear la visión!
+
+Entonces nuestra hipótesis, por desgracia, no es cierta, así que ¿no podemos eliminar la propiedad `is a token` después de todo?
+
+¡No tan rápido! El lector atento puede haber notado que hasta ahora nos hemos referido a menudo al "acceso de visión", lo que podría implicar que hay otros _accesos_?
+
+Resulta que sí los hay. PA tiene 3 niveles de acceso que aumentan gradualmente los permisos.
+El acceso de visión te da acceso a todas las fuentes privadas de luz/visión que tiene la forma,
+el acceso de movimiento añade la capacidad de mover la ficha y, finalmente, el acceso de edición te da la capacidad de modificar propiedades/auras/... de la forma.
+
+Si volvemos a mirar nuestros 4 ejemplos, probablemente querríamos los 3 niveles de acceso para la primera forma, pero solo el acceso de edición y quizás el de movimiento para la segunda.
+Algo como una mascota/invocación podría tener estadísticas u otras cosas sobre las que el jugador debería tener control, podría ser capaz de moverla, pero normalmente no tendrá acceso de visión.
+
+Actualmente esto no es posible porque PA asume que estos son permisos aditivos. Pero podemos dividirlos en permisos completamente independientes.
+
+## Una solución, por fin
+
+Así que si separamos los niveles de acceso, eliminamos la propiedad de ficha y en su lugar miramos simplemente el "acceso de visión" que tiene el jugador... ¡lo conseguimos!
+
+Así que, para recapitular los cambios que probablemente voy a hacer:
+
+- Hacer que los 3 niveles de acceso sean independientes en lugar de apilarse unos sobre otros
+- Eliminar la propiedad `is token`
+- Decidir el estado de visión de la forma basándose en el nivel de acceso de visión
+
+## El lado del DM
+
+Como mencioné antes, puede haber cierta confusión en el lado del DM al tratar con la visión.
+En general, el DM puede ver la visión de todos los jugadores combinada y puede deseleccionar ciertas vistas con la herramienta Vision.
+
+Sin embargo, las auras de visión privadas que no están asociadas a un jugador acaban dando efectos extraños.
+Se mostrarán al DM porque el DM técnicamente tiene acceso a todas las formas, así que las auras privadas también se aplican al DM.
+Sin embargo, son auras que nunca aparecerán para el jugador, así que mostrarlas en la vista del DM es un poco extraño.
+
+Con los cambios descritos anteriormente, este "error" en particular también desaparecerá.
+
+Sin embargo, añade un nuevo desafío: si `is token` desaparece, ¿cómo preparas un nuevo mapa cuando los jugadores todavía no están en la ubicación?
+En teoría podrías añadir un jugador aleatorio a una forma de prueba para comprobar si tu iluminación está configurada correctamente.
+También podrías simplemente configurar el derecho de acceso de visión por defecto de la forma.
+Ambos enfoques funcionan, aunque tendrás que prestar especial atención a no olvidar quitarlo de nuevo cuando tus jugadores estén listos para explorar la ubicación.
+
+Creo que aquí podemos hacerlo mejor. Al preparar un mapa normalmente no te importa realmente el aspecto de la línea de visión, eso es más una restricción de juego para los jugadores.
+La configuración de luces y paredes es todo lo que realmente nos importa durante la preparación. Uno podría activar/desactivar manualmente la configuración de la línea de visión durante la preparación y el juego, pero eso es bastante engorroso.
+Los diversos parámetros del juego (por ejemplo, la línea de visión) deberían ser constantes. Es el entorno del DM el que debería ser configurable.
+
+Veo algunas opciones aquí:
+
+- Desactivar automáticamente la LoS para el DM y activarla cuando actives el modo de jugador falso
+- Añadir un nuevo toggle rápido debajo de la barra de herramientas que active/desactive la LoS **solo** para el DM
+- Añadir un nuevo toggle rápido para activar el modo "prep". En este modo, la campaña se bloquea automáticamente (es decir, los jugadores no pueden unirse) y algunas configuraciones específicas están activas (por ejemplo, la LoS está desactivada)
+
+Creo que la primera opción va a ser poco intuitiva, porque no ves un cambio inmediato al activar la configuración de LoS del DM, cuando en realidad tiene un gran efecto.
+La segunda opción se siente bien y probablemente sea por la que voy a ir.
+Encuentro intrigante la tercera opción, pero va a ser algo que no funcionará para todos.
+Creo, en cambio, que el modo de bloqueo también podría convertirse en un toggle rápido.
+Y en algún momento probablemente haré configurable qué toggles son visibles si no usas todos.

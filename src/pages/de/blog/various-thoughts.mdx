@@ -1,0 +1,324 @@
+---
+title: Rückblick auf 2021 und ein Ausblick!
+date: 2022-01-12 20:00:00
+excerpt: "Ein Update zum Fortschritt von PA und Pläne für die Zukunft"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+## Einleitung
+
+Hallo zusammen, hier ist Darragh, um mich zu melden und ein paar zufällige Gedanken, Ideen und Überlegungen zu PA mitzuteilen.
+
+Ich schreibe nicht oft solche Blogbeiträge, die keine reinen Release-Notes sind,
+einfach weil ich oft nicht weiß, worüber ich reden soll und ich generell nicht besonders gut darin bin, zusammenhängende Gedanken zu Papier zu bringen.
+Die letzten Releases waren allerdings relativ klein und gingen langsamer vonstatten, daher wollte ich mir die Zeit nehmen, um zu zeigen, dass das Projekt nicht tot ist!
+
+## Releases 2021
+
+Das Tempo der PA-Releases ist schon immer angestiegen und abgefallen, da verschiedene Faktoren in meinem Leben meine Produktivität beeinflussen. Rückblickend ist es also nicht ungewöhnlich, in den letzten Monaten einen langsameren Release-Zeitplan zu sehen.
+
+Wenn ich meine Blogbeiträge betrachte, hatten wir letztes Jahr 6 Releases, davon 3 in den ersten 3 Monaten, 2 im Sommer und dann noch einen im Oktober. Verglichen mit den Releases 2020 ist das tatsächlich eine Steigerung von 5 auf 6!
+
+Nun sagen reine Zahlen nicht wirklich viel aus, weil manche Releases mehr Inhalt enthalten als andere. Schauen wir uns also an, was wir im letzten Jahr tatsächlich erreicht haben!
+
+_Das sind nur die erwähnenswerten Dinge oder Dinge, zu denen ich etwas sagen möchte, wir haben mehr gemacht als nur das!_
+
+### Sechsecke
+
+_Hinzugefügt in 0.24_
+
+Unterstützung für Sechsecke wurde zu Beginn des Jahres hinzugefügt.
+Es ist eine ziemlich einfache Änderung und seitdem wurde nicht viel mit Sechsecken gemacht, was von meiner Seite aus etwas schade ist, da sie immer noch Bürger zweiter Klasse sind, da Dinge wie das Einrasten für diese Raster noch nicht funktionieren.
+
+Das ist eines dieser Dinge, die ich persönlich nie benutze, von denen ich also nie gestört werde und über die ich auch keine Beschwerden höre. Deshalb weiß ich nicht, wie weit verbreitet Sechsecke im Allgemeinen genutzt werden. Wenn du jemand bist, der oft Sechsecke benutzt und dem in dieser Hinsicht Features fehlen, melde dich zu Wort!
+
+### Verbesserungen bei der Gruppenlogik
+
+_Verbessert in 0.24_
+
+Gruppen gab es in PA schon länger als Konzept, aber das 0.24-Release hat die Benutzerfreundlichkeit deutlich erhöht.
+Das ist ein Feature, das ich selbst tatsächlich oft benutze und von dem ich denke, dass es gerade ziemlich gut dasteht. Damit bin ich also ziemlich zufrieden!
+
+### Varianten
+
+_Hinzugefügt in 0.24 & 0.29_
+
+Varianten, manchmal auch 'Composite Shapes' genannt, wurden als experimentelles Feature hinzugefügt und sind es nach wie vor. Sie waren sogar kurzzeitig nach einer großen Migration deaktiviert, weil ich dachte, niemand würde sie nutzen, aber damit lag ich falsch. Tut mir leid deswegen!
+
+Dieses Feature hat einiges an spannendem Potenzial. Ich habe einen Spieler, der es nutzt, um die Farbpalette seines Eladrin anzupassen, aber es gibt viel mehr Anwendungsmöglichkeiten als nur das.
+
+Es ist funktionsfähig, aber in manchen Bereichen noch etwas holprig. Ich hoffe daher, irgendwann Zeit zu finden, das etwas aufzuräumen.
+
+Diese Form bringt einiges an Komplexität mit sich, da sie eine Sammlung miteinander verknüpfter Formen ist, worauf ich in einem späteren Abschnitt noch näher eingehen werde. Das ist auch der Grund, warum ich oft zögere, sie anzufassen, da sie sehr anfällig für Fehler ist.
+
+### Initiative
+
+_Geändert in 0.24 & 0.27_
+
+Das Initiative-Tool ist eines, das ich aus offensichtlichen Gründen oft benutze.
+Es war früher von einigen Synchronisationsproblemen und anderen UI-Merkwürdigkeiten geplagt, daher war ich froh, dass in 0.24 ein erster Schwung Probleme behoben wurde.
+
+Es war jedoch Release 0.27, das das Initiative-Tool dauerhaft verbesserte, und seit diesem Release hatte ich keine größeren Probleme mehr damit. Es gab auch eine UI-Überarbeitung mit mehr Features, um den DM in anderen Szenarien zu unterstützen.
+
+### Asset-Import/-Export
+
+_Hinzugefügt in 0.24_
+
+Anfang des Jahres wurde außerdem Unterstützung für das Importieren/Exportieren von Assets im Asset-Manager hinzugefügt.
+
+Das ist eines dieser Features, die derzeit ebenfalls ziemlich grundlegend sind. Sie machen ungefähr das, was sie sollen, aber es gibt hier einiges zu verbessern.
+
+### Verbesserungen an Tracker & Aura
+
+_Geändert in 0.25 + 0.26_
+
+Eine weitere Änderung, mit deren Ergebnis ich wirklich zufrieden bin, betreffen die Tracker und Auren. Die UI ist jetzt viel aufgeräumter und erklärt Dinge besser, statt nur ziemlich basic zu sein.
+
+Ich hatte auch viel Spaß mit den schrägen Auren, die jetzt möglich sind, auch wenn sie für Standard-Dungeons & Dragons im Grunde ein Gimmick sind :D
+
+Später in 0.26 war Scoodle so freundlich, visuelle Balken für Tracker hinzuzufügen, um Dinge wie HP oder was auch immer du möchtest zu verfolgen. Das ist etwas, das meine Spieler mittlerweile viel benutzen und das in meinen eigenen Spielrunden allgemein gut ankommt.
+
+### Undo/Redo
+
+_Hinzugefügt in 0.25_
+
+Etwas, das in PA lange gefehlt hat, waren Undo-Funktionen.
+Etwas vermasselt, Pech gehabt.
+
+Zum Glück wurde eine gewisse Form von Undo/Redo für die großen Aktionen hinzugefügt, wie das Bewegen von Formen oder das Entfernen von Dingen.
+Das ist eines der Dinge, von denen ich oft vergesse, dass sie vor letztem Jahr noch nicht existierten, die aber ab und zu ein paar kleine Frustmomente ersparen können. Das ist ein angenehmes Feature.
+
+Keineswegs ist jede Aktion derzeit rückgängig zu machen, und das war eine bewusste Entscheidung, um die Funktion so schnell wie möglich für große Operationen bereitzustellen. Wenn es Dinge gibt, die du dir als Teil des Undo/Redo-Systems wünschst, lass es mich wissen!
+
+### Spell-Tool
+
+_Hinzugefügt in 0.25_
+
+Beim Wirken von Zaubern in Spielen wie D&D profitieren wir oft von einer visuellen Hilfe, um zu sehen, was treffen würde oder nicht. Theoretisch konnten wir das bereits mit dem Draw-Tool erreichen, aber das erfordert Aufwand und verschwendet wertvolle Zeit am Tisch, weshalb das Spell-Tool hinzugefügt wurde.
+
+Ich bin etwas zwiegespalten über den aktuellen Zustand des Spell-Tools. Ich habe Spieler, die es häufig nutzen, aber es scheinen noch einige kleine Bugs drin zu sein, die dem eigentlichen Zweck des Zeitersparens zuwiderlaufen können. Ich hoffe daher, dieses Jahr Zeit zu finden, diese zu beheben!
+
+### UI-Überarbeitungen
+
+_Geändert in 0.26_
+
+Eine GROSSE Änderung war die UI für alles, was nicht das eigentliche Spiel oder der Asset-Manager war. Der Login-Bildschirm, die Benutzereinstellungen und die Auswahl des Spiels wurden alle in einem einheitlichen Stil neu gestaltet, um die alte und sehr simple UI loszuwerden, die wir früher hatten.
+Als ich das schrieb, konnte ich mich kaum noch erinnern, wie es früher aussah!
+
+Das ist eine Änderung, die ich persönlich liebe, zum einen, weil sie längst überfällig war, und zum anderen, weil ich mit Design generell schlecht bin und ich denke, dass ich hier einen ordentlichen Job gemacht habe.
+
+Ein Kampagnen-Symbol hinzufügen zu können, war auch eine kleine, aber schöne Note, um die Seiten etwas aufzuwerten, während man herumklickt.
+
+Leider hatte ich auch gehofft, den Asset-Manager anzugehen und ihn sogar in die Hauptansicht zu integrieren, aber ich habe nie die Zeit dafür gefunden.
+
+Eine weitere UI-Änderung betraf die Client-Einstellungen, die jetzt ebenfalls die klassische Panel-Modal-Ansicht verwenden, die du vom Bearbeiten von Formen usw. kennst.
+
+### Externe Wandinformationen
+
+_Hinzugefügt in 0.26 & 0.29_
+
+Das manuelle Zeichnen aller Wände ist etwas, das nicht jeder mag, weshalb 0.26 Unterstützung für svg-Dateien und Dungeondraft-Dateien hinzugefügt hat, um Informationen darüber zu liefern, wo sich Wände befinden.
+
+Das ist etwas, das ich persönlich nicht nutze. Ich bin ziemlich geübt darin, Wände einfach dadurch zu zeichnen, dass ich es oft tue, und die Verwendung von svg-Dateien hat einige Nachteile, die ich persönlich nicht mag.
+
+Das heißt aber: Es gibt den Leuten mehr Möglichkeiten, Zeit für andere Dinge zu verwenden, was immer großartig ist.
+
+### Der große rote Rahmen
+
+Vielleicht etwas, das es wert ist, erwähnt zu werden: Der rote Rahmen, der anzeigt, dass die Verbindung zum Server verloren gegangen ist, ist etwas, das ich sehr zu schätzen weiß, aber das könnte einfach daran liegen, dass ich in meinem lokalen Setup manchmal Dinge kaputt mache und ein visueller Hinweis dann sehr hilft :D
+
+Ein weiterer Grund, warum ich das hervorheben wollte, ist, dass ich es verbessern möchte, um sicherzustellen, dass, wenn die Verbindung für eine gewisse Zeit X getrennt bleibt, eine größere Meldung/ein Modal/ein etwas in der Mitte des Bildschirms erscheint, damit der aktuelle Nutzer sicher bemerkt, dass etwas nicht stimmt. Ich habe gehört, dass manche Leute Arbeit verloren haben, weil sie den roten Rahmen nicht bemerkt haben, also ist die Dezenz nichts für jeden.
+
+### Ladeanimation
+
+Ein guter Freund von mir und einer meiner Spieler hat die schöne neue Ladeanimation erstellt, die durch die verschiedenen dX-Würfel geht, und ich liebe sie einfach :)
+
+### Asset-Synchronisierung
+
+Eine weitere kleinere Verbesserung, die ich schätze, ist, dass die Asset-Liste in der Seitenleiste (im Spiel) nun aktiv aktualisiert wird, wenn du Dinge im Asset-Manager änderst. Früher musste ich für kleine Änderungen oft die Seite neu laden, was einfach kein Spaß macht.
+
+### Verbesserungen am Draw-Tool
+
+_Geändert in 0.28 & 0.29_
+
+Das Draw-Tool blendet den Mauszeiger des Betriebssystems aus, um optisch für mehr Flüssigkeit zu sorgen.
+Das machte es allerdings manchmal schwierig, den PA-Cursor zu finden, da er einfarbig war und so in manchen Fällen mit dem Hintergrund verschmelzen konnte.
+
+Eine erste Verbesserung kam in 0.28, die dem PA-Cursor eine Rahmenfarbe hinzufügte, um ihn von seinem Inhalt zu unterscheiden.
+
+Erst mit 0.29 denke ich, dass die eigentlichen Probleme, die die Leute hatten, gelöst wurden. Dieses Release fügte ein mausähnliches Objekt hinzu, das dem PA-Cursor folgt, einen OS-Cursor imitiert, aber die Flüssigkeit behält, indem es an denselben Draw-Loop wie der Rest des Spiels gekoppelt ist.
+
+### Würfel
+
+_Hinzugefügt in 0.29_
+
+Ein großes Feature war das Hinzufügen des Würfelns zu PA.
+Das landete schließlich in 0.29 und ermöglichte es den Leuten, mit dem klassischen dX-Aufbau virtuelle Würfel zu werfen.
+
+Die Würfel landeten in einer nicht polierten Version und wurden seitdem nicht aufgeräumt. Das ist also ein großes Feld, das aus verschiedenen Gründen definitiv Verbesserungen gebrauchen könnte.
+
+Das Wichtigste, das ich aufräumen möchte, ist die UI des Würfel-Tools selbst.
+Aber auch das Wurfverhalten könnte von Verbesserungen profitieren, ebenso wie die Unterstützung für andere Würfelformate für andere Rollenspiele.
+
+Ein weiterer Aspekt, den ich noch nicht abgedeckt habe, sind nicht-visuelle Würfel. Manchmal wollen Leute einfach schnell ein Ergebnis für 20d20 + 5d4 + 2 bekommen, ohne darauf warten zu müssen, dass ein paar ausgefallene Würfel herumkullern.
+
+Eine weitere Stelle, an der ich Würfelkonzepte einführen möchte, sind die Vorlagen. So solltest du eine Goblin-Vorlage erstellen können, die statt eines festen HP-Pools eine Formel (2d6) hat, die sich automatisch auflöst, sobald der Goblin das Spielfeld betritt.
+
+Ich hoffe also, im kommenden Jahr Zeit zu finden, Würfelverbesserungen als großes Thema abzudecken!
+
+### Polygon-Bearbeitung
+
+_Hinzugefügt in 0.29_
+
+Ein weiteres Feature, das ich endlich in Angriff genommen habe, war das Bearbeiten von Polygonen.
+Ich benutze Polygone so viel, dass ich nicht weiß, warum ich das nicht früher angegangen bin.
+
+Punkte hinzufügen oder entfernen, Polygone teilen oder zusammenfügen, all das ist jetzt möglich!
+
+## Gedanken zu verschiedenen Themen
+
+Nach dem Rückblick auf 2021 wollte ich mir die Zeit nehmen, ein paar zufällige Dinge zu besprechen.
+
+Einige dieser Themen sind technisch, einige sehr spekulativ und keineswegs in Stein gemeißelte Pläne.
+
+Bei einigen dieser Themen weiß ich noch nicht, wie ich fortfahren oder beginnen soll, und ich würde gerne Input von euch, meiner Community, zu einigen dieser Themen hören!
+
+### Releases
+
+#### Release-Rhythmus
+
+Eine Sache, zu der ich euren Input haben möchte, ist der Release-Rhythmus.
+
+Bislang würde ich sagen, dass ich ungefähr dann veröffentliche, wenn ich das Gefühl habe, dass das Release genug Inhalt hat. Manchmal kann das eine schnelle Abfolge von Releases bedeuten, wie wir sie in den ersten Monaten des letzten Jahres gesehen haben, manchmal kann das bedeuten, dass ein Release einige Monate auf sich warten lässt.
+
+Ist das etwas, mit dem du dich wohlfühlst? Oder würdest du es bevorzugen, dass ich auf einen schnelleren Rhythmus umstelle, sodass ich auch dann ein Release veröffentliche, etwa einmal im Monat, wenn ich nicht viel habe (z. B. eine kleine Verbesserung/Ergänzung und ein paar Bugfixes)?
+
+#### Versionierungsschema
+
+Ein weiteres Thema, das ich besprechen wollte, sind die Versionsnummern.
+PA ist Teil des [ZeroVer-Clubs](https://0ver.org), mit dem neuesten Release 0.29.0 nach fast 4 Jahren!
+
+Das liegt einfach daran, dass ich nicht wirklich weiß, was nötig wäre, um auf 1.0 zu gehen. Es müsste etwas Substanzielles sein, da ich in der Vergangenheit bei anderen großen Änderungen nie auf 1.0 gegangen bin, was bedeutet, dass es in absehbarer Zeit wahrscheinlich nicht passieren wird.
+
+Das heißt, ich könnte das Versionierungsschema überdenken und etwas anderes verwenden.
+Die beiden Hauptoptionen, die ich derzeit in Betracht ziehen würde, sind unten beschrieben.
+
+##### Die Hauptversionsnummer streichen
+
+So ähnlich wie Firefox zu verfahren und einfach die erste 0 zu streichen. Das hinterlässt eine große Zahl, die die Iteration zeigt, und eine zusätzliche Zahl für mögliche Patches. (z. B. 29.0 statt 0.29.0)
+
+Diese Lösung ist ziemlich einfach und ändert in der Praxis nicht wirklich etwas.
+
+##### Jahresreleases
+
+Eine weitere Option ist, so etwas wie "November 2021" oder "2021.1, 2021.2, ..." zu machen, wobei im letzteren Fall die 1/2 entweder nur eine Angabe der Iteration sein oder tatsächlich mit dem Monat zusammenhängen kann, in dem veröffentlicht wurde.
+
+Wir würden weiterhin eine andere Versionsnummer nachverfolgen (wahrscheinlich den anderen Vorschlag oben), aber die allgemeine Kommunikation würde über Jahr und Iteration laufen.
+
+Der Hauptvorteil davon ist meiner Meinung nach, dass es die Kommunikation erleichtert.
+Ich erinnere mich schneller daran, ob etwas Teil des Release-Zyklus 2021 war, als ob es Teil von 0.24.0 und neuer war.
+
+Da ich ohnehin dazu neige, höchstens einmal im Monat zu veröffentlichen, könnte das eine Option sein.
+
+### Server
+
+#### Asset-Begrenzungen
+
+Eine wichtige Sache, zu deren Umsetzung ich nie gekommen bin, sind Serverkonfigurationen, um bestimmte assetbezogene Einstellungen zu begrenzen.
+
+Derzeit gibt es keine Begrenzung, wie viele Assets jemand hochladen kann, und es gibt auch keine Begrenzung, wie groß besagte Dateien sein dürfen.
+
+Das sind 2 Dinge, die ich lieber früher als später angehen möchte.
+
+#### E-Mail
+
+Ein weiterer Aspekt, der noch nicht abgedeckt ist, ist alles rund um E-Mails.
+Derzeit gibt es keinen Mechanismus, um Passwörter für Spieler zurückzusetzen, außer den Server-Administrator zu kontaktieren.
+Der Hauptgrund ist, dass kein E-Mail-System konfiguriert ist.
+
+Das ist ein Thema, zu dem ich mich ein wenig informieren muss,
+aber ich erwarte, dass dies dazu führt, dass der Konfigurationsdatei einige neue Einstellungen hinzugefügt werden, damit der Server-Administrator E-Mail-Server konfigurieren kann.
+
+Zusammen mit dem technischen Aspekt, E-Mail-Unterstützung hinzuzufügen, bedeutet das auch, Willkommens-E-Mails und Passwort-Reset-E-Mails neben anderen Dingen hinzuzufügen.
+
+#### Offizieller Server
+
+Ich würde auch gerne selbst einen offiziellen PA-Server hosten können.
+Ich bin sehr froh und dankbar, dass andere Leute öffentliche Server hosten,
+aber ich habe das Gefühl, dass ein offizieller Server auch nicht schaden würde.
+
+Tatsächlich ist https://app.planarally.io schon eine Weile am Laufen, aber das ist derzeit ein **Entwicklungs**-Server, von dem daher abgeraten wird, auf ihm wirklich zu spielen.
+
+### Client
+
+#### E-Mail-Migration
+
+Eine weitere Änderung, die ich machen möchte, hängt mit dem E-Mail-Thema im Server-Abschnitt zusammen: den Login-Prozess von einer Benutzername/Passwort-Kombination auf eine E-Mail-Adresse/Passwort-Kombination umzustellen.
+
+Ein Grund dafür ist, dass es mein Leben viel einfacher machen wird, Speicherstände von einem anderen Server zu importieren. Insbesondere in Bezug auf Benutzer, da ich derzeit keine Möglichkeit habe, einen Benutzernamen von einem Server mit einem von einem anderen abzugleichen. Es könnte auf beiden einen 'tom' geben, aber es könnten tatsächlich zwei verschiedene Personen sein. Wenn ich das mit E-Mails mache, kombiniert mit einer verifizierten E-Mail-Adresse, ist das eine Hürde weniger, die es zu überwinden gilt.
+
+Das würde E-Mail-Adressen verpflichtend machen, was in der Vergangenheit nicht der Fall war, und der Hauptgrund, warum ich mich anfangs für einen Benutzername-Login entschieden habe, war die Unterstützung von Offline-Spielen.
+Bedeutet das, dass ich Offline-Spiele entferne? Nein, ganz und gar nicht. Offline-Spiele sind und werden immer ein großes Feature von PA sein, und das bedeutet nur, dass E-Mail-Verifizierung und andere E-Mail-bezogene Dinge einfach nicht relevant sein werden. Die E-Mail-Adresse wird im Grunde wie ein regulärer Benutzername funktionieren.
+
+#### User vs. Player
+
+Eine weitere Änderung, die ich vornehmen möchte, ist, den Spielern mehr Macht zu geben.
+Derzeit erledigt der DM im Grunde alles, er muss die Charaktergrafiken hochladen usw.
+
+Eine erste Änderung ist, eine klarere Unterscheidung zwischen dem Konzept eines Users und eines Players einzuführen.
+Ein User wird per E-Mail identifiziert (wenn meine obigen Pläne voranschreiten) und kann Spieler in mehreren Kampagnen sein, wo er durch einen oder mehrere Charakternamen identifiziert wird.
+
+Später sollte es möglich sein, bestimmte Assets an einen Charakter zu hängen, wodurch der Spieler mehr Möglichkeiten bekommt, Dinge wie das Hochladen eigener Grafiken zu tun.
+
+#### Multiformen
+
+Ein völlig anderes Thema und eher ein Exkurs als alles andere ist das Konzept der Multiformen.
+Mehrere einfache Formen, die miteinander verknüpft sind, um eine größere Form zu bilden.
+
+Der Hauptgrund, warum ich mich manchmal mit diesem Thema beschäftige, ist, Dinge wie das Bewegen der Karte und das Mitbewegen aller mit der Karte verbundenen Wände zu ermöglichen.
+Oder andere Formen, die eine Verbindung zu einer Form auf einer anderen Ebene haben. Das ist jedoch ein Thema, das technisch anspruchsvoller ist, wie meine Experimente mit den Varianten gezeigt haben.
+
+Varianten können als Unterklasse des Themas Multiformen betrachtet werden, bei der mehrere Formen miteinander in Beziehung stehen, aber zu jedem Zeitpunkt nur eine angezeigt wird.
+Zusätzlich liegen bei Varianten alle Formen auf derselben Ebene, also ist es auch in dieser Hinsicht einfacher.
+
+Ich weiß nicht wirklich, wo ich mit diesem Abschnitt hin will, es ist einfach etwas, worüber ich nachgegrübelt habe :)
+
+### PA in der VTT-Landschaft
+
+Dieser letzte Abschnitt meiner Gedanken bezieht sich auf einige übergeordnete Themen rund um PlanarAlly.
+
+#### Konkurrenz
+
+PA ist aus dem Wunsch heraus entstanden, ein VTT für meine eigenen Kampagnen zu schaffen, und wurde nicht mit der ursprünglichen Absicht gemacht, etwas Großes zu werden.
+Ich sah keinen Grund, warum ich den Code selbst nicht öffentlich machen sollte, und eines führte zum anderen, und jetzt habe ich eine kleine, aber unterhaltsame Community rund um dieses Projekt!
+
+Etwas, dem ich infolgedessen überhaupt keine Aufmerksamkeit schenke, ist die "Konkurrenz", und ich verwende dieses Wort hier locker, da die anderen Projekte da draußen wahrscheinlich nicht einmal wissen, dass PlanarAlly existiert.
+
+Aber es gibt andere VTTs da draußen, die großen, aber auch die kleineren, die heutzutage überall auftauchen, genau wie PA es tat.
+Manchmal fühle ich mich also ein wenig eingeschüchtert, als würde ich einen Kampf gegen Windmühlen führen, den ich unweigerlich verlieren werde.
+Aber ich habe mich damit abgefunden, dass ich akzeptiere, dass ich selbst dann, wenn ein bestimmter Zeitpunkt kommt, an dem eine andere Plattform haushoch überlegen ist und meine Spielerbasis abwandert,
+sagen kann, dass es ein unterhaltsames Experiment war und ich nicht traurig sein sollte.
+
+#### Patreon
+
+In gewissem Zusammenhang mit dem letzten Punkt stehe ich in großer Dankbarkeit gegenüber den Leuten, die auf Patreon tatsächlich etwas Geld spenden.
+Ich poste auf Patreon nicht wirklich etwas, habe keine Tiers oder ähnliches, weil ich keine Ahnung habe, wofür ich sie nutzen könnte.
+Weil die Community ziemlich klein ist, erzähle ich einfach jedem, wenn etwas Neues ansteht.
+
+Vielleicht gibt es keine Notwendigkeit, etwas damit zu tun, und es sollte einfach so bleiben, wie es jetzt ist,
+aber wenn jemand Ideen hat, um meine Beteiligung an der Patreon-Seite zu verbessern, lass es mich wissen!
+
+#### Last Gameboard
+
+Eine letzte Sache, die ich erwähnen wollte, ist das 'Last Gameboard', ein Produkt/Unternehmen, mit dem ich letztes Jahr interagiert habe.
+Es ist ein cooles Projekt, auf das ich PA integriere, und es ist auch ein Grund dafür, dass PA selbst in der zweiten Jahreshälfte etwas langsamer war.
+Das Produkt soll irgendwann dieses Jahr auf den Markt kommen, also werden wir sehen, wie es läuft und wie gut PA auf dem Gerät ankommt.
+
+Dennoch ist der Großteil der Entwicklung, die ich für diese Integration mache, auch in die Hauptcodebasis zurückgeflossen, also ist das cool.
+
+## Abschließende Gedanken
+
+Damit wären meine Gedanken abgeschlossen. Wenn du es geschafft hast, bis ganz nach unten zu lesen, danke für deine Geduld :)
+
+Ich hätte nie erwartet, dass sich dieses Projekt zu dem entwickelt, was es heute ist, und ich kann euch allen dafür nicht genug danken. Schauen wir also, was 2022 für uns bereithält!

@@ -1,0 +1,367 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+
+# Votre première carte
+
+La plupart des parties tournent autour d'une carte, ce n'est pas toujours le cas, mais nous allons supposer dans ces guides que nous visons une configuration classique d'exploration de donjon.
+
+Dans ce guide, nous allons ajouter une carte, configurer des murs, des lumières, des personnages joueurs et des monstres.
+
+## Configuration
+
+Avant de passer aux choses sérieuses, jetons d'abord un œil à certaines configurations que nous voudrons peut-être modifier.
+
+Ouvrez l'icône <Cog /> en haut à gauche et cliquez sur « DM Settings ».
+Cela ouvrira l'interface dans laquelle vous pouvez configurer une variété de paramètres globaux pour toute la campagne.
+
+### Paramètres d'administration
+
+![Paramètres d'administration DM](./assets/dm-settings-admin.png)
+
+<Info>
+    Pour ajouter des joueurs à votre partie, vous devez leur envoyer le lien d'invitation, que vous pouvez trouver sur
+    cet onglet !
+</Info>
+
+Plus pertinents pour nos préparatifs actuels, cependant, sont les onglets de la grille et de la vision.
+
+### Paramètres de grille
+
+![Paramètres de grille DM](./assets/dm-settings-grid.png)
+
+Selon votre partie, ces valeurs par défaut peuvent convenir, ou nécessiter quelques ajustements.
+
+Quelques points notables ici :
+
+- Une grille carrée est utilisée par défaut, cela peut être changé en grilles hexagonales
+- Une seule cellule de grille est par défaut interprétée comme une grille de 5x5 pieds pour diverses choses (par ex. l'outil Ruler)
+
+### Paramètres de vision
+
+![Paramètres de vision DM](./assets/dm-settings-vision.png)
+
+Pour l'instant, activez uniquement « Fill canvas with FOW ».
+
+Personnellement, j'aime aussi régler l'opacité du FOW plus haut (par ex. 0,7), mais c'est une question de préférence personnelle.
+Cela déterminera à quel point les zones que les joueurs ne peuvent pas voir seront visibles pour vous en tant que DM.
+
+Pourquoi avons-nous activé ce paramètre de FOW ?
+
+Nous allons simuler une descente de donjon profondément sous terre, donc la configuration par défaut sera probablement que tout est recouvert d'obscurité et que seules quelques torches çà et là apporteront de la lumière dans la scène.
+C'est pourquoi nous avons rempli le canevas de FOW.
+
+Avec ces paramètres initiaux configurés, fermons les paramètres DM et ajoutons réellement une carte.
+
+## Ajout de ressources
+
+PA dispose d'un gestionnaire de ressources où, un peu comme l'explorateur de fichiers de votre système d'exploitation, vous pouvez organiser les ressources téléversées dans des dossiers, les renommer, etc.
+Une fois que vous avez plusieurs parties ou que vous voulez simplement téléverser beaucoup d'images de pions à la fois, vous voudrez explorer le gestionnaire de ressources correctement.
+
+Pour l'instant cependant, nous allons simplement faire glisser une ressource depuis l'explorateur de fichiers de votre système d'exploitation sur la carte.
+Si tout s'est bien passé, vous devriez maintenant voir ceci :
+
+![Carte ajoutée à la table de jeu](./assets/add-map.png)
+
+La carte utilisée ici a été générée aléatoirement à l'aide du [générateur de donjon donjon](http://donjon.bin.sh/d20/dungeon/index.cgi).
+
+Remarquez que l'écran est assez sombre, c'est à cause de mon paramètre d'opacité de 0,7. Actuellement, si un joueur rejoignait la session, il verrait un écran purement noir.
+
+## Un intermède sur les calques
+
+Si vous avez aussi suivi le guide du joueur, vous avez peut-être remarqué l'interface supplémentaire en bas à gauche que le joueur ne pouvait pas voir.
+C'est là que vous contrôlez les étages et les calques. Les étages sont un sujet plus avancé que nous allons laisser de côté pour l'instant, mais les calques sont un outil essentiel de votre kit de DM.
+
+![Calques](./assets/layers.png)
+
+Les calques sont organisés verticalement les uns au-dessus des autres et servent à améliorer les performances de rendu mais aussi à séparer les préoccupations.
+
+Le calque sélectionné par défaut est le calque « token ». Il est destiné à accueillir tous les pions généraux (qu'il s'agisse de joueurs, de PNJ ou de monstres).
+C'est le seul calque avec lequel les joueurs peuvent réellement interagir.
+
+En tant que DM, vous avez accès à beaucoup plus de calques. À gauche du calque token se trouve le calque de la carte. C'est le calque le plus bas et l'idée est d'y placer vos grands éléments de carte.
+Cela garantit qu'aucune forme ne se retrouve coincée derrière l'illustration de la carte à un moment donné, ou que vous ne déplaciez accidentellement la ressource de la carte elle-même.
+
+Le troisième calque est le calque DM, c'est simplement un calque où vous pouvez, en tant que DM, stocker tout ce que vous voulez que les joueurs ne puissent pas voir.
+Peut-être avez-vous un monstre caché quelque part que vous ne voulez révéler qu'au bon moment, ou peut-être avez-vous ajouté du texte à certains endroits comme rappels.
+
+Le dernier calque est le calque Vision, nous l'utiliserons très bientôt, mais pour l'instant tout ce que vous devez savoir, c'est que c'est l'endroit habituel pour dessiner des murs et des choses du même genre.
+
+### Déplacer notre carte
+
+Ce que nous avons donc appris maintenant, c'est que la carte que nous avons ajoutée plus tôt est sur le mauvais calque !
+
+Nous pourrions supprimer la carte, passer au calque de la carte et ajouter la carte à nouveau, mais c'est beaucoup d'efforts.
+
+Au lieu de cela, faites un clic droit sur la ressource de la carte. (Assurez-vous d'être toujours sur le calque token !, vous ne pouvez pas interagir directement avec des ressources depuis un autre calque)
+
+![Menu contextuel de la carte](./assets/context-menu.png)
+
+Ici, nous pouvons déplacer la forme sélectionnée vers un autre calque !
+C'est aussi ainsi que vous feriez apparaître ce monstre caché du calque DM sur le calque des tokens.
+
+<Info title="Le calque caché">
+    Il y a en fait un autre calque, un que vous ne pouvez pas sélectionner : le calque de grille. Le calque de grille est
+    glissé bien ajusté entre le calque de la carte et le calque token, et ne peut être configuré qu'à partir des
+    paramètres de grille DM comme nous l'avons vu plus tôt.
+
+    Remarquez que lorsque la carte était sur le calque token, les lignes de grille étaient cachées derrière la carte,
+    alors que maintenant elles passent réellement au-dessus de la carte !
+
+</Info>
+
+## Installer une lumière
+
+Bon, nous avons notre carte sur le bon calque, éclairons-la !
+
+N'importe quelle forme peut agir comme source de lumière, alors commençons par dessiner un petit cercle pour représenter une torche dans une pièce.
+
+### Forme de base
+
+Pour dessiner des formes, nous devons utiliser l'outil Draw, c'est l'un des outils qui fait partie du mode Build de la barre d'outils, car son utilisation principale est pendant la préparation de la session.
+Changeons donc le mode en mode build (rappelez-vous le raccourci <kbd>tab</kbd>) et sélectionnons l'outil Draw.
+
+Choisissez un cercle (ou une autre forme !), une couleur et dessinez-le sur la table de jeu. Les formes sont généralement dessinées en cliquant avec le bouton gauche de la souris et en faisant glisser.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/add-light-shape.webm" type="video/webm" />
+    <source src="/learn/dm/add-light-shape.mp4" type="video/mp4" />
+</video>
+
+### Ajouter une source de lumière
+
+Nous pouvons maintenant ouvrir les propriétés de la forme que nous venons de dessiner, et ajouter une source de lumière !
+
+Cela peut être fait dans l'onglet Trackers en configurant une aura qui agit comme une source de lumière et est publique.
+
+N'hésitez pas à expérimenter ! Les deux valeurs de portée sont respectivement la portée de lumière vive et de lumière tamisée.
+Au lieu d'un cercle complet, vous pouvez restreindre la source de lumière à un cône et l'orienter dans une direction particulière.
+
+Vous pouvez aussi donner à votre lumière une couleur spécifique pour qu'elle ressemble davantage à une vraie torche.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/add-light-source.webm" type="video/webm" />
+    <source src="/learn/dm/add-light-source.mp4" type="video/mp4" />
+</video>
+
+## Corriger les dimensions de la carte
+
+Maintenant que nous avons ajouté une lumière censée avoir un rayon de 40 pieds,
+vous vous demandez peut-être comment cela se rapporte aux dimensions de la carte, puisque nous avons simplement déposé l'image de la carte sur la table de jeu sans aucune modification supplémentaire.
+
+Si vous preniez l'outil Ruler et mesuriez la taille d'une seule cellule de grille sur la carte, vous confirmeriez vos soupçons : la carte n'est pas du tout à l'échelle correcte !
+Le décalage entre la carte et la grille de PA a peut-être aussi déjà trahi le problème ;)
+
+Nous pourrions tenter de corriger manuellement les dimensions de la carte en utilisant l'outil Select et en redimensionnant la carte (en mode build).
+C'est cependant un travail source d'erreurs et fastidieux. Nous allons plutôt utiliser un outil de build auquel seuls les DM ont accès : l'outil Map.
+
+Cet outil vous permet de configurer les dimensions de la carte. Vous pouvez saisir la largeur/hauteur complète soit en cellules de grille attendues, soit simplement en largeur/hauteur en pixels attendues,
+mais vous pouvez aussi faire glisser une zone et configurer ce que cette zone est censée représenter en # cellules de grille. Je trouve cette dernière option la plus facile.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/map-tool.webm" type="video/webm" />
+    <source src="/learn/dm/map-tool.mp4" type="video/mp4" />
+</video>
+
+Dans la vidéo ci-dessus, nous effectuons les étapes suivantes :
+
+1. Passer au calque de la carte (car nous voulons interagir avec notre forme de carte)
+2. Sélectionner la carte, puis passer à l'outil Map
+3. Faire glisser une zone sur la forme de la carte
+4. Saisir dans l'outil Map combien de cellules de grille la zone déplacée doit représenter, à la fois horizontalement et verticalement
+5. J'ai compté le nombre horizontal de cellules déplacées, qui est de 5, et je l'ai saisi dans le champ horizontal
+6. Avant de saisir le nombre, j'ai cliqué sur l'icône de chaîne qui garantit que toute modification mettra automatiquement à jour l'autre champ pour conserver le rapport hauteur/largeur
+7. Cela a donné environ 5,02 pour le champ vertical, ce qui semble correct
+8. Après avoir appuyé sur appliquer, la forme de la carte est immédiatement redimensionnée pour correspondre à nos contraintes
+9. Elle est toujours mal alignée cependant, donc nous revenons à l'outil Select et la faisons glisser de manière à ce qu'elle chevauche la grille de PA (les lignes rouges)
+
+Cela peut sembler assez impliqué, mais une fois que vous avez pris le coup, c'est en fait un moyen assez rapide d'aligner les cartes.
+
+<Tip title="Conseils">
+    1. Si vous faites glisser une zone plus grande, la précision augmentera ! Cela peut seulement demander plus de
+    travail pour compter le nombre de cellules de grille que vous avez sélectionnées. <br />
+    2. J'ai le contour de ma grille relativement discret, vous pouvez le modifier dans vos paramètres du client <br />
+    3. Même si le résultat final n'est pas parfait, vous devriez pouvoir redimensionner la carte pour qu'elle
+    corresponde plus précisément, bien plus facilement maintenant que la taille générale est à peu près correcte
+</Tip>
+
+## Ajouter des murs
+
+Nous avons maintenant une carte correctement alignée et une lumière, mais la lumière ignore complètement notre carte.
+Pour corriger cela, nous devons informer PA de l'emplacement des murs.
+
+<Info>
+    Certaines options plus avancées, comme le téléversement d'un svg avec les informations des murs, sont disponibles
+    pour vous aider dans ce processus. (Bien que personnellement, je dessine les murs manuellement la plupart du temps)
+</Info>
+
+Comme pour la lumière, les murs seront aussi dessinés à l'aide de l'outil Draw.
+La principale question est : sur quel calque voulons-nous les dessiner ?
+
+Bien qu'il y ait un choix optimal, nous pourrions en réalité choisir n'importe quel calque à l'exception du calque DM, car ceux-ci ne seront pas visibles pour les joueurs.
+
+Nous pourrions les dessiner sur le calque de la carte ou le calque token, mais le calque Vision présente des améliorations de confort d'utilisation qui le rendent plus intéressant :
+
+Tout d'abord, les formes du calque Vision ne sont pas rendues lorsqu'elles sont sur un autre calque, ce qui signifie que le bruit visuel d'un grand nombre de formes de murs, etc. peut être masqué lors du jeu réel.
+Cela signifie aussi que vous pouvez coder en couleur vos formes pour qu'elles signifient des choses spécifiques (par ex. les segments de murs orange sont des portes secrètes) sans que ces couleurs ne s'infiltrent potentiellement dans la scène principale.
+
+Le second avantage est que lorsque vous sélectionnez le calque Vision, l'outil Draw active automatiquement certains paramètres :
+
+![Paramètres du calque Vision de l'outil Draw](./assets/draw-tool-vision.png)
+
+Comme vous pouvez le voir, les paramètres `blocks vision/light` et `blocks movement` sont automatiquement activés.
+C'est une petite aide de confort d'utilisation qui rend la configuration des murs un peu plus facile, car vous n'avez pas à penser à configurer ces paramètres à chaque fois que vous voulez dessiner un mur.
+
+Ces 2 paramètres sont assez importants et peuvent être modifiés après le dessin. Comme son nom l'indique, la lumière et le mouvement seront bloqués à travers cette forme.
+Ce que vous voulez généralement pour un mur ! Si nous voulons imiter une fenêtre, nous voudrions garder `blocks movement` activé, mais désactiver le blocage de la lumière et de la vision.
+
+<Info title="Couleurs par défaut">
+Une autre fonctionnalité de confort d'utilisation est la configuration des couleurs par défaut pour les formes de vision.
+Elles peuvent être configurées dans l'onglet Appearance de vos paramètres du client :
+<br />
+![Couleurs par défaut](./assets/default-colours.png)
+
+La forme utilisera automatiquement la couleur définie ici lorsque cela est pertinent. (par ex. les formes avec les deux paramètres de blocage activés agissent comme des murs, et celles avec seulement le mouvement bloqué agiront comme des fenêtres).
+
+Si vous voulez dessiner ces formes dans une couleur particulière au lieu de leur couleur par défaut, vous pouvez décocher l'option 'Prefer default colours' dans les paramètres de vision de l'outil Draw.
+
+</Info>
+
+Maintenant que tout cela est réglé, dessinons réellement notre mur ! Vous pouvez utiliser n'importe quelle forme, mais l'outil polygone est le plus polyvalent pour dessiner des murs.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/draw-walls.webm" type="video/webm" />
+    <source src="/learn/dm/draw-walls.mp4" type="video/mp4" />
+</video>
+
+Comme vous pouvez le voir, dessiner des murs est super facile ! C'est un peu une question de préférence stylistique de savoir quelle partie du mur réel vous voulez garder visible pour les joueurs,
+j'aime généralement leur en montrer un peu pour qu'ils voient visuellement qu'il y a un mur au lieu de se fier uniquement aux ombres.
+
+<Tip>
+    Vous devez faire un clic droit pour terminer la forme du polygone !
+    <br />
+    Ne vous inquiétez pas trop des lignes qui ne sont pas droites ou des points que vous avez oublié d'ajouter. L'outil
+    Select en mode build vous permet de déplacer les points du polygone ainsi que d'ajouter de nouveaux points ou de
+    supprimer des points existants. Dessiner d'abord la vue d'ensemble avec quelques retouches ensuite est généralement
+    beaucoup plus rapide.
+</Tip>
+
+Vérifiez ce que cela donne lorsque vous passez par exemple au calque token et remarquez que les formes de murs dessinées ont disparu, mais que l'ombre reste !
+
+## Ajouter des personnages
+
+Nous avons maintenant une carte avec des murs, une source de lumière, mais pas encore de personnages. Il n'y a rien qui représente les joueurs et il n'y a pas de monstres ni de PNJ.
+
+Nous pouvons glisser-déposer des pions sur la table de jeu comme nous l'avons fait avec la carte. Pour cette configuration d'exemple, cependant, nous allons créer un pion de personnage de base dans PA lui-même.
+Ce sont de petits pions circulaires avec juste une étiquette de texte. Pratique pour un prototypage rapide ou lorsque vous avez besoin d'un PNJ rapidement sur la table de jeu et que vous ne voulez pas perdre de temps à chercher une ressource dans votre session.
+
+Pour ajouter un pion de personnage de base, faites un clic droit sur un endroit vide de la table de jeu. Idéalement, nous faisons cela sur le calque token !
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/learn/dm/basic-token.webm" type="video/webm" />
+    <source src="/learn/dm/basic-token.mp4" type="video/mp4" />
+</video>
+
+Dans la vidéo ci-dessus, nous :
+
+- Créons un pion de base nommé « test »
+- Donnons au joueur avec le nom d'utilisateur « test » la permission sur la forme
+- Le faisons glisser un peu pour tester si le mur fonctionne, et il fonctionne !
+
+Si nous vérifions maintenant ce que le joueur avec le nom d'utilisateur « test » peut voir, nous remarquons le problème suivant :
+
+![Le joueur ne voit pas son pion](./assets/player-no-vision2.png)
+
+Notre joueur peut voir toute la pièce éclairée alors que son personnage n'y est même pas !
+
+### Accès en vision
+
+Avant de plonger dans la ligne de vue, nous devons faire un petit détour pour parler des niveaux d'accès aux formes.
+
+Lorsque nous avons ajouté l'accès du joueur « test » à la forme ci-dessus, les 3 permissions d'accès (édition/mouvement/vision) ont été accordées automatiquement.
+Les 3 droits d'accès ne sont pas toujours donnés immédiatement, cela dépend de certains contextes, il est donc important de comprendre ce qu'ils font.
+
+En particulier, la permission d'accès en vision est importante car elle décide de ce que les joueurs peuvent voir.
+Avec l'accès activé, PA supposera que le joueur a un accès en vision aux auras privées de la forme et verra essentiellement ce que le pion peut voir dans le monde.
+
+Même si aucune aura n'est configurée sur le pion, une aura de vision minimale sera toujours présente autour de lui afin que vous ne le perdiez pas lorsque vous vous déplacez dans un endroit où vous ne voyez pas grand-chose.
+
+Si vous deviez désactiver l'accès en vision pour le pion, nous verrions à la place ceci :
+
+![Le joueur ne voit pas son pion](./assets/player-no-vision1.png)
+
+Donc, même si nous avons un accès en édition et en mouvement, nous ne voyons en réalité pas la forme parce que rien n'éclaire actuellement la zone où se trouve la forme.
+
+## Vision
+
+Comme indiqué plus tôt, il peut sembler un peu étrange que le joueur puisse voir la pièce éclairée par cette lumière alors qu'il n'y est pas avec son personnage.
+C'est parce que nous n'appliquons actuellement aucune restriction de vision au joueur. Il peut simplement voir tout ce qui est (publiquement) éclairé.
+
+Cela peut très bien fonctionner dans certaines configurations, mais lorsque vous attendez du joueur qu'il ne puisse voir que ce que son personnage peut voir,
+cela peut devenir très fastidieux car vous, en tant que DM, devrez allumer ou éteindre les lumières au fur et à mesure qu'ils explorent la carte.
+
+Et cette approche laborieuse finira quand même par permettre aux joueurs de voir ce que les autres joueurs voient, ce qui n'est peut-être pas non plus ce que vous désirez.
+
+Pour activer correctement la vision par personnage, nous avons besoin de deux choses :
+
+1. Les joueurs doivent avoir un accès en vision sur leurs formes
+2. L'emplacement doit être configuré pour que la ligne de vue soit activée
+
+(1) Nous avons couvert cela dans la section Accès en vision précédente, donc c'est déjà réglé, mais pour (2), nous devons revenir à nos paramètres DM [là où nous avons activé le paramètre « full FOW »](#vision-settings).
+
+<Tip>
+Si vous avez plusieurs emplacements (voir plus loin), ces paramètres DM peuvent souvent aussi être configurés par emplacement.
+
+Les paramètres DM sont les paramètres par défaut et seront utilisés lorsqu'ils ne sont pas explicitement remplacés par un emplacement.
+
+</Tip>
+
+Si tout s'est bien passé, nous avons maintenant la vue suivante (côté DM) :
+
+![Vision du joueur](./assets/player-vision.png)
+
+Ce qui se passe ici, c'est que le joueur ne voit plus que les endroits où il y a de la lumière visuellement dans sa ligne de vue, en fonction des murs que nous avons dessinés.
+(Rappelez-vous que nous n'avons dessiné que le mur intérieur de la chambre de droite).
+
+Pour vous aider à visualiser pourquoi cela est affiché, j'ai fait ce dessin approximatif :
+
+![Vision du joueur](./assets/player-vision-detail.png)
+
+- Les lignes rouges sont les murs que nous avons faits, ils bloquent la lumière.
+- Les lignes jaunes montrent le cône que la lumière émet et qui traverse l'ouverture de la porte que nous avons laissée dans le mur
+- Les lignes vertes montrent le cône que le personnage peut voir dans l'autre pièce à travers cette même ouverture de porte
+
+Pour la pièce où se trouve le personnage :
+
+- Le personnage peut voir toute la pièce
+- La lumière n'éclaire qu'une section (ce cône jaune)
+
+-> Seule la section du cône est réellement visible
+
+Pour la pièce où se trouve la lumière :
+
+- Le personnage ne peut voir que la section du cône vert
+- La lumière éclaire toute la pièce
+
+-> Seule la section du cône est réellement visible
+
+### Auras des joueurs
+
+En général, les personnages auront une capacité innée à voir à travers l'obscurité jusqu'à une certaine distance, ou ils ont simplement un objet comme une torche qui donne de la lumière.
+
+Nous avons [précédemment](#add-light-source) vu comment créer une aura pour la lumière de l'autre pièce, nous pouvons simplement faire la même chose pour notre personnage joueur !
+Ouvrez les paramètres de la forme, allez dans l'onglet Trackers et ajoutez une nouvelle aura.
+
+Les auras configurées comme publiques apparaîtront pour tous les joueurs (avec la vision de l'aura), donc c'est parfait pour une torche, tandis qu'une aura privée est mieux adaptée aux capacités innées comme la vision dans le noir.
+
+Il est important de cocher la propriété 'acts as light source' car c'est ce qui la fait réellement fonctionner comme une source de lumière/vision. (vision source serait probablement un meilleur nom)
+
+--
+
+Cela devrait vous donner l'essentiel pour préparer vos cartes pour le jeu !
+
+[Prochaine étape](/fr/learn/dm/other-features) : nous allons examiner quelques autres fonctionnalités dont vous voudrez probablement être conscient en tant que DM.

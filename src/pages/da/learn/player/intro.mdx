@@ -1,0 +1,78 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Introduktion
+
+Tillykke, din gruppe overvejer PlanarAlly til jeres næste spil!
+Men hvordan bruger du det egentlig?
+
+I denne introduktionsguide kigger vi på, hvordan man opretter en konto, deltager i et spil, og
+vi får lidt smag for det hele ved at se på de vigtigste brugergrænseflade-elementer, der er synlige, når du åbner et spil!
+
+## Oprettelse af konto
+
+<Info title="PA-servere">
+    Der findes ikke én enkelt PlanarAlly-server; alle er frit stillet til at hoste deres egen version og gøre den åben
+    eller lukket for andre mennesker. Normalt har nogen i din gruppe arrangeret, hvilken PA-server I skal spille på.
+    Hvis ikke, bliver nogen nødt til at læse [serverdokumentationen](/da/server/setup/) og blive enige om en fælles
+    server.
+</Info>
+
+Når du besøger den valgte serverhost, bliver du med det samme mødt af en loginside.
+PlanarAlly kræver ikke noget specielt af dig, når du registrerer en ny konto —
+kun et brugernavn og en adgangskode samt eventuelt en e-mailadresse.
+
+I øjeblikket bruges e-mailadressen ikke til noget i selve PA,
+men en serveradministrator kan bruge den til at informere brugere om kommende vedligeholdelse eller lignende.
+
+## Deltag i et spil
+
+Når du er logget ind, bliver du mødt af det primære dashboard, som viser de spil, du er en del af. Hvis du senere beslutter dig for at hoste et spil selv, dukker de også op her.
+
+![Primært dashboard efter login](./assets/dashboard.png)
+
+For at et spil kan dukke op her, skal du dog først inviteres.
+
+Din host sender dig en URL, der, når den besøges, automatisk etablerer forbindelsen med din konto og placerer dig i spillet.
+I fremtiden vil spillet dukke op i dit primære dashboard, som forklaret ovenfor!
+
+## Hurtig introduktion til brugergrænsefladen
+
+Når du åbner et spil, bliver du med det samme mødt af en række brugergrænseflade-elementer.
+
+![Et eksempel på en in-game session](./assets/in-game.png)
+
+Det, der dominerer størstedelen af skærmen, er kernen i ethvert VTT: kortet med tokens, syn og belysning.
+Din DM vil have forberedt dette tidligere.
+
+<Warning title="Er det hele sort?!">
+    Det er muligt, at det eneste, du kan se, er det rene sorte tomrum. Men bare rolig — din DM skal sandsynligvis
+    stadig give dig adgang til en form!
+
+    Hvis de har gjort det, og du stadig ikke kan se noget, så prøv at trykke på <kbd>space</kbd> for at centrere skærmen på en token, du har synsadgang til.
+
+</Warning>
+
+I næste kapitel ser vi, hvordan vi korrekt kan interagere med kortet — både ved at panne og zoome det og ved at flytte vores figurer rundt.
+
+Lad os først introducere dig til skærmens hjørner, hvor PA placerer de fleste andre prominente brugergrænseflade-elementer.
+
+Øverst til venstre er der et <Cog />, der åbner en sidebjælke.
+Dette er mest til at konfigurere nogle mindre brugte indstillinger og er også måden at forlade det aktuelle spil og vende tilbage til det primære dashboard.
+
+Øverst til højre er der en zoom-slider til at styre kortets zoomniveau, og du ser også et brugergrænseflade-element, der viser information om den aktuelt valgte figur.
+
+Hvis vi fortsætter rundt om urskiven, ser vi en række ikoner nederst til højre samt en Build/Play-kontakt.
+Disse er alle relateret til en række værktøjer, som PA tilbyder. Det spænder fra ting som tegneværktøjer til ruler og terninger.
+Mere om disse i næste kapitel!
+
+Til sidst er der hjørnet nederst til venstre, som på skærmbilledet ovenfor er tomt.
+Dette område er for det meste reserveret til DM-specifikke ting, men kan dukke op på spillersiden, hvis din DM bruger en særlig PA-funktion kaldet "floors".
+Tekstchat vil også dukke op her, hvis din DM har aktiveret denne funktionalitet!
+
+Denne hurtige introduktion gav os kun lidt smag for det hele. Lad os dykke helt ned og se, hvad disse værktøjer handler om, og hvordan vi kan interagere med vores figur [i næste kapitel](/da/learn/player/interaction/)!

@@ -1,0 +1,120 @@
+---
+title: Release 0.23.0 - ¡Qué hay de nuevo!
+date: 2020-10-18 16:30:00
+excerpt: "¿Qué hay de nuevo en 0.23.0?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
+¡Hora de un nuevo lanzamiento! Igual que en otras versiones, tenemos un montón de correcciones de errores, pero también hay otras cosas interesantes.
+Una reelaboración de algunos elementos de la interfaz, mejoras en las ubicaciones de aparición (spawn), un sistema de plantillas y más.
+
+**Importante para los propietarios de servidores** Esta versión añade una nueva sección al server_config, asegúrate de actualizar tus server_config sobrescribiendo el nuevo config con tus cambios personalizados, o añadiendo la nueva sección a tu config existente.
+
+## Cambios en las ubicaciones de aparición
+
+Esta versión trae dos cambios al sistema de ubicaciones de aparición. Soporte de múltiples ubicaciones de aparición y un cambio en el sistema de ubicación de aparición inicial.
+
+### Eliminación de la creación automática de aparición
+
+La primera iteración de las ubicaciones de aparición creaba automáticamente la ubicación de aparición por ti.
+En la práctica no parecía increíble. La aparición no siempre se creaba la primera vez,
+a veces aparecía duplicada, y a veces simplemente no estaba donde esperabas.
+Además, no todas las ubicaciones necesitan realmente una aparición.
+
+Por eso se tomó la decisión de no hacer más esta creación automática.
+Ahora podrás crear manualmente las ubicaciones de aparición donde quieras.
+
+### Múltiples apariciones
+
+Junto con el cambio anterior, también se ha eliminado el límite de 1 ubicación de aparición.
+Al crear una ubicación de aparición se te pedirá un nombre.
+
+Al mover formas a otra ubicación se mostrará un aviso (prompt) donde podrás elegir entre las apariciones definidas para esa ubicación.
+Si solo existe 1 aparición, el aviso se omitirá.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>
+
+## Plantillas
+
+Quizás el cambio más emocionante es la capacidad de guardar plantillas de recursos para reutilizarlas más tarde.
+En cualquier momento puedes persistir el estado de un recurso desde el menú contextual del botón derecho.
+
+Este estado incluye las propiedades predeterminadas pero también trackers, auras y dimensiones (ancho y alto).
+
+Cuando sueltas un recurso en el tablero que tiene plantillas asociadas, se te pedirá que elijas una plantilla en lugar del preset vacío base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Esto puede ser muy útil para reutilizar algunas fichas que usas con frecuencia para rellenar previamente cosas como HP y fuentes de luz.
+Esto también será clave para compartir conjuntos con otros jugadores.
+
+## Rediseños de la interfaz
+
+### Página de inicio de sesión
+
+La página de inicio de sesión se ha rediseñado y ahora tiene un poco más de estilo :)
+Además, el flujo de registro es más explícito, ya que el comportamiento anterior no quedaba claro para todos.
+
+### Diálogo de edición
+
+El diálogo de edición de formas se estaba volviendo bastante grande, con cada versión añadiendo algo al diálogo.
+Esta versión añade así algunas subsecciones al diálogo de edición para organizar mejor las cosas sin llenar toda la pantalla.
+
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Editar recurso" />
+
+## Notificaciones del sistema
+
+Una nueva adición para los propietarios de servidores es la opción de crear mensajes de servidor.
+Estos mensajes se transmitirán a todos los jugadores actuales y a los futuros visitantes.
+Los mensajes permanecerán visibles hasta que el jugador los cierre o hasta que el propietario del servidor los elimine.
+
+El uso principal previsto para estos mensajes es informar a los usuarios sobre cosas como el tiempo de inactividad esperado.
+
+Hay un endpoint de API separado disponible para publicar estos mensajes con simples semánticas REST.
+Hay una nueva sección en el server_config (ApiServer) dedicada a configurar este servidor web.
+Se configura de la misma manera que el servidor web principal, pero por defecto usa `localhost` en lugar de `0.0.0.0`
+y usa 8001 como puerto predeterminado.
+
+Para más información sobre qué endpoints están disponibles, consulta la [documentación de la API](/es/docs/server/api/).
+
+## Calidad de vida
+
+### Ajuste del Ruler
+
+El Ruler ahora también tiene [comportamiento de ajuste](/es/docs/game/snapping/) e intentará ajustarse a uno de los 9 puntos de una determinada celda de la cuadrícula.
+Las 4 esquinas de una celda de la cuadrícula, sus puntos medios y el centro absoluto son todas ubicaciones de ajuste.
+
+### Markdown de anotaciones
+
+El campo de anotación en el diálogo de edición de formas ahora soporta markdown.
+La interfaz de las anotaciones mostradas también ha recibido una pequeña actualización.
+
+![Anotaciones Markdown](./0.23/annotations.png)
+
+### Copias de seguridad del servidor
+
+Los guardados del servidor ahora se guardarán en una subcarpeta dedicada.
+Antes de esta versión se almacenaban en la carpeta principal del servidor,
+lo que podía ensuciar mucho las cosas.
+
+Los guardados antiguos no se tocarán, pero siéntete libre de moverlos a esta nueva subcarpeta.
+
+## Correcciones varias
+
+- Ejecutar el contenedor docker como no root
+- Desbloquear una forma a través del menú rápido ya no pone la forma en modo arrastre
+- Mapa que permitía algunas entradas no válidas (números negativos, 0, todo lo que no es un número)
+- Las áreas de texto de notas y anotaciones no tenían la altura correcta inicialmente
+- Errores de consola al intentar mover plantas a las que no puedes acceder
+- Los nombres de formas privadas aparecían como ? para usuarios con acceso
+- [tech] Mostrar mensajes de error basados en el cuerpo de la respuesta

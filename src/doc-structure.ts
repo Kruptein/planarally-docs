@@ -1,133 +1,175 @@
-type DocsNavigationItem = { title: string; path: string };
+import { useTranslations } from "./i18n/utils";
 
-export interface DocsNavigation {
-    title: string;
+export interface DocItem {
+    key: string;
     path: string;
-    items: (string | DocsNavigationItem)[];
 }
 
-type FlatDocsNavigation = DocsNavigationItem & { depth: number; active?: boolean };
+export interface DocSectionGroup {
+    key: string;
+    path: string;
+    items: DocItem[];
+}
 
-export const docStructure: Record<string, DocsNavigation[]> = {
+export interface FlatDocsNavigation {
+    title: string;
+    path: string;
+    depth: number;
+    active?: boolean;
+}
+
+export const docStructure: Record<string, DocSectionGroup[]> = {
     docs: [
         {
-            title: "Overview",
+            key: "sidebar.docs.overview",
             path: "",
             items: [
-                { title: "Introduction", path: "/" },
-                { title: "Quick Reference", path: "/reference/" },
-                { title: "Tools Overview", path: "/tools-overview/" },
+                { key: "sidebar.docs.intro", path: "/" },
+                { key: "sidebar.docs.reference", path: "/reference/" },
+                { key: "sidebar.docs.toolsOverview", path: "/tools-overview/" },
             ],
         },
         {
-            title: "Dashboard",
+            key: "sidebar.docs.dashboard",
             path: "/dashboard",
             items: [
-                { title: "Games", path: "/games/" },
-                { title: "Assets", path: "/assets/" },
-                { title: "Settings", path: "/settings/" },
+                { key: "sidebar.docs.games", path: "/games/" },
+                { key: "sidebar.docs.assets", path: "/assets/" },
+                { key: "sidebar.docs.settings", path: "/settings/" },
             ],
         },
         {
-            title: "Game",
+            key: "sidebar.docs.game",
             path: "/game",
             items: [
-                { title: "Board", path: "/gameboard/" },
-                { title: "Client Settings", path: "/settings/" },
-                "Markers",
-                "Snapping",
-                "Shapes",
-                "Notes",
-                "Chat",
+                { key: "sidebar.docs.gameboard", path: "/gameboard/" },
+                { key: "sidebar.docs.clientSettings", path: "/settings/" },
+                { key: "sidebar.docs.markers", path: "/markers/" },
+                { key: "sidebar.docs.snapping", path: "/snapping/" },
+                { key: "sidebar.docs.shapes", path: "/shapes/" },
+                { key: "sidebar.docs.notes", path: "/notes/" },
+                { key: "sidebar.docs.chat", path: "/chat/" },
             ],
         },
         {
-            title: "DM",
+            key: "sidebar.docs.dm",
             path: "/dm",
             items: [
-                { title: "Campaign Settings", path: "/settings/" },
-                "Layers",
-                "Floors",
-                "Locations",
-                { title: "Lighting & Vision", path: "/lighting-vision/" },
-                "Assets",
+                { key: "sidebar.docs.campaignSettings", path: "/settings/" },
+                { key: "sidebar.docs.layers", path: "/layers/" },
+                { key: "sidebar.docs.floors", path: "/floors/" },
+                { key: "sidebar.docs.locations", path: "/locations/" },
+                { key: "sidebar.docs.lightingVision", path: "/lighting-vision/" },
+                { key: "sidebar.docs.dmAssets", path: "/assets/" },
             ],
         },
         {
-            title: "Tools",
+            key: "sidebar.docs.tools",
             path: "/tools",
             items: [
-                "Select",
-                "Pan",
-                "Draw",
-                "Spell",
-                "Ruler",
-                "Ping",
-                "Vision",
-                "Zoom",
-                "Initiative",
-                { title: "Undo/Redo", path: "/undo/" },
+                { key: "sidebar.docs.select", path: "/select/" },
+                { key: "sidebar.docs.pan", path: "/pan/" },
+                { key: "sidebar.docs.draw", path: "/draw/" },
+                { key: "sidebar.docs.spell", path: "/spell/" },
+                { key: "sidebar.docs.ruler", path: "/ruler/" },
+                { key: "sidebar.docs.ping", path: "/ping/" },
+                { key: "sidebar.docs.vision", path: "/vision/" },
+                { key: "sidebar.docs.zoom", path: "/zoom/" },
+                { key: "sidebar.docs.initiative", path: "/initiative/" },
+                { key: "sidebar.docs.undo", path: "/undo/" },
             ],
         },
         {
-            title: "DM Tools",
+            key: "sidebar.docs.dmTools",
             path: "/tools",
-            items: ["Map", { title: "Quick toggles", path: "/quick-toggles/" }],
+            items: [
+                { key: "sidebar.docs.map", path: "/map/" },
+                { key: "sidebar.docs.quickToggles", path: "/quick-toggles/" },
+            ],
         },
     ],
     learn: [
-        { title: "Player 101", path: "/player", items: [{ title: "Introduction", path: "/intro/" }, "Interaction"] },
         {
-            title: "DM 101",
-            path: "/dm",
+            key: "sidebar.learn.player101",
+            path: "/player",
             items: [
-                { title: "Introduction", path: "/intro/" },
-                { title: "First Map", path: "/first-map/" },
-                { title: "Other Features", path: "/other-features/" },
+                { key: "sidebar.learn.playerIntro", path: "/intro/" },
+                { key: "sidebar.learn.interaction", path: "/interaction/" },
             ],
         },
         {
-            title: "Varia",
+            key: "sidebar.learn.dm101",
+            path: "/dm",
+            items: [
+                { key: "sidebar.learn.dmIntro", path: "/intro/" },
+                { key: "sidebar.learn.firstMap", path: "/first-map/" },
+                { key: "sidebar.learn.otherFeatures", path: "/other-features/" },
+            ],
+        },
+        {
+            key: "sidebar.learn.varia",
             path: "/varia",
             items: [
-                { title: "RTS-style lighting", path: "/rts-lighting/" },
-                { title: "Wall Masks Guide", path: "/Wall_guide/wall-masks/" },
-                { title: "Markdown Tutorial", path: "/Markdown_Tutorial/markdown/" },
+                { key: "sidebar.learn.rtsLighting", path: "/rts-lighting/" },
+                { key: "sidebar.learn.wallMasks", path: "/Wall_guide/wall-masks/" },
+                { key: "sidebar.learn.markdown", path: "/Markdown_Tutorial/markdown/" },
             ],
         },
     ],
     server: [
         {
-            title: "Installation",
+            key: "sidebar.server.installation",
             path: "/setup",
-            items: [{ title: "Start", path: "/" }, { title: "Self-hosted", path: "/self-hosting/" }, "Managed"],
+            items: [
+                { key: "sidebar.server.start", path: "/" },
+                { key: "sidebar.server.selfHosting", path: "/self-hosting/" },
+                { key: "sidebar.server.managed", path: "/managed/" },
+            ],
         },
         {
-            title: "Management",
+            key: "sidebar.server.management",
             path: "/management",
-            items: ["Configuration", { title: "User Management", path: "/users/" }],
+            items: [
+                { key: "sidebar.server.configuration", path: "/configuration/" },
+                { key: "sidebar.server.users", path: "/users/" },
+            ],
         },
         {
-            title: "Advanced",
+            key: "sidebar.server.advanced",
             path: "/advanced",
-            items: [{ title: "Reverse proxy", path: "/proxy/" }, "Subpath"],
+            items: [
+                { key: "sidebar.server.proxy", path: "/proxy/" },
+                { key: "sidebar.server.subpath", path: "/subpath/" },
+            ],
         },
     ],
 };
 
-export function getDocsNav(section: string, currentUrl: string): FlatDocsNavigation[] {
+export function getDocsNav(section: string, currentUrl: string, lang: string = "en"): FlatDocsNavigation[] {
     const nav: FlatDocsNavigation[] = [];
-    for (const doc of docStructure[section]) {
-        const { items, ...rest } = doc;
-        nav.push({ ...rest, path: `/${section}${rest.path}`, depth: 1 });
-        for (const item of items) {
-            const pathEnd = typeof item === "string" ? `/${item.toLowerCase()}/` : item.path;
-            const path = `/${section}${rest.path}${pathEnd}`;
+    const sectionDocs = docStructure[section];
+    if (!sectionDocs) return nav;
+
+    const t = useTranslations(lang);
+    const langPrefix = `/${lang}`;
+
+    for (const doc of sectionDocs) {
+        const sectionPath = `${langPrefix}/${section}${doc.path}`;
+        nav.push({
+            title: t(doc.key),
+            path: sectionPath,
+            depth: 1,
+        });
+
+        for (const item of doc.items) {
+            const path = `${langPrefix}/${section}${doc.path}${item.path}`;
+            const normalizedCurrent = currentUrl.endsWith("/") ? currentUrl : `${currentUrl}/`;
+            const normalizedPath = path.endsWith("/") ? path : `${path}/`;
             nav.push({
-                title: typeof item === "string" ? item : item.title,
+                title: t(item.key),
                 path,
                 depth: 2,
-                active: path === currentUrl,
+                active: normalizedPath === normalizedCurrent,
             });
         }
     }

@@ -1,7 +1,10 @@
 ---
 const { to } = Astro.props;
-const currentUrlRoot = Astro.url.pathname.split("/").slice(0, 2).join("/") + "/";
-const classes = currentUrlRoot === to ? "current-link" : "";
+const pathname = Astro.url.pathname;
+const currentPath = pathname.replace(/\/$/, '');
+const targetPath = to.replace(/\/$/, '');
+const isActive = currentPath === targetPath || currentPath.startsWith(targetPath + '/');
+const classes = `nav-item ${isActive ? "current-link" : ""}`;
 ---
 
 <a href={to} class={classes}>
@@ -9,20 +12,38 @@ const classes = currentUrlRoot === to ? "current-link" : "";
 </a>
 
 <style lang="scss">
-    .current-link {
-        color: #00835c;
-        font-weight: bold;
+    .nav-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.35rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(---fg-color);
+        text-decoration: none;
         position: relative;
+        white-space: nowrap;
+        transition: color 0.15s ease, background-color 0.15s ease;
+
+        &:hover {
+            color: #00835c;
+            background-color: rgba(0, 131, 92, 0.05);
+        }
+    }
+
+    .current-link {
+        color: #00835c !important;
+        font-weight: 600;
 
         &::after {
             content: "";
             position: absolute;
-            top: 35px;
-            height: 1px;
-            left: 50%;
-            transform: translateX(-50%);
+            bottom: -2px;
+            left: 0.6rem;
+            right: 0.6rem;
+            height: 2px;
+            border-radius: 1px;
             background-color: #00835c;
-            width: 100%;
         }
     }
 </style>

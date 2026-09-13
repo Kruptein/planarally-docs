@@ -1,0 +1,84 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import PencilAlt from "~icons/fa-solid/pencil-alt";
+import TrashAlt from "~icons/fa-solid/trash-alt";
+
+import { Image } from "astro:assets";
+import AssetManagerPicture from "./assets/asset-manager.png";
+import AssetExamplePicture from "./assets/asset-example.gif";
+import AssetManagerCreateFolderPicture from "./assets/asset-manager-create-folder.png";
+import AssetManagerUploadFilesPicture from "./assets/asset-manager-upload-files.png";
+
+# 素材
+
+素材菜单用于将素材插入到你的游戏中。
+这些可以是地图、棋子、物体或任何你想要插入的其他内容。
+要访问此菜单，请点击 <Cog /> 图标，并从下拉菜单中选择"素材"。
+
+## 放置素材
+
+<Image src={AssetExamplePicture} width={500} aspectRatio={536 / 434} alt="素材使用示例" />
+
+要使用你的素材，首先打开素材选项卡。
+然后，打开存放你文件的文件夹。
+最后，将素材拖放到游戏桌面上。
+现在你就可以操作你的素材了。
+
+或者，你也可以使用搜索栏搜索素材。
+这将过滤掉那些没有任何项目与你搜索内容匹配的文件夹和子文件夹。
+
+<Tip title="素材尺寸">
+    如果素材名称中包含尺寸信息，PA 会自动为素材设置正确的大小。
+
+    例如 goblin_5x5
+
+</Tip>
+
+### 模板
+
+你可以在任何时候通过右键单击上下文菜单来保存素材的状态。
+
+该状态包括默认属性，以及跟踪器、光环和尺寸（宽度和高度）。
+
+当你将一个关联了模板的素材拖放到游戏桌面上时，系统会提示你选择一个模板，而不是使用基础的空白预设。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+这对于复用你经常使用的棋子来预填诸如生命值和光源等内容非常方便。
+
+### 变体
+
+<Warning title="实验性功能！">
+    该功能尚处于实验阶段！预计会出现一些边界情况，因此如果你遇到任何错误，请[在 GitHub
+    上向问题追踪器报告](https://github.com/Kruptein/PlanarAlly/issues)！
+</Warning>
+
+你可以为对象添加*变体*，以便在无需创建新棋子并移除旧棋子的情况下，赋予它们不同的外观。
+常见的用例包括德鲁伊的荒野变身、角色的替代立绘、多阶段 Boss、惊喜揭晓等。
+
+要添加变体，请使用基础对象编辑窗口底部的 `+` 按钮。
+通过点击铅笔 <PencilAlt/> 图标，你可以编辑当前活动变体的名称。
+请注意，变体的名称与对象的名称无关！
+
+虽然基础对象可以是任意形状（形状、棋子或素材），但只有*素材*可以作为变体添加到其中。
+在任意时刻，一个对象只会显示一个变体，并且可以将其替换为另一个变体。
+
+每个变体都保留自己独立的尺寸、属性、跟踪器和光环。
+跟踪器和光环可以配置为在所有变体之间共享。
+新建的变体不会继承基础变体已应用的任何设置。
+这包括访问权限、常规形状属性（例如名称）或注释！
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.24/variants.webm" type="video/webm" />
+    <source src="/blog/release-0.24/variants.mp4" type="video/mp4" />
+</video>
+
+你可以使用垃圾桶 <TrashAlt /> 按钮删除变体。

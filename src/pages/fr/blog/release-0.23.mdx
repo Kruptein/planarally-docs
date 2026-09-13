@@ -1,0 +1,120 @@
+---
+title: Release 0.23.0 - Quoi de neuf !
+date: 2020-10-18 16:30:00
+excerpt: "Quoi de neuf dans 0.23.0 ?"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+import EditAssetPropertiesPicture from "../docs/dm/assets/edit-asset-properties.png";
+
+Il est temps pour une nouvelle release ! Comme pour les autres releases, nous avons un lot de corrections de bugs, mais il y a aussi d'autres choses intéressantes à découvrir.
+Une refonte de certains éléments d'interface, des améliorations des emplacements d'apparition, un système de modèles et plus encore !
+
+**Important pour les propriétaires de serveur** Cette release ajoute une nouvelle section au server_config, assurez-vous de mettre à jour vos server_configs en écrasant la nouvelle config avec vos changements personnalisés, ou en ajoutant la nouvelle section à votre config existante.
+
+## Changements des emplacements d'apparition
+
+Cette release apporte deux changements au système d'emplacements d'apparition. La prise en charge de plusieurs emplacements d'apparition et une modification du système d'emplacement d'apparition initial.
+
+### Suppression de la création automatique des points d'apparition
+
+La première itération des emplacements d'apparition créait automatiquement le point d'apparition pour vous.
+En pratique, ce n'était pas génial. Le point d'apparition n'était pas toujours créé dès la première fois,
+parfois il apparaissait en double, et parfois il n'était simplement pas là où vous l'attendiez.
+De plus, tous les emplacements n'ont pas réellement besoin d'un point d'apparition.
+
+Le choix a donc été fait d'abandonner cette création automatique.
+Vous pourrez désormais créer manuellement des points d'apparition là où vous le souhaitez.
+
+### Multi-apparitions
+
+En plus du changement ci-dessus, la limite d'un seul emplacement d'apparition est désormais également supprimée.
+Lors de la création d'un emplacement d'apparition, un nom vous sera demandé.
+
+Lors du déplacement de formes vers un autre emplacement, une invite vous sera présentée où vous pourrez choisir entre les points d'apparition définis pour cet emplacement.
+Si un seul point d'apparition existe, l'invite sera alors ignorée.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>
+
+## Modèles
+
+Le changement le plus excitant est peut-être la possibilité de sauvegarder des modèles de ressources pour les réutiliser plus tard.
+À tout moment, vous pouvez enregistrer l'état d'une ressource depuis le menu contextuel du clic droit.
+
+Cet état inclut les propriétés par défaut mais aussi les trackers, les auras et les dimensions (largeur et hauteur).
+
+Lorsque vous déposez une ressource sur la table de jeu à laquelle des modèles sont associés, une invite vous sera présentée pour choisir un modèle au lieu du préréglage vide de base.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/templates.webm" type="video/webm" />
+    <source src="/blog/release-0.23/templates.mp4" type="video/mp4" />
+</video>
+
+Cela peut être très pratique pour réutiliser certains pions que vous utilisez fréquemment afin de préremplir des choses comme les HP et les sources de lumière.
+Ce sera aussi essentiel pour partager des ensembles avec d'autres joueurs.
+
+## Refonte de l'interface
+
+### Page de connexion
+
+La page de connexion a été redessinée et a désormais un peu plus de style :)
+De plus, le flux d'inscription est plus explicite, car l'ancien comportement n'était pas clair pour tout le monde.
+
+### Boîte de dialogue d'édition
+
+La boîte de dialogue d'édition des formes devenait assez grande, chaque release ajoutant quelque chose à la boîte de dialogue.
+Cette release ajoute donc des sous-sections à la boîte de dialogue d'édition pour mieux organiser les choses sans remplir tout l'écran.
+
+<Image src={EditAssetPropertiesPicture} width={500} aspectRatio={569 / 435} alt="Modifier une ressource" />
+
+## Notifications système
+
+Un nouvel ajout pour les propriétaires de serveur est la possibilité de créer des messages serveur.
+Ces messages seront diffusés à tous les joueurs actuels et aux visiteurs futurs.
+Les messages resteront visibles jusqu'à ce que le joueur les ferme ou que le propriétaire du serveur les supprime.
+
+L'utilisation principale prévue de ces messages est d'informer les utilisateurs de choses comme une interruption de service attendue.
+
+Un point de terminaison d'API séparé est disponible pour publier ces messages avec de simples sémantiques REST.
+Il y a une nouvelle section dans le server_config (ApiServer) dédiée à la configuration de ce serveur web.
+Elle est configurée de la même manière que le serveur web principal, mais utilise `localhost` par défaut au lieu de `0.0.0.0`
+et utilise 8001 comme port par défaut.
+
+Pour plus d'informations sur les points de terminaison disponibles, consultez la [documentation de l'API](/fr/docs/server/api/).
+
+## Qualité de vie
+
+### Accrochage du ruler
+
+Le ruler a désormais aussi un [comportement d'accrochage](/fr/docs/game/snapping/) et essaiera de s'accrocher à l'un des 9 points d'une cellule de grille donnée.
+Les 4 coins d'une cellule de grille, leurs milieux et le centre absolu sont tous des emplacements d'accrochage.
+
+### Annotations en markdown
+
+Le champ d'annotation dans la boîte de dialogue d'édition des formes prend désormais en charge le markdown.
+L'interface des annotations affichées a également reçu une petite mise à jour.
+
+![Annotations en markdown](./0.23/annotations.png)
+
+### Sauvegardes serveur
+
+Les sauvegardes serveur seront désormais enregistrées dans un sous-répertoire dédié.
+Avant cette release, elles étaient stockées dans le dossier principal du serveur,
+ce qui pouvait vraiment encombrer les choses.
+
+Les anciennes sauvegardes ne seront pas touchées, mais n'hésitez pas à les déplacer vers ce nouveau sous-répertoire.
+
+## Diverses corrections
+
+- Exécuter le conteneur docker en tant que non-root
+- Déverrouiller une forme via le menu rapide ne met plus la forme en mode glisser
+- Map acceptant certaines entrées invalides (nombres négatifs, 0, tout ce qui n'est pas un nombre)
+- Les zones de texte des notes et des annotations n'ayant pas la bonne hauteur au départ
+- Erreurs de console lors de la tentative de déplacement d'étages auxquels vous ne pouvez pas accéder
+- Les noms de formes privées apparaissant comme ? pour les utilisateurs ayant accès
+- [tech] Affichage des messages d'erreur basé sur le corps de la réponse

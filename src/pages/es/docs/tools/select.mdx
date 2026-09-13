@@ -1,0 +1,66 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+# Herramienta Select
+
+Una de las herramientas más utilizadas es la herramienta Select.
+Su propósito es, como su nombre sugiere, seleccionar una o varias formas en el tablero, pero también moverlas.
+Pueden acceder a ella todos los jugadores desde la barra de herramientas en la parte inferior derecha de la pantalla, pero se comporta de manera diferente según el [modo](/es/docs/tools-overview/#toolbar-and-modes) activo.
+
+Además, cuando estás en Build mode, también te permite rotar y redimensionar formas.
+
+## Conceptos básicos de selección
+
+Puedes hacer clic en una sola forma, o arrastrar un recuadro alrededor de un grupo para poder moverlas todas juntas.
+
+Para añadir formas a una selección existente, mantén presionado `Ctrl` y selecciona nuevas formas.
+
+Para deseleccionar las formas, simplemente haz clic en un espacio vacío del tablero o usa el atajo de teclado `d`.
+
+_Cuando haces una selección de grupo, solo se seleccionarán las formas que realmente te pertenecen. Esto contrasta con el comportamiento normal del clic, que también puede seleccionar formas que no te pertenecen._
+
+## Movimiento
+
+Puedes mover tu selección simplemente arrastrándola por el mapa.
+
+El DM puede haber definido objetos como intransitables (por ejemplo, una pared).
+Estos detendrán el movimiento.
+El DM y todos los Co-DM tienen la posibilidad de ignorar las restricciones de movimiento mientras mantienen presionada la tecla `shift`.
+
+Al activar la opción `show ruler` sobre el botón de la herramienta `select` en la barra de herramientas, arrastrar un objeto también mostrará una regla que mide la distancia recorrida.
+Esta regla funciona como la [herramienta Ruler independiente](/es/docs/tools/ruler/) y también compartirá su configuración.
+
+## Redimensionar
+
+_Para redimensionar una forma debes estar en Build mode_
+
+Redimensionar se hace simplemente agarrando una de las esquinas de la forma y arrastrándola a otro lugar.
+La mayoría de las operaciones de redimensionado solo afectan a la esquina arrastrada, dejando todas las demás esquinas en su lugar.
+
+La única excepción actual son los círculos, que en su lugar aumentan/disminuyen el radio al redimensionar.
+Este comportamiento podría cambiar en el futuro.
+
+## Rotación
+
+_Para rotar una forma debes estar en Build mode_
+
+En Build mode es visible una interfaz especial de rotación que muestra un punto de anclaje y un recuadro.
+
+Cuando mueves el ancla, rotas todo el recuadro alrededor de su punto central.
+
+Rotar formas no se limita a formas individuales, sino que también se puede aplicar a un grupo completo.
+Recuerda que el centro del recuadro se usará como punto de rotación.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.22/rotation.webm" type="video/webm" />
+    <source src="/blog/release-0.22/rotation.mp4" type="video/mp4" />
+</video>
+
+La rotación también tiene un [comportamiento de ajuste](/es/docs/game/snapping/) hacia ángulos comunes (múltiplos de 45 grados).
+
+## Orden de selección
+
+Las formas del tablero se dibujan en un cierto orden que decide qué forma debe seleccionarse en caso de solapamiento.
+
+Puedes cambiar el orden haciendo clic derecho sobre una forma y moviéndola al fondo o al frente de la pila.

@@ -1,0 +1,389 @@
+---
+title: Release 2026.1
+date: 2026-02-12 22:00:00
+excerpt: "Nozioni base sulla scheda personaggio + molti rework"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+Ci sono alcune cose entusiasmanti in questa release! Alcuni punti salienti:
+
+- Aggiornamenti UI/UX a Iniziativa e Note
+- Correzioni al copia-incolla e sistemi simili
+- Un nuovo concetto di 'dati personalizzati' è stato aggiunto alle forme, permettendo tra le altre cose una semplice scheda personaggio
+
+<Info title="Avviso di deprecazione">
+    La funzionalità delle varianti sarà semplificata nella 2026.2, vedi [Varianti](#variants) per maggiori informazioni.
+</Info>
+
+Questa release era originariamente prevista per novembre/dicembre, ma i rework tecnici (vedi più avanti) hanno finito per richiedere un periodo più lungo per stabilizzare i problemi.
+
+Questa release contiene anche contributi di diverse persone, grazie a tutti voi, e a tutte le persone che hanno segnalato bug sul ramo di sviluppo!
+
+<Warning title="Modifiche alla configurazione del server">Vedi [la sezione server](#server-changes)</Warning>
+
+## Iniziativa
+
+_Questi cambiamenti sono stati contribuiti da Rexy712_
+
+Come accennato nell'introduzione, la UI ha ricevuto alcuni aggiornamenti, come si può vedere sotto.
+
+![Nuova UI dell'iniziativa](./2026.1/initiative.png)
+
+Ora ha anche uno scroll di overflow interno,
+così che l'elemento dell'iniziativa non diventi gigantesco se ci sono molti attori nell'iniziativa.
+
+Un'altra novità è che quando aggiungi effetti, ora puoi rendere un effetto infinito nel tempo;
+prima dovevi sempre inserire un numero di turni finché non sarebbe sparito.
+
+Come DM ora c'è anche l'opzione di svuotare l'intera iniziativa in un colpo solo,
+oltre a pulsanti per far avanzare l'iniziativa di un intero round.
+
+## Nozioni base sulla scheda personaggio
+
+### Perché
+
+Una delle lamentele che ricevo di tanto in tanto riguarda la mancanza di schede personaggio.
+Ho sempre creduto che una scheda personaggio generica che si adatti a tutti i sistemi/utilizzi non sia davvero fattibile
+e di conseguenza che le schede personaggio siano più adatte ai mod.
+
+Detto questo, i mod sono ancora molto sperimentali, richiedono conoscenze tecniche per essere creati
+e, diciamocelo, PA è un VTT molto di nicchia.
+Non sorprende che di conseguenza non ci sia stato davvero alcun lavoro in questo ambito.
+
+Credo ancora che una scheda personaggio dall'aspetto decente 'che va bene per tutti' non sia davvero fattibile,
+ma mi sono avventurato a creare un sistema più rudimentale che si integra con il sistema di dadi.
+In questo modo i mod possono ancora usare alle spalle questo sistema di base comune, offrendo al contempo una UI visivamente più piacevole.
+
+### Come
+
+Questa release aggiunge una nuova scheda alla UI "modifica forma", chiamata "dati personalizzati".
+
+![Panoramica dei dati personalizzati](./2026.1/custom-data-overview.png)
+
+Qui puoi aggiungere liberamente dati relativi alla forma. Puoi organizzare i dati in un formato a struttura ad albero.
+
+I dati che puoi aggiungere possono essere di 3 tipi al momento:
+
+- testo
+- numero
+- espressione di dadi
+
+![Modifica dei dati personalizzati](./2026.1/custom-data-edit.png)
+
+La maggior parte di questi è abbastanza autoesplicativa. La cosa bella delle espressioni di dadi è che puoi caricare immediatamente lo strumento Dadi
+con l'espressione data, che può riferirsi ad altri elementi di dati personalizzati, chiamati riferimenti in breve.
+
+![Espressione di dadi nei dati personalizzati](./2026.1/custom-data-dice-expression.png)
+
+Inoltre puoi usare questi riferimenti direttamente nello strumento Dadi, che mostrerà una UI di completamento automatico per aiutarti a selezionare la statistica dalla forma corretta.
+
+![Contesto dadi nei dati personalizzati](./2026.1/custom-data-dice-context.png)
+
+Un'altra aggiunta allo strumento Dadi è che c'è un pulsante rapido per ogni forma nella tua selezione che ha espressioni di dadi.
+Questo fa sì che tu non debba continuamente aprire le impostazioni della forma, navigare fino alla scheda dei dati personalizzati e cliccare sul pulsante di lancio per il lancio desiderato.
+
+![Macro di dadi nei dati personalizzati](./2026.1/custom-data-dice-macro.png)
+
+### Futuro
+
+L'obiettivo è aggiornare anche altri punti per interagire con i riferimenti.
+I tracker e le aure sono tra i punti più prominenti che potrebbero trarre beneficio da questa interazione.
+(ad es. un tracker HP collegato a un riferimento HP)
+
+Un'altra cosa che mi piacerebbe fare è creare un mod di scheda personaggio specifico per un sistema come buona vetrina.
+C'è però per me un grosso problema di licenze/diritti in questo senso.
+
+Per molti sistemi non è permesso, o servono contratti, offrire queste cose in veste ufficiale.
+D&D ad esempio è qualcosa che esito molto a toccare in questo senso, anche se esiste la SRD;
+non sono stati molto accoglienti verso altri player visto che hanno i loro strumenti.
+Allo stesso modo ho contattato i ragazzi di Mothership per vedere cosa sia possibile, ma ho ricevuto un messaggio secondo cui al momento non sono permesse integrazioni vtt.
+Il sistema wildsea è molto aperto e ho effettivamente iniziato a lavorare a un mod legato a wildsea nel repository dei mod di esempio,
+ma il mio grande problema lì è che quel sistema è uno dei rari sistemi per cui non uso affatto un VTT,
+quindi sembra un po' assurdo.
+
+Quindi non sono davvero sicuro di cosa farò in futuro, dato che è un tipo di situazione in cui qualunque cosa faccia è sbagliata:
+legalmente non posso fare molto, ma le persone sembrano volere integrazioni.
+
+## Note
+
+Nella release [2024.1](/it/blog/release-2024.1) è stato introdotto un grande rework del sistema di note.
+Ha aggiunto un framework unificato e una migliore UI attorno ad alcuni concetti sparsi che esistevano prima.
+
+Ha introdotto il concetto per cui la nota è una nota globale, disponibile in tutte le tue campagne, oppure è specifica di un luogo della campagna.
+L'idea è che di solito hai note specifiche della tua partita (locali) o note che ti servono spesso, come i blocchi di statistiche (globali).
+Puoi passare da locali/globali o entrambi e puoi anche fare alcuni filtri come "mostra solo le note del luogo corrente".
+
+Ora, 2 anni dopo, è un buon momento per rivalutare cosa penso del sistema e cambiare le cose che non vanno.
+
+### Problemi del sistema attuale
+
+#### Note di campagna
+
+Uno dei problemi in cui mi imbatto spesso è che creo molte note rilevanti solo per un particolare luogo.
+Questo significa che quando sono nel luogo X, o vedo tutte le note di ogni luogo della mia partita, o vedo solo quelle del luogo corrente.
+
+Sulla carta sembra buono, in pratica però ho anche alcune note rilevanti per l'intera campagna e solo per quella.
+Il problema è che, poiché ogni nota è per natura associata al luogo in cui è stata creata, queste note a livello di campagna sono difficili da trovare.
+Se filtri le note per il luogo corrente, non vedi più le note a livello di campagna (a meno che non siano state create nel luogo corrente); se non filtri, vedi un milione di note ed è difficile tenere traccia di qualcosa.
+
+Il filtro per il luogo attivo è anche nascosto dietro un menu extra, rendendo abbastanza macchinoso passare frequentemente da una modalità all'altra.
+
+#### Note delle forme
+
+Un'altra stranezza è che, poiché una nota è associata al luogo in cui è stata creata, ci troviamo in configurazioni scomode quando la nota è allegata a una forma e quella forma cambia luogo.
+Questo faceva sì che la nota non comparisse sempre nei punti giusti.
+
+#### Note globali
+
+Come accennato prima, le note globali riempiono una nicchia per alcune note che potresti usare di frequente. Nella mia visione originale questo sarebbe soprattutto per i blocchi di statistiche dei mostri o i regolamenti di sistema.
+Da allora alcune persone mi hanno fatto notare che a volte hanno note rilevanti per una selezione di campagne perché gli stessi (p)ng potrebbero apparire in esse.
+
+Il problema però è che per le note globali la configurazione dell'accesso richiede più lavoro, perché non appartenendo a una campagna specifica, PA non sa quali giocatori suggerire.
+Quindi devi collegare manualmente ogni giocatore a ogni nota del genere, il che può diventare macchinoso molto in fretta.
+
+#### Note dei luoghi
+
+Un'ultima seccatura è che, avendo solo la scelta tra "tutti i luoghi" o "luogo corrente", qualsiasi nota di un altro luogo che vuoi semplicemente consultare rapidamente richiede o di cambiare completamente luogo o di cercare tra tutte le note.
+Quest'ultima opzione può essere fattibile o meno a seconda che tu ricordi il titolo.
+
+### Cosa cambia
+
+Quindi, con questi punti dolenti in mente, questa release rivede alcuni concetti.
+
+![Nuova UI delle note](./2026.1/notes-overview.png)
+
+#### Abbandonare globale/locale
+
+La divisione locale-globale non ha finito per funzionare come mi aspettavo inizialmente.
+La realtà è che le note variano molto nel loro uso e possono essere rilevanti per 1 luogo, più luoghi attraverso più campagne o nessuna campagna specifica in particolare.
+
+Di conseguenza ora ci si concentra di più sul collegare una campagna e/o un luogo specifico a una nota.
+Quando crei una nota inizialmente ora scegli se il suo scopo principale è a livello di campagna, specifico per un luogo o senza un collegamento particolare,
+ma puoi comunque collegare qualsiasi altro luogo che vuoi.
+
+#### UI dei filtri
+
+Al posto del confusionario pannello delle preferenze + barra dei filtri per tag, la UI di ricerca/filtro è stata rielaborata in una barra di filtri attiva, sempre immediatamente accessibile, che permette di mostrare le note di luoghi su cui non sei attualmente attivo.
+
+![Filtro delle note](./2026.1/notes-filter.png)
+
+#### Paginazione lato server
+
+Qualcosa non menzionato specificamente tra i punti dolenti è che fino ad ora le note venivano paginate completamente lato client.
+Questo significa che tutte le note dovevano essere fornite al client quando carichi una campagna.
+Era facile per avere una versione funzionante rapidamente all'inizio, ma aggiunge solo più carico sia al tempo di avvio che al database,
+mentre in realtà di solito non interagisci con la maggior parte delle note.
+
+Ora le note vengono recuperate dal server solo quando vengono effettivamente richieste.
+
+Anche la UI della paginazione si è spostata in basso a sinistra ed è stata resa visivamente più chiara.
+
+#### Tag
+
+Era possibile aggiungere tag in forma libera a qualsiasi nota. Non c'era però una vera QoL per aiutarti a gestire i tag.
+Dovevi praticamente sapere esattamente come avevi digitato un particolare tag in passato quando lo aggiungevi a una nuova nota, dato che non c'è un dropdown/completamento/ricerca o qualsiasi altra cosa.
+
+Questa release cambia le cose: i tag ora sono gestiti correttamente in una collezione separata del database invece di essere dati json casuali allegati a una nota.
+Questo permette alla UI di mostrare effettivamente i tag esistenti nei dettagli di modifica della nota e di essere presenti anche nella barra della UI dei filtri.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2026.1/notes-tags.webm" type="video/webm" />
+    <source src="/blog/release-2026.1/notes-tags.mp4" type="video/mp4" />
+</video>
+
+.
+
+## Varianti
+
+### Correzioni dei permessi
+
+_contributo di Rexy712_
+
+Il modo in cui era impostato l'accesso/i permessi per le forme varianti impediva ai non DM di modificare alcuni aspetti di esse.
+Sono state fatte le seguenti correzioni:
+
+- I giocatori ora possono aggiungere varianti alle forme su cui hanno accesso di modifica
+- I giocatori ora possono passare da una variante all'altra delle forme su cui hanno accesso di modifica
+- [tech] I permessi di accesso delle varianti ora si basano solo sui permessi della forma genitore
+
+### Annuncio del rework
+
+Le varianti sono attualmente implementate in modo abbastanza complicato.
+Per ogni variante c'è un'istanza di forma reale e c'è una forma di controllo nascosta responsabile di mostrare la forma corretta e gestire lo stato/le interazioni di tutte le varianti.
+
+L'aspetto positivo è che ogni variante può essere completamente calibrata come si vuole. Tutte le impostazioni della forma sono uniche per quella variante, permettendo completa libertà creativa.
+
+Comporta però molti svantaggi.
+
+- Qualsiasi concetto che dovrebbe essere condiviso tra le varianti deve essere duplicato. Qualsiasi modifica che possa applicarsi a tutte le varianti deve essere fatta su tutte le varianti.
+    - L'eccezione sono i tracker/le aure, per i quali è stato aggiunto un sistema speciale per renderli condivisibili.
+- L'intero codebase deve fare logica extra solo per questo concetto di nicchia, poiché il modo in cui le forme sono gestite influisce su molte interazioni
+    - Questo aggiunge sovraccarico extra a ogni altra funzionalità per cercare di funzionare bene con potenziali forme varianti
+- Poiché funzionano in modo così irregolare rispetto alla stragrande maggioranza delle forme, finiscono spesso con problemi sottili
+
+La realtà è che la completa libertà creativa per ogni forma non vale tutto il trambusto e in realtà non è nemmeno necessaria nella stragrande maggioranza dei casi.
+Al suo interno l'idea delle varianti è solo quella di poter passare rapidamente tra alcuni asset grafici con potenzialmente alcune piccole differenze.
+
+Le piccole differenze che immagino possano essere davvero utili sono la dimensione del segnalino, potenzialmente un nome diverso e alcuni tracker/aure.
+
+Intendo ridurre l'intera complessità di più forme e del passaggio tra di esse, a una sola forma.
+Questa forma avrà una nuova scheda per gestire le varianti, dove puoi aggiungere una nuova voce con un'icona e un nome.
+
+E basta. Per i tracker e le aure questo significa anche che lo speciale concetto "condiviso" può essere rimosso.
+I miei piani iniziali sono di non offrire interazioni speciali per tracker/aure e di far attivare/disattivare all'utente i tracker/le aure come necessario quando cambia variante.
+Se questo finisce per essere troppo macchinoso, sono aperto a valutare l'aggiunta di una logica di toggle specifica per tracker/aure nella nuova scheda varianti.
+
+Questo significa anche che la UX migliorerà in generale, dato che attualmente non è possibile caricare direttamente una particolare variante se ne hai configurate più di una.
+Devi ciclarle, il che le rivela momentaneamente a tutti i giocatori che possono vedere la forma.
+
+<Warning>
+    Questo cambierà nella 2026.2. Se hai preoccupazioni/problemi con questo cambiamento, contattami così possiamo vedere
+    cosa è possibile.
+</Warning>
+
+## Correzioni all'aggancio alla griglia
+
+_contributo di Rexy712 e Craftidore_
+
+Sono state fatte una serie di correzioni al comportamento di aggancio.
+
+### Interazioni con la tastiera
+
+Il movimento con la tastiera ora si aggancia anche alla cella della griglia più vicina (quando l'aggancio è rilevante).
+Fino ad ora non veniva fatto, causando alcuni casi strani in cui muovi una forma fuori griglia perché ha toccato un muro una volta lungo il percorso.
+
+Inoltre è stato corretto un bug che faceva muovere una forma due volte con la tastiera se il righello Ruler era abilitato nello strumento Select durante il movimento.
+
+### Dimensione orizzontale vs verticale
+
+In [2024.2](/it/blog/release-2024.2#shape-grid-size) è stato aggiunto più controllo sulla dimensione di una forma nel contesto della griglia.
+Permettendo all'utente di dire quanto grande la forma dovrebbe agire sulla griglia quando viene spostata, indipendentemente dalla dimensione reale dell'arte.
+Mostrerebbe anche la dimensione dedotta che PA pensa che la forma abbia altrimenti.
+
+Questa release aggiunge ulteriori miglioramenti dividendo questa proprietà di dimensione in una componente orizzontale e verticale (per griglie quadrate).
+Questo corregge alcuni comportamenti di aggancio quando una forma è irregolare (ad es. 2x7).
+
+## Rework tecnici
+
+### Miglioramenti alla duplicazione dei dati
+
+PA ha subito molteplici refactor tecnici che hanno corretto una serie di problemi aperti da tempo,
+che non potevo correggere finché questi cambiamenti non fossero stati fatti.
+
+In particolare due cose sono state modificate:
+
+- Come i dati intermedi delle forme sono rappresentati nel client
+- Come i (modelli di) forme sono salvati nel database
+
+Ti risparmio i dettagli tecnici, ma il risultato è che le seguenti azioni hanno tutte una varietà di bug in comune che ora dovrebbero funzionare correttamente:
+
+- annullare/rifare l'eliminazione di una forma
+- copia-incolla di una forma
+- trascinare un modello sul tavolo
+
+Questi 3 sistemi sono tutti esistiti e hanno funzionato (in una certa misura). Non erano però in grado di gestire informazioni delle forme salvate in punti più specializzati.
+Le note, per esempio, sono salvate in una collezione separata del database, facendo sì che l'annulla/rifai dimentichi la relazione tra nota e forma e che il copia-incolla non ne abbia idea.
+
+Invece di dover aggiungere casi speciali ovunque, la nuova ristrutturazione funziona in modo tale che i 3 sistemi sopra non debbano conoscere i dettagli: semplicemente funziona.
+
+### Modelli di asset
+
+#### Modifiche all'archiviazione
+
+I modelli di asset sono un bel sistema che permette all'utente di salvare dati relativi a un determinato asset,
+così che se trascini l'asset sul tavolo in futuro viene pre-popolato (ad es. ricordando gli HP/CA per un goblin).
+
+Tra i problemi menzionati nella sezione precedente, i modelli avevano anche altri problemi.
+Per come erano salvati nel database, non erano influenzati da alcuna migrazione del database verso una nuova versione.
+
+Questo significa che i modelli creati in versioni precedenti potevano potenzialmente comportarsi in modo non corretto quando usati in una nuova versione.
+
+Ora saranno salvati come forme regolari nel database, permettendo l'auto-migrazione e rendendo anche più coerente altra logica interna.
+
+#### Icona del gestore di asset
+
+Questo non è un rework tecnico, ma è legato ai modelli di asset.
+
+Il gestore di asset ora mostra un'icona su quegli asset che hanno dati di modello.
+Questo aiuta se hai più asset con lo stesso nome (a causa di collezioni diverse o simili) e
+non sei sicuro su quale hai salvato informazioni.
+
+### Aggiornamento Pydantic
+
+Questo è un aggiornamento puramente tecnico a una libreria di validazione dei dati usata dal server.
+Ha però un impatto significativo sul flusso dei dati e, sebbene non dovrebbe esserci alcun cambiamento percepibile per i giocatori,
+è sempre possibile che mi sia sfuggito qualche caso che causa errori nel server.
+
+Lo menziono qui principalmente per gli host del server,
+così che se vedono comparire errori di validazione nei log del server,
+segnalino questi problemi il prima possibile!
+
+## Correzioni di bug
+
+#### Inconsistenza nell'ordine delle forme
+
+Per garantire che le forme siano mostrate visivamente nell'ordine corretto quando si sovrappongono,
+il server tiene traccia di una posizione per forma.
+Quando muovi una forma, alcune forme devono avere la loro posizione regolata, in quanto potrebbero essersi spostate su o giù.
+
+Sebbene questo abbia funzionato abbastanza bene per molto tempo,
+oggi non c'è una vera correzione degli errori,
+quindi se per qualche motivo qualcosa va storto e causa un buco nell'ordine o una voce di posizione duplicata,
+potrebbe causare qualche comportamento strano.
+
+Sarebbe abbastanza costoso controllare costantemente l'integrità dell'ordine,
+quindi invece mi sono avventurato a trovare un punto in cui l'inconsistenza può essere controllata facilmente e che non viene eseguito di frequente.
+
+Da ora in poi, se fai l'azione "sposta la forma in fondo",
+verrà fatto un controllo per vedere se il numero di forme aggiornate corrisponde al numero atteso.
+Se non è così, tutte le forme verranno riposizionate e apparirà una notifica a tutti i client collegati
+che spiega il problema e chiede un refresh per garantire la correttezza visiva.
+
+Inoltre la query di aggiornamento della posizione è stata migliorata dal punto di vista delle prestazioni,
+anche se probabilmente non te ne accorgerai.
+
+## Modifiche al server
+
+### Logging
+
+_contributo di nwhansen_
+
+Il comportamento di logging ora può essere configurato usando la configurazione del server.
+
+Questo permette al proprietario del server di scegliere se conservare o meno i log su file e quale gravità catturano i vari logger.
+
+Vedi [la documentazione di configurazione](/it/server/management/configuration/#logging) per maggiori dettagli.
+
+<Warning title="Modifiche alla configurazione del server">
+    Con questo cambiamento il logging predefinito è solo stdout, quindi nessun logging su file come prima di questa release.
+
+    Inoltre le impostazioni di log "max_log_backups" e "max_log_size_in_bytes" che erano originariamente nella sezione "general" della configurazione sono ora spostate nella sezione di file logging.
+    Se le avevi configurate specificamente, il tuo server non si avvierà più!
+
+</Warning>
+
+## Varia
+
+- le immagini della direzione dei segnalini fuori schermo traboccavano dal loro contenitore
+- ignora le scorciatoie nell'elemento select
+- la e commerciale nel nome della campagna rompeva il gioco
+- correzioni ai poligoni ruotati
+    - taglio
+    - spostamento dei punti
+- Il creatore della campagna non può più cambiare il proprio ruolo o espellersi
+- Testo delle impostazioni account sovrapposto su larghezze di vista più piccole
+- Spostare forme speciali nascondi/rivela dal livello della nebbia di guerra poteva portare a un bug di nicchia
+- Lo slider di rotazione non mostrava il valore corrente nell'input di testo al caricamento del componente
+- I file DDraft non sono più caricabili nel gestore di asset
+- Passare con il mouse su una voce dell'iniziativa che fa parte di un gruppo ma non è marcata come voce di gruppo evidenziava tutti i membri del gruppo
+- Log di errore sulle viste sul server
+- Disattivare l'iniziativa bloccava le interazioni della visione
+- La rotellina dell'iniziativa non apriva la scheda dell'iniziativa nelle impostazioni client
+- Le voci dell'iniziativa restavano sfocate se la voce focalizzata veniva rimossa da un altro giocatore.
+- Il sistema di gruppi non si ripuliva correttamente ai cambi di luogo
+- I badge dei gruppi non erano ordinati numericamente nelle impostazioni dei gruppi di una forma quando impostati sul set di caratteri numeri.
+- L'input del tracker torna all'ultimo valore se lasciato vuoto

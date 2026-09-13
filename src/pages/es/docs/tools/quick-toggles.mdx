@@ -1,0 +1,33 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import QuickTogglesImage from "./quick-toggles.png";
+
+# Activaciones rápidas
+
+La barra de herramientas del DM tiene algunos iconos adicionales debajo. Estos son activaciones rápidas que son útiles para una variedad de cosas.
+
+<Image src={QuickTogglesImage} width={150} alt="Descripción general de las activaciones rápidas" />
+
+## Jugador falso
+
+Cuando esto está habilitado, la pantalla del DM se renderizará como si estuviera en modo de jugador falso (consulta [Jugador falso](/es/docs/dm/settings/#fake-player))
+
+## Línea de visión
+
+Esta activación rápida solo aparece si tienes la [Línea de visión](/es/docs/dm/settings/#only-los) habilitada.
+
+Te permite deshabilitar la LoS **solo** en tu propia pantalla. Al igual que la activación de Jugador falso, esto ayuda a verificar las configuraciones de luz y visión durante el trabajo de preparación.
+Se mostrará en verde cuando la LoS esté habilitada y en rojo cuando esté (temporalmente) deshabilitada.
+
+En particular, cuando trabajas en una nueva ubicación donde probablemente no tienes formas listas con acceso a la visión, puedes usar esto para verificar las luces que configuraste sin tener que crear formas temporales.
+
+## Iniciativa
+
+La activación rápida de iniciativa es, en comparación con las demás, más que una conveniencia.
+Cuando está habilitada se pondrá verde (hasta que se haga clic de nuevo) e indica que la [iniciativa](/es/docs/tools/initiative/) está activa.
+
+Abrirá automáticamente la interfaz de iniciativa para todos los jugadores y activará algunas de las [configuraciones de iniciativa](/es/docs/game/settings/#initiative).
+¡Estas configuraciones solo están activas cuando la iniciativa está explícitamente habilitada usando esta activación!

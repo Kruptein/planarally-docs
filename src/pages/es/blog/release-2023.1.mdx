@@ -1,0 +1,174 @@
+---
+title: Release 2023.1
+date: 2023-02-14 16:00:00
+excerpt: ""
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+import { Image } from "astro:assets";
+
+import Lock from "~icons/fa-solid/lock";
+import Unlock from "~icons/fa-solid/unlock";
+
+La primera release de 2023 incluye sobre todo una colección de correcciones de errores junto con algunas mejoras menores aquí y allá.
+
+## Cambiar el recurso de una forma
+
+Una vez que sueltas un recurso en el mapa, se convierte en una forma, y cuando necesitabas un recurso distinto tenías dos opciones:
+
+- soltar el recurso nuevo en el mapa y copiar todas las propiedades de la forma anterior y luego eliminar la forma anterior
+- añadir el recurso nuevo como variante
+
+La primera opción es claramente bastante engorrosa y propensa a errores, y la segunda es básicamente abusar de una función para otra cosa.
+
+Por eso esta release añade la opción tan esperada de simplemente intercambiar el recurso que usa una forma concreta.
+Se ha añadido un botón sencillo a la vista de propiedades de la forma.
+
+## Apilado y cierre de modales
+
+Cuando tienes varios modales/diálogos abiertos, a veces puede convertirse en un juego moverlos para poder interactuar con uno concreto.
+Esto se debe a que los modales tenían un orden fijo.
+
+Lo nuevo de esta release es que ahora el modal enfocado más recientemente se moverá a la parte superior, como probablemente estés acostumbrado en otros programas.
+
+Además, ahora puedes cerrar el modal superior con la tecla Esc.
+
+_Ten en cuenta que todo lo anterior se aplica sobre todo solo a los modales que pueden permanecer abiertos durante períodos prolongados (por ejemplo, configuración de formas, configuración de DM ...) y no a los modales que requieren una interacción inmediata (por ejemplo, avisos de confirmación de una acción)_
+
+## Cambios y correcciones de la herramienta Spell
+
+La herramienta Spell ha tenido algunos problemas durante toda su existencia.
+Uno de esos problemas era la posible confusión entre `size` y `range`. El primero indica el tamaño real del hechizo en sí, mientras que el segundo se usaba para mostrar hasta dónde podía lanzarse un hechizo determinado.
+El alcance solo era configurable cuando habías seleccionado una forma antes de iniciar la herramienta Spell, de modo que pudiera dibujarse un círculo de alcance para esa forma concreta.
+Además, en ese caso el alcance se establecía en 0 por defecto, pensado como opción de autolanzamiento.
+
+En la práctica esto resultó confuso: a veces los jugadores solo querían lanzar un hechizo aleatorio en una ubicación concreta pero, como tenían su personaje seleccionado,
+quedaba bloqueado sobre sí mismos sin que estuviera muy claro por qué, y tenías que deseleccionarte o cambiar el tamaño a algún valor distinto de cero para poder hacer lo que querías.
+
+Por eso esta release elimina el campo de introducción del alcance y, en su lugar, si hay una forma seleccionada, se dibujará automáticamente una regla entre el cursor y la forma seleccionada.
+Esto transmite la misma información sin tener que introducir nada y sin la confusión del autolanzamiento que bloqueaba la forma.
+
+Además, se han corregido un montón de errores relacionados con la herramienta Spell:
+
+- El uso de la herramienta Spell con una selección estaba roto en realidad en las últimas releases
+- El color de relleno hacía cosas raras si el color del borde tenía una opacidad < 1
+- Hacer clic derecho para dibujar la forma abría el menú contextual
+- Una vez usada, la herramienta Select no se activaba correctamente
+- La etiqueta 'is public' en la interfaz de la herramienta Spell estaba unida erróneamente a la casilla de introducción del alcance
+
+## Estado de iniciativa
+
+La iniciativa nunca tuvo un concepto real de "activa". Podías tener la interfaz de iniciativa abierta o cerrada independientemente de si realmente estaba ocurriendo algo con la iniciativa.
+
+Esto dificulta algunas cosas; por ejemplo, la configuración de iniciativa "lock vision" está en un estado semiroto por esto mismo, porque no hay un inicio o un fin oficial de la iniciativa,
+lo que hace que esta función esté siempre activada cuando se habilita, requiriendo acciones manuales para arreglar algunas cosas cuando la iniciativa termina.
+
+Esta release añade un primer borrador de un nuevo estado de "iniciativa activa". Es totalmente opcional,
+pero las configuraciones del cliente "lock camera" y "lock vision" solo funcionarán cuando se use este sistema.
+Esto permite que la visión se revierta realmente de forma correcta cuando la iniciativa termina, sin que el usuario tenga que hacer nada.
+
+El DM podrá iniciar y terminar la iniciativa (consulta las activaciones rápidas de abajo para más información).
+Por defecto, la interfaz de iniciativa se abrirá en la pantalla de todos los jugadores cuando se inicie la iniciativa. Puedes deshabilitarlo en tu configuración del cliente si no te gusta.
+
+Aún quedan algunos problemas/cosas raras por resolver, pero quiero ver cómo disfruta la gente de esta novedad y hacerme una idea yo mismo.
+
+## Varia
+
+- El diálogo de edición de la forma ahora dice correctamente "Edit Shape" en lugar de "Edit Asset"
+- Se ha añadido una altura mínima a la interfaz del dice tool para que no haya un salto incómodo cuando haces clic por primera vez en un dado para lanzarlo.
+
+## [DM] Activaciones rápidas
+
+Una nueva incorporación a la interfaz para los DM es la adición de dos conmutadores debajo de la barra de herramientas.
+Sirven para activar/desactivar rápidamente ciertas funciones que de otro modo están ocultas detrás de capas de ventanas de configuración.
+
+El primero es un conmutador para habilitar/deshabilitar el modo de visión "Fake Player".
+Hasta ahora esta configuración estaba oculta en la configuración de DM, lo que la hacía muy poco manejable para usarla realmente.
+
+El segundo es un conmutador para iniciar/terminar el nuevo estado de iniciativa activa mencionado anteriormente.
+Al hacer clic en él se iniciará la iniciativa y se abrirá la interfaz de iniciativa.
+Al hacer clic de nuevo se detendrá la iniciativa y se cerrará la interfaz.
+
+Esto es algo nuevo que estoy probando, así que házmelo saber qué opinas.
+Actualmente solo usa algunas letras para indicar lo que hace (es decir, FP=Fake Player, INI=Initiative),
+sobre lo que estoy un poco indeciso. Una alternativa a considerar son los iconos o las palabras completas, pero eso puede desarrollarse en un momento posterior.
+
+Si hay otras sugerencias de configuraciones que suelas alternar, házmelo saber y podría considerar añadirlas aquí si la función es bien recibida.
+
+## Correcciones
+
+### [DM] Fake player
+
+Además de una nueva forma de activar/desactivar rápidamente esta función, el modo Fake Player también se corrigió para que ya no muestre la capa DM mientras está habilitado.
+La capa DM no es visible para otros jugadores, así que mostrarla en el modo Fake Player podía dar mensajes contradictorios sobre lo que los jugadores ven realmente.
+
+### Formas
+
+Se hicieron varias correcciones para las formas en general.
+
+- Desde una release reciente, las insignias empezaron a volverse transparentes por defecto, un cambio no intencionado.
+- Mostrar un valor de seguimiento encima de una forma no funcionaba si el seguimiento formaba parte de una configuración de variante y se compartía con todas las variantes.
+
+Se corrigieron varios casos de clientes que podían editar localmente las propiedades de una forma a la que no tenían acceso.
+En todos estos casos, el cambio solo se reflejaba localmente en el cliente y nunca se enviaba a otros clientes, ya que el servidor rechazaba los cambios.
+
+- La mayoría de las propiedades de seguimiento/aura eran editables localmente
+- Las propiedades "is defeated" y "is locked" eran editables usando los atajos de teclado respectivos para alternar estas propiedades
+
+### UI
+
+#### Prompts
+
+A lo largo de PA te encuentras ocasionalmente con un modal de prompt, un elemento de la interfaz que requiere alguna entrada para continuar.
+A veces solo se permiten ciertos valores (por ejemplo, solo números) y el código puede pasar una función de validación para comprobar si la entrada es válida.
+Estas comprobaciones de validación no siempre se limpiaban correctamente, lo que hacía que algunos prompts rechazaran entradas válidas.
+
+#### Direcciones de fichas
+
+La interfaz que muestra la dirección de las fichas fuera de pantalla siempre se activaba, incluso si estaba oculta detrás de algún otro elemento de la interfaz (por ejemplo, el menú de la barra lateral)
+
+#### Plantas
+
+La interfaz de plantas que aparece al hacer clic en el icono de planta de la parte inferior izquierda no se movía cuando se abría el menú de la barra lateral.
+
+### Herramienta Select
+
+#### Redimensionado
+
+Cuando una forma estaba rotada y tratabas de redimensionar específicamente la esquina inferior derecha, toda la forma sufría extraños cambios de tamaño.
+Un error en el cálculo del centro de la forma durante esta operación causaba este comportamiento defectuoso.
+
+#### Desbloqueo
+
+Desbloquear una forma a menudo la ajustaba al ratón como si la estuvieras arrastrando.
+
+### Asset Manager
+
+Se resolvieron dos errores relacionados con el menú contextual de clic derecho, ambos relacionados con el desplazamiento.
+
+Al desplazarte en el Asset Manager, cualquier menú contextual abierto ya no quedaba alineado.
+Ahora el menú contextual se cerrará automáticamente cuando inicies una acción de desplazamiento.
+
+Al abrir el menú contextual después de desplazarte, aparecía en un valor y incorrecto (donde habría estado el elemento si no te hubieras desplazado).
+Esto impedía interactuar con algunas formas, ya que su menú contextual quedaba fuera de pantalla.
+
+### Configuración de DM
+
+#### Expulsar al DM
+
+Como DM puedes expulsar a cualquiera, incluido a ti mismo.
+Era posible expulsarte a ti mismo si eras el único DM de la campaña.
+Esto dejaba la campaña en un estado inmanejable. Esto ya no es posible.
+
+#### URL de invitación en subpath
+
+Cuando el servidor se aloja usando un subpath (no es lo predeterminado), el subpath no se incluía en las URL de invitación de los jugadores.
+
+Podías sortear este error concreto incluyéndolo en la configuración `publicName` del servidor, pero no es lo previsto.
+Si lo hiciste, deberías eliminar de nuevo el subpath de la configuración, ya que ahora se incluirá automáticamente en la URL de invitación.
+
+### Otras correcciones
+
+- Las plantillas solo usaban el primer carácter del nombre de plantilla proporcionado
+- Grupos: añadir varias formas a un grupo siempre mostraba la pregunta del grupo incluso si no había grupos

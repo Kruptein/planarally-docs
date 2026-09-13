@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# 地点
+
+地点工具提供一组[图层](/zh/docs/dm/layers/)的多个实例，每个实例都有各自的设置，以下将每个实例称为一个*地点*。
+
+## 地点栏
+
+只有 DM 才能主动访问和操作地点。
+通过点击屏幕左上角的 <Compass /> 符号即可进行操作。
+由于这是"仅限 DM"的功能，玩家看不到这个按钮。
+玩家一次只能与一个画布交互；对他们来说，每个新地点看起来都像一张不同的地图（即一组不同的堆叠[图层](/zh/docs/dm/layers/)）。
+
+打开后，地点栏的第一行左侧显示一个创建新地点的按钮，后面跟着该战役中每个地点的条目。
+当前地点以白色文字和 <Cog /> 图标突出显示，而其他所有地点的文字和按钮则呈现略带红色的白色。
+列表中的每个条目都由一个用于拖动地点的把手、地点名称的显示，以及一个用于访问该地点单独设置的 <Cog /> 按钮组成。
+
+每个有玩家在场的地点还会显示一个"玩家"标签，展开后可以看到该地点上在场玩家的列表。
+
+地点栏的第二行显示一个用于访问已归档地点的按钮。
+如果没有归档任何地点，按钮会略微透明；只要归档了至少一个地点，按钮就会变为完全不透明。
+
+再次点击 <Compass /> 符号将关闭地点栏。
+
+## 创建和重新排列地点
+
+点击地点栏左侧的"+"按钮将打开一个对话框，要求你输入该地点的名称。
+此名称以后可以编辑。
+
+按住"九点"符号可以在地点栏上自由重新排列地点，如视频所示：
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## 地点设置
+
+新建的地点会继承[设置](/zh/docs/dm/settings/)中定义的战役默认设置。
+其中定义的一些设置可以在每次会话中单独覆盖。
+
+可以通过地点栏中相应地点条目上的 <Cog /> 符号访问地点设置。
+地点设置将打开一个包含三个选项卡的对话框：Admin、网格和视野。
+
+任何设置为覆盖战役默认值的设置，在重置之前都将一直保持覆盖状态。
+手动将某个设置定义为与战役默认值相同的值，并不会重新建立与默认值的关联，而是会保持该值，即使战役默认值后续发生任何更改。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+地点设置中的 _Admin_ 选项卡允许你重命名、归档或移除地点。
+
+已归档的地点将从地点栏中消失。
+要将已归档的地点恢复到地点栏，请通过地点栏中的`显示已归档地点`按钮访问归档。
+这将打开一个包含所有已归档地点的列表。
+点击`选择`即可恢复它们。
+
+<Image src={RenameLocation} alt="重命名地点菜单" />
+
+你只能归档或移除没有人在场的地点，无论玩家还是 DM 都不在场。
+
+### 网格
+
+参见战役设置中的['网格'](/zh/docs/dm/settings/#grid)。
+
+### 视野
+
+参见战役设置中的['视野'](/zh/docs/dm/settings/#vision)。
+
+## 更改地点
+
+在打开地点栏的情况下，DM 只需点击显示所需地点名称的区块，即可轻松更改地点。
+
+玩家不能自行更改地点。
+受到邀请时，玩家将加入一个已有玩家占据的现有地点（无论该玩家当时是否已登录）。
+如果战役中没有列出其他玩家，第一个响应邀请的玩家将加入 DM 当前所在的地点。
+玩家将一直停留在其当前所在的地点，直到被 DM 拖到另一个地点。
+
+玩家可以作为一个整体或单独被拖拽，如下所示。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+被送往另一个地点的玩家*不会*带走他们控制的任何形状。
+相反，这些形状必须由 DM 发送到该地点。
+
+## 将形状移动到另一个地点
+
+如果一个地点有一个或多个出生点，可以通过右键单击上下文菜单将形状单独或成组移动到该地点。
+
+作为 DM，你可以通过右键单击想要放置出生点的区域并选择"创建出生点棋子"操作，来创建一个或多个出生点。
+
+当被发送到另一个地点时，形状将出现在所选出生点的中心位置，出生点是一种特殊的形状，显示在 _dm_ [图层](/zh/docs/dm/layers/#dm)上。
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="出生点位置符号" />
+
+出生点位置标记可以在 _dm_ 图层上自由移动。
+自 0.23 起，你可以随意移除和创建任意数量的出生点。
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

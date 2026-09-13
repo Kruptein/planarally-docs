@@ -1,0 +1,118 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Cog from "~icons/fa-solid/cog";
+import Compass from "~icons/fa-regular/compass";
+
+import { Image } from "astro:assets";
+import SpawnPicture from "./assets/spawn.png";
+import RenameLocation from "./assets/rename-location.png";
+
+# Luoghi
+
+Lo strumento Luoghi fornisce più istanze di un insieme di [livelli](/it/docs/dm/layers/) con le proprie impostazioni, dove ogni istanza verrà d'ora in poi chiamata _luogo_.
+
+## La barra dei luoghi
+
+Solo il DM può accedere attivamente e manipolare i luoghi.
+Questo avviene cliccando sul simbolo <Compass /> nell'angolo in alto a sinistra dello schermo.
+Poiché è una funzione 'solo DM', i giocatori non possono vedere questo pulsante.
+I giocatori interagiscono con un solo canvas alla volta; per loro, ogni nuovo luogo sembra una mappa diversa (cioè un diverso insieme di [livelli](/it/docs/dm/layers/) impilati).
+
+Una volta aperta, nella prima riga, la barra dei luoghi mostra un pulsante per creare nuovi luoghi a sinistra, seguito dagli elementi per ciascuno dei luoghi della campagna.
+Il luogo corrente è evidenziato con testo bianco e <Cog />, mentre il testo e i pulsanti di ogni altro luogo sono bianchi con una sfumatura rossastra.
+Ogni elemento dell'elenco è composto da una maniglia per trascinare i luoghi, la visualizzazione del nome del luogo e un pulsante <Cog /> per accedere alle impostazioni individuali del luogo.
+
+Ogni luogo in cui sono presenti giocatori mostra anche una scheda "Giocatori" che può essere espansa per mostrare l'elenco dei singoli giocatori presenti in quel luogo.
+
+Nella seconda riga, la barra dei luoghi mostra un pulsante per accedere ai luoghi archiviati.
+Se non ci sono luoghi archiviati, il pulsante apparirà leggermente trasparente, diventando completamente opaco se almeno un luogo è archiviato.
+
+Cliccando di nuovo sul simbolo <Compass /> la barra dei luoghi si chiuderà.
+
+## Creare e riordinare i luoghi
+
+Cliccando sul pulsante "+" a sinistra della barra dei luoghi si aprirà una finestra che ti chiederà un nome per quel luogo.
+Questo nome può essere modificato in seguito.
+
+Cliccando e tenendo premuto il simbolo dei 'nove puntini' puoi riordinare liberamente i luoghi sulla barra, come mostrato nel video:
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-rearrange.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-rearrange.mp4" type="video/mp4" />
+</video>
+
+## Impostazioni dei luoghi
+
+Un luogo appena creato eredita le impostazioni predefinite della campagna definite nelle [impostazioni](/it/docs/dm/settings/).
+Alcune delle impostazioni definite lì possono essere sovrascritte per ogni sessione, individualmente.
+
+Le impostazioni dei luoghi sono accessibili tramite il simbolo <Cog /> sull'elemento del rispettivo luogo nella barra dei luoghi.
+Le impostazioni dei luoghi apriranno una finestra con tre schede: Admin, Griglia e Visione.
+
+Ogni impostazione configurata per sovrascrivere le impostazioni predefinite della campagna rimarrà tale fino al ripristino.
+Impostare manualmente un valore uguale a quello delle impostazioni predefinite della campagna non ristabilirà il collegamento ai valori predefiniti, ma manterrà questo valore nonostante qualsiasi ulteriore modifica alle impostazioni predefinite della campagna.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/settings.webm" type="video/webm" />
+    <source src="/blog/release-0.20/settings.mp4" type="video/mp4" />
+</video>
+
+### Admin
+
+La scheda _Admin_ nelle impostazioni dei luoghi ti permette di rinominare, archiviare o rimuovere il luogo.
+
+I luoghi archiviati spariranno dalla barra dei luoghi.
+Per ripristinare un luogo archiviato nella barra dei luoghi, accedi all'archivio tramite il pulsante `Show archived locations` nella barra dei luoghi.
+Si aprirà un elenco di tutti i luoghi archiviati.
+Vengono ripristinati cliccando su `select`.
+
+<Image src={RenameLocation} alt="Menu di rinomina del luogo" />
+
+Puoi archiviare o rimuovere solo i luoghi in cui non è presente nessuno, né giocatori né DM.
+
+### Griglia
+
+Vedi ['Griglia' nelle impostazioni campagna](/it/docs/dm/settings/#grid).
+
+### Visione
+
+Vedi ['Visione' nelle impostazioni campagna](/it/docs/dm/settings/#vision).
+
+## Cambiare luogo
+
+Con la barra dei luoghi aperta, il DM può cambiare luogo con la stessa facilità con cui clicca sul blocco che mostra il nome del luogo desiderato.
+
+I giocatori non possono cambiare luogo da soli.
+Su invito, i giocatori si uniranno a un luogo esistente occupato da un giocatore (che quel giocatore sia o meno connesso in quel momento).
+Se non ci sono altri giocatori elencati nella campagna, il primo giocatore che segue un invito si unirà al luogo in cui è attivo il DM.
+I giocatori rimarranno nel loro luogo attivo finché non verranno trascinati in un altro luogo dal DM.
+
+I giocatori possono essere trascinati come gruppo o singolarmente, come mostrato qui.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.20/location-move.webm" type="video/webm" />
+    <source src="/blog/release-0.20/location-move.mp4" type="video/mp4" />
+</video>
+
+I giocatori inviati in un altro luogo _non_ portano con sé nessuna delle forme che controllano.
+Al contrario, quelle forme devono essere inviate a quel luogo dal DM.
+
+## Spostare le forme in un altro luogo
+
+Se un luogo ha uno o più punti di apparizione, le forme possono essere spostate in questo luogo singolarmente o come gruppo tramite il menu contestuale del tasto destro.
+
+Come DM puoi creare uno o più punti di apparizione facendo clic destro sull'area in cui vuoi che il punto di apparizione si trovi e selezionando l'azione 'crea segnalino di apparizione'.
+
+Quando vengono inviati in un altro luogo, le forme appariranno centrate sul punto di apparizione scelto, che è una forma speciale che appare sul [livello](/it/docs/dm/layers/#dm) _dm_.
+
+<Image src={SpawnPicture} width={51} aspectRatio={51 / 51} alt="Simbolo del punto di apparizione" />
+
+L'indicatore del punto di apparizione può essere spostato liberamente sul livello _dm_.
+Da 0.23 puoi rimuovere e creare quanti punti di apparizione desideri.
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-0.23/spawn.webm" type="video/webm" />
+    <source src="/blog/release-0.23/spawn.mp4" type="video/mp4" />
+</video>

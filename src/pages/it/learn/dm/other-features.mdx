@@ -1,0 +1,119 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Altre funzionalità degne di nota
+
+Questa sezione sarà più breve e per lo più collegherà ad alcune funzionalità che potresti voler esplorare come DM durante i tuoi preparativi o durante le tue partite.
+
+<Warning>
+    Alcune delle pagine di riferimento collegate potrebbero essere fuori data. Questi nuovi documenti introduttivi sono
+    un primo passo nello sforzo di aggiornare la documentazione!
+</Warning>
+
+## Iniziativa
+
+_riferimento completo: [i documenti sull'iniziativa](/it/docs/tools/initiative/)_
+
+Un aspetto comune dei giochi di ruolo è qualche forma di combattimento. PA offre un semplice tracciatore di iniziativa per tenere traccia dei round.
+
+L'essenziale è che puoi aprire l'interfaccia dell'iniziativa facendo clic destro sul tavolo.
+Se ti capita di cliccare su una forma, potrai invece aggiungere quella forma specifica all'iniziativa, dandole una voce nell'interfaccia.
+
+Le voci possono essere nascoste ai giocatori finché non diventano rilevanti; si possono aggiungere timer per tenere traccia di effetti che durano X turni, ecc.
+
+## Luoghi
+
+_riferimento completo: [i documenti sui luoghi](/it/docs/dm/locations/)_
+
+Ora abbiamo creato la nostra prima mappa, ma per la seconda mappa?
+
+Potremmo semplicemente dedicare un'altra area del tavolo a una nuova mappa,
+ma questo ha diversi problemi:
+
+- la navigazione può diventare rapidamente difficile, cercando di ricordare dove si trovava ogni parte e
+- c'è sempre più dati, rendendo PA più lento
+- potresti volere impostazioni diverse per mappe specifiche (ad es. layout di griglia diverso, configurazione luce diversa)
+
+Invece è più facile separare le tue mappe in qualcosa che PA chiama un "Luogo".
+
+![Barra dei luoghi](./assets/location-bar.png)
+
+La barra dei luoghi può essere aperta come DM usando la seconda maniglia dell'elemento dell'interfaccia in alto a sinistra.
+Mostrerà un elenco di tutti i tuoi luoghi attivi (puoi archiviare/riattivare i luoghi) e dove si trovano attualmente certi giocatori.
+
+Ogni luogo può essere configurato singolarmente per sovrascrivere le impostazioni DM che abbiamo visto nelle parti precedenti. Come DM puoi caricare rapidamente un luogo per te cliccando su una voce.
+
+### Spostare i giocatori
+
+Per spostare i giocatori da un luogo a un altro ci sono 2 opzioni.
+
+L'opzione 1 è trascinare la scatola dei giocatori da un luogo a un altro;
+l'opzione 2 è creare qualcosa chiamato punto di apparizione nel luogo di destinazione e fare clic destro su una forma (o più forme) per spostarle in un altro luogo.
+
+Quest'ultima può sembrare molto più lavoro, ma la prima muove solo, per così dire, la telecamera dei giocatori. Mentre usando i punti di apparizione stai effettivamente spostando i loro segnalini in un posto nuovo specifico nel luogo di destinazione.
+
+L'opzione 1 è quindi più adatta per luoghi dove non c'è bisogno dei segnalini dei personaggi, magari una mappa del mondo esterno o un luogo dove hai preparato varie immagini libere per il roleplay.
+
+L'opzione 2 è quasi sempre il modo più pulito per far passare i giocatori da un luogo all'altro. Vedremo qualche utilità extra più avanti nella sezione logica per aiutarti un po' di più.
+
+## Piani
+
+_riferimento completo: [i documenti sui piani](/it/docs/dm/floors/)_
+
+Il sistema dei luoghi è ottimo per gestire una vasta gamma di posti che i tuoi giocatori potrebbero esplorare.
+A volte però abbiamo a che fare con posti dove c'è verticalità.
+Una casa con più piani è un semplice esempio.
+
+Usare un luogo diverso per ogni piano è piuttosto scomodo, perché ogni luogo è un po' come un livello diverso di un videogioco, dove alcuni elementi interni vengono completamente azzerati e ottieni una piccola schermata di caricamento.
+Altre cose come l'iniziativa sono tracciate anche per luogo, quindi questo diventa rapidamente problematico quando si ha a che fare con personaggi sparsi ovunque.
+
+Una soluzione semplice è mettere gli altri piani in un'altra area del tuo luogo "casa". Puoi ancora usare i punti di apparizione all'interno dello stesso luogo, quindi muoversi tra i piani può rimanere piuttosto semplice.
+
+PA però ha una funzionalità speciale extra che si chiama opportunamente 'piani'. Ti permette di aggiungere un set completamente nuovo di livelli sopra il set attuale.
+Combinando questo con la trasparenza, significa che una forma al piano superiore può effettivamente guardare giù dalle scale e vedere un personaggio a un piano inferiore!
+Una cosa che non saresti in grado di replicare senza usare questa funzionalità.
+
+Onestamente questo migliora enormemente l'immersione, e le transizioni tra i piani sono molto più fluide dato che la telecamera non deve saltare in giro.
+
+## Logica
+
+_riferimento completo: non ancora creata :(_
+
+PA ha attualmente due diversi sistemi di "logica" che possono essere pensati come elementi di interazione per il DM o i giocatori durante il gioco.
+
+### Porte
+
+Una forma può essere marcata come porta, facendo sì che la forma possa alternarsi tra uno stato aperto e uno chiuso.
+Quando è aperta, la forma non blocca visione/movimento; quando è chiusa, sì!
+
+Questa è una semplice funzionalità di qualità della vita soprattutto per i DM, che possono semplicemente cliccare sulle porte mentre i giocatori esplorano, ma puoi opzionalmente configurare le tue porte perché diventino interattive anche per i tuoi giocatori.
+
+<Info>
+    L'interazione con le porte è possibile solo in modalità Play; in modalità Build è disabilitata per evitare
+    frustrazioni, ad esempio quando si ridimensiona una porta.
+</Info>
+
+Anche se la funzionalità si chiama "porta(e)", puoi effettivamente modificare quale blocco deve essere commutato dall'interazione. Questo significa che puoi commutare solo il blocco della visione e ottieni una finestra!
+Se invece blocchi solo il movimento, ottieni qualcosa come una porta nascosta in un muro liscio.
+
+### Zone di teletrasporto
+
+L'altro elemento logico è la zona di teletrasporto. Un'area può essere designata come zona di teletrasporto, il che significa che le forme che vi entrano possono teletrasportarsi in un altro posto (cioè un punto di apparizione).
+
+Le zone di teletrasporto possono essere configurate per attivarsi automaticamente (ad es. una trappola di teletrasporto) o per mostrare un'azione che ti chiede se vuoi teletrasportarti.
+
+Esempi di utilizzo delle zone di teletrasporto sono i pianerottoli delle scale tra i piani, rendendo molto più facile spostarsi rapidamente tra i piani.
+
+## Asset
+
+_riferimento completo: [i documenti sugli asset](/it/docs/dashboard/assets/)_
+
+Prima, nell'introduzione, abbiamo menzionato il gestore di asset, ma invece di usarlo abbiamo semplicemente trascinato gli asset direttamente sulla mappa.
+
+Il gestore di asset è una funzionalità che ti permette di organizzare i tuoi vari asset. È disponibile fuori dalla partita nella dashboard principale, ma può essere aperto anche in partita.
+
+Potresti per esempio avere una cartella specifica per tutti i tuoi segnalini D&D, ma anche una cartella specifica per ogni campagna.

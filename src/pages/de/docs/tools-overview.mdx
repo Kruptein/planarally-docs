@@ -1,0 +1,50 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import { Image } from "astro:assets";
+import ToolbarExample from "./assets/toolbar-example.png";
+
+# Werkzeug-Übersicht
+
+PlanarAlly bietet eine Reihe von Werkzeugen, um mit dem Spiel und anderen Spielern zu interagieren.
+DM erhalten einige zusätzliche Werkzeuge, die auf ihre Bedürfnisse zugeschnitten sind.
+Die meisten – aber nicht alle – dieser Werkzeuge sind über eine Werkzeugleiste in der unteren rechten Ecke des Bildschirms zugänglich.
+
+<Image
+    src={ToolbarExample}
+    alt="Beispiel der Werkzeugleiste eines DM im Modus 'Build' mit aktivem Select-Werkzeug, wobei der Modus bereit ist, in den Play-Modus geändert zu werden, während das Filter-Werkzeug verwendet werden kann, aber nicht das Sicht-Werkzeug."
+/>
+
+## Werkzeugleiste und Modi
+
+Damit die Werkzeugleiste nicht mit zu vielen Optionen überladen wird, werden die Werkzeuge je nach Werkzeugleisten-Modus angezeigt.
+Aktuell gibt es 2 Modi, "Play" und "Build": Ersterer konzentriert sich auf Werkzeuge, die tatsächlich während des Spiels verwendet werden,
+Letzterer auf Werkzeuge, die vor allem bei der DM-Vorbereitung zum Einsatz kommen.
+
+Zum Wechseln des Modus kannst du auf den gewünschten Modus klicken oder die `Tab`-Taste verwenden.
+
+Unten folgt eine Übersicht aller Werkzeuge und darüber, in welchem Modus sie verfügbar sind.
+Beachte, dass einige Werkzeuge je nach Modus ein verändertes Verhalten aufweisen können.
+
+## Werkzeug-Schnellreferenz
+
+| Werkzeug                                 | Zugriff | Modus     | Beschreibung                                                     |
+| ---------------------------------------- | ------- | --------- | ---------------------------------------------------------------- |
+| [Select](/de/docs/tools/select/)         | Alle    | Beide[^1] | Formen auswählen, bewegen, drehen oder skalieren.                |
+| [Pan](/de/docs/tools/pan/)               | Alle    | Beide     | Deine Ansicht des Spiels verschieben.                            |
+| [Draw](/de/docs/tools/draw/)             | Alle    | Build     | Erstellt Formen verschiedener Grundformen.                       |
+| [Spell](/de/docs/tools/spell/)           | Alle    | Play      | Zauber messen und wirken.                                        |
+| [Ruler](/de/docs/tools/ruler/)           | Alle    | Beide     | Entfernungen messen.                                             |
+| [Ping](/de/docs/tools/ping/)             | Alle    | Play      | Zeigt ein temporäres Signal, das für alle sichtbar ist.          |
+| [Map](/de/docs/tools/map/)               | DM      | Build     | Hilft, Assets (meist Karten) an das Raster anzupassen.           |
+| [Vision](/de/docs/tools/vision/)         | Alle    | Play[^2]  | Begrenzt, welche Charaktere zur Sicht beitragen.                 |
+| [Zoom](/de/docs/tools/zoom/)             | Alle    | Beide[^3] | Einen Teil des Spiels hinein- bzw. herauszoomen.                 |
+| [Initiative](/de/docs/tools/initiative/) | Alle    | Beide[^3] | Initiative-Reihenfolge und zeitlich begrenzte Effekte verfolgen. |
+| [Undo/Redo](/de/docs/tools/undo/)        | Alle    | Beide[^3] | Bestimmte Aktionen rückgängig machen und wiederholen.            |
+
+[^1]: Die Funktionalität unterscheidet sich je nach Modus.
+
+[^2]: Nur in der Werkzeugleiste sichtbar, wenn tatsächlich nutzbar.
+
+[^3]: Gehört nicht zur Werkzeugleiste.

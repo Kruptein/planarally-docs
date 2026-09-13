@@ -1,0 +1,174 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import PenSquare from "~icons/fa-solid/pen-square";
+import Unlock from "~icons/fa-solid/unlock";
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Interactuar con la partida
+
+¡Es hora de usar PA de verdad!
+
+## Mover el mapa
+
+Empecemos por lo más fácil: mover el mapa.
+
+Una parte esencial del uso de cualquier VTT es saber cómo mover la cámara.
+
+### Zoom
+
+Hacer zoom hacia dentro o hacia fuera es bastante sencillo: basta con usar la rueda del ratón.
+Como vimos en el capítulo anterior, también hay un control deslizante de zoom dedicado arriba a la derecha que puedes usar.
+
+La principal diferencia es que el control deslizante siempre hace zoom respecto al centro de la pantalla,
+mientras que el zoom con el ratón lo hace en relación con la posición actual del cursor.
+
+### Pan
+
+Para mover el mapa, puedes mantener pulsado el botón central o derecho del ratón y moverlo.
+
+<Tip>
+    Puedes desactivar el botón que no pienses usar para evitar desplazamientos accidentales en tu Configuración del
+    cliente.
+</Tip>
+
+También puedes moverte con el teclado: al pulsar cualquiera de las teclas de flecha, la pantalla se desplazará en la dirección indicada.
+Con cada pulsación, la pantalla se moverá 1 celda de la cuadrícula.
+
+<Tip>Consulta los [atajos de teclado](/es/docs/reference/#keybindings) si quieres descubrir más formas de moverte.</Tip>
+
+## Echar un vistazo a las herramientas
+
+Echemos un vistazo más de cerca a la barra de herramientas abajo a la derecha.
+Puede adoptar dos formas según el **modo**, pero como jugador usarás casi exclusivamente el modo Play:
+
+![Herramientas de Play](./assets/tools-play.png)
+
+<Tip>
+    1: Si no te gustan los iconos abstractos, puedes cambiar la interfaz para que muestre etiquetas de texto en tu
+    Configuración del cliente.
+    <br />
+    2: Puedes cambiar rápidamente entre los modos pulsando <kbd>tab</kbd>
+</Tip>
+
+La mayoría de las interacciones en PA dependerán de qué herramienta esté activa, que en el ejemplo anterior es la herramienta Select.
+
+Repasaremos rápidamente todas las herramientas aquí, pero limitaremos la explicación a lo esencial que usarás a menudo.
+Para información más detallada, consulta la [documentación de herramientas](/es/docs/tools/select/).
+
+### Select
+
+Esta es, con diferencia, la herramienta más común que usarás. ¡Su uso principal es... seleccionar cosas!
+
+Al hacer clic izquierdo en una forma, la seleccionarás y añadirás un borde rojo alrededor de la forma.
+Si ahora haces clic izquierdo y mantienes pulsado mientras mueves el ratón, podrás mover la forma.
+
+¡Si seleccionas varias formas, podrás moverlas todas a la vez!
+
+Sé que es impactante.
+
+Sin embargo, la herramienta Select tiene más cosas reservadas: cuando tienes una selección activa,
+aparece una interfaz especial arriba a la derecha con información rápida sobre la forma seleccionada y
+hay opciones de configuración adicionales para la herramienta Select abajo a la derecha.
+
+<Info title="Redimensionar / Rotar">
+    La herramienta Select también tiene la capacidad de redimensionar o rotar una forma.
+    <br />
+    Como normalmente no es algo que hagas con regularidad, esta funcionalidad solo es visible cuando estás en el modo
+    Build. Esto evita redimensionamientos accidentales cuando solo quieres arrastrar tu forma y resulta que haces clic
+    un poco demasiado cerca de la esquina.
+</Info>
+
+### Pan
+
+La siguiente es una herramienta que probablemente sea la menos usada, ya que te permite mover/desplazar la pantalla con el clic izquierdo del ratón.
+
+Como siempre puedes desplazarte desde cualquier herramienta con el botón central o derecho del ratón,
+solo usarás esta herramienta activamente cuando estés en un dispositivo sin ratón.
+
+### Spell
+
+Si alguna vez necesitas añadir temporalmente algún efecto de hechizo al tablero, esta herramienta te cubre las espaldas.
+
+Te permite seleccionar algunas formas de hechizo comunes, configurar las dimensiones y colocarlas en el mapa.
+
+Si tienes una forma seleccionada, se traza automáticamente una regla entre la forma y el efecto de hechizo,
+para que seas consciente de la distancia a la que estás lanzando.
+
+### Ruler
+
+Tu aliado si necesitas medir distancias.
+
+Una herramienta muy sencilla: haces clic y arrastras una línea para medir la distancia en la cantidad de celdas de la cuadrícula o en la distancia del mundo (p. ej. ft o m).
+
+<Tip>
+    Si pulsas espacio mientras arrastras el ratón, se crea un nuevo punto de anclaje, ¡lo que te permite medir en las
+    esquinas!
+</Tip>
+
+### Ping
+
+Otra herramienta pequeña pero útil es la herramienta Ping, que simplemente te permite llamar la atención sobre una zona específica del mapa.
+
+### Vision
+
+Esta es una herramienta especializada que solo aparecerá si controlas varios personajes.
+
+Limitará tu visión a los personajes seleccionados en esta herramienta.
+
+### Dice
+
+Una herramienta que usarás con frecuencia o nunca es la herramienta Dice.
+
+Te permite resolver tiradas de dados de forma puramente textual o simulando dados 3D virtuales.
+
+### Draw
+
+¡Esta herramienta solo es visible cuando estás en el modo Build!
+
+Con esta herramienta puedes dibujar una variedad de formas en el mapa.
+
+## Modificar tu personaje
+
+Algo que aún no hemos cubierto es cómo modificar tu personaje, que por supuesto también es una parte importante del juego.
+
+Cuando tienes tu personaje seleccionado, hay varias formas de abrir la interfaz de edición.
+
+- Pulsa el icono <PenSquare /> en la información rápida (arriba a la derecha)
+- Haz clic derecho en tu personaje y haz clic en «mostrar propiedades»
+- Pulsa <kbd>Enter</kbd>
+
+Sea cual sea la opción que elijas, debería aparecer un elemento de interfaz más grande que te permita editar varios aspectos de tu personaje.
+Se puede configurar mucho, pero no te preocupes: como jugador, las pestañas más esenciales son Propiedades y Rastreadores.
+
+### Propiedades
+
+Aquí puedes editar algunos elementos esenciales como el nombre y el recurso de tu personaje.
+
+### Rastreadores
+
+Aquí puedes configurar rastreadores y auras.
+
+Los rastreadores son datos numéricos que quizá quieras conservar y modificar a lo largo de las partidas (p. ej. HP).
+También se pueden mostrar opcionalmente encima de tu personaje en el mapa, de forma privada o visible para todos los demás jugadores.
+
+Las auras, en cambio, son siempre visuales: representan cosas como efectos de área y luces.
+Si el aura está pensada para darte visión (p. ej. una antorcha o visión en la oscuridad), asegúrate de activar «Fuente de luz».
+
+Las auras tienen 2 valores para su entrada de rango: el primer valor es cuántos ft de luz brillante debe haber,
+mientras que el segundo es cuántos ft de luz tenue. Así que una antorcha de 5e debería ser 20 / 20 (¡y no 20 / 40!).
+
+## Lecturas adicionales
+
+Esta fue una visión general muy breve de las herramientas que te permiten interactuar con PlanarAlly.
+
+Algunas cosas no mencionadas que quizá quieras investigar:
+
+- Notas: Lleva un registro de la información que has recopilado sobre npc concretos o momentos clave de la historia
+- Chat: Un chat efímero simple basado en texto
+- Iniciativa: Un rastreador de iniciativa básico
+
+Y si te interesa organizar una partida tú mismo, puedes consultar la [guía del DM](/es/learn/dm/intro/) y descubrir de qué se trata.

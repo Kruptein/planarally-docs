@@ -1,0 +1,166 @@
+---
+title: Release 2022.1
+date: 2022-04-20 20:00:00
+excerpt: "Endlich ein neues Release"
+author: Darragh Van Tichelen
+layout: ../../../layouts/blog.astro
+---
+
+Es ist _sehr_ lange her seit dem letzten Release, es hat mehr als ein halbes Jahr gedauert, und ich habe reichlich Gründe, warum und wie, aber am Ende möchte ich mich einfach entschuldigen und hoffentlich sehen wir in naher Zukunft einen regelmäßigeren Rhythmus :)
+
+## Änderung des Versionsformats
+
+_Du kannst diesen Abschnitt komplett überspringen, wenn du nur wissen willst, was sich wirklich geändert hat!_
+
+Jemand, der PlanarAlly kennt, wird wahrscheinlich auch bemerken, dass sich die Versionsnummer geändert hat. Das ist etwas, worauf ich in meinem Jahresrückblick-Post von 2021 angespielt habe und das ich für die erste Version von 2022 umsetzen wollte.
+
+Obwohl am ursprünglichen Versionsschema nichts unbedingt falsch war, gab es meiner Meinung nach nichts Dramatisches am Horizont, das einen Wechsel zu 1.0.0 gerechtfertigt hätte, was die erste Zahl im Grunde bedeutungslos macht. Auch die ständig steigende Nebenversionsnummer fühlte sich nicht wie eine gute Lösung an, also war es Zeit für etwas Frisches.
+
+Wir wechseln von einem major.minor.patch-Versionsschema zu einem year.minor.patch-Schema, wobei jedes Jahr mit einer 1.0 neu beginnt.
+Das hält die Versionsnummern klein genug, um leicht darüber nachdenken zu können, und setzt sie in einen klaren zeitlichen Rahmen, während 0.18.0 irgendwo in den letzten 3 Jahren liegen könnte.
+
+## Logik-Systeme
+
+Die wichtigste Neuerung dieses Releases ist die Hinzufügung kleiner Logikmodule, die zu Formen hinzugefügt werden können.
+Dieses Release bringt zwei Arten: Türen (Doors) und Teleportzonen.
+
+Dem Dialog „Form bearbeiten“ wurde ein neuer Tab hinzugefügt, über den du das Verhalten dieser Module aktivieren, deaktivieren und konfigurieren kannst.
+
+#### Berechtigungen
+
+Beide Module können mit einem Berechtigungssystem konfiguriert werden.
+Der DM hat immer Zugriff, und standardmäßig haben alle anderen Spieler keinen.
+Du kannst den Standardzugriff ändern sowie den Zugriff für bestimmte Spieler auf aktiviert/angefordert/deaktiviert konfigurieren, wobei „angefordert“ bedeutet, dass der DM eine Benachrichtigung erhält, um die Aktion zuzulassen oder abzulehnen.
+
+### Türen (Doors)
+
+Wenn Spieler auf eine Form stoßen, die den Zugang zu einem anderen Bereich blockiert, gibt es mehrere Möglichkeiten, wie der DM den Spielern einen Weg an diesem Hindernis vorbei bieten kann. Der DM könnte sie mit seinen Umschalt-Magiekräften über das Objekt bewegen. Er könnte die Form einfach löschen. Er könnte in die Formeigenschaften gehen und die Eigenschaften „blockiert Sicht“ und „blockiert Bewegung“ deaktivieren. Oder er könnte in den Build-Modus gehen und die Form so ziehen, dass die Spieler passieren können.
+
+Ich persönlich habe eher die letzte Option genutzt, aber meine Türen liegen normalerweise auch auf der Kriegsnebel-Ebene, also musste ich sowohl Ebenen als auch Modi wechseln - kurz gesagt eine ziemliche Umständlichkeit.
+
+Hier kommt das Tür-Modul ins Spiel. Wenn eine Form als Tür konfiguriert ist, können ihre Blockiereigenschaften sofort umgeschaltet werden, indem du die Form im Play-Modus von jeder Ebene aus anklickst. Schön und einfach!
+
+Um es noch einfacher zu machen, kannst du dies nun auch automatisch auf Formen anwenden, die du mit dem Draw-Werkzeug zeichnest - dazu später mehr!
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/doors.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/doors.mp4" type="video/mp4" />
+</video>
+
+Im obigen Video wurde die linke Tür so konfiguriert, dass sie standardmäßig für alle Spieler aktiviert ist und vom Spieler daher ohne Probleme umgeschaltet werden kann. Die Tür vor dem Spieler wurde jedoch mit der Berechtigung „angefordert“ konfiguriert.
+In diesen Fällen erhält der DM eine Anfrage wie folgt, bei der er wählen kann, die Anfrage anzunehmen oder abzulehnen, sowie die Kamera zur betreffenden Tür zu bewegen, falls er gerade woanders hinschaut.
+
+![Logik-Tür-DM-Anfrage](./2022.1/door-dm-request.png)
+
+### Teleportzonen
+
+Das zweite Modul bietet eine weitere Verbesserung der Lebensqualität.
+Wie der Name vermuten lässt, kannst du damit eine Form als spezielle Zone einrichten, in der eine Form, die sie betritt, an einen anderen Ort teleportiert wird.
+
+Mögliche Anwendungsfälle für diese Funktion sind Treppen zu anderen Etagen, Fallen oder ... Teleportationskreise!
+
+Das Ziel für diese Teleportzonen sind bestehende Spawn-Ort-Positionen, also stelle sicher, dass du diese zuerst einrichtest!
+Diese Spawn-Ort-Positionen können auch an anderen Orten liegen, also ist interdimensionale Reise kein Problem.
+
+Standardmäßig aktiviert sich eine Teleportzone nicht sofort,
+stattdessen wird den Spielern, während sie sich in der Zone befinden, eine Benachrichtigung angezeigt, die es ihnen ermöglicht, sie nach Belieben zu aktivieren (z. B. könnte ein Spieler nur auf einer Treppe stehen, ohne die Absicht zu haben, nach oben zu gehen).
+Es ist jedoch auch möglich, sie so zu konfigurieren, dass sie sofort wirkt (z. B. ist eine Grubenfalle normalerweise nicht optional!)
+
+<video autoplay loop muted style="max-width: min(680px, 75vw);">
+    <source src="/blog/release-2022.1/tp.webm" type="video/webm" />
+    <source src="/blog/release-2022.1/tp.mp4" type="video/mp4" />
+</video>
+
+## UI
+
+Es wurden zwei kleine Änderungen an der Werkzeug-UI vorgenommen.
+
+### Umstrukturierung des Draw-Werkzeugs
+
+Das Ausklappmenü des Draw-Werkzeugs wurde voll, was das Hinzufügen neuer Dinge verhinderte.
+Dieses Release überdenkt das Aussehen dieses Ausklappmenüs und verwendet nun eine Struktur mit 3 separaten Tabs.
+
+Der Basis-Tab enthält die Konfiguration, mit der du die meiste Zeit interagierst, und betrifft das tatsächliche Aussehen des Objekts, das du gleich zeichnen wirst.
+
+Der zweite Tab ist auf das Kriegsnebel-Verhalten ausgerichtet. Hier kann der DM den Zeichenmodus auswählen. Zusätzlich können die Blockiereigenschaften der gezeichneten Form nun auch direkt im Draw-Werkzeug geändert werden.
+Diese Einstellungen aktivieren sich weiterhin automatisch, wenn du die Kriegsnebel-Ebene auswählst, und deaktivieren sich wieder, wenn du eine andere Ebene auswählst. Du hast nun jedoch die Wahl, dies für alle Formen zu konfigurieren, die du zeichnen wirst, ohne sie danach einzeln ändern zu müssen.
+
+Der letzte Tab ist für die neuen Logik-Systeme und bietet derzeit nur eine Option, das Tür-Modul automatisch für alle gezeichneten Formen zu konfigurieren. Bei der Kartenarbeit empfehle ich, zuerst alle Wände zu machen und dann mit dieser Einstellung einen Durchgang für die Türen zu machen. (Und noch einen Durchgang für die Fenster mit nur aktivierter Bewegungssperre!)
+
+### Polygon-Bearbeitungs-UI
+
+Eine kleine Komfort-Verbesserung der Polygon-Bearbeitungs-UI wird die UI während des Ziehens ausblenden, da sie nur visuelles Rauschen war, das manchmal deine Ziehoperation stören konnte.
+
+## Asset-Verwaltung
+
+### Unterstützung für Ordner-Drop
+
+Es sollte jetzt in den meisten Browsern möglich sein, Ordner in den Asset-Manager zu ziehen!
+
+Diese einfache Sache wurde oft angefragt, verständlicherweise, aber die Browserunterstützung für einige der verwendeten Funktionen war noch nicht standardisiert, was jetzt der Fall sein sollte.
+
+### Dimensionsinformationen
+
+Wenn ein Asset Dimensionsinformationen in seinem Namen hat, nimmt es automatisch die erwartete Anzahl an Rasterzellen ein, wenn es auf den Spieltisch gezogen wird.
+
+PA sucht speziell nach einem Muster, das ?x? entspricht, wobei die Fragezeichen eine oder mehrere Ziffern darstellen. (z. B. 20x20 oder 5x12)
+Die Zahlen stellen dabei die Anzahl der Rasterzellen in X- und Y-Richtung dar.
+
+## Server-Verwaltung
+
+Für die Leute, die einen PA-Server hosten, haben wir auch ein paar unterhaltsame Änderungen!
+
+### Registrierung deaktivieren
+
+Es ist nun möglich zu deaktivieren, dass sich Leute neue Konten registrieren können, was deinen Server effektiv privat macht. Konfiguriere einfach die Option `allow_signups` in deiner Server-Konfigurationsdatei, und schon bist du bereit.
+
+Es gibt noch keinen Mechanismus, der es dem Serverbesitzer (oder jemand anderem) ermöglicht, bestimmte Personen zuzulassen.
+Es ist jedoch möglich, entweder manuell einen neuen Benutzer hinzuzufügen, wenn du dich mit python auskennst, oder die Registrierung für ein kurzes Zeitfenster zu aktivieren.
+
+### Admin-Dashboard
+
+Ein minimalistisches Admin-Dashboard kann nun aktiviert werden, das auf demselben Port wie der API-Server läuft.
+
+Mit diesem Dashboard kannst du alle registrierten Benutzer auflisten, deren Passwort zurücksetzen oder sie vollständig löschen. Zusätzlich kannst du auch alle Kampagnen auflisten.
+
+### Docker-arm64-Unterstützung
+
+Eine Nischenfunktion ist, dass PA nun auch arm64-Docker-Images für die Release- und Dev-Branches erstellt.
+
+### [BREAKING] Subpath-Handling
+
+Die Art und Weise, wie Subpath-Hosting behandelt wird, wurde in diesem Release geändert.
+Wenn du einen PlanarAlly-Server hostest, der über einen Subpath gehostet wird, stelle sicher, dass du dein Setup aktualisierst.
+
+#### Verwende ich einen Subpath?
+
+Subpath-Hosting bezieht sich hier speziell auf ein Setup, bei dem du PA nicht im Wurzelverzeichnis deiner Domain hostest (z. B. `http://somedomain.org/`, `http://somedomain.org:2345/` oder `http://subdomain.somedomain.org/`), sondern eher unter einem Subpath (z. B. `http://somedomain.org/planarally/`)
+
+Es wird nun erwartet, dass der Client speziell mit Subpath-Informationen gebaut wird. Das bedeutet, dass die Umgebungsvariable PA_BASEPATH zur Build-Zeit gesetzt werden muss.
+
+Außerdem muss der Pfad nun explizit mit einem Schrägstrich enden.
+
+Wenn du Docker verwendet hast, musst du das Image nun selbst bauen, da du diese zusätzlichen Informationen für den Client-Build-Schritt mit dem Flag `--build-arg PA_BASEPATH='/subpath/'` angeben musst, anstelle des alten Setups mit `--env PA_BASEPATH`
+
+## Fehlerbehebungen
+
+In diesem Release wurden viele Fehler behoben!
+
+- Etage wird beim Neuladen nach der Aktion „Bring Players“ nicht gespeichert
+- Einfügen von Formen erhöht Badge-Zähler nicht ordnungsgemäß
+- Standard-Sichtformen agieren immer als Token (unabhängig von isToken)
+- Die Seitenverhältnis-Sperre des Map-Werkzeugs funktioniert nicht mehr
+- Modals ändern nun ihren Standort, wenn eine Fenstergrößenänderung sie außerhalb des sichtbaren Bildschirmbereichs bringen würde
+- Behoben: Scrollbalken sichtbar, weil die Würfel-Canvas nicht strikt dimensioniert war
+- Behoben: Bewegungsblocker schneiden sich selbst, wenn sie sich auf der Token-Ebene bewegen
+- Behoben: Assets werden unsichtbar bei Verwendung eines Subpath-Setups (gilt nur für neue Assets)
+- Behoben: Der Farbwähler erlaubte es nicht, die rgba/hsla/hex-Werte manuell zu ändern
+- Die Kontolöschung leitet nicht ordnungsgemäß zum Login um
+- Das Auswählen einer Form, die im Aufdeckungsmodus gezeichnet wurde, entfernt den Schatten während der Auswahl nicht mehr
+- Das Entfernen eines Assets entfernte jede Kampagne, die es als Logo verwendete
+- Die Zahlen-Eingabe für die Aura-Richtung synchronisierte Änderungen nicht an den Server
+- Einige Speicherlecks beim Wechseln von Orten
+- Etagen-Beleuchtungsverhalten für spät geladene Bilder
+- DDraft-Uploads schritten im Asset-Manager nicht voran
+- DDraft-Lichter wurden nicht richtig konfiguriert
+- [asset-manager] Der Asset-Manager prüfte beim Entfernen eines Ordners nicht auf veraltete Dateien

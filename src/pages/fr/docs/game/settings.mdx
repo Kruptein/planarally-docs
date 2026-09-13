@@ -1,0 +1,146 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+import TimesCircle from "~icons/fa-solid/times-circle";
+import SyncAlt from "~icons/fa-solid/sync-alt";
+
+import { Image } from "astro:assets";
+import ClientSettingsPicture from "./assets/client-settings.png";
+import ClientSettingsBehaviourPicture from "./assets/client-settings-behaviour.png";
+import ClientSettingsDisplayPicture from "./assets/client-settings-display.png";
+import ClientSettingsInitiativePicture from "./assets/client-settings-initiative.png";
+import ClientSettingsPerformancePicture from "./assets/client-settings-performance.png";
+
+# Paramètres du client
+
+Les paramètres en jeu sont accessibles depuis le menu latéral (cliquez sur l'icône <Cog /> en haut à gauche de la fenêtre de votre navigateur pour ouvrir le menu).
+
+#### Synchronisation des paramètres
+
+Par défaut, les paramètres affichés découlent immédiatement de vos paramètres globaux du client par défaut.
+Lorsque vous modifiez un paramètre, deux boutons supplémentaires apparaissent à côté pour indiquer que ce paramètre remplace le comportement par défaut.
+
+Vous pouvez réinitialiser le paramètre à sa valeur par défaut en cliquant sur l'icône <TimesCircle />.
+
+Si vous souhaitez plutôt faire de votre modification la nouvelle valeur par défaut, cliquez sur <SyncAlt />.
+Cela affectera toutes les autres campagnes où vous n'avez pas remplacé ce paramètre.
+
+## Apparence
+
+<Image src={ClientSettingsPicture} width={600} aspectRatio={664 / 410} alt="Paramètres d'apparence" />
+
+### Langue
+
+Ici, vous pouvez choisir une autre langue à afficher dans l'interface utilisateur.
+Ce choix se répliquera dans toutes les autres campagnes auxquelles vous jouez ou que vous dirigez, tout comme s'il était fait via le [tableau de bord](/fr/docs/dashboard/#localisation).
+
+### Barres d'outils
+
+_Ajouté dans la version 2022.3_
+
+Ce paramètre vous permet de choisir entre des icônes ou du texte pour les outils de la barre d'outils (par exemple l'icône de règle plutôt que « ruler »).
+
+### Grille
+
+Le paramètre de couleur définit la couleur dans laquelle le [calque de grille](/fr/docs/dm/layers/#grid) (c'est-à-dire les lignes de la grille) sera dessiné.
+
+### Règle
+
+Ici, la couleur de la [règle](/fr/docs/tools/ruler) peut être définie.
+Si la règle est utilisée publiquement, tous les autres joueurs verront votre règle dans la couleur que vous avez définie ici.
+
+### Brouillard
+
+Cela définit la couleur du brouillard qui recouvre tout ce que vous ne pouvez pas voir.
+
+## Comportement
+
+<Image src={ClientSettingsBehaviourPicture} width={600} aspectRatio={672 / 297} alt="Paramètres de comportement" />
+
+### Accrochage
+
+Lorsque cette case est cochée, cela inverse le [comportement d'accrochage](/fr/docs/game/snapping/) par défaut.
+
+### Souris et gestes
+
+Par défaut, la molette permet de zoomer ou de dézoomer ; cela peut toutefois être gênant sur les appareils tactiles et peut donc être désactivé.
+
+### Informations de sélection
+
+_Ajouté dans la version 2022.3_
+
+Ce paramètre influence la façon dont les modifications des trackers de la fenêtre d'informations de sélection sont interprétées par défaut.
+
+En mode absolu, le résultat de l'expression saisie deviendra la nouvelle valeur du tracker.
+
+En mode relatif, le résultat sera ajouté à la valeur d'origine du tracker.
+Cela vous permet de modifier rapidement des valeurs avec, par exemple, -5 ou +5.
+
+## Affichage
+
+<Image src={ClientSettingsDisplayPicture} width={600} aspectRatio={612 / 385} alt="Paramètres d'affichage" />
+
+Le paramètre HiDPI vous permet d'augmenter la résolution du jeu rendu sur les écrans offrant un rendu subpixel.
+
+<Warning title="Coûts de performance accrus">
+Activer ce paramètre exigera plus de performance de la part de votre ordinateur.
+
+Si le jeu semble lent, assurez-vous que ce paramètre n'est pas activé.
+
+</Warning>
+
+### Table de jeu
+
+Si vous utilisez PlanarAlly sur un écran que vous utilisez comme table de jeu physique avec de vraies figurines,
+vous voudrez configurer ces paramètres pour régler correctement la taille de la grille afin qu'elle corresponde à vos figurines.
+
+Pour que cela fonctionne correctement, vous devez connaître le PPI de votre écran.
+
+Notez que le zoom avant/arrière est actuellement désactivé lorsque ce paramètre est actif.
+
+### Grille
+
+Lorsque vous _n'\_utilisez \_pas_ de table physique, vous pouvez configurer ici la taille qu'une cellule de la grille doit avoir sur votre écran.
+
+Vous voudrez modifier cela si vous jouez, par exemple, sur un projecteur.
+
+## Initiative
+
+<Image src={ClientSettingsInitiativePicture} width={600} aspectRatio={737 / 315} alt="Paramètres d'initiative" />
+
+<Info>
+    Les deux paramètres de verrouillage ci-dessous ne sont utilisés que si l'initiative est active. L'initiative n'est
+    réellement active que lorsqu'elle est activée à l'aide des [Quick Toggles](/fr/docs/tools/quick-toggles/).
+</Info>
+
+### Verrouiller la caméra
+
+En activant cette fonctionnalité, chaque fois que l'initiative passe au personnage suivant,
+la caméra se centrera automatiquement sur ce personnage si vous y avez accès.
+
+### Verrouiller la vision
+
+En activant cette fonctionnalité, la vision sera limitée comme si vous n'aviez accès qu'au personnage actif de l'initiative (tant que vous avez accès à cette forme).
+
+Cela a le même effet que si vous utilisiez l'[outil vision](/fr/docs/tools/vision/) et le passiez manuellement au participant actif de l'initiative à chaque tour.
+Cela n'est pertinent que si vous contrôlez plusieurs personnages.
+
+### Effets
+
+Ce paramètre vous permet de configurer quand les effets d'initiative doivent être affichés.
+Par défaut, seuls les effets de l'acteur actif sont dépliés, mais vous pouvez changer cela pour afficher tous les acteurs en permanence.
+
+## Performances
+
+<Image src={ClientSettingsPerformancePicture} width={600} aspectRatio={681 / 233} alt="Paramètres de performance" />
+
+### Rendu
+
+_Ajouté dans la version 2022.3_
+
+Les étages offrent une expérience immersive, mais coûtent plus de performance.
+Ce paramètre vous permet de limiter le rendu à l'étage actif.

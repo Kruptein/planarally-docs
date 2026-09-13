@@ -1,0 +1,22 @@
+---
+layout: ../../../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+import { Image } from "astro:assets";
+import DashboardSettings from "./assets/dashboard-settings.png";
+
+# 设置
+
+<Image src={DashboardSettings} alt="仪表盘设置" />
+
+目前只有账户设置可用。
+这部分允许你在需要时设置一个电子邮件地址，更重要的是，允许你更改密码或删除账户。
+
+<Warning title="删除账户">
+    这是一个彻底的删除操作，删除后 PA 不会保留关于你的任何信息。
+
+    !!这也会删除当前由该用户拥有的所有战役!!
+
+</Warning>
