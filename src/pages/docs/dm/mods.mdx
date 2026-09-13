@@ -1,0 +1,100 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Tip from "/src/components/directives/Tip.astro";
+import Warning from "/src/components/directives/Warning.astro";
+import Cog from "~icons/fa-solid/cog";
+
+# Mods
+
+<Warning title="Experimental">
+    Mod support is still experimental. The mod API and UI may change between releases. Only install mods from sources
+    you trust.
+</Warning>
+
+Mods are client-side extensions that add custom UI or behaviour to a campaign.
+They exist for features that don't belong in core PlanarAlly — system-specific character sheets, niche workflows, and similar additions.
+
+Mods are **not** server plugins. They cannot run arbitrary server code or access the database directly.
+Instead they run in the browser and can persist data through [DataBlocks](#datablocks).
+
+## Installing mods
+
+Mods are managed per campaign by the DM.
+
+Open the side menu (click the <Cog /> icon in the top-left) and choose **DM Settings**.
+Switch to the **Mod** tab and upload a mod as a `.pam` file.
+
+<Tip title="File format">
+    `.pam` files are ordinary zip archives — the extension just identifies them as PlanarAlly mods.
+</Tip>
+
+Uploaded mods apply only to the active campaign.
+PlanarAlly stores the `.pam` file on the server and links it to your campaign in the database.
+
+<Info>
+    There is no server configuration for mods. Mod files land in `static/mods/` on the server, but you must upload
+    through this UI — manually copying files into that folder will not work. See [mods on your
+    server](/server/management/mods/) for backup and hosting details.
+</Info>
+
+## What mods can do
+
+Mods can add custom in-game UI and interact with built-in systems such as shapes, notes, and characters.
+A common use case is a richer character sheet UI built on top of [custom data](/docs/game/shapes/).
+
+Mods cannot:
+
+- Change server configuration
+- Access the database directly
+- Affect campaigns they have not been uploaded to
+
+## Finding mods
+
+Example mods are maintained in the [planarally-mods](https://github.com/Kruptein/planarally-mods) repository.
+This repository may be out of date sometimes.
+
+The goal is to eventualy offer some sort of online catalog, but we're not there yet.
+For now your best bet is checking discord.
+
+<Warning>
+    Campaign [export and import](/docs/dashboard/games/) does not currently include mods. If you move a campaign to
+    another server, DMs will need to re-upload their `.pam` files and any data created by the mod might be gone
+    depending on what kind of data it was.
+</Warning>
+
+## For mod authors
+
+Mods are packaged as `.pam` files (simple zip archives) and use a client-side JavaScript API.
+
+Mods are still in an experimental phase and not properly documented. The latest published info can be found in the following places:
+
+- Example mods in [planarally-mods](https://github.com/Kruptein/planarally-mods)
+- Initial API introduction: [PR #1297](https://github.com/Kruptein/PlanarAlly/pull/1297)
+- 2025.2 API update (DataBlock rework): [PR #1583](https://github.com/Kruptein/PlanarAlly/pull/1583)
+- 2026.2 API update: (Event bus & hook): [PR #1829](https://github.com/Kruptein/PlanarAlly/pull/1829)
+
+You'll have to become familiar with a variety of concepts to start writing PA mods:
+
+- server storage using datablocks
+- vue for UI elements
+- the PA systems concept
+
+### DataBlocks
+
+As the intent is to let DMs upload whatever mods they need for their session, the choice was made to make mods only client side.
+And prevent any funky security issues that would come along with server side mods.
+This does however mean that a mod cannot inherently interact with the database.
+PA offers a "DataBlock" API to mods to allow storage of data in the database.
+
+### Systems
+
+PA client code mostly lives in separate "systems".
+A system is a collection of logic surrounding a particular feature.
+It almost always has state that can be interacted with directly,
+or through a more programmatic API using the main system.
+
+The main PA repo has a readme file in the systems folder to explain some concepts.
+Since 2026.2 there is also a hook/event system to interact with some of these concepts.

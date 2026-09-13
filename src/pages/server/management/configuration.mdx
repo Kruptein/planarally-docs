@@ -17,6 +17,7 @@ By default **NO** config file is present. Instead PA uses default values for all
 To change the behaviour, create a `config.toml` file in the server's `data` folder.
 
 When a partial config file is provided, missing fields/sections will be replaced with default values were relevant.
+It's recommended to only specify those fields that you wish to modify so that any change to the defaults in the future does not require modifications on your end.
 
 # Format
 
@@ -35,10 +36,6 @@ save_file = "data/planar.sqlite"
 allow_signups = true
 enable_export = true
 
-[assets]
-max_single_asset_size_in_bytes = 0
-max_total_asset_size_in_bytes = 0
-
 [webserver]
 max_upload_size_in_bytes = 10485760
 
@@ -46,6 +43,14 @@ max_upload_size_in_bytes = 10485760
 type = "hostport"
 host = "0.0.0.0"
 port = 8000
+
+[assets]
+max_single_asset_size_in_bytes = 0
+max_total_asset_size_in_bytes = 0
+
+[assets.storage]
+type = "local"
+directory = "static/assets"
 
 [[logging]]
 mode = "stdout"
@@ -62,12 +67,12 @@ level = "INFO"
 
 Some settings you probably want to checkout for certain are:
 
-- [Save file config](#field-save_file)
-- [Admin user](#field-admin_user)
+- [Save file config](#save_file)
+- [Admin user](#admin_user)
 - [The entire webserver.connection subsection](#subsection-connection)
-- [CORS](#field-cors_allowed_origins)
+- [CORS](#cors_allowed_origins)
 
-The [client URL](#field-client_url) is one you usually also want to configure, but is not critical.
+The [client URL](#client_url) is one you usually also want to configure, but is not critical.
 
 # Sections
 
@@ -78,7 +83,7 @@ If at any point this info would become out of date and causes errors, the source
 
 Section name: `general`
 
-### Field: `save_file`
+### `save_file`
 
 Default: `"data/planar.sqlite"`\
 Type: `string`
@@ -101,7 +106,7 @@ If the server starts and the chosen path does not exist, the server will create 
 
 </Warning>
 
-### Field: `admin_user`
+### `admin_user`
 
 Default: N/A - optional field\
 Type: `string`
@@ -109,7 +114,7 @@ Type: `string`
 When a username is specified here, this user will be regarded as the main admin user.
 It will have access to extra features in the dashboard to manage things like users and campaigns on the server.
 
-### Field: `client_url`
+### `client_url`
 
 Default: N/A - optional field\
 Type: `string`\
@@ -119,14 +124,14 @@ When set this should be the full base URL of the frontend application. (e.g. "ht
 
 This is used in the invite URL and forgot password mails. When missing the invite URL will look at the current URL in the browser when generated. Email URLs will however **not** contain the root URL info as the server cannot predict this.
 
-### Field: `allow_signups`
+### `allow_signups`
 
 Default: `true`\
 Type: `boolean`
 
 This setting dictates whether users can register a new account using the frontend. When disabled account creation is only available through database manipulation.
 
-### Field: `enable_export`
+### `enable_export`
 
 Default: `true`\
 Type: `boolean`
@@ -142,16 +147,14 @@ Section name: `webserver`
 One of the most important sections to configure is the webserver.
 It comprises the important `connection` subsection, which you'll want to configure to decide how the PA server is bound to the outside world.
 
-<div id="subsection">
+<div class="subsection">
 
 ### Subsection: `connection`
-
-_This is a subsection (see the [Default Config](#default-config) for an example on how to configure this)._
 
 This configures how the server is connected to the network stack. It has to be either a HostPort configuration or a socket configuration.
 By default a HostPort combination is used.
 
-#### field: `type`
+#### `type`
 
 Default: `"hostport"`\
 Type: `"hostport" or "socket"
@@ -172,14 +175,14 @@ type = "socket"
 
 #### HostPort fields
 
-#### field: `host`
+#### `host`
 
 Default: `"0.0.0.0"`\
 Type: `string`
 
 The IP on which the server will attempt to bind.
 
-#### field: `port`
+#### `port`
 
 Default: `8000`\
 Type: `integer`
@@ -201,7 +204,7 @@ port = "80"
 
 #### Socket fields
 
-#### field: `socket`
+#### `socket`
 
 Default: N/A\
 Type: `string`
@@ -218,16 +221,16 @@ socket = "/var/run/pa.sock"
 
 </div>
 
-<div id="subsection">
+<div class="subsection">
 
-### Subsection: ssl
+### Subsection: `ssl`
 
 This is an optional subsection, when omitted no SSL config is applied to the PA server itself.
 This does not prevent you from setting up SSL higher up in the chain (e.g. in your reverse proxy).
 
 It is strongly recommended to ensure that SSL is set up somewhere in the chain!
 
-#### Field: `enabled`
+#### `enabled`
 
 Default: `false`\
 Type: `boolean`
@@ -235,14 +238,14 @@ Type: `boolean`
 Allows you to enable/disable the ssl config without having to completely remove the SSL section or comment it.
 Only when this value is set to `true` will the SSL config actually be applied.
 
-#### Field: `fullchain`
+#### `fullchain`
 
 Default: N/A\
 Type: `string`
 
 Path to the full chain certificate.
 
-#### Field: `privkey`
+#### `privkey`
 
 Default: N/A\
 Type: `string`
@@ -260,7 +263,7 @@ privkey = "/etc/letsencrypt/live/planarally/privkey.pem"
 
 </div>
 
-### Field: `cors_allowed_origins`
+### `cors_allowed_origins`
 
 Default: N/A (optional field)\
 Type: `string / List of strings`
@@ -273,7 +276,7 @@ A value of `'*'` can be set to allow all origins, this is useful for testing pur
 This often has to be configured to either the wildcard value (\*) or the correct specific domain in order to work!
 The server console should log when the connection was rejected due to cors.
 
-### Field: `max_upload_size_in_bytes`
+### `max_upload_size_in_bytes`
 
 Default: `10_586_760` (10 \* 1024 \*\* 2 == 10 MB)\
 Type: `integer`
@@ -292,7 +295,7 @@ This is an optional section and is by default not enabled.
 
 It's currently only used to send mails as part of the forgot-password flow.
 
-### Field: `enabled`
+### `enabled`
 
 Default: `false`\
 Type: `boolean`
@@ -300,42 +303,42 @@ Type: `boolean`
 Allows you to enable/disable the mail config without having to completely remove the section or comment it.
 Only when this value is set to `true` will the mail config actually be applied.
 
-### Field: `host`
+### `host`
 
 Default: N/A\
 Type: `string`
 
 The host of the SMTP mailserver, this must be filled in.
 
-### Field: `port`
+### `port`
 
 Default: N/A\
 Type: `integer`
 
 The port of the SMTP mailserver, this must be filled in.
 
-### Field: `username`
+### `username`
 
 Default: N/A (optional)\
 Type: `string`
 
 If applicable, the username can be specified to authenticate with.
 
-### Field: `password`
+### `password`
 
 Default: N/A (optional)\
 Type: `string`
 
 If applicable, the password can be specified to authenticate with.
 
-### Field: `default_from_address`
+### `default_from_address`
 
 Default: N/A\
 Type: `email-string`
 
 The default email address to use when sending mails.
 
-### Field: `ssl_mode`
+### `ssl_mode`
 
 Default: `"starttls"`\
 Type: `Literal["ssl", "tls", "starttls", "lmtp"]`\
@@ -346,6 +349,139 @@ By default the starttls method is used which should cover a wide range.
 
 This can sometimes not work correctly, in which case you can try the `"ssl"` mode or any of the other modes instead.
 
+## Assets
+
+Section name `assets`
+
+This is an optional section.
+
+By default assets will be stored locally in the `/static/assets/` folder.
+The `storage` subsection can be specified to store assets in either a different local folder or use a S3 compatible remote solution.
+
+### `max_single_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a newly uploaded asset can have.
+When this field is `<= 0` it is regarded as "no limit".
+
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
+
+### `max_total_asset_size_in_bytes`
+
+Default: `0`\
+type: `int`
+
+The maximum size in bytes that a user is allowed to have uploaded.
+When this field is `<= 0` it is regarded as "no limit".
+
+An asset will be rejected if its size would cause the total allowed for the user to exceed this value.
+It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
+
+<div class="subsection">
+
+### Subsection: `storage`
+
+This configures where the physical user uploaded assets are stored.
+
+#### `type`
+
+Default: `"local"`\
+Type: `"local" or "s3"
+
+#### Local fields
+
+#### `directory`
+
+Default: `"static/assets"`\
+Type: `string`
+
+The local directory where the assets are stored.
+
+Remember that relative paths are relative to the server folder (and not the data folder).
+
+#### Example local config
+
+```toml
+[assets.storage]
+type = "local"
+directory = "/some/path/to/assets"
+```
+
+#### S3 fields
+
+It's important to check with your storage solution what the values for these fields should be.
+
+<Warning title="Costs">
+    When choosing a remote storage solution you should be aware that you take on the responsibility and risk that any
+    bug or unexpected behaviour in PA might end up calling the API of the remote storage excessively, possibly incurring
+    additional costs.
+</Warning>
+
+Two environment variables have to be configured to pass secrets to PA: `PA_S3_ACCESS_KEY` and `PA_S3_SECRET_KEY`.
+Failing to pass these will result in an error to be thrown during server startup.
+
+#### `bucket`
+
+Default: N/A\
+Type: `string`
+
+The bucket in which the assets are stored.
+
+#### `region`
+
+Default: N/A\
+Type: `string`
+
+The region where the above bucket is located in.
+
+#### `endpoint_url`
+
+Default: N/A - optional field\
+Type: `string`
+
+This field is only necessary when not using AWS itself. (i.e. when using an S3 compatible service)
+
+This is the endpoint used by the PA server to do all HTTP calls.
+
+#### `public_url`
+
+Default: N/A - optional field\
+Type: `string`
+
+The client will by default use the endpoint_url as well for serving the images.
+You can specify an alternate public url here that the client will use instead.
+
+This is commonly used to specify a CDN or to hide the API url.
+
+#### `prefix`
+
+Default: N/A - optional field\
+Type: `string`
+
+An optional prefix to the keys in the bucket.
+
+#### Example S3 configs
+
+```toml
+# AWS
+[assets.storage]
+type = "s3"
+bucket = "planarally"
+region = "eu-west-1"
+
+# Cloudflare R2
+[assets.storage]
+type = "s3"
+bucket = "planarally"
+region = "auto"
+endpoint_url = "https://<identifier>.r2.cloudflarestorage.com"
+public_url = "https://<identifier>.r2.dev"
+```
+
+</div>
+
 ## Stats
 
 Section name: `stats`
@@ -355,7 +491,7 @@ It controls the collection and transmission of anonymous usage statistics.
 
 See [this github PR](https://github.com/Kruptein/PlanarAlly/pull/1608) for some information on what and why.
 
-### Field: `enabled`
+### `enabled`
 
 Default: `true`\
 Type: `boolean`
@@ -363,7 +499,7 @@ Type: `boolean`
 Allows you to enable/disable the mail config without having to completely remove the section or comment it.
 When set to `false` no stats collection will happen at all.
 
-### Field: `enable_export`
+### `enable_export`
 
 Default: `true`\
 Type: `boolean`
@@ -371,7 +507,7 @@ Type: `boolean`
 Allows you to disable the export of statistics to the PA stats server.
 Local collection will still be done.
 
-### Field: `export_frequency_in_seconds`
+### `export_frequency_in_seconds`
 
 Default: `24 * 60 * 60` (1 day)\
 Type: `int`
@@ -381,7 +517,7 @@ This determines how frequent the stats are sent to the PA stats server.
 It's not recommended to put this any lower than 1 day.
 Recommended rates are 1 day, 1 week or 1 month.
 
-### Field: `stats_url`
+### `stats_url`
 
 Default: `https://stats.planarally.io`
 Type: `string`
@@ -399,14 +535,14 @@ This is an optional section and its default configuration is to log to standard 
     section header entered as `[[logging]]`
 </Info>
 
-### Field `level`
+### `level`
 
 Default: `INFO`\
 type: `Literal["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]`
 
 The level this logger will output at. Levels above are also logged to this level. For example if you set to ERROR both ERROR and CRITICAL will be logged to this output
 
-### Field `mode`
+### `mode`
 
 Type: `Literal["stdout", "file"]`
 
@@ -422,21 +558,21 @@ level = "CRITICAL"
 ...
 ```
 
-### Field `file_path`
+### `file_path`
 
 Default: `data/planarally.log`\
 Type: `string`
 
 Sets the output path for a file based log. If using docker it is recommended to use the data folder so its available outside the container.
 
-### Field `max_log_size_in_bytes`
+### `max_log_size_in_bytes`
 
 Default: `200_000`\
 Type: `int`
 
 The maximum size a log file will be before it is rotated to the next file.
 
-### Field `max_log_backups`
+### `max_log_backups`
 
 Default: `5`\
 Type: `int`
@@ -453,32 +589,5 @@ level = "INFO"
 max_log_backups = 2
 ...
 ```
-
-## Assets
-
-Section name `assets`
-
-This is an optional section.
-
-### Field `max_single_asset_size_in_bytes`
-
-Default: `0`\
-type: `int`
-
-The maximum size in bytes that a newly uploaded asset can have.
-When this field is `<= 0` it is regarded as "no limit".
-
-It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
-
-### Field `max_total_asset_size_in_bytes`
-
-Default: `0`\
-type: `int`
-
-The maximum size in bytes that a user is allowed to have uploaded.
-When this field is `<= 0` it is regarded as "no limit".
-
-An asset will be rejected if its size would cause the total allowed for the user to exceed this value.
-It should be noted that this only affects new asset uploads. Changing the value will not impact any existing assets.
 
 [^1]: The SQLite documentation documents the importance of the [-wal](https://www.sqlite.org/tempfiles.html#write_ahead_log_wal_files) and [-shm](https://www.sqlite.org/tempfiles.html#shared_memory_files) files.

@@ -17,10 +17,25 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         {
             docs.map((doc) => {
                 if (doc.depth === 1) {
-                    return <span class={"depth-" + doc.depth + (doc.active ? " active" : "")}>{doc.title}</span>;
+                    return (
+                        <span
+                            class={
+                                "depth-" +
+                                doc.depth +
+                                (doc.active ? " active" : "")
+                            }
+                        >
+                            {doc.title}
+                        </span>
+                    );
                 }
                 return (
-                    <a href={doc.path} class={"depth-" + doc.depth + (doc.active ? " active" : "")}>
+                    <a
+                        href={doc.path}
+                        class={
+                            "depth-" + doc.depth + (doc.active ? " active" : "")
+                        }
+                    >
                         {doc.title}
                     </a>
                 );
@@ -35,9 +50,16 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
     <aside id="doc-headers" style={headings.length <= 1 ? "display:none" : ""}>
         {
             headings.map((header) => {
+                const text = header.text.startsWith("#")
+                    ? header.text.slice(1)
+                    : header.text;
                 return (
-                    <a href={"#" + header.slug} class={"depth-" + header.depth}>
-                        {header.text.startsWith("#") ? header.text.slice(1) : header.text}
+                    <a
+                        href={"#" + header.slug}
+                        class={"depth-" + header.depth}
+                        title={text}
+                    >
+                        {text}
                     </a>
                 );
             })
@@ -94,7 +116,10 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         @media (min-width: 1280px) {
-            padding-left: max(2rem, calc(50vw - $sidebar-width - 100px - 500px));
+            padding-left: max(
+                2rem,
+                calc(50vw - $sidebar-width - 100px - 500px)
+            );
             width: max($sidebar-width, calc(50vw - 100px - 500px));
         }
 
@@ -178,7 +203,11 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         > a {
+            display: block;
             padding: 3px 0;
+            white-space: nowrap;
+            overflow: clip;
+            text-overflow: ellipsis;
         }
 
         .depth-1,
@@ -193,18 +222,18 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
         }
 
         .depth-2 {
-            text-indent: 1rem;
+            padding-left: 1rem;
         }
 
         .depth-3 {
-            text-indent: 30px;
+            padding-left: 30px;
         }
 
         .depth-4,
         .depth-5,
         .depth-6 {
             display: none;
-            text-indent: 45px;
+            padding-left: 45px;
             font-size: smaller;
         }
     }
@@ -322,7 +351,7 @@ if (headings === undefined) headings = Astro.props.content.astro.headings;
             }
         }
 
-        :global(#subsection) {
+        :global(.subsection) {
             border-left: 3px solid red;
             padding-left: 1rem;
         }

@@ -1,0 +1,65 @@
+---
+layout: ../../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# Mods
+
+<Info>
+    Mods are uploaded and managed by DMs inside each campaign. See [using mods](/docs/dm/mods/) for how to install them.
+</Info>
+
+There is no dedicated server configuration for mods, but server owners do need to persist the `static/mods` folder.
+
+## How mods are stored
+
+When a DM uploads a mod through **DM Settings → Mod**, PlanarAlly stores the `.pam` file in `static/mods/` and creates the necessary database entries to link it to that campaign.
+
+```
+server/
+  static/
+    mods/          ← uploaded .pam files
+    assets/        ← user-uploaded assets (separate)
+  data/
+    planar.sqlite  ← database links + DataBlock data
+```
+
+<Warning title="Don't copy files manually">
+    Dropping `.pam` files directly into `static/mods/` will **not** work. The files also need database entries that are
+    only created when a DM uploads through the in-game UI.
+</Warning>
+
+[DataBlocks](/docs/dm/mods/#datablocks) are stored in the save file under `data/`.
+
+## Backups
+
+Back up both `data/` and `static/mods/` as part of your regular [backup routine](/server/setup/self-hosting/#backups-and-upgrades).
+The database in `data/` holds the links between campaigns and their mods — without it, the files in `static/mods/` are orphaned.
+
+Campaign [export and import](/docs/dashboard/games/) does not currently include mods.
+
+## Docker
+
+Mount a persistent volume for `static/mods/` alongside `data/` and `static/assets/`.
+See [self-hosting — Docker](/server/setup/self-hosting/#docker-container) for the full setup.
+
+## Upgrades
+
+<Warning title="Experimental API">
+    The mod API is still evolving. After upgrading PlanarAlly, mods may need to be re-uploaded or updated by their
+    authors. The [planarally-mods](https://github.com/Kruptein/planarally-mods) repo tracks API changes against
+    releases.
+</Warning>
+
+Notable API changes:
+
+- [2023.3](/blog/release-2023.3/) — initial mod support and DataBlocks
+- [2025.2](/blog/release-2025.2/#mod-updates) — DM upload UI and DataBlock API rework
+
+## Security
+
+Mods are client-side JavaScript that runs in your players' browsers during a session.
+DMs choose which mods to upload to their campaigns.
+As a server owner, ensure your players understand that mods come from their DM, not from PlanarAlly itself.
