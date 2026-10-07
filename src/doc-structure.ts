@@ -114,6 +114,17 @@ export const docStructure: Record<string, DocsNavigation[]> = {
             items: [{ title: "Reverse proxy", path: "/proxy/" }, "Subpath"],
         },
     ],
+    mods: [
+        {
+            title: "Mods",
+            path: "",
+            items: [
+                { title: "Core concepts", path: "/concepts" },
+                { title: "Known issues", path: "/issues" },
+                { title: "DataBlocks", path: "/datablocks" },
+            ],
+        },
+    ],
 };
 
 export function getDocsNav(section: string, currentUrl: string): FlatDocsNavigation[] {
