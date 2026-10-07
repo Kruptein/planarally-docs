@@ -18,7 +18,7 @@ Mods are client-side extensions that add custom UI or behaviour to a campaign.
 They exist for features that don't belong in core PlanarAlly — system-specific character sheets, niche workflows, and similar additions.
 
 Mods are **not** server plugins. They cannot run arbitrary server code or access the database directly.
-Instead they run in the browser and can persist data through [DataBlocks](#datablocks).
+Instead they run in the browser and can persist data through [DataBlocks](/mods/datablocks/).
 
 ## Installing mods
 
@@ -78,7 +78,7 @@ Mods are still in an experimental phase and not properly documented. The latest 
 
 You'll have to become familiar with a variety of concepts to start writing PA mods:
 
-- server storage using datablocks
+- server storage using [datablocks](/mods/datablocks/)
 - vue for UI elements
 - the PA systems concept
 
@@ -88,6 +88,8 @@ As the intent is to let DMs upload whatever mods they need for their session, th
 And prevent any funky security issues that would come along with server side mods.
 This does however mean that a mod cannot inherently interact with the database.
 PA offers a "DataBlock" API to mods to allow storage of data in the database.
+
+See [DataBlocks](/mods/datablocks/) if you are writing a mod.
 
 ### Systems
 

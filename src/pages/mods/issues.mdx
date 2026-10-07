@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/docs.astro
+---
+
+# Known Issues & Limitations
+
+When developing mods you should be aware of some existing issues/limitations that may or may not impact you.
+
+## Incomplete mod-api
+
+A broad set of issues is related to the mod-api package not being complete.
+
+This generally appears in 3 ways:
+
+- The relevant feature is exposed, but is not typed
+- The relevant feature is not exposed
+- The relevant feature is missing
+
+The first 2 are easily solved by creating an issue on the github issue tracker. The main downside is that if you want to use this on a server you don't own, you're stuck waiting for a new PA release which usually does take some time.
+
+The last one is a bit trickier as it's pretty broad, but generally speaking this probably is a certain event or hook you desire that does not exist yet and should be relatively easy to add as well.
+If you want something that just doesn't exist in PA yet at all, then this is going to be less trivial
+
+## Server Migrations
+
+For various reasons a new PA release might include migrations that have to be ran on the server. This can lead to data inconsistencies in your datablocks.
+(e.g. a migration might remove or alter links between shapes which you were tracking by their UUID which no longer exists)
+
+Because mods run on client loading and migrations run on server start, there is no current solution to inform mods about any potential changes.
+Nor can the migration realistically update the datablocks as they can be structured in any way the mod desires.
+
+It's therefore strongly advised to write your code defensive and not trust that all data in your datablocks actually still exists by the time they are loaded.
+(this is generally true, as the mod might be disabled/removed by the DM for some time for any reason in general)
+
+## API version conflicts
+
+There currently is a field in the mod.toml to represent the apiSchema used by the mod.
+This is currently just a freefield text that is not verified, nor is it used for anything yet.
+
+As the API is currently in an instable position, there is no plan yet on how to handle API version mismatches.
+
+You're responsible yourself for any logic you may want to run when you notice that the api differs.
+
+## Export/Import
+
+Mod data is currently NOT retained when exporting a campaign from PA (and thus also not imported).
+
+The export/import process completely copies data with new identifiers for a lot of things to ensure they work in a cleanroom setting (as well as allowing you to duplicate a campaign within the same server).
+
+As with the server migrations topic, there is currently no way to ensure how these ID copies are done.

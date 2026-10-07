@@ -1,0 +1,109 @@
+---
+layout: ../../layouts/docs.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+# DataBlocks
+
+Mods run entirely in the browser.
+They cannot talk to the database or run server code, so anything you keep only in memory is gone after a reload.
+
+DataBlocks are the storage API for that gap.
+You give PA some JSON data, it stores it on the server, and you can load it again later.
+Other clients that have the same block loaded are updated when you save.
+
+<Info>PA tags every block with your mod's id, so two mods can use the same `name` without colliding.</Info>
+
+## The three flavours
+
+A DataBlock is always attached to one of three things:
+
+- **room** — the campaign as a whole (PA's internal name for a campaign is "room"). Useful for campaign-wide lists or settings.
+- **shape** — a specific shape, identified by its [global ID](/mods/concepts/#shape-ids). Useful for character sheets, extra properties, and anything that should follow a token.
+- **user** — the current player. Useful for personal preferences. Other players do not see this block.
+
+If the room, shape, or user is deleted, its DataBlocks are deleted with it.
+
+You can have multiple blocks of the same type as long as they have different names.
+
+## Loading and saving
+
+There are multiple helper functions, but the main one to use is usually `getOrLoadDataBlock`.
+It returns a cached block if you already loaded it, otherwise it asks the server.
+You have to pass `defaultData` in the case nothing exists yet, in which case you get a local block filled with that default.
+
+```ts
+const db = await api.getOrLoadDataBlock(
+    { category: "room", name: "settings" },
+    { defaultData: () => ({ theme: "dark" }) },
+);
+
+if (db) {
+    db.data.theme = "light";
+    db.sync();
+}
+```
+
+`sync()` is what actually writes to the server (and to other clients).
+Mutating `data` alone only changes the local copy.
+
+### Shape hook
+
+Because you might have to deal with a lot of different shapes, a utility hook exists for shape datablocks that hides a lot of the boilerplate: `useShapeDataBlock`.
+It will automatically update when a new version from the server arrives and also handles synchronization for you.
+
+```ts
+const { data, load, save, write } = api.useShapeDataBlock("sheet", {
+    defaultData: () => ({ hp: 10 }),
+});
+
+await load(shapeId); // GlobalId or LocalId
+data.value.hp -= 1;
+save();
+```
+
+It should be noted that calling the hook itself does not load or do anything, it just sets up the functions to do things for you.
+The exposed `data` is reactive, so when used in a Vue component it will automatically update when a change from the server comes in.
+
+You still have to explicitly call `save()` to sync the data changes.
+The `write` function is there if you want to change something on the root of the data as it readonly through the regular data for technical reasons.
+
+## Reactivity
+
+Datablocks can be interacted with in a regular fashion or in a reactive way.
+
+`db.data` is a plain object.
+`db.reactiveData` is a Vue ref around the same data, created the first time you access it.
+
+If you use the reactive ref, mutate that — not `db.data` — or Vue will not see the change.
+`useShapeDataBlock` already does this for you.
+
+## Serializers
+
+Data is stored as `JSON.stringify` of your object.
+That is fine for plain objects and arrays, but values like `Map` and `Set` do not survive a round-trip.
+
+Pass a serializer when you need a different in-memory shape:
+
+```ts
+const serializer = {
+    serialize: (data: Map<string, number>) => [...data.entries()],
+    deserialize: (data: [string, number][]) => new Map(data),
+};
+
+await api.getOrLoadDataBlock(
+    { category: "shape", shape: shapeId, name: "trackers" },
+    { defaultData: () => new Map(), serializer },
+);
+```
+
+## Things to keep in mind
+
+- Treat stored IDs as hints, not guarantees. A shape you recorded last session may no longer exist because the mod was disabled for a short period, or a [server migration](/mods/issues/#server-migrations) may have rewritten identifiers.
+- Campaign [export / import](/mods/issues/#exportimport) currently does not include DataBlocks.
+- You cannot read another mod's blocks.
+- Room and shape blocks are shared with other players in the campaign. Do not put secrets in them.
+
+The [example mods](https://github.com/Kruptein/planarally-mods) show these patterns in context, in particular `simple-char-sheet` and `wildsea`.
