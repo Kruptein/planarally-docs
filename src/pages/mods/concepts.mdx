@@ -1,0 +1,73 @@
+---
+layout: ../../layouts/docs.astro
+---
+
+import Warning from "/src/components/directives/Warning.astro";
+
+# Core concepts
+
+PA modding can interact with some various concepts depending on the scope of the mod.
+This page aims to give a short introduction on these concepts to give a headsup on what's available and guiding you to the deeper info.
+
+## The mod API
+
+The starting block of any mod is by using the mod API.
+All installed mods will be given an instance of the API when loaded to interact with PlanarAlly.
+
+There is an official npm package: https://www.npmjs.com/package/@planarally/mod-api that exposes the types of this API, which should improve the development UX, but is not strictly necessary.
+
+For examples on how to use this, see the [mods repository](https://github.com/Kruptein/planarally-mods).
+The mod API package itself is maintained in the main PA repository.
+
+## Datablocks
+
+In many cases, you'll want to persist some data to the server, to ensure that when the page is reloaded at a later time, you don't lose any information.
+
+PA mods are very strictly client-side only at the moment, so you might expect this to not be possible.
+We however expose an API to store and retrieve data from the database through some intermediaries to prevent direct access for obvious reasons.
+
+This API is the DataBlock API and comes in 3 flavours: "shapes" / "users" / "rooms".
+You'll be able to store data for any of these 3 concepts in the database.
+
+See [DataBlocks](/mods/datablocks/) for a short walkthrough of how to use them.
+
+## Systems
+
+PA is mostly[^1] organized in what is internally called systems. Each system has a bunch of functions to directly achieve some things as well as reactive state to inspect what's going on.
+
+You can for example change the position of a client's screen with the `positionSystem.setPan` function, and inspect the current position state by using `positionState.raw.panX`.
+
+## Events/Hooks
+
+If you want to react to certain things happening in PA, you can choose to use the reactive state of a system you're interested in if you're comfortable with vue reactivity, or you can use events/hooks.
+
+Events are simple fire and forget things that you can listen to, whereas hooks allow you to actively modify some process while it's active.
+
+Existing events/hooks are pretty limited, so don't hesitate to ask about more to be added!
+
+## UI
+
+PA uses vue as it's UI framework and allows you to pass Vue components in various locations.
+
+You can for example add tabs to the shape edit dialog or add extra enties to context menus.
+
+While you might not be familiar with Vue itself, it should not be difficult to get something running with just basic HTML and CSS.
+
+[^1]: As with most legacy codebases, not everything is in its neat place yet and might have some other/older way of doing things
+
+## Shape IDs
+
+An important thing you'll have to understand is how shapes are identified.
+
+Shapes are the most common thing that you'll interact with in PA and can be referenced by either their global or their local ID.
+
+Global IDs are UUIDv4 identifiers that are needed to interact with the server. It only knows about these IDs and these IDs are stable.
+
+Local IDs on the otherhand are numbers and are explicitly NOT stable across reloads or even location switches.
+They are a simpler identifier that only exists locally on the client.
+
+The reason this split up happened is threefold:
+
+- There are shapes that only exist on the client and never reach the server, by making it explicitly a different ID system, the implications of how the IDs can be used are clear
+- It makes debugging client side things easier as it's just less noisy to look at some small numbers compared to uuid strings
+- There are some memory benefits to using small numbers over longer strings

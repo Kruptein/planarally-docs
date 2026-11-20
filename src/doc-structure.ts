@@ -51,6 +51,7 @@ export const docStructure: Record<string, DocsNavigation[]> = {
                 "Locations",
                 { title: "Lighting & Vision", path: "/lighting-vision/" },
                 "Assets",
+                "Mods",
             ],
         },
         {
@@ -105,12 +106,23 @@ export const docStructure: Record<string, DocsNavigation[]> = {
         {
             title: "Management",
             path: "/management",
-            items: ["Configuration", { title: "User Management", path: "/users/" }],
+            items: ["Configuration", { title: "User Management", path: "/users/" }, "Mods"],
         },
         {
             title: "Advanced",
             path: "/advanced",
             items: [{ title: "Reverse proxy", path: "/proxy/" }, "Subpath"],
+        },
+    ],
+    mods: [
+        {
+            title: "Mods",
+            path: "",
+            items: [
+                { title: "Core concepts", path: "/concepts" },
+                { title: "Known issues", path: "/issues" },
+                { title: "DataBlocks", path: "/datablocks" },
+            ],
         },
     ],
 };
