@@ -1,0 +1,266 @@
+---
+title: Release 2026.3
+date: 2026-11-30 13:05:00
+excerpt: "Paving to way to better mod support"
+author: Darragh Van Tichelen
+layout: ../../layouts/blog.astro
+---
+
+import Info from "/src/components/directives/Info.astro";
+import Warning from "/src/components/directives/Warning.astro";
+
+A new release with a lot of changes, but ultimately not a lot of big features for the regular user.
+As promised in the last release notes, this release focuses on improving support for mods.
+It nevertheless also has a batch of fixes for a variety of systems, some performance improvements and a longer awaited stats page for server admins.
+
+## Performance
+
+Two sets of performance improvements have been added, addressing different performance issues.
+
+The first is an improvement to the light render code, which was unnecessarily allocating a full viewport canvas for each light to do some math.
+It turns out this can be done more efficiently on some platforms. The end result is that we were doing work on a lot of pixels for no reason.
+This improvement is mostly noticeable on big screens (e.g. 4K) were it dramatically improved fps on my own devices, contrasted by almost no noticeable improvement on regular screens.
+(Though my assumption is that this will also improve fps on devices with slower hardware)
+
+The second is a bit of an experiment and might need some further tweaks or settings.
+
+When panning or zooming, you usually are mostly interested in the end result and don't particularly care about the frames in between.
+Sometimes this rapid change of scenery can be heavy on some machines, resulting in a sluggish feeling when doing these operations.
+PA will now try to detect when these operations suffer noticeable FPS hits and if that's the case, perform these actions at a lower resolution in the future.
+This should result in panning and zooming becoming much more smooth at the cost of potentially looking less sharp during the motion.
+
+I think this is a worthwhile tradeoff, but it might end up being something that people want to turn off.
+
+_relevant PRs: [1872](https://github.com/Kruptein/PlanarAlly/pull/1872) and [1873](https://github.com/Kruptein/PlanarAlly/pull/1873)_
+
+## Dice
+
+A part of the improvements to mods involves improvements to dice APIs and UX.
+
+Additionally the `@planarally/dice` library that powers the dice in PA also got updated to version 0.9.
+
+### Math in dice expressions
+
+Outside of + and - no other math was allowed in a dice expression, this has been expanded a bit.
+
+These are now all allowed as well: `* / ( )`, `floor`, `ceil`, `round`, `abs`, `min`, `max`
+
+This allows some things like `1d20 + floor(({str_score} - 10) / 2)`
+
+### UI improvements
+
+The dice history now shows the actual input of the roll in addition to its full expansion and allows rerolling the exact input.
+Previously dice rolls that used an expression would only show the evaluated value of the expression, causing a re-roll to potentially use out of date values for the expression.
+
+The notifications that are sent to other players when you roll a dice, have also received an update.
+They now use a custom UI that makes the result stand out much better.
+
+// todo: insert image
+
+### Fixes
+
+A wide variety of fixes have been made both in PA as well as in the dice library.
+
+Issues in PA were mostly related to UI quirks:
+
+- Dice variables that match multiple custom data elements now show an error listing the alternatives instead of using the first match
+- Dice macro UI was empty for shapes with a local ID of 1
+- Dice autocomplete and macro roll buttons inserted variable references that did not resolve when the data had a custom reference, special characters in its name or a duplicate name in another group
+- Custom data references were saved with unsupported characters, making them unusable in dice rolls
+- Dice rolls silently ignored unsupported input and subtracting a negative number (e.g. a `-1` modifier) did not do what you would expect
+- Dice rolls silently dropped unknown variables, they now show an error
+- Variables inside a dice expression variable were looked up on the selected shape instead of the shape owning the expression
+- Variables directly followed by dice syntax (e.g. `{prof}d6`) were not rolled correctly
+- Dice autocomplete stopped suggesting after typing an underscore or capital letter
+- Dice autocomplete did not suggest custom data when typing its reference instead of its name
+
+Noteworthy issues in the library:
+
+- non-3D rolls were biased: the lowest and highest value of a die were half as likely as the others
+- dice were sometimes deemed stopped when they were not (e.g. at the top of a bounce)
+- rolls with a lot of dice could sometimes stop earlier than desired
+- rolls would sometimes never resolve, there now is an explicit timeout of 30s
+
+## Admin Stats
+
+A new overview tab has been added to the admin panel.
+
+(If you're a server owner and don't know what the admin panel is, see https://www.planarally.io/server/management/configuration/#admin_user)
+
+This new tab shows recent activity on the server across a variety of metrics.
+
+It should be noted however that some issues were fixed in the stats collection, that could cause the data collected up until this release to be incorrect/unreliable.
+
+### Noteworthy Fixes
+
+An earlier PA release introduced a mechanic to merge user sessions if a rapid disconnect-connect activity was detected. (e.g. a refresh or a network hiccup)
+This in order to make the data cleaner and have 1 big session instead of a handful of sessions, some of which are only a short period of time.
+I however messed up the condition, which resulted in a lot of data to actually be thrown away instead of merged.
+
+Another issue is that some people keep their PA tab open well after they actually played. This results in metrics like 1 person playing for 15 hours on their own.
+This release adds simple client side idle detection that only informs the stats server to prevent these silly inaccuracies.
+
+Lastly a fix was made to prevent funky stat collection when a user is logged in on multiple tabs/devices causing the connect/disconnect stats logic to make wrong assumptions.
+
+## Compendium
+
+A new feature that PA now offers is exclusive to mods, but is noteworthy on its own as it adds new UI that players might want to be aware of.
+
+Mods will be able to add data to the "Compendium", which is a sort of reference guide for whatever they desire.
+Typical use cases are rules of a particular game system and background info on a campaign setting, but anything goes.
+
+The idea is that this is used for static data that doesn't change and isn't (necessarily) strictly unique to the campaign, whereas the existing notes system is intended for dynamic data.
+
+The UI can be toggled by pressing the `c` button or the Compendium entry in the left sidebar. Though note that it's only present if any mod actually populates the compendium.
+
+Entries can be referenced in notes or in the text chat and can be clicked on to show their content.
+
+// todo: image
+
+## Mods
+
+As mentioned in the introduction, mods are the big star of this release.
+The work is absolutely not done yet, but I'm doing my best to improve the API and some users have already made some cool looking things!
+
+### Management
+
+Some small QoL updates to the DM settings for mods, making mod management a little bit better.
+
+Uploading a mod that is already present in the campaign, will now replace it for everybody. Previously you first had to uninstall the previous version and then upload the mod.
+
+Each mod can now also be toggled on or off, allowing temporary disabling a mod without having to re-upload the file at a later time.
+
+Mods can now declare a Settings UI, that will show up with a cog wheel in the DM settings next to the mod line if present.
+
+Lastly the custom data tab of a shape now has dedicated tabs for data from mods. These are by default read-only, but can be edited if desired.
+
+### Development
+
+A big pain point to mod development previously was testing during active development. You always had to make a new build, remove the previous version and upload the new version.
+This release makes this entire process smoother, allowing simply to tag directly into the running PA dev server, allowing HMR.
+
+The PA config has now gained a setting to declare folders to look for mods during development and will update the mods when changes to these files are detected.
+
+Additionally there now is an official `@planarally/mod-api` package that provides the types for the exposed API, so you no longer have to provide stubs for these manually.
+
+_see [github](https://github.com/Kruptein/PlanarAlly/pull/1879) for a bit more info_
+
+### Functionality
+
+Aside of the better mod api that is now available, some actual new functionality was also added.
+
+A big new thing is being able to use the compendium, as seen earlier.
+The interesting thing is that mods can in addition to just the text entries, also add actual JSON data.
+By following similar schemas, mods can interact with each other and add data upon which other mods can then act. (e.g. adding more data that a character sheet mod can display)
+
+Mods can now run explicit cleanup code, which can be relevant during mod development, to prevent a variety of funky things.
+
+Dice variables can be qualified with their mod-source, e.g. `{srd-5.1:str}` or `{srd-5.1:/abilities/scores/str}`
+
+Lastly some changes have been made to the access of datablocks.
+
+Until now only the mod itself could directly read or write datablocks. This remains the case, but mods can now expose an API for other mods, giving the power to mods as to what they want to expose.
+
+While only the mod can read and write a datablock, there were no access checks in place to ensure that other users cannot see secret data.
+This is now changed by an explicit access level that has to be specified when creating datablocks.
+
+### Fixes
+
+- User DataBlocks were sent to all players in the location, overwriting their own DataBlock with the same name
+- Shape DataBlocks could be loaded for shapes outside of the active campaign and saved without edit access to the shape
+- Room and shape DataBlock changes were only sent to players in the same location, leaving stale data for players in other locations
+
+## Varia functionality
+
+### Mirror shape
+
+You can now mirror a shape (in build mode) if it is derived from an asset.
+
+This simply flips the image across its vertical axis.
+
+### Tracker order
+
+_contributed by AlkalineSalts_
+
+New UI has been added to move a tracker up or down in the entries.
+
+### Release UI
+
+When a new version of PA is released, there will now be a custom notification with a direct link to the release notes.
+
+Previously a big modal with the raw changelog would appear in the middle of the screen, but this did not feel like an actual good source of info for the average user.
+
+## Varia bugs
+
+### Characters
+
+The database representation of characters was modified to fix a variety of issues.
+
+- Renaming a shape or changing its image did not update its character
+- Removing an asset could remove characters that were created from it
+- Copy/pasting a shape marked as a character, wasn't properly working
+
+### Custom Data
+
+Most of these bugs are related to specific interactions with mods, and thus not likely to have been relevant to an average user.
+
+- Removing a custom data group also removed groups with the same name created by mods
+- Custom data elements could be shown in the wrong group when an element had the same name as a group
+- Custom data references were not being saved in initial custom data creation
+- Custom data for shapes you don't own was still being transmitted
+
+### Shapes
+
+- Locked shapes were movable by keyboard navigation
+- Changing a shape's asset did not check whether the user has edit access to the shape
+
+### Draw Tool
+
+- The draw tool's 'prefer default colours' checkbox was not working properly when unchecked
+
+### Initiative
+
+- Undo of a shape removal, will restore as much as possible of the initiative state of the shape
+
+### Notes
+
+- HTML in notes and their hover annotations could run scripts for other users, it is now sanitized (scripts, event handlers, embeds, styles and forms are removed)
+
+### Locations
+
+- Location cloning was no longer opening the cloned location immediately
+- Location cloning was no longer working properly when there were assets
+- Styling issue on disabled location buttons
+
+### Map Tool
+
+- Map tool corrupted the shape's size and position when the drawn rectangle had no width or height (e.g. a click without dragging)
+
+### Docker
+
+_(Docker is a technical term only (potentially) relevant for server admins)_
+
+- Docker images report their tag and commit as the version environment again instead of `docker:-`
+
+## Mod Showcase
+
+I thought it would be nice to show some examples of what people made with mods so far that I'm aware of
+
+### DND 5e Character sheet
+
+SuikaXhq made a custom 5e character sheet in the shape UI, the original is in Chinese, but they also showed a translated version.
+
+// images
+
+### PF 1e Character sheet
+
+Abaddon did something similar for pathfinder which allows the import of data from Hero Labs (if I understand it correctly :D)
+
+// images
+
+### DND 5e Compendium & Character sheet
+
+I myself have also made an effort and added most content of the official 5e SRD to a mod that populates the compendium (as seen earlier).
+It also adds a common schema and types to allow other mods to expand upon/use the data
+
+A second mod is a fully standalone 5e character sheet UI that uses the data from the aforementioned mod.
